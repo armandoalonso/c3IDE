@@ -8,7 +8,7 @@ namespace c3IDE.PluginTemplates
 {
     public interface ITemplate
     {
-        string PropertyTemplate { get; }
+        string PropertyBasicTemplate { get; }
         string EditTimePluginJs { get; }
         string RunTimePluginJs { get; }
     }

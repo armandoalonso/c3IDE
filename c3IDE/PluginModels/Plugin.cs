@@ -12,7 +12,7 @@ namespace c3IDE.PluginModels
         public string Company { get; set; }
         public string Author { get; set; }
         public string Version { get; set; } = "1.0.0.0";
-        public string Category { get; set; }
+        public string Category { get; set; } = "general";
         public List<Property> Properties { get; set; }
         public string EditTimeTemplate { get; set; }
         public string RunTimeTemplate { get; set; }

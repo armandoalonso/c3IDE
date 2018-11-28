@@ -109,6 +109,7 @@
     <Compile Include="Pages\TestWindow.Designer.cs">
       <DependentUpon>TestWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="PluginModels\C3Plugin.cs" />
     <Compile Include="PluginModels\Property.cs" />
     <Compile Include="PluginTemplates\ITemplate.cs" />
     <Compile Include="PluginTemplates\PluginTypeEnum.cs" />

@@ -63,6 +63,6 @@ namespace c3IDE.PluginTemplates
     };
 }";
 
-        public string PropertyTemplate => @"new SDK.PluginProperty(""<@prop_type@>"", ""<@prop-id@>"", <@prop-value@>)";
+        public string PropertyBasicTemplate => @"new SDK.PluginProperty(""<@prop_type@>"", ""<@prop-id@>"", <@prop-value@>)";
     }
 }

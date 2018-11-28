@@ -88,10 +88,11 @@
             // 
             // TestButton
             // 
+            this.TestButton.Enabled = false;
             this.TestButton.FlatAppearance.BorderSize = 0;
             this.TestButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TestButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TestButton.ForeColor = System.Drawing.Color.White;
+            this.TestButton.ForeColor = System.Drawing.Color.DimGray;
             this.TestButton.Image = ((System.Drawing.Image)(resources.GetObject("TestButton.Image")));
             this.TestButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.TestButton.Location = new System.Drawing.Point(31, 506);
@@ -105,10 +106,11 @@
             // 
             // ExportButton
             // 
+            this.ExportButton.Enabled = false;
             this.ExportButton.FlatAppearance.BorderSize = 0;
             this.ExportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExportButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExportButton.ForeColor = System.Drawing.Color.White;
+            this.ExportButton.ForeColor = System.Drawing.Color.DimGray;
             this.ExportButton.Image = ((System.Drawing.Image)(resources.GetObject("ExportButton.Image")));
             this.ExportButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ExportButton.Location = new System.Drawing.Point(31, 566);
@@ -122,10 +124,11 @@
             // 
             // ExpressionButton
             // 
+            this.ExpressionButton.Enabled = false;
             this.ExpressionButton.FlatAppearance.BorderSize = 0;
             this.ExpressionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExpressionButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExpressionButton.ForeColor = System.Drawing.Color.White;
+            this.ExpressionButton.ForeColor = System.Drawing.Color.DimGray;
             this.ExpressionButton.Image = ((System.Drawing.Image)(resources.GetObject("ExpressionButton.Image")));
             this.ExpressionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ExpressionButton.Location = new System.Drawing.Point(31, 446);
@@ -139,10 +142,11 @@
             // 
             // ConditionButton
             // 
+            this.ConditionButton.Enabled = false;
             this.ConditionButton.FlatAppearance.BorderSize = 0;
             this.ConditionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ConditionButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConditionButton.ForeColor = System.Drawing.Color.White;
+            this.ConditionButton.ForeColor = System.Drawing.Color.DimGray;
             this.ConditionButton.Image = ((System.Drawing.Image)(resources.GetObject("ConditionButton.Image")));
             this.ConditionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ConditionButton.Location = new System.Drawing.Point(31, 386);
@@ -156,10 +160,11 @@
             // 
             // ActionButton
             // 
+            this.ActionButton.Enabled = false;
             this.ActionButton.FlatAppearance.BorderSize = 0;
             this.ActionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ActionButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ActionButton.ForeColor = System.Drawing.Color.White;
+            this.ActionButton.ForeColor = System.Drawing.Color.DimGray;
             this.ActionButton.Image = ((System.Drawing.Image)(resources.GetObject("ActionButton.Image")));
             this.ActionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ActionButton.Location = new System.Drawing.Point(31, 326);
@@ -173,10 +178,11 @@
             // 
             // InstanceButton
             // 
+            this.InstanceButton.Enabled = false;
             this.InstanceButton.FlatAppearance.BorderSize = 0;
             this.InstanceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.InstanceButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstanceButton.ForeColor = System.Drawing.Color.White;
+            this.InstanceButton.ForeColor = System.Drawing.Color.DimGray;
             this.InstanceButton.Image = ((System.Drawing.Image)(resources.GetObject("InstanceButton.Image")));
             this.InstanceButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.InstanceButton.Location = new System.Drawing.Point(31, 266);
@@ -190,10 +196,11 @@
             // 
             // TypeButton
             // 
+            this.TypeButton.Enabled = false;
             this.TypeButton.FlatAppearance.BorderSize = 0;
             this.TypeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TypeButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TypeButton.ForeColor = System.Drawing.Color.White;
+            this.TypeButton.ForeColor = System.Drawing.Color.DimGray;
             this.TypeButton.Image = ((System.Drawing.Image)(resources.GetObject("TypeButton.Image")));
             this.TypeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.TypeButton.Location = new System.Drawing.Point(31, 206);
@@ -207,10 +214,11 @@
             // 
             // PluginButton
             // 
+            this.PluginButton.Enabled = false;
             this.PluginButton.FlatAppearance.BorderSize = 0;
             this.PluginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PluginButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PluginButton.ForeColor = System.Drawing.Color.White;
+            this.PluginButton.ForeColor = System.Drawing.Color.DimGray;
             this.PluginButton.Image = ((System.Drawing.Image)(resources.GetObject("PluginButton.Image")));
             this.PluginButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PluginButton.Location = new System.Drawing.Point(31, 146);

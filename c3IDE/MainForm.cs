@@ -1,4 +1,5 @@
 ﻿using c3IDE.EventCore;
+using c3IDE.PluginTemplates;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,12 +28,20 @@ namespace c3IDE
             InitializeComponent();
 
             //initialize event system and subscribe to events
-            EventSystem.Insatnce.Hub.Publish(new NewPluginEvents(this, PluginTypeEnum.SingleGlobal));
+            EventSystem.Insatnce.Hub.Subscribe<NewPluginEvents>(NewPluginEventHandler);
 
             //initialize the application state
             ActivePanel.Height = HomeButton.Height;
             ActivePanel.Top = HomeButton.Top;
             homeWindow.BringToFront();
+        }
+
+        //handles the creation of a new plugin
+        private void NewPluginEventHandler(NewPluginEvents obj)
+        {
+            var type = (PluginTypeEnum)obj.Content;
+            var pluginTemplate = TemplateFactory.Insatnce.CreateTemplate(type);
+            var pluginData = 
         }
 
         //trick form into thinking title bar is being pressed, to pan window
