@@ -24,7 +24,8 @@ namespace c3IDE.PluginModels
                 Author = "c3IDE",
                 Category = "general",
                 Name = "NewSingleGlobal",
-                Company = "MyCompany"
+                Company = "MyCompany",
+                Description = "This is a new Single Global Plugin"
             };
 
             return data;

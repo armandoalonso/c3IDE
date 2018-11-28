@@ -14,7 +14,7 @@ namespace c3IDE.PluginTemplates
         const PLUGIN_VERSION = ""<@version@>"";
         const PLUGIN_CATEGORY = ""<@category@>"";
 
-        const PLUGIN_CLASS = SDK.Plugins.<@company@>_<@name@> = class Log<@name@> extends SDK.IPluginBase
+        const PLUGIN_CLASS = SDK.Plugins.<@company@>_<@name@> = class <@name@>Plugin extends SDK.IPluginBase
         {
             constructor()
 		{
@@ -63,6 +63,6 @@ namespace c3IDE.PluginTemplates
     };
 }";
 
-        public string PropertyBasicTemplate => @"new SDK.PluginProperty(""<@prop_type@>"", ""<@prop-id@>"", <@prop-value@>)";
+        public string PropertyBasicTemplate => @"new SDK.PluginProperty(""<@type@>"", ""<@id@>"", <@value@>)";
     }
 }

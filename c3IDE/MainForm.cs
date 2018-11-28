@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using c3IDE.PluginModels;
 
 namespace c3IDE
 {
@@ -39,9 +40,31 @@ namespace c3IDE
         //handles the creation of a new plugin
         private void NewPluginEventHandler(NewPluginEvents obj)
         {
+            //create plugin data
             var type = (PluginTypeEnum)obj.Content;
             var pluginTemplate = TemplateFactory.Insatnce.CreateTemplate(type);
-            var pluginData = 
+            var pluginData = C3Plugin.CreatePlugin(pluginTemplate);
+
+            //link plugin data with forms
+            EventSystem.Insatnce.Hub.Publish(new PluginInitEvents(this, pluginData));
+
+            //enable all other tabs
+            PluginButton.Enabled = true;
+            PluginButton.ForeColor = Color.White;
+            TypeButton.Enabled = true;
+            TypeButton.ForeColor = Color.White;
+            InstanceButton.Enabled = true;
+            InstanceButton.ForeColor = Color.White;
+            ActionButton.Enabled = true;
+            ActionButton.ForeColor = Color.White;
+            ConditionButton.Enabled = true;
+            ConditionButton.ForeColor = Color.White;
+            ExpressionButton.Enabled = true;
+            ExpressionButton.ForeColor = Color.White;
+            TestButton.Enabled = true;
+            TestButton.ForeColor = Color.White;
+            ExportButton.Enabled = true;
+            ExportButton.ForeColor = Color.White;
         }
 
         //trick form into thinking title bar is being pressed, to pan window

@@ -117,6 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="editPropertyButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAGZSURBVFhH5Za7SgNBGEZXbYKN8W4aOx9BxE7FC2iCF0QFC8FeFFL6AnY+hG9g43NY2tiLiIhY
+        WOmZ4R8Yhs3uMPw7Fn5wyLLJfN9pkmyRK/etpUl4gGfoye38YbwDX/DjcSlv5wujcxCKOK7kY82HsSoR
+        Rx4hhvrB8CDO5Ih+KB+DFbm+lsE6hu1hzVBqRF5kYEvu1Ql9w5At0AqFvogjRmjdFmiFwjaEIo4qoRNb
+        oBUKjcirN1BGmZC6yDjUiTh8oT8VcVgh1VA6AW/eSCz2K68WClNFVqVCJxSaf98UkTWp0AmFRuTdG4hF
+        /XckVWRDKnRC4RSkiGxKhU4onIYPbyAW3a8whaki21KhEwpTRXakQicUzkCKSFcqdELhLHx6A7HoPvFT
+        mCqyKxV6ofQ0GIlhT47rhdJ5eT33hurYt4e1Q/Ej9OU6RujAHtQOxS1vJEbo0B5sIpQvBmNVQkf2UFNh
+        4CYYNJQJHdsDTYaRQX+CvlAWEfNoUCbi0H06qwpjvWD8CS5gAUbkY3nC4B3cwjKMyu3/nqL4Be0E45RT
+        NKCxAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="deltePropertyButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAGSSURBVFhH7ZhPK0RRGMaHjGZj4V9pWPAFKBtrSwuLKWys5FMosRAlZSFrGxvZKCU7+QBSspWs
+        bGVhIYnf2zxXp+mcccc9Q+o89Ss987zv+9S9ixmlVnRameqDDTiD8wCHMK2R9ogDI/AGHznZ1Wh8sfyq
+        4VgehjUeTywdcg7syfaKz6tOdkt2PLF01TkwJjsoMrfK2mPtkl1cLOuEVy1/lN1U5GrKG629zAzMwWaA
+        Y8gW38v7jiPIM7MGFdWoCyMb/AvGVaMuDGvvC/4Go6pRF0YHlKFXgXazDHYv/HIr4BuOTU0nwyL0L8qs
+        KGKZdcefkGeP+cHxy/IHHc+lUJmvYf5ecPwB2eZfZL6sXPuCIpTKeEUolfGKUCrjFaFUxitCqYxXhFIZ
+        rwilMl4RCg0vKmKZJcevyjb/OvNlmVfJvAYKlXmCbdiBZ3nGDdhPjgPHM07A/EvHcylUJjazOhkWIfv6
+        2Mp/Gn7KpE42F8H9hsHYvEO3zjUXwR540WA7mNepfGKgH+wljPnI7mBGJzwqlT4BeL4unCTzwWYAAAAA
+        SUVORK5CYII=
+</value>
+  </data>
+  <data name="addPropertyButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAD6SURBVFhH7ZYxDoJAEEUJFJh4C0oLGwtLzoAF9/BCxDN4FSt7LkGlf3RIYPLVYDKuxbzkJQaG
+        /T8Wu5t9w3m1L2ANW2MDKx3zB2E5vMDbGw867guCKhPM7HXcFwRtTTBVx31BUJShICjKUBAUZSgIijIU
+        BPmVwYcl7OAwLvRje/g8y/DjNHmR0krKpPpHrI2UYS9S2EaZF/5fmat5mMpayuzMwxTKnboY95o13EDZ
+        XT95hGxBK/uWKXfq/FFkKboAC5+p474gKMpQEBRlKAiKMhQERRkKgmSnpgUmDjruC4Lk6GAFpnY67g/C
+        5HBlp71cYeVOXeroArLsDrNARRlwveW8AAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="editTimeEditor.ServiceColors" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdGYXN0Q29sb3JlZFRleHRCb3gsIFZlcnNpb249Mi4xNi4yMS4w
