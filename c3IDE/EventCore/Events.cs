@@ -18,12 +18,20 @@ namespace c3IDE.EventCore
     }
 
     //this event is called when a new c3 plugin object is created from template, that c3 plugin object is boardcast to all user controls 
-    public class PluginInitEvents : EventMessageBase
+    public class UpdatePluginEvents : EventMessageBase
     {
         public C3Plugin PluginData { get; set; }
-        public PluginInitEvents(object sender, object content) : base(sender, content)
+        public UpdatePluginEvents(object sender, object content) : base(sender, content)
         {
             PluginData = (C3Plugin)content;
+        }
+    }
+
+    //this event is triggered when the user clicks the save button
+    public class SavePluginEvents : EventMessageBase
+    {
+        public SavePluginEvents(object sender, object content) : base(sender, content)
+        {
         }
     }
 }

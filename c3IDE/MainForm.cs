@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using c3IDE.Framework;
 using c3IDE.PluginModels;
 
 namespace c3IDE
@@ -46,7 +47,7 @@ namespace c3IDE
             var pluginData = C3Plugin.CreatePlugin(pluginTemplate);
 
             //link plugin data with forms
-            EventSystem.Insatnce.Hub.Publish(new PluginInitEvents(this, pluginData));
+            EventSystem.Insatnce.Hub.Publish(new UpdatePluginEvents(this, pluginData));
 
             //enable all other tabs
             PluginButton.Enabled = true;
@@ -65,6 +66,8 @@ namespace c3IDE
             TestButton.ForeColor = Color.White;
             ExportButton.Enabled = true;
             ExportButton.ForeColor = Color.White;
+
+            Global.Insatnce.CurrentPlugin = pluginData;
         }
 
         //trick form into thinking title bar is being pressed, to pan window
@@ -175,6 +178,14 @@ namespace c3IDE
             this.TopMost = true;
             this.WindowState = FormWindowState.Normal;
             this.CenterToScreen();
+        }
+
+        //save button saves plugin data
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            //publish save event
+            EventSystem.Insatnce.Hub.Publish(new SavePluginEvents(this, null));
+            EventSystem.Insatnce.Hub.Publish(new UpdatePluginEvents(this, Global.Insatnce.CurrentPlugin));
         }
     }
 }

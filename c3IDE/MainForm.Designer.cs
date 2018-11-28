@@ -55,6 +55,7 @@
             this.expressionsWindow = new c3IDE.Pages.ExpressionsWindow();
             this.testWindow = new c3IDE.Pages.TestWindow();
             this.exportWindow = new c3IDE.Pages.ExportWindow();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -268,7 +269,7 @@
             this.ExitButton.ForeColor = System.Drawing.Color.Silver;
             this.ExitButton.Image = ((System.Drawing.Image)(resources.GetObject("ExitButton.Image")));
             this.ExitButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ExitButton.Location = new System.Drawing.Point(1390, 16);
+            this.ExitButton.Location = new System.Drawing.Point(1462, 16);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(37, 39);
             this.ExitButton.TabIndex = 2;
@@ -282,59 +283,65 @@
             this.HeaderPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.HeaderPanel.Location = new System.Drawing.Point(212, 0);
             this.HeaderPanel.Name = "HeaderPanel";
-            this.HeaderPanel.Size = new System.Drawing.Size(1216, 15);
+            this.HeaderPanel.Size = new System.Drawing.Size(1288, 15);
             this.HeaderPanel.TabIndex = 1;
             this.HeaderPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.HeaderPanel_MouseDown);
             // 
             // MaximizeButton
             // 
             this.MaximizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MaximizeButton.Enabled = false;
             this.MaximizeButton.FlatAppearance.BorderSize = 0;
             this.MaximizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MaximizeButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeButton.ForeColor = System.Drawing.Color.Silver;
             this.MaximizeButton.Image = ((System.Drawing.Image)(resources.GetObject("MaximizeButton.Image")));
             this.MaximizeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MaximizeButton.Location = new System.Drawing.Point(1351, 16);
+            this.MaximizeButton.Location = new System.Drawing.Point(1423, 16);
             this.MaximizeButton.Name = "MaximizeButton";
             this.MaximizeButton.Size = new System.Drawing.Size(37, 39);
             this.MaximizeButton.TabIndex = 2;
             this.MaximizeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.MaximizeButton.UseVisualStyleBackColor = true;
+            this.MaximizeButton.Visible = false;
             this.MaximizeButton.Click += new System.EventHandler(this.MaximizeButton_Click);
             // 
             // MinimizeButton
             // 
             this.MinimizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MinimizeButton.Enabled = false;
             this.MinimizeButton.FlatAppearance.BorderSize = 0;
             this.MinimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MinimizeButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MinimizeButton.ForeColor = System.Drawing.Color.Silver;
             this.MinimizeButton.Image = ((System.Drawing.Image)(resources.GetObject("MinimizeButton.Image")));
             this.MinimizeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MinimizeButton.Location = new System.Drawing.Point(1312, 16);
+            this.MinimizeButton.Location = new System.Drawing.Point(1384, 16);
             this.MinimizeButton.Name = "MinimizeButton";
             this.MinimizeButton.Size = new System.Drawing.Size(37, 39);
             this.MinimizeButton.TabIndex = 2;
             this.MinimizeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.MinimizeButton.UseVisualStyleBackColor = true;
+            this.MinimizeButton.Visible = false;
             this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click);
             // 
             // RestoreButton
             // 
             this.RestoreButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RestoreButton.Enabled = false;
             this.RestoreButton.FlatAppearance.BorderSize = 0;
             this.RestoreButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RestoreButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RestoreButton.ForeColor = System.Drawing.Color.Silver;
             this.RestoreButton.Image = ((System.Drawing.Image)(resources.GetObject("RestoreButton.Image")));
             this.RestoreButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RestoreButton.Location = new System.Drawing.Point(1273, 16);
+            this.RestoreButton.Location = new System.Drawing.Point(1345, 16);
             this.RestoreButton.Name = "RestoreButton";
             this.RestoreButton.Size = new System.Drawing.Size(37, 39);
             this.RestoreButton.TabIndex = 2;
             this.RestoreButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.RestoreButton.UseVisualStyleBackColor = true;
+            this.RestoreButton.Visible = false;
             this.RestoreButton.Click += new System.EventHandler(this.RestoreButton_Click);
             // 
             // homeWindow
@@ -344,7 +351,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.homeWindow.Location = new System.Drawing.Point(212, 57);
             this.homeWindow.Name = "homeWindow";
-            this.homeWindow.Size = new System.Drawing.Size(1216, 723);
+            this.homeWindow.Size = new System.Drawing.Size(1288, 723);
             this.homeWindow.TabIndex = 11;
             // 
             // pluginWindow
@@ -354,7 +361,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pluginWindow.Location = new System.Drawing.Point(212, 57);
             this.pluginWindow.Name = "pluginWindow";
-            this.pluginWindow.Size = new System.Drawing.Size(1216, 723);
+            this.pluginWindow.Size = new System.Drawing.Size(1288, 723);
             this.pluginWindow.TabIndex = 10;
             // 
             // typeWindow
@@ -406,11 +413,28 @@
             this.exportWindow.Size = new System.Drawing.Size(1216, 723);
             this.exportWindow.TabIndex = 3;
             // 
+            // SaveButton
+            // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.FlatAppearance.BorderSize = 0;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton.ForeColor = System.Drawing.Color.Silver;
+            this.SaveButton.Image = ((System.Drawing.Image)(resources.GetObject("SaveButton.Image")));
+            this.SaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.SaveButton.Location = new System.Drawing.Point(218, 16);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(37, 39);
+            this.SaveButton.TabIndex = 2;
+            this.SaveButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1428, 780);
+            this.ClientSize = new System.Drawing.Size(1500, 780);
             this.Controls.Add(this.homeWindow);
             this.Controls.Add(this.pluginWindow);
             this.Controls.Add(this.typeWindow);
@@ -420,6 +444,7 @@
             this.Controls.Add(this.expressionsWindow);
             this.Controls.Add(this.testWindow);
             this.Controls.Add(this.exportWindow);
+            this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.RestoreButton);
             this.Controls.Add(this.MinimizeButton);
             this.Controls.Add(this.MaximizeButton);
@@ -464,6 +489,7 @@
         private TypeWindow typeWindow;
         private PluginWindow pluginWindow;
         private Pages.HomeWindow homeWindow;
+        private System.Windows.Forms.Button SaveButton;
     }
 }
 
