@@ -35,12 +35,16 @@
     <Reference Include="LiteDB, Version=4.1.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.4.1.4\lib\net40\LiteDB.dll</HintPath>
     </Reference>
+    <Reference Include="Scriban, Version=1.2.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Scriban.1.2.7\lib\net40\Scriban.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.Edit.Windows, Version=16.3460.0.21, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Shared.Base, Version=16.3460.0.21, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Tools.Windows, Version=16.3460.0.21, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +58,7 @@
   <ItemGroup>
     <Compile Include="EventCore\EventMessageBase.cs" />
     <Compile Include="EventCore\Events.cs" />
+    <Compile Include="EventCore\EventsData.cs" />
     <Compile Include="EventCore\EventSystem.cs" />
     <Compile Include="Framework\Global.cs" />
     <Compile Include="Framework\JSBeautify.cs" />
@@ -119,11 +124,8 @@
     <Compile Include="Pages\TestWindow.Designer.cs">
       <DependentUpon>TestWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="PluginModels\C3ModelBase.cs" />
     <Compile Include="PluginModels\C3Plugin.cs" />
-    <Compile Include="PluginModels\Property.cs" />
     <Compile Include="PluginTemplates\ITemplate.cs" />
-    <Compile Include="PluginTemplates\PluginTypeEnum.cs" />
     <Compile Include="PluginModels\Plugin.cs" />
     <Compile Include="PluginTemplates\SingleGlobalPluginTemplate.cs" />
     <Compile Include="PluginTemplates\TemplateFactory.cs" />

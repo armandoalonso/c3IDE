@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace c3IDE.PluginModels
 {
-    public class Plugin : C3ModelBase
+    public class Plugin
     {
         public string Name { get; set; }
         public string Company { get; set; }
@@ -16,28 +16,21 @@ namespace c3IDE.PluginModels
         public string Category { get; set; } = "general";
         public string Description { get; set; }
         public Image Icon { get; set; }
-
         public List<Property> Properties { get; set; } = new List<Property>();
+
+        public string EditTimeFile { get; set; }
+        public string RunTimeFile { get; set; }
+
         public string EditTimeTemplate { get; set; }
         public string RunTimeTemplate { get; set; }
+    }
 
-        public override Dictionary<string, string> GetPropertyDictionary()
-        {
-            var dictionary = base.GetPropertyDictionary();
-
-            dictionary.Remove("properties");
-            if (Properties.Any())
-            {
-                var propertyBuilder = new StringBuilder();
-                foreach (var property in Properties)
-                {
-                    propertyBuilder.AppendLine(property.ToString());
-                }
-                dictionary.Add("properties", propertyBuilder.ToString());
-            }
-
-            return dictionary;
-        }
-
+    public class Property
+    {
+        public string Type { get; set; }
+        public string Id { get; set; }
+        public string Value { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

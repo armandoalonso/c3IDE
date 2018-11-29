@@ -4,27 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using c3IDE.PluginModels;
+using Scriban;
 
 namespace c3IDE.Framework
 {
     public class TextCompiler : Singleton<TextCompiler>
     {
-        public string CompileTemplates(string templates, Dictionary<string, string> variables)
+        public string CompileTemplates(string templates, C3Plugin data)
         {
-            var regex = new Regex("<@(?<variable>.+?)@>");
-            string result = regex.Replace(templates, m =>
-            {
-                string name = m.Groups["variable"].Value;
-
-                if (variables.TryGetValue(name.ToLower().Trim(), out var value))
-                {
-                    return value;
-                }
-
-                return string.Empty;
-            });
-
-            return result;
+            var templateData = Template.Parse(templates);
+            return templateData.Render(data);
         }
     }
 }

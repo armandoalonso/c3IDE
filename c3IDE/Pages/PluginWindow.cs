@@ -11,35 +11,71 @@ using c3IDE.EventCore;
 using c3IDE.Framework;
 using c3IDE.Pages;
 using c3IDE.PluginModels;
+using Syncfusion.Windows.Forms.Edit.Dialogs;
+using Syncfusion.Windows.Forms.Edit.Enums;
+using Syncfusion.Windows.Forms.Edit.Interfaces;
 
 namespace c3IDE
 {
     public partial class PluginWindow : UserControl
     {
         private C3Plugin PluginData { get; set; }
+        private EditiorViewData CurrentView { get; set; }
 
         public PluginWindow()
         {
             InitializeComponent();
 
-            //configure syntax highlighting
-            editTimeEditor.ApplyConfiguration(Syncfusion.Windows.Forms.Edit.Enums.KnownLanguages.JScript);
             //TODO: check if sync fusion has EMCA5 version of js syntax highlighting
-            runTimeEditor.ApplyConfiguration(Syncfusion.Windows.Forms.Edit.Enums.KnownLanguages.JScript);
+            //configure syntax highlighting
+            editTimeEditor.ApplyConfiguration(KnownLanguages.JScript);
+            runTimeEditor.ApplyConfiguration(KnownLanguages.JScript);
 
             //subscribe to plugin events
             EventSystem.Insatnce.Hub.Subscribe<UpdatePluginEvents>(UpdatePluginEventHandler);
             EventSystem.Insatnce.Hub.Subscribe<SavePluginEvents>(SavePluginEventHandler);
+            EventSystem.Insatnce.Hub.Subscribe<ChangeCodeViewEvents>(ChangeCodeViewEventHandler);
+
+            CurrentView = EditiorViewData.CodeView;
+        }
+
+        private void ChangeCodeViewEventHandler(ChangeCodeViewEvents obj)
+        {
+            switch (obj.View)
+            {
+                case EditiorViewData.CodeView:
+                    //TODO: fix issue with saving when changing views
+                    PluginData.Plugin.EditTimeTemplate = editTimeEditor.Text;
+                    PluginData.Plugin.RunTimeTemplate = runTimeEditor.Text;
+
+                    editTimeEditor.Text = PluginData.Plugin.EditTimeFile;
+                    runTimeEditor.Text = PluginData.Plugin.RunTimeFile;;
+                    break;
+                case EditiorViewData.TemplateView:
+                    PluginData.Plugin.EditTimeFile = editTimeEditor.Text;
+                    PluginData.Plugin.RunTimeFile = runTimeEditor.Text;
+
+                    editTimeEditor.Text = PluginData.Plugin.EditTimeTemplate;
+                    runTimeEditor.Text = PluginData.Plugin.RunTimeTemplate;
+                    break;
+            }
         }
 
         private void SavePluginEventHandler(SavePluginEvents obj)
         {
+            //validate input
+            if(!ValidateInput()) return; //TODO: have better feedback for error states
+
+            //modify text
             PluginData.Plugin.Name = pluginNameTextbox.Text;
             PluginData.Plugin.Company = pluginCompanyTextBox.Text;
             PluginData.Plugin.Author = pluginAuthorTextBox.Text;
             PluginData.Plugin.Version = pluginVersionTextBox.Text;
             PluginData.Plugin.Description = pluginDescriptionTextBox.Text;
             PluginData.Plugin.Category = pluginCategoryDropDown.Text;
+
+            PluginData.Plugin.EditTimeFile = editTimeEditor.Text;
+            PluginData.Plugin.RunTimeFile = runTimeEditor.Text;
 
             Global.Insatnce.CurrentPlugin.Plugin = PluginData.Plugin;
         }
@@ -58,12 +94,12 @@ namespace c3IDE
             pluginCategoryDropDown.Text = PluginData.Plugin.Category;
 
             //compile templates with data
-            editTimeEditor.Text =  TextCompiler.Insatnce.CompileTemplates(PluginData.Plugin.EditTimeTemplate, PluginData.Plugin.GetPropertyDictionary());
-            runTimeEditor.Text = TextCompiler.Insatnce.CompileTemplates(PluginData.Plugin.RunTimeTemplate, PluginData.Plugin.GetPropertyDictionary());
+            editTimeEditor.Text = TextCompiler.Insatnce.CompileTemplates(PluginData.Plugin.EditTimeTemplate, PluginData);
+            runTimeEditor.Text = TextCompiler.Insatnce.CompileTemplates(PluginData.Plugin.RunTimeTemplate, PluginData);
 
-            //format text
-            editTimeEditor.Text = new JSBeautify(editTimeEditor.Text, new JSBeautifyOptions()).GetResult();
-            runTimeEditor.Text = new JSBeautify(runTimeEditor.Text, new JSBeautifyOptions()).GetResult();
+            //format text TODO: might not need to beautify the code just just template space
+            //editTimeEditor.Text = new JSBeautify(editTimeEditor.Text, new JSBeautifyOptions()).GetResult();
+            //runTimeEditor.Text = new JSBeautify(runTimeEditor.Text, new JSBeautifyOptions()).GetResult();
         }
 
         private void addPropertyButton_Click(object sender, EventArgs e)
@@ -81,6 +117,16 @@ namespace c3IDE
         private void deltePropertyButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private bool ValidateInput()
+        {
+            return !string.IsNullOrWhiteSpace(pluginNameTextbox.Text) &&
+                   !string.IsNullOrWhiteSpace(pluginCompanyTextBox.Text) &&
+                   !string.IsNullOrWhiteSpace(pluginAuthorTextBox.Text) &&
+                   !string.IsNullOrWhiteSpace(pluginVersionTextBox.Text) &&
+                   !string.IsNullOrWhiteSpace(pluginDescriptionTextBox.Text) &&
+                   !string.IsNullOrWhiteSpace(pluginCategoryDropDown.Text);
         }
     }
 }

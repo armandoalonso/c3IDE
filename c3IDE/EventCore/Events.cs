@@ -34,4 +34,14 @@ namespace c3IDE.EventCore
         {
         }
     }
+
+    //triggered when a code view type is changed
+    public class ChangeCodeViewEvents : EventMessageBase
+    {
+        public EditiorViewData View { get; set; }
+        public ChangeCodeViewEvents(object sender, object content) : base(sender, content)
+        {
+            View = (EditiorViewData)content;
+        }
+    }
 }

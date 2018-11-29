@@ -105,6 +105,8 @@
             // 
             // editPropertyButton
             // 
+            this.editPropertyButton.FlatAppearance.BorderSize = 0;
+            this.editPropertyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editPropertyButton.Image = ((System.Drawing.Image)(resources.GetObject("editPropertyButton.Image")));
             this.editPropertyButton.Location = new System.Drawing.Point(54, 679);
             this.editPropertyButton.Name = "editPropertyButton";
@@ -115,6 +117,8 @@
             // 
             // deltePropertyButton
             // 
+            this.deltePropertyButton.FlatAppearance.BorderSize = 0;
+            this.deltePropertyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deltePropertyButton.Image = ((System.Drawing.Image)(resources.GetObject("deltePropertyButton.Image")));
             this.deltePropertyButton.Location = new System.Drawing.Point(100, 679);
             this.deltePropertyButton.Name = "deltePropertyButton";
@@ -125,6 +129,8 @@
             // 
             // addPropertyButton
             // 
+            this.addPropertyButton.FlatAppearance.BorderSize = 0;
+            this.addPropertyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addPropertyButton.Image = ((System.Drawing.Image)(resources.GetObject("addPropertyButton.Image")));
             this.addPropertyButton.Location = new System.Drawing.Point(8, 679);
             this.addPropertyButton.Name = "addPropertyButton";

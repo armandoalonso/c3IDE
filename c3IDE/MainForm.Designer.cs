@@ -43,9 +43,9 @@
             this.TitleLabel = new System.Windows.Forms.Label();
             this.ExitButton = new System.Windows.Forms.Button();
             this.HeaderPanel = new System.Windows.Forms.Panel();
-            this.MaximizeButton = new System.Windows.Forms.Button();
-            this.MinimizeButton = new System.Windows.Forms.Button();
-            this.RestoreButton = new System.Windows.Forms.Button();
+            this.SaveButton = new System.Windows.Forms.Button();
+            this.templateViewButton = new System.Windows.Forms.Button();
+            this.codeViewButton = new System.Windows.Forms.Button();
             this.homeWindow = new c3IDE.Pages.HomeWindow();
             this.pluginWindow = new c3IDE.PluginWindow();
             this.typeWindow = new c3IDE.TypeWindow();
@@ -55,7 +55,6 @@
             this.expressionsWindow = new c3IDE.Pages.ExpressionsWindow();
             this.testWindow = new c3IDE.Pages.TestWindow();
             this.exportWindow = new c3IDE.Pages.ExportWindow();
-            this.SaveButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -269,7 +268,7 @@
             this.ExitButton.ForeColor = System.Drawing.Color.Silver;
             this.ExitButton.Image = ((System.Drawing.Image)(resources.GetObject("ExitButton.Image")));
             this.ExitButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ExitButton.Location = new System.Drawing.Point(1462, 16);
+            this.ExitButton.Location = new System.Drawing.Point(1451, 16);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(37, 39);
             this.ExitButton.TabIndex = 2;
@@ -287,62 +286,56 @@
             this.HeaderPanel.TabIndex = 1;
             this.HeaderPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.HeaderPanel_MouseDown);
             // 
-            // MaximizeButton
+            // SaveButton
             // 
-            this.MaximizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.MaximizeButton.Enabled = false;
-            this.MaximizeButton.FlatAppearance.BorderSize = 0;
-            this.MaximizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MaximizeButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MaximizeButton.ForeColor = System.Drawing.Color.Silver;
-            this.MaximizeButton.Image = ((System.Drawing.Image)(resources.GetObject("MaximizeButton.Image")));
-            this.MaximizeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MaximizeButton.Location = new System.Drawing.Point(1423, 16);
-            this.MaximizeButton.Name = "MaximizeButton";
-            this.MaximizeButton.Size = new System.Drawing.Size(37, 39);
-            this.MaximizeButton.TabIndex = 2;
-            this.MaximizeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.MaximizeButton.UseVisualStyleBackColor = true;
-            this.MaximizeButton.Visible = false;
-            this.MaximizeButton.Click += new System.EventHandler(this.MaximizeButton_Click);
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.FlatAppearance.BorderSize = 0;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton.ForeColor = System.Drawing.Color.Silver;
+            this.SaveButton.Image = ((System.Drawing.Image)(resources.GetObject("SaveButton.Image")));
+            this.SaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.SaveButton.Location = new System.Drawing.Point(1404, 16);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(37, 39);
+            this.SaveButton.TabIndex = 2;
+            this.SaveButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // MinimizeButton
+            // templateViewButton
             // 
-            this.MinimizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.MinimizeButton.Enabled = false;
-            this.MinimizeButton.FlatAppearance.BorderSize = 0;
-            this.MinimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MinimizeButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MinimizeButton.ForeColor = System.Drawing.Color.Silver;
-            this.MinimizeButton.Image = ((System.Drawing.Image)(resources.GetObject("MinimizeButton.Image")));
-            this.MinimizeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MinimizeButton.Location = new System.Drawing.Point(1384, 16);
-            this.MinimizeButton.Name = "MinimizeButton";
-            this.MinimizeButton.Size = new System.Drawing.Size(37, 39);
-            this.MinimizeButton.TabIndex = 2;
-            this.MinimizeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.MinimizeButton.UseVisualStyleBackColor = true;
-            this.MinimizeButton.Visible = false;
-            this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click);
+            this.templateViewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.templateViewButton.Enabled = false;
+            this.templateViewButton.FlatAppearance.BorderSize = 0;
+            this.templateViewButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.templateViewButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.templateViewButton.ForeColor = System.Drawing.Color.Silver;
+            this.templateViewButton.Image = ((System.Drawing.Image)(resources.GetObject("templateViewButton.Image")));
+            this.templateViewButton.Location = new System.Drawing.Point(218, 16);
+            this.templateViewButton.Name = "templateViewButton";
+            this.templateViewButton.Size = new System.Drawing.Size(47, 39);
+            this.templateViewButton.TabIndex = 2;
+            this.templateViewButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.templateViewButton.UseVisualStyleBackColor = true;
+            this.templateViewButton.Click += new System.EventHandler(this.templateViewButton_Click);
             // 
-            // RestoreButton
+            // codeViewButton
             // 
-            this.RestoreButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.RestoreButton.Enabled = false;
-            this.RestoreButton.FlatAppearance.BorderSize = 0;
-            this.RestoreButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RestoreButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RestoreButton.ForeColor = System.Drawing.Color.Silver;
-            this.RestoreButton.Image = ((System.Drawing.Image)(resources.GetObject("RestoreButton.Image")));
-            this.RestoreButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RestoreButton.Location = new System.Drawing.Point(1345, 16);
-            this.RestoreButton.Name = "RestoreButton";
-            this.RestoreButton.Size = new System.Drawing.Size(37, 39);
-            this.RestoreButton.TabIndex = 2;
-            this.RestoreButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.RestoreButton.UseVisualStyleBackColor = true;
-            this.RestoreButton.Visible = false;
-            this.RestoreButton.Click += new System.EventHandler(this.RestoreButton_Click);
+            this.codeViewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.codeViewButton.Enabled = false;
+            this.codeViewButton.FlatAppearance.BorderSize = 0;
+            this.codeViewButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.codeViewButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.codeViewButton.ForeColor = System.Drawing.Color.Silver;
+            this.codeViewButton.Image = ((System.Drawing.Image)(resources.GetObject("codeViewButton.Image")));
+            this.codeViewButton.Location = new System.Drawing.Point(271, 16);
+            this.codeViewButton.Name = "codeViewButton";
+            this.codeViewButton.Size = new System.Drawing.Size(47, 39);
+            this.codeViewButton.TabIndex = 2;
+            this.codeViewButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.codeViewButton.UseVisualStyleBackColor = true;
+            this.codeViewButton.Click += new System.EventHandler(this.codeViewButton_Click);
             // 
             // homeWindow
             // 
@@ -413,23 +406,6 @@
             this.exportWindow.Size = new System.Drawing.Size(1216, 723);
             this.exportWindow.TabIndex = 3;
             // 
-            // SaveButton
-            // 
-            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.FlatAppearance.BorderSize = 0;
-            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveButton.ForeColor = System.Drawing.Color.Silver;
-            this.SaveButton.Image = ((System.Drawing.Image)(resources.GetObject("SaveButton.Image")));
-            this.SaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SaveButton.Location = new System.Drawing.Point(218, 16);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(37, 39);
-            this.SaveButton.TabIndex = 2;
-            this.SaveButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.SaveButton.UseVisualStyleBackColor = true;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -444,10 +420,9 @@
             this.Controls.Add(this.expressionsWindow);
             this.Controls.Add(this.testWindow);
             this.Controls.Add(this.exportWindow);
+            this.Controls.Add(this.codeViewButton);
+            this.Controls.Add(this.templateViewButton);
             this.Controls.Add(this.SaveButton);
-            this.Controls.Add(this.RestoreButton);
-            this.Controls.Add(this.MinimizeButton);
-            this.Controls.Add(this.MaximizeButton);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.HeaderPanel);
             this.Controls.Add(this.panel1);
@@ -477,9 +452,6 @@
         private System.Windows.Forms.Button ExitButton;
         private System.Windows.Forms.Button ExportButton;
         private System.Windows.Forms.Button TestButton;
-        private System.Windows.Forms.Button MaximizeButton;
-        private System.Windows.Forms.Button MinimizeButton;
-        private System.Windows.Forms.Button RestoreButton;
         private Pages.ExportWindow exportWindow;
         private Pages.TestWindow testWindow;
         private Pages.ExpressionsWindow expressionsWindow;
@@ -490,6 +462,8 @@
         private PluginWindow pluginWindow;
         private Pages.HomeWindow homeWindow;
         private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button templateViewButton;
+        private System.Windows.Forms.Button codeViewButton;
     }
 }
 
