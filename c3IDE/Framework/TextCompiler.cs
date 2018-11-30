@@ -16,5 +16,11 @@ namespace c3IDE.Framework
             var templateData = Template.Parse(templates);
             return templateData.Render(data);
         }
+
+        public string CompileTemplates(string templates, Property data)
+        {
+            var templateData = Template.Parse(templates);
+            return templateData.Render(data);
+        }
     }
 }

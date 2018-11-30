@@ -184,7 +184,7 @@ namespace c3IDE
         private void SaveButton_Click(object sender, EventArgs e)
         {
             //publish save event
-            EventSystem.Insatnce.Hub.Publish(new SavePluginEvents(this, null));
+            EventSystem.Insatnce.Hub.Publish(new SavePluginEvents(this));
             EventSystem.Insatnce.Hub.Publish(new UpdatePluginEvents(this, Global.Insatnce.CurrentPlugin));
         }
     }

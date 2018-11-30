@@ -26,9 +26,9 @@
                 SDK.Lang.PushContext(".properties");
                 
                 this._info.SetProperties([
-                    {{for prop in properties}}
-                        new SDK.PluginProperty("{{prop.type}}", "{{prop.id}}",  {{prop.value}})
-                    {{end}}
+					{{for prop in properties}}
+						{{prop.text}}
+					{{end}}
                 ]);
                 
                 SDK.Lang.PopContext();		// .properties

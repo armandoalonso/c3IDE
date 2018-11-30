@@ -11,6 +11,7 @@ using c3IDE.EventCore;
 using c3IDE.Framework;
 using c3IDE.Pages;
 using c3IDE.PluginModels;
+using Syncfusion.Windows.Forms.Edit;
 using Syncfusion.Windows.Forms.Edit.Dialogs;
 using Syncfusion.Windows.Forms.Edit.Enums;
 using Syncfusion.Windows.Forms.Edit.Interfaces;
@@ -33,9 +34,36 @@ namespace c3IDE
             editTimeTemplateEditor.ApplyConfiguration(KnownLanguages.JScript);
             runTimeTemplateEditor.ApplyConfiguration(KnownLanguages.JScript);
 
+            //clear syntax editor shortcut keys
+            //editTimeEditor.Commands.Clear();
+            //runTimeEditor.Commands.Clear();
+            //editTimeTemplateEditor.Commands.Clear();
+            //runTimeTemplateEditor.Commands.Clear();
+
             //subscribe to plugin events
             EventSystem.Insatnce.Hub.Subscribe<UpdatePluginEvents>(UpdatePluginEventHandler);
             EventSystem.Insatnce.Hub.Subscribe<SavePluginEvents>(SavePluginEventHandler);
+            EventSystem.Insatnce.Hub.Subscribe<NewPropertyPluginEvents>(NewPropertyEventHandler);
+            EventSystem.Insatnce.Hub.Subscribe<UpdatePropertyPluginEvents>(UpdatePropertyEventHandler);
+        }
+
+        private void UpdatePropertyEventHandler(UpdatePropertyPluginEvents obj)
+        {
+            var propIndex = PluginData.Plugin.Properties.IndexOf(obj.OldProperty);
+            if (propIndex != -1)
+            {
+                PluginData.Plugin.Properties[propIndex] = obj.NewProperty;
+            }
+
+            propertiesListBox.DataSource = null;
+            propertiesListBox.DataSource = PluginData.Plugin.Properties;
+        }
+
+        private void NewPropertyEventHandler(NewPropertyPluginEvents obj)
+        {
+            PluginData.Plugin.Properties.Add(obj.Property);
+            propertiesListBox.DataSource = null;
+            propertiesListBox.DataSource = PluginData.Plugin.Properties;
         }
 
         private void SavePluginEventHandler(SavePluginEvents obj)
@@ -86,17 +114,22 @@ namespace c3IDE
 
         private void addPropertyButton_Click(object sender, EventArgs e)
         {
-            //TODO: customize the add property dialog have syntax editor 
             AddPropertyWindow window = new AddPropertyWindow();
+            window.NewProperty();
             window.ShowDialog();
         }
 
         private void editPropertyButton_Click(object sender, EventArgs e)
         {
+            var selectedProperty = propertiesListBox.SelectedItem as Property;
+            if (selectedProperty == null) return; //TODO: add feedback for this error when propety is null
 
+            AddPropertyWindow window = new AddPropertyWindow();
+            window.EditProperty(selectedProperty);
+            window.ShowDialog();
         }
 
-        private void deltePropertyButton_Click(object sender, EventArgs e)
+        private void deletePropertyButton_Click(object sender, EventArgs e)
         {
 
         }
@@ -109,6 +142,13 @@ namespace c3IDE
                    !string.IsNullOrWhiteSpace(pluginVersionTextBox.Text) &&
                    !string.IsNullOrWhiteSpace(pluginDescriptionTextBox.Text) &&
                    !string.IsNullOrWhiteSpace(pluginCategoryDropDown.Text);
+        }
+
+        //bind all editors to overwrite ctrl s for saving
+        private void editor_RegisteringDefaultKeyBindings(object sender, EventArgs e)
+        {
+            ((EditControl)sender).KeyBinder.BindToCommand(Keys.Control | Keys.S, "None");
+            //TODO: implement custom save method here
         }
     }
 }

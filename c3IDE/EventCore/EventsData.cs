@@ -12,4 +12,10 @@ namespace c3IDE
         Drawing = 1,
         Behavior = 3
     }
+
+    public enum PropertySaveType
+    {
+        NewProperty,
+        EditProperty
+    }
 }

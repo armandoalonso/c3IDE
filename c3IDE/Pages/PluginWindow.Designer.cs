@@ -59,8 +59,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.runTimeEditor = new Syncfusion.Windows.Forms.Edit.EditControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.editTimeTemplateEditor = new Syncfusion.Windows.Forms.Edit.EditControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.runTimeTemplateEditor = new Syncfusion.Windows.Forms.Edit.EditControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -73,8 +73,8 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.runTimeEditor)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editTimeTemplateEditor)).BeginInit();
+            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.runTimeTemplateEditor)).BeginInit();
             this.SuspendLayout();
             // 
@@ -135,7 +135,7 @@
             this.deltePropertyButton.Size = new System.Drawing.Size(40, 40);
             this.deltePropertyButton.TabIndex = 9;
             this.deltePropertyButton.UseVisualStyleBackColor = true;
-            this.deltePropertyButton.Click += new System.EventHandler(this.deltePropertyButton_Click);
+            this.deltePropertyButton.Click += new System.EventHandler(this.deletePropertyButton_Click);
             // 
             // addPropertyButton
             // 
@@ -151,6 +151,7 @@
             // 
             // propertiesListBox
             // 
+            this.propertiesListBox.DisplayMember = "Id";
             this.propertiesListBox.FormattingEnabled = true;
             this.propertiesListBox.Location = new System.Drawing.Point(8, 499);
             this.propertiesListBox.Name = "propertiesListBox";
@@ -350,6 +351,7 @@
             this.editTimeEditor.ScrollVisualStyle = Syncfusion.Windows.Forms.ScrollBarCustomDrawStyles.Office2016;
             this.editTimeEditor.SelectionTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(214)))), ((int)(((byte)(255)))));
             this.editTimeEditor.ShowHorizontalSplitters = false;
+            this.editTimeEditor.ShowSelectionMargin = false;
             this.editTimeEditor.ShowVerticalSplitters = false;
             this.editTimeEditor.Size = new System.Drawing.Size(878, 684);
             this.editTimeEditor.StatusBarSettings.CoordsPanel.Width = 150;
@@ -368,6 +370,7 @@
             this.editTimeEditor.UseXPStyleBorder = true;
             this.editTimeEditor.VisualColumn = 1;
             this.editTimeEditor.VScrollMode = Syncfusion.Windows.Forms.Edit.ScrollMode.Immediate;
+            this.editTimeEditor.RegisteringDefaultKeyBindings += new System.EventHandler(this.editor_RegisteringDefaultKeyBindings);
             // 
             // tabPage2
             // 
@@ -405,6 +408,7 @@
             this.runTimeEditor.ScrollVisualStyle = Syncfusion.Windows.Forms.ScrollBarCustomDrawStyles.Office2016;
             this.runTimeEditor.SelectionTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(214)))), ((int)(((byte)(255)))));
             this.runTimeEditor.ShowHorizontalSplitters = false;
+            this.runTimeEditor.ShowSelectionMargin = false;
             this.runTimeEditor.ShowVerticalSplitters = false;
             this.runTimeEditor.Size = new System.Drawing.Size(878, 684);
             this.runTimeEditor.StatusBarSettings.CoordsPanel.Width = 150;
@@ -423,6 +427,7 @@
             this.runTimeEditor.UseXPStyleBorder = true;
             this.runTimeEditor.VisualColumn = 1;
             this.runTimeEditor.VScrollMode = Syncfusion.Windows.Forms.Edit.ScrollMode.Immediate;
+            this.runTimeEditor.RegisteringDefaultKeyBindings += new System.EventHandler(this.editor_RegisteringDefaultKeyBindings);
             // 
             // tabPage3
             // 
@@ -434,18 +439,6 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Edit Time (Template)";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.runTimeTemplateEditor);
-            this.tabPage4.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(884, 690);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Run Time (Template)";
-            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // editTimeTemplateEditor
             // 
@@ -472,6 +465,7 @@
             this.editTimeTemplateEditor.ScrollVisualStyle = Syncfusion.Windows.Forms.ScrollBarCustomDrawStyles.Office2016;
             this.editTimeTemplateEditor.SelectionTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(214)))), ((int)(((byte)(255)))));
             this.editTimeTemplateEditor.ShowHorizontalSplitters = false;
+            this.editTimeTemplateEditor.ShowSelectionMargin = false;
             this.editTimeTemplateEditor.ShowVerticalSplitters = false;
             this.editTimeTemplateEditor.Size = new System.Drawing.Size(878, 684);
             this.editTimeTemplateEditor.StatusBarSettings.CoordsPanel.Width = 150;
@@ -490,6 +484,19 @@
             this.editTimeTemplateEditor.UseXPStyleBorder = true;
             this.editTimeTemplateEditor.VisualColumn = 1;
             this.editTimeTemplateEditor.VScrollMode = Syncfusion.Windows.Forms.Edit.ScrollMode.Immediate;
+            this.editTimeTemplateEditor.RegisteringDefaultKeyBindings += new System.EventHandler(this.editor_RegisteringDefaultKeyBindings);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.runTimeTemplateEditor);
+            this.tabPage4.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(884, 690);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Run Time (Template)";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // runTimeTemplateEditor
             // 
@@ -516,6 +523,7 @@
             this.runTimeTemplateEditor.ScrollVisualStyle = Syncfusion.Windows.Forms.ScrollBarCustomDrawStyles.Office2016;
             this.runTimeTemplateEditor.SelectionTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(214)))), ((int)(((byte)(255)))));
             this.runTimeTemplateEditor.ShowHorizontalSplitters = false;
+            this.runTimeTemplateEditor.ShowSelectionMargin = false;
             this.runTimeTemplateEditor.ShowVerticalSplitters = false;
             this.runTimeTemplateEditor.Size = new System.Drawing.Size(878, 684);
             this.runTimeTemplateEditor.StatusBarSettings.CoordsPanel.Width = 150;
@@ -534,6 +542,7 @@
             this.runTimeTemplateEditor.UseXPStyleBorder = true;
             this.runTimeTemplateEditor.VisualColumn = 1;
             this.runTimeTemplateEditor.VScrollMode = Syncfusion.Windows.Forms.Edit.ScrollMode.Immediate;
+            this.runTimeTemplateEditor.RegisteringDefaultKeyBindings += new System.EventHandler(this.editor_RegisteringDefaultKeyBindings);
             // 
             // PluginWindow
             // 
@@ -554,8 +563,8 @@
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.runTimeEditor)).EndInit();
             this.tabPage3.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.editTimeTemplateEditor)).EndInit();
+            this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.runTimeTemplateEditor)).EndInit();
             this.ResumeLayout(false);
 

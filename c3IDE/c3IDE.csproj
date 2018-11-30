@@ -126,6 +126,7 @@
       <DependentUpon>TestWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="PluginModels\C3Plugin.cs" />
+    <Compile Include="PluginModels\Property.cs" />
     <Compile Include="PluginTemplates\ITemplate.cs" />
     <Compile Include="PluginModels\Plugin.cs" />
     <Compile Include="PluginTemplates\SingleGlobalPluginTemplate.cs" />
@@ -144,6 +145,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\ActionsWindow.resx">
       <DependentUpon>ActionsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\AddPropertyWindow.resx">
+      <DependentUpon>AddPropertyWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\ConditionsWindow.resx">
       <DependentUpon>ConditionsWindow.cs</DependentUpon>
