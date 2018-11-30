@@ -1,0 +1,15 @@
+﻿"use strict";
+{
+    C3.Plugins.{{plugin.company}}_{{plugin.name}} = class {{plugin.name}}Plugin extends C3.SDKPluginBase
+    {
+        constructor(opts)
+        {
+            super(opts);
+        }
+
+        Release()
+        {
+            super.Release();
+        }
+    };
+}

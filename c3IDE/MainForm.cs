@@ -24,7 +24,6 @@ namespace c3IDE
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
-        public EditiorViewData CurrentView { get; set; }
 
         public MainForm()
         {
@@ -67,20 +66,6 @@ namespace c3IDE
             TestButton.ForeColor = Color.White;
             ExportButton.Enabled = true;
             ExportButton.ForeColor = Color.White;
-            
-            //enable code view buttons
-            templateViewButton.Enabled = true;
-            codeViewButton.Enabled = true;
-
-            CurrentView = EditiorViewData.CodeView;
-            
-            //setup code view buttons
-            codeViewButton.FlatAppearance.BorderColor = Color.FromArgb(100, 50, 50, 50);
-            codeViewButton.BackColor = Color.FromArgb(100, 190, 190, 190);
-            codeViewButton.FlatAppearance.BorderSize = 1;
-            templateViewButton.FlatAppearance.BorderColor = Color.FromArgb(100, 50, 50, 50);
-            templateViewButton.BackColor = Color.FromKnownColor(KnownColor.Control);
-            templateViewButton.FlatAppearance.BorderSize = 0;
 
             Global.Insatnce.CurrentPlugin = pluginData;
         }
@@ -201,32 +186,6 @@ namespace c3IDE
             //publish save event
             EventSystem.Insatnce.Hub.Publish(new SavePluginEvents(this, null));
             EventSystem.Insatnce.Hub.Publish(new UpdatePluginEvents(this, Global.Insatnce.CurrentPlugin));
-        }
-
-        private void templateViewButton_Click(object sender, EventArgs e)
-        {
-            if (CurrentView == EditiorViewData.TemplateView) return;
-
-            EventSystem.Insatnce.Hub.Publish(new ChangeCodeViewEvents(this, EditiorViewData.TemplateView));
-            templateViewButton.FlatAppearance.BorderColor = Color.FromArgb(100,50,50,50);
-            templateViewButton.BackColor = Color.FromArgb(100, 190, 190, 190);
-            templateViewButton.FlatAppearance.BorderSize = 1;
-            codeViewButton.FlatAppearance.BorderColor = Color.FromArgb(100, 50, 50, 50);
-            codeViewButton.BackColor = Color.FromKnownColor(KnownColor.Control);
-            codeViewButton.FlatAppearance.BorderSize = 0;
-        }
-
-        private void codeViewButton_Click(object sender, EventArgs e)
-        {
-            if (CurrentView == EditiorViewData.CodeView) return;
-
-            EventSystem.Insatnce.Hub.Publish(new ChangeCodeViewEvents(this, EditiorViewData.CodeView));
-            codeViewButton.FlatAppearance.BorderColor = Color.FromArgb(100, 50, 50, 50);
-            codeViewButton.BackColor = Color.FromArgb(100, 190, 190, 190);
-            codeViewButton.FlatAppearance.BorderSize = 1;
-            templateViewButton.FlatAppearance.BorderColor = Color.FromArgb(100, 50, 50, 50);
-            templateViewButton.BackColor = Color.FromKnownColor(KnownColor.Control);
-            templateViewButton.FlatAppearance.BorderSize = 0;
         }
     }
 }

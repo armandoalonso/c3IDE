@@ -772,10 +772,9 @@ namespace TinyMessenger
                 {
                     sub.Proxy.Deliver(message, sub.Subscription);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Ignore any errors and carry on
-                    // TODO - add to a list of erroring subs and remove them?
+                    Console.WriteLine(ex.Message);
                 }
             });
         }

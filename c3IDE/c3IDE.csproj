@@ -62,6 +62,7 @@
     <Compile Include="EventCore\EventSystem.cs" />
     <Compile Include="Framework\Global.cs" />
     <Compile Include="Framework\JSBeautify.cs" />
+    <Compile Include="Framework\ResourceTextReader.cs" />
     <Compile Include="Framework\Singleton.cs" />
     <Compile Include="Framework\TextCompiler.cs" />
     <Compile Include="MainForm.cs">
@@ -193,6 +194,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataAccess\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PluginTemplates\TemplateFiles\SingleGlobal\RunTimePluginTemplate.txt" />
+    <EmbeddedResource Include="PluginTemplates\TemplateFiles\SingleGlobal\EditTimePluginTemplate.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

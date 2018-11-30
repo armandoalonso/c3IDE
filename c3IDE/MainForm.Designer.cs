@@ -44,8 +44,6 @@
             this.ExitButton = new System.Windows.Forms.Button();
             this.HeaderPanel = new System.Windows.Forms.Panel();
             this.SaveButton = new System.Windows.Forms.Button();
-            this.templateViewButton = new System.Windows.Forms.Button();
-            this.codeViewButton = new System.Windows.Forms.Button();
             this.homeWindow = new c3IDE.Pages.HomeWindow();
             this.pluginWindow = new c3IDE.PluginWindow();
             this.typeWindow = new c3IDE.TypeWindow();
@@ -303,40 +301,6 @@
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // templateViewButton
-            // 
-            this.templateViewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.templateViewButton.Enabled = false;
-            this.templateViewButton.FlatAppearance.BorderSize = 0;
-            this.templateViewButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.templateViewButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.templateViewButton.ForeColor = System.Drawing.Color.Silver;
-            this.templateViewButton.Image = ((System.Drawing.Image)(resources.GetObject("templateViewButton.Image")));
-            this.templateViewButton.Location = new System.Drawing.Point(218, 16);
-            this.templateViewButton.Name = "templateViewButton";
-            this.templateViewButton.Size = new System.Drawing.Size(47, 39);
-            this.templateViewButton.TabIndex = 2;
-            this.templateViewButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.templateViewButton.UseVisualStyleBackColor = true;
-            this.templateViewButton.Click += new System.EventHandler(this.templateViewButton_Click);
-            // 
-            // codeViewButton
-            // 
-            this.codeViewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.codeViewButton.Enabled = false;
-            this.codeViewButton.FlatAppearance.BorderSize = 0;
-            this.codeViewButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.codeViewButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.codeViewButton.ForeColor = System.Drawing.Color.Silver;
-            this.codeViewButton.Image = ((System.Drawing.Image)(resources.GetObject("codeViewButton.Image")));
-            this.codeViewButton.Location = new System.Drawing.Point(271, 16);
-            this.codeViewButton.Name = "codeViewButton";
-            this.codeViewButton.Size = new System.Drawing.Size(47, 39);
-            this.codeViewButton.TabIndex = 2;
-            this.codeViewButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.codeViewButton.UseVisualStyleBackColor = true;
-            this.codeViewButton.Click += new System.EventHandler(this.codeViewButton_Click);
-            // 
             // homeWindow
             // 
             this.homeWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -420,16 +384,14 @@
             this.Controls.Add(this.expressionsWindow);
             this.Controls.Add(this.testWindow);
             this.Controls.Add(this.exportWindow);
-            this.Controls.Add(this.codeViewButton);
-            this.Controls.Add(this.templateViewButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.HeaderPanel);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "c3IDE ";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -462,8 +424,6 @@
         private PluginWindow pluginWindow;
         private Pages.HomeWindow homeWindow;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Button templateViewButton;
-        private System.Windows.Forms.Button codeViewButton;
     }
 }
 

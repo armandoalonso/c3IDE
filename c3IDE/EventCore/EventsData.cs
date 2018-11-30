@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 namespace c3IDE
 {
-    public enum EditiorViewData
-    {
-        TemplateView,
-        CodeView
-    }
-
     public enum PluginTypeEnum
     {
         SingleGlobal = 0,

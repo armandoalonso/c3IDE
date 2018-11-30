@@ -20,7 +20,6 @@ namespace c3IDE
     public partial class PluginWindow : UserControl
     {
         private C3Plugin PluginData { get; set; }
-        private EditiorViewData CurrentView { get; set; }
 
         public PluginWindow()
         {
@@ -30,35 +29,13 @@ namespace c3IDE
             //configure syntax highlighting
             editTimeEditor.ApplyConfiguration(KnownLanguages.JScript);
             runTimeEditor.ApplyConfiguration(KnownLanguages.JScript);
+            //TODO: might need new syntax for templates 
+            editTimeTemplateEditor.ApplyConfiguration(KnownLanguages.JScript);
+            runTimeTemplateEditor.ApplyConfiguration(KnownLanguages.JScript);
 
             //subscribe to plugin events
             EventSystem.Insatnce.Hub.Subscribe<UpdatePluginEvents>(UpdatePluginEventHandler);
             EventSystem.Insatnce.Hub.Subscribe<SavePluginEvents>(SavePluginEventHandler);
-            EventSystem.Insatnce.Hub.Subscribe<ChangeCodeViewEvents>(ChangeCodeViewEventHandler);
-
-            CurrentView = EditiorViewData.CodeView;
-        }
-
-        private void ChangeCodeViewEventHandler(ChangeCodeViewEvents obj)
-        {
-            switch (obj.View)
-            {
-                case EditiorViewData.CodeView:
-                    //TODO: fix issue with saving when changing views
-                    PluginData.Plugin.EditTimeTemplate = editTimeEditor.Text;
-                    PluginData.Plugin.RunTimeTemplate = runTimeEditor.Text;
-
-                    editTimeEditor.Text = PluginData.Plugin.EditTimeFile;
-                    runTimeEditor.Text = PluginData.Plugin.RunTimeFile;;
-                    break;
-                case EditiorViewData.TemplateView:
-                    PluginData.Plugin.EditTimeFile = editTimeEditor.Text;
-                    PluginData.Plugin.RunTimeFile = runTimeEditor.Text;
-
-                    editTimeEditor.Text = PluginData.Plugin.EditTimeTemplate;
-                    runTimeEditor.Text = PluginData.Plugin.RunTimeTemplate;
-                    break;
-            }
         }
 
         private void SavePluginEventHandler(SavePluginEvents obj)
@@ -76,6 +53,8 @@ namespace c3IDE
 
             PluginData.Plugin.EditTimeFile = editTimeEditor.Text;
             PluginData.Plugin.RunTimeFile = runTimeEditor.Text;
+            PluginData.Plugin.EditTimeTemplate = editTimeTemplateEditor.Text;
+            PluginData.Plugin.RunTimeTemplate = runTimeTemplateEditor.Text;
 
             Global.Insatnce.CurrentPlugin.Plugin = PluginData.Plugin;
         }
@@ -92,6 +71,9 @@ namespace c3IDE
             pluginVersionTextBox.Text = PluginData.Plugin.Version;
             pluginDescriptionTextBox.Text = PluginData.Plugin.Description;
             pluginCategoryDropDown.Text = PluginData.Plugin.Category;
+
+            editTimeTemplateEditor.Text = PluginData.Plugin.EditTimeTemplate;
+            runTimeTemplateEditor.Text = PluginData.Plugin.RunTimeTemplate;
 
             //compile templates with data
             editTimeEditor.Text = TextCompiler.Insatnce.CompileTemplates(PluginData.Plugin.EditTimeTemplate, PluginData);
