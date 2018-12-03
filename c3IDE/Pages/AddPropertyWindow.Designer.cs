@@ -50,6 +50,8 @@
             this.propertySaveButton = new System.Windows.Forms.Button();
             this.propertyCancelButton = new System.Windows.Forms.Button();
             this.propertyCompileButton = new System.Windows.Forms.Button();
+            this.minMaxCheckBox = new System.Windows.Forms.CheckBox();
+            this.dragSpeedCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.propertyTemplateEditor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.propertySourceEditor)).BeginInit();
             this.SuspendLayout();
@@ -60,7 +62,7 @@
             this.HeaderPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.HeaderPanel.Location = new System.Drawing.Point(0, 0);
             this.HeaderPanel.Name = "HeaderPanel";
-            this.HeaderPanel.Size = new System.Drawing.Size(829, 19);
+            this.HeaderPanel.Size = new System.Drawing.Size(950, 19);
             this.HeaderPanel.TabIndex = 2;
             // 
             // panel1
@@ -69,7 +71,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 19);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(23, 441);
+            this.panel1.Size = new System.Drawing.Size(23, 465);
             this.panel1.TabIndex = 3;
             // 
             // propertyTemplateEditor
@@ -98,7 +100,7 @@
             this.propertyTemplateEditor.ShowHorizontalSplitters = false;
             this.propertyTemplateEditor.ShowSelectionMargin = false;
             this.propertyTemplateEditor.ShowVerticalSplitters = false;
-            this.propertyTemplateEditor.Size = new System.Drawing.Size(788, 72);
+            this.propertyTemplateEditor.Size = new System.Drawing.Size(909, 91);
             this.propertyTemplateEditor.StatusBarSettings.CoordsPanel.Width = 150;
             this.propertyTemplateEditor.StatusBarSettings.EncodingPanel.Width = 100;
             this.propertyTemplateEditor.StatusBarSettings.FileNamePanel.Width = 100;
@@ -115,6 +117,8 @@
             this.propertyTemplateEditor.UseXPStyleBorder = true;
             this.propertyTemplateEditor.VisualColumn = 1;
             this.propertyTemplateEditor.VScrollMode = Syncfusion.Windows.Forms.Edit.ScrollMode.Immediate;
+            this.propertyTemplateEditor.WordWrap = true;
+            this.propertyTemplateEditor.WordWrapMode = Syncfusion.Windows.Forms.Edit.Enums.WordWrapMode.WordWrapMargin;
             this.propertyTemplateEditor.RegisteringDefaultKeyBindings += new System.EventHandler(this.editor_RegisteringDefaultKeyBindings);
             // 
             // propertySourceEditor
@@ -132,7 +136,7 @@
             this.propertySourceEditor.LikeVisualStudioSearch = true;
             this.propertySourceEditor.LineNumbersColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.propertySourceEditor.LineNumbersFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.propertySourceEditor.Location = new System.Drawing.Point(29, 325);
+            this.propertySourceEditor.Location = new System.Drawing.Point(29, 344);
             this.propertySourceEditor.MarkChangedLines = true;
             this.propertySourceEditor.Name = "propertySourceEditor";
             this.propertySourceEditor.RenderRightToLeft = false;
@@ -143,7 +147,7 @@
             this.propertySourceEditor.ShowHorizontalSplitters = false;
             this.propertySourceEditor.ShowSelectionMargin = false;
             this.propertySourceEditor.ShowVerticalSplitters = false;
-            this.propertySourceEditor.Size = new System.Drawing.Size(788, 72);
+            this.propertySourceEditor.Size = new System.Drawing.Size(909, 83);
             this.propertySourceEditor.StatusBarSettings.CoordsPanel.Width = 150;
             this.propertySourceEditor.StatusBarSettings.EncodingPanel.Width = 100;
             this.propertySourceEditor.StatusBarSettings.FileNamePanel.Width = 100;
@@ -160,6 +164,8 @@
             this.propertySourceEditor.UseXPStyleBorder = true;
             this.propertySourceEditor.VisualColumn = 1;
             this.propertySourceEditor.VScrollMode = Syncfusion.Windows.Forms.Edit.ScrollMode.Immediate;
+            this.propertySourceEditor.WordWrap = true;
+            this.propertySourceEditor.WordWrapMode = Syncfusion.Windows.Forms.Edit.Enums.WordWrapMode.WordWrapMargin;
             this.propertySourceEditor.RegisteringDefaultKeyBindings += new System.EventHandler(this.editor_RegisteringDefaultKeyBindings);
             // 
             // label1
@@ -176,7 +182,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(44, 302);
+            this.label2.Location = new System.Drawing.Point(44, 321);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 20);
             this.label2.TabIndex = 6;
@@ -196,15 +202,17 @@
             // 
             this.propertyIdTextBox.Location = new System.Drawing.Point(44, 47);
             this.propertyIdTextBox.Name = "propertyIdTextBox";
-            this.propertyIdTextBox.Size = new System.Drawing.Size(310, 26);
+            this.propertyIdTextBox.Size = new System.Drawing.Size(404, 26);
             this.propertyIdTextBox.TabIndex = 7;
+            this.propertyIdTextBox.TextChanged += new System.EventHandler(this.propertyModel_Changed);
             // 
             // propertyValueTextBox
             // 
             this.propertyValueTextBox.Location = new System.Drawing.Point(44, 103);
             this.propertyValueTextBox.Name = "propertyValueTextBox";
-            this.propertyValueTextBox.Size = new System.Drawing.Size(310, 26);
+            this.propertyValueTextBox.Size = new System.Drawing.Size(404, 26);
             this.propertyValueTextBox.TabIndex = 9;
+            this.propertyValueTextBox.TextChanged += new System.EventHandler(this.propertyModel_Changed);
             // 
             // label4
             // 
@@ -220,19 +228,25 @@
             // 
             this.propertyTypeDropDown.FormattingEnabled = true;
             this.propertyTypeDropDown.Items.AddRange(new object[] {
-            "general",
-            "form-controls",
-            "data-and-storage",
-            "input",
-            "media",
-            "monetisation",
-            "platform-specific",
-            "web ",
-            "other"});
+            "integer",
+            "float",
+            "percent",
+            "text",
+            "longtext",
+            "check",
+            "font",
+            "combo",
+            "color",
+            "group",
+            "link",
+            "linkCallback",
+            "info",
+            "infoCallback"});
             this.propertyTypeDropDown.Location = new System.Drawing.Point(44, 159);
             this.propertyTypeDropDown.Name = "propertyTypeDropDown";
-            this.propertyTypeDropDown.Size = new System.Drawing.Size(310, 28);
+            this.propertyTypeDropDown.Size = new System.Drawing.Size(404, 28);
             this.propertyTypeDropDown.TabIndex = 10;
+            this.propertyTypeDropDown.SelectedIndexChanged += new System.EventHandler(this.propertyTypeDropDown_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -248,7 +262,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(370, 22);
+            this.label6.Location = new System.Drawing.Point(454, 22);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(121, 20);
             this.label6.TabIndex = 5;
@@ -256,16 +270,17 @@
             // 
             // propertyNameTextBox
             // 
-            this.propertyNameTextBox.Location = new System.Drawing.Point(370, 47);
+            this.propertyNameTextBox.Location = new System.Drawing.Point(454, 47);
             this.propertyNameTextBox.Name = "propertyNameTextBox";
-            this.propertyNameTextBox.Size = new System.Drawing.Size(447, 26);
+            this.propertyNameTextBox.Size = new System.Drawing.Size(484, 26);
             this.propertyNameTextBox.TabIndex = 7;
+            this.propertyNameTextBox.TextChanged += new System.EventHandler(this.propertyModel_Changed);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(370, 81);
+            this.label7.Location = new System.Drawing.Point(454, 81);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(161, 20);
             this.label7.TabIndex = 8;
@@ -273,10 +288,11 @@
             // 
             // propertyDescriptionTextBox
             // 
-            this.propertyDescriptionTextBox.Location = new System.Drawing.Point(370, 106);
+            this.propertyDescriptionTextBox.Location = new System.Drawing.Point(454, 103);
             this.propertyDescriptionTextBox.Name = "propertyDescriptionTextBox";
-            this.propertyDescriptionTextBox.Size = new System.Drawing.Size(447, 26);
+            this.propertyDescriptionTextBox.Size = new System.Drawing.Size(484, 26);
             this.propertyDescriptionTextBox.TabIndex = 9;
+            this.propertyDescriptionTextBox.TextChanged += new System.EventHandler(this.propertyModel_Changed);
             // 
             // propertySaveButton
             // 
@@ -287,7 +303,7 @@
             this.propertySaveButton.ForeColor = System.Drawing.Color.Silver;
             this.propertySaveButton.Image = ((System.Drawing.Image)(resources.GetObject("propertySaveButton.Image")));
             this.propertySaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.propertySaveButton.Location = new System.Drawing.Point(87, 413);
+            this.propertySaveButton.Location = new System.Drawing.Point(90, 433);
             this.propertySaveButton.Name = "propertySaveButton";
             this.propertySaveButton.Size = new System.Drawing.Size(37, 39);
             this.propertySaveButton.TabIndex = 11;
@@ -304,7 +320,7 @@
             this.propertyCancelButton.ForeColor = System.Drawing.Color.Silver;
             this.propertyCancelButton.Image = ((System.Drawing.Image)(resources.GetObject("propertyCancelButton.Image")));
             this.propertyCancelButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.propertyCancelButton.Location = new System.Drawing.Point(780, 412);
+            this.propertyCancelButton.Location = new System.Drawing.Point(901, 433);
             this.propertyCancelButton.Name = "propertyCancelButton";
             this.propertyCancelButton.Size = new System.Drawing.Size(37, 39);
             this.propertyCancelButton.TabIndex = 11;
@@ -321,7 +337,7 @@
             this.propertyCompileButton.ForeColor = System.Drawing.Color.Silver;
             this.propertyCompileButton.Image = ((System.Drawing.Image)(resources.GetObject("propertyCompileButton.Image")));
             this.propertyCompileButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.propertyCompileButton.Location = new System.Drawing.Point(44, 412);
+            this.propertyCompileButton.Location = new System.Drawing.Point(47, 433);
             this.propertyCompileButton.Name = "propertyCompileButton";
             this.propertyCompileButton.Size = new System.Drawing.Size(37, 39);
             this.propertyCompileButton.TabIndex = 11;
@@ -329,11 +345,35 @@
             this.propertyCompileButton.UseVisualStyleBackColor = true;
             this.propertyCompileButton.Click += new System.EventHandler(this.propertyCompileButton_Click);
             // 
+            // minMaxCheckBox
+            // 
+            this.minMaxCheckBox.AutoSize = true;
+            this.minMaxCheckBox.Location = new System.Drawing.Point(466, 159);
+            this.minMaxCheckBox.Name = "minMaxCheckBox";
+            this.minMaxCheckBox.Size = new System.Drawing.Size(94, 24);
+            this.minMaxCheckBox.TabIndex = 12;
+            this.minMaxCheckBox.Text = "Min/Max";
+            this.minMaxCheckBox.UseVisualStyleBackColor = true;
+            this.minMaxCheckBox.CheckedChanged += new System.EventHandler(this.propCheckBox_CheckedChanged);
+            // 
+            // dragSpeedCheckBox
+            // 
+            this.dragSpeedCheckBox.AutoSize = true;
+            this.dragSpeedCheckBox.Location = new System.Drawing.Point(566, 159);
+            this.dragSpeedCheckBox.Name = "dragSpeedCheckBox";
+            this.dragSpeedCheckBox.Size = new System.Drawing.Size(115, 24);
+            this.dragSpeedCheckBox.TabIndex = 12;
+            this.dragSpeedCheckBox.Text = "Drag Speed";
+            this.dragSpeedCheckBox.UseVisualStyleBackColor = true;
+            this.dragSpeedCheckBox.CheckedChanged += new System.EventHandler(this.propCheckBox_CheckedChanged);
+            // 
             // AddPropertyWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(829, 460);
+            this.ClientSize = new System.Drawing.Size(950, 484);
+            this.Controls.Add(this.dragSpeedCheckBox);
+            this.Controls.Add(this.minMaxCheckBox);
             this.Controls.Add(this.propertyCancelButton);
             this.Controls.Add(this.propertyCompileButton);
             this.Controls.Add(this.propertySaveButton);
@@ -389,5 +429,7 @@
         private System.Windows.Forms.Button propertySaveButton;
         private System.Windows.Forms.Button propertyCancelButton;
         private System.Windows.Forms.Button propertyCompileButton;
+        private System.Windows.Forms.CheckBox minMaxCheckBox;
+        private System.Windows.Forms.CheckBox dragSpeedCheckBox;
     }
 }

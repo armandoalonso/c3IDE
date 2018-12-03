@@ -31,11 +31,23 @@ namespace c3IDE
 
             //initialize event system and subscribe to events
             EventSystem.Insatnce.Hub.Subscribe<NewPluginEvents>(NewPluginEventHandler);
+            EventSystem.Insatnce.Hub.Subscribe<LoadPluginEvents>(LoadPluginEventHandler);
 
             //initialize the application state
             ActivePanel.Height = HomeButton.Height;
             ActivePanel.Top = HomeButton.Top;
             homeWindow.BringToFront();
+        }
+
+        private void LoadPluginEventHandler(LoadPluginEvents obj)
+        {
+            Global.Insatnce.CurrentPlugin = obj.PluginData;
+            EventSystem.Insatnce.Hub.Publish(new UpdatePluginEvents(this, Global.Insatnce.CurrentPlugin));
+
+            //switch to the plugin page
+            ActivePanel.Height = PluginButton.Height;
+            ActivePanel.Top = PluginButton.Top;
+            pluginWindow.BringToFront();
         }
 
         //handles the creation of a new plugin
@@ -45,6 +57,7 @@ namespace c3IDE
             var type = (PluginTypeEnum)obj.Content;
             var pluginTemplate = TemplateFactory.Insatnce.CreateTemplate(type);
             var pluginData = C3Plugin.CreatePlugin(pluginTemplate);
+            pluginData.Key = Guid.NewGuid();
 
             //link plugin data with forms
             EventSystem.Insatnce.Hub.Publish(new UpdatePluginEvents(this, pluginData));
@@ -68,6 +81,11 @@ namespace c3IDE
             ExportButton.ForeColor = Color.White;
 
             Global.Insatnce.CurrentPlugin = pluginData;
+
+            //switch to the plugin page
+            ActivePanel.Height = PluginButton.Height;
+            ActivePanel.Top = PluginButton.Top;
+            pluginWindow.BringToFront();
         }
 
         //trick form into thinking title bar is being pressed, to pan window
@@ -159,33 +177,19 @@ namespace c3IDE
             exportWindow.BringToFront();
         }
 
-        //maximize window
-        private void MaximizeButton_Click(object sender, EventArgs e)
-        {
-            this.TopMost = true;
-            this.WindowState = FormWindowState.Maximized;
-        }
-
-        //minimize window
-        private void MinimizeButton_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        //restore window to default
-        private void RestoreButton_Click(object sender, EventArgs e)
-        {
-            this.TopMost = true;
-            this.WindowState = FormWindowState.Normal;
-            this.CenterToScreen();
-        }
-
         //save button saves plugin data
         private void SaveButton_Click(object sender, EventArgs e)
         {
             //publish save event
             EventSystem.Insatnce.Hub.Publish(new SavePluginEvents(this));
             EventSystem.Insatnce.Hub.Publish(new UpdatePluginEvents(this, Global.Insatnce.CurrentPlugin));
+        }
+
+        //compiles all templates for the plugin
+        private void CompileButton_Click(object sender, EventArgs e)
+        {
+            //publish save event
+            EventSystem.Insatnce.Hub.Publish(new CompilePluginEvents(this));
         }
     }
 }

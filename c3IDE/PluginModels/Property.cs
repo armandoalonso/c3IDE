@@ -15,6 +15,8 @@ namespace c3IDE.PluginModels
         public string Description { get; set; }
         public string Template { get; set; }
         public string Text { get; set; }
+        public bool MinMax { get; set; }
+        public bool DragSpeed { get; set; }
         public Guid Key { get; set; } = Guid.NewGuid();
 
         public bool Equals(Property other)

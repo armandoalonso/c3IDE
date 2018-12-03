@@ -57,4 +57,22 @@ namespace c3IDE.EventCore
             OldProperty = oldProperty;
         }
     }
+
+    //triggered when the compile button is pressed, it will go through all the sections and compile the templates
+    public class CompilePluginEvents : EventMessageBase
+    {
+        public CompilePluginEvents(object sender) : base(sender, null)
+        {
+        }
+    }
+
+    //triggered when a new plugin is loaded
+    public class LoadPluginEvents : EventMessageBase
+    {
+        public C3Plugin PluginData { get; set; }
+        public LoadPluginEvents(object sender, C3Plugin data) : base(sender, data)
+        {
+            PluginData = data;
+        }
+    }
 }

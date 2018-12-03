@@ -53,6 +53,7 @@
             this.expressionsWindow = new c3IDE.Pages.ExpressionsWindow();
             this.testWindow = new c3IDE.Pages.TestWindow();
             this.exportWindow = new c3IDE.Pages.ExportWindow();
+            this.CompileButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -293,7 +294,7 @@
             this.SaveButton.ForeColor = System.Drawing.Color.Silver;
             this.SaveButton.Image = ((System.Drawing.Image)(resources.GetObject("SaveButton.Image")));
             this.SaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SaveButton.Location = new System.Drawing.Point(1404, 16);
+            this.SaveButton.Location = new System.Drawing.Point(261, 17);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(37, 39);
             this.SaveButton.TabIndex = 2;
@@ -370,6 +371,23 @@
             this.exportWindow.Size = new System.Drawing.Size(1216, 723);
             this.exportWindow.TabIndex = 3;
             // 
+            // CompileButton
+            // 
+            this.CompileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompileButton.FlatAppearance.BorderSize = 0;
+            this.CompileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CompileButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CompileButton.ForeColor = System.Drawing.Color.Silver;
+            this.CompileButton.Image = ((System.Drawing.Image)(resources.GetObject("CompileButton.Image")));
+            this.CompileButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CompileButton.Location = new System.Drawing.Point(218, 16);
+            this.CompileButton.Name = "CompileButton";
+            this.CompileButton.Size = new System.Drawing.Size(37, 39);
+            this.CompileButton.TabIndex = 2;
+            this.CompileButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.CompileButton.UseVisualStyleBackColor = true;
+            this.CompileButton.Click += new System.EventHandler(this.CompileButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -384,6 +402,7 @@
             this.Controls.Add(this.expressionsWindow);
             this.Controls.Add(this.testWindow);
             this.Controls.Add(this.exportWindow);
+            this.Controls.Add(this.CompileButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.HeaderPanel);
@@ -424,6 +443,7 @@
         private PluginWindow pluginWindow;
         private Pages.HomeWindow homeWindow;
         private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button CompileButton;
     }
 }
 

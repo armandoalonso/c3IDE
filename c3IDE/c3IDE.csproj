@@ -64,6 +64,7 @@
     <Compile Include="Framework\JSBeautify.cs" />
     <Compile Include="Framework\ResourceTextReader.cs" />
     <Compile Include="Framework\Singleton.cs" />
+    <Compile Include="Framework\Extensions.cs" />
     <Compile Include="Framework\TextCompiler.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -100,6 +101,12 @@
     </Compile>
     <Compile Include="Pages\ExpressionsWindow.Designer.cs">
       <DependentUpon>ExpressionsWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\HomeButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\HomeButton.Designer.cs">
+      <DependentUpon>HomeButton.cs</DependentUpon>
     </Compile>
     <Compile Include="Pages\HomeWindow.cs">
       <SubType>UserControl</SubType>
@@ -158,6 +165,9 @@
     <EmbeddedResource Include="Pages\ExpressionsWindow.resx">
       <DependentUpon>ExpressionsWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\HomeButton.resx">
+      <DependentUpon>HomeButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\HomeWindow.resx">
       <DependentUpon>HomeWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -202,6 +212,9 @@
   <ItemGroup>
     <EmbeddedResource Include="PluginTemplates\TemplateFiles\SingleGlobal\RunTimePluginTemplate.txt" />
     <EmbeddedResource Include="PluginTemplates\TemplateFiles\SingleGlobal\EditTimePluginTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PluginTemplates\TemplateFiles\icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

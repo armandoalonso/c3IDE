@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -28,6 +29,22 @@ namespace c3IDE.Framework
 
             using (var stream = _currentAssmbley.GetManifestResourceStream(name))
             using (var reader = new StreamReader(stream ?? throw new InvalidOperationException()))
+            {
+                var resource = reader.ReadToEnd();
+                _resourceCache.Add(name, resource);
+                return resource;
+            }
+        }
+
+        public string GetResourceImage(string name)
+        {
+            if (_resourceCache.ContainsKey(name))
+            {
+                return _resourceCache[name];
+            }
+
+            using (var stream = _currentAssmbley.GetManifestResourceStream(name))
+            using (var reader = new StreamReader(stream.ConvertToBase64() ?? throw new InvalidOperationException()))
             {
                 var resource = reader.ReadToEnd();
                 _resourceCache.Add(name, resource);
