@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using c3IDE.DataAccess;
 using c3IDE.Framework;
 using c3IDE.PluginModels;
 
@@ -25,6 +26,8 @@ namespace c3IDE
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
+        public IRepository<C3Plugin> PluginRepository = new PluginRepository();
+
         public MainForm()
         {
             InitializeComponent();
@@ -37,6 +40,10 @@ namespace c3IDE
             ActivePanel.Height = HomeButton.Height;
             ActivePanel.Top = HomeButton.Top;
             homeWindow.BringToFront();
+
+            //load plugin data
+            var pluginList = PluginRepository.GetAll().ToList();
+            EventSystem.Insatnce.Hub.Publish(new PluginListLoadedEvents(this, pluginList));
         }
 
         private void LoadPluginEventHandler(LoadPluginEvents obj)
@@ -57,7 +64,7 @@ namespace c3IDE
             var type = (PluginTypeEnum)obj.Content;
             var pluginTemplate = TemplateFactory.Insatnce.CreateTemplate(type);
             var pluginData = C3Plugin.CreatePlugin(pluginTemplate);
-            pluginData.Key = Guid.NewGuid();
+            pluginData.Id = Guid.NewGuid();
 
             //link plugin data with forms
             EventSystem.Insatnce.Hub.Publish(new UpdatePluginEvents(this, pluginData));

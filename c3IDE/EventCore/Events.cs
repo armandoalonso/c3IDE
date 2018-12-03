@@ -75,4 +75,14 @@ namespace c3IDE.EventCore
             PluginData = data;
         }
     }
+
+    //triggered when plugin list is loaded
+    public class PluginListLoadedEvents : EventMessageBase
+    {
+        public List<C3Plugin> PluginList { get; set; }
+        public PluginListLoadedEvents(object sender, List<C3Plugin> data) : base(sender, data)
+        {
+            PluginList = data;
+        }
+    }
 }

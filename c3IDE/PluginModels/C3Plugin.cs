@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using c3IDE.Framework;
+using LiteDB;
 
 namespace c3IDE.PluginModels
 {
     public class C3Plugin : IEquatable<C3Plugin>
     {
-        public Guid Key { get; set; }
+        [BsonId]
+        public Guid Id { get; set; }
+
         public Plugin Plugin { get; set; }
 
         public static C3Plugin CreatePlugin(ITemplate template)
@@ -45,11 +48,12 @@ namespace c3IDE.PluginModels
             return data;
         }
 
+
         public bool Equals(C3Plugin other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Key.Equals(other.Key);
+            return Id.Equals(other.Id);
         }
 
         public override bool Equals(object obj)
@@ -62,7 +66,7 @@ namespace c3IDE.PluginModels
 
         public override int GetHashCode()
         {
-            return Key.GetHashCode();
+            return Id.GetHashCode();
         }
     }
 }

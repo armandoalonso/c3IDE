@@ -20,8 +20,16 @@ namespace c3IDE.Pages
             newSingleGlobalButton.BindClick(NewSingleGlobalPluginButton);
 
             EventSystem.Insatnce.Hub.Subscribe<UpdatePluginEvents>(UpdatePluginEventHandler);
+            EventSystem.Insatnce.Hub.Subscribe<PluginListLoadedEvents>(PluginListLoadedEventHandler);
         }
 
+        private void PluginListLoadedEventHandler(PluginListLoadedEvents obj)
+        {
+            PluginList = obj.PluginList;
+            _buttonList = new List<HomeButton>();
+            PopulateUI();
+        }
+            
         private void UpdatePluginEventHandler(UpdatePluginEvents obj)
         {
             if (PluginList.Contains(obj.PluginData))

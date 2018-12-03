@@ -56,6 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="DataAccess\PluginRepository.cs" />
     <Compile Include="EventCore\EventMessageBase.cs" />
     <Compile Include="EventCore\Events.cs" />
     <Compile Include="EventCore\EventsData.cs" />
@@ -206,9 +208,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataAccess\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="PluginTemplates\TemplateFiles\SingleGlobal\RunTimePluginTemplate.txt" />
     <EmbeddedResource Include="PluginTemplates\TemplateFiles\SingleGlobal\EditTimePluginTemplate.txt" />
