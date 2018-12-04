@@ -4,6 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Text.RegularExpressions;
+using c3IDE.Framework;
 using c3IDE.PluginModels;
 using LiteDB;
 
@@ -13,6 +16,18 @@ namespace c3IDE.DataAccess
     {
         public string Database { get; set; } = "data.db";
         public string Collection { get; set; } = "Plugins";
+
+        public PluginRepository()
+        {
+            BsonMapper.Global.RegisterType<Image>
+            (
+                serialize: (img) => img.ImageToBase64(),
+                deserialize: (bson) =>
+                {
+                    var str = bson.ToString().Replace("\"", string.Empty);
+                    return str.Base64ToImage();
+                });
+        }
 
         public void Insert(C3Plugin value)
         {

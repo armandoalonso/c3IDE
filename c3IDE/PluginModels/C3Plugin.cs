@@ -36,10 +36,7 @@ namespace c3IDE.PluginModels
             };
 
             //setup icon from base64 string
-            using (var ms = new MemoryStream(Convert.FromBase64String(template.IconBase64)))
-            {
-                data.Plugin.Icon = Image.FromStream(ms);
-            }
+            data.Plugin.Icon = template.IconBase64.Base64ToImage();
 
             //compile data
             data.Plugin.EditTimeFile = TextCompiler.Insatnce.CompileTemplates(template.EditTimePluginJs, data);

@@ -1,14 +1,9 @@
 ﻿using c3IDE.EventCore;
 using c3IDE.PluginTemplates;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using c3IDE.DataAccess;
 using c3IDE.Framework;
@@ -48,6 +43,24 @@ namespace c3IDE
 
         private void LoadPluginEventHandler(LoadPluginEvents obj)
         {
+            //enable all other tabs
+            PluginButton.Enabled = true;
+            PluginButton.ForeColor = Color.White;
+            TypeButton.Enabled = true;
+            TypeButton.ForeColor = Color.White;
+            InstanceButton.Enabled = true;
+            InstanceButton.ForeColor = Color.White;
+            ActionButton.Enabled = true;
+            ActionButton.ForeColor = Color.White;
+            ConditionButton.Enabled = true;
+            ConditionButton.ForeColor = Color.White;
+            ExpressionButton.Enabled = true;
+            ExpressionButton.ForeColor = Color.White;
+            TestButton.Enabled = true;
+            TestButton.ForeColor = Color.White;
+            ExportButton.Enabled = true;
+            ExportButton.ForeColor = Color.White;
+
             Global.Insatnce.CurrentPlugin = obj.PluginData;
             EventSystem.Insatnce.Hub.Publish(new UpdatePluginEvents(this, Global.Insatnce.CurrentPlugin));
 
@@ -190,6 +203,9 @@ namespace c3IDE
             //publish save event
             EventSystem.Insatnce.Hub.Publish(new SavePluginEvents(this));
             EventSystem.Insatnce.Hub.Publish(new UpdatePluginEvents(this, Global.Insatnce.CurrentPlugin));
+
+            //save current plugin
+            PluginRepository.Upsert(Global.Insatnce.CurrentPlugin);
         }
 
         //compiles all templates for the plugin

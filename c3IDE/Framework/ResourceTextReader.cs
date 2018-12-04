@@ -44,11 +44,11 @@ namespace c3IDE.Framework
             }
 
             using (var stream = _currentAssmbley.GetManifestResourceStream(name))
-            using (var reader = new StreamReader(stream.ConvertToBase64() ?? throw new InvalidOperationException()))
             {
-                var resource = reader.ReadToEnd();
-                _resourceCache.Add(name, resource);
-                return resource;
+                var img = Image.FromStream(stream ?? throw new InvalidOperationException());
+                var base64 = img.ImageToBase64();
+                _resourceCache.Add(name, base64);
+                return base64;
             }
         }
 

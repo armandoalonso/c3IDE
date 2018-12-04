@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,17 +11,24 @@ namespace c3IDE.Framework
 {
     public static class Extensions
     {
-        public static Stream ConvertToBase64(this Stream stream)
+        public static string ImageToBase64(this Image image)
         {
-            byte[] bytes;
-            using (var memoryStream = new MemoryStream())
+            using (var m = new MemoryStream())
             {
-                stream.CopyTo(memoryStream);
-                bytes = memoryStream.ToArray();
+                image.Save(m, image.RawFormat);
+                byte[] imageBytes = m.ToArray();
+                var base64String = Convert.ToBase64String(imageBytes);
+                return base64String;
             }
+        }
 
-            string base64 = Convert.ToBase64String(bytes);
-            return new MemoryStream(Encoding.UTF8.GetBytes(base64));
+        public static Image Base64ToImage(this string base64)
+        {
+            byte[] imageBytes = Convert.FromBase64String(base64);
+            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+            ms.Write(imageBytes, 0, imageBytes.Length);
+            Image image = Image.FromStream(ms, true);
+            return image;
         }
     }
 }
