@@ -11,6 +11,8 @@ namespace c3IDE.PluginTemplates
     {
         string EditTimePluginJs { get; }
         string RunTimePluginJs { get; }
+        string EditTimeTypeJs { get; }
+        string RunTimeTypeJs { get; }
         string IconBase64 { get; }
     }
 }

@@ -22,6 +22,7 @@ namespace c3IDE
         public static extern bool ReleaseCapture();
 
         public IRepository<C3Plugin> PluginRepository = new PluginRepository();
+        public Window CurrenWindow = Window.Home;
 
         public MainForm()
         {
@@ -56,6 +57,8 @@ namespace c3IDE
             ConditionButton.ForeColor = Color.White;
             ExpressionButton.Enabled = true;
             ExpressionButton.ForeColor = Color.White;
+            LanguageButton.Enabled = true;
+            LanguageButton.ForeColor = Color.White;
             TestButton.Enabled = true;
             TestButton.ForeColor = Color.White;
             ExportButton.Enabled = true;
@@ -68,6 +71,7 @@ namespace c3IDE
             ActivePanel.Height = PluginButton.Height;
             ActivePanel.Top = PluginButton.Top;
             pluginWindow.BringToFront();
+            CurrenWindow = Window.Plugin;
         }
 
         //handles the creation of a new plugin
@@ -95,6 +99,8 @@ namespace c3IDE
             ConditionButton.ForeColor = Color.White;
             ExpressionButton.Enabled = true;
             ExpressionButton.ForeColor = Color.White;
+            LanguageButton.Enabled = true;
+            LanguageButton.ForeColor = Color.White;
             TestButton.Enabled = true;
             TestButton.ForeColor = Color.White;
             ExportButton.Enabled = true;
@@ -106,6 +112,7 @@ namespace c3IDE
             ActivePanel.Height = PluginButton.Height;
             ActivePanel.Top = PluginButton.Top;
             pluginWindow.BringToFront();
+            CurrenWindow = Window.Plugin;
         }
 
         //trick form into thinking title bar is being pressed, to pan window
@@ -130,6 +137,7 @@ namespace c3IDE
             ActivePanel.Height = HomeButton.Height;
             ActivePanel.Top = HomeButton.Top;
             homeWindow.BringToFront();
+            CurrenWindow = Window.Home;
         }
 
         //bring up the plugins page
@@ -138,6 +146,7 @@ namespace c3IDE
             ActivePanel.Height = PluginButton.Height;
             ActivePanel.Top = PluginButton.Top;
             pluginWindow.BringToFront();
+            CurrenWindow = Window.Plugin;
         }
 
         //bring up the type page
@@ -146,6 +155,7 @@ namespace c3IDE
             ActivePanel.Height = TypeButton.Height;
             ActivePanel.Top = TypeButton.Top;
             typeWindow.BringToFront();
+            CurrenWindow = Window.Type;
         }
 
         //bring up the instance page
@@ -154,6 +164,7 @@ namespace c3IDE
             ActivePanel.Height = InstanceButton.Height;
             ActivePanel.Top = InstanceButton.Top;
             instanceWindow.BringToFront();
+            CurrenWindow = Window.Instance;
         }
 
         //bring up the actions page
@@ -162,6 +173,7 @@ namespace c3IDE
             ActivePanel.Height = ActionButton.Height;
             ActivePanel.Top = ActionButton.Top;
             actionsWindow.BringToFront();
+            CurrenWindow = Window.Action;
         }
 
         //bring up the condition page
@@ -170,6 +182,7 @@ namespace c3IDE
             ActivePanel.Height = ConditionButton.Height;
             ActivePanel.Top = ConditionButton.Top;
             conditionsWindow.BringToFront();
+            CurrenWindow = Window.Condition;
         }
 
         //bring up the expressions page
@@ -178,6 +191,16 @@ namespace c3IDE
             ActivePanel.Height = ExpressionButton.Height;
             ActivePanel.Top = ExpressionButton.Top;
             expressionsWindow.BringToFront();
+            CurrenWindow = Window.Expression;
+        }
+
+        //brings up the language page
+        private void LanguageButton_Click(object sender, EventArgs e)
+        {
+            ActivePanel.Height = LanguageButton.Height;
+            ActivePanel.Top = LanguageButton.Top;
+            languageWindow.BringToFront();
+            CurrenWindow = Window.Language;
         }
 
         //bring up the test page
@@ -187,6 +210,7 @@ namespace c3IDE
             ActivePanel.Height = TestButton.Height;
             ActivePanel.Top = TestButton.Top;
             testWindow.BringToFront();
+            CurrenWindow = Window.Test;
         }
 
         //bring up the export page
@@ -195,6 +219,7 @@ namespace c3IDE
             ActivePanel.Height = ExportButton.Height;
             ActivePanel.Top = ExportButton.Top;
             exportWindow.BringToFront();
+            CurrenWindow = Window.Export;
         }
 
         //save button saves plugin data
@@ -212,7 +237,7 @@ namespace c3IDE
         private void CompileButton_Click(object sender, EventArgs e)
         {
             //publish save event
-            EventSystem.Insatnce.Hub.Publish(new CompilePluginEvents(this));
+            EventSystem.Insatnce.Hub.Publish(new CompilePluginEvents(this, CurrenWindow));
         }
     }
 }

@@ -8,8 +8,8 @@ namespace c3IDE.Pages
 {
     public partial class HomeWindow : UserControl
     {
-        public List<C3Plugin> PluginList { get; set; }
-        private List<HomeButton> _buttonList { get; set; }
+        public List<C3Plugin> PluginList;
+        private List<HomeButton> _buttonList;
 
         public HomeWindow()
         {

@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.LanguageButton = new System.Windows.Forms.Button();
             this.ActivePanel = new System.Windows.Forms.Panel();
             this.TestButton = new System.Windows.Forms.Button();
             this.ExportButton = new System.Windows.Forms.Button();
@@ -54,12 +55,17 @@
             this.testWindow = new c3IDE.Pages.TestWindow();
             this.exportWindow = new c3IDE.Pages.ExportWindow();
             this.CompileButton = new System.Windows.Forms.Button();
+            this.languageWindow = new c3IDE.Pages.LanguageWindow();
+            this.languageWindow1 = new c3IDE.Pages.LanguageWindow();
+            this.optionButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
+            this.panel1.Controls.Add(this.optionButton);
+            this.panel1.Controls.Add(this.LanguageButton);
             this.panel1.Controls.Add(this.ActivePanel);
             this.panel1.Controls.Add(this.TestButton);
             this.panel1.Controls.Add(this.ExportButton);
@@ -76,6 +82,24 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(212, 780);
             this.panel1.TabIndex = 0;
+            // 
+            // LanguageButton
+            // 
+            this.LanguageButton.Enabled = false;
+            this.LanguageButton.FlatAppearance.BorderSize = 0;
+            this.LanguageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LanguageButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LanguageButton.ForeColor = System.Drawing.Color.DimGray;
+            this.LanguageButton.Image = ((System.Drawing.Image)(resources.GetObject("LanguageButton.Image")));
+            this.LanguageButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LanguageButton.Location = new System.Drawing.Point(31, 506);
+            this.LanguageButton.Name = "LanguageButton";
+            this.LanguageButton.Size = new System.Drawing.Size(178, 54);
+            this.LanguageButton.TabIndex = 3;
+            this.LanguageButton.Text = "      Language";
+            this.LanguageButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.LanguageButton.UseVisualStyleBackColor = true;
+            this.LanguageButton.Click += new System.EventHandler(this.LanguageButton_Click);
             // 
             // ActivePanel
             // 
@@ -407,11 +431,49 @@
             this.CompileButton.UseVisualStyleBackColor = true;
             this.CompileButton.Click += new System.EventHandler(this.CompileButton_Click);
             // 
+            // languageWindow
+            // 
+            this.languageWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.languageWindow.Location = new System.Drawing.Point(212, 57);
+            this.languageWindow.Name = "languageWindow";
+            this.languageWindow.Size = new System.Drawing.Size(1288, 723);
+            this.languageWindow.TabIndex = 12;
+            // 
+            // languageWindow1
+            // 
+            this.languageWindow1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.languageWindow1.Location = new System.Drawing.Point(212, 57);
+            this.languageWindow1.Name = "languageWindow1";
+            this.languageWindow1.Size = new System.Drawing.Size(1288, 723);
+            this.languageWindow1.TabIndex = 12;
+            // 
+            // optionButton
+            // 
+            this.optionButton.Enabled = false;
+            this.optionButton.FlatAppearance.BorderSize = 0;
+            this.optionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.optionButton.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionButton.ForeColor = System.Drawing.Color.DimGray;
+            this.optionButton.Image = ((System.Drawing.Image)(resources.GetObject("optionButton.Image")));
+            this.optionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.optionButton.Location = new System.Drawing.Point(31, 686);
+            this.optionButton.Name = "optionButton";
+            this.optionButton.Size = new System.Drawing.Size(178, 54);
+            this.optionButton.TabIndex = 4;
+            this.optionButton.Text = "     Options";
+            this.optionButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.optionButton.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1500, 780);
+            this.Controls.Add(this.languageWindow);
             this.Controls.Add(this.homeWindow);
             this.Controls.Add(this.pluginWindow);
             this.Controls.Add(this.typeWindow);
@@ -463,6 +525,10 @@
         private Pages.HomeWindow homeWindow;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button CompileButton;
+        private System.Windows.Forms.Button LanguageButton;
+        private Pages.LanguageWindow languageWindow;
+        private Pages.LanguageWindow languageWindow1;
+        private System.Windows.Forms.Button optionButton;
     }
 }
 

@@ -18,4 +18,19 @@ namespace c3IDE
         NewProperty,
         EditProperty
     }
+
+    public enum Window
+    {
+        Home,
+        Plugin,
+        Type,
+        Instance,
+        Action,
+        Condition,
+        Expression,
+        Language,
+        Test,
+        Export,
+        Options
+    }
 }

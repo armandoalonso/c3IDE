@@ -20,7 +20,7 @@ namespace c3IDE
 {
     public partial class PluginWindow : UserControl
     {
-        private C3Plugin PluginData { get; set; }
+        private C3Plugin _pluginData;
 
         public PluginWindow()
         {
@@ -34,11 +34,6 @@ namespace c3IDE
             editTimeTemplateEditor.ApplyConfiguration(KnownLanguages.JScript);
             runTimeTemplateEditor.ApplyConfiguration(KnownLanguages.JScript);
 
-            //clear syntax editor shortcut keys
-            //editTimeEditor.Commands.Clear();
-            //runTimeEditor.Commands.Clear();
-            //editTimeTemplateEditor.Commands.Clear();
-            //runTimeTemplateEditor.Commands.Clear();
 
             //subscribe to plugin events
             EventSystem.Insatnce.Hub.Subscribe<UpdatePluginEvents>(UpdatePluginEventHandler);
@@ -52,29 +47,29 @@ namespace c3IDE
         {
             //save and compile the plugin window
             SavePluginEventHandler(new SavePluginEvents(this));
-            UpdatePluginEventHandler(new UpdatePluginEvents(this, PluginData));
+            UpdatePluginEventHandler(new UpdatePluginEvents(this, _pluginData));
         }
 
         private void UpdatePropertyEventHandler(UpdatePropertyPluginEvents obj)
         {   
             //update an existing property 
-            var propIndex = PluginData.Plugin.Properties.IndexOf(obj.OldProperty);
+            var propIndex = _pluginData.Plugin.Properties.IndexOf(obj.OldProperty);
             if (propIndex != -1)
             {
-                PluginData.Plugin.Properties[propIndex] = obj.NewProperty;
+                _pluginData.Plugin.Properties[propIndex] = obj.NewProperty;
             }
 
             propertiesListBox.DataSource = null;
-            propertiesListBox.DataSource = PluginData.Plugin.Properties;
+            propertiesListBox.DataSource = _pluginData.Plugin.Properties;
             propertiesListBox.DisplayMember = "Id";
         }
 
         private void NewPropertyEventHandler(NewPropertyPluginEvents obj)
         {
             //add new property
-            PluginData.Plugin.Properties.Add(obj.Property);
+            _pluginData.Plugin.Properties.Add(obj.Property);
             propertiesListBox.DataSource = null;
-            propertiesListBox.DataSource = PluginData.Plugin.Properties;
+            propertiesListBox.DataSource = _pluginData.Plugin.Properties;
             propertiesListBox.DisplayMember = "Id";
         }
 
@@ -84,53 +79,53 @@ namespace c3IDE
             if(!ValidateInput()) return; //TODO: have better feedback for error states
 
             //modify plugin property
-            PluginData.Plugin.Name = pluginNameTextbox.Text;
-            PluginData.Plugin.Company = pluginCompanyTextBox.Text;
-            PluginData.Plugin.Author = pluginAuthorTextBox.Text;
-            PluginData.Plugin.Version = pluginVersionTextBox.Text;
-            PluginData.Plugin.Description = pluginDescriptionTextBox.Text;
-            PluginData.Plugin.Category = pluginCategoryDropDown.Text;
-            PluginData.Plugin.Properties = propertiesListBox.Items.Cast<Property>().ToList() ?? new List<Property>();
-            PluginData.Plugin.Icon = iconImage.Image;
+            _pluginData.Plugin.Name = pluginNameTextbox.Text;
+            _pluginData.Plugin.Company = pluginCompanyTextBox.Text;
+            _pluginData.Plugin.Author = pluginAuthorTextBox.Text;
+            _pluginData.Plugin.Version = pluginVersionTextBox.Text;
+            _pluginData.Plugin.Description = pluginDescriptionTextBox.Text;
+            _pluginData.Plugin.Category = pluginCategoryDropDown.Text;
+            _pluginData.Plugin.Properties = propertiesListBox.Items.Cast<Property>().ToList() ?? new List<Property>();
+            _pluginData.Plugin.Icon = iconImage.Image;
 
             //modify template/source property
-            PluginData.Plugin.EditTimeTemplate = editTimeTemplateEditor.Text;
-            PluginData.Plugin.RunTimeTemplate = runTimeTemplateEditor.Text;
+            _pluginData.Plugin.EditTimeTemplate = editTimeTemplateEditor.Text;
+            _pluginData.Plugin.RunTimeTemplate = runTimeTemplateEditor.Text;
 
             //compile 
-            editTimeEditor.Text = TextCompiler.Insatnce.CompileTemplates(PluginData.Plugin.EditTimeTemplate, PluginData);
-            runTimeEditor.Text = TextCompiler.Insatnce.CompileTemplates(PluginData.Plugin.RunTimeTemplate, PluginData);
+            editTimeEditor.Text = TextCompiler.Insatnce.CompileTemplates(_pluginData.Plugin.EditTimeTemplate, _pluginData);
+            runTimeEditor.Text = TextCompiler.Insatnce.CompileTemplates(_pluginData.Plugin.RunTimeTemplate, _pluginData);
 
             //modify based on compilation
-            PluginData.Plugin.EditTimeFile = editTimeEditor.Text;
-            PluginData.Plugin.RunTimeFile = runTimeEditor.Text;
+            _pluginData.Plugin.EditTimeFile = editTimeEditor.Text;
+            _pluginData.Plugin.RunTimeFile = runTimeEditor.Text;
 
             //save shared gloabl plugin 
-            Global.Insatnce.CurrentPlugin.Plugin = PluginData.Plugin;
+            Global.Insatnce.CurrentPlugin.Plugin = _pluginData.Plugin;
         }
 
         private void UpdatePluginEventHandler(UpdatePluginEvents obj)
         {
             //set data from event
-            PluginData = obj.PluginData;
+            _pluginData = obj.PluginData;
 
             //populate controls
-            pluginNameTextbox.Text = PluginData.Plugin.Name;
-            pluginCompanyTextBox.Text = PluginData.Plugin.Company;
-            pluginAuthorTextBox.Text = PluginData.Plugin.Author;
-            pluginVersionTextBox.Text = PluginData.Plugin.Version;
-            pluginDescriptionTextBox.Text = PluginData.Plugin.Description;
-            pluginCategoryDropDown.Text = PluginData.Plugin.Category;
-            iconImage.Image = PluginData.Plugin.Icon;
+            pluginNameTextbox.Text = _pluginData.Plugin.Name;
+            pluginCompanyTextBox.Text = _pluginData.Plugin.Company;
+            pluginAuthorTextBox.Text = _pluginData.Plugin.Author;
+            pluginVersionTextBox.Text = _pluginData.Plugin.Version;
+            pluginDescriptionTextBox.Text = _pluginData.Plugin.Description;
+            pluginCategoryDropDown.Text = _pluginData.Plugin.Category;
+            iconImage.Image = _pluginData.Plugin.Icon;
             propertiesListBox.DataSource = null;
-            propertiesListBox.DataSource = PluginData.Plugin.Properties;
+            propertiesListBox.DataSource = _pluginData.Plugin.Properties;
             propertiesListBox.DisplayMember = "Id";
-            editTimeTemplateEditor.Text = PluginData.Plugin.EditTimeTemplate;
-            runTimeTemplateEditor.Text = PluginData.Plugin.RunTimeTemplate;
+            editTimeTemplateEditor.Text = _pluginData.Plugin.EditTimeTemplate;
+            runTimeTemplateEditor.Text = _pluginData.Plugin.RunTimeTemplate;
 
             //compile templates with data
-            editTimeEditor.Text = TextCompiler.Insatnce.CompileTemplates(PluginData.Plugin.EditTimeTemplate, PluginData);
-            runTimeEditor.Text = TextCompiler.Insatnce.CompileTemplates(PluginData.Plugin.RunTimeTemplate, PluginData);
+            editTimeEditor.Text = TextCompiler.Insatnce.CompileTemplates(_pluginData.Plugin.EditTimeTemplate, _pluginData);
+            runTimeEditor.Text = TextCompiler.Insatnce.CompileTemplates(_pluginData.Plugin.RunTimeTemplate, _pluginData);
 
             //format text TODO: might not need to beautify the code just just template space
             //editTimeEditor.Text = new JSBeautify(editTimeEditor.Text, new JSBeautifyOptions()).GetResult();

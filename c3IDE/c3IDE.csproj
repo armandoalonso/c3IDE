@@ -38,12 +38,15 @@
     <Reference Include="Scriban, Version=1.2.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Scriban.1.2.7\lib\net40\Scriban.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Diagram.Base, Version=16.3460.0.21, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Diagram.Windows, Version=16.3460.0.21, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Edit.Windows, Version=16.3460.0.21, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Shared.Base, Version=16.3460.0.21, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Tools.Windows, Version=16.3460.0.21, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -122,6 +125,18 @@
     <Compile Include="Pages\InstanceWindow.Designer.cs">
       <DependentUpon>InstanceWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\LanguageWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\LanguageWindow.Designer.cs">
+      <DependentUpon>LanguageWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\OptionWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pages\OptionWindow.Designer.cs">
+      <DependentUpon>OptionWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PluginWindow.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -136,6 +151,7 @@
     </Compile>
     <Compile Include="PluginModels\C3Plugin.cs" />
     <Compile Include="PluginModels\Property.cs" />
+    <Compile Include="PluginModels\Type.cs" />
     <Compile Include="PluginTemplates\ITemplate.cs" />
     <Compile Include="PluginModels\Plugin.cs" />
     <Compile Include="PluginTemplates\SingleGlobalPluginTemplate.cs" />
@@ -176,6 +192,12 @@
     <EmbeddedResource Include="Pages\InstanceWindow.resx">
       <DependentUpon>InstanceWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\LanguageWindow.resx">
+      <DependentUpon>LanguageWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\OptionWindow.resx">
+      <DependentUpon>OptionWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\PluginWindow.resx">
       <DependentUpon>PluginWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -208,13 +230,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="PluginTemplates\TemplateFiles\SingleGlobal\EditTimeTypeTemplate.txt" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PluginTemplates\TemplateFiles\SingleGlobal\RunTimePluginTemplate.txt" />
     <EmbeddedResource Include="PluginTemplates\TemplateFiles\SingleGlobal\EditTimePluginTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PluginTemplates\TemplateFiles\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PluginTemplates\TemplateFiles\SingleGlobal\RunTimeTypeTemplate.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

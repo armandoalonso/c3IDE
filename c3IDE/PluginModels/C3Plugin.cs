@@ -17,34 +17,41 @@ namespace c3IDE.PluginModels
         public Guid Id { get; set; }
 
         public Plugin Plugin { get; set; }
+        public Type Type { get; set; }
 
         public static C3Plugin CreatePlugin(ITemplate template)
         {
-            //TODO: take into consideration the language properties in the model
-            var data = new C3Plugin();
-
-            data.Plugin = new Plugin
+            var data = new C3Plugin
             {
-                EditTimeTemplate = template.EditTimePluginJs,
-                RunTimeTemplate = template.RunTimePluginJs,
-                Version = "1.0.0.0",
-                Author = "c3IDE",
-                Category = "general",
-                Name = "New Plugin",
-                Company = "MyCompany",
-                Description = "This is a new Single Global Plugin",
+                Plugin = new Plugin
+                {
+                    EditTimeTemplate = template.EditTimePluginJs,
+                    RunTimeTemplate = template.RunTimePluginJs,
+                    Version = "1.0.0.0",
+                    Author = "c3IDE",
+                    Category = "general",
+                    Name = "New Plugin",
+                    Company = "MyCompany",
+                    Description = "This is a new Single Global Plugin",
+                    //setup icon from base64 string
+                    Icon = template.IconBase64.Base64ToImage(),
+                },
+                Type = new Type
+                {
+                    EditTimeTemplate = template.EditTimeTypeJs,
+                    RunTimeTemplate = template.RunTimeTypeJs
+                }
             };
-
-            //setup icon from base64 string
-            data.Plugin.Icon = template.IconBase64.Base64ToImage();
 
             //compile data
             data.Plugin.EditTimeFile = TextCompiler.Insatnce.CompileTemplates(template.EditTimePluginJs, data);
             data.Plugin.RunTimeFile = TextCompiler.Insatnce.CompileTemplates(template.RunTimePluginJs, data);
 
+            data.Type.EditTimeFile = TextCompiler.Insatnce.CompileTemplates(template.EditTimeTypeJs, data);
+            data.Type.RunTimeFile = TextCompiler.Insatnce.CompileTemplates(template.RunTimeTypeJs, data);
+
             return data;
         }
-
 
         public bool Equals(C3Plugin other)
         {

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PluginWindow));
-            Syncfusion.Windows.Forms.Edit.Implementation.Config.Config config9 = new Syncfusion.Windows.Forms.Edit.Implementation.Config.Config();
-            Syncfusion.Windows.Forms.Edit.Implementation.Config.Config config10 = new Syncfusion.Windows.Forms.Edit.Implementation.Config.Config();
-            Syncfusion.Windows.Forms.Edit.Implementation.Config.Config config11 = new Syncfusion.Windows.Forms.Edit.Implementation.Config.Config();
-            Syncfusion.Windows.Forms.Edit.Implementation.Config.Config config12 = new Syncfusion.Windows.Forms.Edit.Implementation.Config.Config();
+            Syncfusion.Windows.Forms.Edit.Implementation.Config.Config config1 = new Syncfusion.Windows.Forms.Edit.Implementation.Config.Config();
+            Syncfusion.Windows.Forms.Edit.Implementation.Config.Config config2 = new Syncfusion.Windows.Forms.Edit.Implementation.Config.Config();
+            Syncfusion.Windows.Forms.Edit.Implementation.Config.Config config3 = new Syncfusion.Windows.Forms.Edit.Implementation.Config.Config();
+            Syncfusion.Windows.Forms.Edit.Implementation.Config.Config config4 = new Syncfusion.Windows.Forms.Edit.Implementation.Config.Config();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.editPropertyButton = new System.Windows.Forms.Button();
             this.deltePropertyButton = new System.Windows.Forms.Button();
@@ -333,7 +333,7 @@
             // 
             this.editTimeEditor.ChangedLinesMarkingLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(238)))), ((int)(((byte)(98)))));
             this.editTimeEditor.CodeSnipptSize = new System.Drawing.Size(100, 100);
-            this.editTimeEditor.Configurator = config9;
+            this.editTimeEditor.Configurator = config1;
             this.editTimeEditor.ContextChoiceBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.editTimeEditor.ContextChoiceBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(166)))), ((int)(((byte)(50)))));
             this.editTimeEditor.ContextChoiceForeColor = System.Drawing.SystemColors.InfoText;
@@ -390,7 +390,7 @@
             // 
             this.runTimeEditor.ChangedLinesMarkingLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(238)))), ((int)(((byte)(98)))));
             this.runTimeEditor.CodeSnipptSize = new System.Drawing.Size(100, 100);
-            this.runTimeEditor.Configurator = config10;
+            this.runTimeEditor.Configurator = config2;
             this.runTimeEditor.ContextChoiceBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.runTimeEditor.ContextChoiceBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(166)))), ((int)(((byte)(50)))));
             this.runTimeEditor.ContextChoiceForeColor = System.Drawing.SystemColors.InfoText;
@@ -447,7 +447,7 @@
             // 
             this.editTimeTemplateEditor.ChangedLinesMarkingLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(238)))), ((int)(((byte)(98)))));
             this.editTimeTemplateEditor.CodeSnipptSize = new System.Drawing.Size(100, 100);
-            this.editTimeTemplateEditor.Configurator = config11;
+            this.editTimeTemplateEditor.Configurator = config3;
             this.editTimeTemplateEditor.ContextChoiceBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.editTimeTemplateEditor.ContextChoiceBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(166)))), ((int)(((byte)(50)))));
             this.editTimeTemplateEditor.ContextChoiceForeColor = System.Drawing.SystemColors.InfoText;
@@ -505,7 +505,7 @@
             // 
             this.runTimeTemplateEditor.ChangedLinesMarkingLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(238)))), ((int)(((byte)(98)))));
             this.runTimeTemplateEditor.CodeSnipptSize = new System.Drawing.Size(100, 100);
-            this.runTimeTemplateEditor.Configurator = config12;
+            this.runTimeTemplateEditor.Configurator = config4;
             this.runTimeTemplateEditor.ContextChoiceBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.runTimeTemplateEditor.ContextChoiceBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(166)))), ((int)(((byte)(50)))));
             this.runTimeTemplateEditor.ContextChoiceForeColor = System.Drawing.SystemColors.InfoText;

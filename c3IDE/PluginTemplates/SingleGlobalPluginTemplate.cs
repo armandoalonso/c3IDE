@@ -17,12 +17,18 @@ namespace c3IDE.PluginTemplates
             ResourceTextReader.Insatnce.LogResourceFiles();
             EditTimePluginJs = ResourceTextReader.Insatnce.GetResourceText("c3IDE.PluginTemplates.TemplateFiles.SingleGlobal.EditTimePluginTemplate.txt");
             RunTimePluginJs = ResourceTextReader.Insatnce.GetResourceText("c3IDE.PluginTemplates.TemplateFiles.SingleGlobal.RunTimePluginTemplate.txt");
+            EditTimeTypeJs = ResourceTextReader.Insatnce.GetResourceText("c3IDE.PluginTemplates.TemplateFiles.SingleGlobal.EditTimeTypeTemplate.txt");
+            RunTimeTypeJs = ResourceTextReader.Insatnce.GetResourceText("c3IDE.PluginTemplates.TemplateFiles.SingleGlobal.RunTimeTypeTemplate.txt");
             IconBase64 = ResourceTextReader.Insatnce.GetResourceImage("c3IDE.PluginTemplates.TemplateFiles.icon.png");
         }
 
         public string EditTimePluginJs { get; set; }
 
         public string RunTimePluginJs { get; set; }
+
+        public string EditTimeTypeJs { get; set; }
+
+        public string RunTimeTypeJs { get; set; }
 
         public string IconBase64 { get; set; }
 

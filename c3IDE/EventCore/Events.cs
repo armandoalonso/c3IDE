@@ -61,8 +61,10 @@ namespace c3IDE.EventCore
     //triggered when the compile button is pressed, it will go through all the sections and compile the templates
     public class CompilePluginEvents : EventMessageBase
     {
-        public CompilePluginEvents(object sender) : base(sender, null)
+        public Window CurrentWidnow { get; set; }
+        public CompilePluginEvents(object sender, Window curWindow) : base(sender, curWindow)
         {
+            this.CurrentWidnow = curWindow;
         }
     }
 
