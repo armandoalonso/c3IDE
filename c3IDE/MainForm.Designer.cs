@@ -94,7 +94,7 @@
             this.TestButton.ForeColor = System.Drawing.Color.DimGray;
             this.TestButton.Image = ((System.Drawing.Image)(resources.GetObject("TestButton.Image")));
             this.TestButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.TestButton.Location = new System.Drawing.Point(31, 506);
+            this.TestButton.Location = new System.Drawing.Point(31, 566);
             this.TestButton.Name = "TestButton";
             this.TestButton.Size = new System.Drawing.Size(178, 54);
             this.TestButton.TabIndex = 2;
@@ -112,7 +112,7 @@
             this.ExportButton.ForeColor = System.Drawing.Color.DimGray;
             this.ExportButton.Image = ((System.Drawing.Image)(resources.GetObject("ExportButton.Image")));
             this.ExportButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ExportButton.Location = new System.Drawing.Point(31, 566);
+            this.ExportButton.Location = new System.Drawing.Point(31, 626);
             this.ExportButton.Name = "ExportButton";
             this.ExportButton.Size = new System.Drawing.Size(178, 54);
             this.ExportButton.TabIndex = 2;
@@ -323,51 +323,72 @@
             // 
             // typeWindow
             // 
+            this.typeWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.typeWindow.Location = new System.Drawing.Point(212, 57);
             this.typeWindow.Name = "typeWindow";
-            this.typeWindow.Size = new System.Drawing.Size(1216, 723);
+            this.typeWindow.Size = new System.Drawing.Size(1288, 723);
             this.typeWindow.TabIndex = 9;
             // 
             // instanceWindow
             // 
+            this.instanceWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.instanceWindow.Location = new System.Drawing.Point(212, 57);
             this.instanceWindow.Name = "instanceWindow";
-            this.instanceWindow.Size = new System.Drawing.Size(1216, 723);
+            this.instanceWindow.Size = new System.Drawing.Size(1288, 723);
             this.instanceWindow.TabIndex = 8;
             // 
             // actionsWindow
             // 
+            this.actionsWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.actionsWindow.Location = new System.Drawing.Point(212, 57);
             this.actionsWindow.Name = "actionsWindow";
-            this.actionsWindow.Size = new System.Drawing.Size(1216, 723);
+            this.actionsWindow.Size = new System.Drawing.Size(1288, 723);
             this.actionsWindow.TabIndex = 7;
             // 
             // conditionsWindow
             // 
+            this.conditionsWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.conditionsWindow.Location = new System.Drawing.Point(212, 57);
             this.conditionsWindow.Name = "conditionsWindow";
-            this.conditionsWindow.Size = new System.Drawing.Size(1216, 723);
+            this.conditionsWindow.Size = new System.Drawing.Size(1288, 723);
             this.conditionsWindow.TabIndex = 6;
             // 
             // expressionsWindow
             // 
+            this.expressionsWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.expressionsWindow.Location = new System.Drawing.Point(212, 57);
             this.expressionsWindow.Name = "expressionsWindow";
-            this.expressionsWindow.Size = new System.Drawing.Size(1216, 723);
+            this.expressionsWindow.Size = new System.Drawing.Size(1288, 723);
             this.expressionsWindow.TabIndex = 5;
             // 
             // testWindow
             // 
+            this.testWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.testWindow.Location = new System.Drawing.Point(212, 57);
             this.testWindow.Name = "testWindow";
-            this.testWindow.Size = new System.Drawing.Size(1216, 723);
+            this.testWindow.Size = new System.Drawing.Size(1288, 723);
             this.testWindow.TabIndex = 4;
             // 
             // exportWindow
             // 
+            this.exportWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.exportWindow.Location = new System.Drawing.Point(212, 57);
             this.exportWindow.Name = "exportWindow";
-            this.exportWindow.Size = new System.Drawing.Size(1216, 723);
+            this.exportWindow.Size = new System.Drawing.Size(1288, 723);
             this.exportWindow.TabIndex = 3;
             // 
             // CompileButton
