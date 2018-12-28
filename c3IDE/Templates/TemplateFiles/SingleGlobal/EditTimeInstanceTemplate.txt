@@ -1,0 +1,29 @@
+﻿"use strict";
+{
+     const PLUGIN_CLASS = SDK.Plugins.{{plugin.company}}_{{plugin.name}};
+     
+     PLUGIN_CLASS.Instance = class {{plugin.name}}Instance extends SDK.IInstanceBase
+     {
+          constructor(sdkType, inst)
+          {
+               super(sdkType, inst);
+          }
+          
+          Release()
+          {
+          }
+          
+          OnCreate()
+          {
+          }
+          
+          OnPropertyChanged(id, value)
+          {
+          }
+          
+          LoadC2Property(name, valueString)
+          {
+               return false;          // not handled
+          }
+     };
+}

@@ -1,0 +1,7 @@
+﻿"use strict";
+{
+     C3.Plugins.{{plugin.company}}_{{plugin.name}}.Cnds =
+     {
+
+     };
+}

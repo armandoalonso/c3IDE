@@ -1,0 +1,24 @@
+﻿{
+     "languageTag": "en-US",
+     "fileDescription": "Strings for {{plugin.name}}",
+     "text": {
+          "plugins": {
+			  //todo: name lower
+               "{{plugin.company}}_{{plugin.name}}": {
+                    "name": "{{plugin.name}}",
+                    "description": "{{plugin.description}}",
+                    "help-url": "{{plugin.documentation}}",
+                    "properties": {
+                    },
+                    "aceCategories": {
+                    },
+                    "conditions": {
+                    },
+                    "actions": {
+                    },
+                    "expressions": {
+                    }
+               }
+          }
+     }
+}

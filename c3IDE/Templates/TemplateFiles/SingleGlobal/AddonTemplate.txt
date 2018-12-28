@@ -1,0 +1,31 @@
+﻿{
+     "is-c3-addon": true,
+     "type": "plugin",
+     "name": "{{plugin.name}}",
+     "id": "{{plugin.company}}_{{plugin.name}}",
+     "version": "{{plugin.version}}",
+     "author": "{{plugin.author}}",
+     "website": "{{plugin.website}}",
+     "documentation": "{{plugin.documentation}}",
+     "description": "{{plugin.description}}",
+     "editor-scripts": [
+                              "plugin.js",
+                              "type.js",
+                              "instance.js"
+                         ],
+     "file-list": [
+          "c3runtime/plugin.js",
+          "c3runtime/type.js",
+          "c3runtime/instance.js",
+          "c3runtime/conditions.js",
+          "c3runtime/actions.js",
+          "c3runtime/expressions.js",
+          "lang/en-US.json",
+          "aces.json",
+          "addon.json",
+          "icon.png",
+          "instance.js",
+          "plugin.js",
+          "type.js"
+     ]
+}

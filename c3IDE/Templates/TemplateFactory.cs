@@ -1,0 +1,20 @@
+﻿using System;
+using c3IDE.Models;
+using c3IDE.Utilities;
+
+namespace c3IDE.Templates
+{
+    public class TemplateFactory : Singleton<TemplateFactory>
+    {
+        public ITemplate CreateTemplate(PluginType type)
+        {
+            switch (type)
+            {
+                case PluginType.SingleGlobalPlugin:
+                    return new SingleGlobalPluginTemplate();
+            }
+
+            throw new InvalidOperationException("Not Valid Plugin Type");
+        }
+    }
+}

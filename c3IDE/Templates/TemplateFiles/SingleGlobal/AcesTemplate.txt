@@ -1,0 +1,11 @@
+﻿{
+	 //todo : name to lower
+     "{{plugin.name}}": {
+          "conditions": [
+          ],
+          "actions": [
+          ],
+          "expressions": [
+          ]
+     }
+}
