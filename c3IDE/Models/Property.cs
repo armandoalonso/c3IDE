@@ -8,5 +8,22 @@ namespace c3IDE.Models
 {
     public class Property
     {
+        public Guid Key { get; set; } = Guid.NewGuid();
+        public string Type { get; set; }
+        public string Id { get; set; }
+        public string Value { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+
+        public bool HasMinMax { get; set; }
+        public bool HasDragSpeed { get; set; }
+        public bool HasCombo { get; set; }
+        public bool HasInitalValue { get; set; }
+
+        public string MinValue { get; set; }
+        public string MaxValue { get; set; }
+        public string DragSpeedValue { get; set; }
+        public List<string> Items { get; set; }
+        public string InitialValue { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace c3IDE.Models
     public class Plugin
     {
         public string Name { get; set; }
+        public string ClassName => Name.Replace(" ", string.Empty);
         public string Company { get; set; }
         public string Author { get; set; } = "c3IDE";
         public string Version { get; set; } = "1.0.0.0";

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -44,33 +45,27 @@ namespace c3IDE.Utilities
 
             using (var stream = _currentAssmbley.GetManifestResourceStream(name))
             {
-                if (stream != null)
-                {
-                    var inArray = new byte[(int)stream.Length];
-                    var outArray = new char[(int)(stream.Length * 1.34)];
-                    stream.Read(inArray, 0, (int)stream.Length);
-                    Convert.ToBase64CharArray(inArray, 0, inArray.Length, outArray, 0);
-                    var newStream = new MemoryStream(Encoding.UTF8.GetBytes(outArray));
+                var img = Image.FromStream(stream ?? throw new InvalidOperationException());
+                var base64 = ImageHelper.Insatnce.ImageToBase64(img);
 
-                    using (var reader = new StreamReader(newStream))
-                    {
-                        var resource = reader.ReadToEnd();
-                        _resourceCache.Add(name, resource);
-                        return resource;
-                    }
-                }
+                _resourceCache.Add(name, base64);
+                return base64;
             }
 
             throw new InvalidOperationException("Failed to read base 64 icon");
         }
 
-        public void LogResourceFiles()
+        public IEnumerable<string> LogResourceFiles()
         {
+            var list = new List<string>();
             var resources = _currentAssmbley.GetManifestResourceNames();
             foreach (var resource in resources)
             {
                 Console.WriteLine(resource);
+                list.Add(resource);
             }
+
+            return list;
         }
     }
 }

@@ -2,7 +2,7 @@
      "is-c3-addon": true,
      "type": "plugin",
      "name": "{{plugin.name}}",
-     "id": "{{plugin.company}}_{{plugin.name}}",
+     "id": "{{plugin.company}}_{{plugin.class_name}}",
      "version": "{{plugin.version}}",
      "author": "{{plugin.author}}",
      "website": "{{plugin.website}}",

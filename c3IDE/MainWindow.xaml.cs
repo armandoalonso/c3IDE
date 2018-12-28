@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using c3IDE.DaataAccess;
+using c3IDE.Models;
 using c3IDE.Windows;
 using MahApps.Metro.Controls;
 
@@ -27,9 +29,12 @@ namespace c3IDE
         public PluginWindow PluginWin = new PluginWindow();
         #endregion
 
+        public ApplicationOptions Options { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            Options = DataAccessFacade.Insatnce.Options.GetAll().First() ?? new ApplicationOptions();
         }
 
         private void HamburgerMenu_OnItemClick(object sender, ItemClickEventArgs e)

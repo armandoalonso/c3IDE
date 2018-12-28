@@ -16,9 +16,9 @@ namespace c3IDE.Templates
             RunTimePluginJs = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.TemplateFiles.SingleGlobal.RunTimePluginTemplate.txt");
             RunTimeTypeJs = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.TemplateFiles.SingleGlobal.RunTimeTypeTemplate.txt");
             RunTimeInstanceJs = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.TemplateFiles.SingleGlobal.RunTimeInstanceTemplate.txt");
-            ActionsJs = RunTimeTypeJs = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.TemplateFiles.SingleGlobal.ActionsTempalte.txt");
-            ConditionsJs = RunTimeTypeJs = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.TemplateFiles.SingleGlobal.ConditionsTempalte.txt");
-            ExpressionsJs = RunTimeTypeJs = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.TemplateFiles.SingleGlobal.ExpressionsTempalte.txt");
+            ActionsJs = RunTimeTypeJs = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.TemplateFiles.SingleGlobal.ActionsTemplate.txt");
+            ConditionsJs = RunTimeTypeJs = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.TemplateFiles.SingleGlobal.ConditionsTemplate.txt");
+            ExpressionsJs = RunTimeTypeJs = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.TemplateFiles.SingleGlobal.ExpressionsTemplate.txt");
             Base64Icon = ResourceReader.Insatnce.GetResourceAsBase64("c3IDE.Templates.TemplateFiles.icon.png");
         }
 
