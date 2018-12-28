@@ -31,11 +31,20 @@ namespace c3IDE.Models
                         {
                             Description = "This is a test property",
                             Id = "test-property",
-                            Type = "string",
+                            Type = "text",
                             Value = "TEST"
-                        }
+                        },
+                        new Property
+                        {
+                            Description = "This is a test another property",
+                            Id = "test-property2",
+                            Type = "integer",
+                            Value = "5"
+                        },
                     }
-                }
+                },
+                EditTimeType = new EditTimeType(),
+                EditTimeInstance = new EditTimeInstance()
             };
 
             return plugin;

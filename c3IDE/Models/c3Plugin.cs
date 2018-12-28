@@ -13,5 +13,11 @@ namespace c3IDE.Models
         public Guid Id { get; set; }
 
         public Plugin Plugin { get; set; }
+
+        public Aces Aces { get; set; }
+
+        public EditTimeType EditTimeType { get; set; }
+
+        public EditTimeInstance EditTimeInstance { get; set; }
     }
 }

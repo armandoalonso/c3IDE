@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using c3IDE.Templates;
 
 namespace c3IDE.Models
 {
@@ -20,5 +21,15 @@ namespace c3IDE.Models
         public string Documentation { get; set; } = "https://editor.construct.net/";
         public string Base64Icon { get; set; }
         public List<Property> Properties { get; set; } = new List<Property>();
+
+        public string PropertyList
+        {
+            get
+            {
+                var propertyList = Properties.Select(property => PropertyTemplateFactory.Insatnce.Create(property)).ToList();
+                return string.Join(",\n                     ", propertyList);
+            }
+        }
     }
 }
+

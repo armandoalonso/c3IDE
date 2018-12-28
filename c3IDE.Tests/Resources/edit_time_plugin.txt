@@ -1,10 +1,10 @@
-﻿"use strict";
+"use strict";
 {
-        const PLUGIN_ID = "{{plugin.company}}_{{plugin.class_name}}";
-        const PLUGIN_VERSION = "{{plugin.version}}";
-        const PLUGIN_CATEGORY = "{{plugin.category}}";
+        const PLUGIN_ID = "MyCompany_NewPlugin";
+        const PLUGIN_VERSION = "0.0.0.1";
+        const PLUGIN_CATEGORY = "general";
 
-        const PLUGIN_CLASS = SDK.Plugins.{{plugin.company}}_{{plugin.class_name}} = class {{plugin.class_name}}Plugin extends SDK.IPluginBase
+        const PLUGIN_CLASS = SDK.Plugins.MyCompany_NewPlugin = class NewPluginPlugin extends SDK.IPluginBase
         {
             constructor()
             {
@@ -16,7 +16,7 @@
                 this._info.SetDescription(lang(".description"));
                 this._info.SetVersion(PLUGIN_VERSION);
                 this._info.SetCategory(PLUGIN_CATEGORY);
-                this._info.SetAuthor("{{plugin.author}}");
+                this._info.SetAuthor("c3IDE");
                 this._info.SetHelpUrl(lang(".help-url"));
                 this._info.SetIsSingleGlobal(true);
                 
@@ -26,7 +26,8 @@
                 SDK.Lang.PushContext(".properties");
                 
                 this._info.SetProperties([
-                     {{plugin.property_list}}
+                     new SDK.PluginProperty("text", "test-property",  "TEST" ),
+                     new SDK.PluginProperty("integer", "test-property2", { "initialValue":5  })
                 ]);
                 
                 SDK.Lang.PopContext();		// .properties

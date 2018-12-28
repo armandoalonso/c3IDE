@@ -83,13 +83,21 @@
     <Compile Include="DaataAccess\DataAccessFacade.cs" />
     <Compile Include="DaataAccess\IRepository.cs" />
     <Compile Include="DaataAccess\OptionsRepository.cs" />
+    <Compile Include="Models\AceParam.cs" />
+    <Compile Include="Models\Aces.cs" />
+    <Compile Include="Models\Action.cs" />
     <Compile Include="Models\ApplicationOptions.cs" />
     <Compile Include="Models\C3Plugin.cs" />
     <Compile Include="Models\C3PluginFactory.cs" />
+    <Compile Include="Models\EditTimeInstance.cs" />
+    <Compile Include="Models\EditTimeType.cs" />
     <Compile Include="Models\Plugin.cs" />
     <Compile Include="Models\PluginType.cs" />
     <Compile Include="Models\Property.cs" />
+    <Compile Include="Templates\AceParamTemplateFactory.cs" />
+    <Compile Include="Templates\AceTemplateFactory.cs" />
     <Compile Include="Templates\ITemplate.cs" />
+    <Compile Include="Templates\PropertyTemplateFactory.cs" />
     <Compile Include="Templates\SingleGlobalPluginTemplate.cs" />
     <Compile Include="Templates\TemplateCompiler.cs" />
     <Compile Include="Templates\TemplateFactory.cs" />
@@ -182,6 +190,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Templates\TemplateFiles\SingleGlobal\LanguageTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\TemplateFiles\Common\AceActionTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Templates\TemplateFiles\Common\AceActionParamsTemplate.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

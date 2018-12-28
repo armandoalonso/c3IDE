@@ -1,13 +1,12 @@
 ﻿"use strict";
-
 {
-    const PLUGIN_CLASS = SDK.Plugins.{{plugin.company}}_{{plugin.name}};
+    const PLUGIN_CLASS = SDK.Plugins.{{plugin.company}}_{{plugin.class_name}};
 
-    PLUGIN_CLASS.Type = class {{plugin.name}}Type extends SDK.ITypeBase
+    PLUGIN_CLASS.Type = class {{plugin.class_name}}Type extends SDK.ITypeBase
     {
-        constructor(sdkPlugin, iObjectType)
-        {
-            super(sdkPlugin, iObjectType);
-        }
+		  {{edit_time_type.constructor}}
+          {{ for function in edit_time_type.functions }}
+          {{function}}
+          {{ end }}
     };
 }

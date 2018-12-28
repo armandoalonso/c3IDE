@@ -1,9 +1,11 @@
 ﻿{
-	 //todo : name to lower
-     "{{plugin.name}}": {
+     "{{plugin.class_name | string.downcase}}": {
           "conditions": [
           ],
-          "actions": [
+          "actions":
+               {{ for act in actions }}
+               {{act}}
+               {{ end }}
           ],
           "expressions": [
           ]

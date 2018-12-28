@@ -17,13 +17,11 @@ namespace c3IDE.Models
 
         public bool HasMinMax { get; set; }
         public bool HasDragSpeed { get; set; }
-        public bool HasCombo { get; set; }
-        public bool HasInitalValue { get; set; }
+        public bool ForEachInstance { get; set;}
 
         public string MinValue { get; set; }
         public string MaxValue { get; set; }
         public string DragSpeedValue { get; set; }
         public List<string> Items { get; set; }
-        public string InitialValue { get; set; }
     }
 }

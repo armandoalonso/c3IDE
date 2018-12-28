@@ -4,26 +4,17 @@
      
      PLUGIN_CLASS.Instance = class {{plugin.name}}Instance extends SDK.IInstanceBase
      {
-          constructor(sdkType, inst)
-          {
-               super(sdkType, inst);
-          }
+          {{edit_time_instance.constructor}}
           
-          Release()
-          {
-          }
+          {{edit_time_instance.release}}
           
-          OnCreate()
-          {
-          }
+          {{edit_time_instance.on_create}}
           
-          OnPropertyChanged(id, value)
-          {
-          }
+          {{edit_time_instance.on_property_changed}}
           
-          LoadC2Property(name, valueString)
-          {
-               return false;          // not handled
-          }
+          {{edit_time_instance.load_c2_property}}
+          {{ for function in edit_time_instance.functions }}
+          {{function}}
+          {{ end }}
      };
 }
