@@ -12,12 +12,6 @@
     <Window.Resources>
         <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type mah:HamburgerMenuIconItem}">
             <Grid Height="48">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                        
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48" />
                     <ColumnDefinition />
@@ -39,7 +33,7 @@
     
     <Grid>
         <mah:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}"
-                           ItemClick="HamburgerMenu_OnItemClick">
+                           ItemClick="HamburgerMenu_OnItemClick" x:Name="MainMenu">
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Dashboard" Tag="Dashboard"/>

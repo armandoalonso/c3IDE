@@ -65,6 +65,9 @@ namespace c3IDE
                     ActiveItem.Content = DashboardWin;
                     break;
             }
+
+            //close menu pane
+            MainMenu.IsPaneOpen = false;
         }
     }
 }
