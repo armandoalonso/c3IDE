@@ -11,5 +11,7 @@ namespace c3IDE.Models
         public Dictionary<string, string> Categories { get; set; } = new Dictionary<string, string>();
 
         public List<Action> Actions { get; set; } = new List<Action>();
+
+        public List<Condition> Conditions { get; set; } = new List<Condition>();
     }
 }

@@ -14,7 +14,7 @@ namespace c3IDE.Tests
             var template = TemplateFactory.Insatnce.CreateTemplate(PluginType.SingleGlobalPlugin);
             var data = C3PluginFactory.Insatnce.Create(template);
             var compiled = TemplateCompiler.Insatnce.CompileTemplates(template.EditTimeInstanceJs, data);
-            VerifyFile("edit_time_instance.txt", compiled, true);
+            VerifyFile("edit_time_instance.txt", compiled);
         }
     }
 }

@@ -7,13 +7,19 @@ using c3IDE.Templates;
 
 namespace c3IDE.Models
 {
-    public class Action
+    public class Condition
     {
         public string CategoryId { get; set; }
         public string Id { get; set; }
         public string ScriptName { get; set; }
         public bool Highlight { get; set; }
         public bool IsDeprecated { get; set; }
+        public bool IsTrigger { get; set; }
+        public bool IsFakeTrigger { get; set; }
+        public bool IsStatic { get; set; }
+        public bool IsLooping { get; set; }
+        public bool IsInvertible { get; set; }
+        public bool IsCompatibleWithTriggers { get; set; }
         public List<AceParam> Params { get; set; } = new List<AceParam>();
         public string ParamList
         {

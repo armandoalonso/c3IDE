@@ -85,6 +85,7 @@
     <Compile Include="DaataAccess\OptionsRepository.cs" />
     <Compile Include="Models\AceParam.cs" />
     <Compile Include="Models\Aces.cs" />
+    <Compile Include="Models\Condition.cs" />
     <Compile Include="Models\Action.cs" />
     <Compile Include="Models\ApplicationOptions.cs" />
     <Compile Include="Models\C3Plugin.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Templates\TemplateCompiler.cs" />
     <Compile Include="Templates\TemplateFactory.cs" />
     <Compile Include="Utilities\ImageHelper.cs" />
+    <Compile Include="Utilities\JsonHelper.cs" />
     <Compile Include="Utilities\ResourceReader.cs" />
     <Compile Include="Utilities\Singleton.cs" />
     <Compile Include="Windows\DashboardWindow.xaml.cs">
