@@ -7,19 +7,15 @@ using c3IDE.Templates;
 
 namespace c3IDE.Models
 {
-    public class Condition
+    public class Expression 
     {
         public string CategoryId { get; set; }
         public string Id { get; set; }
-        public string ScriptName { get; set; }
+        public string ExpressionName { get; set; }
+        public string ReturnType { get; set; }
         public bool Highlight { get; set; }
         public bool IsDeprecated { get; set; }
-        public bool IsTrigger { get; set; } = false;
-        public bool IsFakeTrigger { get; set; } = false;
-        public bool IsStatic { get; set; } = false;
-        public bool IsLooping { get; set; } = false;
-        public bool IsInvertible { get; set; } = true;
-        public bool IsCompatibleWithTriggers { get; set; } = true;
+        public bool IsVariadicParams { get; set; }
         public List<AceParam> Params { get; set; } = new List<AceParam>();
         public string ParamList
         {
@@ -31,7 +27,7 @@ namespace c3IDE.Models
         }
 
         public string ListName { get; set; }
-        public string DisplayText { get; set; }
+        public string TranslatedName { get; set; }
         public string Description { get; set; }
 
         public string Code { get; set; }

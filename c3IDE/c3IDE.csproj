@@ -85,6 +85,7 @@
     <Compile Include="DaataAccess\OptionsRepository.cs" />
     <Compile Include="Models\AceParam.cs" />
     <Compile Include="Models\Aces.cs" />
+    <Compile Include="Models\Expression.cs" />
     <Compile Include="Models\Condition.cs" />
     <Compile Include="Models\Action.cs" />
     <Compile Include="Models\ApplicationOptions.cs" />

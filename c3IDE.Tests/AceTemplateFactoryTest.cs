@@ -42,5 +42,38 @@ namespace c3IDE.Tests
             var results = AceTemplateFactory.Insatnce.Create(aceData);
             VerifyFile("ace_action.txt", results, true);
         }
+
+        [TestMethod]
+        public void GenerateConditionStringTest()
+        {
+            var cat = new Dictionary<string, string>();
+            cat.Add("test1", "Test1");
+            cat.Add("test2", "Test2");
+
+            var aceData = new Aces
+            {
+                Conditions = new List<Condition>
+                {
+                    new Condition {  CategoryId = "test1", Highlight = false, Id = "no-param", ScriptName = "Test1", IsLooping = true },
+                    new Condition {  CategoryId = "test1", Highlight = true, Id = "yes-param", ScriptName = "Test2", IsTrigger = true,
+                        Params = new List<AceParam>
+                        {
+                            new AceParam { Id="param1", Type="string", InitalValue="test" },
+                            new AceParam { Id="param2", Type="number", InitalValue="5" },
+                        }},
+                    new Condition {  CategoryId = "test2", Highlight = false, Id = "no-param", ScriptName = "Test3", IsInvertible = true, IsCompatibleWithTriggers = false },
+                    new Condition {  CategoryId = "test2", Highlight = true, Id = "yes-param", ScriptName = "Test4", IsInvertible = false, IsCompatibleWithTriggers = true,
+                        Params = new List<AceParam>
+                        {
+                            new AceParam { Id="param1", Type="string", InitalValue="hello,world" },
+                            new AceParam { Id="param2", Type="number", InitalValue="10" },
+                        }},
+                },
+                Categories = cat
+            };
+
+            var results = AceTemplateFactory.Insatnce.Create(aceData);
+            VerifyFile("ace_condition.txt", results, true);
+        }
     }
 }

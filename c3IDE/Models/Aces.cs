@@ -13,5 +13,7 @@ namespace c3IDE.Models
         public List<Action> Actions { get; set; } = new List<Action>();
 
         public List<Condition> Conditions { get; set; } = new List<Condition>();
+
+        public List<Expression> Expressions{ get; set; } = new List<Expression>();
     }
 }
