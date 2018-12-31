@@ -20,7 +20,7 @@ namespace c3IDE.Templates
                     template = $"{{\"id\": \"{param.Id}\",\"type\": \"{param.Type}\"{allowed} }}";
                     break;
                 case "combo":
-                    var items = param.Items.Any() ? string.Join(",", param.Items.Select(x => $"\"{x}\"")) : string.Empty;
+                    var items = param.Items.Any() ? string.Join(",", param.Items.Keys.Select(x => $"\"{x}\"")) : string.Empty;
                     template = $"{{\"id\": \"{param.Id}\",\"type\": \"{param.Type}\", \"items\": [{items}] }}";
                     break;
                 case "string":
@@ -35,6 +35,32 @@ namespace c3IDE.Templates
                     template = $"{{\"id\": \"{param.Id}\",\"type\": \"{param.Type}\"{value} }}"; ;
                     break;
             }
+            return template;
+        }
+
+        public string CreateLanguage(AceParam param)
+        {
+            string template;
+            switch (param.Type)
+            {
+                case "combo":
+                    var items = string.Join(",\n", param.Items.Select(x => $"\"{x.Key}\": \"{x.Value}\"")) ;
+                    template = $@"""{param.Id}"": {{
+                        ""name"": {param.Name},
+                        ""desc"": {param.Description},
+                        ""items"": {{
+                            {items}
+                        }}
+                    }}";
+                    break;
+                default:
+                    template = $@"""{param.Id}"": {{
+                        ""name"": {param.Name},
+                        ""desc"": {param.Description}
+                    }}";
+                    break;
+            }
+
             return template;
         }
     }

@@ -24,6 +24,15 @@ namespace c3IDE.Models
             }
         }
 
+        public string ParamLangList
+        {
+            get
+            {
+                var paramList = Params.Select(param => AceParamTemplateFactory.Insatnce.CreateLanguage(param)).ToList();
+                return string.Join(",\n               ", paramList);
+            }
+        }
+
         public string ListName { get; set; }
         public string DisplayText { get; set; }
         public string Description { get; set; }

@@ -58,6 +58,7 @@
     <Compile Include="TestBase.cs" />
     <Compile Include="EditTimeInstanceTest.cs" />
     <Compile Include="AceTemplateFactoryTest.cs" />
+    <Compile Include="LanguageFileTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

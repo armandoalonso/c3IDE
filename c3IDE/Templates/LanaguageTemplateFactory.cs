@@ -41,21 +41,8 @@ namespace c3IDE.Templates
 		}}
 	}}
 }}";
-
-            //properties
-
-            //categories
-
-            //actions
-
-            //conditions
-                
-            //expression
-
-
-            return string.Empty;
+            return JsonHelper.Insatnce.FormatJson(template);
         }
-
 
         private string GeneratePropertLang(C3Plugin data)
         {
@@ -63,7 +50,7 @@ namespace c3IDE.Templates
 
             foreach (var property in data.Plugin.Properties)
             {
-                string template = string.Empty;
+                string template;
                 switch (property.Type)
                 {
                     case "combo":
@@ -101,25 +88,110 @@ namespace c3IDE.Templates
             return string.Join(",\n", itemList);
         }
 
-
         private string GenerateCategoryLang(C3Plugin data)
         {
-            throw new NotImplementedException();
+            var categoryList = data.Aces.Categories.Select(category => $@"""{category.Key}"": ""{category.Value}""").ToList();
+            return string.Join(",\n", categoryList);
         }
 
         private string GenerateConditionsLang(C3Plugin data)
         {
-            throw new NotImplementedException();
+            var conditionList = new List<string>();
+
+            foreach (var condition in data.Aces.Conditions)
+            {
+                var parameters = $@"                ""params"": {{
+                    {condition.ParamLangList}
+                }}";
+
+                if (condition.Params.Any())
+                {
+                    var template = $@"""{condition.Id}"": {{
+						""list-name"": ""{condition.ListName}"",
+						""display-text"": ""{condition.DisplayText}"",
+						""description"": ""{condition.Description}"",
+                        {parameters}
+                   }}";
+                    conditionList.Add(template);
+                }
+                else
+                {
+                    var template = $@"""{condition.Id}"": {{
+						""list-name"": ""{condition.ListName}"",
+						""display-text"": ""{condition.DisplayText}"",
+						""description"": ""{condition.Description}""
+                   }}";
+                    conditionList.Add(template);
+                }
+            }
+
+            return string.Join(",\n", conditionList);
         }
 
         private string GenerateActionsLang(C3Plugin data)
         {
-            throw new NotImplementedException();
+            var actionList = new List<string>();
+
+            foreach (var action in data.Aces.Actions)
+            {
+                var parameters = $@"                ""params"": {{
+                    {action.ParamLangList}
+                }}";
+
+                if (action.Params.Any())
+                {
+                    var template = $@"""{action.Id}"": {{
+						""list-name"": ""{action.ListName}"",
+						""display-text"": ""{action.DisplayText}"",
+						""description"": ""{action.Description}"",
+                        {parameters}
+                   }}";
+                    actionList.Add(template);
+                }
+                else
+                {
+                    var template = $@"""{action.Id}"": {{
+						""list-name"": ""{action.ListName}"",
+						""display-text"": ""{action.DisplayText}"",
+						""description"": ""{action.Description}""
+                   }}";
+                    actionList.Add(template);
+                }
+            }
+
+            return string.Join(",\n", actionList);
         }
 
         private string GenerateExpressionsLang(C3Plugin data)
         {
-            throw new NotImplementedException();
+            var expressionList = new List<string>();
+
+            foreach (var expression in data.Aces.Expressions)
+            {
+                var parameters = $@"                ""params"": {{
+                    {expression.ParamLangList}
+                }}";
+
+                if (expression.Params.Any())
+                {
+                    var template = $@"""{expression.Id}"": {{
+						""description"": ""{expression.Description}"",
+					    ""translated-name"": ""{expression.TranslatedName}"",
+                        {parameters}
+                   }}";
+                    expressionList.Add(template);
+                }
+                else
+                {
+                    var template = $@"""{expression.Id}"": {{
+						""description"": ""{expression.Description}"",
+					    ""translated-name"": ""{expression.TranslatedName}""
+                   }}";
+                    expressionList.Add(template);
+                }
+            }
+
+            return string.Join(",\n", expressionList);
         }
     }
 }

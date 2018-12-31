@@ -11,7 +11,7 @@ namespace c3IDE.Models
         public string Id { get; set; }
         public string Type { get; set; }
         public string InitalValue { get; set; }
-        public List<string> Items { get; set; }
+        public Dictionary<string, string> Items { get; set; }
         public List<string> AllowedPluginIds { get; set; }
 
         public string Name { get; set; }

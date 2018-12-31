@@ -1,0 +1,149 @@
+{
+	"languageTag": "en-US",
+	"fileDescription": "Strings for New Plugin Plugin",
+	"text": {
+		"plugins": {
+			"mycompany_newplugin": {
+				"name": "New Plugin",
+				"description": "This plugin was created using c3IDE",
+				"help-url": "https://github.com/armandoalonso/c3IDE",
+				"properties": {
+                    "test-property": {
+						"name": "",
+						"desc": "This is a test property"
+					},
+"test-property2": {
+						"name": "",
+						"desc": "This is a test another property"
+					}
+				},
+				"aceCategories": {
+					"test1": "Test1",
+"test2": "Test2"
+				},
+				"conditions": {
+                    "no-param": {
+						"list-name": "Test1_list",
+						"display-text": "Test1_display",
+						"description": "Test1_desc"
+                   },
+"yes-param": {
+						"list-name": "Test2_list",
+						"display-text": "Test2_display",
+						"description": "Test2_desc",
+                                        "params": {
+                    param1: {
+                        "name": param1_name,
+                        "desc": param1_desc
+                    },
+               param2: {
+                        "name": param2_name,
+                        "desc": param2_desc
+                    }
+                }
+                   },
+"no-param": {
+						"list-name": "Test3_list",
+						"display-text": "Test3_display",
+						"description": "Test3_desc"
+                   },
+"yes-param": {
+						"list-name": "Test4_list",
+						"display-text": "Test4_display",
+						"description": "Test4_desc",
+                                        "params": {
+                    param1: {
+                        "name": param1_name,
+                        "desc": param1_desc
+                    },
+               param2: {
+                        "name": param2_name,
+                        "desc": param2_desc
+                    }
+                }
+                   }
+				},
+				"actions": {
+					"no-param": {
+						"list-name": "Test1_list",
+						"display-text": "Test1_display",
+						"description": "Test1_desc"
+                   },
+"yes-param": {
+						"list-name": "Test2_list",
+						"display-text": "Test2_display",
+						"description": "Test2_desc",
+                                        "params": {
+                    param1: {
+                        "name": param1_name,
+                        "desc": param1_desc
+                    },
+               param2: {
+                        "name": param2_name,
+                        "desc": param2_desc
+                    }
+                }
+                   },
+"no-param": {
+						"list-name": "Test3_list",
+						"display-text": "Test3_display",
+						"description": "Test3_desc"
+                   },
+"yes-param": {
+						"list-name": "Test3_list",
+						"display-text": "Test3_display",
+						"description": "Test3_desc",
+                                        "params": {
+                    param1: {
+                        "name": param1_name,
+                        "desc": param1_desc
+                    },
+               param2: {
+                        "name": param2_name,
+                        "desc": param2_desc
+                    }
+                }
+                   }				
+				},
+				"expressions": {
+					"no-param": {
+						"description": "Test1_desc",
+					    "translated-name": "Test1_trans"
+                   },
+"yes-param": {
+						"description": "Test2_desc",
+					    "translated-name": "Test2_trans",
+                                        "params": {
+                    param1: {
+                        "name": param1_name,
+                        "desc": param1_desc
+                    },
+               param2: {
+                        "name": para2_name,
+                        "desc": param2_desc
+                    }
+                }
+                   },
+"no-param": {
+						"description": "Test3_desc",
+					    "translated-name": "Test3_trans"
+                   },
+"yes-param": {
+						"description": "Test4_desc",
+					    "translated-name": "Test4_trans",
+                                        "params": {
+                    param1: {
+                        "name": param3_name,
+                        "desc": param3_desc
+                    },
+               param2: {
+                        "name": param4_name,
+                        "desc": param4_desc
+                    }
+                }
+                   }	
+				}		
+			}
+		}
+	}
+}

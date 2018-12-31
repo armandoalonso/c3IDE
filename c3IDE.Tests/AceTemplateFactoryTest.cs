@@ -9,7 +9,6 @@ namespace c3IDE.Tests
     [TestClass]
     public class AceTemplateFactoryTest : TestBase
     {
-
         private readonly List<Action> actions = new List<Action> {
               new Action {  CategoryId = "test1", Highlight = false, Id = "no-param", ScriptName = "Test1" },
               new Action {  CategoryId = "test1", Highlight = true, Id = "yes-param", ScriptName = "Test2",
