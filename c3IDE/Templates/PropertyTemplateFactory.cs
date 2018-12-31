@@ -17,7 +17,7 @@ namespace c3IDE.Templates
             switch (property.Type)
             {
                 case "combo":
-                    var items = property.Items.Any() ? string.Join(",", property.Items.Select(x => $"\"{x}\"")) : string.Empty;
+                    var items = property.Items.Any() ? string.Join(",", property.Items.Keys.Select(x => $"\"{x}\"")) : string.Empty;
                     template = $"new SDK.PluginProperty(\"{property.Type}\", \"{property.Id}\", {{ \"initialValue\":\"{property.Value}\", \"items\": ["+items+"] })";
                     break;
                 case "color":

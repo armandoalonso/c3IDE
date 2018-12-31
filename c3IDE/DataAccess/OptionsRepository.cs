@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using c3IDE.Models;
 using LiteDB;
 
-namespace c3IDE.DaataAccess
+namespace c3IDE.DataAccess
 {
     public class OptionsRepository : IRepository<ApplicationOptions>
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace c3IDE.DaataAccess
+namespace c3IDE.DataAccess
 {
     public interface IRepository<T>
     {

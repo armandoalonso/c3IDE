@@ -80,9 +80,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DaataAccess\DataAccessFacade.cs" />
-    <Compile Include="DaataAccess\IRepository.cs" />
-    <Compile Include="DaataAccess\OptionsRepository.cs" />
+    <Compile Include="DataAccess\DataAccessFacade.cs" />
+    <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="DataAccess\OptionsRepository.cs" />
     <Compile Include="Models\AceParam.cs" />
     <Compile Include="Models\Aces.cs" />
     <Compile Include="Models\Expression.cs" />

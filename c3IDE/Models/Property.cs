@@ -14,6 +14,7 @@ namespace c3IDE.Models
         public string Value { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string LinkText { get; set; }
 
         public bool HasMinMax { get; set; }
         public bool HasDragSpeed { get; set; }
@@ -22,6 +23,6 @@ namespace c3IDE.Models
         public string MinValue { get; set; }
         public string MaxValue { get; set; }
         public string DragSpeedValue { get; set; }
-        public List<string> Items { get; set; }
+        public Dictionary<string, string> Items { get; set; }
     }
 }
