@@ -1,16 +1,18 @@
 {
   "test1": {
-    "conditions": [
+    "conditions": [],
+    "actions": [],
+    "expressions": [
       {
         "id": "no-param",
-        "scriptName": "Test1",
-        "isLooping": true
+        "expressionName": "Test1",
+        "returnType": "any"
       },
       {
         "id": "yes-param",
-        "scriptName": "Test2",
+        "expressionName": "Test2",
+        "returnType": "string",
         "highlight": true,
-        "isTrigger": true,
         "params": [
           {
             "id": "param1",
@@ -22,22 +24,23 @@
           }
         ]
       }
-    ],
-    "actions": [],
-    "expressions": []
+    ]
   },
   "test2": {
-    "conditions": [
+    "conditions": [],
+    "actions": [],
+    "expressions": [
       {
         "id": "no-param",
-        "scriptName": "Test3",
-        "isCompatibleWithTriggers": false
+        "expressionName": "Test3",
+        "returnType": "number"
       },
       {
         "id": "yes-param",
-        "scriptName": "Test4",
+        "expressionName": "Test4",
+        "returnType": "any",
         "highlight": true,
-        "isInvertible": false,
+        "isVariadicParams": true,
         "params": [
           {
             "id": "param1",
@@ -49,8 +52,6 @@
           }
         ]
       }
-    ],
-    "actions": [],
-    "expressions": []
+    ]
   }
 }

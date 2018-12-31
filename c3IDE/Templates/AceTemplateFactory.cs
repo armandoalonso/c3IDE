@@ -48,7 +48,7 @@ namespace c3IDE.Templates
 
             foreach (var exp in ace.Expressions)
             {
-                if (_conditions.ContainsKey(exp.CategoryId))
+                if (_expressions.ContainsKey(exp.CategoryId))
                 {
                     _expressions[exp.CategoryId].Add(exp);
                 }

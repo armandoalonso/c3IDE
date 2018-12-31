@@ -1,0 +1,141 @@
+{
+  "test1": {
+    "conditions": [
+      {
+        "id": "no-param",
+        "scriptName": "Test1",
+        "isLooping": true
+      },
+      {
+        "id": "yes-param",
+        "scriptName": "Test2",
+        "highlight": true,
+        "isTrigger": true,
+        "params": [
+          {
+            "id": "param1",
+            "type": "string"
+          },
+          {
+            "id": "param2",
+            "type": "number"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "no-param",
+        "scriptName": "Test1"
+      },
+      {
+        "id": "yes-param",
+        "scriptName": "Test2",
+        "highlight": true,
+        "params": [
+          {
+            "id": "param1",
+            "type": "string"
+          },
+          {
+            "id": "param2",
+            "type": "number"
+          }
+        ]
+      }
+    ],
+    "expressions": [
+      {
+        "id": "no-param",
+        "expressionName": "Test1",
+        "returnType": "any"
+      },
+      {
+        "id": "yes-param",
+        "expressionName": "Test2",
+        "returnType": "string",
+        "highlight": true,
+        "params": [
+          {
+            "id": "param1",
+            "type": "string"
+          },
+          {
+            "id": "param2",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  },
+  "test2": {
+    "conditions": [
+      {
+        "id": "no-param",
+        "scriptName": "Test3",
+        "isCompatibleWithTriggers": false
+      },
+      {
+        "id": "yes-param",
+        "scriptName": "Test4",
+        "highlight": true,
+        "isInvertible": false,
+        "params": [
+          {
+            "id": "param1",
+            "type": "string"
+          },
+          {
+            "id": "param2",
+            "type": "number"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "no-param",
+        "scriptName": "Test3"
+      },
+      {
+        "id": "yes-param",
+        "scriptName": "Test4",
+        "highlight": true,
+        "params": [
+          {
+            "id": "param1",
+            "type": "string"
+          },
+          {
+            "id": "param2",
+            "type": "number"
+          }
+        ]
+      }
+    ],
+    "expressions": [
+      {
+        "id": "no-param",
+        "expressionName": "Test3",
+        "returnType": "number"
+      },
+      {
+        "id": "yes-param",
+        "expressionName": "Test4",
+        "returnType": "any",
+        "highlight": true,
+        "isVariadicParams": true,
+        "params": [
+          {
+            "id": "param1",
+            "type": "string"
+          },
+          {
+            "id": "param2",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  }
+}

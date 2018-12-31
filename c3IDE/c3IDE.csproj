@@ -99,6 +99,7 @@
     <Compile Include="Templates\AceParamTemplateFactory.cs" />
     <Compile Include="Templates\AceTemplateFactory.cs" />
     <Compile Include="Templates\ITemplate.cs" />
+    <Compile Include="Templates\LanaguageTemplateFactory.cs" />
     <Compile Include="Templates\PropertyTemplateFactory.cs" />
     <Compile Include="Templates\SingleGlobalPluginTemplate.cs" />
     <Compile Include="Templates\TemplateCompiler.cs" />
@@ -193,12 +194,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Templates\TemplateFiles\SingleGlobal\LanguageTemplate.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Templates\TemplateFiles\Common\AceActionTemplate.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Templates\TemplateFiles\Common\AceActionParamsTemplate.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
