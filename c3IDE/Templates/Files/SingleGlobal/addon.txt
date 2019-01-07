@@ -1,0 +1,31 @@
+﻿{
+	"is-c3-addon": true,
+	"type": "plugin",
+	"name": "{{name}}",
+	"id": "{{company}}_{{class}}",
+	"version": "{{version}}",
+	"author": "{{author}}",
+	"website": "https://www.construct.net",
+	"documentation": "https://www.construct.net",
+	"description": "Example custom Construct 3 plugin.",
+	"editor-scripts": [
+						"plugin.js",
+						"type.js",
+						"instance.js"
+					],
+	"file-list": [
+		"c3runtime/plugin.js",
+		"c3runtime/type.js",
+		"c3runtime/instance.js",
+		"c3runtime/conditions.js",
+		"c3runtime/actions.js",
+		"c3runtime/expressions.js",
+		"lang/en-US.json",
+		"aces.json",
+		"addon.json",
+		"icon.png",
+		"instance.js",
+		"plugin.js",
+		"type.js"
+	]
+}

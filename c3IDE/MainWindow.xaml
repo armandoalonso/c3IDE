@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:c3IDE"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="c3IDE" Height="850" Width="1250">
-    <Window.Resources>
+        Title="c3IDE" Height="762" Width="1200" WindowStartupLocation="CenterScreen">
+    
+    <mah:MetroWindow.Resources>
+        <!-- Hamburger Menu Button Template -->
         <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type mah:HamburgerMenuIconItem}">
             <Grid Height="48">
                 <Grid.ColumnDefinitions>
@@ -17,11 +18,11 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <ContentControl Grid.Column="0"
-                           FontSize="16"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Foreground="White"
-                           Content="{Binding Icon}" />
+                                FontSize="16"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="White"
+                                Content="{Binding Icon}" />
                 <TextBlock Grid.Column="1"
                            VerticalAlignment="Center"
                            FontSize="16"
@@ -29,21 +30,21 @@
                            Text="{Binding Label}" />
             </Grid>
         </DataTemplate>
-    </Window.Resources>
-    
+    </mah:MetroWindow.Resources>
+      
     <Grid>
         <mah:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}"
-                           ItemClick="HamburgerMenu_OnItemClick" x:Name="MainMenu">
+                           ItemClick="HambugerMenuItem_Click" x:Name="MainMenu">
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Dashboard" Tag="Dashboard"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=PlusBox}" Label="Addon" Tag="Addon"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=PowerPlug}" Label="Plugin" Tag="Plugin"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Grid}" Label="Properties" Tag="Properties"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=CircleEditOutline}" Label="EditTime JS" Tag="EditTime"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=FlashCircle}" Label="RunTime JS" Tag="RunTime"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=FileReplace}" Label="Type" Tag="Type"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=FileDocument}" Label="Instance" Tag="Instance"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=RunFast}" Label="Actions" Tag="Actions"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Equal}" Label="Conditions" Tag="Conditions"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Pi}" Label="Expressions" Tag="Expressions"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:MaterialDesign Kind=Functions}" Label="Expressions" Tag="Expressions"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=GlobeAmericasSolid}" Label="Language" Tag="Language"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Beaker}" Label="Test" Tag="Test"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Download}" Label="Export" Tag="Export"/>

@@ -9,69 +9,69 @@ using LiteDB;
 
 namespace c3IDE.DataAccess
 {
-    public class OptionsRepository : IRepository<ApplicationOptions>
+    public class AddonRepository : IRepository<C3Addon>
     {
         public string Database { get; set; } = "data.db";
-        public string Collection { get; set; } = "Options";
-        public void Insert(ApplicationOptions value)
+        public string Collection { get; set; } = "Addons";
+        public void Insert(C3Addon value)
         {
             using (var db = new LiteDatabase(Database))
             {
-                var collection = db.GetCollection<ApplicationOptions>(Collection);
+                var collection = db.GetCollection<C3Addon>(Collection);
                 collection.Insert(value);
             }
         }
 
-        public void Upsert(ApplicationOptions value)
+        public void Upsert(C3Addon value)
         {
             using (var db = new LiteDatabase(Database))
             {
-                var collection = db.GetCollection<ApplicationOptions>(Collection);
+                var collection = db.GetCollection<C3Addon>(Collection);
                 collection.Upsert(value);
             }
         }
 
-        public void BulkInsert(IEnumerable<ApplicationOptions> values)
+        public void BulkInsert(IEnumerable<C3Addon> values)
         {
             using (var db = new LiteDatabase(Database))
             {
-                var collection = db.GetCollection<ApplicationOptions>(Collection);
+                var collection = db.GetCollection<C3Addon>(Collection);
                 collection.Insert(values);
             }
         }
 
-        public void BulkUpsert(IEnumerable<ApplicationOptions> values)
+        public void BulkUpsert(IEnumerable<C3Addon> values)
         {
             using (var db = new LiteDatabase(Database))
             {
-                var collection = db.GetCollection<ApplicationOptions>(Collection);
+                var collection = db.GetCollection<C3Addon>(Collection);
                 collection.Upsert(values);
             }
         }
 
-        public IEnumerable<ApplicationOptions> GetAll()
+        public IEnumerable<C3Addon> GetAll()
         {
             using (var db = new LiteDatabase(Database))
             {
-                var collection = db.GetCollection<ApplicationOptions>(Collection);
+                var collection = db.GetCollection<C3Addon>(Collection);
                 return collection.FindAll();
             }
         }
 
-        public IEnumerable<ApplicationOptions> Get(Expression<Func<ApplicationOptions, bool>> predicate)
+        public IEnumerable<C3Addon> Get(Expression<Func<C3Addon, bool>> predicate)
         {
             using (var db = new LiteDatabase(Database))
             {
-                var collection = db.GetCollection<ApplicationOptions>(Collection);
+                var collection = db.GetCollection<C3Addon>(Collection);
                 return collection.Find(predicate);
             }
         }
 
-        public void Delete(ApplicationOptions value)
+        public void Delete(C3Addon value)
         {
             using (var db = new LiteDatabase(Database))
             {
-                var collection = db.GetCollection<ApplicationOptions>(Collection);
+                var collection = db.GetCollection<C3Addon>(Collection);
                 collection.Delete(value.Id);
             }
         }

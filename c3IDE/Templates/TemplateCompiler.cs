@@ -1,16 +1,18 @@
-﻿using c3IDE.Models;
+﻿using System.Threading.Tasks;
 using c3IDE.Utilities;
-using System.Threading.Tasks;
 using Scriban;
 
 namespace c3IDE.Templates
 {
-    public class TemplateCompiler : Singleton<TemplateCompiler>
+    namespace c3IDE.Templates
     {
-        public string CompileTemplates(string templates, C3Plugin data)
+        public class TemplateCompiler : Singleton<TemplateCompiler>
         {
-            var templateData = Template.Parse(templates);
-            return templateData.Render(data);
+            public string CompileTemplates(string templates, object data)
+            {
+                var templateData = Template.Parse(templates);
+                return templateData.Render(data);
+            }
         }
     }
 }

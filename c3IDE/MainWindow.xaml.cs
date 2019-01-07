@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.DataAccess;
-using c3IDE.Models;
 using c3IDE.Windows;
 using MahApps.Metro.Controls;
 
@@ -24,31 +23,68 @@ namespace c3IDE
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        #region Pages
-        public DashboardWindow DashboardWin = new DashboardWindow();
-        public PluginWindow PluginWin = new PluginWindow();
-        #endregion
-
-        public ApplicationOptions Options { get; set; }
+        public DashboardWindow dashboardWindow = new DashboardWindow();
+        public AddonWindow addonWindow = new AddonWindow();
+        private string _currentActiveWindow;
 
         public MainWindow()
         {
             InitializeComponent();
-            Options = DataAccessFacade.Insatnce.Options.GetAll().First() ?? new ApplicationOptions();
+
+            //load data
+            AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
+            AppData.Insatnce.CurrentAddon = AppData.Insatnce.AddonList.Any() ? AppData.Insatnce.AddonList.OrderBy(x => x.LastModified).FirstOrDefault() : null;
+
+            //setup default view
+            ActiveItem.Content = dashboardWindow;
+            dashboardWindow.OnEnter();
+            _currentActiveWindow = dashboardWindow.DisplayName;
         }
 
-        private void HamburgerMenu_OnItemClick(object sender, ItemClickEventArgs e)
+        private void HambugerMenuItem_Click(object sender, ItemClickEventArgs e)
         {
+
+            //execute on exit
+            switch (_currentActiveWindow)
+            {
+                case "Dashboard":
+                    dashboardWindow.OnExit();
+                    break;
+                case "Addon":
+                    addonWindow.OnExit();
+                    break;
+                //case "Plugin":
+                //    break;
+                //case "EditTime JS": 
+                //    break;
+                //case "RunTime JS":
+                //    break;
+                //case "Actions":
+                //    break;
+                //case "Conditions":
+                //    break;
+                //case "Expressions":
+                //    break;
+                //case "Language":
+                //    break;
+                //case "Test":
+                //    break;
+                //case "Export":
+                //    break;
+            }
+
             var clickedLabel = ((HamburgerMenuIconItem)e.ClickedItem).Label;
             switch (clickedLabel)
             {
                 case "Dashboard":
-                    ActiveItem.Content = DashboardWin;
+                    ActiveItem.Content = dashboardWindow;
+                    dashboardWindow.OnEnter();
                     break;
-                case "Plugin":
-                    ActiveItem.Content = PluginWin;
+                case "Addon":
+                    ActiveItem.Content = addonWindow;
+                    addonWindow.OnEnter();
                     break;
-                //case "Properties":
+                //case "Plugin":
                 //    break;
                 //case "EditTime JS": 
                 //    break;
@@ -67,7 +103,7 @@ namespace c3IDE
                 //case "Export":
                 //    break;
                 default:
-                    ActiveItem.Content = DashboardWin;
+                    ActiveItem.Content = dashboardWindow;
                     break;
             }
 

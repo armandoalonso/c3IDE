@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace c3IDE.Models
 {
     public enum PluginType
-    {   
+    {
         SingleGlobalPlugin,
         DrawingPlugin,
         Behavior

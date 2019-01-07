@@ -16,13 +16,25 @@ using System.Windows.Shapes;
 namespace c3IDE.Windows
 {
     /// <summary>
-    /// Interaction logic for PluginWindow.xaml
+    /// Interaction logic for AddonWindow.xaml
     /// </summary>
-    public partial class PluginWindow : UserControl
+    public partial class AddonWindow : UserControl
     {
-        public PluginWindow()
+        public string DisplayName { get; set; } = "Addon";
+
+        public AddonWindow()
         {
             InitializeComponent();
+        }
+
+        public void OnEnter()
+        {
+            AddonTextEditor.Text = AppData.Insatnce.CurrentAddon.AddonJson;
+        }
+
+        public void OnExit()
+        {
+            AppData.Insatnce.CurrentAddon.AddonJson = AddonTextEditor.Text;
         }
     }
 }
