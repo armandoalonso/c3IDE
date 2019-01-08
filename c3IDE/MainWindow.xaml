@@ -34,7 +34,7 @@
       
     <Grid>
         <mah:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}"
-                           ItemClick="HambugerMenuItem_Click" x:Name="MainMenu">
+                           ItemClick="HambugerMenuItem_Click" OptionsItemClick="HambugerMenuItem_Click" x:Name="MainMenu">
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Dashboard" Tag="Dashboard"/>

@@ -20,7 +20,7 @@
                     <DataTemplate>
                         <DockPanel LastChildFill="True">
                             <Image DockPanel.Dock="Left" Source="{Binding IconImage}" Width="50" Height="50"/>
-                            <StackPanel DockPanel.Dock="Right"> 
+                            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center"> 
                                 <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                             </StackPanel>
                         </DockPanel>
@@ -67,9 +67,9 @@
                 <Image Name="AddonIcon" DockPanel.Dock="Right" Height="150" AllowDrop="True" DragEnter="AddonIcon_OnDragEnter" Drop="AddonIcon_OnDrop"></Image>
             </DockPanel>
 
-            <Button Name="CreateAddonButton" Content="Create Addon" Margin="10" Click="CreateAddonButton_OnClick"></Button>
-            <Button Name="LoadAddonButton" Content="Load Addon" Margin="10" Click="LoadAddonButton_OnClick"></Button>
-            <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="10" Click="RemoveAddonButton_OnClick"></Button>
+            <Button Name="CreateAddonButton" Content="Create Addon" Margin="10" Click="CreateAddonButton_OnClick" ></Button>
+            <Button Name="LoadAddonButton" Content="Load Addon" Margin="10" Click="LoadAddonButton_OnClick" ></Button>
+            <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="10" Click="RemoveAddonButton_OnClick" ></Button>
         </StackPanel>
     </Grid>
 </UserControl>

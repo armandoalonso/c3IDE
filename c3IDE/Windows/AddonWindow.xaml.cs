@@ -29,12 +29,15 @@ namespace c3IDE.Windows
 
         public void OnEnter()
         {
-            AddonTextEditor.Text = AppData.Insatnce.CurrentAddon.AddonJson;
+            AddonTextEditor.Text = AppData.Insatnce.CurrentAddon?.AddonJson;
         }
 
         public void OnExit()
         {
-            AppData.Insatnce.CurrentAddon.AddonJson = AddonTextEditor.Text;
+            if(AppData.Insatnce.CurrentAddon != null)
+            {
+                AppData.Insatnce.CurrentAddon.AddonJson = AddonTextEditor.Text;
+            }  
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using c3IDE.DataAccess;
 using c3IDE.Windows;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace c3IDE
 {
@@ -25,6 +26,7 @@ namespace c3IDE
     {
         public DashboardWindow dashboardWindow = new DashboardWindow();
         public AddonWindow addonWindow = new AddonWindow();
+        public OptionsWindow optionsWIndow = new OptionsWindow();
         private string _currentActiveWindow;
 
         public MainWindow()
@@ -34,6 +36,7 @@ namespace c3IDE
             //load data
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
             AppData.Insatnce.CurrentAddon = AppData.Insatnce.AddonList.Any() ? AppData.Insatnce.AddonList.OrderBy(x => x.LastModified).FirstOrDefault() : null;
+            AppData.Insatnce.ShowDialog = ShowDialogBox;
 
             //setup default view
             ActiveItem.Content = dashboardWindow;
@@ -43,7 +46,6 @@ namespace c3IDE
 
         private void HambugerMenuItem_Click(object sender, ItemClickEventArgs e)
         {
-
             //execute on exit
             switch (_currentActiveWindow)
             {
@@ -53,24 +55,27 @@ namespace c3IDE
                 case "Addon":
                     addonWindow.OnExit();
                     break;
-                //case "Plugin":
-                //    break;
-                //case "EditTime JS": 
-                //    break;
-                //case "RunTime JS":
-                //    break;
-                //case "Actions":
-                //    break;
-                //case "Conditions":
-                //    break;
-                //case "Expressions":
-                //    break;
-                //case "Language":
-                //    break;
-                //case "Test":
-                //    break;
-                //case "Export":
-                //    break;
+                    //case "Plugin":
+                    //    break;
+                    //case "EditTime JS": 
+                    //    break;
+                    //case "RunTime JS":
+                    //    break;
+                    //case "Actions":
+                    //    break;
+                    //case "Conditions":
+                    //    break;
+                    //case "Expressions":
+                    //    break;
+                    //case "Language":
+                    //    break;
+                    //case "Test":
+                    //    break;
+                    //case "Export":
+                    //    break;
+                 case "Options":
+                    optionsWIndow.OnExit();
+                    break;
             }
 
             var clickedLabel = ((HamburgerMenuIconItem)e.ClickedItem).Label;
@@ -102,6 +107,10 @@ namespace c3IDE
                 //    break;
                 //case "Export":
                 //    break;
+                case "Options":
+                    ActiveItem.Content = optionsWIndow;
+                    optionsWIndow.OnEnter();
+                    break;
                 default:
                     ActiveItem.Content = dashboardWindow;
                     break;
@@ -110,5 +119,11 @@ namespace c3IDE
             //close menu pane
             MainMenu.IsPaneOpen = false;
         }
+
+        public async Task<bool> ShowDialogBox(string title, string message)
+        {
+            var result = await this.ShowMessageAsync(title, message, MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings { AffirmativeButtonText = "Yes", NegativeButtonText = "No" });
+            return result == MessageDialogResult.Affirmative ? true : false;
+        } 
     }
 }
