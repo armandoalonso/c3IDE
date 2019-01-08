@@ -14,9 +14,11 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
                 <!-- Flat Buttons -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <!-- AnimatedTabControl -->
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
 
-            <Style TargetType="{x:Type TextBlock}">
+            <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Foreground" Value="Black" />
             </Style>
         </ResourceDictionary>

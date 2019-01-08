@@ -14,5 +14,6 @@ namespace c3IDE
         public C3Addon CurrentAddon = new C3Addon();
 
         public Func<string, string, Task<bool>> ShowDialog { get; internal set; }
+        public Func<string, string, string, Task<string>> ShowInputDialog { get; set; }
     }
 }

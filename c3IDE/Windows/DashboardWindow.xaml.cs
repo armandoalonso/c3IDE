@@ -17,13 +17,15 @@ using c3IDE.Models;
 using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities;
+using c3IDE.Windows.Interfaces;
+using Action = c3IDE.Models.Action;
 
 namespace c3IDE.Windows
 {
     /// <summary>
     /// Interaction logic for DashboardWindow.xaml
     /// </summary>
-    public partial class DashboardWindow : UserControl
+    public partial class DashboardWindow : UserControl, IWindow
     {
         public string DisplayName { get; set; } = "Dashboard";
         public DashboardWindow()
@@ -63,7 +65,16 @@ namespace c3IDE.Windows
             };
 
             //apply the templates
+            addon.Categories = new Dictionary<string, string>();
             addon.AddonJson = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.AddonJson, addon);
+            addon.PluginEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.PluginEditTime, addon);
+            addon.PluginRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.PluginRunTime, addon);
+            addon.TypeEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.TypeEditTime, addon);
+            addon.TypeRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.TypeRunTime, addon);
+            addon.InstanceEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.InstanceEditTime, addon);
+            addon.InstanceRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.InstanceRunTime, addon);
+            addon.Actions = new Dictionary<string, Action>();
+            addon.LanguageProperties = addon.Template.LanguageProperty;
 
             AppData.Insatnce.CurrentAddon = addon;
             DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);

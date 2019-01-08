@@ -17,28 +17,29 @@ using c3IDE.Windows.Interfaces;
 namespace c3IDE.Windows
 {
     /// <summary>
-    /// Interaction logic for AddonWindow.xaml
+    /// Interaction logic for TypeWindow.xaml
     /// </summary>
-    public partial class AddonWindow : UserControl, IWindow
+    public partial class TypeWindow : UserControl, IWindow
     {
-        public string DisplayName { get; set; } = "Addon";
-
-        public AddonWindow()
+        public TypeWindow()
         {
             InitializeComponent();
         }
 
+        public string DisplayName { get; set; } = "Type";
         public void OnEnter()
         {
-            AddonTextEditor.Text = AppData.Insatnce.CurrentAddon?.AddonJson;
+            EditTimeTypeTextEditor.Text = AppData.Insatnce.CurrentAddon?.TypeEditTime;
+            RunTimeTypeTextEditor.Text = AppData.Insatnce.CurrentAddon?.TypeRunTime;
         }
 
         public void OnExit()
         {
-            if(AppData.Insatnce.CurrentAddon != null)
+            if (AppData.Insatnce.CurrentAddon != null)
             {
-                AppData.Insatnce.CurrentAddon.AddonJson = AddonTextEditor.Text;
-            }  
+                AppData.Insatnce.CurrentAddon.TypeEditTime = EditTimeTypeTextEditor.Text;
+                AppData.Insatnce.CurrentAddon.TypeRunTime = RunTimeTypeTextEditor.Text;
+            }
         }
     }
 }

@@ -1,0 +1,5 @@
+"{{id}}": {
+	"list-name": "{{script_name}}",
+	"display-text": "Do alert",
+	"description": "Do a dummy alert."
+}

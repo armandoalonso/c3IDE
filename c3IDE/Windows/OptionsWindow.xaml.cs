@@ -14,13 +14,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using c3IDE.Windows.Interfaces;
 
 namespace c3IDE.Windows
 {
     /// <summary>
     /// Interaction logic for OptionsWindow.xaml
     /// </summary>
-    public partial class OptionsWindow : UserControl
+    public partial class OptionsWindow : UserControl, IWindow
     {
         public string DisplayName { get; set; } = "Options";
 

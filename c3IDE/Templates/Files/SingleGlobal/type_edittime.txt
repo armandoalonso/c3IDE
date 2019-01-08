@@ -1,0 +1,12 @@
+"use strict";
+{
+	const PLUGIN_CLASS = SDK.Plugins.{{company}}_{{class}};
+	
+	PLUGIN_CLASS.Type = class {{class}}Type extends SDK.ITypeBase
+	{
+		constructor(sdkPlugin, iObjectType)
+		{
+			super(sdkPlugin, iObjectType);
+		}
+	};
+}

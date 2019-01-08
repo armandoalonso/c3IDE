@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="c3IDE.Windows.ActionWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:c3IDE.Windows"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Column="0" LastChildFill="True" Margin="10">
+            <Button Name="RemoveAction" Content="RemoveAction" Margin="2" Click="RemoveAction_OnClick" DockPanel.Dock="Bottom"></Button>
+            <Button Name="AddAction" Content="Add New Action" Margin="2" Click="AddAction_OnClick" DockPanel.Dock="Bottom"></Button>
+            <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black" Style="{StaticResource TextBlockStyle}"> Actions</TextBlock>
+            <ListBox Name="ActionListBox" DockPanel.Dock="Top"  Margin="2"  BorderThickness="1" BorderBrush="Black" ItemsSource="{Binding}"  SelectionChanged="ActionListBox_OnSelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2">
+                            <TextBlock Text="{Binding Key}" VerticalAlignment="Center"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+
+        <TabControl Grid.Column="1">
+            <TabItem Header="Action (Ace.json)">
+                <avalonEdit:TextEditor
+                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                    Name="ActionAceTextEditor"
+                    FontFamily="Consolas"
+                    SyntaxHighlighting="JavaScript"
+                    FontSize="10pt"
+                    ShowLineNumbers="True">
+                    <avalonEdit:TextEditor.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Insert Action Parameter" Click="InsertNewParam" />
+                        </ContextMenu>
+                    </avalonEdit:TextEditor.ContextMenu>
+                </avalonEdit:TextEditor>
+            </TabItem>
+
+            <TabItem Header="Action (Language)">
+                <avalonEdit:TextEditor
+                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                    Name="ActionLanguageTextEditor"
+                    FontFamily="Consolas"
+                    SyntaxHighlighting="JavaScript"
+                    FontSize="10pt"
+                    ShowLineNumbers="True"/>
+            </TabItem>
+
+            <TabItem Header="Action (Code)">
+                <avalonEdit:TextEditor
+                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                    Name="ActionCodeTextEditor"
+                    FontFamily="Consolas"
+                    SyntaxHighlighting="JavaScript"
+                    FontSize="10pt"
+                    ShowLineNumbers="True"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

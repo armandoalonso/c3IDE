@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -59,6 +62,7 @@
     <Compile Include="DataAccess\AddonRepository.cs" />
     <Compile Include="DataAccess\DataAccessFacade.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="Models\Action.cs" />
     <Compile Include="Models\C3Addon.cs" />
     <Compile Include="Models\PluginType.cs" />
     <Compile Include="Templates\ITemplate.cs" />
@@ -68,14 +72,30 @@
     <Compile Include="Utilities\ImageHelper.cs" />
     <Compile Include="Utilities\ResourceReader.cs" />
     <Compile Include="Utilities\Singleton.cs" />
+    <Compile Include="Windows\ActionWindow.xaml.cs">
+      <DependentUpon>ActionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AddonWindow.xaml.cs">
       <DependentUpon>AddonWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\DashboardWindow.xaml.cs">
       <DependentUpon>DashboardWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\InstanceWindow.xaml.cs">
+      <DependentUpon>InstanceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Interfaces\IWindow.cs" />
+    <Compile Include="Windows\LanguageWindow.xaml.cs">
+      <DependentUpon>LanguageWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PluginWindow.xaml.cs">
+      <DependentUpon>PluginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TypeWindow.xaml.cs">
+      <DependentUpon>TypeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -89,6 +109,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\ActionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AddonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,7 +121,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\InstanceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LanguageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\OptionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PluginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TypeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -120,6 +160,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -130,28 +171,38 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AvalonEdit">
-      <Version>5.0.4</Version>
-    </PackageReference>
-    <PackageReference Include="LiteDB">
-      <Version>4.1.4</Version>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro">
-      <Version>2.0.0-alpha0186</Version>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro.IconPacks">
-      <Version>3.0.0-alpha0096</Version>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro.Resources">
-      <Version>0.6.1</Version>
-    </PackageReference>
-    <PackageReference Include="Scriban">
-      <Version>1.2.9</Version>
-    </PackageReference>
+    <EmbeddedResource Include="Templates\Files\SingleGlobal\plugin_runtime.txt" />
+    <EmbeddedResource Include="Templates\Files\SingleGlobal\plugin_edittime.txt" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Templates\Files\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\SingleGlobal\language_property.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NOTES.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\SingleGlobal\type_runtime.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\SingleGlobal\type_edittime.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\SingleGlobal\instance_edittime.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\SingleGlobal\instance_runtime.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\SingleGlobal\action_ace.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\SingleGlobal\action_language.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\SingleGlobal\action_code.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -17,28 +17,29 @@ using c3IDE.Windows.Interfaces;
 namespace c3IDE.Windows
 {
     /// <summary>
-    /// Interaction logic for AddonWindow.xaml
+    /// Interaction logic for InstanceWindow.xaml
     /// </summary>
-    public partial class AddonWindow : UserControl, IWindow
+    public partial class InstanceWindow : UserControl,IWindow
     {
-        public string DisplayName { get; set; } = "Addon";
-
-        public AddonWindow()
+        public InstanceWindow()
         {
             InitializeComponent();
         }
 
+        public string DisplayName { get; set; } = "Instance";
         public void OnEnter()
         {
-            AddonTextEditor.Text = AppData.Insatnce.CurrentAddon?.AddonJson;
+            EditTimeInstanceTextEditor.Text = AppData.Insatnce.CurrentAddon?.InstanceEditTime;
+            RunTimeInstanceTextEditor.Text = AppData.Insatnce.CurrentAddon?.InstanceRunTime;
         }
 
         public void OnExit()
         {
-            if(AppData.Insatnce.CurrentAddon != null)
+            if (AppData.Insatnce.CurrentAddon != null)
             {
-                AppData.Insatnce.CurrentAddon.AddonJson = AddonTextEditor.Text;
-            }  
+                AppData.Insatnce.CurrentAddon.InstanceEditTime = EditTimeInstanceTextEditor.Text;
+                AppData.Insatnce.CurrentAddon.InstanceRunTime = RunTimeInstanceTextEditor.Text;
+            }
         }
     }
 }

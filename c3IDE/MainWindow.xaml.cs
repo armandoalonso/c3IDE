@@ -24,9 +24,15 @@ namespace c3IDE
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        public DashboardWindow dashboardWindow = new DashboardWindow();
-        public AddonWindow addonWindow = new AddonWindow();
-        public OptionsWindow optionsWIndow = new OptionsWindow();
+        private readonly DashboardWindow _dashboardWindow = new DashboardWindow();
+        private readonly AddonWindow _addonWindow = new AddonWindow();
+        private readonly PluginWindow _pluginWindow = new PluginWindow();
+        private readonly TypeWindow _typeWindow = new TypeWindow();
+        private readonly InstanceWindow _instanceWindow = new InstanceWindow();
+        private readonly ActionWindow _actionWindow = new ActionWindow();
+        private readonly LanguageWindow _languageWindow = new LanguageWindow();
+        private readonly OptionsWindow _optionsWindow = new OptionsWindow();
+
         private string _currentActiveWindow;
 
         public MainWindow()
@@ -37,93 +43,147 @@ namespace c3IDE
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
             AppData.Insatnce.CurrentAddon = AppData.Insatnce.AddonList.Any() ? AppData.Insatnce.AddonList.OrderBy(x => x.LastModified).FirstOrDefault() : null;
             AppData.Insatnce.ShowDialog = ShowDialogBox;
+            AppData.Insatnce.ShowInputDialog = ShowInputDialogBox;
 
             //setup default view
-            ActiveItem.Content = dashboardWindow;
-            dashboardWindow.OnEnter();
-            _currentActiveWindow = dashboardWindow.DisplayName;
+            ActiveItem.Content = _dashboardWindow;
+            _dashboardWindow.OnEnter();
+            _currentActiveWindow = _dashboardWindow.DisplayName;
         }
 
         private void HambugerMenuItem_Click(object sender, ItemClickEventArgs e)
         {
+            var clickedLabel = ((HamburgerMenuIconItem)e.ClickedItem).Label;
+            //short circut saving and shutdown
+            if (clickedLabel == "Save")
+            {
+                Save();
+                MainMenu.IsPaneOpen = false;
+                return;
+            }
+
             //execute on exit
             switch (_currentActiveWindow)
             {
                 case "Dashboard":
-                    dashboardWindow.OnExit();
+                    _dashboardWindow.OnExit();
                     break;
                 case "Addon":
-                    addonWindow.OnExit();
+                    _addonWindow.OnExit();
                     break;
-                    //case "Plugin":
-                    //    break;
-                    //case "EditTime JS": 
-                    //    break;
-                    //case "RunTime JS":
-                    //    break;
-                    //case "Actions":
-                    //    break;
-                    //case "Conditions":
-                    //    break;
-                    //case "Expressions":
-                    //    break;
-                    //case "Language":
-                    //    break;
-                    //case "Test":
-                    //    break;
-                    //case "Export":
-                    //    break;
+                case "Plugin":
+                    _pluginWindow.OnExit();
+                    break;
+                case "Type":
+                    _typeWindow.OnExit();
+                    break;
+                case "Instance":
+                    _instanceWindow.OnExit();
+                    break;
+                case "Actions":
+                    _actionWindow.OnExit();
+                    break;
+                case "Language":
+                    _languageWindow.OnExit();
+                   break;
                  case "Options":
-                    optionsWIndow.OnExit();
+                    _optionsWindow.OnExit();
                     break;
             }
 
-            var clickedLabel = ((HamburgerMenuIconItem)e.ClickedItem).Label;
             switch (clickedLabel)
             {
                 case "Dashboard":
-                    ActiveItem.Content = dashboardWindow;
-                    dashboardWindow.OnEnter();
+                    ActiveItem.Content = _dashboardWindow;
+                    _dashboardWindow.OnEnter();
                     break;
                 case "Addon":
-                    ActiveItem.Content = addonWindow;
-                    addonWindow.OnEnter();
+                    ActiveItem.Content = _addonWindow;
+                    _addonWindow.OnEnter();
                     break;
-                //case "Plugin":
-                //    break;
-                //case "EditTime JS": 
-                //    break;
-                //case "RunTime JS":
-                //    break;
-                //case "Actions":
-                //    break;
-                //case "Conditions":
-                //    break;
-                //case "Expressions":
-                //    break;
-                //case "Language":
-                //    break;
-                //case "Test":
-                //    break;
-                //case "Export":
-                //    break;
+                case "Plugin":
+                    ActiveItem.Content = _pluginWindow;
+                    _pluginWindow.OnEnter();
+                    break;
+                case "Type":
+                    ActiveItem.Content = _typeWindow;
+                    _typeWindow.OnEnter();
+                    break;
+                case "Instance":
+                    ActiveItem.Content = _instanceWindow;
+                    _instanceWindow.OnEnter();
+                    break;
+                case "Actions":
+                    ActiveItem.Content = _actionWindow;
+                    _actionWindow.OnEnter();
+                    break;
+                case "Language":
+                    ActiveItem.Content = _languageWindow;
+                    _languageWindow.OnEnter();
+                    break;
                 case "Options":
-                    ActiveItem.Content = optionsWIndow;
-                    optionsWIndow.OnEnter();
+                    ActiveItem.Content = _optionsWindow;
+                    _optionsWindow.OnEnter();
                     break;
                 default:
-                    ActiveItem.Content = dashboardWindow;
+                    ActiveItem.Content = _dashboardWindow;
                     break;
             }
 
+            //set the current active window
+            _currentActiveWindow = clickedLabel;
             //close menu pane
             MainMenu.IsPaneOpen = false;
+        }
+
+        public void Save()
+        {
+            //make sure we save current window
+            switch (_currentActiveWindow)
+            {
+                case "Dashboard":
+                    _dashboardWindow.OnExit();
+                    break;
+                case "Addon":
+                    _addonWindow.OnExit();
+                    break;
+                case "Plugin":
+                    _pluginWindow.OnExit();
+                    break;
+                case "Type":
+                    _typeWindow.OnExit();
+                    break;
+                case "Instance":
+                    _instanceWindow.OnExit();
+                    break;
+                case "Actions":
+                    _actionWindow.OnExit();
+                    break;
+                case "Language":
+                    _languageWindow.OnExit();
+                    break;
+                case "Options":
+                    _optionsWindow.OnExit();
+                    break;
+            }
+
+            if (AppData.Insatnce.CurrentAddon != null)
+            {
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+            }
+            //todo: add flyout for notifications
         }
 
         public async Task<bool> ShowDialogBox(string title, string message)
         {
             var result = await this.ShowMessageAsync(title, message, MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings { AffirmativeButtonText = "Yes", NegativeButtonText = "No" });
             return result == MessageDialogResult.Affirmative ? true : false;
-        } 
+        }
+
+        public async Task<string> ShowInputDialogBox(string title, string message, string deafultText)
+        {
+            var value = await this.ShowInputAsync(title, message, new MetroDialogSettings {DefaultText = deafultText });
+            return value;
+        }
     }
 }
