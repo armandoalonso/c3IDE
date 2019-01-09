@@ -6,9 +6,10 @@
              xmlns:local="clr-namespace:c3IDE.Windows"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
-    <Grid>
+    <Grid Margin="10">
         <TabControl>
-            <TabItem Header="Instance.js (EditTime)" Width="300">
+            <TabItem Header="Instance.js" IsEnabled="False" />
+            <TabItem Header="(Edit Time)" IsSelected="True">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="EditTimeInstanceTextEditor"
@@ -19,7 +20,7 @@
                 </avalonEdit:TextEditor>
             </TabItem>
 
-            <TabItem Header="Instance.js (RunTime)" Width="300">
+            <TabItem Header="(Run Time)">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="RunTimeInstanceTextEditor"

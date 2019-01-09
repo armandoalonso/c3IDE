@@ -93,6 +93,9 @@ namespace c3IDE.Windows
             ActionCodeTextEditor.Text = _selectedAction.Code;
         }
 
+
+        //todo: streamline this whole process, create new dialog box for this, do the same for properties 
+        //todo: look into avalon dock or sometype of document docking solution with tabs (sync fusion maybe...)
         private async void InsertNewParam(object sender, RoutedEventArgs e)
         {
             var id = await AppData.Insatnce.ShowInputDialog("Parameter ID", "insert param id", "param-id");
@@ -158,5 +161,7 @@ namespace c3IDE.Windows
                 ActionCodeTextEditor.Text = ActionCodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}()", codeTemplate);
             }
         }
+
+        
     }
 }
