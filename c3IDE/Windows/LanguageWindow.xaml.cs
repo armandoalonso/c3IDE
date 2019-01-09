@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using c3IDE.Templates;
 using c3IDE.Windows.Interfaces;
 using Newtonsoft.Json;
 
@@ -58,40 +59,24 @@ namespace c3IDE.Windows
                 var id = m.Groups["id"].ToString();
 
                 //create new property
-                string template = string.Empty;
+                string template;
                 switch (type)
                 {
                     case "combo":
-                        template = $@"    ""{id}"" : {{
-        ""name"": ""property name"",
-        ""desc"": ""property desc"",
-        ""items"": {{
-            ""item-one"": ""item one"",
-            ""item-two"": ""item two""
-        }}
-    }}";
+                        template = TemplateHelper.LanguagePropertyCombo(id);
                         break;
                     case "link":
-                        template = $@"    ""{id}"" : {{
-        ""name"": ""property name"",
-        ""desc"": ""property desc"",
-        ""link-text"": ""link text"",
-    }}";
+                        template = TemplateHelper.LanguagePropertyLink(id);
                         break;
                     default:
-                        template = $@"    ""{id}"" : {{
-        ""name"": ""property name"",
-        ""desc"": ""property desc""
-    }}";
+                        template = TemplateHelper.LanguagePropertyDefault(id);
                         break;
                 }
                 propList.Add(template);
             }
 
             //set the editor to the new property json
-            PropertyLanguageTextEditor.Text = $@"""properties"":{{
-{string.Join(",\n", propList)}
-}}";
+            PropertyLanguageTextEditor.Text = TemplateHelper.LanguageProperty(string.Join(",\n", propList));
         }
     }
 }

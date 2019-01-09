@@ -1,0 +1,128 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace c3IDE.Models
+{
+    public class Expression : INotifyPropertyChanged
+    {
+        private string _id;
+        private string _category;
+        private string _translatedname;
+        private string _returntype;
+        private string _ace;
+        private string _language;
+        private string _code;
+        private string _desc;
+        private string _isvaradic;
+
+        public string Id
+        {
+            get => _id;
+            set
+            {
+                _id = value.ToLower();
+                OnPropertyChanged();
+            }
+        }
+
+        public string Category
+        {
+            get => _category;
+            set
+            {
+                _category = value.ToLower();
+                OnPropertyChanged();
+            }
+        }
+
+        public string ScriptName => TranslatedName;
+
+        public string IsVariadicParameters
+        {
+            get => _isvaradic;
+            set
+            {
+                _isvaradic = value.ToLower();
+                OnPropertyChanged();
+            }
+        }
+
+        public string Ace
+        {
+            get => _ace;
+            set
+            {
+                _ace = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string TranslatedName
+        {
+            get => _translatedname;
+            set
+            {
+                _translatedname = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Description
+        {
+            get => _desc;
+            set
+            {
+                _desc = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string ReturnType
+        {
+            get => _returntype;
+            set
+            {
+                _returntype = value.ToLower();
+                OnPropertyChanged();
+            }
+        }
+
+        public string Language
+        {
+            get => _language;
+            set
+            {
+                _language = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Code
+        {
+            get => _code;
+            set
+            {
+                _code = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected virtual void InvokePropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

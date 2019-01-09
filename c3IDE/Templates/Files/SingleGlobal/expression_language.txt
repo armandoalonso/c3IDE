@@ -1,0 +1,4 @@
+"{{id}}": { 
+	"translated-name": "{{script_name}}",
+	"description": "{{description}}"
+}

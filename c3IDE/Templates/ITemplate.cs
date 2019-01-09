@@ -19,5 +19,6 @@ namespace c3IDE.Templates
         string ActionLanguage { get; }
         string ActionCode { get; }
         string LanguageProperty { get; }
+        string ExpressionLanguage { get; }
     }
 }

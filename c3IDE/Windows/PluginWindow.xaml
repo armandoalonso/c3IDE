@@ -4,9 +4,38 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:c3IDE.Windows"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/simplechildwindow"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
     <Grid Margin="10">
+        <mah:ChildWindow Name="NewPropertyWindow" Title="Add New Property" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="250" CloseOnOverlay="True">
+            <mah:ChildWindow.OverlayBrush>
+                <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
+            </mah:ChildWindow.OverlayBrush>
+
+            <StackPanel>
+                <TextBlock Text="Property ID:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBox Name="PropertyIdText" Margin="5"></TextBox>
+                <TextBlock Text="Property Type:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <ComboBox Name="PropertyTypeDropdown" Margin="5">
+                    <ComboBoxItem>integer</ComboBoxItem>
+                    <ComboBoxItem>float</ComboBoxItem>
+                    <ComboBoxItem>percent</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">text</ComboBoxItem>
+                    <ComboBoxItem>longtext</ComboBoxItem>
+                    <ComboBoxItem>check</ComboBoxItem>
+                    <ComboBoxItem>font</ComboBoxItem>
+                    <ComboBoxItem>combo</ComboBoxItem>
+                    <ComboBoxItem>color</ComboBoxItem>
+                    <ComboBoxItem>group</ComboBoxItem>
+                    <ComboBoxItem>link</ComboBoxItem>
+                    <ComboBoxItem>info</ComboBoxItem>
+                </ComboBox>
+                <Button Content="Add Property" Margin="5" Click="AddPropertyButton_Click"></Button>
+                <Separator Visibility="Hidden" Height="20"></Separator>
+            </StackPanel>
+        </mah:ChildWindow>
+        
         <TabControl>
             <TabItem Header="Plugin.js" IsEnabled="False"/>
             <TabItem Header="(Edit Time)" IsSelected="True">
@@ -32,7 +61,12 @@
                     FontFamily="Consolas"
                     SyntaxHighlighting="JavaScript"
                     FontSize="10pt"
-                    ShowLineNumbers="True"/>
+                    ShowLineNumbers="True">
+                    <avalonEdit:TextEditor.ContextMenu>
+                        <ContextMenu>
+                        </ContextMenu>
+                    </avalonEdit:TextEditor.ContextMenu>
+                </avalonEdit:TextEditor>
             </TabItem>
         </TabControl>
     </Grid>

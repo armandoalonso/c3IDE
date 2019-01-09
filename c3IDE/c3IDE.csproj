@@ -34,12 +34,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MahApps.Metro.SimpleChildWindow, Version=2.0.0.0, Culture=neutral, PublicKeyToken=ca3e0454e54ef52a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.SimpleChildWindow.2.0.0-alpha0005\lib\net47\MahApps.Metro.SimpleChildWindow.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.4.0.0-alpha0197\lib\net462\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,11 +70,14 @@
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="Models\Action.cs" />
     <Compile Include="Models\C3Addon.cs" />
+    <Compile Include="Models\Condition.cs" />
+    <Compile Include="Models\Expression.cs" />
     <Compile Include="Models\PluginType.cs" />
     <Compile Include="Templates\ITemplate.cs" />
     <Compile Include="Templates\SingleGlobalPluginTemplate.cs" />
     <Compile Include="Templates\TemplateCompiler.cs" />
     <Compile Include="Templates\TemplateFactory.cs" />
+    <Compile Include="Templates\TemplateHelper.cs" />
     <Compile Include="Utilities\ImageHelper.cs" />
     <Compile Include="Utilities\ResourceReader.cs" />
     <Compile Include="Utilities\Singleton.cs" />
@@ -78,8 +87,14 @@
     <Compile Include="Windows\AddonWindow.xaml.cs">
       <DependentUpon>AddonWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ConditionWindow.xaml.cs">
+      <DependentUpon>ConditionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\DashboardWindow.xaml.cs">
       <DependentUpon>DashboardWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ExpressionWindow.xaml.cs">
+      <DependentUpon>ExpressionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\InstanceWindow.xaml.cs">
       <DependentUpon>InstanceWindow.xaml</DependentUpon>
@@ -117,7 +132,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\ConditionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\DashboardWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ExpressionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -203,6 +226,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Templates\Files\SingleGlobal\action_code.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\SingleGlobal\expression_language.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

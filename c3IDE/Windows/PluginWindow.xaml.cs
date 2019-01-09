@@ -45,10 +45,40 @@ namespace c3IDE.Windows
 
         private void InsertNewProperty(object sender, RoutedEventArgs e)
         {
-            EditTimePluginTextEditor.Text = EditTimePluginTextEditor.Text.Replace("this._info.SetProperties([",
-                "this._info.SetProperties([\n\t\t\t\tnew SDK.PluginProperty(\"integer\", \"test-property\", 0),");
+            NewPropertyWindow.IsOpen = true;
+            PropertyIdText.Text = "test-property";
+            PropertyTypeDropdown.Text = "text";
         }
 
-        //todo: insert other type of properties
+        private void AddPropertyButton_Click(object sender, RoutedEventArgs e)
+        {
+            var id = PropertyIdText.Text;
+            var type = PropertyTypeDropdown.Text;
+            string template;
+
+            switch (type)
+            {
+                case "integer":
+                case "float":
+                case "percent":
+                    template = $"this._info.SetProperties([\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", 0),";
+                    break;
+                case "check":
+                    template = $"this._info.SetProperties([\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", true),";
+                    break;
+                case "color":
+                    template = $"this._info.SetProperties([\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"initialValue\": [1,0,0]}} ),";
+                    break;
+                case "combo":
+                    template = $"this._info.SetProperties([\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"items\":[\"item1\", \"item2\", \"item3\"]}}, \"initialValue\": \"item1\"),";
+                    break;
+                default:
+                    template = $"this._info.SetProperties([\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", \"value\"),";
+                    break;
+            }
+
+            EditTimePluginTextEditor.Text = EditTimePluginTextEditor.Text.Replace("this._info.SetProperties([", template);
+            NewPropertyWindow.IsOpen = false;
+        }
     }
 }

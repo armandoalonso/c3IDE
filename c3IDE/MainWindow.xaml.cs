@@ -30,6 +30,8 @@ namespace c3IDE
         private readonly TypeWindow _typeWindow = new TypeWindow();
         private readonly InstanceWindow _instanceWindow = new InstanceWindow();
         private readonly ActionWindow _actionWindow = new ActionWindow();
+        private readonly ConditionWindow _conditionWindow = new ConditionWindow();
+        private readonly ExpressionWindow _expressionWindow = new ExpressionWindow();
         private readonly LanguageWindow _languageWindow = new LanguageWindow();
         private readonly OptionsWindow _optionsWindow = new OptionsWindow();
 
@@ -83,6 +85,12 @@ namespace c3IDE
                 case "Actions":
                     _actionWindow.OnExit();
                     break;
+                case "Conditions":
+                    _conditionWindow.OnExit();
+                    break;
+                case "Expressions":
+                    _expressionWindow.OnExit();
+                    break;
                 case "Language":
                     _languageWindow.OnExit();
                    break;
@@ -116,6 +124,14 @@ namespace c3IDE
                 case "Actions":
                     ActiveItem.Content = _actionWindow;
                     _actionWindow.OnEnter();
+                    break;
+                case "Conditions":
+                    ActiveItem.Content = _conditionWindow;
+                    _conditionWindow.OnEnter();
+                    break;
+                case "Expressions":
+                    ActiveItem.Content = _expressionWindow;
+                    _expressionWindow.OnEnter();
                     break;
                 case "Language":
                     ActiveItem.Content = _languageWindow;
@@ -158,6 +174,12 @@ namespace c3IDE
                     break;
                 case "Actions":
                     _actionWindow.OnExit();
+                    break;
+                case "Conditions":
+                    _conditionWindow.OnExit();
+                    break;
+                case "Expressions":
+                    _expressionWindow.OnExit();
                     break;
                 case "Language":
                     _languageWindow.OnExit();

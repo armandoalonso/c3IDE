@@ -36,6 +36,8 @@ namespace c3IDE.Models
         public string LanguageProperties { get; set; }
         public Dictionary<string, string> Categories { get; set; }
         public Dictionary<string, Action> Actions { get; set; }
+        public Dictionary<string, Condition> Conditions { get; set; }
+        public Dictionary<string, Expression> Expressions { get; set; }
     }
 }
 

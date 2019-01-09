@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.Windows.Interfaces;
+using ICSharpCode.AvalonEdit.Search;
 
 namespace c3IDE.Windows
 {

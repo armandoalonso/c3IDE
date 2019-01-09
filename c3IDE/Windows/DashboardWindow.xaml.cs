@@ -19,6 +19,8 @@ using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities;
 using c3IDE.Windows.Interfaces;
 using Action = c3IDE.Models.Action;
+using Condition = c3IDE.Models.Condition;
+using Expression = c3IDE.Models.Expression;
 
 namespace c3IDE.Windows
 {
@@ -74,6 +76,8 @@ namespace c3IDE.Windows
             addon.InstanceEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.InstanceEditTime, addon);
             addon.InstanceRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.InstanceRunTime, addon);
             addon.Actions = new Dictionary<string, Action>();
+            addon.Conditions = new Dictionary<string, Condition>();
+            addon.Expressions = new Dictionary<string, Expression>();
             addon.LanguageProperties = addon.Template.LanguageProperty;
 
             AppData.Insatnce.CurrentAddon = addon;

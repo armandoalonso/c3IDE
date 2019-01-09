@@ -15,7 +15,14 @@
                     FontFamily="Consolas"
                     SyntaxHighlighting="JavaScript"
                     FontSize="10pt"
-                    ShowLineNumbers="True"/>
+                    ShowLineNumbers="True">
+
+                    <avalonEdit:TextEditor.ContextMenu>
+                        <ContextMenu>
+                        </ContextMenu>
+                    </avalonEdit:TextEditor.ContextMenu>
+
+                </avalonEdit:TextEditor>
             </TabItem>
         </TabControl>
         

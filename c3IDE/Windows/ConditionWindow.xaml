@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="c3IDE.Windows.ActionWindow"
+﻿<UserControl x:Class="c3IDE.Windows.ConditionWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -14,27 +14,71 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <mah:ChildWindow Name="NewActionWindow" Grid.Column="0" Grid.ColumnSpan="3" Title="Add New Action" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
+        <mah:ChildWindow Name="NewConditionWindow" Grid.Column="0" Grid.ColumnSpan="3" Title="Add New Condition" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
             <mah:ChildWindow.OverlayBrush>
                 <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
             </mah:ChildWindow.OverlayBrush>
 
             <StackPanel>
-                <TextBlock Text="Action ID:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ActionIdText" Margin="5"></TextBox>
-                <TextBlock Text="Action Category:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ActionCategoryText" Margin="5"></TextBox>
-                <TextBlock Text="Highlight:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <ComboBox Name="HighlightDropdown" Margin="5">
-                    <ComboBoxItem IsSelected="True">false</ComboBoxItem>
-                    <ComboBoxItem>true</ComboBoxItem>
-                </ComboBox>
+                <TextBlock Text="Condition ID:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBox Name="ConditionIdText" Margin="5"></TextBox>
+                <TextBlock Text="Condition Category:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBox Name="ConditionCategoryText" Margin="5"></TextBox>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Highlight:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <ComboBox Name="HighlightDropdown" Margin="5">
+                            <ComboBoxItem IsSelected="True">false</ComboBoxItem>
+                            <ComboBoxItem>true</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Text="Is Trigger:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <ComboBox Name="TriggerDropdown" Margin="5">
+                            <ComboBoxItem IsSelected="True">false</ComboBoxItem>
+                            <ComboBoxItem>true</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Text="Is Looping:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <ComboBox Name="LoopingDropdown" Margin="5">
+                            <ComboBoxItem IsSelected="True">false</ComboBoxItem>
+                            <ComboBoxItem>true</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Text="Is Compatible With Triggers:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <ComboBox Name="CompatibleWithTriggersDropdown" Margin="5">
+                            <ComboBoxItem IsSelected="True">true</ComboBoxItem>
+                            <ComboBoxItem>false</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="Is Static:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <ComboBox Name="StaticDropdown" Margin="5">
+                            <ComboBoxItem IsSelected="True">false</ComboBoxItem>
+                            <ComboBoxItem>true</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Text="Is FakeTrigger:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <ComboBox Name="FakeTriggerDropdown" Margin="5">
+                            <ComboBoxItem IsSelected="True">false</ComboBoxItem>
+                            <ComboBoxItem>true</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Text="Is Invertible:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <ComboBox Name="InvertibleDropdown" Margin="5">
+                            <ComboBoxItem IsSelected="True">true</ComboBoxItem>
+                            <ComboBoxItem>false</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
                 <TextBlock Text="Display Text:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="DisplayText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
 
                 <TextBlock Text="Description:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="DescriptionText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
-                <Button Content="Save Action" Margin="5" Click="SaveActionButton_Click"></Button>
+                <Button Content="Save Condition" Margin="5" Click="SaveConditionButton_Click"></Button>
 
                 <Separator Visibility="Hidden" Height="20"></Separator>
             </StackPanel>
@@ -79,10 +123,10 @@
         </mah:ChildWindow>
 
         <DockPanel Grid.Column="0" LastChildFill="True" Margin="10">
-            <Button Name="RemoveAction" Content="RemoveAction" Margin="2" Click="RemoveAction_OnClick" DockPanel.Dock="Bottom"></Button>
-            <Button Name="AddAction" Content="Add New Action" Margin="2" Click="AddAction_OnClick" DockPanel.Dock="Bottom"></Button>
-            <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black" Style="{StaticResource TextBlockStyle}"> Actions</TextBlock>
-            <ListBox Name="ActionListBox" DockPanel.Dock="Top"  Margin="2"  BorderThickness="1" BorderBrush="Black" ItemsSource="{Binding}"  SelectionChanged="ActionListBox_OnSelectionChanged">
+            <Button Name="RemoveCondition" Content="Remove Condition" Margin="2" Click="RemoveCondition_OnClick" DockPanel.Dock="Bottom"></Button>
+            <Button Name="AddCondition" Content="Add New Condition" Margin="2" Click="AddCondition_OnClick" DockPanel.Dock="Bottom"></Button>
+            <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black" Style="{StaticResource TextBlockStyle}"> Conditions</TextBlock>
+            <ListBox Name="ConditionListBox" DockPanel.Dock="Top"  Margin="2"  BorderThickness="1" BorderBrush="Black" ItemsSource="{Binding}"  SelectionChanged="ConditionListBox_OnSelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="2">
@@ -93,7 +137,7 @@
             </ListBox>
         </DockPanel>
 
-        <UniformGrid Grid.Column="1" Margin="10" Rows="2"> 
+        <UniformGrid Grid.Column="1" Margin="10" Rows="2">
             <TabControl DockPanel.Dock="Top">
                 <TabItem Header="Ace.json" Name="Ace">
                     <avalonEdit:TextEditor
@@ -105,7 +149,7 @@
                     ShowLineNumbers="True">
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Insert Action Parameter" Click="InsertNewParam" />
+                                <MenuItem Header="Insert Condition Parameter" Click="InsertNewParam" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>
@@ -123,7 +167,7 @@
                     ShowLineNumbers="True">
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Insert Action Parameter" Click="InsertNewParam" />
+                                <MenuItem Header="Insert Condition Parameter" Click="InsertNewParam" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>
@@ -143,7 +187,7 @@
                     ShowLineNumbers="True">
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Insert Action Parameter" Click="InsertNewParam" />
+                                <MenuItem Header="Insert Condition Parameter" Click="InsertNewParam" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>

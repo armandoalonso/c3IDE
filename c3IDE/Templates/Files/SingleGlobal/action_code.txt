@@ -1,4 +1,4 @@
 {{script_name}}()
 {
-	alert("Test property = " + this._testProperty);
+	//implementation
 }

@@ -23,6 +23,7 @@ namespace c3IDE.Templates
             ActionAces = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.SingleGlobal.action_ace.txt");
             ActionLanguage = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.SingleGlobal.action_language.txt");
             ActionCode = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.SingleGlobal.action_code.txt");
+            ExpressionLanguage = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.SingleGlobal.expression_language.txt");
         }
 
         public string AddonJson { get; }
@@ -35,6 +36,7 @@ namespace c3IDE.Templates
         public string LanguageProperty { get; }
         public string ActionAces { get; }
         public string ActionLanguage { get; }
+        public string ExpressionLanguage { get; }
         public string ActionCode { get; }
     }
 }

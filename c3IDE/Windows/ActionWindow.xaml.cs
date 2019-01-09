@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Windows.Interfaces;
 using c3IDE.Models;
+using c3IDE.Templates;
 using Action = c3IDE.Models.Action;
 
 namespace c3IDE.Windows
@@ -25,34 +26,27 @@ namespace c3IDE.Windows
             InitializeComponent();
         }
 
-        private async void AddAction_OnClick(object sender, RoutedEventArgs e)
+        private void AddAction_OnClick(object sender, RoutedEventArgs e)
         {
-            var id = await AppData.Insatnce.ShowInputDialog("Action ID", "insert action id", "do-alert");
-            var category = await AppData.Insatnce.ShowInputDialog("Action Category", "insert action category", "custom");
-
-            if (string.IsNullOrWhiteSpace(id) || string.IsNullOrWhiteSpace(category))
-            {
-                Console.WriteLine(@"Invalid id or category for action");
-                return;
-            }
-
-            var action = new Action
-            {
-                Id = id.Trim().ToLower(),
-                Category = category.Trim().ToLower()
-            };
-
-            action.Ace = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionAces, action);
-            action.Language = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionLanguage, action);
-            action.Code = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionCode, action);
-
-            _actions.Add(id, action);
-            ActionListBox.Items.Refresh();
+            ActionIdText.Text = "action-id";
+            ActionCategoryText.Text = "custom";
+            HighlightDropdown.Text = "false";
+            DisplayText.Text = "This is the actions display text {0}";
+            DescriptionText.Text = "This is the actions description";
+            NewActionWindow.IsOpen = true;
         }
 
         private void RemoveAction_OnClick(object sender, RoutedEventArgs e)
         {
-
+            if (_selectedAction != null)
+            {
+                _actions.Remove(_selectedAction.Id);
+                ActionListBox.Items.Refresh();
+            }
+            else
+            {
+                //todo: display notification
+            }
         }
 
         public void OnEnter()
@@ -66,9 +60,9 @@ namespace c3IDE.Windows
             //save the current selected action
             if (_selectedAction != null)
             {
-                _selectedAction.Ace = ActionAceTextEditor.Text;
-                _selectedAction.Language = ActionLanguageTextEditor.Text;
-                _selectedAction.Code = ActionCodeTextEditor.Text;
+                _selectedAction.Ace = AceTextEditor.Text;
+                _selectedAction.Language = LanguageTextEditor.Text;
+                _selectedAction.Code = CodeTextEditor.Text;
                 _actions[_selectedAction.Id] = _selectedAction;
             }
 
@@ -80,88 +74,102 @@ namespace c3IDE.Windows
             //save current selection
             if (_selectedAction != null)
             {
-                _selectedAction.Ace = ActionAceTextEditor.Text;
-                _selectedAction.Language = ActionLanguageTextEditor.Text;
-                _selectedAction.Code = ActionCodeTextEditor.Text;
+                _selectedAction.Ace = AceTextEditor.Text;
+                _selectedAction.Language = LanguageTextEditor.Text;
+                _selectedAction.Code = CodeTextEditor.Text;
                 _actions[_selectedAction.Id] = _selectedAction;
             }
 
             //load new selection
             _selectedAction = ((KeyValuePair<string, Action>)ActionListBox.SelectedItem).Value;
-            ActionAceTextEditor.Text = _selectedAction.Ace;
-            ActionLanguageTextEditor.Text = _selectedAction.Language;
-            ActionCodeTextEditor.Text = _selectedAction.Code;
+            AceTextEditor.Text = _selectedAction.Ace;
+            LanguageTextEditor.Text = _selectedAction.Language;
+            CodeTextEditor.Text = _selectedAction.Code;
         }
 
-
-        //todo: streamline this whole process, create new dialog box for this, do the same for properties 
-        //todo: look into avalon dock or sometype of document docking solution with tabs (sync fusion maybe...)
-        private async void InsertNewParam(object sender, RoutedEventArgs e)
+        private void InsertNewParam(object sender, RoutedEventArgs e)
         {
-            var id = await AppData.Insatnce.ShowInputDialog("Parameter ID", "insert param id", "param-id");
+            ParamIdText.Text = "param-id";
+            ParamTypeDropdown.Text = "number";
+            ParamValueText.Text = string.Empty;
+            ParamNameText.Text = "This is the parameters name";
+            ParamDescText.Text = "This is the parameters description";
+            NewParamWindow.IsOpen = true;
+        }
 
-            if (ActionAceTextEditor.Text.Contains("\"params\": ["))
+        private void SaveActionButton_Click(object sender, RoutedEventArgs e)
+        {
+            var id = ActionIdText.Text;
+            var category = ActionCategoryText.Text;
+            var highlight = HighlightDropdown.Text;
+            var displayText = DisplayText.Text;
+            var desc = DescriptionText.Text;
+
+            if (_actions.ContainsKey(id))
             {
-                //there is at least one param defined
-                var aceTemplate = $@"    ""params"": [
-        {{
-            ""id"": ""{id}"",
-            ""type"": ""number""
-        }},";
-
-                ActionAceTextEditor.Text = ActionAceTextEditor.Text.Replace("    \"params\": [", aceTemplate);
-
-                var langTemplate = $@"    ""params"": {{
-        ""{id}"": {{
-            ""name"": ""param name"",
-            ""desc"": ""param description""
-        }},";
-
-                ActionLanguageTextEditor.Text = ActionLanguageTextEditor.Text.Replace(@"	""params"": {", langTemplate);
-
-                var ti = new CultureInfo("en-US", false).TextInfo;
-                var param = ti.ToTitleCase(id.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
-                param = char.ToLowerInvariant(param[0]) + param.Substring(1);
-
-                var codeTemplate = $"{_selectedAction.ScriptName}({param}, ";
-
-                ActionCodeTextEditor.Text = ActionCodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}(", codeTemplate);
+                //todo: error duplicate id
             }
+
+            var action = new Action
+            {
+                Id = id.Trim().ToLower(),
+                Category = category.Trim().ToLower(),
+                Highlight = highlight,
+                DisplayText = displayText,
+                Description = desc
+            };
+
+            action.Ace = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionAces, action);
+            action.Language = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionLanguage, action);
+            action.Code = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionCode, action);
+
+            _actions.Add(id, action);
+            ActionListBox.Items.Refresh();
+            ActionListBox.SelectedIndex = _actions.Count - 1;
+            NewActionWindow.IsOpen = false;
+        }
+
+        private void SaveParamButton_Click(object sender, RoutedEventArgs e)
+        {
+            var id = ParamIdText.Text;
+            var type = ParamTypeDropdown.Text;
+            var value = ParamValueText.Text;
+            var name = ParamNameText.Text;
+            var desc = ParamDescText.Text;
+
+            //there is at least one param defined
+            if (AceTextEditor.Text.Contains("\"params\": ["))
+            {
+                //ace param
+                var aceTemplate = TemplateHelper.AceParam(id, type, value);
+               AceTextEditor.Text = AceTextEditor.Text.Replace("    \"params\": [", aceTemplate);
+
+                //language param
+                var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
+                LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"	""params"": {", langTemplate);
+
+                //code param
+                var codeTemplate = TemplateHelper.AceCode(id, _selectedAction.ScriptName);
+                CodeTextEditor.Text =CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}(", codeTemplate);
+            }
+            //this will be the first param
             else
             {
-                //this will be the first param
+                //ace param
+                var aceTemplate = TemplateHelper.AceParamFirst(id, type, value);
+               AceTextEditor.Text = AceTextEditor.Text.Replace("}", aceTemplate);
 
-                var aceTemplate = $@"    ""params"": [
-        {{
-            ""id"": ""{id}"",
-            ""type"": ""number""
-        }}
-    ]
-}}";
-                ActionAceTextEditor.Text = ActionAceTextEditor.Text.Replace("}", aceTemplate);
-
-                var langTemplate = $@""",
-	""params"": {{
-        ""{id}"": {{
-            ""name"": ""param name"",
-            ""desc"": ""param description""
-        }}
-    }}
-}}";
-
-                ActionLanguageTextEditor.Text = ActionLanguageTextEditor.Text.Replace(@"""
+                //language param
+                var langTemplate = TemplateHelper.AceLangFirst(id, type, name, desc);
+                LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""
 }", langTemplate);
 
-                var ti = new CultureInfo("en-US", false).TextInfo;
-                var param = ti.ToTitleCase(id.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
-                param = char.ToLowerInvariant(param[0]) + param.Substring(1);
-
-                var codeTemplate = $"{_selectedAction.ScriptName}({param})";
-
-                ActionCodeTextEditor.Text = ActionCodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}()", codeTemplate);
+                //code param
+                var codeTemplate = TemplateHelper.AceCodeFirst(id, _selectedAction.ScriptName);
+               CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}()", codeTemplate);
             }
-        }
 
-        
+            NewParamWindow.IsOpen = false;
+        }
     }
 }
