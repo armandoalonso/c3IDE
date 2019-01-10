@@ -3,4 +3,4 @@
 		"name": "Test property",
 		"desc": "A test number property. Displayed by 'Alert' action."
 	}
-},
+}

@@ -34,7 +34,17 @@ namespace c3IDE.Models
         public string InstanceEditTime { get; set; }
         public string InstanceRunTime { get; set; }
         public string LanguageProperties { get; set; }
-        public Dictionary<string, string> Categories { get; set; }
+        public string LanguageCategories { get; set; }
+        public List<string> Categories  {
+            get
+            {
+                var set = new HashSet<string>();
+                set.UnionWith(Actions.Select(x => x.Value.Category));
+                set.UnionWith(Conditions.Select(x => x.Value.Category));
+                set.UnionWith(Expressions.Select(x => x.Value.Category));
+                return set.ToList();
+            }
+        }
         public Dictionary<string, Action> Actions { get; set; }
         public Dictionary<string, Condition> Conditions { get; set; }
         public Dictionary<string, Expression> Expressions { get; set; }

@@ -34,6 +34,7 @@ namespace c3IDE.Windows
         public void OnEnter()
         {
             PropertyLanguageTextEditor.Text = AppData.Insatnce.CurrentAddon?.LanguageProperties;
+            CategoryLanguageTextEditor.Text = AppData.Insatnce.CurrentAddon?.LanguageCategories;
         }
 
         public void OnExit()
@@ -41,6 +42,7 @@ namespace c3IDE.Windows
             if (AppData.Insatnce.CurrentAddon != null)
             {
                 AppData.Insatnce.CurrentAddon.LanguageProperties = PropertyLanguageTextEditor.Text;
+                AppData.Insatnce.CurrentAddon.LanguageCategories = CategoryLanguageTextEditor.Text;
             }
         }
 
@@ -77,6 +79,19 @@ namespace c3IDE.Windows
 
             //set the editor to the new property json
             PropertyLanguageTextEditor.Text = TemplateHelper.LanguageProperty(string.Join(",\n", propList));
+        }
+
+        private void GenerateCategoryText(object sender, RoutedEventArgs e)
+        {
+            var catList = new List<string>();
+            foreach(var category in AppData.Insatnce.CurrentAddon.Categories)
+            {
+                catList.Add($"    \"{category}\" : \"value\"");
+            }
+
+            CategoryLanguageTextEditor.Text = $@"""aceCategories"": {{
+{string.Join(",\n", catList)}
+}}";
         }
     }
 }

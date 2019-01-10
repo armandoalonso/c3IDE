@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
     <Grid Margin="10">
         <TabControl>
-            <TabItem Header="Properties" Width="300">
+            <TabItem Header="Properties">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="PropertyLanguageTextEditor"
@@ -19,6 +19,22 @@
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Generate Property JSON" Click="GeneratePropertyText" />
+                        </ContextMenu>
+                    </avalonEdit:TextEditor.ContextMenu>
+                </avalonEdit:TextEditor>
+            </TabItem>
+
+            <TabItem Header="Categories">
+                <avalonEdit:TextEditor
+                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                    Name="CategoryLanguageTextEditor"
+                    FontFamily="Consolas"
+                    SyntaxHighlighting="JavaScript"
+                    FontSize="10pt"
+                    ShowLineNumbers="True">
+                    <avalonEdit:TextEditor.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Generate Category JSON" Click="GenerateCategoryText" />
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>

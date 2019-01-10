@@ -67,7 +67,6 @@ namespace c3IDE.Windows
             };
 
             //apply the templates
-            addon.Categories = new Dictionary<string, string>();
             addon.AddonJson = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.AddonJson, addon);
             addon.PluginEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.PluginEditTime, addon);
             addon.PluginRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.PluginRunTime, addon);
