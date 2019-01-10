@@ -1,4 +1,13 @@
-﻿ //language property, trying to preserve original text
+﻿canidates for web server implementaion
+
+https://github.com/unosquare/embedio
+https://github.com/bonesoul/uhttpsharp
+https://archive.codeplex.com/?p=webserver
+https://github.com/pvginkel/NHttp
+https://github.com/kayakhttp/kayak
+https://docs.microsoft.com/en-us/dotnet/api/system.net.httplistener?redirectedfrom=MSDN&view=netframework-4.7.2
+
+ //language property, trying to preserve original text
  private void GeneratePropertyText(object sender, RoutedEventArgs e)
         {
             var currentRegex =new Regex(@"\""(?<id>\w+[-]?\w+)\""\s*:\s*\{\s*\""name\""\s*:\s*\""(?<name>.+)\"",\s*\""desc\""\s*:\s*\""(?<desc>.+)\""");
