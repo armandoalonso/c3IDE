@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using c3IDE.DataAccess;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.Search;
 
@@ -39,6 +40,7 @@ namespace c3IDE.Windows
             if(AppData.Insatnce.CurrentAddon != null)
             {
                 AppData.Insatnce.CurrentAddon.AddonJson = AddonTextEditor.Text;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }  
         }
     }

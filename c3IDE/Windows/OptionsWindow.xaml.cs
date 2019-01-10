@@ -32,12 +32,16 @@ namespace c3IDE.Windows
 
         public void OnEnter()
         {
-            
+            CompilePathText.Text = AppData.Insatnce.Options.CompilePath;
         }
 
         public void OnExit()
         {
-
+            if (AppData.Insatnce.Options != null)
+            {
+                AppData.Insatnce.Options.CompilePath = CompilePathText.Text;
+                DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
+            }
         }
 
         private async void ClearDataButton_Click(object sender, RoutedEventArgs e)

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.DataAccess;
+using c3IDE.Models;
 using c3IDE.Windows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -33,6 +36,7 @@ namespace c3IDE
         private readonly ConditionWindow _conditionWindow = new ConditionWindow();
         private readonly ExpressionWindow _expressionWindow = new ExpressionWindow();
         private readonly LanguageWindow _languageWindow = new LanguageWindow();
+        private readonly TestWindow _testWidnow = new TestWindow();
         private readonly OptionsWindow _optionsWindow = new OptionsWindow();
 
         private string _currentActiveWindow;
@@ -40,6 +44,13 @@ namespace c3IDE
         public MainWindow()
         {
             InitializeComponent();
+
+            //load saved options if none are saved
+            var executingPath = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory?.FullName;
+            AppData.Insatnce.Options = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? new Options
+            {
+                CompilePath = System.IO.Path.Combine(executingPath ?? throw new InvalidOperationException(), "Server", "Test")
+            };
 
             //load data
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
@@ -62,6 +73,12 @@ namespace c3IDE
                 Save();
                 MainMenu.IsPaneOpen = false;
                 return;
+            }
+
+            if (clickedLabel == "Exit")
+            {
+                Save();
+                Close();
             }
 
             //execute on exit
@@ -94,7 +111,10 @@ namespace c3IDE
                 case "Language":
                     _languageWindow.OnExit();
                    break;
-                 case "Options":
+                case "Test":
+                    _testWidnow.OnExit();
+                    break;
+                case "Options":
                     _optionsWindow.OnExit();
                     break;
             }
@@ -136,6 +156,10 @@ namespace c3IDE
                 case "Language":
                     ActiveItem.Content = _languageWindow;
                     _languageWindow.OnEnter();
+                    break;
+                case "Test":
+                    ActiveItem.Content = _testWidnow;
+                    _testWidnow.OnEnter();
                     break;
                 case "Options":
                     ActiveItem.Content = _optionsWindow;
@@ -183,6 +207,9 @@ namespace c3IDE
                     break;
                 case "Language":
                     _languageWindow.OnExit();
+                    break;
+                case "Test":
+                    _testWidnow.OnExit();
                     break;
                 case "Options":
                     _optionsWindow.OnExit();

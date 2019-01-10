@@ -1,5 +1,5 @@
 {
 	"id": "{{id}}",
 	"scriptName": "{{script_name}}",
-	"highlight": {{highlight}}
+	"highlight": {{highlight}},
 }

@@ -19,6 +19,7 @@ namespace c3IDE.Models
         public string Company { get; set; }
         public string Author { get; set; }
         public string Version { get; set; }
+        public string Description { get; set; }
         public PluginType Type { get; set; }
         public string IconBase64 { get; set; }
         [BsonIgnore]
@@ -35,13 +36,14 @@ namespace c3IDE.Models
         public string InstanceRunTime { get; set; }
         public string LanguageProperties { get; set; }
         public string LanguageCategories { get; set; }
+        [BsonIgnore]
         public List<string> Categories  {
             get
             {
                 var set = new HashSet<string>();
-                set.UnionWith(Actions.Select(x => x.Value.Category));
-                set.UnionWith(Conditions.Select(x => x.Value.Category));
-                set.UnionWith(Expressions.Select(x => x.Value.Category));
+                set.UnionWith(Actions?.Select(x => x.Value.Category) ?? new List<string>());
+                set.UnionWith(Conditions?.Select(x => x.Value.Category) ?? new List<string>());
+                set.UnionWith(Expressions?.Select(x => x.Value.Category) ?? new List<string>());
                 return set.ToList();
             }
         }

@@ -63,5 +63,17 @@ namespace c3IDE.Utilities
             encoder.Save(memStream);
             return Convert.ToBase64String(memStream.ToArray());
         }
+
+        public byte[] BitmapImageToBytes(BitmapImage image)
+        {
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(image));
+            using (var ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                var data = ms.ToArray();
+                return data;
+            }
+        }
     }
 }

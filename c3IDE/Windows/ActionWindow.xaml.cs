@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using c3IDE.DataAccess;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Windows.Interfaces;
 using c3IDE.Models;
@@ -57,16 +58,20 @@ namespace c3IDE.Windows
 
         public void OnExit()
         {
-            //save the current selected action
-            if (_selectedAction != null)
+            if (AppData.Insatnce.CurrentAddon != null)
             {
-                _selectedAction.Ace = AceTextEditor.Text;
-                _selectedAction.Language = LanguageTextEditor.Text;
-                _selectedAction.Code = CodeTextEditor.Text;
-                _actions[_selectedAction.Id] = _selectedAction;
-            }
+                //save the current selected action
+                if (_selectedAction != null)
+                {
+                    _selectedAction.Ace = AceTextEditor.Text;
+                    _selectedAction.Language = LanguageTextEditor.Text;
+                    _selectedAction.Code = CodeTextEditor.Text;
+                    _actions[_selectedAction.Id] = _selectedAction;
+                }
 
-            AppData.Insatnce.CurrentAddon.Actions = _actions;
+                AppData.Insatnce.CurrentAddon.Actions = _actions;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+            }          
         }
 
         private void ActionListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

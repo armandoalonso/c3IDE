@@ -59,6 +59,7 @@ namespace c3IDE.Windows
                 Company = CompanyNameText.Text,
                 Author = AuthorText.Text,
                 Version = VersionText.Text,
+                Description = DescriptionText.Text,
                 Type = pluginType,
                 IconBase64 = ImageHelper.Insatnce.BitmapImageToBase64(AddonIcon.Source as BitmapImage),
                 Template = TemplateFactory.Insatnce.CreateTemplate(pluginType),

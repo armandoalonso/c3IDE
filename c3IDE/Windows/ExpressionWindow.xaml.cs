@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using c3IDE.DataAccess;
 using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Windows.Interfaces;
@@ -170,16 +171,20 @@ namespace c3IDE.Windows
 
         public void OnExit()
         {
-            //save the current selected expression
-            if (_selectedExpression != null)
+            if (AppData.Insatnce.CurrentAddon != null)
             {
-                _selectedExpression.Ace = AceTextEditor.Text;
-                _selectedExpression.Language = LanguageTextEditor.Text;
-                _selectedExpression.Code = CodeTextEditor.Text;
-                _expressions[_selectedExpression.Id] = _selectedExpression;
-            }
+                //save the current selected expression
+                if (_selectedExpression != null)
+                {
+                    _selectedExpression.Ace = AceTextEditor.Text;
+                    _selectedExpression.Language = LanguageTextEditor.Text;
+                    _selectedExpression.Code = CodeTextEditor.Text;
+                    _expressions[_selectedExpression.Id] = _selectedExpression;
+                }
 
-            AppData.Insatnce.CurrentAddon.Expressions = _expressions;
+                AppData.Insatnce.CurrentAddon.Expressions = _expressions;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+            }
         }
     }
 }

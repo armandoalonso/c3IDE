@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using c3IDE.DataAccess;
 using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Windows.Interfaces;
@@ -129,16 +130,21 @@ namespace c3IDE.Windows
 
         public void OnExit()
         {
-            //save the current selected action
-            if (_selectedCondition != null)
+            if (AppData.Insatnce.CurrentAddon != null)
             {
-                _selectedCondition.Ace = AceTextEditor.Text;
-                _selectedCondition.Language = LanguageTextEditor.Text;
-                _selectedCondition.Code = CodeTextEditor.Text;
-                _conditions[_selectedCondition.Id] = _selectedCondition;
+                //save the current selected action
+                if (_selectedCondition != null)
+                {
+                    _selectedCondition.Ace = AceTextEditor.Text;
+                    _selectedCondition.Language = LanguageTextEditor.Text;
+                    _selectedCondition.Code = CodeTextEditor.Text;
+                    _conditions[_selectedCondition.Id] = _selectedCondition;
+                }
+
+                AppData.Insatnce.CurrentAddon.Conditions = _conditions;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
 
-            AppData.Insatnce.CurrentAddon.Conditions = _conditions;
         }
 
         private void RemoveCondition_OnClick(object sender, RoutedEventArgs e)

@@ -47,7 +47,6 @@
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:MaterialDesign Kind=Functions}" Label="Expressions" Tag="Expressions"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=GlobeAmericasSolid}" Label="Language" Tag="Language"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Beaker}" Label="Test" Tag="Test"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Download}" Label="Export" Tag="Export"/>
                 </mah:HamburgerMenuItemCollection>
             </mah:HamburgerMenu.ItemsSource>
             <mah:HamburgerMenu.OptionsItemsSource>

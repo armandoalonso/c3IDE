@@ -13,7 +13,7 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
-        <DockPanel LastChildFill="True" Grid.Column="0" Margin="3">
+        <DockPanel LastChildFill="True" Grid.Column="0">
             <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black" Style="{StaticResource TextBlockStyle}"> Addon's</TextBlock>
             <ListBox Name="AddonListBox" Margin="3" BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Bottom" ItemsSource="{Binding}" MouseDoubleClick="AddonListBox_OnMouseDoubleClick">
                 <ListBox.ItemTemplate>
@@ -54,6 +54,11 @@
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Version :</TextBlock>
                 <TextBox Name="VersionText" DockPanel.Dock="Right" Text="1.0.0.0"></TextBox>
+            </DockPanel>
+
+            <DockPanel LastChildFill="True" Margin="2">
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Description :</TextBlock>
+                <TextBox Name="DescriptionText" DockPanel.Dock="Right" Text="1.0.0.0" VerticalScrollBarVisibility="Auto" Height="80"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">

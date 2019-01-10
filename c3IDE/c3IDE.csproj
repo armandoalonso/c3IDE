@@ -40,6 +40,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -65,13 +68,21 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppData.cs" />
+    <Compile Include="Compiler\AddonCompiler.cs" />
+    <Compile Include="Compiler\CompilerLog.cs" />
     <Compile Include="DataAccess\AddonRepository.cs" />
     <Compile Include="DataAccess\DataAccessFacade.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="DataAccess\OptionReposiroty.cs" />
+    <Compile Include="Utilities\JsBeautifier\Beautifier.cs" />
+    <Compile Include="Utilities\JsBeautifier\BeautifierFlags.cs" />
+    <Compile Include="Utilities\JsBeautifier\BeautifierOptions.cs" />
+    <Compile Include="Utilities\JsBeautifier\BraceStyle.cs" />
     <Compile Include="Models\Action.cs" />
     <Compile Include="Models\C3Addon.cs" />
     <Compile Include="Models\Condition.cs" />
     <Compile Include="Models\Expression.cs" />
+    <Compile Include="Models\Options.cs" />
     <Compile Include="Models\PluginType.cs" />
     <Compile Include="Templates\ITemplate.cs" />
     <Compile Include="Templates\SingleGlobalPluginTemplate.cs" />
@@ -79,6 +90,7 @@
     <Compile Include="Templates\TemplateFactory.cs" />
     <Compile Include="Templates\TemplateHelper.cs" />
     <Compile Include="Utilities\ImageHelper.cs" />
+    <Compile Include="Utilities\FormatHelper.cs" />
     <Compile Include="Utilities\ResourceReader.cs" />
     <Compile Include="Utilities\Singleton.cs" />
     <Compile Include="Windows\ActionWindow.xaml.cs">
@@ -108,6 +120,9 @@
     </Compile>
     <Compile Include="Windows\PluginWindow.xaml.cs">
       <DependentUpon>PluginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\TypeWindow.xaml.cs">
       <DependentUpon>TypeWindow.xaml</DependentUpon>
@@ -160,6 +175,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\TestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\TypeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -189,6 +208,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <EmbeddedResource Include="Templates\Files\SingleGlobal\addon.txt" />
+    <None Include="Server\Test\README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using c3IDE.DataAccess;
 using c3IDE.Templates;
 using c3IDE.Windows.Interfaces;
 using Newtonsoft.Json;
@@ -43,6 +44,7 @@ namespace c3IDE.Windows
             {
                 AppData.Insatnce.CurrentAddon.LanguageProperties = PropertyLanguageTextEditor.Text;
                 AppData.Insatnce.CurrentAddon.LanguageCategories = CategoryLanguageTextEditor.Text;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
         }
 
@@ -51,7 +53,7 @@ namespace c3IDE.Windows
         private void GeneratePropertyText(object sender, RoutedEventArgs e)
         {
             //generate new property json
-            var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+(?<id>.*)\""");
+            var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+\""(?<id>\w+[-]?\w+)\""");
             var propertyMatches = propertyRegex.Matches(AppData.Insatnce.CurrentAddon.PluginEditTime);
 
             var propList = new List<string>();

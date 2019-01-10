@@ -7,38 +7,53 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
     <Grid Margin="10">
-        <TabControl>
-            <TabItem Header="Properties">
-                <avalonEdit:TextEditor
-                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                    Name="PropertyLanguageTextEditor"
-                    FontFamily="Consolas"
-                    SyntaxHighlighting="JavaScript"
-                    FontSize="10pt"
-                    ShowLineNumbers="True">
-                    <avalonEdit:TextEditor.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Generate Property JSON" Click="GeneratePropertyText" />
-                        </ContextMenu>
-                    </avalonEdit:TextEditor.ContextMenu>
-                </avalonEdit:TextEditor>
-            </TabItem>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <TabItem Header="Categories">
-                <avalonEdit:TextEditor
-                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                    Name="CategoryLanguageTextEditor"
-                    FontFamily="Consolas"
-                    SyntaxHighlighting="JavaScript"
-                    FontSize="10pt"
-                    ShowLineNumbers="True">
-                    <avalonEdit:TextEditor.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Generate Category JSON" Click="GenerateCategoryText" />
-                        </ContextMenu>
-                    </avalonEdit:TextEditor.ContextMenu>
-                </avalonEdit:TextEditor>
-            </TabItem>
-        </TabControl>
+        <DockPanel Grid.Column="0" LastChildFill="True">
+            <Button DockPanel.Dock="Top" Content="Generate Property Json" Margin="0,5" Width="250" Click="GeneratePropertyText"/>
+            <TabControl DockPanel.Dock="Bottom">
+                <TabItem Header="Properties">
+                    <avalonEdit:TextEditor
+                        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                        Name="PropertyLanguageTextEditor"
+                        FontFamily="Consolas"
+                        SyntaxHighlighting="JavaScript"
+                        FontSize="10pt"
+                        ShowLineNumbers="True">
+                        <avalonEdit:TextEditor.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Generate Property JSON" Click="GeneratePropertyText" />
+                            </ContextMenu>
+                        </avalonEdit:TextEditor.ContextMenu>
+                    </avalonEdit:TextEditor>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+
+        <DockPanel Grid.Column="1" LastChildFill="True">
+            <Button DockPanel.Dock="Top" Content="Generate Category Json" Margin="0,5" Width="250" Click="GenerateCategoryText"/>
+            <TabControl DockPanel.Dock="Bottom">
+                <TabItem Header="Categories">
+                    <avalonEdit:TextEditor
+                        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                        Name="CategoryLanguageTextEditor"
+                        FontFamily="Consolas"
+                        SyntaxHighlighting="JavaScript"
+                        FontSize="10pt"
+                        ShowLineNumbers="True">
+                        <avalonEdit:TextEditor.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Generate Category JSON" Click="GenerateCategoryText" />
+                            </ContextMenu>
+                        </avalonEdit:TextEditor.ContextMenu>
+                    </avalonEdit:TextEditor>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+
+        
     </Grid>
 </UserControl>

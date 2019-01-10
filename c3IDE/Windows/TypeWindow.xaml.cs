@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using c3IDE.DataAccess;
 using c3IDE.Windows.Interfaces;
 
 namespace c3IDE.Windows
@@ -39,6 +40,7 @@ namespace c3IDE.Windows
             {
                 AppData.Insatnce.CurrentAddon.TypeEditTime = EditTimeTypeTextEditor.Text;
                 AppData.Insatnce.CurrentAddon.TypeRunTime = RunTimeTypeTextEditor.Text;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
         }
     }

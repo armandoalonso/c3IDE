@@ -139,7 +139,7 @@ namespace c3IDE.Templates
             return $@"{{
 	""id"": ""{exp.Id}"",
 	""expressionName"": ""{exp.ScriptName}"",
-	""returnType"": {exp.ReturnType}{isvariadic}
+	""returnType"": ""{exp.ReturnType}""{isvariadic}
 }}";
         }
     }
