@@ -58,6 +58,12 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Unosquare.Labs.EmbedIO, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmbedIO.2.1.1\lib\net47\Unosquare.Labs.EmbedIO.dll</HintPath>
+    </Reference>
+    <Reference Include="Unosquare.Swan.Lite, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unosquare.Swan.Lite.0.36.1\lib\net452\Unosquare.Swan.Lite.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -74,6 +80,7 @@
     <Compile Include="DataAccess\DataAccessFacade.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\OptionReposiroty.cs" />
+    <Compile Include="Server\WebServerClient.cs" />
     <Compile Include="Utilities\JsBeautifier\Beautifier.cs" />
     <Compile Include="Utilities\JsBeautifier\BeautifierFlags.cs" />
     <Compile Include="Utilities\JsBeautifier\BeautifierOptions.cs" />

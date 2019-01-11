@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using c3IDE.Models;
+using c3IDE.Server;
 using c3IDE.Utilities;
 using Action = System.Action;
 
@@ -16,6 +17,7 @@ namespace c3IDE.Compiler
         private Dictionary<string, string> _addonFiles;
         public Action<string> UpdateLogText;
         private CompilerLog _log;
+        public WebServerClient WebServer { get; set; }
 
         public void CompileAddon(C3Addon addon)
         {
@@ -110,9 +112,14 @@ namespace c3IDE.Compiler
                 _log.Insert($"compliation complete...");
 
                 //start web server installation
-                //var ws = new WebServer();
-                //ws.Start(_log);
-                //ws.Shutdown(_log);
+                Task.Run(() =>
+                {
+                    WebServer = new WebServerClient();
+                    WebServer.Start(_log);
+                });
+               
+                //todo: figuire out way to stop server
+                //ws.Stop();
             }
             catch (Exception ex)
             {

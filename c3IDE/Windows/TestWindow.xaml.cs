@@ -38,10 +38,20 @@ namespace c3IDE.Windows
                 LogText.ScrollToLine(LogText.LineCount-1);
             });
 
+            StopWebServerButton.IsEnabled = true;
+            StartAndTestButton.IsEnabled = false;
+
             await Task.Run(() =>
             {
                 AddonCompiler.Insatnce.CompileAddon(AppData.Insatnce.CurrentAddon);
             });
+        }
+
+        public void StopWebServerButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddonCompiler.Insatnce.WebServer.Stop();
+            StopWebServerButton.IsEnabled = false;
+            StartAndTestButton.IsEnabled = true;
         }
 
         private void CompileToFolderButton_Click(object sender, RoutedEventArgs e)
