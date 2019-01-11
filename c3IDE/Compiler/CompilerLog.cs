@@ -37,7 +37,7 @@ namespace c3IDE.Compiler
 
         public override string ToString()
         {
-            return $"{Date:s} == {Type}\n{Message}";
+            return $"{Date} : {Type} => {Message}\n";
         }
     }
 }

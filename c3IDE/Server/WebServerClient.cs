@@ -1,67 +1,58 @@
-﻿using c3IDE.Compiler;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Unosquare.Labs.EmbedIO;
-using Unosquare.Labs.EmbedIO.Constants;
-using Unosquare.Labs.EmbedIO.Modules;
-using Unosquare.Swan;
+﻿using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Reflection;
+using c3IDE.Compiler;
+using uhttpsharp;
+using uhttpsharp.Headers;
+using uhttpsharp.Listeners;
+using uhttpsharp.RequestProviders;
+
 
 namespace c3IDE.Server
 {
     public class WebServerClient
     {
-        public string Url { get; set; } = "http://localhost:8080";
-        private WebServer _webServer;
         private CompilerLog _log;
+        private HttpServer _httpServer;
 
         public void Start(CompilerLog log)
         {
-            //setup logging
             this._log = log;
 
-            //setup webserver logging
-            Terminal.OnLogMessageReceived += Terminal_OnLogMessageReceived;
+            _httpServer = new HttpServer(new HttpRequestProvider());
 
-            //create instance of web server @ url
-            _webServer = new WebServer(Url, RoutingStrategy.Regex);
-            _log.Insert($"starting web server on => {Url}", "WEB");
+            C3FileHandler.Logger = _log;
+            C3FileHandler.HttpRootDirectory = AppData.Insatnce.Options.CompilePath;
 
-           
-            //var corsModule = new CorsModule("*", "Origin, X-Requested-With, Content-Type, Accept", "*");
-            //_webServer.RegisterModule(corsModule);
-            _webServer.EnableCors("*", "Origin, X-Requested-With, Content-Type, Accept", "*");
+            _httpServer.Use(new TcpListenerAdapter(AppData.Insatnce.TcpListener));
 
-            _log.Insert($"static file path => {AppData.Insatnce.Options.CompilePath}", "WEB");
+            _httpServer.Use((context, next) =>
+            {
+                _log.Insert($"got request => {context.Request.Uri}");
 
-            //assign path to hist static files
-            var staticFileModule = new StaticFilesModule(AppData.Insatnce.Options.CompilePath);
-            staticFileModule.DefaultExtension = ".json";
-            //add cors header to every file request header
-            staticFileModule.DefaultHeaders.Add(Headers.AccessControlAllowOrigin, "*");
-            staticFileModule.DefaultHeaders.Add(Headers.AccessControlAllowHeaders, "Origin, X-Requested-With, Content-Type, Accept");
-            _webServer.RegisterModule(staticFileModule);
-            //the static files module will cache small files in ram until it detects they have been modified
-            _webServer.Module<StaticFilesModule>().UseRamCache = true;
+                foreach (var requestHeader in context.Request.Headers)
+                {
+                    _log.Insert($"got request headers => {requestHeader.Key} : {requestHeader.Value}");
+                }
 
-            _log.Insert($"c3addon dev url => {Url}/addon.json", "WEB");
-            //start web server in background
-            var task = _webServer.RunAsync();
+                return next();
+            });
 
-        }
+            //handle static files (only suport js, json and png)
+            _httpServer.Use(new C3FileHandler());
 
-        private void Terminal_OnLogMessageReceived(object sender, LogMessageReceivedEventArgs e)
-        {
-            _log.Insert(e.Message, "WEB");
+            _log.Insert("starting server => https://localhost:8080/addon.json");
+            _httpServer.Start();
+
         }
 
         public void Stop()
         {
-            _log.Insert("terminating web server...", "WEB");
-            _webServer.Dispose();
+            _log.Insert("server stopped...");
+            _httpServer.Dispose();
+            _httpServer = null;
+            AppData.Insatnce.TcpListener.Stop();
         }
     }
 }

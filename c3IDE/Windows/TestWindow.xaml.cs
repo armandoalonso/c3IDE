@@ -44,6 +44,14 @@ namespace c3IDE.Windows
             await Task.Run(() =>
             {
                 AddonCompiler.Insatnce.CompileAddon(AppData.Insatnce.CurrentAddon);
+
+                //there was an error detected in complication
+                if (!AddonCompiler.Insatnce.IsCompilationValid)
+                {
+                    //todo: error notification
+                    StopWebServerButton.IsEnabled = false;
+                    StartAndTestButton.IsEnabled = true;
+                }
             });
         }
 

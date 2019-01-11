@@ -18,6 +18,7 @@ namespace c3IDE.Compiler
         public Action<string> UpdateLogText;
         private CompilerLog _log;
         public WebServerClient WebServer { get; set; }
+        public bool IsCompilationValid { get; set; }
 
         public void CompileAddon(C3Addon addon)
         {
@@ -26,7 +27,12 @@ namespace c3IDE.Compiler
             try
             {
                 var vaild = ValidateFiles(addon);
-                if (!vaild) return;
+                if (!vaild)
+                {
+                    IsCompilationValid = false;
+                    return;
+                }
+                IsCompilationValid = true;
 
                 _log.Insert($"compliation starting...");
 
