@@ -31,7 +31,47 @@
             </Grid>
         </DataTemplate>
     </mah:MetroWindow.Resources>
-      
+
+    <!-- Fly Out -->
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl>
+            <mah:Flyout x:Name="SuccessNotificationFlyOut" IsPinned="False" AreAnimationsEnabled="True" Position="Bottom" CloseButtonVisibility="Collapsed"
+                        TitleVisibility="Collapsed" ExternalCloseButton="Left" IsOpen="False">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle Width="15" Height="15" Fill="Green" Grid.Column="0">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{iconPacks:FontAwesome CheckSolid, Width=15, Height=15, Spin=False }" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+
+                    <TextBlock Grid.Column="1" Name="SuccessNotification" FontSize="14" />
+                </Grid>
+            </mah:Flyout>
+            <mah:Flyout x:Name="ErrorNotificationFlyOut" IsPinned="False" AreAnimationsEnabled="True" Position="Bottom" CloseButtonVisibility="Collapsed"
+                        TitleVisibility="Collapsed" ExternalCloseButton="Left" IsOpen="False">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle Width="15" Height="15" Fill="Red" Grid.Column="0">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{iconPacks:FontAwesome ExclamationCircleSolid, Width=15, Height=15, Spin=False }" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+
+                    <TextBlock Grid.Column="1" Name="ErrorNotification" FontSize="14" />
+                </Grid>
+            </mah:Flyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+
     <Grid>
         <mah:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}"
                            ItemClick="HambugerMenuItem_Click" OptionsItemClick="HambugerMenuItem_Click" x:Name="MainMenu">

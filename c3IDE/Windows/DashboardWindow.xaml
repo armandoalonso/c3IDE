@@ -33,17 +33,17 @@
             <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black"> Addon Data</TextBlock>
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Addon Name :</TextBlock>
-                <TextBox Name="AddonNameText" DockPanel.Dock="Right" Text="My custom plugin"></TextBox>
+                <TextBox Name="AddonNameText" DockPanel.Dock="Right" Text=""></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Addon Class Name :</TextBlock>
-                <TextBox Name="AddonClassText" DockPanel.Dock="Right" Text="SingleGlobal"></TextBox>
+                <TextBox Name="AddonClassText" DockPanel.Dock="Right" Text=""></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Company Name :</TextBlock>
-                <TextBox Name="CompanyNameText" DockPanel.Dock="Right" Text="MyCompany"></TextBox>
+                <TextBox Name="CompanyNameText" DockPanel.Dock="Right" Text=""></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
@@ -58,7 +58,7 @@
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Description :</TextBlock>
-                <TextBox Name="DescriptionText" DockPanel.Dock="Right" Text="1.0.0.0" VerticalScrollBarVisibility="Auto" Height="80"></TextBox>
+                <TextBox Name="DescriptionText" DockPanel.Dock="Right" Text="" VerticalScrollBarVisibility="Auto" Height="80"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
@@ -75,6 +75,8 @@
             <Button Name="CreateAddonButton" Content="Create Addon" Margin="10" Click="CreateAddonButton_OnClick" ></Button>
             <Button Name="LoadAddonButton" Content="Load Addon" Margin="10" Click="LoadAddonButton_OnClick" ></Button>
             <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="10" Click="RemoveAddonButton_OnClick" ></Button>
+            <Button Name="ExportAddonButton" Content="Export Addon" Margin="10" Click="ExportAddonButton_OnClick" ></Button>
+            
         </StackPanel>
     </Grid>
 </UserControl>

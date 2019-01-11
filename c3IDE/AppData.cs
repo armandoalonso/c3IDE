@@ -20,5 +20,8 @@ namespace c3IDE
 
         public Func<string, string, Task<bool>> ShowDialog { get; internal set; }
         public Func<string, string, string, Task<string>> ShowInputDialog { get; set; }
+
+        public Action<string> InfoMessage { get; set; }
+        public Action<string> ErrorMessage { get; set; }
     }
 }

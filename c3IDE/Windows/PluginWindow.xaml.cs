@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -57,6 +58,19 @@ namespace c3IDE.Windows
             var id = PropertyIdText.Text;
             var type = PropertyTypeDropdown.Text;
             string template;
+
+            //check for duplicate property id
+            var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+\""(?<id>\w+[-]?\w+)\""");
+            var propertyMatches = propertyRegex.Matches(AppData.Insatnce.CurrentAddon.PluginEditTime);
+
+            foreach (Match propertyMatch in propertyMatches)
+            {
+                if (propertyMatch.Groups["id"].ToString() == id)
+                {
+                    AppData.Insatnce.ErrorMessage("cannot have duplicate property id.");
+                    return;
+                }
+            }
 
             switch (type)
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using c3IDE.DataAccess;
@@ -8,6 +9,7 @@ using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Windows.Interfaces;
 using c3IDE.Models;
 using c3IDE.Templates;
+using c3IDE.Utilities;
 using Action = c3IDE.Models.Action;
 
 namespace c3IDE.Windows
@@ -43,10 +45,15 @@ namespace c3IDE.Windows
             {
                 _actions.Remove(_selectedAction.Id);
                 ActionListBox.Items.Refresh();
+
+                //clear editors
+                AceTextEditor.Text = string.Empty;
+                LanguageTextEditor.Text = string.Empty;
+                CodeTextEditor.Text = string.Empty;
             }
             else
             {
-                //todo: display notification
+                AppData.Insatnce.ErrorMessage("failed to remove action, no action selected");
             }
         }
 
@@ -54,6 +61,11 @@ namespace c3IDE.Windows
         {
             _actions = AppData.Insatnce.CurrentAddon.Actions;
             ActionListBox.ItemsSource = _actions;
+
+            if (_actions.Any())
+            {
+                ActionListBox.SelectedIndex = 0;
+            }
         }
 
         public void OnExit()
@@ -76,6 +88,12 @@ namespace c3IDE.Windows
 
         private void ActionListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ActionListBox.SelectedIndex == -1)
+            {
+                //ignore
+                return;
+            }
+
             //save current selection
             if (_selectedAction != null)
             {
@@ -147,7 +165,7 @@ namespace c3IDE.Windows
             {
                 //ace param
                 var aceTemplate = TemplateHelper.AceParam(id, type, value);
-               AceTextEditor.Text = AceTextEditor.Text.Replace("    \"params\": [", aceTemplate);
+               AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("\"params\": [", aceTemplate));
 
                 //language param
                 var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
@@ -162,7 +180,7 @@ namespace c3IDE.Windows
             {
                 //ace param
                 var aceTemplate = TemplateHelper.AceParamFirst(id, type, value);
-               AceTextEditor.Text = AceTextEditor.Text.Replace("}", aceTemplate);
+               AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("}", aceTemplate));
 
                 //language param
                 var langTemplate = TemplateHelper.AceLangFirst(id, type, name, desc);

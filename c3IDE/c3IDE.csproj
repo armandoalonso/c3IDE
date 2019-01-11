@@ -263,5 +263,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Templates\Files\SingleGlobal\expression_language.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\icon.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

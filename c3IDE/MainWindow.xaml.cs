@@ -45,6 +45,10 @@ namespace c3IDE
         {
             InitializeComponent();
 
+            //bind notification container
+            AppData.Insatnce.InfoMessage = OpenNotification;
+            AppData.Insatnce.ErrorMessage = OpenErrorNotification;
+
             //load saved options if none are saved
             var executingPath = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory?.FullName;
             AppData.Insatnce.Options = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? new Options
@@ -233,6 +237,18 @@ namespace c3IDE
         {
             var value = await this.ShowInputAsync(title, message, new MetroDialogSettings {DefaultText = deafultText });
             return value;
+        }
+
+        public void OpenNotification(string text)
+        {
+            SuccessNotificationFlyOut.IsOpen = true;
+            SuccessNotification.Text = text;
+        }
+
+        public void OpenErrorNotification(string text)
+        {
+            ErrorNotificationFlyOut.IsOpen = true;
+            ErrorNotification.Text = text;
         }
     }
 }

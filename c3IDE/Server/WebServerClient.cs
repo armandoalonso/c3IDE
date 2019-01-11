@@ -29,12 +29,13 @@ namespace c3IDE.Server
 
             _httpServer.Use((context, next) =>
             {
-                _log.Insert($"got request => {context.Request.Uri}");
+                _log.Insert($"got request => {context.Request.Uri}", "C3");
 
-                foreach (var requestHeader in context.Request.Headers)
-                {
-                    _log.Insert($"got request headers => {requestHeader.Key} : {requestHeader.Value}");
-                }
+                //todo: add option to log out headers
+                //foreach (var requestHeader in context.Request.Headers)
+                //{
+                //    _log.Insert($"got request headers => {requestHeader.Key} : {requestHeader.Value}");
+                //}
 
                 return next();
             });
@@ -42,7 +43,7 @@ namespace c3IDE.Server
             //handle static files (only suport js, json and png)
             _httpServer.Use(new C3FileHandler());
 
-            _log.Insert("starting server => https://localhost:8080/addon.json");
+            _log.Insert("starting server => http://localhost:8080/addon.json");
             _httpServer.Start();
 
         }

@@ -20,7 +20,7 @@
         <StackPanel Grid.Column="1">
             <Button Name="StartAndTestButton" Content="Test C3 Addon" Margin="10" Click="TestC3AddonButton_Click" ></Button>
             <Button Name="StopWebServerButton" Content="Stop Web Server" Margin="10" Click="StopWebServerButton_Click" IsEnabled="False"></Button>
-            <Button Name="CompileToFolderButton" Content="Compile C3 Addon to Folder" Margin="10" Click="CompileToFolderButton_Click" ></Button>
+            <Button Name="OpenCompiledFOlder" Content="Open Compiled Folder" Margin="10" Click="OpenCompiledFolderButton_Click" ></Button>
         </StackPanel>
     </Grid>
 </UserControl>

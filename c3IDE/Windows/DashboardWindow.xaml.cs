@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using c3IDE.DataAccess;
 using c3IDE.Models;
 using c3IDE.Templates;
@@ -67,6 +60,17 @@ namespace c3IDE.Windows
                 LastModified = DateTime.Now,
             };
 
+            //validate all fields are entered
+            if (string.IsNullOrWhiteSpace(addon.Class) ||
+                string.IsNullOrWhiteSpace(addon.Company) ||
+                string.IsNullOrWhiteSpace(addon.Name) ||
+                string.IsNullOrWhiteSpace(addon.Author) ||
+                string.IsNullOrWhiteSpace(addon.Version))
+            {
+                AppData.Insatnce.ErrorMessage("addon data fields cannot be blank");
+                return;
+            }
+
             //apply the templates
             addon.AddonJson = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.AddonJson, addon);
             addon.PluginEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.PluginEditTime, addon);
@@ -84,6 +88,9 @@ namespace c3IDE.Windows
             DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
             AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
+
+            AppData.Insatnce.InfoMessage($"{addon.Name} created successfully...");
+            ClearInputControls();
         }
 
         private void AddonIcon_OnDragEnter(object sender, DragEventArgs e)
@@ -108,6 +115,7 @@ namespace c3IDE.Windows
             catch(Exception exception) 
             {
                 Console.WriteLine(exception.Message);
+                AppData.Insatnce.ErrorMessage($"error reading icon file, {exception.Message}");
             }
         }
 
@@ -115,7 +123,7 @@ namespace c3IDE.Windows
         {
             if (AddonListBox.SelectedIndex == -1)
             {
-                Console.WriteLine(@"No C3 addon selected to load");
+                AppData.Insatnce.ErrorMessage("error loading c3addon, no c3addon selected");
                 return;
             } 
 
@@ -131,13 +139,14 @@ namespace c3IDE.Windows
             AddonIcon.Source = currentAddon.IconImage;
 
             AppData.Insatnce.CurrentAddon = currentAddon;
+            AppData.Insatnce.InfoMessage($"{currentAddon.Name} loaded successfully");
         }
 
         private void RemoveAddonButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (AddonListBox.SelectedIndex == -1)
             {
-                Console.WriteLine(@"No C3 addon selected to load");
+                AppData.Insatnce.ErrorMessage("error removing c3addon, no c3addon selected");
                 return;
             }
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
@@ -146,6 +155,8 @@ namespace c3IDE.Windows
             DataAccessFacade.Insatnce.AddonData.Delete(currentAddon);
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
             AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
+
+            AppData.Insatnce.InfoMessage($"addon removed successfully");
         }
 
         private void AddonListBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -168,6 +179,24 @@ namespace c3IDE.Windows
             AddonIcon.Source = currentAddon.IconImage;
 
             AppData.Insatnce.CurrentAddon = currentAddon;
+            AppData.Insatnce.InfoMessage($"{currentAddon.Name} loaded successfully");
+        }
+
+        private void ExportAddonButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            //todo: implement export/import
+        }
+
+        private void ClearInputControls()
+        {
+            AddonNameText.Text = string.Empty;
+            AddonClassText.Text = string.Empty;
+            CompanyNameText.Text = string.Empty;
+            AuthorText.Text = string.Empty;
+            VersionText.Text = string.Empty;
+            AddonTypeDropdown.SelectedIndex = -1;
+            var defaultIcon = ResourceReader.Insatnce.GetResourceAsBase64("c3IDE.Templates.Files.icon.png");
+            AddonIcon.Source = ImageHelper.Insatnce.Base64ToBitmap(defaultIcon);
         }
     }
 }

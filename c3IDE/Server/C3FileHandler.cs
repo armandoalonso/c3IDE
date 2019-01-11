@@ -22,7 +22,8 @@ namespace c3IDE.Server
             {
                 {".json", "application/json"},
                 {".js", "application/javascript"},
-                {".png", "image/png"}
+                {".png", "image/png"},
+                {".svg", "image/svg+xml" }
             };
         }
 
@@ -31,23 +32,20 @@ namespace c3IDE.Server
             var extension = Path.GetExtension(path) ?? string.Empty;
             if (MimeTypes.ContainsKey(extension))
             {
-                Logger.Insert($"mime type for response => {MimeTypes[extension]}", "WEB");
+                Logger.Insert($"mime type for response => {MimeTypes[extension]}", "C3");
                 return MimeTypes[extension];
             }
-            Logger.Insert($"default mime type for response => {DefaultMimeType}", "WEB");
+            Logger.Insert($"default mime type for response => {DefaultMimeType}", "C3");
             return DefaultMimeType;
         }
 
         public async Task Handle(IHttpContext context, Func<Task> next)
         {
             var requestPath = context.Request.Uri.OriginalString.TrimStart('/');
-            Logger.Insert($"request path = > {requestPath}", "WEB");
-
             var httpRoot = Path.GetFullPath(HttpRootDirectory ?? ".");
-            Logger.Insert($"http root = > {httpRoot}", "WEB");
-
             var path = Path.GetFullPath(Path.Combine(httpRoot, requestPath));
-            Logger.Insert($"path = > {path}", "WEB");
+
+            Logger.Insert($"resolved request path = > {path}", "C3");
 
             if (!File.Exists(path))
             {
@@ -61,7 +59,7 @@ namespace c3IDE.Server
             //setup cors header / content type
             var responseHeader = new Dictionary<string, string>
             {
-                {"Content-Type", GetContentType(path)},
+                {"Content-type", GetContentType(path)},
                 {"Access-Control-Allow-Origin", "*"},
                 {"Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"},
             };

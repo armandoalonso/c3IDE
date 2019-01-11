@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,6 +54,9 @@ namespace c3IDE.Windows
                     StartAndTestButton.IsEnabled = true;
                 }
             });
+
+            //add url to clipboard
+            Clipboard.SetText("http://localhost:8080/addon.json");
         }
 
         public void StopWebServerButton_Click(object sender, RoutedEventArgs e)
@@ -62,9 +66,9 @@ namespace c3IDE.Windows
             StartAndTestButton.IsEnabled = true;
         }
 
-        private void CompileToFolderButton_Click(object sender, RoutedEventArgs e)
+        private void OpenCompiledFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Process.Start(AppData.Insatnce.Options.CompilePath);
         }
 
         public string DisplayName { get; set; } = "Test";
