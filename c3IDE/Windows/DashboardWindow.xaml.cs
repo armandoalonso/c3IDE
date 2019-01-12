@@ -197,10 +197,10 @@ namespace c3IDE.Windows
 
         private void ExportAddonButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //export addon to .c3ideproj format
+            //export addon to .c3ide format
             var addonJson = JsonConvert.SerializeObject(AppData.Insatnce.CurrentAddon);
             var timestamp = DateTime.Now.ToString("MMddyyyyHHmmssfff");
-            Utils.Insatnce.WriteFile($"Exports\\{AppData.Insatnce.CurrentAddon.Class}_{timestamp}.c3ideproj", addonJson);
+            Utils.Insatnce.WriteFile($"Exports\\{AppData.Insatnce.CurrentAddon.Class}_{timestamp}.c3ide", addonJson);
 
             Process.Start("Exports");
         }
@@ -225,7 +225,7 @@ namespace c3IDE.Windows
                 var file = ((string[])e.Data.GetData(DataFormats.FileDrop))?.FirstOrDefault();
                 var info = new FileInfo(file);
 
-                if (info.Extension.Contains("c3ideproj"))
+                if (info.Extension.Contains("c3ide"))
                 {
                     var data = File.ReadAllText(info.FullName);
                     var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
@@ -249,7 +249,7 @@ namespace c3IDE.Windows
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-                AppData.Insatnce.ErrorMessage($"error importing c3ideproj file, {exception.Message}");
+                AppData.Insatnce.ErrorMessage($"error importing c3ide file, {exception.Message}");
             }
         }
     }
