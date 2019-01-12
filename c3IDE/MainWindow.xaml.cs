@@ -56,6 +56,9 @@ namespace c3IDE
                 CompilePath = System.IO.Path.Combine(executingPath ?? throw new InvalidOperationException(), "Server", "Test")
             };
 
+            //create exports folder if it does not exists
+            if (!System.IO.Directory.Exists("Exports")) Directory.CreateDirectory("Exports");
+
             //load data
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
             AppData.Insatnce.CurrentAddon = AppData.Insatnce.AddonList.Any() ? AppData.Insatnce.AddonList.OrderBy(x => x.LastModified).FirstOrDefault() : null;

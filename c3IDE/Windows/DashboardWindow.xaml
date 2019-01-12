@@ -15,7 +15,8 @@
 
         <DockPanel LastChildFill="True" Grid.Column="0">
             <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black" Style="{StaticResource TextBlockStyle}"> Addon's</TextBlock>
-            <ListBox Name="AddonListBox" Margin="3" BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Bottom" ItemsSource="{Binding}" MouseDoubleClick="AddonListBox_OnMouseDoubleClick">
+            <ListBox Name="AddonListBox" Margin="3" BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Bottom" ItemsSource="{Binding}" MouseDoubleClick="AddonListBox_OnMouseDoubleClick" AllowDrop="True" 
+                     DragEnter="Addon_OnDragEnter" Drop="AddonFile_OnDrop">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <DockPanel LastChildFill="True">
@@ -69,14 +70,13 @@
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Addon Icon : </TextBlock>
-                <Image Name="AddonIcon" DockPanel.Dock="Right" Height="150" AllowDrop="True" DragEnter="AddonIcon_OnDragEnter" Drop="AddonIcon_OnDrop"></Image>
+                <Image Name="AddonIcon" DockPanel.Dock="Right" Height="150" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop"></Image>
             </DockPanel>
 
             <Button Name="CreateAddonButton" Content="Create Addon" Margin="10" Click="CreateAddonButton_OnClick" ></Button>
             <Button Name="LoadAddonButton" Content="Load Addon" Margin="10" Click="LoadAddonButton_OnClick" ></Button>
             <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="10" Click="RemoveAddonButton_OnClick" ></Button>
             <Button Name="ExportAddonButton" Content="Export Addon" Margin="10" Click="ExportAddonButton_OnClick" ></Button>
-            
         </StackPanel>
     </Grid>
 </UserControl>

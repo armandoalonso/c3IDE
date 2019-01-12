@@ -19,5 +19,10 @@ namespace c3IDE.Utilities
             var base64EncodedBytes = System.Convert.FromBase64String(base64);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
+
+        public void WriteFile(string path, string content)
+        {
+            System.IO.File.WriteAllText(path, content);
+        }
     }
 }

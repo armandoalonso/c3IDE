@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using c3IDE.Templates;
 using c3IDE.Utilities;
 using LiteDB;
+using Newtonsoft.Json;
 
 namespace c3IDE.Models
 {
@@ -28,6 +29,8 @@ namespace c3IDE.Models
         [BsonIgnore]
         public BitmapImage IconImage => ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
         //public BitmapImage IconImage => ImageHelper.Insatnce.Base64ToBitmap(IconBase64);
+
+        [JsonIgnore]
         public ITemplate Template { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime LastModified { get; set; }
@@ -54,6 +57,7 @@ namespace c3IDE.Models
         public Dictionary<string, Action> Actions { get; set; }
         public Dictionary<string, Condition> Conditions { get; set; }
         public Dictionary<string, Expression> Expressions { get; set; }
+        public Dictionary<string, string> ThirdPartyFiles { get; set; }
     }
 }
 

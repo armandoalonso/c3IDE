@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,7 @@ using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities;
 using c3IDE.Windows.Interfaces;
+using Newtonsoft.Json;
 using Action = c3IDE.Models.Action;
 using Condition = c3IDE.Models.Condition;
 using Expression = c3IDE.Models.Expression;
@@ -38,6 +40,9 @@ namespace c3IDE.Windows
         public void OnEnter()
         {
             AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
+
+            //select most recent addon
+            AddonListBox.SelectedIndex = AppData.Insatnce.AddonList.Count - 1;
         }
 
         public void OnExit()
@@ -61,7 +66,7 @@ namespace c3IDE.Windows
                 //IconBase64 = ImageHelper.Insatnce.BitmapImageToBase64(AddonIcon.Source as BitmapImage),
                 Template = TemplateFactory.Insatnce.CreateTemplate(pluginType),
                 CreateDate = DateTime.Now,
-                LastModified = DateTime.Now,
+                LastModified = DateTime.Now
             };
 
             //validate all fields are entered
@@ -86,18 +91,21 @@ namespace c3IDE.Windows
             addon.Actions = new Dictionary<string, Action>();
             addon.Conditions = new Dictionary<string, Condition>();
             addon.Expressions = new Dictionary<string, Expression>();
+            addon.ThirdPartyFiles = new Dictionary<string, string>();
             addon.LanguageProperties = addon.Template.LanguageProperty;
 
+            var addonIndex = AppData.Insatnce.AddonList.Count - 1;
             AppData.Insatnce.CurrentAddon = addon;
             DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
             AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
+            AddonListBox.SelectedIndex = addonIndex + 1;
 
             AppData.Insatnce.InfoMessage($"{addon.Name} created successfully...");
-            ClearInputControls();
+            ResetInputs();
         }
 
-        private void AddonIcon_OnDragEnter(object sender, DragEventArgs e)
+        private void Addon_OnDragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -140,6 +148,7 @@ namespace c3IDE.Windows
             AuthorText.Text = currentAddon.Author;
             VersionText.Text = currentAddon.Version;
             AddonTypeDropdown.Text = currentAddon.Type.ToString();
+            DescriptionText.Text = currentAddon.Description;
             AddonIcon.Source = currentAddon.IconImage;
 
             AppData.Insatnce.CurrentAddon = currentAddon;
@@ -167,7 +176,7 @@ namespace c3IDE.Windows
         {
             if (AddonListBox.SelectedIndex == -1)
             {
-                Console.WriteLine(@"No C3 addon selected to load");
+                AppData.Insatnce.ErrorMessage("error loading c3addon, no c3addon selected");
                 return;
             }
 
@@ -188,19 +197,60 @@ namespace c3IDE.Windows
 
         private void ExportAddonButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //todo: implement export/import
+            //export addon to .c3ideproj format
+            var addonJson = JsonConvert.SerializeObject(AppData.Insatnce.CurrentAddon);
+            var timestamp = DateTime.Now.ToString("MMddyyyyHHmmssfff");
+            Utils.Insatnce.WriteFile($"Exports\\{AppData.Insatnce.CurrentAddon.Class}_{timestamp}.c3ideproj", addonJson);
+
+            Process.Start("Exports");
         }
 
-        private void ClearInputControls()
+        private void ResetInputs()
         {
             AddonNameText.Text = string.Empty;
             AddonClassText.Text = string.Empty;
             CompanyNameText.Text = string.Empty;
-            AuthorText.Text = string.Empty;
-            VersionText.Text = string.Empty;
-            AddonTypeDropdown.SelectedIndex = -1;
+            AuthorText.Text = "c3IDE";
+            VersionText.Text = "1.0.0.0";
+            AddonTypeDropdown.SelectedIndex = 0;
+            DescriptionText.Text = string.Empty;
             IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
             AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
+        }
+
+        private void AddonFile_OnDrop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                var file = ((string[])e.Data.GetData(DataFormats.FileDrop))?.FirstOrDefault();
+                var info = new FileInfo(file);
+
+                if (info.Extension.Contains("c3ideproj"))
+                {
+                    var data = File.ReadAllText(info.FullName);
+                    var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
+                    //when you import the project, it should not overwrite any other project 
+                    c3addon.Id = Guid.NewGuid();
+                    //get the plugin template
+                    c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
+
+                    var addonIndex = AppData.Insatnce.AddonList.Count - 1;
+                    AppData.Insatnce.CurrentAddon = c3addon;
+                    DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+                    AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
+                    AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
+                    AddonListBox.SelectedIndex = addonIndex + 1;
+                }
+                else
+                {
+                    throw new InvalidOperationException("invalid file type, for import");
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+                AppData.Insatnce.ErrorMessage($"error importing c3ideproj file, {exception.Message}");
+            }
         }
     }
 }
