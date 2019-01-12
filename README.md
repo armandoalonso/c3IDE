@@ -2,7 +2,7 @@
 
 This is a project I have been working on for a while, it's purpose is to help me maintain and speed up the development of c3 addons. it's not meant to be a easy plugin maker, it just organizes the workflow of making addons in a different way. it's still missing alot of features, a modern code editor has, but I am planning to keep improving it, and adding things like syntax highlight, linting, and other specific thing more geared towards the c3 SDK. 
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/docs/c3IDE-preview.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/c3IDE-preview.gif)
 *creating a simple logging plugin and running it in construct3*
 
 # Current state
