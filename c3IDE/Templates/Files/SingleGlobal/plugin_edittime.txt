@@ -14,7 +14,6 @@
 			SDK.Lang.PushContext("plugins." + PLUGIN_ID.toLowerCase());
 			
 			this._info.SetName(lang(".name"));
-            this._info.SetIcon("icon.png", "image/png");
 			this._info.SetDescription(lang(".description"));
 			this._info.SetVersion(PLUGIN_VERSION);
 			this._info.SetCategory(PLUGIN_CATEGORY);
@@ -27,7 +26,7 @@
 			SDK.Lang.PushContext(".properties");
 	
 			this._info.SetProperties([
-				new SDK.PluginProperty("integer", "test-property", 0)
+
 			]);
 			
 			SDK.Lang.PopContext();		// .properties	

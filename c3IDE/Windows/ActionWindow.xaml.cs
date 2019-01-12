@@ -44,6 +44,7 @@ namespace c3IDE.Windows
             if (_selectedAction != null)
             {
                 _actions.Remove(_selectedAction.Id);
+                ActionListBox.ItemsSource = _actions;
                 ActionListBox.Items.Refresh();
 
                 //clear editors
@@ -122,7 +123,7 @@ namespace c3IDE.Windows
 
         private void SaveActionButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ActionIdText.Text;
+            var id = ActionIdText.Text.ToLower();
             var category = ActionCategoryText.Text;
             var highlight = HighlightDropdown.Text;
             var displayText = DisplayText.Text;
@@ -154,7 +155,7 @@ namespace c3IDE.Windows
 
         private void SaveParamButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ParamIdText.Text;
+            var id = ParamIdText.Text.ToLower();
             var type = ParamTypeDropdown.Text;
             var value = ParamValueText.Text;
             var name = ParamNameText.Text;

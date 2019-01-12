@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows.Media.Imaging;
 using c3IDE.Templates;
 using c3IDE.Utilities;
@@ -21,9 +22,12 @@ namespace c3IDE.Models
         public string Version { get; set; }
         public string Description { get; set; }
         public PluginType Type { get; set; }
-        public string IconBase64 { get; set; }
+        //public string IconBase64 { get; set; }
+        public string IconXml { get; set; }
+
         [BsonIgnore]
-        public BitmapImage IconImage => ImageHelper.Insatnce.Base64ToBitmap(IconBase64);
+        public BitmapImage IconImage => ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
+        //public BitmapImage IconImage => ImageHelper.Insatnce.Base64ToBitmap(IconBase64);
         public ITemplate Template { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime LastModified { get; set; }

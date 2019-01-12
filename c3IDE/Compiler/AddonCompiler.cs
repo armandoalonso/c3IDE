@@ -103,8 +103,6 @@ namespace c3IDE.Compiler
                 _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, "c3runtime", "expressions.js"), FormatHelper.Insatnce.Javascript(CompileExpressions(addon)));
                 _log.Insert($"generating expressions.json => complete");
 
-                var icon = ImageHelper.Insatnce.Base64ToImage(addon.IconBase64);
-
                 //todo: add support for 3rd party files
 
                 //write files to path
@@ -113,8 +111,9 @@ namespace c3IDE.Compiler
                     System.IO.File.WriteAllText(file.Key, file.Value);
                     _log.Insert($"writing file => {file.Key}");
                 }
-                icon.Save(Path.Combine(AppData.Insatnce.Options.CompilePath, "icon.png"));
-                _log.Insert($"writing file => {Path.Combine(AppData.Insatnce.Options.CompilePath, "icon.png")}");
+
+                File.WriteAllText(Path.Combine(AppData.Insatnce.Options.CompilePath, "icon.svg"), addon.IconXml);
+                _log.Insert($"writing file => {Path.Combine(AppData.Insatnce.Options.CompilePath, "icon.svg")}");
                 _log.Insert($"compliation complete...");
 
                 //start web server installation

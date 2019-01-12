@@ -45,15 +45,16 @@ namespace c3IDE.Windows
             await Task.Run(() =>
             {
                 AddonCompiler.Insatnce.CompileAddon(AppData.Insatnce.CurrentAddon);
-
-                //there was an error detected in complication
-                if (!AddonCompiler.Insatnce.IsCompilationValid)
-                {
-                    //todo: error notification
-                    StopWebServerButton.IsEnabled = false;
-                    StartAndTestButton.IsEnabled = true;
-                }
             });
+
+            //there was an error detected in complication
+            if (!AddonCompiler.Insatnce.IsCompilationValid)
+            {
+                //todo: error notification
+                StopWebServerButton.IsEnabled = false;
+                StartAndTestButton.IsEnabled = true;
+                return;
+            }
 
             //add url to clipboard
             Clipboard.SetText("http://localhost:8080/addon.json");

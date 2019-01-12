@@ -23,7 +23,7 @@
 		"lang/en-US.json",
 		"aces.json",
 		"addon.json",
-		"icon.png",
+		"icon.svg",
 		"instance.js",
 		"plugin.js",
 		"type.js"

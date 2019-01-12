@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Xml;
+using Svg;
 
 namespace c3IDE.Utilities
 {
@@ -73,6 +75,60 @@ namespace c3IDE.Utilities
                 encoder.Save(ms);
                 var data = ms.ToArray();
                 return data;
+            }
+        }
+
+        public SvgDocument SvgFromFile(string path)
+        {
+             var svgDocument = SvgDocument.Open(path);
+            return svgDocument;           
+        }
+
+        public string SvgToBase64(SvgDocument svg)
+        {
+            using (var stream = new MemoryStream())
+            {
+                svg.Write(stream);
+                return Convert.ToBase64String(stream.ToArray());
+            }
+        }
+
+        public SvgDocument SvgFromXml(string xml)
+        {
+            using (var xmlStream = new MemoryStream(Encoding.ASCII.GetBytes(xml)))
+            {
+                xmlStream.Position = 0;
+                return SvgDocument.Open<SvgDocument>(xmlStream);
+            }
+        }
+
+        public SvgDocument Base64ToSvg(string base64)
+        {
+            var xmlDoc = new XmlDocument();
+            xmlDoc.Load(new MemoryStream(Convert.FromBase64String(base64)));
+            var svg = new SvgDocument();
+            SvgDocument.Open(xmlDoc);
+            return svg;
+        }
+
+        public BitmapImage SvgToBitmapImage(SvgDocument svg)
+        {
+            //var bmp = svg.Draw(150,150);
+            var bmp = svg.Draw();
+
+        
+            using (var ms = new MemoryStream())
+            {
+                bmp.Save(ms, ImageFormat.Png);
+                ms.Position = 0;
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = ms;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
+
+                return bitmapImage;
             }
         }
     }

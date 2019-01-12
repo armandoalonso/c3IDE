@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,11 +25,12 @@ namespace c3IDE.Windows
     public partial class DashboardWindow : UserControl, IWindow
     {
         public string DisplayName { get; set; } = "Dashboard";
+        private string IconXml { get; set; }
         public DashboardWindow()
         {
             InitializeComponent();
-            var defaultIcon = ResourceReader.Insatnce.GetResourceAsBase64("c3IDE.Templates.Files.icon.png");
-            AddonIcon.Source = ImageHelper.Insatnce.Base64ToBitmap(defaultIcon);
+            IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
+            AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml)); //ImageHelper.Insatnce.Base64ToBitmap(defaultIcon);
             AddonTypeDropdown.ItemsSource = Enum.GetValues(typeof(PluginType));
             AddonTypeDropdown.SelectedIndex = 0;
         }
@@ -54,7 +57,8 @@ namespace c3IDE.Windows
                 Version = VersionText.Text,
                 Description = DescriptionText.Text,
                 Type = pluginType,
-                IconBase64 = ImageHelper.Insatnce.BitmapImageToBase64(AddonIcon.Source as BitmapImage),
+                IconXml = IconXml,
+                //IconBase64 = ImageHelper.Insatnce.BitmapImageToBase64(AddonIcon.Source as BitmapImage),
                 Template = TemplateFactory.Insatnce.CreateTemplate(pluginType),
                 CreateDate = DateTime.Now,
                 LastModified = DateTime.Now,
@@ -108,8 +112,8 @@ namespace c3IDE.Windows
                 var file = ((string[]) e.Data.GetData(DataFormats.FileDrop))?.FirstOrDefault();
                 if (!string.IsNullOrWhiteSpace(file))
                 {
-                    var img = ImageHelper.Insatnce.ImageToBase64(file);
-                    AddonIcon.Source = ImageHelper.Insatnce.Base64ToBitmap(img);
+                    IconXml = File.ReadAllText(file);
+                    AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
                 }
             }
             catch(Exception exception) 
@@ -195,8 +199,8 @@ namespace c3IDE.Windows
             AuthorText.Text = string.Empty;
             VersionText.Text = string.Empty;
             AddonTypeDropdown.SelectedIndex = -1;
-            var defaultIcon = ResourceReader.Insatnce.GetResourceAsBase64("c3IDE.Templates.Files.icon.png");
-            AddonIcon.Source = ImageHelper.Insatnce.Base64ToBitmap(defaultIcon);
+            IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
+            AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
         }
     }
 }
