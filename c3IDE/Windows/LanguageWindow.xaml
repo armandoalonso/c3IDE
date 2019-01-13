@@ -9,6 +9,7 @@
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -33,7 +34,15 @@
             </TabControl>
         </DockPanel>
 
-        <DockPanel Grid.Column="1" LastChildFill="True">
+
+        <GridSplitter Grid.Column="1" BorderThickness="1.5" BorderBrush="#FF444444"
+                      VerticalAlignment="Stretch" HorizontalAlignment="Center">
+            <GridSplitter.Background>
+                <SolidColorBrush Color="#FF444444"></SolidColorBrush>
+            </GridSplitter.Background>
+        </GridSplitter>
+
+        <DockPanel Grid.Column="2" LastChildFill="True">
             <Button DockPanel.Dock="Top" Content="Generate Category Json" Margin="0,5" Width="250" Click="GenerateCategoryText"/>
             <TabControl DockPanel.Dock="Bottom">
                 <TabItem Header="Categories">

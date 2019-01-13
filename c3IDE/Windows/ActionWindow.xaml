@@ -11,6 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
@@ -131,7 +132,14 @@
             </TabControl>
         </UniformGrid>
 
-        <DockPanel Grid.Column="2" Margin="10" LastChildFill="True">
+        <GridSplitter Grid.Column="2" BorderThickness="1.5" BorderBrush="#FF444444"
+                      VerticalAlignment="Stretch" HorizontalAlignment="Center">
+            <GridSplitter.Background>
+                <SolidColorBrush Color="#FF444444"></SolidColorBrush>
+            </GridSplitter.Background>
+        </GridSplitter>
+
+        <DockPanel Grid.Column="3" Margin="10" LastChildFill="True">
             <TabControl DockPanel.Dock="Top">
                 <TabItem Header="Code" Name="Code">
                     <avalonEdit:TextEditor

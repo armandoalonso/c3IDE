@@ -125,13 +125,19 @@ namespace c3IDE.Windows
 
         public void OnEnter()
         {
-            _conditions = AppData.Insatnce.CurrentAddon.Conditions;
-            ConditionListBox.ItemsSource = _conditions;
-
-            if (_conditions.Any())
+            if (AppData.Insatnce.CurrentAddon != null)
             {
-                ConditionListBox.SelectedIndex = 0;
+                {
+                    _conditions = AppData.Insatnce.CurrentAddon.Conditions;
+                    ConditionListBox.ItemsSource = _conditions;
+
+                    if (_conditions.Any())
+                    {
+                        ConditionListBox.SelectedIndex = 0;
+                    }
+                }
             }
+
         }
 
         public void OnExit()

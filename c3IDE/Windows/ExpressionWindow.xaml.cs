@@ -166,12 +166,15 @@ namespace c3IDE.Windows
 
         public void OnEnter()
         {
-            _expressions = AppData.Insatnce.CurrentAddon.Expressions;
-            ExpressionListBox.ItemsSource = _expressions;
-
-            if (_expressions.Any())
+            if (AppData.Insatnce.CurrentAddon != null)
             {
-                ExpressionListBox.SelectedIndex = 0;
+                _expressions = AppData.Insatnce.CurrentAddon.Expressions;
+                ExpressionListBox.ItemsSource = _expressions;
+
+                if (_expressions.Any())
+                {
+                    ExpressionListBox.SelectedIndex = 0;
+                }
             }
         }
 

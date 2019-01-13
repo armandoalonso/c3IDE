@@ -60,13 +60,17 @@ namespace c3IDE.Windows
 
         public void OnEnter()
         {
-            _actions = AppData.Insatnce.CurrentAddon.Actions;
-            ActionListBox.ItemsSource = _actions;
-
-            if (_actions.Any())
+            if (AppData.Insatnce.CurrentAddon != null)
             {
-                ActionListBox.SelectedIndex = 0;
+                _actions = AppData.Insatnce.CurrentAddon.Actions;
+                ActionListBox.ItemsSource = _actions;
+
+                if (_actions.Any())
+                {
+                    ActionListBox.SelectedIndex = 0;
+                }
             }
+          
         }
 
         public void OnExit()
