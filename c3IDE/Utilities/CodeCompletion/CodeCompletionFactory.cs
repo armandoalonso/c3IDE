@@ -19,10 +19,14 @@ namespace c3IDE.Utilities.CodeCompletion
                 return _bindingCache[type].Completions;
             }
 
+            //todo: might break down binding by type of files plugin.js, actions.js, aces.json etc 
             switch (type)
             {
                 case CodeType.Json:
                     _bindingCache.Add(type, new JsonBindings());
+                    return _bindingCache[type].Completions;
+                case CodeType.Javascript:
+                    _bindingCache.Add(type, new JavascriptBinding());
                     return _bindingCache[type].Completions;
                 default:
                     return null;
@@ -33,6 +37,7 @@ namespace c3IDE.Utilities.CodeCompletion
 
     public enum CodeType
     {
-        Json
+        Json,
+        Javascript
     }
 }

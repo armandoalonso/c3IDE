@@ -15,8 +15,8 @@ namespace c3IDE.Utilities.CodeCompletion.Bindings
         {
             Completions = new List<ICompletionData>
             {
-                new GenericCompletionItem("true", "true"),
-                new GenericCompletionItem("false", "false")
+                new GenericCompletionItem("true", "true", CompletionType.Keywords),
+                new GenericCompletionItem("false", "false", CompletionType.Keywords),
             };
         }
 

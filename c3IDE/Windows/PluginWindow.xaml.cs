@@ -15,7 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.DataAccess;
 using c3IDE.Utilities;
+using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Windows.Interfaces;
+using ICSharpCode.AvalonEdit.CodeCompletion;
 
 namespace c3IDE.Windows
 {
@@ -25,10 +27,80 @@ namespace c3IDE.Windows
     public partial class PluginWindow : UserControl, IWindow
     {
         public string DisplayName { get; set; } = "Plugin";
+        private CompletionWindow completionWindow;
 
         public PluginWindow()
         {
             InitializeComponent();
+
+            EditTimePluginTextEditor.TextArea.TextEntering += EditTimePluginTextEditor_TextEntering;
+            EditTimePluginTextEditor.TextArea.TextEntered += EditTimePluginTextEditor_TextEntered;
+        }
+
+        private void EditTimePluginTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
+        {
+            //add matching closing symbol
+            switch (e.Text)
+            {
+                case "{":
+                    EditTimePluginTextEditor.Document.Insert(EditTimePluginTextEditor.TextArea.Caret.Offset, "}");
+                    EditTimePluginTextEditor.TextArea.Caret.Offset--;
+                    return;
+                case "\"":
+                    EditTimePluginTextEditor.Document.Insert(EditTimePluginTextEditor.TextArea.Caret.Offset, "\"");
+                    EditTimePluginTextEditor.TextArea.Caret.Offset--;
+                    return;
+                case "[":
+                    EditTimePluginTextEditor.Document.Insert(EditTimePluginTextEditor.TextArea.Caret.Offset, "]");
+                    EditTimePluginTextEditor.TextArea.Caret.Offset--;
+                    return;
+                case "(":
+                    EditTimePluginTextEditor.Document.Insert(EditTimePluginTextEditor.TextArea.Caret.Offset, ")");
+                    EditTimePluginTextEditor.TextArea.Caret.Offset--;
+                    return;
+            }
+
+            //todo: show completeion window on dot
+
+            //figure out word segment
+            var segment = EditTimePluginTextEditor.TextArea.GetCurrentWord();
+            if (segment == null) return;
+
+            //get string from segment
+            var text = EditTimePluginTextEditor.Document.GetText(segment);
+            if (string.IsNullOrWhiteSpace(text)) return;
+
+            //filter completion list by string
+            var data = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.Javascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+            if (data.Any())
+            {
+                //if any data matches show completion list
+                completionWindow = new CompletionWindow(EditTimePluginTextEditor.TextArea)
+                {
+                    //overwrite color due to global style
+                    Foreground = new SolidColorBrush(Colors.Black)
+                };
+
+                var completionData = completionWindow.CompletionList.CompletionData;
+                CodeCompletionDecorator.Insatnce.Decorate(ref completionData, data); ;
+                completionWindow.Show();
+                completionWindow.Closed += delegate { completionWindow = null; };
+            }
+        }
+
+        private void EditTimePluginTextEditor_TextEntering(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text.Length > 0 && completionWindow != null)
+            {
+                if (!char.IsLetterOrDigit(e.Text[0]))
+                {
+                    // Whenever a non-letter is typed while the completion window is open,
+                    // insert the currently selected element.
+                    completionWindow.CompletionList.RequestInsertion(e);
+                }
+            }
+            // Do not set e.Handled=true.
+            // We still want to insert the character that was typed.
         }
 
         public void OnEnter()

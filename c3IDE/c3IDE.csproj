@@ -84,6 +84,7 @@
     <Compile Include="Models\ThirdPartyFile.cs" />
     <Compile Include="Server\C3FileHandler.cs" />
     <Compile Include="Server\WebServerClient.cs" />
+    <Compile Include="Utilities\CodeCompletion\Bindings\JavascriptBinding.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\JsonBindings.cs" />
     <Compile Include="Utilities\CodeCompletion\CodeCompletionDecorator.cs" />
     <Compile Include="Utilities\CodeCompletion\CompletionTypeFactory.cs" />
