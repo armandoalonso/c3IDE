@@ -49,6 +49,7 @@
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Insert New Plugin Property" Click="InsertNewProperty" />
+                            <MenuItem Header="Generate File Dependency Json" Click="GenerateFileDependency" />
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>

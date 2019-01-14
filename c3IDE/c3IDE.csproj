@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>c3ide_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MahApps.Metro.SimpleChildWindow, Version=2.0.0.0, Culture=neutral, PublicKeyToken=ca3e0454e54ef52a, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.SimpleChildWindow.2.0.0-alpha0005\lib\net47\MahApps.Metro.SimpleChildWindow.dll</HintPath>
@@ -78,8 +81,16 @@
     <Compile Include="DataAccess\DataAccessFacade.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\OptionReposiroty.cs" />
+    <Compile Include="Models\ThirdPartyFile.cs" />
     <Compile Include="Server\C3FileHandler.cs" />
     <Compile Include="Server\WebServerClient.cs" />
+    <Compile Include="Utilities\CodeCompletion\Bindings\JsonBindings.cs" />
+    <Compile Include="Utilities\CodeCompletion\CodeCompletionDecorator.cs" />
+    <Compile Include="Utilities\CodeCompletion\CompletionTypeFactory.cs" />
+    <Compile Include="Utilities\CodeCompletion\DocumentExtensions.cs" />
+    <Compile Include="Utilities\CodeCompletion\GenericCompletionItem.cs" />
+    <Compile Include="Utilities\CodeCompletion\CodeCompletionFactory.cs" />
+    <Compile Include="Utilities\CodeCompletion\Bindings\ICompletionBindings.cs" />
     <Compile Include="Utilities\JsBeautifier\Beautifier.cs" />
     <Compile Include="Utilities\JsBeautifier\BeautifierFlags.cs" />
     <Compile Include="Utilities\JsBeautifier\BeautifierOptions.cs" />
@@ -258,6 +269,26 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Templates\Files\icon.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\classes.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\colors.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\globals.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\interfaces.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\keywords.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\methods.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\misc.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\modules.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\properties.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\references.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\snippets.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\units.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\values.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\variables.png" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Icons\words.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="c3ide_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

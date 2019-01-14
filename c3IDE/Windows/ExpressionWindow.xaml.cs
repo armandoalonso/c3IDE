@@ -118,11 +118,18 @@ namespace c3IDE.Windows
             if (_selectedExpression != null)
             {
                 _expressions.Remove(_selectedExpression.Id);
+                ExpressionListBox.ItemsSource = _expressions;
                 ExpressionListBox.Items.Refresh();
+
+                //clear editors
+                AceTextEditor.Text = string.Empty;
+                LanguageTextEditor.Text = string.Empty;
+                CodeTextEditor.Text = string.Empty;
+                _selectedExpression = null;
             }
             else
             {
-                //todo: display notification
+                AppData.Insatnce.ErrorMessage("failed to remove condition, no condition selected");
             }
         }
 

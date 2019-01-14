@@ -103,7 +103,13 @@ namespace c3IDE.Compiler
                 _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, "c3runtime", "expressions.js"), FormatHelper.Insatnce.Javascript(CompileExpressions(addon)));
                 _log.Insert($"generating expressions.json => complete");
 
-                //todo: add support for 3rd party files
+                _log.Insert("generating 3rd party files");
+                foreach (var files in addon.ThirdPartyFiles.Values)
+                {
+                    _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, "c3runtime", files.FileName), files.Content);
+                    _log.Insert($"generating {files.FileName}");
+                }
+                _log.Insert("generating 3rd party files => complete");
 
                 //write files to path
                 foreach (var file in _addonFiles)

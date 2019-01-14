@@ -29,7 +29,7 @@
 
 			]);
 			
-			SDK.Lang.PopContext();		// .properties	
+            SDK.Lang.PopContext(); //.properties
 			SDK.Lang.PopContext();
 		}
 	};

@@ -51,6 +51,7 @@ namespace c3IDE.Windows
                 AceTextEditor.Text = string.Empty;
                 LanguageTextEditor.Text = string.Empty;
                 CodeTextEditor.Text = string.Empty;
+                _selectedAction = null;
             }
             else
             {

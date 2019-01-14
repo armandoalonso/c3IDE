@@ -91,7 +91,7 @@ namespace c3IDE.Windows
             addon.Actions = new Dictionary<string, Action>();
             addon.Conditions = new Dictionary<string, Condition>();
             addon.Expressions = new Dictionary<string, Expression>();
-            addon.ThirdPartyFiles = new Dictionary<string, string>();
+            addon.ThirdPartyFiles = new Dictionary<string, ThirdPartyFile>();
             addon.LanguageProperties = addon.Template.LanguageProperty;
 
             var addonIndex = AppData.Insatnce.AddonList.Count - 1;
@@ -251,6 +251,11 @@ namespace c3IDE.Windows
                 Console.WriteLine(exception.Message);
                 AppData.Insatnce.ErrorMessage($"error importing c3ide file, {exception.Message}");
             }
+        }
+
+        private void ExportFolderButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start("Exports");
         }
     }
 }

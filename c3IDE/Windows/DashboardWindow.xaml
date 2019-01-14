@@ -77,6 +77,7 @@
             <Button Name="LoadAddonButton" Content="Load Addon" Margin="10" Click="LoadAddonButton_OnClick" ></Button>
             <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="10" Click="RemoveAddonButton_OnClick" ></Button>
             <Button Name="ExportAddonButton" Content="Export Addon" Margin="10" Click="ExportAddonButton_OnClick" ></Button>
+            <Button Name="ExportFolderButton" Content="Open Export Folder" Margin="10" Click="ExportFolderButton_OnClick" ></Button>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:c3IDE"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:CodeCompletion="clr-namespace:ICSharpCode.AvalonEdit.CodeCompletion;assembly=ICSharpCode.AvalonEdit"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>

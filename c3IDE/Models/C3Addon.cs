@@ -57,7 +57,7 @@ namespace c3IDE.Models
         public Dictionary<string, Action> Actions { get; set; }
         public Dictionary<string, Condition> Conditions { get; set; }
         public Dictionary<string, Expression> Expressions { get; set; }
-        public Dictionary<string, string> ThirdPartyFiles { get; set; }
+        public Dictionary<string, ThirdPartyFile> ThirdPartyFiles { get; set; }
     }
 }
 

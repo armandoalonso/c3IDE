@@ -164,11 +164,18 @@ namespace c3IDE.Windows
             if (_selectedCondition != null)
             {
                 _conditions.Remove(_selectedCondition.Id);
+                ConditionListBox.ItemsSource = _conditions;
                 ConditionListBox.Items.Refresh();
+
+                //clear editors
+                AceTextEditor.Text = string.Empty;
+                LanguageTextEditor.Text = string.Empty;
+                CodeTextEditor.Text = string.Empty;
+                _selectedCondition = null;
             }
             else
             {
-                //todo: display notification
+                AppData.Insatnce.ErrorMessage("failed to remove condition, no condition selected");
             }
         }
 

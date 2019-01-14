@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.DataAccess;
+using c3IDE.Utilities;
 using c3IDE.Windows.Interfaces;
 
 namespace c3IDE.Windows
@@ -97,6 +98,15 @@ namespace c3IDE.Windows
 
             EditTimePluginTextEditor.Text = EditTimePluginTextEditor.Text.Replace("this._info.SetProperties([", template);
             NewPropertyWindow.IsOpen = false;
+        }
+
+        private void GenerateFileDependency(object sender, RoutedEventArgs e)
+        {
+            var content = string.Join(",\n",AppData.Insatnce.CurrentAddon.ThirdPartyFiles.Values.Select(x => x.PluginTemplate));
+            var template = $@"this._info.AddFileDependency({content});";
+
+            EditTimePluginTextEditor.Text =
+                FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PopContext(); // .properties", $"{template}\n\nSDK.Lang.PopContext();		// .properties"));
         }
     }
 }
