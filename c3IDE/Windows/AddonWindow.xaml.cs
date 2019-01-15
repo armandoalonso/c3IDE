@@ -1,4 +1,10 @@
-﻿using System;
+﻿using c3IDE.DataAccess;
+using c3IDE.Models;
+using c3IDE.Utilities;
+using c3IDE.Utilities.CodeCompletion;
+using c3IDE.Windows.Interfaces;
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,13 +12,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using c3IDE.DataAccess;
-using c3IDE.Models;
-using c3IDE.Utilities;
-using c3IDE.Utilities.CodeCompletion;
-using c3IDE.Windows.Interfaces;
-using ICSharpCode.AvalonEdit.CodeCompletion;
-
 
 namespace c3IDE.Windows
 {
@@ -32,7 +31,6 @@ namespace c3IDE.Windows
 
             AddonTextEditor.TextArea.TextEntering += AddonTextEditor_TextEntering;
             AddonTextEditor.TextArea.TextEntered += AddonTextEditor_TextEntered;
-
         }
 
         private void AddonTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
@@ -44,14 +42,17 @@ namespace c3IDE.Windows
                     AddonTextEditor.Document.Insert(AddonTextEditor.TextArea.Caret.Offset, "}");
                     AddonTextEditor.TextArea.Caret.Offset--;
                     return;
+
                 case "\"":
                     AddonTextEditor.Document.Insert(AddonTextEditor.TextArea.Caret.Offset, "\"");
                     AddonTextEditor.TextArea.Caret.Offset--;
                     return;
+
                 case "[":
                     AddonTextEditor.Document.Insert(AddonTextEditor.TextArea.Caret.Offset, "]");
                     AddonTextEditor.TextArea.Caret.Offset--;
                     return;
+
                 case "(":
                     AddonTextEditor.Document.Insert(AddonTextEditor.TextArea.Caret.Offset, ")");
                     AddonTextEditor.TextArea.Caret.Offset--;
@@ -60,11 +61,11 @@ namespace c3IDE.Windows
 
             //figure out word segment
             var segment = AddonTextEditor.TextArea.GetCurrentWord();
-            if(segment == null) return;
+            if (segment == null) return;
 
             //get string from segment
             var text = AddonTextEditor.Document.GetText(segment);
-            if(string.IsNullOrWhiteSpace(text))return;
+            if (string.IsNullOrWhiteSpace(text)) return;
 
             //filter completion list by string
             var data = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.Json).Where(x => x.Text.ToLower().Contains(text)).ToList();
@@ -81,7 +82,7 @@ namespace c3IDE.Windows
                 CodeCompletionDecorator.Insatnce.Decorate(ref completionData, data); ;
                 completionWindow.Show();
                 completionWindow.Closed += delegate { completionWindow = null; };
-            } 
+            }
         }
 
         private void AddonTextEditor_TextEntering(object sender, TextCompositionEventArgs e)
@@ -114,12 +115,11 @@ namespace c3IDE.Windows
                     FileTextEditor.Text = _selectedFile.PluginTemplate;
                 }
             }
-
         }
 
         public void OnExit()
         {
-            if(AppData.Insatnce.CurrentAddon != null)
+            if (AppData.Insatnce.CurrentAddon != null)
             {
                 if (_selectedFile != null)
                 {
@@ -130,7 +130,7 @@ namespace c3IDE.Windows
                 AppData.Insatnce.CurrentAddon.ThirdPartyFiles = _files;
                 AppData.Insatnce.CurrentAddon.AddonJson = AddonTextEditor.Text;
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
-            }  
+            }
         }
 
         private void RemoveFile_OnClick(object sender, RoutedEventArgs e)
@@ -148,7 +148,7 @@ namespace c3IDE.Windows
 
                 //clear editors
                 FileTextEditor.Text = string.Empty;
-                AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace($@"""c3runtime/{_selectedFile.FileName}"",",string.Empty));
+                AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace($@"""c3runtime/{_selectedFile.FileName}"",", string.Empty));
                 _selectedFile = null;
             }
             else
@@ -203,9 +203,9 @@ namespace c3IDE.Windows
 	filename: ""c3runtime/{name}"",
 	type: ""inline-script""
 }}"
-                });
+                    });
 
-                    AddonTextEditor.Text =  FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
+                    AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
         ""c3runtime/{name}"","));
 
                     //add

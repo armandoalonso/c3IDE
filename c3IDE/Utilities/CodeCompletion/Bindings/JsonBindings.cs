@@ -9,11 +9,11 @@ namespace c3IDE.Utilities.CodeCompletion.Bindings
 {
     public class JsonBindings : ICompletionBindings
     {
-        public IList<ICompletionData> Completions { get; set; }
+        public IList<GenericCompletionItem> Completions { get; set; }
 
         public JsonBindings()
         {
-            Completions = new List<ICompletionData>
+            Completions = new List<GenericCompletionItem>
             {
                 new GenericCompletionItem("true", "true", CompletionType.Keywords),
                 new GenericCompletionItem("false", "false", CompletionType.Keywords),

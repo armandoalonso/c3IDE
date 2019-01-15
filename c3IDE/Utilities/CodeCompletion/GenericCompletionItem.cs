@@ -7,6 +7,7 @@ using System.Windows.Media;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
+using Newtonsoft.Json;
 
 namespace c3IDE.Utilities.CodeCompletion
 {
@@ -27,11 +28,13 @@ namespace c3IDE.Utilities.CodeCompletion
             this.Image = CompletionTypeFactory.Insatnce.GetIcon(this.Type);
         }
 
+        [JsonIgnore]
         public ImageSource Image { get; }
         public string Text { get; }
         public object Content {get; }
         public CompletionType Type { get; }
         public object Description { get; }
+        [JsonIgnore]
         public double Priority => 1.0;
     }
 }

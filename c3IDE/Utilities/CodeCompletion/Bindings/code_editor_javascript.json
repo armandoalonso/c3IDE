@@ -1,0 +1,385 @@
+[
+  //Keywords
+  {
+    "Text": "true",
+    "Content": "true",
+    "Type": 8,
+    "Description": "true"
+  },
+  {
+    "Text": "false",
+    "Content": "false",
+    "Type": 8,
+    "Description": "false"
+  },
+  //Plugin Category
+  {
+    "Text": "data-and-storage",
+    "Content": "data-and-storage",
+    "Type": 13,
+    "Description": "plugin_category"
+  },
+  {
+    "Text": "form-controls",
+    "Content": "form-controls",
+    "Type": 13,
+    "Description": "plugin_category"
+  },
+  {
+    "Text": "general",
+    "Content": "general",
+    "Type": 13,
+    "Description": "plugin_category"
+  },
+  {
+    "Text": "input",
+    "Content": "input",
+    "Type": 13,
+    "Description": "plugin_category"
+  },
+  {
+    "Text": "media",
+    "Content": "media",
+    "Type": 13,
+    "Description": "plugin_category"
+  },
+  {
+    "Text": "monetisation",
+    "Content": "monetisation",
+    "Type": 13,
+    "Description": "plugin_category"
+  },
+  {
+    "Text": "platform-specific",
+    "Content": "platform-specific",
+    "Type": 13,
+    "Description": "plugin_category"
+  },
+  {
+    "Text": "web",
+    "Content": "web",
+    "Type": 13,
+    "Description": "plugin_category"
+  },
+  {
+    "Text": "other",
+    "Content": "other",
+    "Type": 13,
+    "Description": "plugin_category"
+  },
+  //Plugin Property
+  {
+    "Text": "integer",
+    "Content": "integer",
+    "Type": 13,
+    "Description": "an integer number property, always rounded to a whole number"
+  },
+  {
+    "Text": "float",
+    "Content": "float",
+    "Type": 13,
+    "Description": "a floating-point number property."
+  },
+  {
+    "Text": "percent",
+    "Content": "percent",
+    "Type": 13,
+    "Description": "a floating-point number in the range [0-1] represented as a percentage. For example if the user enters 50%, the property will be set to a value of 0.5."
+  },
+  {
+    "Text": "text",
+    "Content": "text",
+    "Type": 13,
+    "Description": "a field the user can enter a string in to."
+  },
+  {
+    "Text": "longtext",
+    "Content": "longtext",
+    "Type": 13,
+    "Description": "the same as \"text\", but a button with an ellipsis (\"...\") appears on the right side of the field. The user can click this button to open a dialog to edit a long string more conveniently. This is useful for potentially long content like the project description, or the main text of the Text object."
+  },
+  {
+    "Text": "check",
+    "Content": "check",
+    "Type": 13,
+    "Description": "a checkbox property, returning a boolean"
+  },
+  {
+    "Text": "font",
+    "Content": "font",
+    "Type": 13,
+    "Description": "a field which displays the name of a font and provides a button to open a font picker dialog. The property is set to a string of the name of the font."
+  },
+  {
+    "Text": "combo",
+    "Content": "combo",
+    "Type": 13,
+    "Description": "a dropdown list property. The property is set to the zero-based index of the chosen item. The items field of the options object must be used to specify the available items."
+  },
+  {
+    "Text": "color",
+    "Content": "color",
+    "Type": 13,
+    "Description": " a color picker property. The initial value must be an array, e.g. [1, 0, 0] for red."
+  },
+  {
+    "Text": "group",
+    "Content": "group",
+    "Type": 13,
+    "Description": "creates a new group in the Properties Bar. There is no value associated with this property"
+  },
+  {
+    "Text": "link",
+    "Content": "link",
+    "Type": 13,
+    "Description": "creates a clickable link in the Properties Bar. There is no value associated with this property. A linkCallback function must be specified in the options object."
+  },
+  {
+    "Text": "linkCallback",
+    "Content": "linkCallback",
+    "Type": 13,
+    "Description": "For \"link\" type properties only. A function that is called when the link is clicked. The number of calls, and the type of the parameter, are determined by the callbackType option."
+  },
+  {
+    "Text": "info",
+    "Content": "info",
+    "Type": 13,
+    "Description": "creates a read-only string that cannot be edited. There is no value associated with this property. A infoCallback function must be specified in the options object."
+  },
+  {
+    "Text": "infoCallback",
+    "Content": "infoCallback",
+    "Type": 13,
+    "Description": "For \"link\" type properties only. Specifies how the link callback function is used. This can be one of the following: for-each-instance, once-for-all"
+  },
+  {
+    "Text": "initialValue",
+    "Content": "initialValue",
+    "Type": 13,
+    "Description": "Specify the initial value for the property, since the third parameter is occupied by the options object. Note when using a \"combo\" type this must be a string of the initial item ID, and when using a \"color\" type, this must be a normalized RGB array, e.g. [1, 0, 0] for red."
+  },
+  {
+    "Text": "minValue",
+    "Content": "minValue",
+    "Type": 13,
+    "Description": "Specify a minimum value for a numeric property."
+  },
+  {
+    "Text": "maxValue",
+    "Content": "maxValue",
+    "Type": 13,
+    "Description": "Specify a maximum value for a numeric property."
+  },
+  {
+    "Text": "items",
+    "Content": "items",
+    "Type": 13,
+    "Description": "Only valid with the \"combo\" property type. Specify an array of strings representing the available item IDs in the dropdown list. The actual displayed strings are read from the language file."
+  },
+  {
+    "Text": "dragSpeedMultiplier",
+    "Content": "dragSpeedMultiplier",
+    "Type": 13,
+    "Description": "Only valid with numeric properties. Pass a ratio to modify how quickly the value changes when it is being dragged up or down. For example passing 2 would cause the value to increase twice as fast as the mouse moves while dragging the value."
+  },
+  {
+    "Text": "for-each-instance",
+    "Content": "for-each-instance",
+    "Type": 13,
+    "Description": "the callback is run once per selected instance in the Layout View. The callback parameter is an IWorldInstance. This is useful for per-instance modifications, such as a link to make all instances their original size."
+  },
+  {
+    "Text": "once-for-type",
+    "Content": "once-for-type",
+    "Type": 13,
+    "Description": "the callback is run once regardless of how many instances are selected in the Layout View. The callback parameter is an IObjectType. This is useful for per-type modifications, such as a link to edit the object image"
+  },
+  {
+    "Text": "id",
+    "Content": "id",
+    "Type": 13,
+    "Description": "A string of the ID for the property. This is used in the language file to identify related strings."
+  },
+  //Classes
+  {
+    "Text": "this._info",
+    "Content": "this._info",
+    "Type": 2,
+    "Description": "IPluginInfo"
+  },
+  //IPluginInfo
+  {
+    "Text": "SetName(name)",
+    "Content": "SetName(name)",
+    "Type": 0,
+    "Description": "Set the name of the addon. Typically this is read from the language file."
+  },
+  {
+    "Text": "SetDescription(description)",
+    "Content": "SetDescription(description)",
+    "Type": 0,
+    "Description": "Set the description of the addon. Typically this is read from the language file."
+  },
+  {
+    "Text": "SetVersion(version)",
+    "Content": "SetVersion(version)",
+    "Type": 0,
+    "Description": "Set the version string of the addon, in A.B.C.D form. Typically this is set to the PLUGIN_VERSION constant."
+  },
+  {
+    "Text": "SetCategory(category)",
+    "Content": "SetCategory(category)",
+    "Type": 0,
+    "Description": "Set the category of the addon. Typically this is set to the PLUGIN_CATEGORY constant. It must be one of \"data-and-storage\", \"form-controls\", \"general\", \"input\", \"media\", \"monetisation\", \"platform-specific\", \"web\", \"other\"."
+  },
+  {
+    "Text": "SetAuthor(author)",
+    "Content": "SetAuthor(author)",
+    "Type": 0,
+    "Description": "Set a string identifying the author of the addon."
+  },
+  {
+    "Text": "SetHelpUrl(url)",
+    "Content": "SetHelpUrl(url)",
+    "Type": 0,
+    "Description": "Set a string specifying a URL where the user can view help and documentation resources for the addon. The website should be hosted with HTTPS."
+  },
+  {
+    "Text": "SetPluginType(type)",
+    "Content": "SetPluginType(type)",
+    "Type": 0,
+    "Description": "Set the plugin type. This can be \"object\" or \"world\". The world typeh represents a plugin that appears in the Layout View, whereas the object type represents a hidden plugin, similar to the Audio plugin (a single-global type) or Dictionary. World type plugins must derive from SDK.IWorldInstanceBase instead of SDK.IInstanceBase and implement a Draw() method."
+  },
+  {
+    "Text": "SetIcon(url, type)",
+    "Content": "SetIcon(url, type)",
+    "Type": 0,
+    "Description": "Set the addon icon URL and type. By default the URL is \"icon.svg\" and the type is \"image/svg+xml\". It is recommended to leave this at the default and use an SVG icon, since it will scale well to any display size or density. However you can change your addon to load a PNG icon with SetIcon(\"icon.png\", \"image/png\")."
+  },
+  {
+    "Text": "SetIsResizable(isResizable)",
+    "Content": "SetIsResizable(isResizable)",
+    "Type": 0,
+    "Description": "For \"world\" type plugins only. Pass true to enable resizing instances in the Layout View."
+  },
+  {
+    "Text": "SetIsRotatable(isRotatable)",
+    "Content": "SetIsRotatable(isRotatable)",
+    "Type": 0,
+    "Description": "For \"world\" type plugins only. Pass true to enable the Angle property and rotating instances in the Layout View."
+  },
+  {
+    "Text": "SetHasImage(hasImage)",
+    "Content": "SetHasImage(hasImage)",
+    "Type": 0,
+    "Description": "For \"world\" type plugins only. Pass true to add a single editable image, such as used by the Tiled Background plugin."
+  },
+  {
+    "Text": "SetDefaultImageURL(url)",
+    "Content": "SetDefaultImageURL(url)",
+    "Type": 0,
+    "Description": "For plugins that use a single editable image only. Set the URL to an image file in your addon to use as the default image when the object is added to a project, e.g. \"default.png\"."
+  },
+  {
+    "Text": "SetIsTiled(isTiled)",
+    "Content": "SetIsTiled(isTiled)",
+    "Type": 0,
+    "Description": "For \"world\" type plugins only. Pass true to indicate that the image is intended to be tiled. This adjusts the texture wrapping mode when Construct creates a texture for its image."
+  },
+  {
+    "Text": "SetIsDeprecated(isDeprecated)",
+    "Content": "SetIsDeprecated(isDeprecated)",
+    "Type": 0,
+    "Description": "Set a boolean of whether the addon is deprecated or not. If you wish to replace your addon with another one, the old one can be deprecated with SetIsDeprecated(true). This makes it invisible in the editor so it cannot be used in new projects; however old projects with the addon already added can continue to load and work as they did before. This discourages use of the deprecated addon without breaking existing projects that use it."
+  },
+  {
+    "Text": "SetIsSingleGlobal(isSingleGlobal)",
+    "Content": "SetIsSingleGlobal(isSingleGlobal)",
+    "Type": 0,
+    "Description": "Pass true to set the plugin to be a single-global type. The plugin type must be \"objec\". Single-global plugins can only be added once to a project, and they then have a single permanent global instance available throughout the project. This is the mode that plugins like Touch and Audio use."
+  },
+  {
+    "Text": "SetSupportsEffects(supportsEffects)",
+    "Content": "SetSupportsEffects(supportsEffects)",
+    "Type": 0,
+    "Description": "Pass true to allow using effects, including the Blend mode property, with this plugin. The plugin type must be \"world\". If the plugin does not simply draw a texture the size of the object (as Sprite does), you should also call SetMustPreDraw(true)"
+  },
+  {
+    "Text": "SetMustPreDraw(mustPreDraw)",
+    "Content": "SetMustPreDraw(mustPreDraw)",
+    "Type": 0,
+    "Description": "Pass true to disable an optimisation in the effects engine for objects that simply draw a texture the size of the object (e.g. Sprite). This is necessary for effects to render correctly if the plugin draws anything other than the equivalent the Sprite plugin would."
+  },
+  {
+    "Text": "SetCanBeBundled(canBeBundled)",
+    "Content": "SetCanBeBundled(canBeBundled)",
+    "Type": 0,
+    "Description": "Pass false to prevent the addon from being bundled via the Bundle addons project property. By default all addons may be bundled with a project, and it is recommended to leave this enabled for best user convenience. However if you publish a commercial addon and want to prevent it being distributed by project-bundling, you may wish to disable this."
+  },
+  {
+    "Text": "AddCommonPositionACEs()",
+    "Content": "AddCommonPositionACEs()",
+    "Type": 0,
+    "Description": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
+  },
+  {
+    "Text": "AddCommonSizeACEs()",
+    "Content": "AddCommonSizeACEs()",
+    "Type": 0,
+    "Description": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
+  },
+  {
+    "Text": "AddCommonAngleACEs()",
+    "Content": "AddCommonAngleACEs()",
+    "Type": 0,
+    "Description": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
+  },
+  {
+    "Text": "AddCommonAppearanceACEs()",
+    "Content": "AddCommonAppearanceACEs()",
+    "Type": 0,
+    "Description": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
+  },
+  {
+    "Text": "AddCommonZOrderACEs()",
+    "Content": "AddCommonZOrderACEs()",
+    "Type": 0,
+    "Description": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
+  },
+  {
+    "Text": "SetProperties(propertiesArray)",
+    "Content": "SetProperties(propertiesArray)",
+    "Type": 0,
+    "Description": "Set the available addon properties by passing an array of PluginProperty. See Configuring Plugins for more information."
+  },
+  {
+    "Text": "AddCordovaPluginReference(opts)",
+    "Content": "AddCordovaPluginReference(opts)",
+    "Type": 0,
+    "Description": "Add a dependency on a Cordova plugin, that will be included when using the Cordova exporter. For more information see Specifying dependencies."
+  },
+  {
+    "Text": "AddFileDependency(opts)",
+    "Content": "AddFileDependency(opts)",
+    "Type": 0,
+    "Description": "Add a dependency on another file included in the addon. For more information see Specifying dependencies."
+  },
+  {
+    "Text": "AddRemoteScriptDependency(url)",
+    "Content": "AddRemoteScriptDependency(url)",
+    "Type": 0,
+    "Description": "Add a script dependency to a remote URL (on a different origin). For more information see Specifying dependencies."
+  },
+  {
+    "Text": "SetSupportedRuntimes(arr)",
+    "Content": "SetSupportedRuntimes(arr)",
+    "Type": 0,
+    "Description": "Specify which runtimes the behavior supports as an array of strings. Valid runtime strings are either \"c2\" or \"c3\". For more information see Runtime scripts."
+  },
+  {
+    "Text": "SetDOMSideScripts(arr)",
+    "Content": "SetDOMSideScripts(arr)",
+    "Type": 0,
+    "Description": "Specify an array of script paths to load in the main document context rather than the runtime context. For more information see the section DOM calls in the C3 runtime in Runtime scripts."
+  }
+]

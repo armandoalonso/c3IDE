@@ -22,6 +22,21 @@
             <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Foreground" Value="Black" />
             </Style>
+
+            <Style TargetType="{x:Type ToolTip}">
+                <Style.Resources>
+                    <Style TargetType="ContentPresenter">
+                        <Style.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+                </Style.Resources>
+                <Setter Property="MaxWidth" Value="350" />
+                <Setter Property="Background" Value="#FF444444" />
+                <Setter Property="Foreground" Value="White" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

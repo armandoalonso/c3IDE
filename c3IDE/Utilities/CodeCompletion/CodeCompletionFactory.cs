@@ -12,7 +12,7 @@ namespace c3IDE.Utilities.CodeCompletion
     {
         private readonly Dictionary<CodeType, ICompletionBindings> _bindingCache = new Dictionary<CodeType, ICompletionBindings>();
 
-        public IList<ICompletionData> GetCompletionData(CodeType type)
+        public IList<GenericCompletionItem> GetCompletionData(CodeType type)
         {
             if (_bindingCache.ContainsKey(type))
             {
@@ -26,7 +26,7 @@ namespace c3IDE.Utilities.CodeCompletion
                     _bindingCache.Add(type, new JsonBindings());
                     return _bindingCache[type].Completions;
                 case CodeType.Javascript:
-                    _bindingCache.Add(type, new JavascriptBinding());
+                    _bindingCache.Add(type, new EditorJavascriptBinding());
                     return _bindingCache[type].Completions;
                 default:
                     return null;

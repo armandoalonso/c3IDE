@@ -10,7 +10,7 @@ namespace c3IDE.Utilities.CodeCompletion
     public class CodeCompletionDecorator : Singleton<CodeCompletionDecorator>
     {
         //decorates the editor completion data with the a set of completion data
-        public void Decorate(ref IList<ICompletionData> editorData, IList<ICompletionData> completionData)
+        public void Decorate(ref IList<ICompletionData> editorData, IList<GenericCompletionItem> completionData)
         {
             foreach (var cd in completionData)
             {

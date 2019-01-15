@@ -5,6 +5,6 @@ namespace c3IDE.Utilities.CodeCompletion.Bindings
 {
     public interface ICompletionBindings
     {
-        IList<ICompletionData> Completions { get; set; }
+        IList<GenericCompletionItem> Completions { get; set; }
     }
 }
