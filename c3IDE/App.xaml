@@ -33,9 +33,15 @@
                         </Style.Resources>
                     </Style>
                 </Style.Resources>
-                <Setter Property="MaxWidth" Value="350" />
+                <Setter Property="MaxWidth" Value="400" />
                 <Setter Property="Background" Value="#FF444444" />
                 <Setter Property="Foreground" Value="White" />
+            </Style>
+
+            <Style TargetType="{x:Type CodeCompletion:CompletionWindow}">
+                <Setter Property="WindowStyle" Value="None"></Setter>
+                <Setter Property="ResizeMode" Value="NoResize"></Setter>
+                <Setter Property="BorderThickness" Value="0"></Setter>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

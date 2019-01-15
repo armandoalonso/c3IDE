@@ -1,385 +1,1438 @@
 [
-  //Keywords
   {
     "Text": "true",
-    "Content": "true",
+    "Container": "Keyword",
     "Type": 8,
-    "Description": "true"
+    "DescriptionText": "true"
   },
   {
     "Text": "false",
-    "Content": "false",
+    "Container": "Keyword",
     "Type": 8,
-    "Description": "false"
+    "DescriptionText": "false"
   },
-  //Plugin Category
   {
     "Text": "data-and-storage",
-    "Content": "data-and-storage",
+    "Container": "PluginCategory",
     "Type": 13,
-    "Description": "plugin_category"
+    "DescriptionText": ""
   },
   {
     "Text": "form-controls",
-    "Content": "form-controls",
+    "Container": "PluginCategory",
     "Type": 13,
-    "Description": "plugin_category"
+    "DescriptionText": ""
   },
   {
     "Text": "general",
-    "Content": "general",
+    "Container": "PluginCategory",
     "Type": 13,
-    "Description": "plugin_category"
+    "DescriptionText": ""
   },
   {
     "Text": "input",
-    "Content": "input",
+    "Container": "PluginCategory",
     "Type": 13,
-    "Description": "plugin_category"
+    "DescriptionText": ""
   },
   {
     "Text": "media",
-    "Content": "media",
+    "Container": "PluginCategory",
     "Type": 13,
-    "Description": "plugin_category"
+    "DescriptionText": ""
   },
   {
     "Text": "monetisation",
-    "Content": "monetisation",
+    "Container": "PluginCategory",
     "Type": 13,
-    "Description": "plugin_category"
+    "DescriptionText": ""
   },
   {
     "Text": "platform-specific",
-    "Content": "platform-specific",
+    "Container": "PluginCategory",
     "Type": 13,
-    "Description": "plugin_category"
+    "DescriptionText": ""
   },
   {
     "Text": "web",
-    "Content": "web",
+    "Container": "PluginCategory",
     "Type": 13,
-    "Description": "plugin_category"
+    "DescriptionText": ""
   },
   {
     "Text": "other",
-    "Content": "other",
+    "Container": "PluginCategory",
     "Type": 13,
-    "Description": "plugin_category"
+    "DescriptionText": ""
   },
-  //Plugin Property
   {
     "Text": "integer",
-    "Content": "integer",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "an integer number property, always rounded to a whole number"
+    "DescriptionText": "an integer number property, always rounded to a whole number"
   },
   {
     "Text": "float",
-    "Content": "float",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "a floating-point number property."
+    "DescriptionText": "a floating-point number property."
   },
   {
     "Text": "percent",
-    "Content": "percent",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "a floating-point number in the range [0-1] represented as a percentage. For example if the user enters 50%, the property will be set to a value of 0.5."
+    "DescriptionText": "a floating-point number in the range [0-1] represented as a percentage. For example if the user enters 50%, the property will be set to a value of 0.5."
   },
   {
     "Text": "text",
-    "Content": "text",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "a field the user can enter a string in to."
+    "DescriptionText": "a field the user can enter a string in to."
   },
   {
     "Text": "longtext",
-    "Content": "longtext",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "the same as \"text\", but a button with an ellipsis (\"...\") appears on the right side of the field. The user can click this button to open a dialog to edit a long string more conveniently. This is useful for potentially long content like the project description, or the main text of the Text object."
+    "DescriptionText": "the same as \"text\", but a button with an ellipsis (\"...\") appears on the right side of the field. The user can click this button to open a dialog to edit a long string more conveniently. This is useful for potentially long content like the project descriptionText, or the main text of the Text object."
   },
   {
     "Text": "check",
-    "Content": "check",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "a checkbox property, returning a boolean"
+    "DescriptionText": "a checkbox property, returning a boolean"
   },
   {
     "Text": "font",
-    "Content": "font",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "a field which displays the name of a font and provides a button to open a font picker dialog. The property is set to a string of the name of the font."
+    "DescriptionText": "a field which displays the name of a font and provides a button to open a font picker dialog. The property is set to a string of the name of the font."
   },
   {
     "Text": "combo",
-    "Content": "combo",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "a dropdown list property. The property is set to the zero-based index of the chosen item. The items field of the options object must be used to specify the available items."
+    "DescriptionText": "a dropdown list property. The property is set to the zero-based index of the chosen item. The items field of the options object must be used to specify the available items."
   },
   {
     "Text": "color",
-    "Content": "color",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": " a color picker property. The initial value must be an array, e.g. [1, 0, 0] for red."
+    "DescriptionText": " a color picker property. The initial value must be an array, e.g. [1, 0, 0] for red."
   },
   {
     "Text": "group",
-    "Content": "group",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "creates a new group in the Properties Bar. There is no value associated with this property"
+    "DescriptionText": "creates a new group in the Properties Bar. There is no value associated with this property"
   },
   {
     "Text": "link",
-    "Content": "link",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "creates a clickable link in the Properties Bar. There is no value associated with this property. A linkCallback function must be specified in the options object."
+    "DescriptionText": "creates a clickable link in the Properties Bar. There is no value associated with this property. A linkCallback function must be specified in the options object."
   },
   {
     "Text": "linkCallback",
-    "Content": "linkCallback",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "For \"link\" type properties only. A function that is called when the link is clicked. The number of calls, and the type of the parameter, are determined by the callbackType option."
+    "DescriptionText": "For \"link\" type properties only. A function that is called when the link is clicked. The number of calls, and the type of the parameter, are determined by the callbackType option."
   },
   {
     "Text": "info",
-    "Content": "info",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "creates a read-only string that cannot be edited. There is no value associated with this property. A infoCallback function must be specified in the options object."
+    "DescriptionText": "creates a read-only string that cannot be edited. There is no value associated with this property. A infoCallback function must be specified in the options object."
   },
   {
     "Text": "infoCallback",
-    "Content": "infoCallback",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "For \"link\" type properties only. Specifies how the link callback function is used. This can be one of the following: for-each-instance, once-for-all"
+    "DescriptionText": "For \"link\" type properties only. Specifies how the link callback function is used. This can be one of the following: for-each-instance, once-for-all"
   },
   {
     "Text": "initialValue",
-    "Content": "initialValue",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "Specify the initial value for the property, since the third parameter is occupied by the options object. Note when using a \"combo\" type this must be a string of the initial item ID, and when using a \"color\" type, this must be a normalized RGB array, e.g. [1, 0, 0] for red."
+    "DescriptionText": "Specify the initial value for the property, since the third parameter is occupied by the options object. Note when using a \"combo\" type this must be a string of the initial item ID, and when using a \"color\" type, this must be a normalized RGB array, e.g. [1, 0, 0] for red."
   },
   {
     "Text": "minValue",
-    "Content": "minValue",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "Specify a minimum value for a numeric property."
+    "DescriptionText": "Specify a minimum value for a numeric property."
   },
   {
     "Text": "maxValue",
-    "Content": "maxValue",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "Specify a maximum value for a numeric property."
+    "DescriptionText": "Specify a maximum value for a numeric property."
   },
   {
     "Text": "items",
-    "Content": "items",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "Only valid with the \"combo\" property type. Specify an array of strings representing the available item IDs in the dropdown list. The actual displayed strings are read from the language file."
+    "DescriptionText": "Only valid with the \"combo\" property type. Specify an array of strings representing the available item IDs in the dropdown list. The actual displayed strings are read from the language file."
   },
   {
     "Text": "dragSpeedMultiplier",
-    "Content": "dragSpeedMultiplier",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "Only valid with numeric properties. Pass a ratio to modify how quickly the value changes when it is being dragged up or down. For example passing 2 would cause the value to increase twice as fast as the mouse moves while dragging the value."
+    "DescriptionText": "Only valid with numeric properties. Pass a ratio to modify how quickly the value changes when it is being dragged up or down. For example passing 2 would cause the value to increase twice as fast as the mouse moves while dragging the value."
   },
   {
     "Text": "for-each-instance",
-    "Content": "for-each-instance",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "the callback is run once per selected instance in the Layout View. The callback parameter is an IWorldInstance. This is useful for per-instance modifications, such as a link to make all instances their original size."
+    "DescriptionText": "the callback is run once per selected instance in the Layout View. The callback parameter is an IWorldInstance. This is useful for per-instance modifications, such as a link to make all instances their original size."
   },
   {
     "Text": "once-for-type",
-    "Content": "once-for-type",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "the callback is run once regardless of how many instances are selected in the Layout View. The callback parameter is an IObjectType. This is useful for per-type modifications, such as a link to edit the object image"
+    "DescriptionText": "the callback is run once regardless of how many instances are selected in the Layout View. The callback parameter is an IObjectType. This is useful for per-type modifications, such as a link to edit the object image"
   },
   {
     "Text": "id",
-    "Content": "id",
+    "Container": "PluginProperty",
     "Type": 13,
-    "Description": "A string of the ID for the property. This is used in the language file to identify related strings."
+    "DescriptionText": "A string of the ID for the property. This is used in the language file to identify related strings."
   },
-  //Classes
   {
     "Text": "this._info",
-    "Content": "this._info",
+    "Container": "IPluginInfo",
     "Type": 2,
-    "Description": "IPluginInfo"
+    "DescriptionText": ""
   },
-  //IPluginInfo
   {
     "Text": "SetName(name)",
-    "Content": "SetName(name)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Set the name of the addon. Typically this is read from the language file."
+    "DescriptionText": "Set the name of the addon. Typically this is read from the language file."
   },
   {
-    "Text": "SetDescription(description)",
-    "Content": "SetDescription(description)",
+    "Text": "SetDescriptionText(descriptionText)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Set the description of the addon. Typically this is read from the language file."
+    "DescriptionText": "Set the descriptionText of the addon. Typically this is read from the language file."
   },
   {
     "Text": "SetVersion(version)",
-    "Content": "SetVersion(version)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Set the version string of the addon, in A.B.C.D form. Typically this is set to the PLUGIN_VERSION constant."
+    "DescriptionText": "Set the version string of the addon, in A.B.C.D form. Typically this is set to the PLUGIN_VERSION constant."
   },
   {
     "Text": "SetCategory(category)",
-    "Content": "SetCategory(category)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Set the category of the addon. Typically this is set to the PLUGIN_CATEGORY constant. It must be one of \"data-and-storage\", \"form-controls\", \"general\", \"input\", \"media\", \"monetisation\", \"platform-specific\", \"web\", \"other\"."
+    "DescriptionText": "Set the category of the addon. Typically this is set to the PLUGIN_CATEGORY constant. It must be one of \"data-and-storage\", \"form-controls\", \"general\", \"input\", \"media\", \"monetisation\", \"platform-specific\", \"web\", \"other\"."
   },
   {
     "Text": "SetAuthor(author)",
-    "Content": "SetAuthor(author)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Set a string identifying the author of the addon."
+    "DescriptionText": "Set a string identifying the author of the addon."
   },
   {
     "Text": "SetHelpUrl(url)",
-    "Content": "SetHelpUrl(url)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Set a string specifying a URL where the user can view help and documentation resources for the addon. The website should be hosted with HTTPS."
+    "DescriptionText": "Set a string specifying a URL where the user can view help and documentation resources for the addon. The website should be hosted with HTTPS."
   },
   {
     "Text": "SetPluginType(type)",
-    "Content": "SetPluginType(type)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Set the plugin type. This can be \"object\" or \"world\". The world typeh represents a plugin that appears in the Layout View, whereas the object type represents a hidden plugin, similar to the Audio plugin (a single-global type) or Dictionary. World type plugins must derive from SDK.IWorldInstanceBase instead of SDK.IInstanceBase and implement a Draw() method."
+    "DescriptionText": "Set the plugin type. This can be \"object\" or \"world\". The world typeh represents a plugin that appears in the Layout View, whereas the object type represents a hidden plugin, similar to the Audio plugin (a single-global type) or Dictionary. World type plugins must derive from SDK.IWorldInstanceBase instead of SDK.IInstanceBase and implement a Draw() method."
   },
   {
     "Text": "SetIcon(url, type)",
-    "Content": "SetIcon(url, type)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Set the addon icon URL and type. By default the URL is \"icon.svg\" and the type is \"image/svg+xml\". It is recommended to leave this at the default and use an SVG icon, since it will scale well to any display size or density. However you can change your addon to load a PNG icon with SetIcon(\"icon.png\", \"image/png\")."
+    "DescriptionText": "Set the addon icon URL and type. By default the URL is \"icon.svg\" and the type is \"image/svg+xml\". It is recommended to leave this at the default and use an SVG icon, since it will scale well to any display size or density. However you can change your addon to load a PNG icon with SetIcon(\"icon.png\", \"image/png\")."
   },
   {
     "Text": "SetIsResizable(isResizable)",
-    "Content": "SetIsResizable(isResizable)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "For \"world\" type plugins only. Pass true to enable resizing instances in the Layout View."
+    "DescriptionText": "For \"world\" type plugins only. Pass true to enable resizing instances in the Layout View."
   },
   {
     "Text": "SetIsRotatable(isRotatable)",
-    "Content": "SetIsRotatable(isRotatable)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "For \"world\" type plugins only. Pass true to enable the Angle property and rotating instances in the Layout View."
+    "DescriptionText": "For \"world\" type plugins only. Pass true to enable the Angle property and rotating instances in the Layout View."
   },
   {
     "Text": "SetHasImage(hasImage)",
-    "Content": "SetHasImage(hasImage)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "For \"world\" type plugins only. Pass true to add a single editable image, such as used by the Tiled Background plugin."
+    "DescriptionText": "For \"world\" type plugins only. Pass true to add a single editable image, such as used by the Tiled Background plugin."
   },
   {
     "Text": "SetDefaultImageURL(url)",
-    "Content": "SetDefaultImageURL(url)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "For plugins that use a single editable image only. Set the URL to an image file in your addon to use as the default image when the object is added to a project, e.g. \"default.png\"."
+    "DescriptionText": "For plugins that use a single editable image only. Set the URL to an image file in your addon to use as the default image when the object is added to a project, e.g. \"default.png\"."
   },
   {
     "Text": "SetIsTiled(isTiled)",
-    "Content": "SetIsTiled(isTiled)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "For \"world\" type plugins only. Pass true to indicate that the image is intended to be tiled. This adjusts the texture wrapping mode when Construct creates a texture for its image."
+    "DescriptionText": "For \"world\" type plugins only. Pass true to indicate that the image is intended to be tiled. This adjusts the texture wrapping mode when Construct creates a texture for its image."
   },
   {
     "Text": "SetIsDeprecated(isDeprecated)",
-    "Content": "SetIsDeprecated(isDeprecated)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Set a boolean of whether the addon is deprecated or not. If you wish to replace your addon with another one, the old one can be deprecated with SetIsDeprecated(true). This makes it invisible in the editor so it cannot be used in new projects; however old projects with the addon already added can continue to load and work as they did before. This discourages use of the deprecated addon without breaking existing projects that use it."
+    "DescriptionText": "Set a boolean of whether the addon is deprecated or not. If you wish to replace your addon with another one, the old one can be deprecated with SetIsDeprecated(true). This makes it invisible in the editor so it cannot be used in new projects; however old projects with the addon already added can continue to load and work as they did before. This discourages use of the deprecated addon without breaking existing projects that use it."
   },
   {
     "Text": "SetIsSingleGlobal(isSingleGlobal)",
-    "Content": "SetIsSingleGlobal(isSingleGlobal)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Pass true to set the plugin to be a single-global type. The plugin type must be \"objec\". Single-global plugins can only be added once to a project, and they then have a single permanent global instance available throughout the project. This is the mode that plugins like Touch and Audio use."
+    "DescriptionText": "Pass true to set the plugin to be a single-global type. The plugin type must be \"objec\". Single-global plugins can only be added once to a project, and they then have a single permanent global instance available throughout the project. This is the mode that plugins like Touch and Audio use."
   },
   {
     "Text": "SetSupportsEffects(supportsEffects)",
-    "Content": "SetSupportsEffects(supportsEffects)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Pass true to allow using effects, including the Blend mode property, with this plugin. The plugin type must be \"world\". If the plugin does not simply draw a texture the size of the object (as Sprite does), you should also call SetMustPreDraw(true)"
+    "DescriptionText": "Pass true to allow using effects, including the Blend mode property, with this plugin. The plugin type must be \"world\". If the plugin does not simply draw a texture the size of the object (as Sprite does), you should also call SetMustPreDraw(true)"
   },
   {
     "Text": "SetMustPreDraw(mustPreDraw)",
-    "Content": "SetMustPreDraw(mustPreDraw)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Pass true to disable an optimisation in the effects engine for objects that simply draw a texture the size of the object (e.g. Sprite). This is necessary for effects to render correctly if the plugin draws anything other than the equivalent the Sprite plugin would."
+    "DescriptionText": "Pass true to disable an optimisation in the effects engine for objects that simply draw a texture the size of the object (e.g. Sprite). This is necessary for effects to render correctly if the plugin draws anything other than the equivalent the Sprite plugin would."
   },
   {
     "Text": "SetCanBeBundled(canBeBundled)",
-    "Content": "SetCanBeBundled(canBeBundled)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Pass false to prevent the addon from being bundled via the Bundle addons project property. By default all addons may be bundled with a project, and it is recommended to leave this enabled for best user convenience. However if you publish a commercial addon and want to prevent it being distributed by project-bundling, you may wish to disable this."
+    "DescriptionText": "Pass false to prevent the addon from being bundled via the Bundle addons project property. By default all addons may be bundled with a project, and it is recommended to leave this enabled for best user convenience. However if you publish a commercial addon and want to prevent it being distributed by project-bundling, you may wish to disable this."
   },
   {
     "Text": "AddCommonPositionACEs()",
-    "Content": "AddCommonPositionACEs()",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
+    "DescriptionText": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
   },
   {
     "Text": "AddCommonSizeACEs()",
-    "Content": "AddCommonSizeACEs()",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
+    "DescriptionText": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
   },
   {
     "Text": "AddCommonAngleACEs()",
-    "Content": "AddCommonAngleACEs()",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
+    "DescriptionText": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
   },
   {
     "Text": "AddCommonAppearanceACEs()",
-    "Content": "AddCommonAppearanceACEs()",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
+    "DescriptionText": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
   },
   {
     "Text": "AddCommonZOrderACEs()",
-    "Content": "AddCommonZOrderACEs()",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
+    "DescriptionText": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
   },
   {
     "Text": "SetProperties(propertiesArray)",
-    "Content": "SetProperties(propertiesArray)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Set the available addon properties by passing an array of PluginProperty. See Configuring Plugins for more information."
+    "DescriptionText": "Set the available addon properties by passing an array of PluginProperty. See Configuring Plugins for more information."
   },
   {
     "Text": "AddCordovaPluginReference(opts)",
-    "Content": "AddCordovaPluginReference(opts)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Add a dependency on a Cordova plugin, that will be included when using the Cordova exporter. For more information see Specifying dependencies."
+    "DescriptionText": "Add a dependency on a Cordova plugin, that will be included when using the Cordova exporter. For more information see Specifying dependencies."
   },
   {
     "Text": "AddFileDependency(opts)",
-    "Content": "AddFileDependency(opts)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Add a dependency on another file included in the addon. For more information see Specifying dependencies."
+    "DescriptionText": "Add a dependency on another file included in the addon. For more information see Specifying dependencies."
   },
   {
     "Text": "AddRemoteScriptDependency(url)",
-    "Content": "AddRemoteScriptDependency(url)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Add a script dependency to a remote URL (on a different origin). For more information see Specifying dependencies."
+    "DescriptionText": "Add a script dependency to a remote URL (on a different origin). For more information see Specifying dependencies."
   },
   {
     "Text": "SetSupportedRuntimes(arr)",
-    "Content": "SetSupportedRuntimes(arr)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Specify which runtimes the behavior supports as an array of strings. Valid runtime strings are either \"c2\" or \"c3\". For more information see Runtime scripts."
+    "DescriptionText": "Specify which runtimes the behavior supports as an array of strings. Valid runtime strings are either \"c2\" or \"c3\". For more information see Runtime scripts."
   },
   {
     "Text": "SetDOMSideScripts(arr)",
-    "Content": "SetDOMSideScripts(arr)",
+    "Container": "IPluginInfo",
     "Type": 0,
-    "Description": "Specify an array of script paths to load in the main document context rather than the runtime context. For more information see the section DOM calls in the C3 runtime in Runtime scripts."
+    "DescriptionText": "Specify an array of script paths to load in the main document context rather than the runtime context. For more information see the section DOM calls in the C3 runtime in Runtime scripts."
+  },
+  {
+    "Text": "this._sdkType",
+    "Container": "IInstanceBase",
+    "Type": 2,
+    "DescriptionText": "Reference to the associated SDK type class."
+  },
+  {
+    "Text": "this._inst",
+    "Container": "IInstanceBase",
+    "Type": 2,
+    "DescriptionText": "Reference to the IObjectInstance interface, or IWorldInstance interface for \"world\" type plugins, representing this instance in the editor. This allows access to Construct's built-in features for instances"
+  },
+  {
+    "Text": "Release()",
+    "Container": "IInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Optional override for when an instance is released."
+  },
+  {
+    "Text": "OnCreate()",
+    "Container": "IInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Optional override for when an instance is released."
+  },
+  {
+    "Text": "OnPropertyChanged(id, value)",
+    "Container": "IInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Optional override for when a property with the given ID is changed. The value the property was changed to is also passed."
+  },
+  {
+    "Text": "LoadC2Property(name, valueString)",
+    "Container": "IInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Optional override to use custom logic for importing properties from a Construct 2 project referencing a Construct 2 version of this plugin."
+  },
+  {
+    "Text": "GetProject()",
+    "Container": "IInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Return the IProject representing the instance's associated project."
+  },
+  {
+    "Text": "GetObjectType()",
+    "Container": "IInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Convenience method to return the IObjectType interface representing Construct's object type class."
+  },
+  {
+    "Text": "GetInstance()",
+    "Container": "IInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Return the IObjectInstance corresponding to this instance."
+  },
+  {
+    "Text": "OnPlacedInLayout()",
+    "Container": "IWorldInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Return the IObjectInstance corresponding to this instance."
+  },
+  {
+    "Text": "Draw(iRenderer, iDrawParams)",
+    "Container": "IWorldInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Called when Construct wants the instance to draw itself in the Layout View. iRenderer is an IWebGLRenderer interface, used for issuing draw commands. iDrawParams is an IDrawParams interface, used for providing additional information to the draw call."
+  },
+  {
+    "Text": "GetTexture(animationFrame)",
+    "Container": "IWorldInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Load a texture from an IAnimationFrame. Texture loading is asynchronous and is started in the first call. The method will return null while the texture is loading. Construct will automatically refresh the Layout View when the texture finishes loading, at which point the method will return an IWebGLTexture interface that can be used for rendering. Plugins typically render a placeholder of a semitransparent solid color while the texture is loading."
+  },
+  {
+    "Text": "GetTexRect()",
+    "Container": "IWorldInstanceBase",
+    "Type": 0,
+    "DescriptionText": "When a texture has successfully loaded, returns an SDK.Rect indicating the dimensions of the image to render in texture co-ordinates. Note that due to Construct's in-editor spritesheeting engine, this is usually a subset of a texture."
+  },
+  {
+    "Text": "HadTextureError()",
+    "Container": "IWorldInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Returns true to indicate texture loading failed. Plugins typically switch the placeholder to a red color in this circumstance."
+  },
+  {
+    "Text": "IsOriginalSizeKnown()",
+    "Container": "IWorldInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Optional overrides to specify the \"original size\" of the instance. Typically if a plugin supports this, it is the size of the image. This enables percentage size options in the Properties Bar. The default implementation returns false from IsOriginalSizeKnown(), disabling the feature. To enable it, return true from IsOriginalSizeKnown(), and return the original size in the GetOriginalWidth() and GetOriginalHeight() methods."
+  },
+  {
+    "Text": "GetOriginalWidth()",
+    "Container": "IWorldInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Optional overrides to specify the \"original size\" of the instance. Typically if a plugin supports this, it is the size of the image. This enables percentage size options in the Properties Bar. The default implementation returns false from IsOriginalSizeKnown(), disabling the feature. To enable it, return true from IsOriginalSizeKnown(), and return the original size in the GetOriginalWidth() and GetOriginalHeight() methods."
+  },
+  {
+    "Text": "GetOriginalHeight()",
+    "Container": "IWorldInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Optional overrides to specify the \"original size\" of the instance. Typically if a plugin supports this, it is the size of the image. This enables percentage size options in the Properties Bar. The default implementation returns false from IsOriginalSizeKnown(), disabling the feature. To enable it, return true from IsOriginalSizeKnown(), and return the original size in the GetOriginalWidth() and GetOriginalHeight() methods."
+  },
+  {
+    "Text": "HasDoubleTapHandler()",
+    "Container": "IWorldInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Optional override which is called when the user double-clicks or double-taps an instance in the Layout View. This also enables an Edit option in the context menu, which also calls the double-tap handler. Typically plugins with an image use this handler to edit the image. The default implementation returns false from HasDoubleTapHandler(), disabling the feature. To enable it, return true from HasDoubleTapHandler() and then override OnDoubleTap() to perform a task"
+  },
+  {
+    "Text": "OnDoubleTap()",
+    "Container": "IWorldInstanceBase",
+    "Type": 0,
+    "DescriptionText": "Optional override which is called when the user double-clicks or double-taps an instance in the Layout View. This also enables an Edit option in the context menu, which also calls the double-tap handler. Typically plugins with an image use this handler to edit the image. The default implementation returns false from HasDoubleTapHandler(), disabling the feature. To enable it, return true from HasDoubleTapHandler() and then override OnDoubleTap() to perform a task"
+  },
+  {
+    "Text": "SDK.Color()",
+    "Container": "Color",
+    "Type": 2,
+    "DescriptionText": "A Color can be constructed with no parameters, which defaults all components to zero, or with given RGBA components."
+  },
+  {
+    "Text": "SDK.Color(r, g, b, a)",
+    "Container": "Color",
+    "Type": 2,
+    "DescriptionText": "A Color can be constructed with no parameters, which defaults all components to zero, or with given RGBA components."
+  },
+  {
+    "Text": "setRgb(r, g, b)",
+    "Container": "Color",
+    "Type": 0,
+    "DescriptionText": "Set the RGB components only, without affecting the alpha component, in a single call."
+  },
+  {
+    "Text": "setRgba(r, g, b, a)",
+    "Container": "Color",
+    "Type": 0,
+    "DescriptionText": "Set the RGBA components of the color in a single call."
+  },
+  {
+    "Text": "setRgb(r, g, b)",
+    "DescriptionText": "Set the RGB components only, without affecting the alpha component, in a single call.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "setRgba(r, g, b, a)",
+    "DescriptionText": "Set the RGBA components of the color in a single call.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "copy(color)",
+    "DescriptionText": "Set the components of the color by copying another SDK.Color",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "copyRgb(color)",
+    "DescriptionText": "Set the RGB components only, without affecting the alpha component, by copying another SDK.Color",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "clone()",
+    "DescriptionText": "Return a new instance of an SDK.Color with an identical color to this one.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "setR(r)",
+    "DescriptionText": "Set each component of the color individually. Note color components are floats in the range [0, 1].",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "setG(g)",
+    "DescriptionText": "Set each component of the color individually. Note color components are floats in the range [0, 1].",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "setB(b)",
+    "DescriptionText": "Set each component of the color individually. Note color components are floats in the range [0, 1].",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "setA(a)",
+    "DescriptionText": "Set each component of the color individually. Note color components are floats in the range [0, 1].",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "getR()",
+    "DescriptionText": "Get each component of the color individually.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "getG()",
+    "DescriptionText": "Get each component of the color individually.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "getB()",
+    "DescriptionText": "Get each component of the color individually.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "getA()",
+    "DescriptionText": "Get each component of the color individually.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "equals(color)",
+    "DescriptionText": "Return a boolean indicating if this color exactly matches another SDK.Color.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "equalsIgnoringAlpha(color)",
+    "DescriptionText": "Return a boolean indicating if this color exactly matches the RGB components of another SDK.Color. The alpha component is ignored.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "equalsRgb(r, g, b)",
+    "DescriptionText": "Return a boolean indicating if this color exactly matches the given RGB components.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "equalsRgba(r, g, b, a)",
+    "DescriptionText": "Return a boolean indicating if this color exactly matches the given RGBA components.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "premultiply()",
+    "DescriptionText": "Multiply the RGB components by the A component. This is usually required for rendering.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "unpremultiply()",
+    "DescriptionText": "Divide the RGB components by the A component.",
+    "Type": 0,
+    "Container": "Color"
+  },
+  {
+    "Text": "SDK.Quad()",
+    "Container": "Quad",
+    "Type": 2,
+    "DescriptionText": "A Quad can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for each point. The naming convention is tl for the \"top-left\" point, tr for the \"top-right\" point, br for the \"bottom-right\" point, and bl for the \"bottom-left\" point, followed by \"x\" or \"y\" for each component of the point. Note that the points can appear at any orientation for rotated quads; the names only correspond to their actual position when the quad is set to an unrotated rectangle."
+  },
+  {
+    "Text": "SDK.Quad(tlx, tly, trx, try_, brx, bry, blx, bly)",
+    "Container": "Quad",
+    "Type": 2,
+    "DescriptionText": "A Quad can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for each point. The naming convention is tl for the \"top-left\" point, tr for the \"top-right\" point, br for the \"bottom-right\" point, and bl for the \"bottom-left\" point, followed by \"x\" or \"y\" for each component of the point. Note that the points can appear at any orientation for rotated quads; the names only correspond to their actual position when the quad is set to an unrotated rectangle."
+  },
+  {
+    "Text": "set(tlx, tly, trx, try_, brx, bry, blx, bly)",
+    "DescriptionText": "Set all four points of the quad in a single call.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "setRect(left, top, right, bottom)",
+    "DescriptionText": "Set the quad's points to represent an axis-aligned rectangle using the given positions. Note that this is only useful if you subsequently make further modifications to the quad, else you may as well use the Rect interface.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "copy(quad)",
+    "DescriptionText": "Set all points of the quad by copying another SDK.Quad.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "setTlx(n)",
+    "DescriptionText": "Set each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "setTly(n)",
+    "DescriptionText": "Set each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "setTrx(n)",
+    "DescriptionText": "Set each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "setTry(n)",
+    "DescriptionText": "Set each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "setBrx(n)",
+    "DescriptionText": "Set each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "setBry(n)",
+    "DescriptionText": "Set each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "setBlx(n)",
+    "DescriptionText": "Set each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "setBly(n)",
+    "DescriptionText": "Set each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "getTlx()",
+    "DescriptionText": "Get each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "getTly()",
+    "DescriptionText": "Get each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "getTrx()",
+    "DescriptionText": "Get each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "getTry()",
+    "DescriptionText": "Get each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "getBrx()",
+    "DescriptionText": "Get each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "getBry()",
+    "DescriptionText": "Get each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "getBlx()",
+    "DescriptionText": "Get each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "getBly()",
+    "DescriptionText": "Get each point of the quad individually.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "setFromRect(rect)",
+    "DescriptionText": "Set the points of the quad to an axis-aligned rectangle given by an SDK.Rect. Note that this is only useful if you subsequently make further modifications to the quad else you may as well use the Rect interface directly.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "setFromRotatedRect(rect, angle)",
+    "DescriptionText": "Set the points of the quad to a rotated rectangle given by an in radians.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "getBoundingBox(rect)",
+    "DescriptionText": "Calculate the bounding box of the quad, and store the result by writing to a given SDK.Rect.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "midX()",
+    "DescriptionText": "Return the average of the four points in the quad on each axis.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "midY()",
+    "DescriptionText": "Return the average of the four points in the quad on each axis.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "intersectsSegment(x1, y1, x2, y2)",
+    "DescriptionText": "Test if a segment, given as the line between points (x1, y1) and (x2, y2), intersects this quad, returning a boolean.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "intersectsQuad(quad)",
+    "DescriptionText": "Test if another SDK.Quad intersects this quad, returning a boolean.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "containsPoint(x, y)",
+    "DescriptionText": "Test if the given point is inside the bounds of this quad, returning a boolean.",
+    "Type": 0,
+    "Container": "Quad"
+  },
+  {
+    "Text": "SDK.Rect()",
+    "DescriptionText": "A Rect can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for the left, top, right and bottom positions.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "SDK.Rect(left, top, right, bottom)",
+    "DescriptionText": "A Rect can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for the left, top, right and bottom positions.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "set(left, top, right, bottom)",
+    "DescriptionText": "Set all sides of the rectangle in one call.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "copy(rect)",
+    "DescriptionText": "Set all sides of the rectangle by copying another SDK.Rect.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "clone()",
+    "DescriptionText": "Return a new instance of an SDK.Rect with identical values to this one.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "setLeft(left)",
+    "DescriptionText": "Set the position of each side of the rectangle individually.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "setTop(top)",
+    "DescriptionText": "Set the position of each side of the rectangle individually.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "setRight(right)",
+    "DescriptionText": "Set the position of each side of the rectangle individually.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "setBottom(bottom)",
+    "DescriptionText": "Set the position of each side of the rectangle individually.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "getLeft()",
+    "DescriptionText": "Get the positition of each side of the rectangle individually.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "getTop()",
+    "DescriptionText": "Get the positition of each side of the rectangle individually.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "getRight()",
+    "DescriptionText": "Get the positition of each side of the rectangle individually.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "getBottom()",
+    "DescriptionText": "Get the positition of each side of the rectangle individually.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "width()",
+    "DescriptionText": "Get the width or height of the rectangle. Note if the right edge is to the left of the left edge, or the bottom edge above the top edge, this will return a negative size.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "height()",
+    "DescriptionText": "Get the width or height of the rectangle. Note if the right edge is to the left of the left edge, or the bottom edge above the top edge, this will return a negative size.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "midX()",
+    "DescriptionText": "Return the average of the left and right, or top and bottom, positions.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "midY()",
+    "DescriptionText": "Return the average of the left and right, or top and bottom, positions.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "offset(x, y)",
+    "DescriptionText": "Add x to the left and right positions, and y to the top and bottom positions, offsetting the entire rectangle.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "inflate(x, y)",
+    "DescriptionText": "Expand the rectangle using the given offsets. Inflating subtracts from the left and top edges and adds to the right and bottom edges, and deflating does the opposite.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "deflate(x, y)",
+    "DescriptionText": "shrink the rectangle using the given offsets. Inflating subtracts from the left and top edges and adds to the right and bottom edges, and deflating does the opposite.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "multiply(x, y)",
+    "DescriptionText": "Multiply each position by a given factor on each axis.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "divide(x, y)",
+    "DescriptionText": "Divide each position by a given factor on each axis.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "clamp(left, top, right, bottom)",
+    "DescriptionText": "Clamp each position in the rectangle to a given value, ensuring the rectangle does not extend beyond the bounds of the passed rectangle.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "normalize()",
+    "DescriptionText": "Normalize the rectangle positions, swapping the left-right positions if the right position is on the left, and swapping the top-bottom positions if the bottom position is on the top. This ensures the width and height are positive.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "intersectsRect(rect)",
+    "DescriptionText": "Test for an intersection with another SDK.Rect, returning a boolean indicating if it intersects.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "containsPoint(x, y)",
+    "DescriptionText": "Test if the given point is inside the bounds of this rectangle, returning a boolean.",
+    "Type": 0,
+    "Container": "Rect"
+  },
+  {
+    "Text": "GetDt()",
+    "DescriptionText": "Return delta-time, the time since the last frame, in seconds. This is typically approximately 1/60th of a second (0.01666...). This value is only valid when the Layout View is continually scrolling, such as when dragging an instance to the edge of the Layout View window. Any other time it will be set to a dummy non-zero value, since there wasn't a frame immediately preceding the current one. This interface cannot be directly constructed. It is only available in the Draw() call.",
+    "Type": 0,
+    "Container": "IDrawParam"
+  },
+  {
+    "Text": "GetLayoutView()",
+    "DescriptionText": "Return an ILayoutView interface representing the current Layout View being drawn. This allows access to features of the Layout View in drawing code.. This interface cannot be directly constructed. It is only available in the Draw() call.",
+    "Type": 0,
+    "Container": "IDrawParam"
+  },
+  {
+    "Text": "SetAlphaBlendMode()",
+    "DescriptionText": "Set the blend mode to a premultiplied alpha blending mode.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "SetColorFillMode()",
+    "DescriptionText": "Set the fill mode to draw a solid color, specified by the current color.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "SetTextureFillMode()",
+    "DescriptionText": "Set the fill mode to draw a texture, specified by the current texture, and using the alpha component of the current color as the opacity.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "SetSmoothLineFillMode()",
+    "DescriptionText": "Set the fill mode to draw smooth lines using the current color.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "SetColor(color)",
+    "DescriptionText": "Set the current color with an SDK.Color.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "SetColorRgba(r, g, b, a)",
+    "DescriptionText": "Set the current color by directly passing the RGBA components.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "SetOpacity(o)",
+    "DescriptionText": "Set only the alpha component of the current color. Note this does not affect the RGB components.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "ResetColor()",
+    "DescriptionText": "Set the current color to (1, 1, 1, 1).",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "Rect(rect)",
+    "DescriptionText": "Draw a rectangle given by an SDK.Rect.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "Rect2(left, top, right, bottom)",
+    "DescriptionText": "Draw a rectangle by directly passing the left, top, right and bottom positions.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "Quad(quad)",
+    "DescriptionText": "Draw a quad given by an SDK.Quad.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "Quad2(tlx, tly, trx, try_, brx, bry, blx, bly)",
+    "DescriptionText": "Draw a quad by directly passing the positions of each of the four points in the quad.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "Quad3(quad, rect)",
+    "DescriptionText": "Draw a quad given by an SDK.Quad using an SDK.Rect for the source texture co-ordinates to draw from.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "Quad4(quad, texQuad)",
+    "DescriptionText": "Draw a quad given by an SDK.Quad using another SDK.Quad for the source texture co-ordinates to draw from.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "ConvexPoly(pointsArray)",
+    "DescriptionText": "Draw a convex polygon using the given array of points, in alternating X, Y order. Therefore the size of the array must be even, and must contain at least six elements (to define three points).",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "Line(x1, y1, x2, y2)",
+    "DescriptionText": "Draws a quad from the point (x1, y1) to (x2, y2) with the current line width.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "TexturedLine(x1, y1, x2, y2, u, v)",
+    "DescriptionText": "Draws a quad from the point (x1, y1) to (x2, y2) with the current line width, and using (u, 0) as the texture co-ordinates at the start, and (v, 0) as the texture co-ordinates at the end.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "LineRect(left, top, right, bottom)",
+    "DescriptionText": "Draws four lines along the edges of a given rectangle.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "LineRect2(rect)",
+    "DescriptionText": "Draws four lines along the edges of a given SDK.Quad.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "LineQuad(quad)",
+    "DescriptionText": "Draws four lines along the edges of a given SDK.Quad.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "PushLineWidth(w)",
+    "DescriptionText": "Set the current line width for line-drawing calls. This must be followed by a  call when finished to restore the previous line width.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "PopLineWidth()",
+    "DescriptionText": "Set the current line width for line-drawing calls. This must be followed by a  call when finished to restore the previous line width.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "PushLineCap(lineCap)",
+    "DescriptionText": "Set the current line cap for line-drawing calls. This must be followed by a PopLineCap() call when finished to restore the previous line cap. The available line caps are \"butt\" and \"square\".",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "PopLineCap()",
+    "DescriptionText": "Set the current line cap for line-drawing calls. This must be followed by a PopLineCap() call when finished to restore the previous line cap. The available line caps are \"butt\" and \"square\".",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "SetTexture(texture)",
+    "DescriptionText": "Set the current texture to a given IWebGLTexture.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "CreateWebGLText()",
+    "DescriptionText": "Return a new IWebGLText interface. This manages text wrapping, drawing text, and uploading the results to a WebGL texture.",
+    "Type": 0,
+    "Container": "IWebGLRenderer"
+  },
+  {
+    "Text": "Release()",
+    "DescriptionText": "Destroy the object and its resources. IWebGLText must be released when it is no longer needed; do not simply drop references, otherwise not all of its resources will be collected. If your plugin creates an IWebGLText, it should release any it still uses in its own Release() method.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetFontName(name)",
+    "DescriptionText": "Set the name of the font face used for drawing text.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetFontSize(ptSize)",
+    "DescriptionText": "Set the size of the font, in points, used for drawing text.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetLineHeight(px)",
+    "DescriptionText": "Set the extra line height spacing, in pixels, used for drawing text. Note 0 is the default, indicating no offset to the default line height.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetBold(b)",
+    "DescriptionText": "Set the bold flag used for drawing text.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetItalic(i)",
+    "DescriptionText": "Set the italic flag used for drawing text.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetColor(color)",
+    "DescriptionText": "Set the color of the text using a SDK.Color or a string. If a string is passed, it is passed directly to a 2D canvas fillStyle property, so can be anything that property accepts, e.g. red, #00ffee, rgb(0, 128, 192) etc.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetColorRgb(r, g, b)",
+    "DescriptionText": "Set the color of the text using separate RGB components.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetHorizontalAlignment(h)",
+    "DescriptionText": "Set the horizontal alignment of the text within its bounding box. This can be one of left, center or right.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetVerticalAlignment(v)",
+    "DescriptionText": "Set the vertical alignment of the text within its bounding box. This can be one of top, center or bottom.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetWordWrapMode(m)",
+    "DescriptionText": "Set the word wrapping mode. This can be one of word (for space-delimited word wrapping) or character (for wrapping on any character).",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetText(text)",
+    "DescriptionText": "Set the text string to be drawn.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetSize(width, height, zoomScale)",
+    "DescriptionText": "Set the size of the area that text can be drawn in. The size is specified in CSS pixels. The zoomScale can be increased to render the text at a higher resolution, which is useful when zooming in the Layout View.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "GetTexture()",
+    "DescriptionText": "Get an IWebGLTexture interface representing the texture with the requested text rendered on to it. Note: the texture is generated asynchronously, so can return null when first requested. Use SetTextureUpdateCallback() to get a callback when the texture has updated, where the relevant Layout View can be redrawn to render with the updated texture.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "GetTexRect()",
+    "DescriptionText": "Return a SDK.Rect representing the content area of the text on the WebGL texture. This is the subset of the texture that ought to be rendered. Note: this is only valid when GetTexture() returns a non-null result.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "SetTextureUpdateCallback(callback)",
+    "DescriptionText": "Set a function to call when the texture containing the rendered text is updated. Since the texture is generated asynchronously, this is necessary to know when to redraw any views that may be displaying the text, so they can redraw with the updated texture.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "ReleaseTexture()",
+    "DescriptionText": "Release the underlying WebGL texture. This can be used to save memory. However the texture will be re-created the next time GetTexture() is called.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "GetTextWidth()",
+    "DescriptionText": "Return the size of the text bounding box after processing word wrap. This allows determining the size of the actual visible text, rather than the box used for word wrap bounds.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "GetTextHeight()",
+    "DescriptionText": "Return the size of the text bounding box after processing word wrap. This allows determining the size of the actual visible text, rather than the box used for word wrap bounds.",
+    "Container": "IWebGLText",
+    "Type": 0
+  },
+  {
+    "Text": "GetWidth()",
+    "DescriptionText": "Return the width or height of the texture. Note this refers to the source texture. Construct's in-editor spritesheeting engine means the texture could be significantly larger than an object's image to be rendered from it.",
+    "Container": "IWebGLTexture",
+    "Type": 0
+  },
+  {
+    "Text": "GetHeight()",
+    "DescriptionText": "Return the width or height of the texture. Note this refers to the source texture. Construct's in-editor spritesheeting engine means the texture could be significantly larger than an object's image to be rendered from it.",
+    "Container": "IWebGLTexture",
+    "Type": 0
+  },
+  {
+    "Text": "PushContext(prefix)",
+    "DescriptionText": "Push a prefix to the context stack. For example PushContext(\"foo\") followed by Get(\".bar\") will return the same string as if Get(\"foo.bar\") were used. Pushing a context beginning with a dot will append to the current prefix, but pushing an entry not beginning with a dot will reset the current prefix. Note: be sure to always call PopContext() afterwards.",
+    "Container": "ILang",
+    "Type": 0
+  },
+  {
+    "Text": "PopContext()",
+    "DescriptionText": "Pop a prefix from the context stack.",
+    "Container": "ILang",
+    "Type": 0
+  },
+  {
+    "Text": "Get(context)",
+    "DescriptionText": "Look up a string in the language file. If the context begins with a dot, it is relative to the current context prefix. Otherwise it is treated as an absolute context.",
+    "Container": "ILang",
+    "Type": 0
+  },
+  {
+    "Text": "PathExists(path)",
+    "DescriptionText": "Return a boolean indicating if a given path exists within the zip.",
+    "Container": "IZipFile",
+    "Type": 0
+  },
+  {
+    "Text": "GetFileList()",
+    "DescriptionText": "Return an array of all file paths contained within the zip.",
+    "Container": "IZipFile",
+    "Type": 0
+  },
+  {
+    "Text": "GetFirstEntryWithExtension(ext)",
+    "DescriptionText": "Return a IZipFileEntry representing the first entry found with a given file extension, or null if none was found.",
+    "Container": "IZipFile",
+    "Type": 0
+  },
+  {
+    "Text": "GetEntry(path)",
+    "DescriptionText": "Return a IZipFileEntry representing the file at the given path. If the path does not exist in the zip, this returns null.",
+    "Container": "IZipFile",
+    "Type": 0
+  },
+  {
+    "Text": "ReadText(entry)",
+    "DescriptionText": "Return a promise that resolves with the contents of the given IZipFileEntry read as plain text.",
+    "Container": "IZipFile",
+    "Type": 0
+  },
+  {
+    "Text": "ReadJson(entry)",
+    "DescriptionText": "Return a promise that resolves with the contents of the given IZipFileEntry, read as plain text and then parsed as JSON.",
+    "Container": "IZipFile",
+    "Type": 0
+  },
+  {
+    "Text": "ReadBlob(entry)",
+    "DescriptionText": "Return a promise that resolves with the contents of the given IZipFileEntry, read as a Blob. (This is a raw binary format that can be read with other JavaScript APIs.)",
+    "Container": "IZipFile",
+    "Type": 0
+  },
+  {
+    "Text": "AddCondition(iObjectClass, reserved, cndId, params)",
+    "DescriptionText": "Add a condition or action to this event block. These methods are very similar so they are documented together. iObjectClass must be an IObjectClass (i.e. an IObjectType or IFamily) to create the condition and action for. The next parameter is reserved for future use; you must pass null. cndId or actId must be a string specifying the condition or action to create; for example the System On start of layout condition ID is \"on-start-of-layout\". If the condition or action uses any parameters, then params must be an array with enough elements for every parameter. Each parameter can be a string, number or IObjectType. Expression parameters use a string, which can be any valid expression (including calculations like \"1+1\" for number parameters); if you pass a number, it will be converted to a string. IObjectClass can also be passed for object parameters.",
+    "Container": "IEventBlock",
+    "Type": 0
+  },
+  {
+    "Text": "AddAction(iObjectClass, reserved, actId, params)",
+    "DescriptionText": "Add a condition or action to this event block. These methods are very similar so they are documented together. iObjectClass must be an IObjectClass (i.e. an IObjectType or IFamily) to create the condition and action for. The next parameter is reserved for future use; you must pass null. cndId or actId must be a string specifying the condition or action to create; for example the System On start of layout condition ID is \"on-start-of-layout\". If the condition or action uses any parameters, then params must be an array with enough elements for every parameter. Each parameter can be a string, number or IObjectType. Expression parameters use a string, which can be any valid expression (including calculations like \"1+1\" for number parameters); if you pass a number, it will be converted to a string. IObjectClass can also be passed for object parameters.",
+    "Container": "IEventBlock",
+    "Type": 0
+  },
+  {
+    "Text": "async AddEventBlock()",
+    "DescriptionText": "Add an empty child event block, with no conditions or actions. Returns a promise resolving with the created IEventBlock.",
+    "Container": "IEventParentRow",
+    "Type": 0
+  },
+  {
+    "Text": "GetProject()",
+    "DescriptionText": "Return the associated IProject.",
+    "Container": "IEventSheet",
+    "Type": 0
+  },
+  {
+    "Text": "GetName()",
+    "DescriptionText": "Return the name of the event sheet.",
+    "Container": "IEventSheet",
+    "Type": 0
+  },
+  {
+    "Text": "GetRoot()",
+    "DescriptionText": "Return the root node of the event sheet. This is an IEventParentRow representing the top level of the event sheet.",
+    "Container": "IEventSheet",
+    "Type": 0
+  },
+  {
+    "Text": "GetName()",
+    "DescriptionText": "Return the name of the layer.",
+    "Container": "ILayer",
+    "Type": 0
+  },
+  {
+    "Text": "GetProject()",
+    "DescriptionText": "Return the associated IProject.",
+    "Container": "ILayout",
+    "Type": 0
+  },
+  {
+    "Text": "GetName()",
+    "DescriptionText": "Return the name of the layout.",
+    "Container": "ILayout",
+    "Type": 0
+  },
+  {
+    "Text": "GetEventSheet()",
+    "DescriptionText": "Return the IEventSheet assigned for this layout. Note that layouts do not have to have an event sheet assigned, so this can return null.",
+    "Container": "ILayout",
+    "Type": 0
+  },
+  {
+    "Text": "GetName()",
+    "DescriptionText": "Return the project name.",
+    "Container": "IProject",
+    "Type": 0
+  },
+  {
+    "Text": "GetRuntime()",
+    "DescriptionText": "Return the runtime the project is set to use - either \"c2\" for the legacy C2 runtime or \"c3\" for the modern C3 runtime.",
+    "Container": "IProject",
+    "Type": 0
+  },
+  {
+    "Text": "CreateObjectType(pluginId, name)",
+    "DescriptionText": "Add a new object type to the project. Returns a promise that resolves with an IObjectType representing the new object type. See Finding addon IDs to get a list of possible plugin IDs that can be used. name is the requested name to use for the object type. If the name is free, it will be used directly; however if the name is already in use, Construct will change the name to one which is available. Call GetName() on the returned IObjectType to determine what name it was assigned.",
+    "Container": "IProject",
+    "Type": 0
+  },
+  {
+    "Text": "GetSystemType()",
+    "DescriptionText": "Return an IObjectType representing the System plugin, which exists in every project.",
+    "Container": "IProject",
+    "Type": 0
+  },
+  {
+    "Text": "GetSingleGlobalObjectType(pluginId)",
+    "DescriptionText": "Return an IObjectType representing a single-global plugin in the project. Returns null if the given plugin ID does not exist, is not a single-global plugin, or the plugin has not been added to the project. See Finding addon IDs to get a list of possible plugin IDs that can be used.",
+    "Container": "IProject",
+    "Type": 0
+  },
+  {
+    "Text": "CreateFamily(name, members)",
+    "DescriptionText": "Create a new family in the project. name is an optional family name (pass null to use a default name). members must be an array of IObjectType representing the object types to add to the family. Families must be created with at least one object type, and if they have multiple object types, they must all be from the same kind of plugin (e.g. all Sprites). Returns an IFamily representing the created family.",
+    "Container": "IProject",
+    "Type": 0
+  },
+  {
+    "Text": "AddOrReplaceProjectFile(blob, filename, kind = \"general\")",
+    "DescriptionText": "Create a new project file in the project, or replace the content of the file if it already exists, using a Blob for the file content and a string for the filename. The kind defaults to \"general\", which causes the file to be placed in the \"Files\" folder in the Project Bar. Other options are \"sound\", \"music\", \"video\", \"font\" and \"icon\".",
+    "Container": "IProject",
+    "Type": 0
+  },
+  {
+    "Text": "ShowImportAudioDialog(fileList)",
+    "DescriptionText": "Bring up the Import audio dialog to import a list of audio files given in fileList. This will automatically transcode the audio files to WebM Opus (when supported for the audio formats), which is the main format Construct uses. Prefer importing PCM WAV files to ensure transcoding is supported and is lossless. The file list should be an array of Blob or File; if blobs, then ensure a name property is assigned to the blob object to indicate the intended filename.",
+    "Container": "IProject",
+    "Type": 0
+  },
+  {
+    "Text": "EnsureFontLoaded(f)",
+    "DescriptionText": "Make sure a given font name is loaded so it can be used when drawing text. This is necessary for plugins that render text.",
+    "Container": "IProject",
+    "Type": 0
+  },
+  {
+    "Text": "UndoPointChangeObjectInstancesProperty(instances, propertyId)",
+    "DescriptionText": "Create a new undo point that undoes changes to propertyId. instances must be either an IObjectInstance or an array of IObjectInstance. Call this method before changing an instance's property value and the action will be undoable.",
+    "Container": "IProject",
+    "Type": 0
   }
 ]
+
+//missing object interfaces

@@ -13,7 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.DataAccess;
+using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Windows.Interfaces;
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Editing;
 
 namespace c3IDE.Windows
 {
@@ -22,10 +25,94 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class TypeWindow : UserControl, IWindow
     {
+        private CompletionWindow completionWindow;
         public TypeWindow()
         {
             InitializeComponent();
+            EditTimeTypeTextEditor.TextArea.TextEntering += EditTimeTypeTextEditor_TextEntering;
+            EditTimeTypeTextEditor.TextArea.TextEntered += EditTimeTypeTextEditor_TextEntered;
         }
+
+        private void EditTimeTypeTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
+        {
+            //add matching closing symbol
+            switch (e.Text)
+            {
+                case "{":
+                    EditTimeTypeTextEditor.Document.Insert(EditTimeTypeTextEditor.TextArea.Caret.Offset, "}");
+                    EditTimeTypeTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "\"":
+                    EditTimeTypeTextEditor.Document.Insert(EditTimeTypeTextEditor.TextArea.Caret.Offset, "\"");
+                    EditTimeTypeTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "[":
+                    EditTimeTypeTextEditor.Document.Insert(EditTimeTypeTextEditor.TextArea.Caret.Offset, "]");
+                    EditTimeTypeTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "(":
+                    EditTimeTypeTextEditor.Document.Insert(EditTimeTypeTextEditor.TextArea.Caret.Offset, ")");
+                    EditTimeTypeTextEditor.TextArea.Caret.Offset--;
+                    return;
+                case ".":
+                    //show code completion window on dot (only methods shown)
+                    var methodData = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.Javascript).Where(x => x.Type == CompletionType.Methods).ToList();
+                    ShowCompletion(EditTimeTypeTextEditor.TextArea, methodData);
+                    break;
+                default:
+                    //figure out word segment
+                    var segment = EditTimeTypeTextEditor.TextArea.GetCurrentWord();
+                    if (segment == null) return;
+
+                    //get string from segment
+                    var text = EditTimeTypeTextEditor.Document.GetText(segment);
+                    if (string.IsNullOrWhiteSpace(text)) return;
+
+                    //filter completion list by string
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.Javascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    if (data.Any())
+                    {
+                        ShowCompletion(EditTimeTypeTextEditor.TextArea, data);
+                    }
+                    break;
+            }
+        }
+
+        private void EditTimeTypeTextEditor_TextEntering(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text.Length > 0 && completionWindow != null)
+            {
+                if (!char.IsLetterOrDigit(e.Text[0]))
+                {
+                    // Whenever a non-letter is typed while the completion window is open,
+                    // insert the currently selected element.
+                    completionWindow.CompletionList.RequestInsertion(e);
+                }
+            }
+            // Do not set e.Handled=true.
+            // We still want to insert the character that was typed.
+        }
+
+        private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
+        {
+            //if any data matches show completion list
+            completionWindow = new CompletionWindow(textArea)
+            {
+                //overwrite color due to global style
+                Foreground = new SolidColorBrush(Colors.Black)
+            };
+
+            var completionData = completionWindow.CompletionList.CompletionData;
+            CodeCompletionDecorator.Insatnce.Decorate(ref completionData, completionList); ;
+            completionWindow.Width = 250;
+
+            completionWindow.Show();
+            completionWindow.Closed += delegate { completionWindow = null; };
+        }
+
 
         public string DisplayName { get; set; } = "Type";
         public void OnEnter()

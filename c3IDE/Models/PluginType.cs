@@ -9,7 +9,7 @@ namespace c3IDE.Models
     public enum PluginType
     {
         SingleGlobalPlugin,
-        DrawingPlugin,
-        Behavior
+        //DrawingPlugin,
+        //Behavior
     }
 }

@@ -22,8 +22,7 @@ namespace c3IDE.Utilities.CodeCompletion
         public GenericCompletionItem(string text, string description, CompletionType type = CompletionType.Misc)
         {
             this.Text = text;
-            this.Content = text;
-            this.Description = description;
+            this.DescriptionText = description;
             this.Type = type;
             this.Image = CompletionTypeFactory.Insatnce.GetIcon(this.Type);
         }
@@ -31,9 +30,14 @@ namespace c3IDE.Utilities.CodeCompletion
         [JsonIgnore]
         public ImageSource Image { get; }
         public string Text { get; }
-        public object Content {get; }
+
+        [JsonIgnore]
+        public object Content => $"{Text}";
         public CompletionType Type { get; }
-        public object Description { get; }
+        public string Container { get; set; }
+        public string DescriptionText { get; set; }
+        [JsonIgnore]
+        public object Description => $"{Container} : {DescriptionText}";
         [JsonIgnore]
         public double Priority => 1.0;
     }
