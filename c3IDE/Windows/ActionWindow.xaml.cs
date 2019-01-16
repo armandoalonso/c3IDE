@@ -201,5 +201,23 @@ namespace c3IDE.Windows
 
             NewParamWindow.IsOpen = false;
         }
+
+        private void JsonView_OnClick(object sender, RoutedEventArgs e)
+        {
+            CodePanel.Width = new GridLength(0);
+            JsonPanel.Width = new GridLength(3, GridUnitType.Star);
+        }
+
+        private void DeafultView_OnClick(object sender, RoutedEventArgs e)
+        {
+            JsonPanel.Width = new GridLength(3, GridUnitType.Star);
+            CodePanel.Width = new GridLength(3, GridUnitType.Star);
+        }
+
+        private void CodeView_OnClick(object sender, RoutedEventArgs e)
+        {
+            JsonPanel.Width = new GridLength(0);
+            CodePanel.Width = new GridLength(3, GridUnitType.Star);
+        }
     }
 }
