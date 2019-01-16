@@ -41,7 +41,7 @@
             </StackPanel>
         </mah:ChildWindow>
 
-        <mah:ChildWindow Name="NewParamWindow" Grid.Column="0" Grid.ColumnSpan="3" Title="Add New Parameter" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
+        <mah:ChildWindow Name="NewParamWindow" Grid.Column="0" Grid.ColumnSpan="4" Title="Add New Parameter" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
             <mah:ChildWindow.OverlayBrush>
                 <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
             </mah:ChildWindow.OverlayBrush>

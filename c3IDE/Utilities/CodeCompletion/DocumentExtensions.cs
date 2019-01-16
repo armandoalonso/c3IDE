@@ -42,7 +42,7 @@ namespace c3IDE.Utilities.CodeCompletion
             return null;
         }
 
-        public static ISegment GetPreviousWord(this TextArea textArea)
+        public static string[] GetPreviousWord(this TextArea textArea)
         {
             DocumentLine line = textArea.Document.GetLineByNumber(textArea.Caret.Line);
 
@@ -54,21 +54,9 @@ namespace c3IDE.Utilities.CodeCompletion
             int startOffset = -1;
             int length = -1;
 
-            MatchCollection matches = _wordRegex.Matches(textArea.Document.GetText(line));
-            foreach (Match match in matches)
-            {
-                if (match.Index <= lineCaretPosition && (match.Index + match.Length) >= lineCaretPosition)
-                {
-                    startOffset = line.Offset + match.Index;
-                    length = match.Length;
-                    break;
-                }
-            }
-
-            if (startOffset != -1)
-                return new AnchorSegment(textArea.Document, startOffset, length);
-
-            return null;
+            //todo: fix this
+            var text = Regex.Escape(textArea.Document.GetText(line)).Split(new char[' '], StringSplitOptions.RemoveEmptyEntries);
+            return text;
         }
     }
 }

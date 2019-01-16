@@ -15,7 +15,7 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <mah:ChildWindow Name="NewExpressionWindow" Grid.Column="0" Grid.ColumnSpan="3" Title="Add New Expression" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
+        <mah:ChildWindow Name="NewExpressionWindow" Grid.Column="0" Grid.ColumnSpan="4" Title="Add New Expression" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
             <mah:ChildWindow.OverlayBrush>
                 <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
             </mah:ChildWindow.OverlayBrush>

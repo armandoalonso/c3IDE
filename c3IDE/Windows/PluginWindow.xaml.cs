@@ -58,6 +58,7 @@ namespace c3IDE.Windows
                     //show code completion window on dot (only methods shown)
                     var methodData = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.Javascript).Where(x => x.Type == CompletionType.Methods).ToList();
 
+                    //todo fix this
                     var previousSegment = EditTimePluginTextEditor.TextArea.GetPreviousWord();
 
                     ShowCompletion(EditTimePluginTextEditor.TextArea, methodData);
