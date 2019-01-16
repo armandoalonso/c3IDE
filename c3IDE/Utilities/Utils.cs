@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,11 @@ namespace c3IDE.Utilities
         public void WriteFile(string path, string content)
         {
             System.IO.File.WriteAllText(path, content);
+        }
+
+        public void StartProcess(string process)
+        {
+            Process.Start(process);
         }
     }
 }

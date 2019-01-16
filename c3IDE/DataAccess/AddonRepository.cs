@@ -13,9 +13,11 @@ namespace c3IDE.DataAccess
     {
         public string Database { get; set; } = "data.db";
         public string Collection { get; set; } = "Addons";
+        public string Path => System.IO.Path.Combine(App.DataFolder, Database);
+
         public void Insert(C3Addon value)
         {
-            using (var db = new LiteDatabase(Database))
+            using (var db = new LiteDatabase(Path))
             {
                 var collection = db.GetCollection<C3Addon>(Collection);
                 collection.Insert(value);
@@ -24,7 +26,7 @@ namespace c3IDE.DataAccess
 
         public void Upsert(C3Addon value)
         {
-            using (var db = new LiteDatabase(Database))
+            using (var db = new LiteDatabase(Path))
             {
                 var collection = db.GetCollection<C3Addon>(Collection);
                 collection.Upsert(value);
@@ -33,7 +35,7 @@ namespace c3IDE.DataAccess
 
         public void BulkInsert(IEnumerable<C3Addon> values)
         {
-            using (var db = new LiteDatabase(Database))
+            using (var db = new LiteDatabase(Path))
             {
                 var collection = db.GetCollection<C3Addon>(Collection);
                 collection.Insert(values);
@@ -42,7 +44,7 @@ namespace c3IDE.DataAccess
 
         public void BulkUpsert(IEnumerable<C3Addon> values)
         {
-            using (var db = new LiteDatabase(Database))
+            using (var db = new LiteDatabase(Path))
             {
                 var collection = db.GetCollection<C3Addon>(Collection);
                 collection.Upsert(values);
@@ -51,7 +53,7 @@ namespace c3IDE.DataAccess
 
         public IEnumerable<C3Addon> GetAll()
         {
-            using (var db = new LiteDatabase(Database))
+            using (var db = new LiteDatabase(Path))
             {
                 var collection = db.GetCollection<C3Addon>(Collection);
                 return collection.FindAll();
@@ -60,7 +62,7 @@ namespace c3IDE.DataAccess
 
         public IEnumerable<C3Addon> Get(Expression<Func<C3Addon, bool>> predicate)
         {
-            using (var db = new LiteDatabase(Database))
+            using (var db = new LiteDatabase(Path))
             {
                 var collection = db.GetCollection<C3Addon>(Collection);
                 return collection.Find(predicate);
@@ -69,7 +71,7 @@ namespace c3IDE.DataAccess
 
         public void Delete(C3Addon value)
         {
-            using (var db = new LiteDatabase(Database))
+            using (var db = new LiteDatabase(Path))
             {
                 var collection = db.GetCollection<C3Addon>(Collection);
                 collection.Delete(value.Id);
@@ -78,7 +80,7 @@ namespace c3IDE.DataAccess
 
         public void ResetCollection()
         {
-            using (var db = new LiteDatabase(Database))
+            using (var db = new LiteDatabase(Path))
             {
                 db.DropCollection(Collection);
             }

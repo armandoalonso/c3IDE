@@ -16,6 +16,8 @@ namespace c3IDE.DataAccess
     {
         public string Database { get; set; } = "data.db";
         public string Collection { get; set; } = "Options";
+        public string Path => System.IO.Path.Combine(App.DataFolder, Database);
+
         public void Insert(Options value)
         {
             throw new NotImplementedException();
@@ -23,7 +25,7 @@ namespace c3IDE.DataAccess
 
         public void Upsert(Options value)
         {
-            using (var db = new LiteDatabase(Database))
+            using (var db = new LiteDatabase(Path))
             {
                 var collection = db.GetCollection<Options>(Collection);
                 collection.Upsert(value);
@@ -42,7 +44,7 @@ namespace c3IDE.DataAccess
 
         public IEnumerable<Options> GetAll()
         {
-            using (var db = new LiteDatabase(Database))
+            using (var db = new LiteDatabase(Path))
             {
                 var collection = db.GetCollection<Options>(Collection);
                 return collection.FindAll();
@@ -56,7 +58,7 @@ namespace c3IDE.DataAccess
 
         public void Delete(Options value)
         {
-            using (var db = new LiteDatabase(Database))
+            using (var db = new LiteDatabase(Path))
             {
                 var collection = db.GetCollection<Options>(Collection);
                 collection.Delete(value.Key);

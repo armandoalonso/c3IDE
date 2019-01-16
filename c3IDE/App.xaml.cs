@@ -17,6 +17,9 @@ namespace c3IDE
     /// </summary>
     public partial class App : Application
     {
+        public static string DataFolder { get; set; }
+        public static Options DefaultOptions { get; set; }
+
         public App()
         {
             //load saved options if none are saved
@@ -25,13 +28,18 @@ namespace c3IDE
             var defaultExportPath = Path.Combine(dataFolder, "Exports");
             var defaultCompilePath = Path.Combine(dataFolder, "Server", "Test");
 
-            //create default options
-            AppData.Insatnce.Options = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? new Options
+            DataFolder = dataFolder;
+
+            //setup default options
+            DefaultOptions = new Options
             {
                 DataPath = dataFolder,
                 CompilePath = defaultCompilePath,
                 ExportPath = defaultExportPath
             };
+
+            //create default options
+            AppData.Insatnce.Options = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? DefaultOptions;
 
             //create exports folder if it does not exists
             if (!System.IO.Directory.Exists(dataFolder)) Directory.CreateDirectory(dataFolder);

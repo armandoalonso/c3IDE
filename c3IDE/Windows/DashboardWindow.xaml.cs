@@ -202,7 +202,7 @@ namespace c3IDE.Windows
             var timestamp = DateTime.Now.ToString("MMddyyyyHHmmssfff");
             Utils.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.ExportPath, $"{AppData.Insatnce.CurrentAddon.Class}_{timestamp}.c3ide"), addonJson);
 
-            Process.Start("Exports");
+            Utils.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
         }
 
         private void ResetInputs()
@@ -255,7 +255,7 @@ namespace c3IDE.Windows
 
         private void ExportFolderButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Process.Start(AppData.Insatnce.Options.ExportPath);
+            Utils.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
         }
     }
 }

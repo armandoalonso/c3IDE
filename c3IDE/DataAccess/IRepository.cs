@@ -11,6 +11,7 @@ namespace c3IDE.DataAccess
     {
         string Database { get; set; }
         string Collection { get; set; }
+        string Path { get; }
         void Insert(T value);
         void Upsert(T value);
         void BulkInsert(IEnumerable<T> values);
