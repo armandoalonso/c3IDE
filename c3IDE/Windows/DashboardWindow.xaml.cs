@@ -200,7 +200,7 @@ namespace c3IDE.Windows
             //export addon to .c3ide format
             var addonJson = JsonConvert.SerializeObject(AppData.Insatnce.CurrentAddon);
             var timestamp = DateTime.Now.ToString("MMddyyyyHHmmssfff");
-            Utils.Insatnce.WriteFile($"Exports\\{AppData.Insatnce.CurrentAddon.Class}_{timestamp}.c3ide", addonJson);
+            Utils.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.ExportPath, $"{AppData.Insatnce.CurrentAddon.Class}_{timestamp}.c3ide"), addonJson);
 
             Process.Start("Exports");
         }
@@ -255,7 +255,7 @@ namespace c3IDE.Windows
 
         private void ExportFolderButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Process.Start("Exports");
+            Process.Start(AppData.Insatnce.Options.ExportPath);
         }
     }
 }

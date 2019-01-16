@@ -12,6 +12,10 @@ namespace c3IDE.Models
     {
         [BsonId]
         public Guid Key { get; set; } = Guid.Parse("e0cddcac-e99d-4338-ac91-b56b0db58ed0");
+        public string DataPath { get; set; }
         public string CompilePath { get; set; }
+        public string ExportPath { get; set; }
+        public string FontSize { get; set; }
+        public string FontFamily { get; set; }
     }
 }
