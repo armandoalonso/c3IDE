@@ -118,6 +118,7 @@ namespace c3IDE.Windows
 
         private void InsertNewParam(object sender, RoutedEventArgs e)
         {
+            if (_selectedAction == null) return;
             ParamIdText.Text = "param-id";
             ParamTypeDropdown.Text = "number";
             ParamValueText.Text = string.Empty;

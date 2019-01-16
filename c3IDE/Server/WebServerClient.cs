@@ -40,7 +40,7 @@ namespace c3IDE.Server
                 return next();
             });
 
-            //handle static files (only suport js, json and png)
+            //handle static files (only suport js, json, png and svg)
             _httpServer.Use(new C3FileHandler());
 
             _log.Insert("starting server => http://localhost:8080/addon.json");

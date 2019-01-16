@@ -181,6 +181,7 @@ namespace c3IDE.Windows
 
         private void AddCondition_OnClick(object sender, RoutedEventArgs e)
         {
+            if (_selectedCondition == null) return;
             ConditionIdText.Text = "condition-id";
             ConditionCategoryText.Text = "custom";
             DisplayText.Text = "This is the conditions display text {0}";

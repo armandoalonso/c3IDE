@@ -135,6 +135,7 @@ namespace c3IDE.Windows
 
         private void AddExpression_OnClick(object sender, RoutedEventArgs e)
         {
+            if (_selectedExpression == null) return;
             ExpressionIdText.Text = "expression-id";
             ExpressionCategoryText.Text = "custom";
             ReturnTypeDropdown.Text = "any";
