@@ -18,7 +18,7 @@ As of right now only Single Global Plugins are support, this will change in the 
 You can export you projects, by default it will get stored in *C:\Users\{USER}\AppData\Roaming\C3IDE_DATA\Exports*
 You can import projects by dragging the .c3ide file on the dashboard window.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/c3IDE-preview.gif)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/c3IDE-import-export.gif)
 *importing an exported .c3ide file into the app*
 
 # Example Addon Projects 
