@@ -34,6 +34,7 @@ namespace c3IDE.Windows
         {
             if(string.IsNullOrWhiteSpace(e.Text)) return;
             var tokenList = CodeCompletionFactory.Insatnce.ParseJavascriptDocumnet(EditTimePluginTextEditor.Text);
+            var methodsTokens = CodeCompletionFactory.Insatnce.ParseJavascriptMethodCalls(EditTimePluginTextEditor.Text);
             //add matching closing symbol
             switch (e.Text)
             { 

@@ -14,6 +14,7 @@ namespace c3IDE.Utilities.CodeCompletion
         private readonly Dictionary<CodeType, IList<GenericCompletionItem>> _bindingCache = new Dictionary<CodeType, IList<GenericCompletionItem>>();
         private readonly Dictionary<string, IList<GenericCompletionItem>> _contextCache = new Dictionary<string, IList<GenericCompletionItem>>();
         private readonly Regex _tokenRegex = new Regex("SDK\\.(\\w+)");
+        private readonly Regex _methodRegex = new Regex("(\\w+)\\(.*?\\)");
 
         public IList<GenericCompletionItem> GetCompletionData(CodeType type)
         {
@@ -77,6 +78,18 @@ namespace c3IDE.Utilities.CodeCompletion
         }
 
         //TODO: based on method class check type of returned interface and add to auto completion
+        public List<string> ParseJavascriptMethodCalls(string text)
+        {
+            var mathes = _methodRegex.Matches(text);
+            var hashset = new HashSet<string>();
+
+            foreach (Match match in mathes)
+            {
+                hashset.Add(match.Groups[1].ToString());
+            }
+
+            return hashset.ToList();
+        }
     }
 
     public enum CodeType
