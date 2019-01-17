@@ -93,6 +93,7 @@
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=SaveRegular}" Label="Save" Tag="Save"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Gear}" Label="Options" Tag="Options"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=QuestionSolid}" Label="SDK Help" Tag="SDK Help"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=PowerOffSolid}" Label="Exit" Tag="Exit"/>
                 </mah:HamburgerMenuItemCollection>
             </mah:HamburgerMenu.OptionsItemsSource>

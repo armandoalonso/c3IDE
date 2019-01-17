@@ -33,7 +33,7 @@
     <ProductName>c3IDE</ProductName>
     <PublisherName>Piranha305</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>13</ApplicationRevision>
+    <ApplicationRevision>14</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -133,6 +133,7 @@
     <Compile Include="Models\ThirdPartyFile.cs" />
     <Compile Include="Server\C3FileHandler.cs" />
     <Compile Include="Server\WebServerClient.cs" />
+    <Compile Include="Templates\MultiInstancePluginTemplate.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\EditorJavascriptBinding.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\JsonBindings.cs" />
     <Compile Include="Utilities\CodeCompletion\CodeCompletionDecorator.cs" />
@@ -486,6 +487,10 @@
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Templates\Files\MultiInstance\plugin_edittime.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

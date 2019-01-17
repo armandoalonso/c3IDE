@@ -16,6 +16,8 @@ namespace c3IDE.Templates
             {
                 case PluginType.SingleGlobalPlugin:
                     return new SingleGlobalPluginTemplate();
+                case PluginType.MultiInstance:
+                    return new MultiInstancePluginTemplate(); 
             }
 
             throw new InvalidOperationException("Not Valid Plugin Type");

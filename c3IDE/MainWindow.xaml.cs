@@ -78,6 +78,11 @@ namespace c3IDE
                 Close();
             }
 
+            if (clickedLabel == "SDK Help")
+            {
+                c3IDE.Utilities.Utils.Insatnce.StartProcess("https://www.construct.net/en/make-games/manuals/addon-sdk");
+            }
+
             //execute on exit
             switch (_currentActiveWindow)
             {
