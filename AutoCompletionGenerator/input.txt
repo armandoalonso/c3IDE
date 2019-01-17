@@ -1,0 +1,336 @@
+﻿GetObjectType()
+0
+IAnimation
+Return the IObjectType that this animation belongs to.
+GetFrames()
+0
+IAnimation
+Return an array of IAnimationFrame representing the frames in this animation.
+AddFrame()
+0
+IAnimation
+Add a new animation frame to the animation. All the parameters are optional. There are four overloads of this method: No parameters passed: add an empty animation frame with a default size
+AddFrame(blob)
+0
+IAnimation
+Add a new animation frame to the animation. All the parameters are optional. There are four overloads of this method: Blob passed with no size: use the blob as the animation frame image file, and decompress the image to determine the size
+AddFrame(blob, width, height)
+0
+IAnimation
+Add a new animation frame to the animation. All the parameters are optional. There are four overloads of this method: Blob passed with size: use the blob as the animation frame image file and use the provided size (which must be correct) to skip having to decompress the image to find its size
+AddFrame(width, height)
+0
+IAnimation
+Add a new animation frame to the animation. All the parameters are optional. There are four overloads of this method: No blob passed but size provided: use the size for the empty animation frame The method returns a promise that resolves with the added IAnimationFrame.
+SetSpeed(s)
+0
+IAnimation
+Set and get the animation speed in animation frames per second.
+GetSpeed()
+0
+IAnimation
+Set and get the animation speed in animation frames per second.
+SetLooping(l)
+0
+IAnimation
+Set and get the looping flag for the animation, indicating if the animation will repeat.
+IsLooping()
+0
+IAnimation
+Set and get the looping flag for the animation, indicating if the animation will repeat.
+SetPingPong(p)
+0
+IAnimation
+Set and get the ping-pong flag for the animation, indicating if the animation will repeat alternating forwards and backwards.
+IsPingPong()
+0
+IAnimation
+Set and get the ping-pong flag for the animation, indicating if the animation will repeat alternating forwards and backwards.
+SetRepeatCount(r)
+0
+IAnimation
+Set and get the number of times the animation is set to repeat.
+GetRepeatCount()
+0
+IAnimation
+Set and get the number of times the animation is set to repeat.
+SetRepeatTo(f)
+0
+IAnimation
+Set and get the animation frame index to return to when repeating the animation. This must be a valid index.
+GetRepeatTo()
+0
+IAnimation
+Set and get the animation frame index to return to when repeating the animation. This must be a valid index.
+GetObjectType()
+0
+IAnimationFrame
+Return the associated IObjectType interface.
+GetWidth()
+0
+IAnimationFrame
+Return the size of the image, in pixels.
+GetHeight()
+0
+IAnimationFrame
+Return the size of the image, in pixels.
+GetCachedWebGLTexture()
+0
+IAnimationFrame
+Return an IWebGLTexture interface if the texture is already loaded, else null.
+GetTexRect()
+0
+IAnimationFrame
+Return an SDK.Rect representing the texture co-ordinates of this image on the loaded texture. This can only be called if GetCachedWebGLTexture() returned a texture.
+LoadWebGLTexture()
+0
+IAnimationFrame
+Start asynchronously loading a texture for this image. This should only be used if GetCachedWebGLTexture() returned null.
+ReplaceBlobAndDecode(blob)
+0
+IAnimationFrame
+Replace the image content of the animation frame with the given blob. The blob will be decoded as an image and the previous content of the animation frame overwritten with the image content of the blob. This may also change the size of the frame. Returns a promise that resolves when the image content has been updated.
+SetDuration(d)
+0
+IAnimationFrame
+Set and get the individual frame duration. This is a multiplier, e.g. 1 for normal speed, 2 for twice as long, etc.
+GetDuration()
+0
+IAnimationFrame
+Set and get the individual frame duration. This is a multiplier, e.g. 1 for normal speed, 2 for twice as long, etc.
+SetOriginX(x)
+0
+IAnimationFrame
+Set and get the origin for this image. The origin is specified in texture co-ordinates, i.e. from 0 to 1. The default is 0.5, indicating the middle of the image.
+SetOriginY(y)
+0
+IAnimationFrame
+Set and get the origin for this image. The origin is specified in texture co-ordinates, i.e. from 0 to 1. The default is 0.5, indicating the middle of the image.
+GetOriginX()
+0
+IAnimationFrame
+Set and get the origin for this image. The origin is specified in texture co-ordinates, i.e. from 0 to 1. The default is 0.5, indicating the middle of the image.
+GetOriginY()
+0
+IAnimationFrame
+Set and get the origin for this image. The origin is specified in texture co-ordinates, i.e. from 0 to 1. The default is 0.5, indicating the middle of the image.
+GetImagePoints()
+0
+IAnimationFrame
+Return an array of IImagePoint representing the image points added to the image.
+AddImagePoint(name, x, y)
+0
+IAnimationFrame
+Add a new image point to the image with the specified name and position. As with the origin, image point positions are specified in texture co-ordinates, i.e. from 0 to 1. Returns an IImagePoint representing the added image point.
+GetCollisionPoly()
+0
+IAnimationFrame
+Return the ICollisionPoly representing the image's collision polygon.
+Reset()
+0
+ICollisionPoly
+Reset the collision polygon to the default, which matches the bounding box of the object.
+IsDefault()
+0
+ICollisionPoly
+Return a boolean indicating if the collision polygon is set to the default, matching the bounding box of the object.
+GetPoints()
+0
+ICollisionPoly
+Return an array of numbers representing the points in the collision polygon. The array elements are alternating X and Y components for the points, so its size is always even. The collision polygon is guaranteed to have at least three points.
+SetPoints(arr)
+0
+ICollisionPoly
+Set the collision polygon points by passing an array of numbers. The array elements must be alternating X and Y components for the points, so its size must be even. There must be at least three points in a collision polygon, therefore the passed array must have at least 6 elements.
+GetMembers()
+0
+IContainer
+Return an array of IObjectType representing the object types in the container. Containers always have at least two members.
+SetSelectMode(m)
+0
+IContainer
+Set or get the select mode of the container, corresponding to the Select mode property in Construct. Allowed modes are "normal", "all" and "wrap".
+GetSelectMode()
+0
+IContainer
+Set or get the select mode of the container, corresponding to the Select mode property in Construct. Allowed modes are "normal", "all" and "wrap".
+GetMembers()
+0
+IFamily
+Return an array of IObjectType representing the object types in the family.
+GetAnimationFrame()
+0
+IImagePoint
+Return the associated IAnimationFrame.
+SetName(name)
+0
+IImagePoint
+Set or get the name of the image point.
+GetName()
+0
+IImagePoint
+Set or get the name of the image point.
+SetX(x)
+0
+IImagePoint
+Set or get the position of the image point in texture co-ordinates, i.e. from 0 to 1.
+SetY(y)
+0
+IImagePoint
+Set or get the position of the image point in texture co-ordinates, i.e. from 0 to 1.
+GetX()
+0
+IImagePoint
+Set or get the position of the image point in texture co-ordinates, i.e. from 0 to 1.
+GetY()
+0
+IImagePoint
+Set or get the position of the image point in texture co-ordinates, i.e. from 0 to 1.
+GetName()
+0
+IObjectClass
+Return the name of the object class.
+GetProject()
+0
+IObjectClass
+Return the IProject representing the object class's associated project.
+GetProject()
+0
+IObjectInstance
+Return the IProject representing the instance's associated project.
+GetObjectType()
+0
+IObjectInstance
+Return the associated IObjectType interface for this instance.
+GetPropertyValue(id)
+0
+IObjectInstance
+Get the value of a plugin property for this instance by its property ID. Color properties return a SDK.Color.
+SetPropertyValue(id, value)
+0
+IObjectInstance
+Set the value of a plugin property for this instance by its property ID. For color properties a SDK.Color must be passed as the value.
+GetImage()
+0
+IObjectType
+Return an IAnimationFrame representing the object type's image. The plugin must have specified SetHasImage(true) in IPluginInfo.
+EditImage()
+0
+IObjectType
+Open the Animations Editor in Construct to edit the object's image. The plugin must have specified SetHasImage(true).
+GetAnimations()
+0
+IObjectType
+Return an array of IAnimation representing the animations in the object type. Note this is only applicable to animated plugin types, e.g. Sprite.
+AddAnimation(animName, frameBlob, frameWidth, frameHeight)
+0
+IObjectType
+Add a new animation to the object type. The object type's plugin must be animated (e.g. the Sprite plugin). Animations must have at least one frame, so this method also adds an animation frame. The frameBlob, frameWidth and frameHeight parametersare all optional: if they are omitted, Construct will add a default empty animation frame. If they are provided they are interpreted the same way as IAnimation.AddFrame(); see the linked documentation for more details. The call returns a promise that resolves with the newly created IAnimation.
+CreateWorldInstance(layer)
+0
+IObjectType
+Create a new instance from this object type, and add it to the given ILayer. Returns a new IWorldInstance interface representing the new instance. Note this method is only applicable to "world" type plugins.
+IsInContainer()
+0
+IObjectType
+Return a boolean indicating if the object type belongs to a container.
+GetContainer()
+0
+IObjectType
+Return the IContainer the object type belongs to if any, else null.
+CreateContainer(initialObjectTypes)
+0
+IObjectType
+Create a new container using an array of IObjectType for the members of the container. The array must include the IObjectType this call is made on, must contain at least two elements, and the object type must not already be in acontainer. Returns an IContainer representing the created container.
+GetBoundingBox()
+0
+IWorldInstance
+Returns an SDK.Rect representing the bounding box of the instance in the layout.
+GetQuad()
+0
+IWorldInstance
+Returns an SDK.Quad representing the bounding quad of the instance in the layout.
+GetColor()
+0
+IWorldInstance
+Returns an SDK.Color representing the premultiplied color of the instance. Currently only the alpha component is currently used as the oacity.
+SetOpacity(o)
+0
+IWorldInstance
+Set or get the alpha component of the instance's color, representing its opacity, in the 0-1 range.
+GetOpacity()
+0
+IWorldInstance
+Set or get the alpha component of the instance's color, representing its opacity, in the 0-1 range.
+SetX(x)
+0
+IWorldInstance
+Set and get the position of this instance in layout co-ordinates.
+SetY(y)
+0
+IWorldInstance
+Set and get the position of this instance in layout co-ordinates.
+SetXY(x, y)
+0
+IWorldInstance
+Set and get the position of this instance in layout co-ordinates.
+GetX()
+0
+IWorldInstance
+Set and get the position of this instance in layout co-ordinates.
+GetY()
+0
+IWorldInstance
+Set and get the position of this instance in layout co-ordinates.
+SetAngle(a)
+0
+IWorldInstance
+Set and get the angle of the instance, in radians
+GetAngle()
+0
+IWorldInstance
+Set and get the angle of the instance, in radians.
+SetWidth(w)
+0
+IWorldInstance
+Set and get the size of the instance, in pixels.
+SetHeight(h)
+0
+IWorldInstance
+Set and get the size of the instance, in pixels.
+SetSize(w, h)
+0
+IWorldInstance
+Set and get the size of the instance, in pixels.
+GetWidth()
+0
+IWorldInstance
+Set and get the size of the instance, in pixels.
+GetHeight()
+0
+IWorldInstance
+Set and get the size of the instance, in pixels.
+SetOriginX(x)
+0
+IWorldInstance
+Set and get the current origin of the instance in the layout. Note this is normalized to a [0, 1] range, e.g. 0.5 is the middle
+SetOriginY(y)
+0
+IWorldInstance
+Set and get the current origin of the instance in the layout. Note this is normalized to a [0, 1] range, e.g. 0.5 is the middle
+SetOrigin(x, y)
+0
+IWorldInstance
+Set and get the current origin of the instance in the layout. Note this is normalized to a [0, 1] range, e.g. 0.5 is the middle
+GetOriginX()
+0
+IWorldInstance
+Set and get the current origin of the instance in the layout. Note this is normalized to a [0, 1] range, e.g. 0.5 is the middle
+GetOriginY()
+0
+IWorldInstance
+Set and get the current origin of the instance in the layout. Note this is normalized to a [0, 1] range, e.g. 0.5 is the middle
+ApplyBlendMode(iRenderer)
+0
+IWorldInstance
+Sets the current blend mode of the given IWebGLRenderer according to the Blend mode property of the instance in Construct. This is only elevant if the plugin specifies that it supports effects. Use this in the Draw() method to set the correct blend mode.
