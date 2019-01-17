@@ -35,6 +35,8 @@ namespace c3IDE.Windows
 
         private void EditTimeInstanceTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(e.Text)) return;
+            var tokenList = CodeCompletionFactory.Insatnce.ParseJavascriptDocumnet(EditTimeInstanceTextEditor.Text);
             //add matching closing symbol
             switch (e.Text)
             {
@@ -58,10 +60,8 @@ namespace c3IDE.Windows
                     EditTimeInstanceTextEditor.TextArea.Caret.Offset--;
                     return;
                 case ".":
-                    //show code completion window on dot (only methods shown)
-                    //TODO: filter out methods by type _info. filters out methods with container IPluginInfo 
-                    var methodData = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.EdittimeJavascript).Where(x => x.Type == CompletionType.Methods).ToList();
-                    ShowCompletion(EditTimeInstanceTextEditor.TextArea, methodData);
+                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(tokenList, CodeType.EdittimeJavascript).Where(x => x.Type == CompletionType.Methods);
+                    ShowCompletion(EditTimeInstanceTextEditor.TextArea, methodsData.ToList());
                     break;
                 default:
                     //figure out word segment
@@ -73,7 +73,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.EdittimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(tokenList, CodeType.EdittimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(EditTimeInstanceTextEditor.TextArea, data);

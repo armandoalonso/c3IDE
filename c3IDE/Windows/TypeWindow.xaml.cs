@@ -35,6 +35,8 @@ namespace c3IDE.Windows
 
         private void EditTimeTypeTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(e.Text)) return;
+            var tokenList = CodeCompletionFactory.Insatnce.ParseJavascriptDocumnet(EditTimeTypeTextEditor.Text);
             //add matching closing symbol
             switch (e.Text)
             {
@@ -58,9 +60,8 @@ namespace c3IDE.Windows
                     EditTimeTypeTextEditor.TextArea.Caret.Offset--;
                     return;
                 case ".":
-                    //show code completion window on dot (only methods shown)
-                    var methodData = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.EdittimeJavascript).Where(x => x.Type == CompletionType.Methods).ToList();
-                    ShowCompletion(EditTimeTypeTextEditor.TextArea, methodData);
+                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(tokenList, CodeType.EdittimeJavascript).Where(x => x.Type == CompletionType.Methods);
+                    ShowCompletion(EditTimeTypeTextEditor.TextArea, methodsData.ToList());
                     break;
                 default:
                     //figure out word segment
@@ -72,7 +73,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.EdittimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(tokenList, CodeType.EdittimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(EditTimeTypeTextEditor.TextArea, data);

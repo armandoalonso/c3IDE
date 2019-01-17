@@ -35,16 +35,25 @@ namespace c3IDE.Windows
             AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml)); //ImageHelper.Insatnce.Base64ToBitmap(defaultIcon);
             AddonTypeDropdown.ItemsSource = Enum.GetValues(typeof(PluginType));
             AddonTypeDropdown.SelectedIndex = 0;
-            AuthorText.Text = AppData.Insatnce.Options.DefaultAuthor;
-            CompanyNameText.Text = AppData.Insatnce.Options.DefaultCompany;
+            ResetInputs();
         }
 
         public void OnEnter()
         {
             AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
 
+            if (AppData.Insatnce.CurrentAddon != null)
+            {
+                AddonListBox.SelectedItem = AppData.Insatnce.CurrentAddon;
+            }
+            else
+            {
+                
+            }
+
             //select most recent addon
             AddonListBox.SelectedIndex = AppData.Insatnce.AddonList.Count - 1;
+
         }
 
         public void OnExit()
@@ -211,8 +220,8 @@ namespace c3IDE.Windows
         {
             AddonNameText.Text = string.Empty;
             AddonClassText.Text = string.Empty;
-            CompanyNameText.Text = string.Empty;
-            AuthorText.Text = "c3IDE";
+            CompanyNameText.Text = AppData.Insatnce.Options.DefaultCompany;
+            AuthorText.Text = AppData.Insatnce.Options.DefaultAuthor;
             VersionText.Text = "1.0.0.0";
             AddonTypeDropdown.SelectedIndex = 0;
             DescriptionText.Text = string.Empty;
@@ -258,6 +267,11 @@ namespace c3IDE.Windows
         private void ExportFolderButton_OnClick(object sender, RoutedEventArgs e)
         {
             Utils.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
+        }
+
+        private void ClearInputsButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ResetInputs();
         }
     }
 }
