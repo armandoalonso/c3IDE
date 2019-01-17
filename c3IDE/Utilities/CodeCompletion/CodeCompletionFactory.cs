@@ -10,34 +10,36 @@ namespace c3IDE.Utilities.CodeCompletion
 {
     public class CodeCompletionFactory : Singleton<CodeCompletionFactory>
     {
-        private readonly Dictionary<CodeType, ICompletionBindings> _bindingCache = new Dictionary<CodeType, ICompletionBindings>();
+        private readonly Dictionary<CodeType, IList<GenericCompletionItem>> _bindingCache = new Dictionary<CodeType, IList<GenericCompletionItem>>();
+        //private readonly Dictionary<string, IList<GenericCompletionItem>> _contextCache = new Dictionary<string, IList<GenericCompletionItem>>();
 
         public IList<GenericCompletionItem> GetCompletionData(CodeType type)
         {
             if (_bindingCache.ContainsKey(type))
             {
-                return _bindingCache[type].Completions;
+                return _bindingCache[type];
             }
 
-            //todo: might break down binding by type of files plugin.js, actions.js, aces.json etc 
             switch (type)
             {
                 case CodeType.Json:
-                    _bindingCache.Add(type, new JsonBindings());
-                    return _bindingCache[type].Completions;
-                case CodeType.Javascript:
-                    _bindingCache.Add(type, new EditorJavascriptBinding());
-                    return _bindingCache[type].Completions;
+                    _bindingCache.Add(type, new JsonBindings().Completions);
+                    return _bindingCache[type];
+                case CodeType.EdittimeJavascript:
+                    _bindingCache.Add(type, new EditorJavascriptBinding().Completions);
+                    return _bindingCache[type];
                 default:
                     return null;
             }
         }
 
+        //todo: look into https://github.com/sebastienros/esprima-dotnet for parsing javascript
     }
 
     public enum CodeType
     {
         Json,
-        Javascript
+        EdittimeJavascript,
+        RuntimeJavascript
     }
 }

@@ -35,13 +35,14 @@ namespace c3IDE
                 ExportPath = defaultExportPath
             };
 
-            //create default options
-            AppData.Insatnce.Options = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? DefaultOptions;
-
             //create exports folder if it does not exists
             if (!System.IO.Directory.Exists(dataFolder)) Directory.CreateDirectory(dataFolder);
             if (!System.IO.Directory.Exists(defaultExportPath)) Directory.CreateDirectory(defaultExportPath);
             if (!System.IO.Directory.Exists(defaultCompilePath)) Directory.CreateDirectory(defaultCompilePath);
+
+            //create default options
+            AppData.Insatnce.Options = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? DefaultOptions;
+
         }
     }
 }

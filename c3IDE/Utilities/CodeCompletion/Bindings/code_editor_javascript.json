@@ -199,181 +199,181 @@
   },
   {
     "Text": "this._info",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 2,
     "DescriptionText": ""
   },
   {
     "Text": "SetName(name)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Set the name of the addon. Typically this is read from the language file."
   },
   {
     "Text": "SetDescriptionText(descriptionText)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Set the descriptionText of the addon. Typically this is read from the language file."
   },
   {
     "Text": "SetVersion(version)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Set the version string of the addon, in A.B.C.D form. Typically this is set to the PLUGIN_VERSION constant."
   },
   {
     "Text": "SetCategory(category)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Set the category of the addon. Typically this is set to the PLUGIN_CATEGORY constant. It must be one of \"data-and-storage\", \"form-controls\", \"general\", \"input\", \"media\", \"monetisation\", \"platform-specific\", \"web\", \"other\"."
   },
   {
     "Text": "SetAuthor(author)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Set a string identifying the author of the addon."
   },
   {
     "Text": "SetHelpUrl(url)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Set a string specifying a URL where the user can view help and documentation resources for the addon. The website should be hosted with HTTPS."
   },
   {
     "Text": "SetPluginType(type)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Set the plugin type. This can be \"object\" or \"world\". The world typeh represents a plugin that appears in the Layout View, whereas the object type represents a hidden plugin, similar to the Audio plugin (a single-global type) or Dictionary. World type plugins must derive from SDK.IWorldInstanceBase instead of SDK.IInstanceBase and implement a Draw() method."
   },
   {
     "Text": "SetIcon(url, type)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Set the addon icon URL and type. By default the URL is \"icon.svg\" and the type is \"image/svg+xml\". It is recommended to leave this at the default and use an SVG icon, since it will scale well to any display size or density. However you can change your addon to load a PNG icon with SetIcon(\"icon.png\", \"image/png\")."
   },
   {
     "Text": "SetIsResizable(isResizable)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "For \"world\" type plugins only. Pass true to enable resizing instances in the Layout View."
   },
   {
     "Text": "SetIsRotatable(isRotatable)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "For \"world\" type plugins only. Pass true to enable the Angle property and rotating instances in the Layout View."
   },
   {
     "Text": "SetHasImage(hasImage)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "For \"world\" type plugins only. Pass true to add a single editable image, such as used by the Tiled Background plugin."
   },
   {
     "Text": "SetDefaultImageURL(url)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "For plugins that use a single editable image only. Set the URL to an image file in your addon to use as the default image when the object is added to a project, e.g. \"default.png\"."
   },
   {
     "Text": "SetIsTiled(isTiled)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "For \"world\" type plugins only. Pass true to indicate that the image is intended to be tiled. This adjusts the texture wrapping mode when Construct creates a texture for its image."
   },
   {
     "Text": "SetIsDeprecated(isDeprecated)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Set a boolean of whether the addon is deprecated or not. If you wish to replace your addon with another one, the old one can be deprecated with SetIsDeprecated(true). This makes it invisible in the editor so it cannot be used in new projects; however old projects with the addon already added can continue to load and work as they did before. This discourages use of the deprecated addon without breaking existing projects that use it."
   },
   {
     "Text": "SetIsSingleGlobal(isSingleGlobal)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Pass true to set the plugin to be a single-global type. The plugin type must be \"objec\". Single-global plugins can only be added once to a project, and they then have a single permanent global instance available throughout the project. This is the mode that plugins like Touch and Audio use."
   },
   {
     "Text": "SetSupportsEffects(supportsEffects)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Pass true to allow using effects, including the Blend mode property, with this plugin. The plugin type must be \"world\". If the plugin does not simply draw a texture the size of the object (as Sprite does), you should also call SetMustPreDraw(true)"
   },
   {
     "Text": "SetMustPreDraw(mustPreDraw)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Pass true to disable an optimisation in the effects engine for objects that simply draw a texture the size of the object (e.g. Sprite). This is necessary for effects to render correctly if the plugin draws anything other than the equivalent the Sprite plugin would."
   },
   {
     "Text": "SetCanBeBundled(canBeBundled)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Pass false to prevent the addon from being bundled via the Bundle addons project property. By default all addons may be bundled with a project, and it is recommended to leave this enabled for best user convenience. However if you publish a commercial addon and want to prevent it being distributed by project-bundling, you may wish to disable this."
   },
   {
     "Text": "AddCommonPositionACEs()",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
   },
   {
     "Text": "AddCommonSizeACEs()",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
   },
   {
     "Text": "AddCommonAngleACEs()",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
   },
   {
     "Text": "AddCommonAppearanceACEs()",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
   },
   {
     "Text": "AddCommonZOrderACEs()",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin."
   },
   {
     "Text": "SetProperties(propertiesArray)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Set the available addon properties by passing an array of PluginProperty. See Configuring Plugins for more information."
   },
   {
     "Text": "AddCordovaPluginReference(opts)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Add a dependency on a Cordova plugin, that will be included when using the Cordova exporter. For more information see Specifying dependencies."
   },
   {
     "Text": "AddFileDependency(opts)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Add a dependency on another file included in the addon. For more information see Specifying dependencies."
   },
   {
     "Text": "AddRemoteScriptDependency(url)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Add a script dependency to a remote URL (on a different origin). For more information see Specifying dependencies."
   },
   {
     "Text": "SetSupportedRuntimes(arr)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Specify which runtimes the behavior supports as an array of strings. Valid runtime strings are either \"c2\" or \"c3\". For more information see Runtime scripts."
   },
   {
     "Text": "SetDOMSideScripts(arr)",
-    "Container": "IPluginInfo",
+    "Container": "IPluginInfo _info",
     "Type": 0,
     "DescriptionText": "Specify an array of script paths to load in the main document context rather than the runtime context. For more information see the section DOM calls in the C3 runtime in Runtime scripts."
   },

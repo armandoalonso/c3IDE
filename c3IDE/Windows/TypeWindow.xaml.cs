@@ -59,7 +59,7 @@ namespace c3IDE.Windows
                     return;
                 case ".":
                     //show code completion window on dot (only methods shown)
-                    var methodData = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.Javascript).Where(x => x.Type == CompletionType.Methods).ToList();
+                    var methodData = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.EdittimeJavascript).Where(x => x.Type == CompletionType.Methods).ToList();
                     ShowCompletion(EditTimeTypeTextEditor.TextArea, methodData);
                     break;
                 default:
@@ -72,7 +72,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.Javascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.EdittimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(EditTimeTypeTextEditor.TextArea, data);

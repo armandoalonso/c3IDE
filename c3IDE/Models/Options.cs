@@ -17,5 +17,8 @@ namespace c3IDE.Models
         public string ExportPath { get; set; }
         public string FontSize { get; set; }
         public string FontFamily { get; set; }
+
+        //todo: add default author/coompany for the dashboard
+        //todo: description from dashboad not going to addon.js
     }
 }

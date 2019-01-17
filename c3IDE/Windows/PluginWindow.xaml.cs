@@ -55,12 +55,11 @@ namespace c3IDE.Windows
                     EditTimePluginTextEditor.TextArea.Caret.Offset--;
                     return;
                 case ".":
-                    //show code completion window on dot (only methods shown)
-                    var methodData = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.Javascript).Where(x => x.Type == CompletionType.Methods).ToList();
+                    //todo: show code completion window on dot (only methods shown)
+                    //var previousSegment = EditTimePluginTextEditor.TextArea.GetPreviousWord();
+                    //if (string.IsNullOrWhiteSpace(previousSegment)) return;
 
-                    //todo fix this
-                    var previousSegment = EditTimePluginTextEditor.TextArea.GetPreviousWord();
-
+                    var methodData = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.EdittimeJavascript).Where(x => x.Type == CompletionType.Methods).ToList();
                     ShowCompletion(EditTimePluginTextEditor.TextArea, methodData);
                     break;
                 default:
@@ -73,7 +72,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.Javascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.EdittimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(EditTimePluginTextEditor.TextArea, data);

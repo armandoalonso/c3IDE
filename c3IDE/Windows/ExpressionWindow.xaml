@@ -10,9 +10,9 @@
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*" Name="JsonPanel"/>
             <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*" Name="CodePanel"/>
         </Grid.ColumnDefinitions>
 
         <mah:ChildWindow Name="NewExpressionWindow" Grid.Column="0" Grid.ColumnSpan="4" Title="Add New Expression" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
@@ -72,6 +72,11 @@
         </mah:ChildWindow>
 
         <DockPanel Grid.Column="0" LastChildFill="True" Margin="10">
+            <UniformGrid Columns="3" DockPanel.Dock="Top">
+                <Button Content="Json" Click="JsonView_OnClick"></Button>
+                <Button Content="Default" Click="DeafultView_OnClick"></Button>
+                <Button Content="Code" Click="CodeView_OnClick"></Button>
+            </UniformGrid>
             <Button Name="RemoveExpression" Content="RemoveExpression" Margin="2" Click="RemoveExpression_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="AddExpression" Content="Add New Expression" Margin="2" Click="AddExpression_OnClick" DockPanel.Dock="Bottom"></Button>
             <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black" Style="{StaticResource TextBlockStyle}"> Expressions</TextBlock>
