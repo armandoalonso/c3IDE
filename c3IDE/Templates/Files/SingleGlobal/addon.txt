@@ -7,7 +7,7 @@
 	"author": "{{author}}",
 	"website": "https://www.construct.net",
 	"documentation": "https://www.construct.net",
-	"description": "Example custom Construct 3 plugin.",
+	"description": "{{description}}",
 	"editor-scripts": [
 						"plugin.js",
 						"type.js",

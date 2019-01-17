@@ -115,6 +115,12 @@ namespace c3IDE.Windows
                     FileTextEditor.Text = _selectedFile.PluginTemplate;
                 }
             }
+            else
+            {
+                AddonTextEditor.Text = string.Empty;
+                FileListBox.ItemsSource = null;
+                FileTextEditor.Text = string.Empty;
+            }
         }
 
         public void OnExit()

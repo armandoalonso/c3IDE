@@ -37,6 +37,8 @@ namespace c3IDE.Windows
             CompilePathText.Text = AppData.Insatnce.Options.CompilePath;
             ExportPathText.Text = AppData.Insatnce.Options.ExportPath;
             DataPathText.Text = AppData.Insatnce.Options.DataPath;
+            DefaultAuthorTextBox.Text = AppData.Insatnce.Options.DefaultAuthor;
+            DefaultCompanyTextBox.Text = AppData.Insatnce.Options.DefaultCompany;
         }
 
         public void OnExit()
@@ -47,7 +49,10 @@ namespace c3IDE.Windows
                 {
                     CompilePath = CompilePathText.Text,
                     ExportPath = ExportPathText.Text,
-                    DataPath = DataPathText.Text
+                    DataPath = DataPathText.Text,
+                    DefaultCompany = DefaultCompanyTextBox.Text,
+                    DefaultAuthor = DefaultAuthorTextBox.Text
+                        
                 };
 
                 //create exports folder if it does not exists
@@ -67,8 +72,10 @@ namespace c3IDE.Windows
             if (result)
             {
                 DataAccessFacade.Insatnce.AddonData.ResetCollection();
+                DataAccessFacade.Insatnce.OptionData.Delete(AppData.Insatnce.Options);
                 AppData.Insatnce.CurrentAddon = null;
                 AppData.Insatnce.AddonList = new List<C3Addon>();
+                AppData.Insatnce.Options = App.DefaultOptions;
             }
         }
 

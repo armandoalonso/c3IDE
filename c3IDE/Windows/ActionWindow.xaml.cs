@@ -71,6 +71,13 @@ namespace c3IDE.Windows
                     ActionListBox.SelectedIndex = 0;
                 }
             }
+            else
+            {
+                ActionListBox.ItemsSource = null;
+                AceTextEditor.Text = string.Empty;
+                LanguageTextEditor.Text = string.Empty;
+                CodeTextEditor.Text = string.Empty;
+            }
           
         }
 
@@ -137,7 +144,7 @@ namespace c3IDE.Windows
 
             if (_actions.ContainsKey(id))
             {
-                //todo: error duplicate id
+                //TODO: error duplicate id
             }
 
             var action = new Action

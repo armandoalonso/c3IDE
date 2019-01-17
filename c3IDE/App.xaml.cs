@@ -32,7 +32,9 @@ namespace c3IDE
             {
                 DataPath = dataFolder,
                 CompilePath = defaultCompilePath,
-                ExportPath = defaultExportPath
+                ExportPath = defaultExportPath,
+                DefaultCompany = "c3IDE",
+                DefaultAuthor = "c3IDE"
             };
 
             //create exports folder if it does not exists

@@ -217,7 +217,7 @@ namespace c3IDE
             {
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
-            //todo: add flyout for notifications
+            //TODO: add flyout for notifications
         }
 
         public async Task<bool> ShowDialogBox(string title, string message)

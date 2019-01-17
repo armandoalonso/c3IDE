@@ -47,7 +47,7 @@ namespace c3IDE.Windows
 
             if (_expressions.ContainsKey(id))
             {
-                //todo: error duplicate id
+                //TODO: error duplicate id
             }
 
             var expression = new Expression
@@ -184,9 +184,17 @@ namespace c3IDE.Windows
                     ExpressionListBox.SelectedIndex = 0;
                 }
             }
+            else
+            {
+                ExpressionListBox.ItemsSource = null;
+                AceTextEditor.Text = string.Empty;
+                LanguageTextEditor.Text = string.Empty;
+                CodeTextEditor.Text = string.Empty;
+            }
         }
 
-        public void OnExit()
+
+    public void OnExit()
         {
             if (AppData.Insatnce.CurrentAddon != null)
             {

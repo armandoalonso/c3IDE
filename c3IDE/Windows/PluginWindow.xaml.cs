@@ -55,7 +55,7 @@ namespace c3IDE.Windows
                     EditTimePluginTextEditor.TextArea.Caret.Offset--;
                     return;
                 case ".":
-                    //todo: show code completion window on dot (only methods shown)
+                    //TODO: show code completion window on dot (only methods shown)
                     //var previousSegment = EditTimePluginTextEditor.TextArea.GetPreviousWord();
                     //if (string.IsNullOrWhiteSpace(previousSegment)) return;
 

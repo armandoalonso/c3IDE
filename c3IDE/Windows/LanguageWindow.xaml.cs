@@ -49,7 +49,7 @@ namespace c3IDE.Windows
         }
 
         //generate property json based on edittimeplugin properties
-        //todo: figure out a way to preserve modified text
+        //TODO: figure out a way to preserve modified text
         private void GeneratePropertyText(object sender, RoutedEventArgs e)
         {
             //generate new property json

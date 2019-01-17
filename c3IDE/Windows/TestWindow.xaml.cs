@@ -50,7 +50,7 @@ namespace c3IDE.Windows
             //there was an error detected in complication
             if (!AddonCompiler.Insatnce.IsCompilationValid)
             {
-                //todo: error notification
+                //TODO: error notification
                 StopWebServerButton.IsEnabled = false;
                 StartAndTestButton.IsEnabled = true;
                 return;

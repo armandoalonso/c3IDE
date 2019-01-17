@@ -33,7 +33,7 @@ namespace c3IDE.Utilities.CodeCompletion
             }
         }
 
-        //todo: look into https://github.com/sebastienros/esprima-dotnet for parsing javascript
+        //TODO: look into https://github.com/sebastienros/esprima-dotnet for parsing javascript
     }
 
     public enum CodeType

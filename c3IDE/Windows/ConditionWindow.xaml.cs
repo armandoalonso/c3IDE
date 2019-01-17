@@ -51,7 +51,7 @@ namespace c3IDE.Windows
 
             if (_conditions.ContainsKey(id))
             {
-                //todo: error duplicate id
+                //TODO: error duplicate id
             }
 
             var cnd = new Condition
@@ -69,7 +69,7 @@ namespace c3IDE.Windows
                 Description = desc
             };
 
-            //todo: condition templates (using action templates)
+            //TODO: condition templates (using action templates)
             cnd.Ace = TemplateHelper.CndAce(cnd);
             cnd.Language = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionLanguage, cnd);
             cnd.Code = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionCode, cnd);
@@ -137,6 +137,13 @@ namespace c3IDE.Windows
                     }
                 }
             }
+            else
+            {
+                ConditionListBox.ItemsSource = null;
+                AceTextEditor.Text = string.Empty;
+                LanguageTextEditor.Text = string.Empty;
+                CodeTextEditor.Text = string.Empty;
+            }
 
         }
 
@@ -201,7 +208,7 @@ namespace c3IDE.Windows
             }
 
             //load new selection
-            //todo: error here when removing with 2 configured
+            //TODO: error here when removing with 2 configured
             _selectedCondition = ((KeyValuePair<string, Condition>)ConditionListBox.SelectedItem).Value;
             AceTextEditor.Text = _selectedCondition.Ace;
             LanguageTextEditor.Text = _selectedCondition.Language;

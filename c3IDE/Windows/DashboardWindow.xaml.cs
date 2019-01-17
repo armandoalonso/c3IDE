@@ -35,6 +35,8 @@ namespace c3IDE.Windows
             AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml)); //ImageHelper.Insatnce.Base64ToBitmap(defaultIcon);
             AddonTypeDropdown.ItemsSource = Enum.GetValues(typeof(PluginType));
             AddonTypeDropdown.SelectedIndex = 0;
+            AuthorText.Text = AppData.Insatnce.Options.DefaultAuthor;
+            CompanyNameText.Text = AppData.Insatnce.Options.DefaultCompany;
         }
 
         public void OnEnter()

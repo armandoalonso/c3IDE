@@ -31,7 +31,7 @@ namespace c3IDE.Server
             {
                 _log.Insert($"got request => {context.Request.Uri}", "C3");
 
-                //todo: add option to log out headers
+                //TODO: add option to log out headers
                 //foreach (var requestHeader in context.Request.Headers)
                 //{
                 //    _log.Insert($"got request headers => {requestHeader.Key} : {requestHeader.Value}");

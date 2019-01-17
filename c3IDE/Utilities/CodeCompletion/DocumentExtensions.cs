@@ -30,7 +30,7 @@ namespace c3IDE.Utilities.CodeCompletion
             MatchCollection matches = _wordRegex.Matches(textArea.Document.GetText(line));
             foreach (Match match in matches)
             {
-                //todo: just return word not segment, see the impact of returning string here
+                //TODO: just return word not segment, see the impact of returning string here
                 if (match.Index <= lineCaretPosition && (match.Index + match.Length) >= lineCaretPosition)
                 {
                     startOffset = line.Offset + match.Index;

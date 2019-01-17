@@ -129,7 +129,7 @@ namespace c3IDE.Compiler
                     WebServer.Start(_log);
                 });
                
-                //todo: figuire out way to stop server
+                //TODO: figuire out way to stop server
                 //ws.Stop();
             }
             catch (Exception ex)
@@ -141,7 +141,7 @@ namespace c3IDE.Compiler
 
         private bool ValidateFiles(C3Addon addon)
         {
-            //todo: add other validation here to help ensure a proper add has been created
+            //TODO: add other validation here to help ensure a proper add has been created
             //validate all the files & properties 
             if (string.IsNullOrWhiteSpace(addon.LanguageProperties))
             {
@@ -153,6 +153,8 @@ namespace c3IDE.Compiler
                 _log.Insert("generate category json has not been ran, generate the json in the langauge view");
                 return false;
             }
+
+            //TODO: validate param count with placeholders for lang aces
 
             return true;
         }
@@ -265,7 +267,5 @@ namespace c3IDE.Compiler
     {string.Join(",\n", categoryAce)}
 }}";
         }
-
-
     }
 }

@@ -14,16 +14,23 @@
 
         <StackPanel Grid.Column="0">
             <TextBlock  Style="{StaticResource TextBlockStyle}">Compile Path :</TextBlock>
-            <TextBox Name="CompilePathText" DockPanel.Dock="Right" Text=""></TextBox>
+            <TextBox Name="CompilePathText" Text=""></TextBox>
             <Separator Visibility="Hidden" Height="5" />
             
             <TextBlock  Style="{StaticResource TextBlockStyle}">Exort Path :</TextBlock>
-            <TextBox Name="ExportPathText" DockPanel.Dock="Right" Text=""></TextBox>
+            <TextBox Name="ExportPathText" Text=""></TextBox>
             <Separator Visibility="Hidden" Height="5" />
 
             <TextBlock  Style="{StaticResource TextBlockStyle}">Data Path :</TextBlock>
-            <TextBox Name="DataPathText" DockPanel.Dock="Right" Text="" IsReadOnly="True"></TextBox>
+            <TextBox Name="DataPathText" Text="" IsReadOnly="True"></TextBox>
             <Separator Visibility="Hidden" Height="5" />
+
+            <UniformGrid Columns="2">
+                <TextBlock  Style="{StaticResource TextBlockStyle}">Default Company :</TextBlock>
+                <TextBlock  Style="{StaticResource TextBlockStyle}">Default Author :</TextBlock>
+                <TextBox Name="DefaultCompanyTextBox" Text="" Margin="0,0,10,0"></TextBox>
+                <TextBox Name="DefaultAuthorTextBox" Text=""></TextBox>
+            </UniformGrid>
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
