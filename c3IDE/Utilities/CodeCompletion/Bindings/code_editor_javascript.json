@@ -1758,68 +1758,80 @@
     "DescriptionText": "Specify an array of script paths to load in the main document context rather than the runtime context. For more information see the section DOM calls in the C3 runtime in Runtime scripts."
   },
   {
+    "Text": "this._info",
+    "Type": 5,
+    "Container": "IPluginInfo IPluginBase",
+    "DescriptionText": "Reference to the associated IPluginInfo class."
+  },
+  {
+    "Text": "this._info",
+    "Type": 5,
+    "Container": "IBehaviorInfo IBehaviorBase",
+    "DescriptionText": "Reference to the associated IPluginInfo class."
+  },
+  {
     "Text": "this._sdkType",
-    "Type": 13,
+    "Type": 5,
     "Container": "IInstanceBase",
     "DescriptionText": "Reference to the associated SDK type class."
   },
   {
     "Text": "this._inst",
-    "Type": 13,
+    "Type": 5,
     "Container": "IInstanceBase",
     "DescriptionText": "Reference to the IObjectInstance interface, or IWorldInstance interface for \"world\" type plugins, representing this instance in the editor. This allows access to Construct's built-in features for instances."
   },
   {
     "Text": "this._sdkType",
-    "Type": 13,
+    "Type": 5,
     "Container": "IWorldInstanceBase",
     "DescriptionText": "Reference to the associated SDK type class."
   },
   {
     "Text": "this._inst",
-    "Type": 13,
+    "Type": 5,
     "Container": "IWorldInstanceBase",
     "DescriptionText": "Reference to the IObjectInstance interface, or IWorldInstance interface for \"world\" type plugins, representing this instance in the editor. This allows access to Construct's built-in features for instances."
   },
   {
     "Text": "SDK.Color()",
-    "Type": 0,
+    "Type": 2,
     "Container": "SDK",
     "DescriptionText": "A Color can be constructed with no parameters, which defaults all components to zero, or with given RGBA components."
   },
   {
     "Text": "SDK.Color(r, g, b, a)",
-    "Type": 0,
+    "Type": 2,
     "Container": "SDK",
     "DescriptionText": "A Color can be constructed with no parameters, which defaults all components to zero, or with given RGBA components."
   },
   {
     "Text": "SDK.Quad()",
-    "Type": 13,
+    "Type": 2,
     "Container": "SDK",
     "DescriptionText": "A Quad can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for each point. The naming convention is tl for the \"top-left\" point, tr for the \"top-right\" point, br for the \"bottom-right\" point, and bl for the \"bottom-left\" point, followed by \"x\" or \"y\" for each component of the point. Note that the points can appear at any orientation for rotated quads; the names only correspond to their actual position when the quad is set to an unrotated rectangle."
   },
   {
     "Text": "SDK.Quad(tlx, tly, trx, try_, brx, bry, blx, bly)",
-    "Type": 13,
+    "Type": 2,
     "Container": "SDK",
     "DescriptionText": "A Quad can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for each point. The naming convention is tl for the \"top-left\" point, tr for the \"top-right\" point, br for the \"bottom-right\" point, and bl for the \"bottom-left\" point, followed by \"x\" or \"y\" for each component of the point. Note that the points can appear at any orientation for rotated quads; the names only correspond to their actual position when the quad is set to an unrotated rectangle."
   },
   {
     "Text": "SDK.Rect();",
-    "Type": 13,
+    "Type": 2,
     "Container": "SDK",
     "DescriptionText": "A Rect can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for the left, top, right and bottom positions"
   },
   {
     "Text": "SDK.Rect(left, top, right, bottom);",
-    "Type": 13,
+    "Type": 2,
     "Container": "SDK",
     "DescriptionText": "A Rect can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for the left, top, right and bottom positions"
   },
   {
     "Text": "UI.Util",
-    "Type": 13,
+    "Type": 2,
     "Container": "SDK",
     "DescriptionText": "interface provides access to various user interface utilities in the SDK."
   }

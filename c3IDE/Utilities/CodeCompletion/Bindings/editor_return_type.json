@@ -10,5 +10,203 @@
   {
     "Method": "GetInstance",
     "Interface": [ "IObjectInstance" ]
+  },
+  {
+    "Method": "Draw",
+    "Interface": [ "IWebGLRenderer", "IDrawParams" ]
+  },
+  {
+    "Method": "GetTexture",
+    "Interface": [ "IAnimationFrame", "IWebGLTexture" ]
+  },
+  {
+    "Method": "GetTextRect",
+    "Interface": [ "Rect" ]
+  },
+  {
+    "Method": "Color",
+    "Interface": [ "Color" ]
+  },
+  {
+    "Method": "Quad ",
+    "Interface": [ "Quad" ]
+  },
+  {
+    "Method": "setFromRect",
+    "Interface": [ "Rect" ]
+  },
+  {
+    "Method": "setFromRotatedRect",
+    "Interface": [ "Rect" ]
+  },
+  {
+    "Method": "getBoundingBox",
+    "Interface": [ "Rect" ]
+  },
+  {
+    "Method": "Rect",
+    "Interface": [ "Rect" ]
+  },
+  {
+    "Method": "GetLayoutView",
+    "Interface": [ "ILayoutView" ]
+  },
+  {
+    "Method": "SetColor",
+    "Interface": [ "Color" ]
+  },
+  {
+    "Method": "Quad3",
+    "Interface": [ "Rect" ]
+  },
+  {
+    "Method": "LineRect2",
+    "Interface": [ "Rect" ]
+  },
+  {
+    "Method": "LineQuad",
+    "Interface": [ "Quad" ]
+  },
+  {
+    "Method": "SetTexture",
+    "Interface": [ "IWebGLTexture" ]
+  },
+  {
+    "Method": "CreateWebGLText",
+    "Interface": [ "IWebGLText" ]
+  },
+  {
+    "Method": "GetTextRect",
+    "Interface": [ "Rect" ]
+  },
+  {
+    "Method": "AddCondition",
+    "Interface": [ "IObjectType", "IFamily" ]
+  },
+  {
+    "Method": "AddAction",
+    "Interface": [ "IObjectType", "IFamily" ]
+  },
+  {
+    "Method": "AddEventBlock",
+    "Interface": [ "IEventBlock" ]
+  },
+  {
+    "Method": "GetRoot",
+    "Interface": [ "IEventParentRow" ]
+  },
+  {
+    "Method": "GetEventSheet",
+    "Interface": [ "IEventSheet" ]
+  },
+  {
+    "Method": "CreateObjectType",
+    "Interface": [ "IObjectType" ]
+  },
+  {
+    "Method": "GetSystemType",
+    "Interface": [ "IObjectType" ]
+  },
+  {
+    "Method": "GetSingleGlobalObjectType",
+    "Interface": [ "IObjectType" ]
+  },
+  {
+    "Method": "CreateFamily",
+    "Interface": [ "IObjectType IFamily" ]
+  },
+  {
+    "Method": "UndoPointChangeObjectInstancesProperty",
+    "Interface": [ "IObjectInstance" ]
+  },
+  {
+    "Method": "GetObjectType",
+    "Interface": [ "IObjectType" ]
+  },
+  {
+    "Method": "GetFrames",
+    "Interface": [ "IAnimationFrames" ]
+  },
+  {
+    "Method": "AddFrames",
+    "Interface": [ "IAnimationFrame" ]
+  },
+  {
+    "Method": "GetCachedWebGLTexture",
+    "Interface": [ "IWebGLTexture" ]
+  },
+  {
+    "Method": "GetImagePoints",
+    "Interface": [ "IImagePoint" ]
+  },
+  {
+    "Method": "AddImagePoint",
+    "Interface": [ "IImagePoint" ]
+  },
+  {
+    "Method": "GetCollisionPoly",
+    "Interface": [ "ICollisionPoly" ]
+  },
+  {
+    "Method": "GetMembers",
+    "Interface": [ "IObjectType" ]
+  },
+  {
+    "Method": "GetAnimationFrame",
+    "Interface": [ "IAnimationFrame" ]
+  },
+  {
+    "Method": "GetImage",
+    "Interface": [ "IAnimationFrame" ]
+  },
+  {
+    "Method": "GetAnimation",
+    "Interface": [ "IAnimation" ]
+  },
+  {
+    "Method": "AddAnimation",
+    "Interface": [ "IAnimation" ]
+  },
+  {
+    "Method": "CreateWorldInstance",
+    "Interface": [ "ILayer", "IWorldInsatnce" ]
+  },
+  {
+    "Method": "GetContainer",
+    "Interface": [ "IContainer" ]
+  },
+  {
+    "Method": "CreateContainer",
+    "Interface": [ "IObjectType", "IContainer" ]
+  },
+  {
+    "Method": "GetBoundingBox",
+    "Interface": [ "Rect" ]
+  },
+  {
+    "Method": "GetColor",
+    "Interface": [ "Color" ]
+  },
+  {
+    "Method": "ApplyBlendMode",
+    "Interface": [ "IWebGLRenderer" ]
+  },
+  {
+    "Method": "GetLayout",
+    "Interface": [ "ILayout" ]
+  },
+  {
+    "Method": "GetActiveLayer",
+    "Interface": [ "ILayer" ]
+  },
+  {
+    "Method": "SetDeviceTransform",
+    "Interface": [ "IWebGLRenderer" ]
+  },
+  {
+    "Method": "SetDefaultTransform",
+    "Interface": [ "IWebGLRenderer" ]
   }
+
+
 ]

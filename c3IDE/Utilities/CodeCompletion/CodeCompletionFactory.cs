@@ -53,6 +53,7 @@ namespace c3IDE.Utilities.CodeCompletion
             }
 
             completionList.AddRange(allList.Where(x => x.Container.Contains("Javascript")));
+            completionList.AddRange(allList.Where(x => x.Container.Contains("SDK")));
             return completionList;
         }
     }

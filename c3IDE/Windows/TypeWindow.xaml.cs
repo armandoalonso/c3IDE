@@ -38,6 +38,11 @@ namespace c3IDE.Windows
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
             var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(EditTimeTypeTextEditor.Text);
+            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptMethodCalls(EditTimeTypeTextEditor.Text);
+            var allTokens =
+                JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens,
+                    CodeType.EdittimeJavascript);
+
             //add matching closing symbol
             switch (e.Text)
             {
@@ -61,7 +66,9 @@ namespace c3IDE.Windows
                     EditTimeTypeTextEditor.TextArea.Caret.Offset--;
                     return;
                 case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(tokenList, CodeType.EdittimeJavascript).Where(x => x.Type == CompletionType.Methods);
+                    var methodsData = CodeCompletionFactory.Insatnce
+                        .GetCompletionData(allTokens, CodeType.EdittimeJavascript)
+                        .Where(x => x.Type == CompletionType.Methods);
                     ShowCompletion(EditTimeTypeTextEditor.TextArea, methodsData.ToList());
                     break;
                 default:
@@ -74,7 +81,8 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(tokenList, CodeType.EdittimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EdittimeJavascript)
+                        .Where(x => x.Text.ToLower().Contains(text)).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(EditTimeTypeTextEditor.TextArea, data);
