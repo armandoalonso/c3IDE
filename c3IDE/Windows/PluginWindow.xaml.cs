@@ -33,8 +33,10 @@ namespace c3IDE.Windows
         private void EditTimePluginTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if(string.IsNullOrWhiteSpace(e.Text)) return;
-            var tokenList = CodeCompletionFactory.Insatnce.ParseJavascriptDocumnet(EditTimePluginTextEditor.Text);
+            var tokenList = CodeCompletionFactory.Insatnce.ParseJavascriptDocument(EditTimePluginTextEditor.Text);
             var methodsTokens = CodeCompletionFactory.Insatnce.ParseJavascriptMethodCalls(EditTimePluginTextEditor.Text);
+            var allTokens = CodeCompletionFactory.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.EdittimeJavascript);
+
             //add matching closing symbol
             switch (e.Text)
             { 
@@ -58,7 +60,7 @@ namespace c3IDE.Windows
                     EditTimePluginTextEditor.TextArea.Caret.Offset--;
                     return;
                 case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(tokenList, CodeType.EdittimeJavascript).Where(x => x.Type == CompletionType.Methods);
+                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EdittimeJavascript).Where(x => x.Type == CompletionType.Methods);
                     ShowCompletion(EditTimePluginTextEditor.TextArea, methodsData.ToList());
                     break;
                 default:
@@ -71,7 +73,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(tokenList, CodeType.EdittimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EdittimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(EditTimePluginTextEditor.TextArea, data);

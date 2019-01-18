@@ -1,0 +1,14 @@
+[
+  {
+    "Method": "GetProject",
+    "Interface": [ "IProject" ]
+  },
+  {
+    "Method": "GetObjectType",
+    "Interface": [ "IObjectType" ]
+  },
+  {
+    "Method": "GetInstance",
+    "Interface": [ "IObjectInstance" ]
+  }
+]

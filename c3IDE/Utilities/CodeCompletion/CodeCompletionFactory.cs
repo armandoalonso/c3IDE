@@ -13,6 +13,8 @@ namespace c3IDE.Utilities.CodeCompletion
     {
         private readonly Dictionary<CodeType, IList<GenericCompletionItem>> _bindingCache = new Dictionary<CodeType, IList<GenericCompletionItem>>();
         private readonly Dictionary<string, IList<GenericCompletionItem>> _contextCache = new Dictionary<string, IList<GenericCompletionItem>>();
+        private readonly Dictionary<string, List<string>> _methodInterfaceCache = new Dictionary<string, List<string>>();
+        
         private readonly Regex _tokenRegex = new Regex("SDK\\.(\\w+)");
         private readonly Regex _methodRegex = new Regex("(\\w+)\\(.*?\\)");
 
@@ -58,9 +60,7 @@ namespace c3IDE.Utilities.CodeCompletion
             return completionList;
         }
 
-        //TODO: look into https://github.com/sebastienros/esprima-dotnet for parsing javascript
-
-        public List<string> ParseJavascriptDocumnet(string text)
+        public List<string> ParseJavascriptDocument(string text)
         {
             var mathes = _tokenRegex.Matches(text);
             var hashset = new HashSet<string>();
@@ -77,7 +77,6 @@ namespace c3IDE.Utilities.CodeCompletion
             return hashset.ToList();
         }
 
-        //TODO: based on method class check type of returned interface and add to auto completion
         public List<string> ParseJavascriptMethodCalls(string text)
         {
             var mathes = _methodRegex.Matches(text);
@@ -89,6 +88,40 @@ namespace c3IDE.Utilities.CodeCompletion
             }
 
             return hashset.ToList();
+        }
+
+        public List<string> DecorateMethodInterfaces(IEnumerable<string> tokens, IEnumerable<string> methods, CodeType type)
+        {
+            var results = new HashSet<string>(tokens.ToList());
+
+            //populate dictionary
+            if (_methodInterfaceCache.Count == 0)
+            {
+                var mapping = new MethodInterfaceMapping();
+                foreach (var map in mapping.Interfaces)
+                {
+                    if (!_methodInterfaceCache.ContainsKey(map.Method))
+                    {
+                        _methodInterfaceCache.Add(map.Method, map.Interface);
+                    }
+                }
+            }
+
+            switch (type)
+            {
+                case CodeType.EdittimeJavascript:
+                    foreach (var m in methods)
+                    {
+                        if (_methodInterfaceCache.ContainsKey(m))
+                        {
+                            results.AddRange(_methodInterfaceCache[m]);
+                        }
+                    }
+
+                    return results.ToList();
+            }
+
+            return null;
         }
     }
 

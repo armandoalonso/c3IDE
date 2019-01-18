@@ -136,12 +136,14 @@
     <Compile Include="Templates\MultiInstancePluginTemplate.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\EditorJavascriptBinding.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\JsonBindings.cs" />
+    <Compile Include="Utilities\CodeCompletion\Bindings\MethodInterfaceMapping.cs" />
     <Compile Include="Utilities\CodeCompletion\CodeCompletionDecorator.cs" />
     <Compile Include="Utilities\CodeCompletion\CompletionTypeFactory.cs" />
     <Compile Include="Utilities\CodeCompletion\DocumentExtensions.cs" />
     <Compile Include="Utilities\CodeCompletion\GenericCompletionItem.cs" />
     <Compile Include="Utilities\CodeCompletion\CodeCompletionFactory.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\ICompletionBindings.cs" />
+    <Compile Include="Utilities\HashSetExtension.cs" />
     <Compile Include="Utilities\JsBeautifier\Beautifier.cs" />
     <Compile Include="Utilities\JsBeautifier\BeautifierFlags.cs" />
     <Compile Include="Utilities\JsBeautifier\BeautifierOptions.cs" />
@@ -283,6 +285,7 @@
     </None>
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_editor_javascript.json" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_json.json" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\editor_return_type.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

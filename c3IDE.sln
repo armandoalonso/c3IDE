@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "c3IDE", "c3IDE\c3IDE.csproj", "{F6B9D5AB-534B-4684-A5EB-DFB7C09BE1ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCompletionGenerator", "AutoCompletionGenerator\AutoCompletionGenerator.csproj", "{B980601B-2D90-47EB-80E0-937527E15061}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelperApps", "HelperApps", "{FF7BFB7B-118B-42B8-AA7E-1C9A6ED6A094}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelperApps", "HelperApps", "{A48D45C0-F401-4FAF-9420-B1A9570BD373}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCompletionGenerator", "HelperApps\AutoCompletionGenerator\AutoCompletionGenerator.csproj", "{B980601B-2D90-47EB-80E0-937527E15061}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,7 +38,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B980601B-2D90-47EB-80E0-937527E15061} = {A48D45C0-F401-4FAF-9420-B1A9570BD373}
+		{B980601B-2D90-47EB-80E0-937527E15061} = {FF7BFB7B-118B-42B8-AA7E-1C9A6ED6A094}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {214E12F1-A483-4942-8394-773FF452B313}

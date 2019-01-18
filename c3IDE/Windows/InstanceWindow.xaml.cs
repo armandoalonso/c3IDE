@@ -36,7 +36,7 @@ namespace c3IDE.Windows
         private void EditTimeInstanceTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
-            var tokenList = CodeCompletionFactory.Insatnce.ParseJavascriptDocumnet(EditTimeInstanceTextEditor.Text);
+            var tokenList = CodeCompletionFactory.Insatnce.ParseJavascriptDocument(EditTimeInstanceTextEditor.Text);
             //add matching closing symbol
             switch (e.Text)
             {
