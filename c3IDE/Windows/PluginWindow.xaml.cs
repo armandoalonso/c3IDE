@@ -27,8 +27,29 @@ namespace c3IDE.Windows
             InitializeComponent();
             this.DataContext = this;
 
+            //handle auto completion when entering text
             EditTimePluginTextEditor.TextArea.TextEntering += EditTimePluginTextEditor_TextEntering;
             EditTimePluginTextEditor.TextArea.TextEntered += EditTimePluginTextEditor_TextEntered;
+
+            //hanlde mouse wheel scrolling
+            EditTimePluginTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            RunTimePluginTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+        }
+
+        private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                e.Handled = true;
+                var eventArg =
+                    new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+                    {
+                        RoutedEvent = UIElement.MouseWheelEvent,
+                        Source = sender
+                    };
+                var parent = PluginGrid as UIElement;
+                parent.RaiseEvent(eventArg);
+            }
         }
 
         private void EditTimePluginTextEditor_TextEntered(object sender, TextCompositionEventArgs e)

@@ -7,15 +7,17 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/simplechildwindow"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
-    <Grid Margin="10">
+    <Grid Margin="10" Name="ActionGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="3*" Name="JsonPanel"/>
+            <ColumnDefinition Width="3*" Name="AcePanel"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="3*" Name="LangPanel"/>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="3*" Name="CodePanel"/>
         </Grid.ColumnDefinitions>
 
-        <mah:ChildWindow Name="NewActionWindow" Grid.Column="0" Grid.ColumnSpan="3" Title="Add New Action" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
+        <mah:ChildWindow Name="NewActionWindow" Grid.Column="0" Grid.ColumnSpan="5" Title="Add New Action" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
             <mah:ChildWindow.OverlayBrush>
                 <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
             </mah:ChildWindow.OverlayBrush>
@@ -41,7 +43,7 @@
             </StackPanel>
         </mah:ChildWindow>
 
-        <mah:ChildWindow Name="NewParamWindow" Grid.Column="0" Grid.ColumnSpan="4" Title="Add New Parameter" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
+        <mah:ChildWindow Name="NewParamWindow" Grid.Column="0" Grid.ColumnSpan="5" Title="Add New Parameter" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
             <mah:ChildWindow.OverlayBrush>
                 <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
             </mah:ChildWindow.OverlayBrush>
@@ -80,9 +82,10 @@
         </mah:ChildWindow>
 
         <DockPanel Grid.Column="0" LastChildFill="True" Margin="10">
-            <UniformGrid Columns="3" DockPanel.Dock="Top">
-                <Button Content="Json" Click="JsonView_OnClick"></Button>
-                <Button Content="Default" Click="DeafultView_OnClick"></Button>
+            <UniformGrid Columns="4" DockPanel.Dock="Top">
+                <Button Content="Deafult" Click="DeafultView_OnClick"></Button>
+                <Button Content="Json" Click="AceView_OnClick"></Button>
+                <Button Content="Lang" Click="LangView_OnClick"></Button>
                 <Button Content="Code" Click="CodeView_OnClick"></Button>
             </UniformGrid>
             <Button Name="RemoveAction" Content="RemoveAction" Margin="2" Click="RemoveAction_OnClick" DockPanel.Dock="Bottom"></Button>
@@ -99,7 +102,7 @@
             </ListBox>
         </DockPanel>
 
-        <UniformGrid Grid.Column="1" Margin="10" Rows="2"> 
+        <DockPanel Grid.Column="1" Margin="10" LastChildFill="True">
             <TabControl DockPanel.Dock="Top">
                 <TabItem Header="Ace.json" Name="Ace">
                     <avalonEdit:TextEditor
@@ -117,16 +120,25 @@
                     </avalonEdit:TextEditor>
                 </TabItem>
             </TabControl>
+        </DockPanel>
 
+        <GridSplitter Grid.Column="2" BorderThickness="1.5" BorderBrush="#FF444444"
+                      VerticalAlignment="Stretch" HorizontalAlignment="Center">
+            <GridSplitter.Background>
+                <SolidColorBrush Color="#FF444444"></SolidColorBrush>
+            </GridSplitter.Background>
+        </GridSplitter>
+        
+        <DockPanel Grid.Column="3" Margin="10" LastChildFill="True">
             <TabControl DockPanel.Dock="Bottom">
                 <TabItem Header="Language" Name="Language">
                     <avalonEdit:TextEditor
-                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                    Name="LanguageTextEditor"
-                    FontFamily="Consolas"
-                    SyntaxHighlighting="JavaScript"
-                    FontSize="10pt"
-                    ShowLineNumbers="True">
+                        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                        Name="LanguageTextEditor"
+                        FontFamily="Consolas"
+                        SyntaxHighlighting="JavaScript"
+                        FontSize="10pt"
+                        ShowLineNumbers="True">
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Insert Action Parameter" Click="InsertNewParam" />
@@ -135,16 +147,16 @@
                     </avalonEdit:TextEditor>
                 </TabItem>
             </TabControl>
-        </UniformGrid>
+        </DockPanel>
 
-        <GridSplitter Grid.Column="2" BorderThickness="1.5" BorderBrush="#FF444444"
+        <GridSplitter Grid.Column="4" BorderThickness="1.5" BorderBrush="#FF444444"
                       VerticalAlignment="Stretch" HorizontalAlignment="Center">
             <GridSplitter.Background>
                 <SolidColorBrush Color="#FF444444"></SolidColorBrush>
             </GridSplitter.Background>
         </GridSplitter>
 
-        <DockPanel Grid.Column="3" Margin="10" LastChildFill="True">
+        <DockPanel Grid.Column="5" Margin="10" LastChildFill="True">
             <TabControl DockPanel.Dock="Top">
                 <TabItem Header="Code" Name="Code">
                     <avalonEdit:TextEditor

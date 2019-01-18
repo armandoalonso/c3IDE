@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:c3IDE.Windows"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
-    <Grid Margin="10">
+    <Grid Margin="10" Name="InstanceGrid">
         <TabControl>
             <TabItem Header="Instance.js" IsEnabled="False" />
             <TabItem Header="(Edit Time)" IsSelected="True">
@@ -16,7 +16,7 @@
                     FontFamily="Consolas"
                     SyntaxHighlighting="JavaScript"
                     FontSize="10pt"
-                    ShowLineNumbers="True">
+                    ShowLineNumbers="True" VerticalScrollBarVisibility="Auto">
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                         </ContextMenu>
@@ -31,7 +31,7 @@
                     FontFamily="Consolas"
                     SyntaxHighlighting="JavaScript"
                     FontSize="10pt"
-                    ShowLineNumbers="True">
+                    ShowLineNumbers="True" VerticalScrollBarVisibility="Auto">
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                         </ContextMenu>

@@ -133,6 +133,7 @@
     <Compile Include="Models\ThirdPartyFile.cs" />
     <Compile Include="Server\C3FileHandler.cs" />
     <Compile Include="Server\WebServerClient.cs" />
+    <Compile Include="Templates\DrawingPluginTemplate.cs" />
     <Compile Include="Templates\MultiInstancePluginTemplate.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\EditorJavascriptBinding.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\JsonBindings.cs" />
@@ -492,9 +493,20 @@
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\DrawingPlugin\plugin_edittime.txt" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Templates\Files\MultiInstance\plugin_edittime.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\DrawingPlugin\instance_edittime.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\DrawingPlugin\type_runtime.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Files\DrawingPlugin\instance_runtime.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

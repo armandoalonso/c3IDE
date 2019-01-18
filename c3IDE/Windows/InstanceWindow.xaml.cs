@@ -32,6 +32,25 @@ namespace c3IDE.Windows
             InitializeComponent();
             EditTimeInstanceTextEditor.TextArea.TextEntering += EditTimeInstanceTextEditor_TextEntering;
             EditTimeInstanceTextEditor.TextArea.TextEntered += EditTimeInstanceTextEditor_TextEntered;
+            //hanlde mouse wheel scrolling
+            EditTimeInstanceTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            RunTimeInstanceTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+        }
+
+        private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                e.Handled = true;
+                var eventArg =
+                    new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+                    {
+                        RoutedEvent = UIElement.MouseWheelEvent,
+                        Source = sender
+                    };
+                var parent = InstanceGrid as UIElement;
+                parent.RaiseEvent(eventArg);
+            }
         }
 
         private void EditTimeInstanceTextEditor_TextEntered(object sender, TextCompositionEventArgs e)

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:c3IDE.Windows"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
-    <Grid Margin="10">
+    <Grid Margin="10" Name="LanguageGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="5"/>

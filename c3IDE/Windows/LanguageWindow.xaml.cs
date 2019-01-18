@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.DataAccess;
 using c3IDE.Templates;
+using c3IDE.Utilities;
 using c3IDE.Windows.Interfaces;
 using Newtonsoft.Json;
 
@@ -30,6 +31,24 @@ namespace c3IDE.Windows
         public LanguageWindow()
         {
             InitializeComponent();
+            PropertyLanguageTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            CategoryLanguageTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+        }
+
+        private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                e.Handled = true;
+                var eventArg =
+                    new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+                    {
+                        RoutedEvent = UIElement.MouseWheelEvent,
+                        Source = sender
+                    };
+                var parent = LanguageGrid as UIElement;
+                parent.RaiseEvent(eventArg);
+            }
         }
 
         public void OnEnter()
@@ -53,7 +72,7 @@ namespace c3IDE.Windows
         private void GeneratePropertyText(object sender, RoutedEventArgs e)
         {
             //generate new property json
-            var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+\""(?<id>\w+[-]?\w+)\""");
+            var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+\""(?<id>.*)\""");
             var propertyMatches = propertyRegex.Matches(AppData.Insatnce.CurrentAddon.PluginEditTime);
 
             var propList = new List<string>();

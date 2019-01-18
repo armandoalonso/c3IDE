@@ -31,6 +31,25 @@ namespace c3IDE.Windows
 
             AddonTextEditor.TextArea.TextEntering += AddonTextEditor_TextEntering;
             AddonTextEditor.TextArea.TextEntered += AddonTextEditor_TextEntered;
+
+            AddonTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            FileTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+        }
+
+        private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                e.Handled = true;
+                var eventArg =
+                    new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+                    {
+                        RoutedEvent = UIElement.MouseWheelEvent,
+                        Source = sender
+                    };
+                var parent = AddonGrid as UIElement;
+                parent.RaiseEvent(eventArg);
+            }
         }
 
         private void AddonTextEditor_TextEntered(object sender, TextCompositionEventArgs e)

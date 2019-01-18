@@ -33,6 +33,25 @@ namespace c3IDE.Windows
         public ConditionWindow()
         {
             InitializeComponent();
+            AceTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            LanguageTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            CodeTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+        }
+
+        private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                e.Handled = true;
+                var eventArg =
+                    new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+                    {
+                        RoutedEvent = UIElement.MouseWheelEvent,
+                        Source = sender
+                    };
+                var parent = ConditionGrid as UIElement;
+                parent.RaiseEvent(eventArg);
+            }
         }
 
         private void SaveConditionButton_Click(object sender, RoutedEventArgs e)
@@ -225,22 +244,32 @@ namespace c3IDE.Windows
             NewParamWindow.IsOpen = true;
         }
 
-        private void JsonView_OnClick(object sender, RoutedEventArgs e)
+        private void AceView_OnClick(object sender, RoutedEventArgs e)
         {
             CodePanel.Width = new GridLength(0);
-            JsonPanel.Width = new GridLength(3, GridUnitType.Star);
+            LangPanel.Width = new GridLength(0);
+            AcePanel.Width = new GridLength(3, GridUnitType.Star);
         }
 
         private void DeafultView_OnClick(object sender, RoutedEventArgs e)
         {
-            JsonPanel.Width = new GridLength(3, GridUnitType.Star);
+            AcePanel.Width = new GridLength(3, GridUnitType.Star);
             CodePanel.Width = new GridLength(3, GridUnitType.Star);
+            LangPanel.Width = new GridLength(3, GridUnitType.Star);
         }
 
         private void CodeView_OnClick(object sender, RoutedEventArgs e)
         {
-            JsonPanel.Width = new GridLength(0);
+            AcePanel.Width = new GridLength(0);
+            LangPanel.Width = new GridLength(0);
             CodePanel.Width = new GridLength(3, GridUnitType.Star);
+        }
+
+        private void LangView_OnClick(object sender, RoutedEventArgs e)
+        {
+            AcePanel.Width = new GridLength(0);
+            CodePanel.Width = new GridLength(0);
+            LangPanel.Width = new GridLength(3, GridUnitType.Star);
         }
     }
 }
