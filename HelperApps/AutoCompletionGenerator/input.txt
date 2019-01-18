@@ -1,4 +1,600 @@
-﻿GetObjectType()
+﻿Release()
+0
+IInstanceBase
+Optional override for when an instance is released.
+OnCreate()
+0
+IInstanceBase
+Optional override for when an instance is created in the editor.
+OnPropertyChanged(id, value)
+0
+IInstanceBase
+Optional override for when a property with the given ID is changed. The value the property was changed to is also passed.
+LoadC2Property(name, valueString)
+0
+IInstanceBase
+Optional override to use custom logic for importing properties from a Construct 2 project referencing a Construct 2 version of this plugn.
+GetProject()
+0
+IInstanceBase
+Return the IProject representing the instance's associated project.
+GetObjectType()
+0
+IInstanceBase
+Convenience method to return the IObjectType interface representing Construct's object type class.
+GetInstance()
+0
+IInstanceBase
+Return the IObjectInstance corresponding to this instance.
+Release()
+0
+IWorldInstanceBase
+Optional override for when an instance is released.
+OnCreate()
+0
+IWorldInstanceBase
+Optional override for when an instance is created in the editor.
+OnPropertyChanged(id, value)
+0
+IWorldInstanceBase
+Optional override for when a property with the given ID is changed. The value the property was changed to is also passed.
+LoadC2Property(name, valueString)
+0
+IWorldInstanceBase
+Optional override to use custom logic for importing properties from a Construct 2 project referencing a Construct 2 version of this plugn.
+GetProject()
+0
+IWorldInstanceBase
+Return the IProject representing the instance's associated project.
+GetObjectType()
+0
+IWorldInstanceBase
+Convenience method to return the IObjectType interface representing Construct's object type class.
+GetInstance()
+0
+IWorldInstanceBase
+Return the IObjectInstance corresponding to this instance.
+OnPlacedInLayout()
+0
+IWorldInstanceBase
+Optional override called when an instance is explicitly placed in the layout by the user. This is the right time to set any additional defaults such as the initial size or origin.
+Draw(iRenderer, iDrawParams)
+0
+IWorldInstanceBase
+Called when Construct wants the instance to draw itself in the Layout View. iRenderer is an IWebGLRenderer interface, used for issuing draw commands. iDrawParams is an IDrawParams interface, used for providing additional information to the draw call.
+GetTexture(animationFrame)
+0
+IWorldInstanceBase
+Load a texture from an IAnimationFrame. Texture loading is asynchronous and is started in the first call. The method will return null while the texture is loading. Construct will automatically refresh the Layout View when the texture finishes loading, at which point the method will return an IWebGLTexture interface that can be used for rendering. Plugins typically render a placeholder of a semitransparent solid color while the texture is loading.
+GetTexRect()
+0
+IWorldInstanceBase
+When a texture has successfully loaded, returns an SDK.Rect indicating the dimensions of the image to render in texture co-ordinates. Note that due to Construct's in-editor spritesheeting engine, this is usually a subset of a texture.
+HadTextureError()
+0
+IWorldInstanceBase
+Returns true to indicate texture loading failed. Plugins typically switch the placeholder to a red color in this circumstance.
+IsOriginalSizeKnown()
+0
+IWorldInstanceBase
+Optional overrides to specify the "original size" of the instance. Typically if a plugin supports this, it is the size of the image. This enables percentage size options in the Properties Bar. The default implementation returns false from IsOriginalSizeKnown(), disabling the feature. To enable it, return true from IsOriginalSizeKnown(), and return the original size in the GetOriginalWidth() and GetOriginalHeight() methods.
+GetOriginalWidth()
+0
+IWorldInstanceBase
+Optional overrides to specify the "original size" of the instance. Typically if a plugin supports this, it is the size of the image. This enables percentage size options in the Properties Bar. The default implementation returns false from IsOriginalSizeKnown(), disabling the feature. To enable it, return true from IsOriginalSizeKnown(), and return the original size in the GetOriginalWidth() and GetOriginalHeight() methods.
+GetOriginalHeight()
+0
+IWorldInstanceBase
+Optional overrides to specify the "original size" of the instance. Typically if a plugin supports this, it is the size of the image. This enables percentage size options in the Properties Bar. The default implementation returns false from IsOriginalSizeKnown(), disabling the feature. To enable it, return true from IsOriginalSizeKnown(), and return the original size in the GetOriginalWidth() and GetOriginalHeight() methods.
+HasDoubleTapHandler()
+0
+IWorldInstanceBase
+Optional override which is called when the user double-clicks or double-taps an instance in the Layout View. This also enables an Edit option in the context menu, which also calls the double-tap handler. Typically plugins with an image use this handler to edit the image. The default implementation returns false from HasDoubleTapHandler(), disabling the feature. To enable it, return true from HasDoubleTapHandler() and then override OnDoubleTap() to perform a task.
+OnDoubleTap()
+0
+IWorldInstanceBase
+Optional override which is called when the user double-clicks or double-taps an instance in the Layout View. This also enables an Edit option in the context menu, which also calls the double-tap handler. Typically plugins with an image use this handler to edit the image. The default implementation returns false from HasDoubleTapHandler(), disabling the feature. To enable it, return true from HasDoubleTapHandler() and then override OnDoubleTap() to perform a task.
+setRgb(r, g, b)
+0
+Color
+Set the RGB components only, without affecting the alpha component, in a single call.
+setRgba(r, g, b, a)
+0
+Color
+Set the RGBA components of the color in a single call.
+copy(color)
+0
+Color
+Set the components of the color by copying another SDK.Color.
+copyRgb(color)
+0
+Color
+Set the RGB components only, without affecting the alpha component, by copying another SDK.Color.
+clone()
+0
+Color
+Return a new instance of an SDK.Color with an identical color to this one.
+setR(r)
+0
+Color
+Set each component of the color individually. Note color components are floats in the range [0, 1].
+setG(g)
+0
+Color
+Set each component of the color individually. Note color components are floats in the range [0, 1].
+setB(b)
+0
+Color
+Set each component of the color individually. Note color components are floats in the range [0, 1].
+setA(a)
+0
+Color
+Set each component of the color individually. Note color components are floats in the range [0, 1].
+getR()
+0
+Color
+Get each component of the color individually.
+getG()
+0
+Color
+Get each component of the color individually.
+getB()
+0
+Color
+Get each component of the color individually.
+getA()
+0
+Color
+Get each component of the color individually.
+equals(color)
+0
+Color
+Return a boolean indicating if this color exactly matches another SDK.Color.
+equalsIgnoringAlpha(color)
+0
+Color
+Return a boolean indicating if this color exactly matches the RGB components of another SDK.Color. The alpha component is ignoed.
+equalsRgb(r, g, b)
+0
+Color
+Return a boolean indicating if this color exactly matches the given RGB components.
+equalsRgba(r, g, b, a)
+0
+Color
+Return a boolean indicating if this color exactly matches the given RGBA components.
+premultiply()
+0
+Color
+Multiply the RGB components by the A component. This is usually required for rendering.
+unpremultiply()
+0
+Color
+Divide the RGB components by the A component
+set(tlx, tly, trx, try_, brx, bry, blx, bly)
+0
+Quad
+Set all four points of the quad in a single call.
+setRect(left, top, right, bottom)
+0
+Quad
+Set the quad's points to represent an axis-aligned rectangle using the given positions. Note that this is only useful if you subsequently make further modifications to the quad, else you may as well use the Rect interface.
+copy(quad)
+0
+Quad
+Set all points of the quad by copying another SDK.Quad.
+setTlx(n)
+0
+Quad
+Set each point of the quad individually.
+setTly(n)
+0
+Quad
+Set each point of the quad individually.
+setTrx(n)
+0
+Quad
+Set each point of the quad individually.
+setTry(n)
+0
+Quad
+Set each point of the quad individually.
+setBrx(n)
+0
+Quad
+Set each point of the quad individually.
+setBry(n)
+0
+Quad
+Set each point of the quad individually.
+setBlx(n)
+0
+Quad
+Set each point of the quad individually.
+setBly(n)
+0
+Quad
+Set each point of the quad individually.
+getTlx()
+0
+Quad
+Get each point of the quad individually.
+getTly()
+0
+Quad
+Get each point of the quad individually.
+getTrx()
+0
+Quad
+Get each point of the quad individually.
+getTry()
+0
+Quad
+Get each point of the quad individually.
+getBrx()
+0
+Quad
+Get each point of the quad individually.
+getBry()
+0
+Quad
+Get each point of the quad individually.
+getBlx()
+0
+Quad
+Get each point of the quad individually.
+getBly()
+0
+Quad
+Get each point of the quad individually.
+setFromRect(rect)
+0
+Quad
+Set the points of the quad to an axis-aligned rectangle given by an SDK.Rect. Note that this is only useful if you subsequently make further modifications to the quad, else you may as well use the Rect interface directly.
+setFromRotatedRect(rect, angle)
+0
+Quad
+Set the points of the quad to a rotated rectangle given by an SDK.Rect, rotated about the origin by angle in radians.
+getBoundingBox(rect)
+0
+Quad
+Calculate the bounding box of the quad, and store the result by writing to a given SDK.Rect.
+midX()
+0
+Quad
+Return the average of the four points in the quad on each axis.
+midY()
+0
+Quad
+Return the average of the four points in the quad on each axis.
+intersectsSegment(x1, y1, x2, y2)
+0
+Quad
+Test if a segment, given as the line between points (x1, y1) and (x2, y2), intersects this quad, returning a boolean.
+intersectsQuad(quad)
+0
+Quad
+Test if another SDK.Quad intersects this quad, returning a boolean.
+containsPoint(x, y)
+0
+Quad
+Test if the given point is inside the bounds of this quad, returning a boolean.
+GetDt()
+0
+IDrawParams
+Return delta-time, the time since the last frame, in seconds. This is typically approximately 1/60th of a second (0.01666...). This value is only valid when the Layout View is continually scrolling, such as when dragging an instance to the edge of the Layout View window. Any other time it will be set to a dummy non-zero value, since there wasn't a frame immediately preceding the current one.
+GetLayoutView()
+0
+IDrawParams
+Return an ILayoutView interface representing the current Layout View being drawn. This allows access to features of the Layout View in drawing code.
+SetAlphaBlendMode()
+0
+IWebGLRenderer
+Set the blend mode to a premultiplied alpha blending mode.
+SetColorFillMode()
+0
+IWebGLRenderer
+Set the fill mode to draw a solid color, specified by the current color.
+SetTextureFillMode()
+0
+IWebGLRenderer
+Set the fill mode to draw a texture, specified by the current texture, and using the alpha component of the current color as the opacity.
+SetSmoothLineFillMode()
+0
+IWebGLRenderer
+Set the fill mode to draw smooth lines using the current color.
+SetColor(color)
+0
+IWebGLRenderer
+Set the current color with an SDK.Color.
+SetColorRgba(r, g, b, a)
+0
+IWebGLRenderer
+Set the current color by directly passing the RGBA components.
+SetOpacity(o)
+0
+IWebGLRenderer
+Set only the alpha component of the current color. Note this does not affect the RGB components.
+ResetColor()
+0
+IWebGLRenderer
+Set the current color to (1, 1, 1, 1).
+Rect(rect)
+0
+IWebGLRenderer
+Draw a rectangle given by an SDK.Rect.
+Rect2(left, top, right, bottom)
+0
+IWebGLRenderer
+Draw a rectangle by directly passing the left, top, right and bottom positions.
+Quad(quad)
+0
+IWebGLRenderer
+Draw a quad given by an SDK.Quad.
+Quad2(tlx, tly, trx, try_, brx, bry, blx, bly)
+0
+IWebGLRenderer
+Draw a quad by directly passing the positions of each of the four points in the quad.
+Quad3(quad, rect)
+0
+IWebGLRenderer
+Draw a quad given by an SDK.Quad, using an SDK.Rect for the source texture co-ordinates to draw from.
+Quad4(quad, texQuad)
+0
+IWebGLRenderer
+Draw a quad given by an SDK.Quad, using another SDK.Quad for the source texture co-ordinates to draw from.
+ConvexPoly(pointsArray)
+0
+IWebGLRenderer
+Draw a convex polygon using the given array of points, in alternating X, Y order. Therefore the size of the array must be even, and must contain at least six elements (to define three points).
+Line(x1, y1, x2, y2)
+0
+IWebGLRenderer
+Draws a quad from the point (x1, y1) to (x2, y2) with the current line width.
+TexturedLine(x1, y1, x2, y2, u, v)
+0
+IWebGLRenderer
+Draws a quad from the point (x1, y1) to (x2, y2) with the current line width, and using (u, 0) as the texture co-ordinates at the start, and (v, 0) as the texture co-ordinates at the end.
+LineRect(left, top, right, bottom)
+0
+IWebGLRenderer
+Draws four lines along the edges of a given rectangle.
+LineRect2(rect)
+0
+IWebGLRenderer
+Draws four lines along the edges of a given SDK.Rect.
+LineQuad(quad)
+0
+IWebGLRenderer
+Draws four lines along the edges of a given SDK.Quad.
+PushLineWidth(w)
+0
+IWebGLRenderer
+Set the current line width for line-drawing calls. This must be followed by a PopLineWidth() call when finished to restore the previous line width.
+PopLineWidth()
+0
+IWebGLRenderer
+Set the current line width for line-drawing calls. This must be followed by a PopLineWidth() call when finished to restore the previous line width.
+PushLineCap(lineCap)
+0
+IWebGLRenderer
+Set the current line cap for line-drawing calls. This must be followed by a PopLineCap() call when finished to restore the previous line cap. The available line caps are "butt" and "square".
+PopLineCap()
+0
+IWebGLRenderer
+Set the current line cap for line-drawing calls. This must be followed by a PopLineCap() call when finished to restore the previous line cap. The available line caps are "butt" and "square".
+SetTexture(texture)
+0
+IWebGLRenderer
+Set the current texture to a given IWebGLTexture.
+CreateWebGLText()
+0
+IWebGLRenderer
+Return a new IWebGLText interface. This manages text wrapping, drawing text, and uploading the results to a WebGL texture.
+Release()
+0
+IWebGLText
+Destroy the object and its resources. IWebGLText must be released when it is no longer needed; do not simply drop references, otherwise not all of its resources will be collected. If your plugin creates an IWebGLText, it should release any it still uses in its own Release() method.
+SetFontName(name)
+0
+IWebGLText
+Set the name of the font face used for drawing text.
+SetFontSize(ptSize)
+0
+IWebGLText
+Set the size of the font, in points, used for drawing text.
+SetLineHeight(px)
+0
+IWebGLText
+Set the extra line height spacing, in pixels, used for drawing text. Note 0 is the default, indicating no offset to the default line height.
+SetBold(b)
+0
+IWebGLText
+Set the bold flag used for drawing text.
+SetItalic(i)
+0
+IWebGLText
+Set the italic flag used for drawing text.
+SetColor(color)
+0
+IWebGLText
+Set the color of the text using a SDK.Color or a string. If a string is passed, it is passed directly to a 2D canvas fillStyle property, so can be anything that property accepts, e.g. "red", "#00ffee", "rgb(0, 128, 192)" etc.
+SetColorRgb(r, g, b)
+0
+IWebGLText
+Set the color of the text using separate RGB components.
+SetHorizontalAlignment(h)
+0
+IWebGLText
+Set the horizontal alignment of the text within its bounding box. This can be one of "left", "center" or "right".
+SetVerticalAlignment(v)
+0
+IWebGLText
+Set the vertical alignment of the text within its bounding box. This can be one of "top", "center" or "bottom".
+SetWordWrapMode(m)
+0
+IWebGLText
+Set the word wrapping mode. This can be one of "word" (for space-delimited word wrapping) or "character" (for wrapping on any character).
+SetText(text)
+0
+IWebGLText
+Set the text string to be drawn.
+SetSize(width, height, zoomScale)
+0
+IWebGLText
+Set the size of the area that text can be drawn in. The size is specified in CSS pixels. The zoomScale can be increased to render the text at a higher resolution, which is useful when zooming in the Layout View.
+GetTexture()
+0
+IWebGLText
+Get an IWebGLTexture interface representing the texture with the requested text rendered on to it. Note: the texture is generated asynchronously, so can return null when first requested. Use SetTextureUpdateCallback() to get a callback when the texture has updated, where the relevant Layout View can be redrawn to render with the updated texture.
+GetTexRect()
+0
+IWebGLText
+Return a SDK.Rect representing the content area of the text on the WebGL texture. This is the subset of the texture that ought to be rendered. Note: this is only valid when GetTexture() returns a non-null result.
+SetTextureUpdateCallback(callback)
+0
+IWebGLText
+Set a function to call when the texture containing the rendered text is updated. Since the texture is generated asynchronously, this is necessary to know when to redraw any views that may be displaying the text, so they can redraw with the updated texture.
+ReleaseTexture()
+0
+IWebGLText
+Release the underlying WebGL texture. This can be used to save memory. However the texture will be re-created the next time GetTexture() is called.
+GetTextWidth()
+0
+IWebGLText
+Return the size of the text bounding box after processing word wrap. This allows determining the size of the actual visible text, rather than the box used for word wrap bounds.
+GetTextHeight()
+0
+IWebGLText
+Return the size of the text bounding box after processing word wrap. This allows determining the size of the actual visible text, rather than the box used for word wrap bounds.
+GetWidth()
+0
+IWebGLTexture
+Return the width or height of the texture. Note this refers to the source texture. Construct's in-editor spritesheeting engine means the texture could be significantly larger than an object's image to be rendered from it.
+GetHeight()
+0
+IWebGLTexture
+Return the width or height of the texture. Note this refers to the source texture. Construct's in-editor spritesheeting engine means the texture could be significantly larger than an object's image to be rendered from it.
+PushContext(prefix)
+0
+ILang
+Push a prefix to the context stack. For example PushContext("foo") followed by Get(".bar") will return the same string as if Get("foo.bar") were used. Pushing a context beginning with a dot will append to the current prefix, but pushing an entry not beginning with a dot will reset the current prefix. Note: be sure to always call PopContext() afterwards.
+PopContext()
+0
+ILang
+Pop a prefix from the context stack.
+Get(context)
+0
+ILang
+Look up a string in the language file. If the context begins with a dot, it is relative to the current context prefix. Otherwise it is treated as an absolute context.
+PathExists(path)
+0
+IZipFile
+Return a boolean indicating if a given path exists within the zip.
+GetFileList()
+0
+IZipFile
+Return an array of all file paths contained within the zip.
+GetFirstEntryWithExtension(ext)
+0
+IZipFile
+Return a IZipFileEntry representing the first entry found with a given file extension, or null if none was found.
+GetEntry(path)
+0
+IZipFile
+Return a IZipFileEntry representing the file at the given path. If the path does not exist in the zip, this returns null.
+ReadText(entry)
+0
+IZipFile
+Return a promise that resolves with the contents of the given IZipFileEntry read as plain text.
+ReadJson(entry)
+0
+IZipFile
+Return a promise that resolves with the contents of the given IZipFileEntry, read as plain text and then parsed as JSON.
+ReadBlob(entry)
+0
+IZipFile
+Return a promise that resolves with the contents of the given IZipFileEntry, read as a Blob. (This is a raw binary format that can be read with other JavaScript APIs.)
+AddCondition(iObjectClass, reserved, cndId, params)
+0
+IEventBlock
+Add a condition or action to this event block. These methods are very similar so they are documented together. iObjectClass must be an IObjectClass (i.e. an IObjectType or IFamily) to create the condition and action for. The next parameter is reserved for future use; you must pass null. cndId or actId must be a string specifying the condition or action to create; for example the System On start of layout condition ID is "on-start-of-layout". If the condition or action uses any parameters, then params must be an array with enough elements for every parameter. Each parameter can be a string, number or IObjectType. Expression parameters use a string, which can be any valid expression (including calculations like "1+1" for number parameters); if you pass a number, it will be converted to a string. IObjectClass can also be passed for object parameters.
+AddAction(iObjectClass, reserved, actId, params)
+0
+IEventBlock
+Add a condition or action to this event block. These methods are very similar so they are documented together. iObjectClass must be an IObjectClass (i.e. an IObjectType or IFamily) to create the condition and action for. The next parameter is reserved for future use; you must pass null. cndId or actId must be a string specifying the condition or action to create; for example the System On start of layout condition ID is "on-start-of-layout". If the condition or action uses any parameters, then params must be an array with enough elements for every parameter. Each parameter can be a string, number or IObjectType. Expression parameters use a string, which can be any valid expression (including calculations like "1+1" for number parameters); if you pass a number, it will be converted to a string. IObjectClass can also be passed for object parameters.
+async AddEventBlock()
+0
+IEventParentRow
+Add an empty child event block, with no conditions or actions. Returns a promise resolving with the created IEventBlock.
+GetProject()
+0
+IEventSheet
+Return the associated IProject.
+GetName()
+0
+IEventSheet
+Return the name of the event sheet.
+GetRoot()
+0
+IEventSheet
+Return the root node of the event sheet. This is an IEventParentRow representing the top level of the event sheet.
+GetName()
+0
+ILayer
+Return the name of the layer.
+GetProject()
+0
+ILayout
+Return the associated IProject.
+GetName()
+0
+ILayout
+Return the name of the layout.
+GetEventSheet()
+0
+ILayout
+Return the IEventSheet assigned for this layout. Note that layouts do not have to have an event sheet assigned, so this can return null.
+GetName()
+0
+IProject
+Return the project name.
+GetRuntime()
+0
+IProject
+Return the runtime the project is set to use - either "c2" for the legacy C2 runtime or "c3" for the modern C3 runtime.
+CreateObjectType(pluginId, name)
+0
+IProject
+Add a new object type to the project. Returns a promise that resolves with an IObjectType representing the new object type. See Finding addon IDs to get a list of possible plugin IDs that can be used. name is the requested name to use for the object type. If the name is free, it will be used directly; however if the name is already in use, Construct will change the name to one which is available. Call GetName() on the returned IObjectType to determine what name it was assigned.
+GetSystemType()
+0
+IProject
+Return an IObjectType representing the System plugin, which exists in every project.
+GetSingleGlobalObjectType(pluginId)
+0
+IProject
+Return an IObjectType representing a single-global plugin in the project. Returns null if the given plugin ID does not exist, is not a single-global plugin, or the plugin has not been added to the project. See Finding addon IDs to get a list of possible plugin IDs that can be used.
+CreateFamily(name, members)
+0
+IProject
+Create a new family in the project. name is an optional family name (pass null to use a default name). members must be an array of IObjectType representing the object types to add to the family. Families must be created with at least one object type, and if they have multiple object types, they must all be from the same kind of plugin (e.g. all Sprites). Returns an IFamily representing the created family.
+AddOrReplaceProjectFile(blob, filename, kind = "general")
+0
+IProject
+Create a new project file in the project, or replace the content of the file if it already exists, using a Blob for the file content and a string for the filename. The kind defaults to "general", which causes the file to be placed in the "Files" folder in the Project Bar. Other options are "sound", "music", "video", "font" and "icon".
+ShowImportAudioDialog(fileList)
+0
+IProject
+Bring up the Import audio dialog to import a list of audio files given in fileList. This will automatically transcode the audio files to WebM Opus (when supported for the audio formats), which is the main format Construct uses. Prefer importing PCM WAV files to ensure transcoding is supported and is lossless. The file list should be an array of Blob or File; if blobs, then ensure a name property is assigned to the blob object to indicate the intended filename.
+EnsureFontLoaded(f)
+0
+IProject
+Make sure a given font name is loaded so it can be used when drawing text. This is necessary for plugins that render text.
+UndoPointChangeObjectInstancesProperty(instances, propertyId)
+0
+IProject
+Create a new undo point that undoes changes to propertyId. instances must be either an IObjectInstance or an array of IObjectInstance. Call this method before changing an instance's property value and the action will be undoable.
+GetObjectType()
 0
 IAnimation
 Return the IObjectType that this animation belongs to.
@@ -334,3 +930,279 @@ ApplyBlendMode(iRenderer)
 0
 IWorldInstance
 Sets the current blend mode of the given IWebGLRenderer according to the Blend mode property of the instance in Construct. This is only elevant if the plugin specifies that it supports effects. Use this in the Draw() method to set the correct blend mode.
+GetProject()
+0
+ILayoutView
+Return the IProject representing the project associated with this Layout View.
+GetLayout()
+0
+ILayoutView
+Return an ILayout representing the layout in the project model that this Layout View is showing.
+GetActiveLayer()
+0
+ILayoutView
+Return an ILayer representing the current active layer selected in this Layout View.
+GetZoomFactor()
+0
+ILayoutView
+Return the current zoom factor of the Layout View. For example 1 represents 100% zoom, 0.5 represents 50% zoom, etc.
+LayoutToClientDeviceX(x)
+0
+ILayoutView
+Convert from layout co-ordinates to device pixel co-ordinates in the layout view canvas. This is useful for rendering at device pixel sizes after calling SetDeviceTransform().
+LayoutToClientDeviceY(y)
+0
+ILayoutView
+Convert from layout co-ordinates to device pixel co-ordinates in the layout view canvas. This is useful for rendering at device pixel sizes after calling SetDeviceTransform().
+SetDeviceTransform(iRenderer)
+0
+ILayoutView
+Set the given IWebGLRenderer to a device pixel co-ordinate transform. This means co-ordinates used for rendering are based on device pixel co-ordinates relative to the layout view canvas, rather than layout co-ordinates.
+SetDefaultTransform(iRenderer)
+0
+ILayoutView
+Set the given IWebGLRenderer to a layout co-ordinate transform. This is the default and should be restored after using SetDeviceTransform().
+Refresh()
+0
+ILayoutView
+Schedules the layout view to be redrawn at the next animation frame. Avoid unnecessarily refreshing the layout view, such as refreshing on a timer, since this can waste battery life.
+AddDragDropFileHandler(callback, opts)
+0
+UI.Util
+Register a callback for handling files drag-and-dropped in to the Construct 3 window. This is part of the Custom Importer API, allowing addons to handle importing files in a custom format. The given callback is invoked when a file is dropped in to the Construct 3 window, providing nothing else has handled it first. The callback must return a promise that resolves with true if the drop was recognised and imported, otherwise false if the drop was not recognised as a supported format (in which case Construct will continue running other handlers).
+static ShowLongTextPropertyDialog(text, caption)
+0
+UI.Util
+Show the same dialog used to edit longtext properties. This is simply a large multi-line text field in a dialog, allowing for long text strings to be more conveniently edited, since the Properties Bar often can only show a small amount of text. Returns a promise that resolves with null if the dialog was cancelled, else a string of the text in the dialog.
+C3SDK_ListAddonIDs(addonType)
+0
+SDK
+method lists all installed addon IDs in the editor. The addonType parameter must be "plugin" or "behavior". For example, load Construct 3 in a browser, open the browser console (usually F12), and enter the following call to list all plugin IDs
+C3SDK_ListACEIDs(addonType, addonId, aceType)
+0
+SDK
+addonType: as before, either "plugin" or "behavior", addonId: the ID of the addon, which can be found using C3SDK_ListAddonIDs(), aceType: one of "actions", "conditions" or "expressions", determining which to list.
+SetName(name)
+0
+IBehaviorInfo
+Set the name of the addon. Typically this is read from the language file.
+SetDescription(description)
+0
+IBehaviorInfo
+Set the description of the addon. Typically this is read from the language file.
+SetVersion(version)
+0
+IBehaviorInfo
+Set the version string of the addon, in A.B.C.D form. Typically this is set to the BEHAVIOR_VERSION constant.
+SetCategory(category)
+0
+IBehaviorInfo
+Set the category of the addon. Typically this is set to the BEHAVIOR_CATEGORY constant. It must be one of "attributes", "general", "movements", "other".
+SetAuthor(author)
+0
+IBehaviorInfo
+Set a string identifying the author of the addon.
+SetHelpUrl(url)
+0
+IBehaviorInfo
+Set a string specifying a URL where the user can view help and documentation resources for the addon.
+SetIcon(url, type)
+0
+IBehaviorInfo
+Set the addon icon URL and type. By default the URL is "icon.svg" and the type is "image/svg+xml". It is recommended to leave this at the default and use an SVG icon, since it will scale well to any display size or density. However you can change your addon to load a PNG icon with SetIcon("icon.png", "image/png").
+SetIsOnlyOneAllowed(isOnlyOneAllowed)
+0
+IBehaviorInfo
+Set a boolean of whether the behavior is allowed to be added more than once to the same object. The default is false, which means the behavior can be added multiple times to the same object. Set to true to only allow it to be added once to each object.
+SetIsDeprecated(isDeprecated)
+0
+IBehaviorInfo
+Set a boolean of whether the addon is deprecated or not. If you wish to replace your addon with another one, the old one can be deprecated with SetIsDeprecated(true). This makes it invisible in the editor so it cannot be used in new projects; however old projects with the addon already added can continue to load and work as they did before. This discourages use of the deprecated addon without breaking existing projects that use it.
+SetCanBeBundled(canBeBundled)
+0
+IBehaviorInfo
+Pass false to prevent the addon from being bundled via the Bundle addons project property. By default all addons may be bundled with a project, and it is recommended to leave this enabled for best user convenience. However if you publish a commercial addon and want to prevent it being distributed by project-bundling, you may wish to disable this.
+SetProperties(propertiesArray)
+0
+IBehaviorInfo
+Set the available addon properties by passing an array of PluginProperty. See Configuring Behaviors for more information.
+AddCordovaPluginReference(opts)
+0
+IBehaviorInfo
+Add a dependency on a Cordova plugin, that will be included when using the Cordova exporter. For more information see Specifying dependencies.
+AddFileDependency(opts)
+0
+IBehaviorInfo
+Add a dependency on another file included in the addon. For more information see Specifying dependencies.
+AddRemoteScriptDependency(url) 
+0
+IBehaviorInfo
+(Not recommended) Add a script dependency to a remote URL (on a different origin). For more information see Specifying dependencies.
+SetSupportedRuntimes(arr)
+0
+IBehaviorInfo
+Specify which runtimes the behavior supports as an array of strings. Valid runtime strings are either "c2" or "c3". For more information see Runtime scripts.
+SetName(name)
+0
+IPluginInfo
+Set the name of the addon. Typically this is read from the language file.
+SetDescription(description)
+0
+IPluginInfo
+Set the description of the addon. Typically this is read from the language file.
+SetVersion(version)
+0
+IPluginInfo
+Set the version string of the addon, in A.B.C.D form. Typically this is set to the PLUGIN_VERSION constant.
+SetCategory(category)
+0
+IPluginInfo
+Set the category of the addon. Typically this is set to the PLUGIN_CATEGORY constant. It must be one of "data-and-storage", "form-controls", "general", "input", "media", "monetisation", "platform-specific", "web", "other".
+SetAuthor(author)
+0
+IPluginInfo
+Set a string identifying the author of the addon.
+SetHelpUrl(url)
+0
+IPluginInfo
+Set a string specifying a URL where the user can view help and documentation resources for the addon. The website should be hosted with HTTPS.
+SetPluginType(type)
+0
+IPluginInfo
+Set the plugin type. This can be "object" or "world". The world typeh represents a plugin that appears in the Layout View, whereas the object type represents a hidden plugin, similar to the Audio plugin (a single-global type) or Dictionary. World type plugins must derive from SDK.IWorldInstanceBase instead of SDK.IInstanceBase and implement a Draw() method.
+SetIcon(url, type)
+0
+IPluginInfo
+Set the addon icon URL and type. By default the URL is "icon.svg" and the type is "image/svg+xml". It is recommended to leave this at the default and use an SVG icon, since it will scale well to any display size or density. However you can change your addon to load a PNG icon with SetIcon("icon.png", "image/png").
+SetIsResizable(isResizable)
+0
+IPluginInfo
+For "world" type plugins only. Pass true to enable resizing instances in the Layout View.
+SetIsRotatable(isRotatable)
+0
+IPluginInfo
+For "world" type plugins only. Pass true to enable the Angle property and rotating instances in the Layout View.
+SetHasImage(hasImage)
+0
+IPluginInfo
+For "world" type plugins only. Pass true to add a single editable image, such as used by the Tiled Background plugin.
+SetDefaultImageURL(url)
+0
+IPluginInfo
+For plugins that use a single editable image only. Set the URL to an image file in your addon to use as the default image when the object is added to a project, e.g. "default.png".
+SetIsTiled(isTiled)
+0
+IPluginInfo
+For "world" type plugins only. Pass true to indicate that the image is intended to be tiled. This adjusts the texture wrapping mode when Construct creates a texture for its image.
+SetIsDeprecated(isDeprecated)
+0
+IPluginInfo
+Set a boolean of whether the addon is deprecated or not. If you wish to replace your addon with another one, the old one can be deprecated with SetIsDeprecated(true). This makes it invisible in the editor so it cannot be used in new projects; however old projects with the addon already added can continue to load and work as they did before. This discourages use of the deprecated addon without breaking existing projects that use it.
+SetIsSingleGlobal(isSingleGlobal)
+0
+IPluginInfo
+Pass true to set the plugin to be a single-global type. The plugin type must be "object". Single-global plugins can only be added once to a project, and they then have a single permanent global instance available throughout the project. This is the mode that plugins like Touch and Audio use.
+SetSupportsEffects(supportsEffects)
+0
+IPluginInfo
+Pass true to allow using effects, including the Blend mode property, with this plugin. The plugin type must be "world". If the plugin does not simply draw a texture the size of the object (as Sprite does), you should also call SetMustPreDraw(true).
+SetMustPreDraw(mustPreDraw)
+0
+IPluginInfo
+Pass true to disable an optimisation in the effects engine for objects that simply draw a texture the size of the object (e.g. Sprite). This is necessary for effects to render correctly if the plugin draws anything other than the equivalent the Sprite plugin would.
+SetCanBeBundled(canBeBundled)
+0
+IPluginInfo
+Pass false to prevent the addon from being bundled via the Bundle addons project property. By default all addons may be bundled with a project, and it is recommended to leave this enabled for best user convenience. However if you publish a commercial addon and want to prevent it being distributed by project-bundling, you may wish to disable this.
+AddCommonPositionACEs()
+0
+IPluginInfo
+Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin.
+AddCommonSizeACEs()
+0
+IPluginInfo
+Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin.
+AddCommonAngleACEs()
+0
+IPluginInfo
+Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin.
+AddCommonAppearanceACEs()
+0
+IPluginInfo
+Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin.
+AddCommonZOrderACEs()
+0
+IPluginInfo
+Add common built-in sets of actions, conditions and expressions (ACEs) to the plugin.
+SetProperties(propertiesArray)
+0
+IPluginInfo
+Set the available addon properties by passing an array of PluginProperty. See Configuring Plugins for more information.
+AddCordovaPluginReference(opts)
+0
+IPluginInfo
+Add a dependency on a Cordova plugin, that will be included when using the Cordova exporter. For more information see Specifying dependencies.
+AddFileDependency(opts)
+0
+IPluginInfo
+Add a dependency on another file included in the addon. For more information see Specifying dependencies.
+AddRemoteScriptDependency(url)
+0
+IPluginInfo
+(Not recommended) Add a script dependency to a remote URL (on a different origin). For more information see Specifying dependencies.
+SetUsesJquery(usesJquery)
+0
+IPluginInfo
+Pass true and Construct 3 will include a legacy jQuery dependency. This can help when porting Construct 2 plugins to Construct 3. The jQuery dependency is deprecated - please remove any jQuery dependencies from your addons. See youmightnotneedjquery.com for alternatives.
+SetSupportedRuntimes(arr)
+0
+IPluginInfo
+Specify which runtimes the behavior supports as an array of strings. Valid runtime strings are either "c2" or "c3". For more information see Runtime scripts.
+SetDOMSideScripts(arr) 
+0
+IPluginInfo
+Specify an array of script paths to load in the main document context rather than the runtime context. For more information see the section DOM calls in the C3 runtime in Runtime scripts.
+this._sdkType
+13
+IInstanceBase
+Reference to the associated SDK type class.
+this._inst
+13
+IInstanceBase
+Reference to the IObjectInstance interface, or IWorldInstance interface for "world" type plugins, representing this instance in the editor. This allows access to Construct's built-in features for instances.
+this._sdkType
+13
+IWorldInstanceBase
+Reference to the associated SDK type class.
+this._inst
+13
+IWorldInstanceBase
+Reference to the IObjectInstance interface, or IWorldInstance interface for "world" type plugins, representing this instance in the editor. This allows access to Construct's built-in features for instances.
+SDK.Color()
+0
+SDK
+A Color can be constructed with no parameters, which defaults all components to zero, or with given RGBA components.
+SDK.Color(r, g, b, a)
+0
+SDK
+A Color can be constructed with no parameters, which defaults all components to zero, or with given RGBA components.
+SDK.Quad()
+13
+SDK
+A Quad can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for each point. The naming convention is tl for the "top-left" point, tr for the "top-right" point, br for the "bottom-right" point, and bl for the "bottom-left" point, followed by "x" or "y" for each component of the point. Note that the points can appear at any orientation for rotated quads; the names only correspond to their actual position when the quad is set to an unrotated rectangle.
+SDK.Quad(tlx, tly, trx, try_, brx, bry, blx, bly)
+13
+SDK
+A Quad can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for each point. The naming convention is tl for the "top-left" point, tr for the "top-right" point, br for the "bottom-right" point, and bl for the "bottom-left" point, followed by "x" or "y" for each component of the point. Note that the points can appear at any orientation for rotated quads; the names only correspond to their actual position when the quad is set to an unrotated rectangle.
+SDK.Rect();
+13
+SDK
+A Rect can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for the left, top, right and bottom positions
+SDK.Rect(left, top, right, bottom);
+13
+SDK
+A Rect can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for the left, top, right and bottom positions
+UI.Util
+13
+SDK
+interface provides access to various user interface utilities in the SDK.

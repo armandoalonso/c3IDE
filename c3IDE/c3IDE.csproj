@@ -144,6 +144,7 @@
     <Compile Include="Utilities\CodeCompletion\CodeCompletionFactory.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\ICompletionBindings.cs" />
     <Compile Include="Utilities\HashSetExtension.cs" />
+    <Compile Include="Utilities\JavascriptParser.cs" />
     <Compile Include="Utilities\JsBeautifier\Beautifier.cs" />
     <Compile Include="Utilities\JsBeautifier\BeautifierFlags.cs" />
     <Compile Include="Utilities\JsBeautifier\BeautifierOptions.cs" />

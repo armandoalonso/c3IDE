@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.DataAccess;
+using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
@@ -36,7 +37,7 @@ namespace c3IDE.Windows
         private void EditTimeInstanceTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
-            var tokenList = CodeCompletionFactory.Insatnce.ParseJavascriptDocument(EditTimeInstanceTextEditor.Text);
+            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(EditTimeInstanceTextEditor.Text);
             //add matching closing symbol
             switch (e.Text)
             {

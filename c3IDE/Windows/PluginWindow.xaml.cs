@@ -25,6 +25,7 @@ namespace c3IDE.Windows
         public PluginWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
 
             EditTimePluginTextEditor.TextArea.TextEntering += EditTimePluginTextEditor_TextEntering;
             EditTimePluginTextEditor.TextArea.TextEntered += EditTimePluginTextEditor_TextEntered;
@@ -33,9 +34,9 @@ namespace c3IDE.Windows
         private void EditTimePluginTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if(string.IsNullOrWhiteSpace(e.Text)) return;
-            var tokenList = CodeCompletionFactory.Insatnce.ParseJavascriptDocument(EditTimePluginTextEditor.Text);
-            var methodsTokens = CodeCompletionFactory.Insatnce.ParseJavascriptMethodCalls(EditTimePluginTextEditor.Text);
-            var allTokens = CodeCompletionFactory.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.EdittimeJavascript);
+            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(EditTimePluginTextEditor.Text);
+            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptMethodCalls(EditTimePluginTextEditor.Text);
+            var allTokens = JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.EdittimeJavascript);
 
             //add matching closing symbol
             switch (e.Text)
