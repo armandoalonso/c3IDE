@@ -1,0 +1,29 @@
+"use strict";
+{
+	const BEHAVIOR_CLASS = SDK.Behaviors.{{company}}_{{class}};
+	
+	BEHAVIOR_CLASS.Instance = class {{class}}Instance extends SDK.IBehaviorInstanceBase
+	{
+		constructor(sdkBehType, behInst)
+		{
+			super(sdkBehType, behInst);
+		}
+		
+		Release()
+		{
+		}
+		
+		OnCreate()
+		{
+		}
+		
+		OnPropertyChanged(id, value)
+		{
+		}
+		
+		LoadC2Property(name, valueString)
+		{
+			return false;		// not handled
+		}
+	};
+}

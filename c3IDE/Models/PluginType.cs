@@ -11,6 +11,6 @@ namespace c3IDE.Models
         SingleGlobalPlugin,
         MultiInstance,
         DrawingPlugin,
-        //Behavior
+        Behavior
     }
 }

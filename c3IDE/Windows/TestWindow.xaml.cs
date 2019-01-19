@@ -59,10 +59,10 @@ namespace c3IDE.Windows
                 return;
             }
 
-            UrlTextBox.Text = "http://localhost:8080/addon.json";
+            UrlTextBox.Text = $"http://localhost:8080/{AppData.Insatnce.CurrentAddon.Class.ToLower()}/addon.json";
 
             //add url to clipboard
-            Clipboard.SetText("http://localhost:8080/addon.json");
+            Clipboard.SetText(UrlTextBox.Text);
         }
 
         public void StopWebServerButton_Click(object sender, RoutedEventArgs e)

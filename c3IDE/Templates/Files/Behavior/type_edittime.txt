@@ -1,0 +1,12 @@
+"use strict";
+{
+	const BEHAVIOR_CLASS = SDK.Behaviors.{{company}}_{{class}};
+	
+	BEHAVIOR_CLASS.Type = class {{class}}Type extends SDK.IBehaviorTypeBase
+	{
+		constructor(sdkPlugin, iBehaviorType)
+		{
+			super(sdkPlugin, iBehaviorType);
+		}
+	};
+}

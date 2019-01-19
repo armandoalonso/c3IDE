@@ -1,0 +1,19 @@
+"use strict";
+{
+	C3.Behaviors.{{company}}_{{class}}.Type = class {{class}}Type extends C3.SDKBehaviorTypeBase
+	{
+		constructor(objectClass)
+		{
+			super(objectClass);
+		}
+		
+		Release()
+		{
+			super.Release();
+		}
+		
+		OnCreate()
+		{	
+		}
+	};
+}

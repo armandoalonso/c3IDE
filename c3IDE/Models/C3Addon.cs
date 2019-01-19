@@ -22,6 +22,8 @@ namespace c3IDE.Models
         public string Author { get; set; }
         public string Version { get; set; }
         public string Description { get; set; }
+        public string AddonFolder { get; set; }
+
         public PluginType Type { get; set; }
         //public string IconBase64 { get; set; }
         public string IconXml { get; set; }

@@ -52,7 +52,7 @@ namespace c3IDE
 
             //load data
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
-            AppData.Insatnce.CurrentAddon = AppData.Insatnce.AddonList.Any() ? AppData.Insatnce.AddonList.OrderBy(x => x.LastModified).FirstOrDefault() : null;
+            AppData.Insatnce.CurrentAddon = null;
             AppData.Insatnce.ShowDialog = ShowDialogBox;
             AppData.Insatnce.ShowInputDialog = ShowInputDialogBox;
 
@@ -130,38 +130,47 @@ namespace c3IDE
                     _dashboardWindow.OnEnter();
                     break;
                 case "Addon":
+                    if(!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _addonWindow;
                     _addonWindow.OnEnter();
                     break;
                 case "Plugin":
+                    if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _pluginWindow;
                     _pluginWindow.OnEnter();
                     break;
                 case "Type":
+                    if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _typeWindow;
                     _typeWindow.OnEnter();
                     break;
                 case "Instance":
+                    if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _instanceWindow;
                     _instanceWindow.OnEnter();
                     break;
                 case "Actions":
+                    if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _actionWindow;
                     _actionWindow.OnEnter();
                     break;
                 case "Conditions":
+                    if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _conditionWindow;
                     _conditionWindow.OnEnter();
                     break;
                 case "Expressions":
+                    if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _expressionWindow;
                     _expressionWindow.OnEnter();
                     break;
                 case "Language":
+                    if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _languageWindow;
                     _languageWindow.OnEnter();
                     break;
                 case "Test":
+                    if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _testWidnow;
                     _testWidnow.OnEnter();
                     break;
@@ -223,8 +232,8 @@ namespace c3IDE
             if (AppData.Insatnce.CurrentAddon != null)
             {
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+                OpenNotification($"Saved {AppData.Insatnce.CurrentAddon.Name} successfully.");
             }
-            //TODO: add flyout for notifications
         }
 
         public async Task<bool> ShowDialogBox(string title, string message)
@@ -249,6 +258,17 @@ namespace c3IDE
         {
             ErrorNotificationFlyOut.IsOpen = true;
             ErrorNotification.Text = text;
+        }
+
+        private bool _checkForLoadedAddon()
+        {
+            if (AppData.Insatnce.CurrentAddon == null)
+            {
+                OpenErrorNotification($"No addon loaded. Please load addon from dashboard.");
+                return false;
+            }
+
+            return true;
         }
     }
 }

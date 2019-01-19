@@ -34,26 +34,13 @@ namespace c3IDE.Windows
             IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
             AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml)); //ImageHelper.Insatnce.Base64ToBitmap(defaultIcon);
             AddonTypeDropdown.ItemsSource = Enum.GetValues(typeof(PluginType));
-            AddonTypeDropdown.SelectedIndex = 0;
+            AddonTypeDropdown.SelectedIndex = -1;
             ResetInputs();
         }
 
         public void OnEnter()
         {
             AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
-
-            if (AppData.Insatnce.CurrentAddon != null)
-            {
-                AddonListBox.SelectedItem = AppData.Insatnce.CurrentAddon;
-            }
-            else
-            {
-                
-            }
-
-            //select most recent addon
-            AddonListBox.SelectedIndex = AppData.Insatnce.AddonList.Count - 1;
-
         }
 
         public void OnExit()

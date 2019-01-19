@@ -20,6 +20,8 @@ namespace c3IDE.Templates
                     return new MultiInstancePluginTemplate();
                 case PluginType.DrawingPlugin:
                     return new DrawingPluginTemplate();
+                case PluginType.Behavior:
+                    return new BehaviorTemplate();
             }
 
             throw new InvalidOperationException("Not Valid Plugin Type");

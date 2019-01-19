@@ -1,0 +1,47 @@
+"use strict";
+{
+	C3.Behaviors.{{company}}_{{class}}.Instance = class {{class}}Instance extends C3.SDKBehaviorInstanceBase
+	{
+		constructor(behInst, properties)
+		{
+			super(behInst);
+			
+			this._testProperty = 0;
+			
+			if (properties)
+			{
+				this._testProperty = properties[0];
+			}
+
+			// Opt-in to getting calls to Tick()
+			//this._StartTicking();
+		}
+		
+		Release()
+		{
+			super.Release();
+		}
+		
+		SaveToJson()
+		{
+			return {
+				// data to be saved for savegames
+			};
+		}
+		
+		LoadFromJson(o)
+		{
+			// load state for savegames
+		}
+
+		/*
+		Tick()
+		{
+			const dt = this._runtime.GetDt(this._inst);
+			const wi = this._inst.GetWorldInfo();
+			
+			// ... code to run every tick for this behavior ...
+		}
+		*/
+	};
+}
