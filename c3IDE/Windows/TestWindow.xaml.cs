@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.Compiler;
 using c3IDE.Windows.Interfaces;
+using MahApps.Metro.Controls;
+using Utils = c3IDE.Utilities.Utils;
 
 namespace c3IDE.Windows
 {
@@ -56,6 +59,8 @@ namespace c3IDE.Windows
                 return;
             }
 
+            UrlTextBox.Text = "http://localhost:8080/addon.json";
+
             //add url to clipboard
             Clipboard.SetText("http://localhost:8080/addon.json");
         }
@@ -81,6 +86,16 @@ namespace c3IDE.Windows
         public void OnExit()    
         {
             
+        }
+
+        private void OpenConstructButton_Click(object sender, RoutedEventArgs e)
+        {
+            Utils.Insatnce.StartProcess("chrome.exe","https://editor.construct.net/");   
+        }
+
+        private void OpenConstructSafeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Utils.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/?safe-mode");
         }
     }
 }

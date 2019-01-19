@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using c3IDE.Models;
 using c3IDE.Utilities;
 using uhttpsharp.Listeners;
+using Action = System.Action;
 
 namespace c3IDE
 {
@@ -23,5 +24,7 @@ namespace c3IDE
 
         public Action<string> InfoMessage { get; set; }
         public Action<string> ErrorMessage { get; set; }
+
+        public Action<string> LoadAddon { get; set; }
     }
 }

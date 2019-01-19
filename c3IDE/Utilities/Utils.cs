@@ -30,5 +30,10 @@ namespace c3IDE.Utilities
         {
             Process.Start(process);
         }
+
+        public void StartProcess(string process, string args)
+        {
+            Process.Start(process, args);
+        }
     }
 }

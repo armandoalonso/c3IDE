@@ -48,6 +48,7 @@ namespace c3IDE
             //bind notification container
             AppData.Insatnce.InfoMessage = OpenNotification;
             AppData.Insatnce.ErrorMessage = OpenErrorNotification;
+            AppData.Insatnce.LoadAddon = s => { this.Title = $"C3IDE - {s}"; }; 
 
             //load data
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
@@ -80,7 +81,8 @@ namespace c3IDE
 
             if (clickedLabel == "SDK Help")
             {
-                c3IDE.Utilities.Utils.Insatnce.StartProcess("https://www.construct.net/en/make-games/manuals/addon-sdk");
+                c3IDE.Utilities.Utils.Insatnce.StartProcess("chrome.exe","https://www.construct.net/en/make-games/manuals/addon-sdk");
+                return;
             }
 
             //execute on exit

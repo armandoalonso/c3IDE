@@ -164,6 +164,7 @@ namespace c3IDE.Windows
 
             AppData.Insatnce.CurrentAddon = currentAddon;
             AppData.Insatnce.InfoMessage($"{currentAddon.Name} loaded successfully");
+            AppData.Insatnce.LoadAddon(AppData.Insatnce.CurrentAddon.Name);
         }
 
         private void RemoveAddonButton_OnClick(object sender, RoutedEventArgs e)
@@ -204,6 +205,7 @@ namespace c3IDE.Windows
 
             AppData.Insatnce.CurrentAddon = currentAddon;
             AppData.Insatnce.InfoMessage($"{currentAddon.Name} loaded successfully");
+            AppData.Insatnce.LoadAddon(AppData.Insatnce.CurrentAddon.Name);
         }
 
         private void ExportAddonButton_OnClick(object sender, RoutedEventArgs e)

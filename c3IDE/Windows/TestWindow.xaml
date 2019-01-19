@@ -17,10 +17,18 @@
         </DockPanel>
 
 
-        <StackPanel Grid.Column="1">
-            <Button Name="StartAndTestButton" Content="Test C3 Addon" Margin="10" Click="TestC3AddonButton_Click" ></Button>
-            <Button Name="StopWebServerButton" Content="Stop Web Server" Margin="10" Click="StopWebServerButton_Click" IsEnabled="False"></Button>
-            <Button Name="OpenCompiledFOlder" Content="Open Compiled Folder" Margin="10" Click="OpenCompiledFolderButton_Click" ></Button>
-        </StackPanel>
+        <DockPanel Grid.Column="1" LastChildFill="False">
+            <Button Name="StartAndTestButton" Content="Test C3 Addon" Margin="10" Click="TestC3AddonButton_Click" DockPanel.Dock="Top"></Button>
+            <Button Name="StopWebServerButton" Content="Stop Web Server" Margin="10" Click="StopWebServerButton_Click" IsEnabled="False" DockPanel.Dock="Top"></Button>
+            <Button Name="OpenCompiledFOlder" Content="Open Compiled Folder" Margin="10" Click="OpenCompiledFolderButton_Click" DockPanel.Dock="Top" ></Button>
+            <UniformGrid Columns="2" DockPanel.Dock="Top">
+                <Button Name="OpenConstructButton" Content="Open Construct" Margin="10" Click="OpenConstructButton_Click" ></Button>
+                <Button Name="OpenConstructSafeButton" Content="Open Construct (Safe)" Margin="10" Click="OpenConstructSafeButton_Click" ></Button>
+            </UniformGrid>
+
+            <TextBox Name="UrlTextBox" DockPanel.Dock="Bottom" Margin="10"/>
+            <TextBlock DockPanel.Dock="Bottom" Style="{StaticResource TextBlockStyle}" Margin="10,0">Addon URL :</TextBlock>
+
+        </DockPanel>
     </Grid>
 </UserControl>
