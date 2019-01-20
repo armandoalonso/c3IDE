@@ -139,19 +139,7 @@ namespace c3IDE.Windows
 
             var currentAddon = (C3Addon) AddonListBox.SelectedItem;
             currentAddon.LastModified = DateTime.Now;
-
-            AddonNameText.Text = currentAddon.Name;
-            AddonClassText.Text = currentAddon.Class;
-            CompanyNameText.Text = currentAddon.Company;
-            AuthorText.Text = currentAddon.Author;
-            VersionText.Text = currentAddon.Version;
-            AddonTypeDropdown.Text = currentAddon.Type.ToString();
-            DescriptionText.Text = currentAddon.Description;
-            AddonIcon.Source = currentAddon.IconImage;
-
-            AppData.Insatnce.CurrentAddon = currentAddon;
-            AppData.Insatnce.InfoMessage($"{currentAddon.Name} loaded successfully");
-            AppData.Insatnce.LoadAddon(AppData.Insatnce.CurrentAddon.Name);
+            LoadAddon(currentAddon);
         }
 
         private void RemoveAddonButton_OnClick(object sender, RoutedEventArgs e)
@@ -181,18 +169,7 @@ namespace c3IDE.Windows
 
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
             currentAddon.LastModified = DateTime.Now;
-
-            AddonNameText.Text = currentAddon.Name;
-            AddonClassText.Text = currentAddon.Class;
-            CompanyNameText.Text = currentAddon.Company;
-            AuthorText.Text = currentAddon.Author;
-            VersionText.Text = currentAddon.Version;
-            AddonTypeDropdown.Text = currentAddon.Type.ToString();
-            AddonIcon.Source = currentAddon.IconImage;
-
-            AppData.Insatnce.CurrentAddon = currentAddon;
-            AppData.Insatnce.InfoMessage($"{currentAddon.Name} loaded successfully");
-            AppData.Insatnce.LoadAddon(AppData.Insatnce.CurrentAddon.Name);
+            LoadAddon(currentAddon);
         }
 
         private void ExportAddonButton_OnClick(object sender, RoutedEventArgs e)
@@ -261,6 +238,22 @@ namespace c3IDE.Windows
         private void ClearInputsButton_OnClick(object sender, RoutedEventArgs e)
         {
             ResetInputs();
+        }
+
+        private void LoadAddon(C3Addon currentAddon)
+        {
+            AddonNameText.Text = currentAddon.Name;
+            AddonClassText.Text = currentAddon.Class;
+            CompanyNameText.Text = currentAddon.Company;
+            AuthorText.Text = currentAddon.Author;
+            VersionText.Text = currentAddon.Version;
+            AddonTypeDropdown.Text = currentAddon.Type.ToString();
+            DescriptionText.Text = currentAddon.Description;
+            AddonIcon.Source = currentAddon.IconImage;
+
+            AppData.Insatnce.CurrentAddon = currentAddon;
+            AppData.Insatnce.InfoMessage($"{currentAddon.Name} loaded successfully");
+            AppData.Insatnce.LoadAddon(AppData.Insatnce.CurrentAddon.Name);
         }
     }
 }

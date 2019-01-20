@@ -72,7 +72,7 @@
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>
 
-    <Grid>
+    <Grid Name="MainGrid">
         <mah:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}"
                            ItemClick="HambugerMenuItem_Click" OptionsItemClick="HambugerMenuItem_Click" x:Name="MainMenu">
             <mah:HamburgerMenu.ItemsSource>
@@ -99,11 +99,11 @@
             </mah:HamburgerMenu.OptionsItemsSource>
             <mah:HamburgerMenu.Content>
                 <DockPanel>
-                    <Border Background="#FF444444" DockPanel.Dock="Top">
+                    <!--<Border Background="#FF444444" DockPanel.Dock="Top">
                         <TextBlock x:Name="Header" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Foreground="White" Text="{Binding ActiveItem.DisplayName}" />
-                    </Border>
-                    <ScrollViewer Grid.Row="1" CanContentScroll="True" IsDeferredScrollingEnabled="False">
-                        <mah:TransitioningContentControl Transition="LeftReplace" x:Name="ActiveItem" />
+                    </Border>-->
+                    <ScrollViewer Grid.Row="1" CanContentScroll="False" IsDeferredScrollingEnabled="False" VerticalScrollBarVisibility="Hidden">
+                        <mah:TransitioningContentControl Transition="LeftReplace" x:Name="ActiveItem" Height="{Binding ElementName=MainGrid, Path=ActualHeight}"/>
                     </ScrollViewer>
                 </DockPanel>
             </mah:HamburgerMenu.Content>

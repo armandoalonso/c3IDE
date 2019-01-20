@@ -34,6 +34,7 @@
 
                     <DockPanel Grid.Column="0" LastChildFill="True" Margin="10">
                         <Button Name="RemoveFile" Content="Remove File" Margin="2" Click="RemoveFile_OnClick" DockPanel.Dock="Bottom"></Button>
+                        <Button Name="AddFile" Content="Add New File" Margin="2" Click="AddFile_OnClick" DockPanel.Dock="Bottom"></Button>
                         <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black" Style="{StaticResource TextBlockStyle}"> Third Party Files</TextBlock>
                         <ListBox Name="FileListBox" DockPanel.Dock="Top"  Margin="2"  BorderThickness="1" BorderBrush="Black" ItemsSource="{Binding}"  SelectionChanged="FileListBox_OnSelectionChanged" AllowDrop="True"
                                  DragEnter="FileListBox_OnDragEnter" Drop="FileListBox_OnDrop">
@@ -48,13 +49,14 @@
                     </DockPanel>
 
                     <avalonEdit:TextEditor
-                        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                        Name="FileTextEditor"
-                        FontFamily="Consolas"
-                        SyntaxHighlighting="JavaScript"
-                        FontSize="10pt"
-                        ShowLineNumbers="True"
-                        Grid.Column="1" Margin="10"  ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                            xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                            Name="FileTextEditor"
+                            FontFamily="Consolas"
+                            SyntaxHighlighting="JavaScript"
+                            FontSize="10pt"
+                            ShowLineNumbers="True"
+                            Margin="10"
+                            Grid.Column="1">
 
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>

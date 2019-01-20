@@ -32,8 +32,8 @@ namespace c3IDE.Windows
             AddonTextEditor.TextArea.TextEntering += AddonTextEditor_TextEntering;
             AddonTextEditor.TextArea.TextEntered += AddonTextEditor_TextEntered;
 
-            AddonTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-            FileTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            //AddonTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            //FileTextEditor.TextArea.MouseWheel += MouseWheelHandler;
         }
 
         private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
@@ -131,7 +131,7 @@ namespace c3IDE.Windows
                 {
                     FileListBox.SelectedIndex = 0;
                     _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-                    FileTextEditor.Text = _selectedFile.PluginTemplate;
+                    FileTextEditor.Text = _selectedFile.Content;
                 }
             }
             else
@@ -193,11 +193,15 @@ namespace c3IDE.Windows
             //save current selection
             if (_selectedFile != null)
             {
-                _selectedFile.PluginTemplate = FileTextEditor.Text;
+                //todo: determine if i should display file content
+                _selectedFile.Content = FileTextEditor.Text;
                 _files[_selectedFile.FileName] = _selectedFile;
+
                 //load new selection
                 _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-                FileTextEditor.Text = _selectedFile.PluginTemplate;
+
+                //todo: determine if i should display file content
+                FileTextEditor.Text = _selectedFile.Content;
             }
         }
 
@@ -237,7 +241,9 @@ namespace c3IDE.Windows
                     FileListBox.Items.Refresh();
                     FileListBox.SelectedIndex = _files.Count - 1;
                     _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-                    FileTextEditor.Text = _selectedFile.PluginTemplate;
+
+                    //todo: determine if i should display file content
+                    FileTextEditor.Text = _selectedFile.Content;
                 }
             }
             catch (Exception exception)
@@ -245,6 +251,31 @@ namespace c3IDE.Windows
                 Console.WriteLine(exception.Message);
                 AppData.Insatnce.ErrorMessage($"error adding third party file, {exception.Message}");
             }
+        }
+
+        private async void AddFile_OnClick(object sender, RoutedEventArgs e)
+        {
+            var filename = await AppData.Insatnce.ShowInputDialog("New File Name?", "please enter the name for the new javascript file", "javascriptFile.js");
+            if (string.IsNullOrWhiteSpace(filename)) return;
+
+            _files.Add(filename, new ThirdPartyFile
+            {
+                Content = string.Empty,
+                FileName = filename,
+                PluginTemplate = $@"{{
+	filename: ""c3runtime/{filename}"",
+	type: ""inline-script""
+}}"
+            });
+
+            AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
+        ""c3runtime/{filename}"","));
+
+            //add
+            FileListBox.Items.Refresh();
+            FileListBox.SelectedIndex = _files.Count - 1;
+            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
+            FileTextEditor.Text = _selectedFile.Content;
         }
     }
 }

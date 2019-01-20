@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using c3IDE.DataAccess;
 using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
@@ -28,12 +29,14 @@ namespace c3IDE.Windows
             this.DataContext = this;
 
             //handle auto completion when entering text
-            EditTimePluginTextEditor.TextArea.TextEntering += EditTimePluginTextEditor_TextEntering;
+            EditTimePluginTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             EditTimePluginTextEditor.TextArea.TextEntered += EditTimePluginTextEditor_TextEntered;
+            RunTimePluginTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
+            RunTimePluginTextEditor.TextArea.TextEntered += RunTimePluginTextEditor_TextEntered;
 
             //hanlde mouse wheel scrolling
-            EditTimePluginTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-            RunTimePluginTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            //EditTimePluginTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            //RunTimePluginTextEditor.TextArea.MouseWheel += MouseWheelHandler;
         }
 
         private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
@@ -55,7 +58,7 @@ namespace c3IDE.Windows
         private void EditTimePluginTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if(string.IsNullOrWhiteSpace(e.Text)) return;
-            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(EditTimePluginTextEditor.Text);
+            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(EditTimePluginTextEditor.Text, CodeType.EdittimeJavascript);
             var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptMethodCalls(EditTimePluginTextEditor.Text);
             var allTokens = JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.EdittimeJavascript);
 
@@ -82,7 +85,7 @@ namespace c3IDE.Windows
                     EditTimePluginTextEditor.TextArea.Caret.Offset--;
                     return;
                 case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EdittimeJavascript).Where(x => x.Type == CompletionType.Methods);
+                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EdittimeJavascript).Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules);
                     ShowCompletion(EditTimePluginTextEditor.TextArea, methodsData.ToList());
                     break;
                 default:
@@ -104,7 +107,59 @@ namespace c3IDE.Windows
             }
         }
 
-        private void EditTimePluginTextEditor_TextEntering(object sender, TextCompositionEventArgs e)
+        private void RunTimePluginTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(e.Text)) return;
+            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(RunTimePluginTextEditor.Text, CodeType.RuntimeJavascript);
+            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptMethodCalls(RunTimePluginTextEditor.Text);
+            var allTokens = JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.RuntimeJavascript);
+
+            //add matching closing symbol
+            switch (e.Text)
+            {
+                case "{":
+                    RunTimePluginTextEditor.Document.Insert(RunTimePluginTextEditor.TextArea.Caret.Offset, "}");
+                    RunTimePluginTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "\"":
+                    RunTimePluginTextEditor.Document.Insert(RunTimePluginTextEditor.TextArea.Caret.Offset, "\"");
+                    RunTimePluginTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "[":
+                    RunTimePluginTextEditor.Document.Insert(RunTimePluginTextEditor.TextArea.Caret.Offset, "]");
+                    RunTimePluginTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "(":
+                    RunTimePluginTextEditor.Document.Insert(RunTimePluginTextEditor.TextArea.Caret.Offset, ")");
+                    RunTimePluginTextEditor.TextArea.Caret.Offset--;
+                    return;
+                case ".":
+                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript).Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules);
+                    ShowCompletion(RunTimePluginTextEditor.TextArea, methodsData.ToList());
+                    break;
+                default:
+                    //figure out word segment
+                    var segment = RunTimePluginTextEditor.TextArea.GetCurrentWord();
+                    if (segment == null) return;
+
+                    //get string from segment
+                    var text = RunTimePluginTextEditor.Document.GetText(segment);
+                    if (string.IsNullOrWhiteSpace(text)) return;
+
+                    //filter completion list by string
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    if (data.Any())
+                    {
+                        ShowCompletion(RunTimePluginTextEditor.TextArea, data);
+                    }
+                    break;
+            }
+        }
+
+        private void TextEditor_TextEntering(object sender, TextCompositionEventArgs e)
         {
             if (e.Text.Length > 0 && completionWindow != null)
             {
@@ -127,11 +182,12 @@ namespace c3IDE.Windows
                 //overwrite color due to global style
                 Foreground = new SolidColorBrush(Colors.Black)
             };
-
             var completionData = completionWindow.CompletionList.CompletionData;
             CodeCompletionDecorator.Insatnce.Decorate(ref completionData, completionList); ;
             completionWindow.Width = 250;
-            
+            completionWindow.CompletionList.ListBox.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
+            //todo: change sort of completion types to change sort of list box
+
             completionWindow.Show();
             completionWindow.Closed += delegate { completionWindow = null; };
         }
@@ -215,7 +271,7 @@ namespace c3IDE.Windows
             var template = $@"this._info.AddFileDependency({content});";
 
             EditTimePluginTextEditor.Text =
-                FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PopContext(); // .properties", $"{template}\n\nSDK.Lang.PopContext();		// .properties"));
+                FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PopContext(); //.properties", $"{template}\n\nSDK.Lang.PopContext(); //.properties"));
         }
     }
 }

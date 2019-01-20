@@ -29,6 +29,9 @@ namespace c3IDE.Utilities.CodeCompletion
                 case CodeType.EdittimeJavascript:
                     _bindingCache.Add(type, new EditorJavascriptBinding().Completions);
                     return _bindingCache[type];
+                case CodeType.RuntimeJavascript:
+                    _bindingCache.Add(type, new RunTimeJavascriptBinding().Completions);
+                    return _bindingCache[type];
                 default:
                     return null;
             }
@@ -52,8 +55,23 @@ namespace c3IDE.Utilities.CodeCompletion
                 }
             }
 
-            completionList.AddRange(allList.Where(x => x.Container.Contains("Javascript")));
-            completionList.AddRange(allList.Where(x => x.Container.Contains("SDK")));
+
+            switch (type)
+            {
+                case CodeType.Json:
+                    break;
+                case CodeType.EdittimeJavascript:
+                    completionList.AddRange(allList.Where(x => x.Container.Contains("Javascript")));
+                    completionList.AddRange(allList.Where(x => x.Container.Contains("SDK")));
+                    break;
+                case CodeType.RuntimeJavascript:
+                    completionList.AddRange(allList.Where(x => x.Container.Contains("Javascript")));
+                    completionList.AddRange(allList.Where(x => x.Container.Contains("C3")));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+
             return completionList;
         }
     }

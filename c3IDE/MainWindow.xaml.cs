@@ -244,7 +244,7 @@ namespace c3IDE
 
         public async Task<string> ShowInputDialogBox(string title, string message, string deafultText)
         {
-            var value = await this.ShowInputAsync(title, message, new MetroDialogSettings {DefaultText = deafultText });
+            var value = await this.ShowInputAsync(title, message, new MetroDialogSettings { DefaultText = deafultText });
             return value;
         }
 

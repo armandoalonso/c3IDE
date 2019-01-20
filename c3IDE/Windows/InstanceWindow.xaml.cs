@@ -27,14 +27,19 @@ namespace c3IDE.Windows
     public partial class InstanceWindow : UserControl,IWindow
     {
         private CompletionWindow completionWindow;
+
         public InstanceWindow()
         {
             InitializeComponent();
-            EditTimeInstanceTextEditor.TextArea.TextEntering += EditTimeInstanceTextEditor_TextEntering;
+            EditTimeInstanceTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             EditTimeInstanceTextEditor.TextArea.TextEntered += EditTimeInstanceTextEditor_TextEntered;
+
+            RunTimeInstanceTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
+            RunTimeInstanceTextEditor.TextArea.TextEntered += RunTimeInstanceTextEditor_TextEntered;
+
             //hanlde mouse wheel scrolling
-            EditTimeInstanceTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-            RunTimeInstanceTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            //EditTimeInstanceTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            //RunTimeInstanceTextEditor.TextArea.MouseWheel += MouseWheelHandler;
         }
 
         private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
@@ -56,7 +61,7 @@ namespace c3IDE.Windows
         private void EditTimeInstanceTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
-            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(EditTimeInstanceTextEditor.Text);
+            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(EditTimeInstanceTextEditor.Text, CodeType.EdittimeJavascript);
             var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptMethodCalls(EditTimeInstanceTextEditor.Text);
             var allTokens =
                 JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens,
@@ -87,7 +92,7 @@ namespace c3IDE.Windows
                 case ".":
                     var methodsData = CodeCompletionFactory.Insatnce
                         .GetCompletionData(allTokens, CodeType.EdittimeJavascript)
-                        .Where(x => x.Type == CompletionType.Methods);
+                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules);
                     ShowCompletion(EditTimeInstanceTextEditor.TextArea, methodsData.ToList());
                     break;
                 default:
@@ -110,7 +115,60 @@ namespace c3IDE.Windows
             }
         }
 
-        private void EditTimeInstanceTextEditor_TextEntering(object sender, TextCompositionEventArgs e)
+        private void RunTimeInstanceTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(e.Text)) return;
+            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(RunTimeInstanceTextEditor.Text, CodeType.RuntimeJavascript);
+            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptMethodCalls(RunTimeInstanceTextEditor.Text);
+            var allTokens = JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.RuntimeJavascript);
+
+            //add matching closing symbol
+            switch (e.Text)
+            {
+                case "{":
+                    RunTimeInstanceTextEditor.Document.Insert(RunTimeInstanceTextEditor.TextArea.Caret.Offset, "}");
+                    RunTimeInstanceTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "\"":
+                    RunTimeInstanceTextEditor.Document.Insert(RunTimeInstanceTextEditor.TextArea.Caret.Offset, "\"");
+                    RunTimeInstanceTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "[":
+                    RunTimeInstanceTextEditor.Document.Insert(RunTimeInstanceTextEditor.TextArea.Caret.Offset, "]");
+                    RunTimeInstanceTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "(":
+                    RunTimeInstanceTextEditor.Document.Insert(RunTimeInstanceTextEditor.TextArea.Caret.Offset, ")");
+                    RunTimeInstanceTextEditor.TextArea.Caret.Offset--;
+                    return;
+                case ".":
+                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript)
+                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules);
+                    ShowCompletion(RunTimeInstanceTextEditor.TextArea, methodsData.ToList());
+                    break;
+                default:
+                    //figure out word segment
+                    var segment = RunTimeInstanceTextEditor.TextArea.GetCurrentWord();
+                    if (segment == null) return;
+
+                    //get string from segment
+                    var text = RunTimeInstanceTextEditor.Document.GetText(segment);
+                    if (string.IsNullOrWhiteSpace(text)) return;
+
+                    //filter completion list by string
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    if (data.Any())
+                    {
+                        ShowCompletion(RunTimeInstanceTextEditor.TextArea, data);
+                    }
+                    break;
+            }
+        }
+
+        private void TextEditor_TextEntering(object sender, TextCompositionEventArgs e)
         {
             if (e.Text.Length > 0 && completionWindow != null)
             {
@@ -143,6 +201,7 @@ namespace c3IDE.Windows
         }
 
         public string DisplayName { get; set; } = "Instance";
+
         public void OnEnter()
         {
             EditTimeInstanceTextEditor.Text = AppData.Insatnce.CurrentAddon?.InstanceEditTime;

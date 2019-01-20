@@ -12,8 +12,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <DockPanel Grid.Column="0" LastChildFill="True" VerticalAlignment="Top">
-            <TextBox Name="LogText" TextWrapping="Wrap" Height="700" DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto"/>
+        <DockPanel Grid.Column="0" LastChildFill="True" VerticalAlignment="Stretch">
+            <TextBox Name="LogText" TextWrapping="Wrap" DockPanel.Dock="Top" VerticalAlignment="Stretch" />
         </DockPanel>
 
 

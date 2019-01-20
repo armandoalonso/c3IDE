@@ -136,6 +136,7 @@
     <Compile Include="Templates\BehaviorTemplate.cs" />
     <Compile Include="Templates\DrawingPluginTemplate.cs" />
     <Compile Include="Templates\MultiInstancePluginTemplate.cs" />
+    <Compile Include="Utilities\CodeCompletion\Bindings\RuntimeJavascriptBinding.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\EditorJavascriptBinding.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\JsonBindings.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\MethodInterfaceMapping.cs" />
@@ -289,6 +290,7 @@
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_editor_javascript.json" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_json.json" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\editor_return_type.json" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_runtime_javascript.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

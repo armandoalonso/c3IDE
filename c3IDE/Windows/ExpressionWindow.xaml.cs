@@ -34,9 +34,9 @@ namespace c3IDE.Windows
         public ExpressionWindow()
         {
             InitializeComponent();
-            AceTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-            LanguageTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-            CodeTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            //AceTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            //LanguageTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            //CodeTextEditor.TextArea.MouseWheel += MouseWheelHandler;
         }
 
         private void MouseWheelHandler(object sender, MouseWheelEventArgs e)

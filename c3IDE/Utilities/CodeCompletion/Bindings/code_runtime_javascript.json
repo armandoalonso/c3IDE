@@ -1,0 +1,746 @@
+[
+  {
+    "Text": "true",
+    "Type": 8,
+    "Container": "Javascript",
+    "DescriptionText": ""
+  },
+  {
+    "Text": "false",
+    "Type": 8,
+    "Container": "Javascript",
+    "DescriptionText": ""
+  },
+  {
+    "Text": "self",
+    "Type": 8,
+    "Container": "Javascript",
+    "DescriptionText": ""
+  },
+  {
+    "Text": "this",
+    "Type": 8,
+    "Container": "Javascript",
+    "DescriptionText": ""
+  },
+  {
+    "Text": "C3",
+    "Type": 4,
+    "Container": "C3",
+    "DescriptionText": "The main construct 3 runtime namespace"
+  },
+  {
+    "Text": "Plugins",
+    "Type": 4,
+    "Container": "C3",
+    "DescriptionText": "The plugins namespace contains exposed api for construct 3 plugins"
+  },
+  {
+    "Text": "Behaviors",
+    "Type": 4,
+    "Container": "C3",
+    "DescriptionText": "The plugins namespace contains exposed api for construct 3 behavior"
+  },
+  {
+    "Text": "c3_callFunction(name, params)",
+    "Type": 0,
+    "Container": "C3",
+    "DescriptionText": "When the Function plugin is present in a project, it creates a global function that can be used to invoke a function from JavaScript. Note this function does not exist if the Function plugin is not present in the project, so calling code should check for the existence of the method first. Synchronously trigger the function with the given name in the event system. params is optional and can be omitted if no parameters are to be passed; otherwise it must be an array of the parameters to pass. Parameters may only be string or number primitives - any other types will return as 0 in Construct. If the function in the event system returns a value, it is also returned by this method, and also can only return a string or number primitive."
+  },
+  {
+    "Text": "Array",
+    "Type": 4,
+    "Container": "C3",
+    "DescriptionText": "The built-in Array plugin SDK"
+  },
+  {
+    "Text": "Tilemap",
+    "Type": 4,
+    "Container": "C3",
+    "DescriptionText": "The built-in Tilemap plugin"
+  },
+  {
+    "Text": "Dictionary",
+    "Type": 4,
+    "Container": "C3",
+    "DescriptionText": "The built-in Dictionary plugin SDK"
+  },
+  {
+    "Text": "At(x, y, z)",
+    "Type": 0,
+    "Container": "Array",
+    "DescriptionText": "Retrieve an element from the array at the given X, Y and Z co-ordinates. For one or two dimensional access, pass 0 for the unused components."
+  },
+  {
+    "Text": "Set(x, y, z, val)",
+    "Type": 0,
+    "Container": "Array",
+    "DescriptionText": "Set an element in the array at the given X, Y and Z co-ordinates. For one or two dimensional access, pass 0 for the unused components."
+  },
+  {
+    "Text": "SetSize(w, h, d)",
+    "Type": 0,
+    "Container": "Array",
+    "DescriptionText": "Set the size of the array in up to three dimensions. For one or two dimensional arrays, pass 1 for the unused dimensions. (Note passing 0 for any dimension will create an array with zero elements that cannot store any data.) If the array grows, new elements have the value 0. If the array shrinks, elements are removed."
+  },
+  {
+    "Text": "GetWidth()",
+    "Type": 0,
+    "Container": "Array",
+    "DescriptionText": "Retrieve the current dimensions of the array."
+  },
+  {
+    "Text": "GetHeight()",
+    "Type": 0,
+    "Container": "Array",
+    "DescriptionText": "Retrieve the current dimensions of the array."
+  },
+  {
+    "Text": "GetDepth()",
+    "Type": 0,
+    "Container": "Array",
+    "DescriptionText": "Retrieve the current dimensions of the array."
+  },
+  {
+    "Text": "GetDataMap()",
+    "Type": 0,
+    "Container": "Dictionary",
+    "DescriptionText": "Return the Map which is used as the underlying data storage for the Dictionary object. This allows access to add, change, remove and iterate items."
+  },
+  {
+    "Text": "TILE_FLIPPED_HORIZONTAL",
+    "Type": 8,
+    "Container": "Tilemap",
+    "DescriptionText": "The Tilemap plugin exposes the following flags and masks which can be used to manipulate tile numbers"
+  },
+  {
+    "Text": "TILE_FLIPPED_VERTICAL",
+    "Type": 8,
+    "Container": "Tilemap",
+    "DescriptionText": "The Tilemap plugin exposes the following flags and masks which can be used to manipulate tile numbers"
+  },
+  {
+    "Text": "TILE_FLIPPED_DIAGONAL",
+    "Type": 8,
+    "Container": "Tilemap",
+    "DescriptionText": "The Tilemap plugin exposes the following flags and masks which can be used to manipulate tile numbers"
+  },
+  {
+    "Text": "TILE_FLAGS_MASK",
+    "Type": 8,
+    "Container": "Tilemap",
+    "DescriptionText": "The Tilemap plugin exposes the following flags and masks which can be used to manipulate tile numbers"
+  },
+  {
+    "Text": "TILE_ID_MASK",
+    "Type": 8,
+    "Container": "Tilemap",
+    "DescriptionText": "The Tilemap plugin exposes the following flags and masks which can be used to manipulate tile numbers"
+  },
+  {
+    "Text": "GetTileWidth()",
+    "Type": 0,
+    "Container": "Tilemap",
+    "DescriptionText": "Get the size of a tile in pixels."
+  },
+  {
+    "Text": "GetTileHeight()",
+    "Type": 0,
+    "Container": "Tilemap",
+    "DescriptionText": "Get the size of a tile in pixels."
+  },
+  {
+    "Text": "GetMapWidth()",
+    "Type": 0,
+    "Container": "Tilemap",
+    "DescriptionText": "Get the size of the tilemap in tiles."
+  },
+  {
+    "Text": "GetMapHeight()",
+    "Type": 0,
+    "Container": "Tilemap",
+    "DescriptionText": "Get the size of the tilemap in tiles."
+  },
+  {
+    "Text": "GetTileAt(x, y)",
+    "Type": 0,
+    "Container": "Tilemap",
+    "DescriptionText": "Get the tile at a given position in tiles (i.e. (0, 0) is the top-left tile of the tilemap, regardless of the tilemap's position or the tile size). Returns -1 for empty tiles or tiles outside the tilemap; otherwise use bit operations to determine tile ID or flags separately."
+  },
+  {
+    "Text": "SetTileAt(x, y, tile)",
+    "Type": 0,
+    "Container": "Tilemap",
+    "DescriptionText": "Set the tile at a given position in tiles. Use -1 to set a tile empty; otherwise use bit operations to combine the tile ID and flags."
+  },
+  {
+    "Text": "this._runtime",
+    "Type": 0,
+    "Container": "SDKBehaviorBase",
+    "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "SDKBehaviorBase",
+    "DescriptionText": "Returns this._runtime publicly."
+  },
+  {
+    "Text": "OnCreate()",
+    "Type": 0,
+    "Container": "SDKBehaviorBase",
+    "DescriptionText": "Optional override called by the runtime when the behavior is created. This is done early on in the loading process."
+  },
+  {
+    "Text": "GetObjectClasses()",
+    "Type": 0,
+    "Container": "SDKBehaviorBase",
+    "DescriptionText": "Return a read-only array of ObjectClass that use this kind of behavior. The order is undefined."
+  },
+  {
+    "Text": "GetInstances()",
+    "Type": 0,
+    "Container": "SDKBehaviorBase",
+    "DescriptionText": "Return a read-only array of Instance that use this kind of behavior. The order is undefined."
+  },
+  {
+    "Text": "this._behInst",
+    "Type": 8,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Reference to the BehaviorInstance representing this behavior instance in the runtime. This allows access to Construct's built-in runtime features for behavior instances."
+  },
+  {
+    "Text": "this._inst",
+    "Type": 8,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Reference to the Instance representing the associated instance in the runtime. This is the object instance that the behavior can control."
+  },
+  {
+    "Text": "this._runtime",
+    "Type": 8,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
+  },
+  {
+    "Text": "this._behaviorType",
+    "Type": 8,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Reference to the BehaviorType representing the behavior type that this instance belongs to."
+  },
+  {
+    "Text": "this._sdkType",
+    "Type": 8,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Reference to your addon's SDK behavior type class, which derives from SDKBehaviorTypeBase."
+  },
+  {
+    "Text": "Release()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Optional override for when a behavior instance is released."
+  },
+  {
+    "Text": "GetBehaviorInstance()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Returns this._behInst publicly."
+  },
+  {
+    "Text": "GetObjectInstance()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Returns this._inst publicly."
+  },
+  {
+    "Text": "GetWorldInfo()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Returns this._inst.GetWorldInfo(), i.e. the WorldInfo for the associated object instance. Note this is only applicable when added to \"world\" type plugins, otherwise it returns null."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Returns this._runtime publicly."
+  },
+  {
+    "Text": "GetObjectClass()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Returns this._objectClass publicly."
+  },
+  {
+    "Text": "GetBehaviorType()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Returns this._behaviorType publicly."
+  },
+  {
+    "Text": "GetSdkType()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Returns this._sdkType publicly."
+  },
+  {
+    "Text": "GetBehavior()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Returns your addon's SDK behavior class, which derives from SDKBehaviorBase."
+  },
+  {
+    "Text": "PostCreate()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Optional override called after the associated object instance has finished being created. This is useful since the behavior instance constructor is called during instance creation, so the final state is not ready yet."
+  },
+  {
+    "Text": "Trigger(method)",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Fire a trigger condition. The condition must be declared as a trigger in aces.json. Pass a full reference to the condition method, e.g. this.Trigger(C3.Behaviors.Bullet.Cnds.OnStep)."
+  },
+  {
+    "Text": "_StartTicking()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick(), Tick2() or PostTick() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "_StartTicking2()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick(), Tick2() or PostTick() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "_StartPostTicking()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick(), Tick2() or PostTick() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "IsTicking()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick(), Tick2() or PostTick() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "IsTicking2()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick(), Tick2() or PostTick() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "IsPostTicking()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick(), Tick2() or PostTick() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "_StopTicking()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick(), Tick2() or PostTick() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "_StopTicking2()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick(), Tick2() or PostTick() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "_StopPostTicking()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick(), Tick2() or PostTick() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "Tick()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Optional override that is called every tick just before events are run after _StartTicking() has been called."
+  },
+  {
+    "Text": "Tick2()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Optional override that is called every tick just after events are run after _StartTicking2() has been called."
+  },
+  {
+    "Text": "PostTick()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Optional override that is called every tick just after all other behaviors have had their Tick() methods called. This allows behaviors to observe the state applied by other behavior's ticking. Note you should use Tick() rather than PostTick() where possible, since it is not possible to reliably observe the state applied by other behavior's post-ticking."
+  },
+  {
+    "Text": "GetDebuggerProperties()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Override to return properties to display in the debugger. For more information see runtime scripts."
+  },
+  {
+    "Text": "SaveToJson()",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Optional override to return a JSON object that represents the state of the instance for savegames."
+  },
+  {
+    "Text": "LoadFromJson(o)",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Optional override accepting a JSON object returned by a prior call to SaveToJson() that represents the state of an instance to load, for savegames."
+  },
+  {
+    "Text": "CallAction(actMethod, ...args)",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Convenience method to run an action method with the given parameters. For example: this.CallAction(C3.Behaviors.MyAddon.Acts.MyAction, \"foo\", \"bar\")"
+  },
+  {
+    "Text": "CallExpression(expMethod, ...args)",
+    "Type": 0,
+    "Container": "SDKBehaviorInstance",
+    "DescriptionText": "Convenience method to run an expression method with the given parameters. Returns the value returned by the expression. For example: const value = this.CallExpression(C3.Behaviors.MyAddon.Exps.MyExpression)"
+  },
+  {
+    "Text": "this._objectClass",
+    "Type": 8,
+    "Container": "SDKBehaviorTypeBase",
+    "DescriptionText": "Reference to the ObjectClass representing the object type that this behavior type belongs to."
+  },
+  {
+    "Text": "this._behaviorType",
+    "Type": 8,
+    "Container": "SDKBehaviorTypeBase",
+    "DescriptionText": "Reference to the BehaviorType representing this behavior type in the runtime."
+  },
+  {
+    "Text": "this._runtime",
+    "Type": 8,
+    "Container": "SDKBehaviorTypeBase",
+    "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
+  },
+  {
+    "Text": "this._behavior",
+    "Type": 8,
+    "Container": "SDKBehaviorTypeBase",
+    "DescriptionText": "Reference to your addon's SDK behavior class, which derives from SDKBehaviorBase."
+  },
+  {
+    "Text": "GetObjectClass()",
+    "Type": 0,
+    "Container": "SDKBehaviorTypeBase",
+    "DescriptionText": "Returns this._objectClass publicly."
+  },
+  {
+    "Text": "GetBehaviorType()",
+    "Type": 0,
+    "Container": "SDKBehaviorTypeBase",
+    "DescriptionText": "Returns this._behaviorType publicly."
+  },
+  {
+    "Text": "GetRuntime()()",
+    "Type": 0,
+    "Container": "SDKBehaviorTypeBase",
+    "DescriptionText": "Returns this._runtime publicly."
+  },
+  {
+    "Text": "GetBehavior()",
+    "Type": 0,
+    "Container": "SDKBehaviorTypeBase",
+    "DescriptionText": "Returns this._behavior publicly."
+  },
+  {
+    "Text": "this._inst",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Reference to the Instance representing this instance in the runtime. This allows access to Construct's built-in runtime features for instances."
+  },
+  {
+    "Text": "this._runtime",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
+  },
+  {
+    "Text": "this._objectClass",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Reference to the ObjectClass representing the object type that this instance belongs to."
+  },
+  {
+    "Text": "this._sdkType",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Reference to your addon's SDK type class, which derives from SDKTypeBase."
+  },
+  {
+    "Text": "Release()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Optional override for when an instance is released."
+  },
+  {
+    "Text": "GetInstance()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Returns this._inst publicly."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Returns this._runtime publicly."
+  },
+  {
+    "Text": "GetObjectClass()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Returns this._objectClass publicly."
+  },
+  {
+    "Text": "GetSdkType()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Returns this._sdkType publicly."
+  },
+  {
+    "Text": "GetPlugin()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Returns your addon's SDK plugin class, which derives from SDKPluginBase."
+  },
+  {
+    "Text": "Trigger(method)",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Fire a trigger condition. The condition must be declared as a trigger in aces.json. Pass a full reference to the condition method, e.g. this.Trigger(C3.Plugins.Sprite.Cnds.OnAnimFinished)."
+  },
+  {
+    "Text": "AddDOMMessageHandler(handler, callback)",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Add a callback to be run to handle a message posted from a DOM-side script. The handler is a string identifier. The callback receives the posted data as an argument. Note that if the caller in the DOM-side script originally used the PostToRuntimeAsync method, the callback may be an async function, and the return value is posted back to the DOM-side script."
+  },
+  {
+    "Text": "PostToDOM(handler, data)",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Post a message to a DOM-side script. The handler is a string identifier. The data must be structurally clonable (since it is posted down a MessageChannel). The async method returns a promise that resolves with the DOM-side callback's return value. The non-async method does not return a value and the DOM-side callback's return value is discarded (i.e. a \"fire and forget\" message)."
+  },
+  {
+    "Text": "PostToDOMAsync(handler, data)",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Post a message to a DOM-side script. The handler is a string identifier. The data must be structurally clonable (since it is posted down a MessageChannel). The async method returns a promise that resolves with the DOM-side callback's return value. The non-async method does not return a value and the DOM-side callback's return value is discarded (i.e. a \"fire and forget\" message)."
+  },
+  {
+    "Text": "_StartTicking()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick() or Tick2() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "_StartTicking2()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick() or Tick2() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "IsTicking()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick() or Tick2() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "IsTicking2()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick() or Tick2() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "_StopTicking()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick() or Tick2() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "_StopTicking2()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Utility methods to start or stop the runtime calling the Tick() or Tick2() methods of your instance every tick, and also to check whether ticking is active. It is recommended to stop ticking whenever the tick method is no longer needed to reduce the performance overhead of ticking. Redundant calls to start or stop ticking are ignored. The first call always takes effect (i.e. calls do not stack - if you make 3 calls to start ticking then 1 call to stop ticking, ticking is stopped)."
+  },
+  {
+    "Text": "Tick()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Optional override that is called every tick just before events are run after _StartTicking() has been called."
+  },
+  {
+    "Text": "Tick2()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Optional override that is called every tick just after events are run after _StartTicking2() has been called."
+  },
+  {
+    "Text": "GetDebuggerProperties()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Override to return properties to display in the debugger. For more information see runtime scripts."
+  },
+  {
+    "Text": "SaveToJson()",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Optional override to return a JSON object that represents the state of the instance for savegames."
+  },
+  {
+    "Text": "LoadFromJson(o)",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Optional override accepting a JSON object returned by a prior call to SaveToJson() that represents the state of an instance to load, for savegames."
+  },
+  {
+    "Text": "CallAction(actMethod, ...args)",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Convenience method to run an action method with the given parameters. For example: this.CallAction(C3.Plugins.MyAddon.Acts.MyAction, \"foo\", \"bar\")"
+  },
+  {
+    "Text": "CallExpression(expMethod, ...args)",
+    "Type": 0,
+    "Container": "SDKInstanceBase",
+    "DescriptionText": "Convenience method to run an expression method with the given parameters. Returns the value returned by the expression. For example: const value = this.CallExpression(C3.Plugins.MyAddon.Exps.MyExpression)"
+  },
+  {
+    "Text": "this._runtime",
+    "Type": 0,
+    "Container": "SDKPluginBase",
+    "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "SDKPluginBase",
+    "DescriptionText": "Returns this._runtime publicly."
+  },
+  {
+    "Text": "OnCreate()",
+    "Type": 0,
+    "Container": "SDKPluginBase",
+    "DescriptionText": "Optional override called by the runtime when the plugin is created. This is done early on in the loading process."
+  },
+  {
+    "Text": "IsSingleGlobal()",
+    "Type": 0,
+    "Container": "SDKPluginBase",
+    "DescriptionText": "Return a boolean indicating if the plugin specified it was single-global."
+  },
+  {
+    "Text": "IsWorldType()",
+    "Type": 0,
+    "Container": "SDKPluginBase",
+    "DescriptionText": "Return a boolean indicating if the plugin specified it was the \"world\" type."
+  },
+  {
+    "Text": "IsRotatable()",
+    "Type": 0,
+    "Container": "SDKPluginBase",
+    "DescriptionText": "Return a boolean indicating if the plugin specified it was rotatable."
+  },
+  {
+    "Text": "MustPreDraw()",
+    "Type": 0,
+    "Container": "SDKPluginBase",
+    "DescriptionText": "Return a boolean indicating if the plugin specified it must pre-draw when compositing effects."
+  },
+  {
+    "Text": "HasEffects()",
+    "Type": 0,
+    "Container": "SDKPluginBase",
+    "DescriptionText": "Return a boolean indicating if the plugin specified it could have effects added to its instances."
+  },
+  {
+    "Text": "this._objectClass",
+    "Type": 8,
+    "Container": "SDKTypeBase",
+    "DescriptionText": "Reference to the ObjectClass representing the object type that this instance belongs to."
+  },
+  {
+    "Text": "this._runtime",
+    "Type": 8,
+    "Container": "SDKTypeBase",
+    "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
+  },
+  {
+    "Text": "this._plugin",
+    "Type": 8,
+    "Container": "SDKTypeBase",
+    "DescriptionText": "Reference to your addon's SDK plugin class, which derives from SDKPluginBase."
+  },
+  {
+    "Text": "GetObjectClass()",
+    "Type": 0,
+    "Container": "SDKTypeBase",
+    "DescriptionText": "Returns this._objectClass publicly."
+  },
+  {
+    "Text": "GetRuntime()()",
+    "Type": 0,
+    "Container": "SDKTypeBase",
+    "DescriptionText": "Returns this._runtime publicly."
+  },
+  {
+    "Text": "GetPlugin()",
+    "Type": 0,
+    "Container": "SDKTypeBase",
+    "DescriptionText": "Returns this._plugin publicly."
+  },
+  {
+    "Text": "LoadTextures(renderer)",
+    "Type": 0,
+    "Container": "SDKTypeBase",
+    "DescriptionText": "Optional override called by the runtime when it wants your object type's textures to be created. renderer is the same class used in the editor as IWebGLRenderer. This method should return a promise that resolves when all textures have been loaded."
+  },
+  {
+    "Text": "ReleaseTextures()",
+    "Type": 0,
+    "Container": "SDKTypeBase",
+    "DescriptionText": "Optional override called by the runtime when it wants your object type's textures to be released. This method is synchronous. Release any WebGL textures and drop the references to them."
+  },
+  {
+    "Text": "OnDynamicTextureLoadComplete()",
+    "Type": 0,
+    "Container": "SDKTypeBase",
+    "DescriptionText": "Optional override called by the runtime when a dynamic texture load has completed. If an object is created at runtime that does not already have its textures loaded, the runtime will call LoadTextures() but continue running the game while the textures are loaded asynchronously. When they finish loading, the runtime then calls this override so you have an opportunity to update any references to the newly loaded texture."
+  },
+  {
+    "Text": "this._worldInfo",
+    "Type": 8,
+    "Container": "SDKWorldInstanceBase",
+    "DescriptionText": "Return the WorldInfo object that represents this instance's state in the \"world\" (e.g. its size, position, angle etc). In the runtime this is held as a separate object."
+  },
+  {
+    "Text": "GetWorldInfo()",
+    "Type": 0,
+    "Container": "SDKWorldInstanceBase",
+    "DescriptionText": "Returns this._worldInfo publicly."
+  },
+  {
+    "Text": "HandleWebGLContextLoss()",
+    "Type": 0,
+    "Container": "SDKWorldInstanceBase",
+    "DescriptionText": "Utility method to enable calling of the OnWebGLContextLost() and OnWebGLContextRestored() methods."
+  },
+  {
+    "Text": "OnWebGLContextLost()",
+    "Type": 0,
+    "Container": "SDKWorldInstanceBase",
+    "DescriptionText": "Optional overrides for handling WebGL context loss. This is only necessary if your addon creates any WebGL resources. These overrides are only called if your instance first calls HandleWebGLContextLoss() (normally in the constructor to enable these callbacks for the lifetime of the instance). In a context loss event, all WebGL resources have been released, so any references to them must be dropped. In a context restored event the resources may be recreated again if necessary. Alternatively they can be left released if a lazy-loading approach is used."
+  },
+  {
+    "Text": "OnWebGLContextRestored()",
+    "Type": 0,
+    "Container": "SDKWorldInstanceBase",
+    "DescriptionText": "Optional overrides for handling WebGL context loss. This is only necessary if your addon creates any WebGL resources. These overrides are only called if your instance first calls HandleWebGLContextLoss() (normally in the constructor to enable these callbacks for the lifetime of the instance). In a context loss event, all WebGL resources have been released, so any references to them must be dropped. In a context restored event the resources may be recreated again if necessary. Alternatively they can be left released if a lazy-loading approach is used."
+  }
+]

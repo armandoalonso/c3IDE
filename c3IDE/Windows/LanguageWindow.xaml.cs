@@ -31,8 +31,8 @@ namespace c3IDE.Windows
         public LanguageWindow()
         {
             InitializeComponent();
-            PropertyLanguageTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-            CategoryLanguageTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            //PropertyLanguageTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+            //CategoryLanguageTextEditor.TextArea.MouseWheel += MouseWheelHandler;
         }
 
         private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
