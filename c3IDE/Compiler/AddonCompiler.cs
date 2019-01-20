@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using c3IDE.Models;
 using c3IDE.Server;
@@ -174,11 +175,12 @@ namespace c3IDE.Compiler
                 return false;
             }
 
+            var placeholder = new Regex("{(\\d+)}");
             //validate actions
             foreach (var action in addon.Actions)
             {
                 var paramCount = action.Value.Ace.Count(x => x == '{') - 1;
-                var displayCount = action.Value.DisplayText.Count(x => x == '{');
+                var displayCount = placeholder.Matches(action.Value.Language).Count;
 
                 if (paramCount != displayCount)
                 {
@@ -190,7 +192,7 @@ namespace c3IDE.Compiler
             foreach (var condition in addon.Conditions)
             {
                 var paramCount = condition.Value.Ace.Count(x => x == '{') - 1;
-                var displayCount = condition.Value.DisplayText.Count(x => x == '{');
+                var displayCount = placeholder.Matches(condition.Value.Language).Count;
 
                 if (paramCount != displayCount)
                 {

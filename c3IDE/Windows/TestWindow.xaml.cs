@@ -97,5 +97,26 @@ namespace c3IDE.Windows
         {
             Utils.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/?safe-mode");
         }
+
+        private void SelectUrl(object sender, RoutedEventArgs e)
+        {
+            var tb = (sender as TextBox);
+            tb?.SelectAll();
+            var url = UrlTextBox.Text;
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                Clipboard.SetText(url);
+                AppData.Insatnce.InfoMessage($"{url} copied to clipboard.");
+            }
+        }
+
+        private void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is TextBox tb && !tb.IsKeyboardFocusWithin)
+            {
+                e.Handled = true;
+                tb.Focus();
+            }
+        }
     }
 }

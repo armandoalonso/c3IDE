@@ -26,7 +26,7 @@
                 <Button Name="OpenConstructSafeButton" Content="Open Construct (Safe)" Margin="10" Click="OpenConstructSafeButton_Click" ></Button>
             </UniformGrid>
 
-            <TextBox Name="UrlTextBox" DockPanel.Dock="Bottom" Margin="10"/>
+            <TextBox Name="UrlTextBox" DockPanel.Dock="Bottom" Margin="10" MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
             <TextBlock DockPanel.Dock="Bottom" Style="{StaticResource TextBlockStyle}" Margin="10,0">Addon URL :</TextBlock>
 
         </DockPanel>
