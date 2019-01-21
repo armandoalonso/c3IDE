@@ -227,12 +227,12 @@ namespace c3IDE.Windows
 
         private void FormatJavascriptEdittime_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            EditTimePluginTextEditor.Text = FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text);
         }
 
         private void FormatJavascriptRuntime_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+           RunTimePluginTextEditor.Text = FormatHelper.Insatnce.Javascript(RunTimePluginTextEditor.Text);
         }
 
         //button clicks

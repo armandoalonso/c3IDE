@@ -294,7 +294,7 @@ namespace c3IDE.Windows
         //context menu
         private void FormatJsonMenu_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            AddonTextEditor.Text = AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text);
         }
 
         private void AddFileMenu_OnClick(object sender, RoutedEventArgs e)
@@ -309,7 +309,7 @@ namespace c3IDE.Windows
 
         private void FormatJavascriptMenu_OnClick(object sender, RoutedEventArgs e)
         {
-            //properties
+            FileTextEditor.Text = FormatHelper.Insatnce.Json(FileTextEditor.Text);
         }
     }
 }

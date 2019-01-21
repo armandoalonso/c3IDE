@@ -438,17 +438,17 @@ namespace c3IDE.Windows
 
         private void FormatJavascript_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            CodeTextEditor.Text = FormatHelper.Insatnce.Javascript(CodeTextEditor.Text);
         }
 
         private void FormatJsonLang_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            LanguageTextEditor.Text = FormatHelper.Insatnce.Json(LanguageTextEditor.Text, true);
         }
 
         private void FormatJsonAce_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text);
         }
 
         //view buttons

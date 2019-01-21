@@ -28,15 +28,27 @@ namespace c3IDE.Utilities
             }
         }
 
-        public string Json(string json)
+        public string Json(string json, bool wrap = false)
         {
-            var data = JsonConvert.DeserializeObject(json);
-            return JsonConvert.SerializeObject(data, Formatting.Indented);
+            if (wrap)
+            {
+                json = $"{{{json}}}";
+                var data = JsonConvert.DeserializeObject(json);
+                var returnString = JsonConvert.SerializeObject(data, Formatting.Indented);
+                returnString = returnString.Remove(0, 1);
+                returnString = returnString.Remove(returnString.Length - 1, 1);
+                return returnString.Trim();
+            }
+            else
+            {
+                var data = JsonConvert.DeserializeObject(json);
+                return JsonConvert.SerializeObject(data, Formatting.Indented).Trim();
+            }
         }
 
         public string Javascript(string js)
         {
-            return jsBeautifier.Beautify(js);
+            return jsBeautifier.Beautify(js).Trim();
         }
     }
 }

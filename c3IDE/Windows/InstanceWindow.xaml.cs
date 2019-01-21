@@ -215,12 +215,12 @@ namespace c3IDE.Windows
         //context menu
         private void FormatJavascriptEdittime_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            EditTimeInstanceTextEditor.Text = FormatHelper.Insatnce.Javascript(EditTimeInstanceTextEditor.Text);
         }
 
         private void FormatJavascriptRuntime_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            RunTimeInstanceTextEditor.Text = FormatHelper.Insatnce.Javascript(RunTimeInstanceTextEditor.Text);
         }
     }
 }
