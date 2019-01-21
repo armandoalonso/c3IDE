@@ -26,11 +26,16 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class TestWindow : UserControl, IWindow
     {
+        //properties
+        public string DisplayName { get; set; } = "Test";
+
+        //ctor
         public TestWindow()
         {
             InitializeComponent();
         }
 
+        //button clicks
         private async void TestC3AddonButton_Click(object sender, RoutedEventArgs e)
         {
             //compile the addon
@@ -77,7 +82,17 @@ namespace c3IDE.Windows
             Process.Start(AppData.Insatnce.Options.CompilePath);
         }
 
-        public string DisplayName { get; set; } = "Test";
+        private void OpenConstructButton_Click(object sender, RoutedEventArgs e)
+        {
+            Utils.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/");
+        }
+
+        private void OpenConstructSafeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Utils.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/?safe-mode");
+        }
+
+        //sindow states
         public void OnEnter()
         {
 
@@ -88,16 +103,7 @@ namespace c3IDE.Windows
             
         }
 
-        private void OpenConstructButton_Click(object sender, RoutedEventArgs e)
-        {
-            Utils.Insatnce.StartProcess("chrome.exe","https://editor.construct.net/");   
-        }
-
-        private void OpenConstructSafeButton_Click(object sender, RoutedEventArgs e)
-        {
-            Utils.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/?safe-mode");
-        }
-
+        //text box events
         private void SelectUrl(object sender, RoutedEventArgs e)
         {
             var tb = (sender as TextBox);

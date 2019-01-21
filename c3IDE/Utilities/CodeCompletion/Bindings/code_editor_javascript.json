@@ -276,6 +276,163 @@
     "DescriptionText": "Divide the RGB components by the A component"
   },
   {
+    "Text": "Rect()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "A Rect can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for the left, top, right and bottom positions."
+  },
+  {
+    "Text": "Rect(left, top, right, bottom)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "A Rect can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for the left, top, right and bottom positions."
+  },
+  {
+    "Text": "set(left, top, right, bottom)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Set all sides of the rectangle in one call."
+  },
+  {
+    "Text": "copy(rect)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Set all sides of the rectangle by copying another SDK.Rect."
+  },
+  {
+    "Text": "clone()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Return a new instance of an SDK.Rect with identical values to this one."
+  },
+  {
+    "Text": "setLeft(left)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Set the position of each side of the rectangle individually."
+  },
+  {
+    "Text": "setTop(top)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Set the position of each side of the rectangle individually."
+  },
+  {
+    "Text": "setRight(right)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Set the position of each side of the rectangle individually."
+  },
+  {
+    "Text": "setBottom(bottom)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Set the position of each side of the rectangle individually."
+  },
+  {
+    "Text": "getLeft()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Get the positition of each side of the rectangle individually."
+  },
+  {
+    "Text": "getTop()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Get the positition of each side of the rectangle individually."
+  },
+  {
+    "Text": "getRight()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Get the positition of each side of the rectangle individually."
+  },
+  {
+    "Text": "getBottom()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Get the positition of each side of the rectangle individually."
+  },
+  {
+    "Text": "width()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Get the width or height of the rectangle. Note if the right edge is to the left of theleft edge, or the bottom edge above the top edge, this will return a negative size."
+  },
+  {
+    "Text": "height()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Get the width or height of the rectangle. Note if the right edge is to the left of theleft edge, or the bottom edge above the top edge, this will return a negative size."
+  },
+  {
+    "Text": "midX()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Return the average of the left and right, or top and bottom, positions."
+  },
+  {
+    "Text": "midY()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Return the average of the left and right, or top and bottom, positions."
+  },
+  {
+    "Text": "offset(x, y)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Add x to the left and right positions, and y to the top and bottom positions, offsettingthe entire rectangle."
+  },
+  {
+    "Text": "inflate(x, y)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Expand or shrink the rectangle using the given offsets. Inflating subtracts from the leftand top edges and adds to the right and bottom edges, and deflating does the opposite."
+  },
+
+  {
+    "Text": "deflate(x, y)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Expand or shrink the rectangle using the given offsets. Inflating subtracts from the leftand top edges and adds to the right and bottom edges, and deflating does the opposite."
+  },
+  {
+    "Text": "multiply(x, y)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Multiply or divide each position by a given factor on each axis."
+  },
+  {
+    "Text": "divide(x, y)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Multiply or divide each position by a given factor on each axis."
+  },
+  {
+    "Text": "clamp(left, top, right, bottom)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Clamp each position in the rectangle to a given value, ensuring the rectangle does notextend beyond the bounds of the passed rectangle."
+  },
+  {
+    "Text": "normalize()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Normalize the rectangle positions, swapping the left-right positions if the rightposition is on the left, and swapping the top-bottom positions if the bottom position is on the top. This ensures the width and height are positive."
+  },
+  {
+    "Text": "intersectsRect(rect)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Test for an intersection with another SDK.Rect, returning a boolean indicating if itintersects."
+  },
+  {
+    "Text": "containsPoint(x, y)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Test if the given point is inside the bounds of this rectangle, returning a boolean."
+  },
+  {
     "Text": "set(tlx, tly, trx, try_, brx, bry, blx, bly)",
     "Type": 0,
     "Container": "Quad",
@@ -1800,7 +1957,7 @@
     "DescriptionText": "Reference to the IObjectInstance interface, or IWorldInstance interface for \"world\" type plugins, representing this instance in the editor. This allows access to Construct's built-in features for instances."
   },
   {
-    "Text": "SDK.Color()",
+    "Text": "Color()",
     "Type": 2,
     "Container": "SDK",
     "DescriptionText": "A Color can be constructed with no parameters, which defaults all components to zero, or with given RGBA components."

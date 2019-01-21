@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using c3IDE.Models;
 using ICSharpCode.AvalonEdit.Editing;
+using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace c3IDE.Windows
 {

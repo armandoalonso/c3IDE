@@ -60,6 +60,8 @@ namespace c3IDE.Utilities.CodeCompletion
 
             foreach (var token in tokenList)
             {
+                if(token.Length < 2) continue;
+
                 if (_contextCache.ContainsKey(token))
                 {
                     completionList.AddRange(_contextCache[token]);

@@ -41,27 +41,27 @@
             <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black"> Addon Data</TextBlock>
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Addon Name :</TextBlock>
-                <TextBox Name="AddonNameText" DockPanel.Dock="Right" Text=""></TextBox>
+                <TextBox Name="AddonNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Addon Class Name :</TextBlock>
-                <TextBox Name="AddonClassText" DockPanel.Dock="Right" Text=""></TextBox>
+                <TextBox Name="AddonClassText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Company Name :</TextBlock>
-                <TextBox Name="CompanyNameText" DockPanel.Dock="Right" Text=""></TextBox>
+                <TextBox Name="CompanyNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Author :</TextBlock>
-                <TextBox Name="AuthorText" DockPanel.Dock="Right" Text="c3IDE"></TextBox>
+                <TextBox Name="AuthorText" DockPanel.Dock="Right" Text="c3IDE" MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Version :</TextBlock>
-                <TextBox Name="VersionText" DockPanel.Dock="Right" Text="1.0.0.0"></TextBox>
+                <TextBox Name="VersionText" DockPanel.Dock="Right" Text="1.0.0.0" MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">

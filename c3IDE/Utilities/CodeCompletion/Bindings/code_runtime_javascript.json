@@ -175,7 +175,7 @@
   },
   {
     "Text": "this._runtime",
-    "Type": 0,
+    "Type": 5,
     "Container": "SDKBehaviorBase",
     "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
   },
@@ -205,31 +205,31 @@
   },
   {
     "Text": "this._behInst",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKBehaviorInstance",
     "DescriptionText": "Reference to the BehaviorInstance representing this behavior instance in the runtime. This allows access to Construct's built-in runtime features for behavior instances."
   },
   {
     "Text": "this._inst",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKBehaviorInstance",
     "DescriptionText": "Reference to the Instance representing the associated instance in the runtime. This is the object instance that the behavior can control."
   },
   {
     "Text": "this._runtime",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKBehaviorInstance",
     "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
   },
   {
     "Text": "this._behaviorType",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKBehaviorInstance",
     "DescriptionText": "Reference to the BehaviorType representing the behavior type that this instance belongs to."
   },
   {
     "Text": "this._sdkType",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKBehaviorInstance",
     "DescriptionText": "Reference to your addon's SDK behavior type class, which derives from SDKBehaviorTypeBase."
   },
@@ -403,25 +403,25 @@
   },
   {
     "Text": "this._objectClass",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKBehaviorTypeBase",
     "DescriptionText": "Reference to the ObjectClass representing the object type that this behavior type belongs to."
   },
   {
     "Text": "this._behaviorType",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKBehaviorTypeBase",
     "DescriptionText": "Reference to the BehaviorType representing this behavior type in the runtime."
   },
   {
     "Text": "this._runtime",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKBehaviorTypeBase",
     "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
   },
   {
     "Text": "this._behavior",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKBehaviorTypeBase",
     "DescriptionText": "Reference to your addon's SDK behavior class, which derives from SDKBehaviorBase."
   },
@@ -451,25 +451,25 @@
   },
   {
     "Text": "this._inst",
-    "Type": 0,
+    "Type": 5,
     "Container": "SDKInstanceBase",
     "DescriptionText": "Reference to the Instance representing this instance in the runtime. This allows access to Construct's built-in runtime features for instances."
   },
   {
     "Text": "this._runtime",
-    "Type": 0,
+    "Type": 5,
     "Container": "SDKInstanceBase",
     "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
   },
   {
     "Text": "this._objectClass",
-    "Type": 0,
+    "Type": 5,
     "Container": "SDKInstanceBase",
     "DescriptionText": "Reference to the ObjectClass representing the object type that this instance belongs to."
   },
   {
     "Text": "this._sdkType",
-    "Type": 0,
+    "Type": 5,
     "Container": "SDKInstanceBase",
     "DescriptionText": "Reference to your addon's SDK type class, which derives from SDKTypeBase."
   },
@@ -613,7 +613,7 @@
   },
   {
     "Text": "this._runtime",
-    "Type": 0,
+    "Type": 5,
     "Container": "SDKPluginBase",
     "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
   },
@@ -661,19 +661,19 @@
   },
   {
     "Text": "this._objectClass",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKTypeBase",
     "DescriptionText": "Reference to the ObjectClass representing the object type that this instance belongs to."
   },
   {
     "Text": "this._runtime",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKTypeBase",
     "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
   },
   {
     "Text": "this._plugin",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKTypeBase",
     "DescriptionText": "Reference to your addon's SDK plugin class, which derives from SDKPluginBase."
   },
@@ -715,7 +715,7 @@
   },
   {
     "Text": "this._worldInfo",
-    "Type": 8,
+    "Type": 5,
     "Container": "SDKWorldInstanceBase",
     "DescriptionText": "Return the WorldInfo object that represents this instance's state in the \"world\" (e.g. its size, position, angle etc). In the runtime this is held as a separate object."
   },
@@ -1936,5 +1936,744 @@
     "Type": 0,
     "Container": "Runtime",
     "DescriptionText": "Pass true to suspend the runtime or false to resume it if paused. When suspended, the entire runtime halts and stops processing events or drawing the screen. This is done by default when the window or app goes in to the background. Make sure that suspend and resume calls are paired one-to-one. For example do not suspend once but resume twice."
+  },
+  {
+    "Text": "setRgb(r, g, b)",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Set the RGB components only, without affecting the alpha component, in a single call."
+  },
+  {
+    "Text": "setRgba(r, g, b, a)",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Set the RGBA components of the color in a single call."
+  },
+  {
+    "Text": "copy(color)",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Set the components of the color by copying another SDK.Color."
+  },
+  {
+    "Text": "copyRgb(color)",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Set the RGB components only, without affecting the alpha component, by copying another SDK.Color."
+  },
+  {
+    "Text": "clone()",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Return a new instance of an SDK.Color with an identical color to this one."
+  },
+  {
+    "Text": "setR(r)",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Set each component of the color individually. Note color components are floats in the range [0, 1]."
+  },
+  {
+    "Text": "setG(g)",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Set each component of the color individually. Note color components are floats in the range [0, 1]."
+  },
+  {
+    "Text": "setB(b)",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Set each component of the color individually. Note color components are floats in the range [0, 1]."
+  },
+  {
+    "Text": "setA(a)",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Set each component of the color individually. Note color components are floats in the range [0, 1]."
+  },
+  {
+    "Text": "getR()",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Get each component of the color individually."
+  },
+  {
+    "Text": "getG()",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Get each component of the color individually."
+  },
+  {
+    "Text": "getB()",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Get each component of the color individually."
+  },
+  {
+    "Text": "getA()",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Get each component of the color individually."
+  },
+  {
+    "Text": "equals(color)",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Return a boolean indicating if this color exactly matches another SDK.Color."
+  },
+  {
+    "Text": "equalsIgnoringAlpha(color)",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Return a boolean indicating if this color exactly matches the RGB components of another SDK.Color. The alpha component is ignoed."
+  },
+  {
+    "Text": "equalsRgb(r, g, b)",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Return a boolean indicating if this color exactly matches the given RGB components."
+  },
+  {
+    "Text": "equalsRgba(r, g, b, a)",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Return a boolean indicating if this color exactly matches the given RGBA components."
+  },
+  {
+    "Text": "premultiply()",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Multiply the RGB components by the A component. This is usually required for rendering."
+  },
+  {
+    "Text": "unpremultiply()",
+    "Type": 0,
+    "Container": "Color",
+    "DescriptionText": "Divide the RGB components by the A component"
+  },
+  {
+    "Text": "set(tlx, tly, trx, try_, brx, bry, blx, bly)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set all four points of the quad in a single call."
+  },
+  {
+    "Text": "setRect(left, top, right, bottom)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set the quad's points to represent an axis-aligned rectangle using the given positions. Note that this is only useful if you subsequently make further modifications to the quad, else you may as well use the Rect interface."
+  },
+  {
+    "Text": "copy(quad)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set all points of the quad by copying another SDK.Quad."
+  },
+  {
+    "Text": "setTlx(n)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set each point of the quad individually."
+  },
+  {
+    "Text": "setTly(n)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set each point of the quad individually."
+  },
+  {
+    "Text": "setTrx(n)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set each point of the quad individually."
+  },
+  {
+    "Text": "setTry(n)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set each point of the quad individually."
+  },
+  {
+    "Text": "setBrx(n)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set each point of the quad individually."
+  },
+  {
+    "Text": "setBry(n)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set each point of the quad individually."
+  },
+  {
+    "Text": "setBlx(n)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set each point of the quad individually."
+  },
+  {
+    "Text": "setBly(n)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set each point of the quad individually."
+  },
+  {
+    "Text": "getTlx()",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Get each point of the quad individually."
+  },
+  {
+    "Text": "getTly()",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Get each point of the quad individually."
+  },
+  {
+    "Text": "getTrx()",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Get each point of the quad individually."
+  },
+  {
+    "Text": "getTry()",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Get each point of the quad individually."
+  },
+  {
+    "Text": "getBrx()",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Get each point of the quad individually."
+  },
+  {
+    "Text": "getBry()",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Get each point of the quad individually."
+  },
+  {
+    "Text": "getBlx()",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Get each point of the quad individually."
+  },
+  {
+    "Text": "getBly()",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Get each point of the quad individually."
+  },
+  {
+    "Text": "setFromRect(rect)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set the points of the quad to an axis-aligned rectangle given by an SDK.Rect. Note that this is only useful if you subsequently make further modifications to the quad, else you may as well use the Rect interface directly."
+  },
+  {
+    "Text": "setFromRotatedRect(rect, angle)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Set the points of the quad to a rotated rectangle given by an SDK.Rect, rotated about the origin by angle in radians."
+  },
+  {
+    "Text": "getBoundingBox(rect)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Calculate the bounding box of the quad, and store the result by writing to a given SDK.Rect."
+  },
+  {
+    "Text": "midX()",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Return the average of the four points in the quad on each axis."
+  },
+  {
+    "Text": "midY()",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Return the average of the four points in the quad on each axis."
+  },
+  {
+    "Text": "intersectsSegment(x1, y1, x2, y2)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Test if a segment, given as the line between points (x1, y1) and (x2, y2), intersects this quad, returning a boolean."
+  },
+  {
+    "Text": "intersectsQuad(quad)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Test if another SDK.Quad intersects this quad, returning a boolean."
+  },
+  {
+    "Text": "containsPoint(x, y)",
+    "Type": 0,
+    "Container": "Quad",
+    "DescriptionText": "Test if the given point is inside the bounds of this quad, returning a boolean."
+  },
+  {
+    "Text": "SetAlphaBlendMode()",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set the blend mode to a premultiplied alpha blending mode."
+  },
+  {
+    "Text": "SetColorFillMode()",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set the fill mode to draw a solid color, specified by the current color."
+  },
+  {
+    "Text": "SetTextureFillMode()",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set the fill mode to draw a texture, specified by the current texture, and using the alpha component of the current color as the opacity."
+  },
+  {
+    "Text": "SetSmoothLineFillMode()",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set the fill mode to draw smooth lines using the current color."
+  },
+  {
+    "Text": "SetColor(color)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set the current color with an SDK.Color."
+  },
+  {
+    "Text": "SetColorRgba(r, g, b, a)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set the current color by directly passing the RGBA components."
+  },
+  {
+    "Text": "SetOpacity(o)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set only the alpha component of the current color. Note this does not affect the RGB components."
+  },
+  {
+    "Text": "ResetColor()",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set the current color to (1, 1, 1, 1)."
+  },
+  {
+    "Text": "Rect(rect)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Draw a rectangle given by an SDK.Rect."
+  },
+  {
+    "Text": "Rect2(left, top, right, bottom)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Draw a rectangle by directly passing the left, top, right and bottom positions."
+  },
+  {
+    "Text": "Quad(quad)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Draw a quad given by an SDK.Quad."
+  },
+  {
+    "Text": "Quad2(tlx, tly, trx, try_, brx, bry, blx, bly)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Draw a quad by directly passing the positions of each of the four points in the quad."
+  },
+  {
+    "Text": "Quad3(quad, rect)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Draw a quad given by an SDK.Quad, using an SDK.Rect for the source texture co-ordinates to draw from."
+  },
+  {
+    "Text": "Quad4(quad, texQuad)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Draw a quad given by an SDK.Quad, using another SDK.Quad for the source texture co-ordinates to draw from."
+  },
+  {
+    "Text": "ConvexPoly(pointsArray)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Draw a convex polygon using the given array of points, in alternating X, Y order. Therefore the size of the array must be even, and must contain at least six elements (to define three points)."
+  },
+  {
+    "Text": "Line(x1, y1, x2, y2)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Draws a quad from the point (x1, y1) to (x2, y2) with the current line width."
+  },
+  {
+    "Text": "TexturedLine(x1, y1, x2, y2, u, v)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Draws a quad from the point (x1, y1) to (x2, y2) with the current line width, and using (u, 0) as the texture co-ordinates at the start, and (v, 0) as the texture co-ordinates at the end."
+  },
+  {
+    "Text": "LineRect(left, top, right, bottom)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Draws four lines along the edges of a given rectangle."
+  },
+  {
+    "Text": "LineRect2(rect)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Draws four lines along the edges of a given SDK.Rect."
+  },
+  {
+    "Text": "LineQuad(quad)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Draws four lines along the edges of a given SDK.Quad."
+  },
+  {
+    "Text": "PushLineWidth(w)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set the current line width for line-drawing calls. This must be followed by a PopLineWidth() call when finished to restore the previous line width."
+  },
+  {
+    "Text": "PopLineWidth()",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set the current line width for line-drawing calls. This must be followed by a PopLineWidth() call when finished to restore the previous line width."
+  },
+  {
+    "Text": "PushLineCap(lineCap)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set the current line cap for line-drawing calls. This must be followed by a PopLineCap() call when finished to restore the previous line cap. The available line caps are \"butt\" and \"square\"."
+  },
+  {
+    "Text": "PopLineCap()",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set the current line cap for line-drawing calls. This must be followed by a PopLineCap() call when finished to restore the previous line cap. The available line caps are \"butt\" and \"square\"."
+  },
+  {
+    "Text": "SetTexture(texture)",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Set the current texture to a given IWebGLTexture."
+  },
+  {
+    "Text": "CreateWebGLText()",
+    "Type": 0,
+    "Container": "IWebGLRenderer",
+    "DescriptionText": "Return a new IWebGLText interface. This manages text wrapping, drawing text, and uploading the results to a WebGL texture."
+  },
+  {
+    "Text": "Release()",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Destroy the object and its resources. IWebGLText must be released when it is no longer needed; do not simply drop references, otherwise not all of its resources will be collected. If your plugin creates an IWebGLText, it should release any it still uses in its own Release() method."
+  },
+  {
+    "Text": "SetFontName(name)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set the name of the font face used for drawing text."
+  },
+  {
+    "Text": "SetFontSize(ptSize)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set the size of the font, in points, used for drawing text."
+  },
+  {
+    "Text": "SetLineHeight(px)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set the extra line height spacing, in pixels, used for drawing text. Note 0 is the default, indicating no offset to the default line height."
+  },
+  {
+    "Text": "SetBold(b)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set the bold flag used for drawing text."
+  },
+  {
+    "Text": "SetItalic(i)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set the italic flag used for drawing text."
+  },
+  {
+    "Text": "SetColor(color)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set the color of the text using a SDK.Color or a string. If a string is passed, it is passed directly to a 2D canvas fillStyle property, so can be anything that property accepts, e.g. \"red\", \"#00ffee\", \"rgb(0, 128, 192)\" etc."
+  },
+  {
+    "Text": "SetColorRgb(r, g, b)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set the color of the text using separate RGB components."
+  },
+  {
+    "Text": "SetHorizontalAlignment(h)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set the horizontal alignment of the text within its bounding box. This can be one of \"left\", \"center\" or \"right\"."
+  },
+  {
+    "Text": "SetVerticalAlignment(v)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set the vertical alignment of the text within its bounding box. This can be one of \"top\", \"center\" or \"bottom\"."
+  },
+  {
+    "Text": "SetWordWrapMode(m)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set the word wrapping mode. This can be one of \"word\" (for space-delimited word wrapping) or \"character\" (for wrapping on any character)."
+  },
+  {
+    "Text": "SetText(text)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set the text string to be drawn."
+  },
+  {
+    "Text": "SetSize(width, height, zoomScale)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set the size of the area that text can be drawn in. The size is specified in CSS pixels. The zoomScale can be increased to render the text at a higher resolution, which is useful when zooming in the Layout View."
+  },
+  {
+    "Text": "GetTexture()",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Get an IWebGLTexture interface representing the texture with the requested text rendered on to it. Note: the texture is generated asynchronously, so can return null when first requested. Use SetTextureUpdateCallback() to get a callback when the texture has updated, where the relevant Layout View can be redrawn to render with the updated texture."
+  },
+  {
+    "Text": "GetTexRect()",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Return a SDK.Rect representing the content area of the text on the WebGL texture. This is the subset of the texture that ought to be rendered. Note: this is only valid when GetTexture() returns a non-null result."
+  },
+  {
+    "Text": "SetTextureUpdateCallback(callback)",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Set a function to call when the texture containing the rendered text is updated. Since the texture is generated asynchronously, this is necessary to know when to redraw any views that may be displaying the text, so they can redraw with the updated texture."
+  },
+  {
+    "Text": "ReleaseTexture()",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Release the underlying WebGL texture. This can be used to save memory. However the texture will be re-created the next time GetTexture() is called."
+  },
+  {
+    "Text": "GetTextWidth()",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Return the size of the text bounding box after processing word wrap. This allows determining the size of the actual visible text, rather than the box used for word wrap bounds."
+  },
+  {
+    "Text": "GetTextHeight()",
+    "Type": 0,
+    "Container": "IWebGLText",
+    "DescriptionText": "Return the size of the text bounding box after processing word wrap. This allows determining the size of the actual visible text, rather than the box used for word wrap bounds."
+  },
+  {
+    "Text": "GetWidth()",
+    "Type": 0,
+    "Container": "IWebGLTexture",
+    "DescriptionText": "Return the width or height of the texture. Note this refers to the source texture. Construct's in-editor spritesheeting engine means the texture could be significantly larger than an object's image to be rendered from it."
+  },
+  {
+    "Text": "GetHeight()",
+    "Type": 0,
+    "Container": "IWebGLTexture",
+    "DescriptionText": "Return the width or height of the texture. Note this refers to the source texture. Construct's in-editor spritesheeting engine means the texture could be significantly larger than an object's image to be rendered from it."
+  },
+  {
+    "Text": "set(left, top, right, bottom)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Set all sides of the rectangle in one call."
+  },
+  {
+    "Text": "copy(rect)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Set all sides of the rectangle by copying another SDK.Rect."
+  },
+  {
+    "Text": "clone()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Return a new instance of an SDK.Rect with identical values to this one."
+  },
+  {
+    "Text": "setLeft(left)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Set the position of each side of the rectangle individually."
+  },
+  {
+    "Text": "setTop(top)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Set the position of each side of the rectangle individually."
+  },
+  {
+    "Text": "setRight(right)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Set the position of each side of the rectangle individually."
+  },
+  {
+    "Text": "setBottom(bottom)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Set the position of each side of the rectangle individually."
+  },
+  {
+    "Text": "getLeft()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Get the positition of each side of the rectangle individually."
+  },
+  {
+    "Text": "getTop()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Get the positition of each side of the rectangle individually."
+  },
+  {
+    "Text": "getRight()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Get the positition of each side of the rectangle individually."
+  },
+  {
+    "Text": "getBottom()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Get the positition of each side of the rectangle individually."
+  },
+  {
+    "Text": "width()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Get the width or height of the rectangle. Note if the right edge is to the left of theleft edge, or the bottom edge above the top edge, this will return a negative size."
+  },
+  {
+    "Text": "height()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Get the width or height of the rectangle. Note if the right edge is to the left of theleft edge, or the bottom edge above the top edge, this will return a negative size."
+  },
+  {
+    "Text": "midX()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Return the average of the left and right, or top and bottom, positions."
+  },
+  {
+    "Text": "midY()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Return the average of the left and right, or top and bottom, positions."
+  },
+  {
+    "Text": "offset(x, y)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Add x to the left and right positions, and y to the top and bottom positions, offsettingthe entire rectangle."
+  },
+  {
+    "Text": "inflate(x, y)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Expand or shrink the rectangle using the given offsets. Inflating subtracts from the leftand top edges and adds to the right and bottom edges, and deflating does the opposite."
+  },
+
+  {
+    "Text": "deflate(x, y)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Expand or shrink the rectangle using the given offsets. Inflating subtracts from the leftand top edges and adds to the right and bottom edges, and deflating does the opposite."
+  },
+  {
+    "Text": "multiply(x, y)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Multiply or divide each position by a given factor on each axis."
+  },
+  {
+    "Text": "divide(x, y)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Multiply or divide each position by a given factor on each axis."
+  },
+  {
+    "Text": "clamp(left, top, right, bottom)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Clamp each position in the rectangle to a given value, ensuring the rectangle does notextend beyond the bounds of the passed rectangle."
+  },
+  {
+    "Text": "normalize()",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Normalize the rectangle positions, swapping the left-right positions if the rightposition is on the left, and swapping the top-bottom positions if the bottom position is on the top. This ensures the width and height are positive."
+  },
+  {
+    "Text": "intersectsRect(rect)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Test for an intersection with another SDK.Rect, returning a boolean indicating if itintersects."
+  },
+  {
+    "Text": "containsPoint(x, y)",
+    "Type": 0,
+    "Container": "Rect",
+    "DescriptionText": "Test if the given point is inside the bounds of this rectangle, returning a boolean."
+  },
+  {
+    "Text": "Color()",
+    "Type": 2,
+    "Container": "C3",
+    "DescriptionText": "A Color can be constructed with no parameters, which defaults all components to zero, or with given RGBA components."
+  },
+  {
+    "Text": "Color(r, g, b, a)",
+    "Type": 2,
+    "Container": "C3",
+    "DescriptionText": "A Color can be constructed with no parameters, which defaults all components to zero, or with given RGBA components."
+  },
+  {
+    "Text": "Quad()",
+    "Type": 2,
+    "Container": "C3",
+    "DescriptionText": "A Quad can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for each point. The naming convention is tl for the \"top-left\" point, tr for the \"top-right\" point, br for the \"bottom-right\" point, and bl for the \"bottom-left\" point, followed by \"x\" or \"y\" for each component of the point. Note that the points can appear at any orientation for rotated quads; the names only correspond to their actual position when the quad is set to an unrotated rectangle."
+  },
+  {
+    "Text": "Quad(tlx, tly, trx, try_, brx, bry, blx, bly)",
+    "Type": 2,
+    "Container": "C3",
+    "DescriptionText": "A Quad can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for each point. The naming convention is tl for the \"top-left\" point, tr for the \"top-right\" point, br for the \"bottom-right\" point, and bl for the \"bottom-left\" point, followed by \"x\" or \"y\" for each component of the point. Note that the points can appear at any orientation for rotated quads; the names only correspond to their actual position when the quad is set to an unrotated rectangle."
+  },
+  {
+    "Text": "Rect();",
+    "Type": 2,
+    "Container": "C3",
+    "DescriptionText": "A Rect can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for the left, top, right and bottom positions"
+  },
+  {
+    "Text": "Rect(left, top, right, bottom);",
+    "Type": 2,
+    "Container": "C3",
+    "DescriptionText": "A Rect can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for the left, top, right and bottom positions"
   }
 ]

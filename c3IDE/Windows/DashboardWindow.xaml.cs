@@ -324,5 +324,21 @@ namespace c3IDE.Windows
             IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
             AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
         }
+
+        //text box events
+        private void SelectUrl(object sender, RoutedEventArgs e)
+        {
+            var tb = (sender as TextBox);
+            tb?.SelectAll();
+        }
+
+        private void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is TextBox tb && !tb.IsKeyboardFocusWithin)
+            {
+                e.Handled = true;
+                tb.Focus();
+            }
+        }
     }
 }

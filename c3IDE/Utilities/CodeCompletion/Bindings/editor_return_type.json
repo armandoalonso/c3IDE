@@ -1,212 +1,609 @@
 [
   {
     "Method": "GetProject",
-    "Interface": [ "IProject" ]
+    "Interface": [
+      "IProject"
+    ]
   },
   {
     "Method": "GetObjectType",
-    "Interface": [ "IObjectType" ]
+    "Interface": [
+      "IObjectType"
+    ]
   },
   {
     "Method": "GetInstance",
-    "Interface": [ "IObjectInstance" ]
+    "Interface": [
+      "IObjectInstance"
+    ]
   },
   {
     "Method": "Draw",
-    "Interface": [ "IWebGLRenderer", "IDrawParams" ]
+    "Interface": [
+      "IWebGLRenderer",
+      "IDrawParams"
+    ]
   },
   {
     "Method": "GetTexture",
-    "Interface": [ "IAnimationFrame", "IWebGLTexture" ]
+    "Interface": [
+      "IAnimationFrame",
+      "IWebGLTexture"
+    ]
   },
   {
     "Method": "GetTextRect",
-    "Interface": [ "Rect" ]
+    "Interface": [
+      "Rect"
+    ]
   },
   {
     "Method": "Color",
-    "Interface": [ "Color" ]
+    "Interface": [
+      "Color"
+    ]
   },
   {
     "Method": "Quad ",
-    "Interface": [ "Quad" ]
+    "Interface": [
+      "Quad"
+    ]
   },
   {
     "Method": "setFromRect",
-    "Interface": [ "Rect" ]
+    "Interface": [
+      "Rect"
+    ]
   },
   {
     "Method": "setFromRotatedRect",
-    "Interface": [ "Rect" ]
+    "Interface": [
+      "Rect"
+    ]
   },
   {
     "Method": "getBoundingBox",
-    "Interface": [ "Rect" ]
+    "Interface": [
+      "Rect"
+    ]
   },
   {
     "Method": "Rect",
-    "Interface": [ "Rect" ]
+    "Interface": [
+      "Rect"
+    ]
   },
   {
     "Method": "GetLayoutView",
-    "Interface": [ "ILayoutView" ]
+    "Interface": [
+      "ILayoutView"
+    ]
   },
   {
     "Method": "SetColor",
-    "Interface": [ "Color" ]
+    "Interface": [
+      "Color"
+    ]
   },
   {
     "Method": "Quad3",
-    "Interface": [ "Rect" ]
+    "Interface": [
+      "Rect"
+    ]
   },
   {
     "Method": "LineRect2",
-    "Interface": [ "Rect" ]
+    "Interface": [
+      "Rect"
+    ]
   },
   {
     "Method": "LineQuad",
-    "Interface": [ "Quad" ]
+    "Interface": [
+      "Quad"
+    ]
   },
   {
     "Method": "SetTexture",
-    "Interface": [ "IWebGLTexture" ]
+    "Interface": [
+      "IWebGLTexture"
+    ]
   },
   {
     "Method": "CreateWebGLText",
-    "Interface": [ "IWebGLText" ]
+    "Interface": [
+      "IWebGLText"
+    ]
   },
   {
     "Method": "GetTextRect",
-    "Interface": [ "Rect" ]
+    "Interface": [
+      "Rect"
+    ]
   },
   {
     "Method": "AddCondition",
-    "Interface": [ "IObjectType", "IFamily" ]
+    "Interface": [
+      "IObjectType",
+      "IFamily"
+    ]
   },
   {
     "Method": "AddAction",
-    "Interface": [ "IObjectType", "IFamily" ]
+    "Interface": [
+      "IObjectType",
+      "IFamily"
+    ]
   },
   {
     "Method": "AddEventBlock",
-    "Interface": [ "IEventBlock" ]
+    "Interface": [
+      "IEventBlock"
+    ]
   },
   {
     "Method": "GetRoot",
-    "Interface": [ "IEventParentRow" ]
+    "Interface": [
+      "IEventParentRow"
+    ]
   },
   {
     "Method": "GetEventSheet",
-    "Interface": [ "IEventSheet" ]
+    "Interface": [
+      "IEventSheet"
+    ]
   },
   {
     "Method": "CreateObjectType",
-    "Interface": [ "IObjectType" ]
+    "Interface": [
+      "IObjectType"
+    ]
   },
   {
     "Method": "GetSystemType",
-    "Interface": [ "IObjectType" ]
+    "Interface": [
+      "IObjectType"
+    ]
   },
   {
     "Method": "GetSingleGlobalObjectType",
-    "Interface": [ "IObjectType" ]
+    "Interface": [
+      "IObjectType"
+    ]
   },
   {
     "Method": "CreateFamily",
-    "Interface": [ "IObjectType IFamily" ]
+    "Interface": [
+      "IObjectType IFamily"
+    ]
   },
   {
     "Method": "UndoPointChangeObjectInstancesProperty",
-    "Interface": [ "IObjectInstance" ]
+    "Interface": [
+      "IObjectInstance"
+    ]
   },
   {
     "Method": "GetObjectType",
-    "Interface": [ "IObjectType" ]
+    "Interface": [
+      "IObjectType"
+    ]
   },
   {
     "Method": "GetFrames",
-    "Interface": [ "IAnimationFrames" ]
+    "Interface": [
+      "IAnimationFrames"
+    ]
   },
   {
     "Method": "AddFrames",
-    "Interface": [ "IAnimationFrame" ]
+    "Interface": [
+      "IAnimationFrame"
+    ]
   },
   {
     "Method": "GetCachedWebGLTexture",
-    "Interface": [ "IWebGLTexture" ]
+    "Interface": [
+      "IWebGLTexture"
+    ]
   },
   {
     "Method": "GetImagePoints",
-    "Interface": [ "IImagePoint" ]
+    "Interface": [
+      "IImagePoint"
+    ]
   },
   {
     "Method": "AddImagePoint",
-    "Interface": [ "IImagePoint" ]
+    "Interface": [
+      "IImagePoint"
+    ]
   },
   {
     "Method": "GetCollisionPoly",
-    "Interface": [ "ICollisionPoly" ]
+    "Interface": [
+      "ICollisionPoly"
+    ]
   },
   {
     "Method": "GetMembers",
-    "Interface": [ "IObjectType" ]
+    "Interface": [
+      "IObjectType"
+    ]
   },
   {
     "Method": "GetAnimationFrame",
-    "Interface": [ "IAnimationFrame" ]
+    "Interface": [
+      "IAnimationFrame"
+    ]
   },
   {
     "Method": "GetImage",
-    "Interface": [ "IAnimationFrame" ]
+    "Interface": [
+      "IAnimationFrame"
+    ]
   },
   {
     "Method": "GetAnimation",
-    "Interface": [ "IAnimation" ]
+    "Interface": [
+      "IAnimation"
+    ]
   },
   {
     "Method": "AddAnimation",
-    "Interface": [ "IAnimation" ]
+    "Interface": [
+      "IAnimation"
+    ]
   },
   {
     "Method": "CreateWorldInstance",
-    "Interface": [ "ILayer", "IWorldInsatnce" ]
+    "Interface": [
+      "ILayer",
+      "IWorldInsatnce"
+    ]
   },
   {
     "Method": "GetContainer",
-    "Interface": [ "IContainer" ]
+    "Interface": [
+      "IContainer"
+    ]
   },
   {
     "Method": "CreateContainer",
-    "Interface": [ "IObjectType", "IContainer" ]
+    "Interface": [
+      "IObjectType",
+      "IContainer"
+    ]
   },
   {
     "Method": "GetBoundingBox",
-    "Interface": [ "Rect" ]
+    "Interface": [
+      "Rect"
+    ]
   },
   {
     "Method": "GetColor",
-    "Interface": [ "Color" ]
+    "Interface": [
+      "Color"
+    ]
   },
   {
     "Method": "ApplyBlendMode",
-    "Interface": [ "IWebGLRenderer" ]
+    "Interface": [
+      "IWebGLRenderer"
+    ]
   },
   {
     "Method": "GetLayout",
-    "Interface": [ "ILayout" ]
+    "Interface": [
+      "ILayout"
+    ]
   },
   {
     "Method": "GetActiveLayer",
-    "Interface": [ "ILayer" ]
+    "Interface": [
+      "ILayer"
+    ]
   },
   {
     "Method": "SetDeviceTransform",
-    "Interface": [ "IWebGLRenderer" ]
+    "Interface": [
+      "IWebGLRenderer"
+    ]
   },
   {
     "Method": "SetDefaultTransform",
-    "Interface": [ "IWebGLRenderer" ]
+    "Interface": [
+      "IWebGLRenderer"
+    ]
+  },
+  {
+    "Method": "GetObjectClasses",
+    "Interface": [
+      "ObjectClass"
+    ]
+  },
+  {
+    "Method": "GetInstances",
+    "Interface": [
+      "Instance"
+    ]
+  },
+  {
+    "Method": "_behInst",
+    "Interface": [
+      "BehaviorInstance"
+    ]
+  },
+  {
+    "Method": "_inst",
+    "Interface": [
+      "Instance"
+    ]
+  },
+  {
+    "Method": "_runtime",
+    "Interface": [
+      "Runtime"
+    ]
+  },
+  {
+    "Method": "_behaviorType",
+    "Interface": [
+      "BehaviorType"
+    ]
+  },
+  {
+    "Method": "_sdkType",
+    "Interface": [
+      "SDKBehaviorType"
+    ]
+  },
+  {
+    "Method": "_objectClass",
+    "Interface": [
+      "ObjectClass"
+    ]
+  },
+  {
+    "Method": "_plugin",
+    "Interface": [
+      "SDKPluginBase"
+    ]
+  },
+  {
+    "Method": "_worldInfo",
+    "Interface": [
+      "WorldInfo"
+    ]
+  },
+  {
+    "Method": "GetWorldInfo",
+    "Interface": [
+      "WorldInfo"
+    ]
+  },
+  {
+    "Method": "GetRuntime",
+    "Interface": [
+      "Runtime"
+    ]
+  },
+  {
+    "Method": "GetObjectInstance",
+    "Interface": [
+      "Instance"
+    ]
+  },
+  {
+    "Method": "GetBehaviorInstance",
+    "Interface": [
+      "BehaviorInstance"
+    ]
+  },
+  {
+    "Method": "GetBehaviorType",
+    "Interface": [
+      "BehaviorType"
+    ]
+  },
+  {
+    "Method": "GetSdkType",
+    "Interface": [
+      "SDKBehaviorType"
+    ]
+  },
+  {
+    "Method": "GetBehavior",
+    "Interface": [
+      "SDKBehaviorBase"
+    ]
+  },
+  {
+    "Method": "GetPlugin",
+    "Interface": [
+      "SDKPluginBase"
+    ]
+  },
+  {
+    "Method": "LoadTextures",
+    "Interface": [
+      "IWebGLRenderer"
+    ]
+  },
+  {
+    "Method": "GetEventSheetManager",
+    "Interface": [
+      "EVentSheetManager"
+    ]
+  },
+  {
+    "Method": "GetParent",
+    "Interface": [
+      "EventBlock"
+    ]
+  },
+  {
+    "Method": "GetSolModifier",
+    "Interface": [
+      "ObjectClass"
+    ]
+  },
+  {
+    "Method": "Retrigger",
+    "Interface": [
+      "EventStackFrame"
+    ]
+  },
+  {
+    "Method": "GetEventStack",
+    "Interface": [
+      "EventStack"
+    ]
+  },
+  {
+    "Method": "GetCurrentEventStackFrame",
+    "Interface": [
+      "EventStackFrame"
+    ]
+  },
+  {
+    "Method": "GetCurrentEvent",
+    "Interface": [
+      "EventBlock"
+    ]
+  },
+  {
+    "Method": "ClearSol",
+    "Interface": [
+      "ObjectClass"
+    ]
+  },
+  {
+    "Method": "PushCleanSol",
+    "Interface": [
+      "ObjectClass"
+    ]
+  },
+  {
+    "Method": "PushCopySol",
+    "Interface": [
+      "ObjectClass"
+    ]
+  },
+  {
+    "Method": "PopSol",
+    "Interface": [
+      "ObjectClass"
+    ]
+  },
+  {
+    "Method": "Push",
+    "Interface": [
+      "EventStackFrame",
+      "EventBlock"
+    ]
+  },
+  {
+    "Method": "Pop",
+    "Interface": [
+      "EventStackFrame"
+    ]
+  },
+  {
+    "Method": "GetLayout",
+    "Interface": [
+      "Layout"
+    ]
+  },
+  {
+    "Method": "GetViewport",
+    "Interface": [
+      "Rect"
+    ]
+  },
+  {
+    "Method": "GetBackgroundColor",
+    "Interface": [
+      "Color"
+    ]
+  },
+  {
+    "Method": "GetLayer",
+    "Interface": [
+      "Layer"
+    ]
+  },
+  {
+    "Method": "GetLayerByName",
+    "Interface": [
+      "Layer"
+    ]
+  },
+  {
+    "Method": "GetLayerByIndex",
+    "Interface": [
+      "Layer"
+    ]
+  },
+  {
+    "Method": "GetSdkInstance",
+    "Interface": [
+      "SDKBehaviorInstanceBase"
+    ]
+  },
+  {
+    "Method": "GetSdkType",
+    "Interface": [
+      "SDKBehaviorTypeBase"
+    ]
+  },
+  {
+    "Method": "GetBehaviorInstances",
+    "Interface": [
+      "BehaviorInstance"
+    ]
+  },
+  {
+    "Method": "GetBehaviorInstanceFromCtor",
+    "Interface": [
+      "BehaviorInstance"
+    ]
+  },
+  {
+    "Method": "GetBehaviorSdkInstanceFromCtor",
+    "Interface": [
+      "SDKBehaviorInstanceBase"
+    ]
+  },
+  {
+    "Method": "GetBoundingBox",
+    "Interface": [
+      "Rect"
+    ]
+  },
+  {
+    "Method": "GetBoundingQuad",
+    "Interface": [
+      "Quad"
+    ]
+  },
+  {
+    "Method": "SetUnpremultipliedColor",
+    "Interface": [
+      "Color"
+    ]
+  },
+  {
+    "Method": "GetUnpremultipliedColor",
+    "Interface": [
+      "Color"
+    ]
+  },
+  {
+    "Method": "GetPremultipliedColor",
+    "Interface": [
+      "Color"
+    ]
   }
-
-
 ]

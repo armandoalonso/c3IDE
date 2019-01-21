@@ -11,7 +11,7 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
+         
         <StackPanel Grid.Column="0">
             <TextBlock  Style="{StaticResource TextBlockStyle}">Compile Path :</TextBlock>
             <TextBox Name="CompilePathText" Text=""></TextBox>
@@ -35,6 +35,7 @@
             
             <TextBlock  Style="{StaticResource TextBlockStyle}">C3Addon Path :</TextBlock>
             <TextBox Name="C3AddonPathText" Text="" IsReadOnly="True"></TextBox>
+            <Separator Visibility="Hidden" Height="5" />
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
