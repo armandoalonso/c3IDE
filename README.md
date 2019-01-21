@@ -11,7 +11,14 @@ You can get the setup exe ![HERE](https://github.com/armandoalonso/c3IDE/raw/mas
 
 # Current state
 
-As of right now only Single Global Plugins are support, this will change in the future when i get around to adding support for it. There is an embedded web server which takes care of hosting the plugin for you. There is currently an alpha version which I will be updating regularly. The major things i have left todo is add the rest of the templates, and finish the auto completion, there are also a few small options i want to look into like themes for the editors. but before that i want to get all the functionaility in.
+The project is really close to being complete for thes first stage, Only about 20% of the SDK is missing from the auto completion list. Most of the features are already implemented, there is only a bit of polish left like adding context menu and shortcuts to improve workflow. And i am also missing documentation and examples projects. There are a few things i will work on after the 1.0 release, such as themes, and other plugin export types such as effect/ custom importers. 
+
+#Auto Completion 
+
+I take a niave approach to auto completion, There are 2 flavors of auto completion mixed in, The first is user based auto completion (think sublime text), all user entered tokens are added to the completion list with a low piority. The second flavor of auto completion is scrapped data from the construct 3 documentation based on the defined interfaces. what that means is I parse the document for any of the defined types used in construct (ex. IInstanceBase, SDK, C3...) then from this types you will get a set of methods and properties that would be available, we also don't just look for interfaces we also look at method calls, and we have a mapping that based on those call returns a list of interfaces for the return types and parameters. so calling GetObjectType() expose all the members of IObjectType. this approach is naive becuase there is no reflection or AST to infer types. if one of the token is found on the document, we just populate the list of completions, I have tried to add as much documentation to the tool tip to help associate the call with the proper interface, but if you are not fimilar with the C3 documentation you could run into issue, make sure the object you are using to call the method actually has that method exposed.        
+
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/c3IDE-auto-complete.gif)
+*context based auto completion*
 
 # Import / Export Projects
 

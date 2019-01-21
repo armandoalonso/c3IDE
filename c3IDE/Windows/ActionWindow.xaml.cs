@@ -434,7 +434,7 @@ namespace c3IDE.Windows
 
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Tab && completionWindow != null)
+            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
             {
                 e.Handled = true;
                 completionWindow.CompletionList.ListBox.SelectedIndex = 0;
