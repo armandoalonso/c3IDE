@@ -37,7 +37,7 @@
         </mah:ChildWindow>
         
         <TabControl>
-            <TabItem Header="Plugin.js" IsEnabled="False"/>
+            <TabItem Header="Plugin.js" IsEnabled="False" Name="TitleTab"/>
             <TabItem Header="(Edit Time)" IsSelected="True">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
@@ -45,7 +45,8 @@
                     FontFamily="Consolas"
                     SyntaxHighlighting="JavaScript"
                     FontSize="10pt"
-                    ShowLineNumbers="True" VerticalScrollBarVisibility="Auto">
+                    ShowLineNumbers="True" VerticalScrollBarVisibility="Auto"
+                    PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Insert New Plugin Property" Click="InsertNewProperty" />
@@ -62,7 +63,8 @@
                     FontFamily="Consolas"
                     SyntaxHighlighting="JavaScript"
                     FontSize="10pt"
-                    ShowLineNumbers="True" VerticalScrollBarVisibility="Auto">
+                    ShowLineNumbers="True" VerticalScrollBarVisibility="Auto"
+                    PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                         </ContextMenu>

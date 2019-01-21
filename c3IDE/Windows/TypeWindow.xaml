@@ -16,7 +16,8 @@
                     FontFamily="Consolas"
                     SyntaxHighlighting="JavaScript"
                     FontSize="10pt"
-                    ShowLineNumbers="True" VerticalScrollBarVisibility="Auto">
+                    ShowLineNumbers="True" VerticalScrollBarVisibility="Auto"
+                    PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                         </ContextMenu>
@@ -31,7 +32,8 @@
                     FontFamily="Consolas"
                     SyntaxHighlighting="JavaScript"
                     FontSize="10pt"
-                    ShowLineNumbers="True" VerticalScrollBarVisibility="Auto">
+                    ShowLineNumbers="True" VerticalScrollBarVisibility="Auto"
+                    PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                         </ContextMenu>

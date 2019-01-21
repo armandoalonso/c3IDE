@@ -6,12 +6,14 @@ using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using ICSharpCode.AvalonEdit.Editing;
 
 namespace c3IDE.Windows
 {
@@ -31,29 +33,13 @@ namespace c3IDE.Windows
 
             AddonTextEditor.TextArea.TextEntering += AddonTextEditor_TextEntering;
             AddonTextEditor.TextArea.TextEntered += AddonTextEditor_TextEntered;
-
-            //AddonTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-            //FileTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-        }
-
-        private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
-        {
-            if (!e.Handled)
-            {
-                e.Handled = true;
-                var eventArg =
-                    new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
-                    {
-                        RoutedEvent = UIElement.MouseWheelEvent,
-                        Source = sender
-                    };
-                var parent = AddonGrid as UIElement;
-                parent.RaiseEvent(eventArg);
-            }
         }
 
         private void AddonTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(e.Text)) return;
+            var allTokens = JavascriptParser.Insatnce.ParseJsonDocument(AddonTextEditor.Text);
+
             //add matching closing symbol
             switch (e.Text)
             {
@@ -76,31 +62,23 @@ namespace c3IDE.Windows
                     AddonTextEditor.Document.Insert(AddonTextEditor.TextArea.Caret.Offset, ")");
                     AddonTextEditor.TextArea.Caret.Offset--;
                     return;
-            }
 
-            //figure out word segment
-            var segment = AddonTextEditor.TextArea.GetCurrentWord();
-            if (segment == null) return;
+                default:
+                    //figure out word segment
+                    var segment = AddonTextEditor.TextArea.GetCurrentWord();
+                    if (segment == null) return;
 
-            //get string from segment
-            var text = AddonTextEditor.Document.GetText(segment);
-            if (string.IsNullOrWhiteSpace(text)) return;
+                    //get string from segment
+                    var text = AddonTextEditor.Document.GetText(segment);
+                    if (string.IsNullOrWhiteSpace(text)) return;
 
-            //filter completion list by string
-            var data = CodeCompletionFactory.Insatnce.GetCompletionData(CodeType.Json).Where(x => x.Text.ToLower().Contains(text)).ToList();
-            if (data.Any())
-            {
-                //if any data matches show completion list
-                completionWindow = new CompletionWindow(AddonTextEditor.TextArea)
-                {
-                    //overwrite color due to global style
-                    Foreground = new SolidColorBrush(Colors.Black)
-                };
-
-                var completionData = completionWindow.CompletionList.CompletionData;
-                CodeCompletionDecorator.Insatnce.Decorate(ref completionData, data); ;
-                completionWindow.Show();
-                completionWindow.Closed += delegate { completionWindow = null; };
+                    //filter completion list by string
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    if (data.Any())
+                    {
+                        ShowCompletion(AddonTextEditor.TextArea, data);
+                    }
+                    break;
             }
         }
 
@@ -117,6 +95,23 @@ namespace c3IDE.Windows
             }
             // Do not set e.Handled=true.
             // We still want to insert the character that was typed.
+        }
+
+        private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
+        {
+            //if any data matches show completion list
+            completionWindow = new CompletionWindow(textArea)
+            {
+                //overwrite color due to global style
+                Foreground = new SolidColorBrush(Colors.Black)
+            };
+            var completionData = completionWindow.CompletionList.CompletionData;
+            CodeCompletionDecorator.Insatnce.Decorate(ref completionData, completionList); ;
+            completionWindow.Width = 250;
+            completionWindow.CompletionList.ListBox.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
+
+            completionWindow.Show();
+            completionWindow.Closed += delegate { completionWindow = null; };
         }
 
         public void OnEnter()
@@ -276,6 +271,16 @@ namespace c3IDE.Windows
             FileListBox.SelectedIndex = _files.Count - 1;
             _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
             FileTextEditor.Text = _selectedFile.Content;
+        }
+
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && completionWindow != null)
+            {
+                e.Handled = true;
+                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
+                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
+            }
         }
     }
 }

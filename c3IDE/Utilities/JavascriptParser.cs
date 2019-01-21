@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.CodeCompletion.Bindings;
+using MahApps.Metro.Controls;
 
 namespace c3IDE.Utilities
 {
@@ -16,7 +17,8 @@ namespace c3IDE.Utilities
 
         private readonly Regex _tokenSDKRegex = new Regex("SDK\\.(\\w+)");
         private readonly Regex _tokenC3Regex = new Regex("C3\\.(\\w+).?(\\w+)?");
-        private readonly Regex _methodRegex = new Regex("(\\w+)\\(.*?\\)");
+        private readonly Regex _jsonRegex = new Regex("\"(\\S+)\""); 
+        private readonly Regex _userRegex = new Regex("(\\w+)");
 
         public List<string> ParseJavascriptDocument(string text, CodeType type)
         {
@@ -40,9 +42,22 @@ namespace c3IDE.Utilities
             return hashset.ToList();
         }
 
+        public List<string> ParseJsonDocument(string text)
+        {
+            var matches = _jsonRegex.Matches(text);
+            var hashset = new HashSet<string>();
+
+            foreach (Match match in matches)
+            {
+                hashset.Add(match.Groups[1].ToString()); 
+            }
+
+            return hashset.ToList();
+        }
+
         public List<string> ParseJavascriptMethodCalls(string text)
         {
-            var mathes = _methodRegex.Matches(text);
+            var mathes = _userRegex.Matches(text);
             var hashset = new HashSet<string>();
 
             foreach (Match match in mathes)
@@ -72,16 +87,17 @@ namespace c3IDE.Utilities
                             }
                         }
                     }
-
                     foreach (var m in methods)
                     {
                         if (_editorMethodCache.ContainsKey(m))
                         {
                             results.AddRange(_editorMethodCache[m]);
                         }
-                    }
 
-                    return results.ToList();
+                        //all all tokens
+                        results.Add(m);
+                    }
+                    break;
                 case CodeType.RuntimeJavascript:
                     if (_runtimeMethodcache.Count == 0)
                     {
@@ -100,12 +116,14 @@ namespace c3IDE.Utilities
                         {
                             results.AddRange(_runtimeMethodcache[m]);
                         }
-                    }
 
-                    return results.ToList();
+                        //all all tokens
+                        results.Add(m);
+                    }
+                    break;
             }
 
-            return null;
+            return results.ToList();
         }
     }
 }

@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace c3IDE.Utilities.CodeCompletion
 {
-    public class GenericCompletionItem : ICompletionData
+    public class GenericCompletionItem : ICompletionData, IEquatable<GenericCompletionItem>
     {
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
@@ -25,6 +25,7 @@ namespace c3IDE.Utilities.CodeCompletion
             this.DescriptionText = description;
             this.Type = type;
             this.Image = CompletionTypeFactory.Insatnce.GetIcon(this.Type);
+            this.Container = string.Empty;
         }
 
         [JsonIgnore]
@@ -40,5 +41,25 @@ namespace c3IDE.Utilities.CodeCompletion
         public object Description => $"{Container} : {DescriptionText}";
         [JsonIgnore]
         public double Priority => 1.0;
+
+        public bool Equals(GenericCompletionItem other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return string.Equals(Text, other.Text);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((GenericCompletionItem) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Text != null ? Text.GetHashCode() : 0);
+        }
     }
 }

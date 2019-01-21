@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,26 +35,6 @@ namespace c3IDE.Windows
             EditTimeTypeTextEditor.TextArea.TextEntered += EditTimeTypeTextEditor_TextEntered;
             RunTimeTypeTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             RunTimeTypeTextEditor.TextArea.TextEntered += RunTimeTypeTextEditor_TextEntered;
-
-            //hanlde mouse wheel scrolling
-            //EditTimeTypeTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-            //RunTimeTypeTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-        }
-
-        private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
-        {
-            if (!e.Handled)
-            {
-                e.Handled = true;
-                var eventArg =
-                    new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
-                    {
-                        RoutedEvent = UIElement.MouseWheelEvent,
-                        Source = sender
-                    };
-                var parent = TypeGrid as UIElement;
-                parent.RaiseEvent(eventArg);
-            }
         }
 
         private void EditTimeTypeTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
@@ -90,7 +71,7 @@ namespace c3IDE.Windows
                 case ".":
                     var methodsData = CodeCompletionFactory.Insatnce
                         .GetCompletionData(allTokens, CodeType.EdittimeJavascript)
-                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules);
+                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
                     ShowCompletion(EditTimeTypeTextEditor.TextArea, methodsData.ToList());
                     break;
                 default:
@@ -144,7 +125,7 @@ namespace c3IDE.Windows
                     return;
                 case ".":
                     var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript)
-                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules);
+                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
                     ShowCompletion(RunTimeTypeTextEditor.TextArea, methodsData.ToList());
                     break;
                 default:
@@ -193,6 +174,7 @@ namespace c3IDE.Windows
             var completionData = completionWindow.CompletionList.CompletionData;
             CodeCompletionDecorator.Insatnce.Decorate(ref completionData, completionList); ;
             completionWindow.Width = 250;
+            completionWindow.CompletionList.ListBox.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
 
             completionWindow.Show();
             completionWindow.Closed += delegate { completionWindow = null; };
@@ -213,6 +195,15 @@ namespace c3IDE.Windows
                 AppData.Insatnce.CurrentAddon.TypeEditTime = EditTimeTypeTextEditor.Text;
                 AppData.Insatnce.CurrentAddon.TypeRunTime = RunTimeTypeTextEditor.Text;
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+            }
+        }
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && completionWindow != null)
+            {
+                e.Handled = true;
+                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
+                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
             }
         }
     }

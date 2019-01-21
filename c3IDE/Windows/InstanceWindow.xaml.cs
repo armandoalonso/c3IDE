@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,26 +37,6 @@ namespace c3IDE.Windows
 
             RunTimeInstanceTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             RunTimeInstanceTextEditor.TextArea.TextEntered += RunTimeInstanceTextEditor_TextEntered;
-
-            //hanlde mouse wheel scrolling
-            //EditTimeInstanceTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-            //RunTimeInstanceTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-        }
-
-        private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
-        {
-            if (!e.Handled)
-            {
-                e.Handled = true;
-                var eventArg =
-                    new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
-                    {
-                        RoutedEvent = UIElement.MouseWheelEvent,
-                        Source = sender
-                    };
-                var parent = InstanceGrid as UIElement;
-                parent.RaiseEvent(eventArg);
-            }
         }
 
         private void EditTimeInstanceTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
@@ -63,9 +44,7 @@ namespace c3IDE.Windows
             if (string.IsNullOrWhiteSpace(e.Text)) return;
             var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(EditTimeInstanceTextEditor.Text, CodeType.EdittimeJavascript);
             var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptMethodCalls(EditTimeInstanceTextEditor.Text);
-            var allTokens =
-                JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens,
-                    CodeType.EdittimeJavascript);
+            var allTokens = JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.EdittimeJavascript);
 
             //add matching closing symbol
             switch (e.Text)
@@ -92,7 +71,7 @@ namespace c3IDE.Windows
                 case ".":
                     var methodsData = CodeCompletionFactory.Insatnce
                         .GetCompletionData(allTokens, CodeType.EdittimeJavascript)
-                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules);
+                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
                     ShowCompletion(EditTimeInstanceTextEditor.TextArea, methodsData.ToList());
                     break;
                 default:
@@ -146,7 +125,7 @@ namespace c3IDE.Windows
                     return;
                 case ".":
                     var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript)
-                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules);
+                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
                     ShowCompletion(RunTimeInstanceTextEditor.TextArea, methodsData.ToList());
                     break;
                 default:
@@ -195,6 +174,7 @@ namespace c3IDE.Windows
             var completionData = completionWindow.CompletionList.CompletionData;
             CodeCompletionDecorator.Insatnce.Decorate(ref completionData, completionList); ;
             completionWindow.Width = 250;
+            completionWindow.CompletionList.ListBox.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
 
             completionWindow.Show();
             completionWindow.Closed += delegate { completionWindow = null; };
@@ -215,6 +195,16 @@ namespace c3IDE.Windows
                 AppData.Insatnce.CurrentAddon.InstanceEditTime = EditTimeInstanceTextEditor.Text;
                 AppData.Insatnce.CurrentAddon.InstanceRunTime = RunTimeInstanceTextEditor.Text;
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+            }
+        }
+
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && completionWindow != null)
+            {
+                e.Handled = true;
+                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
+                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
             }
         }
     }

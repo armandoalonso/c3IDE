@@ -39,22 +39,8 @@ namespace c3IDE.Utilities.CodeCompletion
 
         public IList<GenericCompletionItem> GetCompletionData(IEnumerable<string> tokenList, CodeType type)
         {
-            var completionList = new List<GenericCompletionItem>();
+            var completionList = new HashSet<GenericCompletionItem>();
             var allList = GetCompletionData(type);
-
-            foreach (var token in tokenList)
-            {
-                if (_contextCache.ContainsKey(token))
-                {
-                    completionList.AddRange(_contextCache[token]);
-                }
-                else
-                {
-                    _contextCache[token] = allList.Where(x => x.Container.Contains(token)).ToList();
-                    completionList.AddRange(_contextCache[token]);
-                }
-            }
-
 
             switch (type)
             {
@@ -72,7 +58,28 @@ namespace c3IDE.Utilities.CodeCompletion
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
 
-            return completionList;
+            foreach (var token in tokenList)
+            {
+                if (_contextCache.ContainsKey(token))
+                {
+                    completionList.AddRange(_contextCache[token]);
+                }
+                else
+                {
+                    var definedCompletions = allList.Where(x => x.Container.Contains(token)).ToList();
+                    if (definedCompletions.Any())
+                    {
+                        _contextCache[token] = definedCompletions;
+                        completionList.AddRange(_contextCache[token]);
+                    }
+                    else
+                    {
+                        completionList.Add(new GenericCompletionItem(token, "user defined", CompletionType.Misc));
+                    }
+                }
+            }
+
+            return completionList.ToList();
         }
     }
 

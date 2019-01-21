@@ -17,7 +17,7 @@
             <ColumnDefinition Width="3*" Name="CodePanel"/>
         </Grid.ColumnDefinitions>
 
-        <mah:ChildWindow Name="NewExpressionWindow" Grid.Column="0" Grid.ColumnSpan="5" Title="Add New Expression" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
+        <mah:ChildWindow Name="NewExpressionWindow" Grid.Column="0" Grid.ColumnSpan="6" Title="Add New Expression" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
             <mah:ChildWindow.OverlayBrush>
                 <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
             </mah:ChildWindow.OverlayBrush>
@@ -48,7 +48,7 @@
             </StackPanel>
         </mah:ChildWindow>
 
-        <mah:ChildWindow Name="NewParamWindow" Grid.Column="0" Grid.ColumnSpan="5" Title="Add New Parameter" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
+        <mah:ChildWindow Name="NewParamWindow" Grid.Column="0" Grid.ColumnSpan="6" Title="Add New Parameter" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
             <mah:ChildWindow.OverlayBrush>
                 <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
             </mah:ChildWindow.OverlayBrush>
@@ -103,7 +103,8 @@
                     FontFamily="Consolas"
                     SyntaxHighlighting="JavaScript"
                     FontSize="10pt"
-                    ShowLineNumbers="True">
+                    ShowLineNumbers="True"
+                    PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Insert Expression Parameter" Click="InsertNewParam" />
@@ -130,7 +131,8 @@
                         FontFamily="Consolas"
                         SyntaxHighlighting="JavaScript"
                         FontSize="10pt"
-                        ShowLineNumbers="True">
+                        ShowLineNumbers="True"
+                        PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Insert Expression Parameter" Click="InsertNewParam" />
@@ -157,7 +159,8 @@
                     FontFamily="Consolas"
                     SyntaxHighlighting="JavaScript"
                     FontSize="10pt"
-                    ShowLineNumbers="True">
+                    ShowLineNumbers="True"
+                    PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Insert Expression Parameter" Click="InsertNewParam" />

@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using c3IDE.DataAccess;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Windows.Interfaces;
 using c3IDE.Models;
 using c3IDE.Templates;
 using c3IDE.Utilities;
+using c3IDE.Utilities.CodeCompletion;
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Editing;
 using Action = c3IDE.Models.Action;
 
 namespace c3IDE.Windows
@@ -22,31 +27,201 @@ namespace c3IDE.Windows
     {
         private Dictionary<string, Action> _actions;
         private Action _selectedAction;
+        private CompletionWindow completionWindow;
 
         public string DisplayName { get; set; } = "Actions";
 
         public ActionWindow()
         {
             InitializeComponent();
-            //AceTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-            //LanguageTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-            //CodeTextEditor.TextArea.MouseWheel += MouseWheelHandler;
+
+            CodeTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
+            CodeTextEditor.TextArea.TextEntered += CodeTextEditor_TextEntered;
+
+            AceTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
+            AceTextEditor.TextArea.TextEntered += AceTextEditor_TextEntered;
+
+            LanguageTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
+            LanguageTextEditor.TextArea.TextEntered += LanguageTextEditor_TextEntered;
         }
 
-        private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
+        private void LanguageTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
-            if (!e.Handled)
+            if (string.IsNullOrWhiteSpace(e.Text)) return;
+            var allTokens = JavascriptParser.Insatnce.ParseJsonDocument(LanguageTextEditor.Text);
+
+            //add matching closing symbol
+            switch (e.Text)
             {
-                e.Handled = true;
-                var eventArg =
-                    new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+                case "{":
+                    LanguageTextEditor.Document.Insert(LanguageTextEditor.TextArea.Caret.Offset, "}");
+                    LanguageTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "\"":
+                    LanguageTextEditor.Document.Insert(LanguageTextEditor.TextArea.Caret.Offset, "\"");
+                    LanguageTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "[":
+                    LanguageTextEditor.Document.Insert(LanguageTextEditor.TextArea.Caret.Offset, "]");
+                    LanguageTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "(":
+                    LanguageTextEditor.Document.Insert(LanguageTextEditor.TextArea.Caret.Offset, ")");
+                    LanguageTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                default:
+                    //figure out word segment
+                    var segment = LanguageTextEditor.TextArea.GetCurrentWord();
+                    if (segment == null) return;
+
+                    //get string from segment
+                    var text = LanguageTextEditor.Document.GetText(segment);
+                    if (string.IsNullOrWhiteSpace(text)) return;
+
+                    //filter completion list by string
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    if (data.Any())
                     {
-                        RoutedEvent = UIElement.MouseWheelEvent,
-                        Source = sender
-                    };
-                var parent = ActionGrid as UIElement;
-                parent.RaiseEvent(eventArg);
+                        ShowCompletion(LanguageTextEditor.TextArea, data);
+                    }
+                    break;
             }
+        }
+
+        private void AceTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(e.Text)) return;
+            var allTokens = JavascriptParser.Insatnce.ParseJsonDocument(AceTextEditor.Text);
+
+            //add matching closing symbol
+            switch (e.Text)
+            {
+                case "{":
+                    AceTextEditor.Document.Insert(AceTextEditor.TextArea.Caret.Offset, "}");
+                    AceTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "\"":
+                    AceTextEditor.Document.Insert(AceTextEditor.TextArea.Caret.Offset, "\"");
+                    AceTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "[":
+                    AceTextEditor.Document.Insert(AceTextEditor.TextArea.Caret.Offset, "]");
+                    AceTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "(":
+                    AceTextEditor.Document.Insert(AceTextEditor.TextArea.Caret.Offset, ")");
+                    AceTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                default:
+                    //figure out word segment
+                    var segment = AceTextEditor.TextArea.GetCurrentWord();
+                    if (segment == null) return;
+
+                    //get string from segment
+                    var text = AceTextEditor.Document.GetText(segment);
+                    if (string.IsNullOrWhiteSpace(text)) return;
+
+                    //filter completion list by string
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    if (data.Any())
+                    {
+                        ShowCompletion(AceTextEditor.TextArea, data);
+                    }
+                    break;
+            }
+        }
+
+        private void CodeTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(e.Text)) return;
+            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(CodeTextEditor.Text, CodeType.RuntimeJavascript);
+            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptMethodCalls(CodeTextEditor.Text);
+            var allTokens = JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.RuntimeJavascript);
+
+            //add matching closing symbol
+            switch (e.Text)
+            {
+                case "{":
+                    CodeTextEditor.Document.Insert(CodeTextEditor.TextArea.Caret.Offset, "}");
+                    CodeTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "\"":
+                    CodeTextEditor.Document.Insert(CodeTextEditor.TextArea.Caret.Offset, "\"");
+                    CodeTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "[":
+                    CodeTextEditor.Document.Insert(CodeTextEditor.TextArea.Caret.Offset, "]");
+                    CodeTextEditor.TextArea.Caret.Offset--;
+                    return;
+
+                case "(":
+                    CodeTextEditor.Document.Insert(CodeTextEditor.TextArea.Caret.Offset, ")");
+                    CodeTextEditor.TextArea.Caret.Offset--;
+                    return;
+                case ".":
+                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript)
+                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
+                    ShowCompletion(CodeTextEditor.TextArea, methodsData.ToList());
+                    break;
+                default:
+                    //figure out word segment
+                    var segment = CodeTextEditor.TextArea.GetCurrentWord();
+                    if (segment == null) return;
+
+                    //get string from segment
+                    var text = CodeTextEditor.Document.GetText(segment);
+                    if (string.IsNullOrWhiteSpace(text)) return;
+
+                    //filter completion list by string
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    if (data.Any())
+                    {
+                        ShowCompletion(CodeTextEditor.TextArea, data);
+                    }
+                    break;
+            }
+        }
+
+        private void TextEditor_TextEntering(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text.Length > 0 && completionWindow != null)
+            {
+                if (!char.IsLetterOrDigit(e.Text[0]))
+                {
+                    // Whenever a non-letter is typed while the completion window is open,
+                    // insert the currently selected element.
+                    completionWindow.CompletionList.RequestInsertion(e);
+                }
+            }
+            // Do not set e.Handled=true.
+            // We still want to insert the character that was typed.
+        }
+
+        private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
+        {
+            //if any data matches show completion list
+            completionWindow = new CompletionWindow(textArea)
+            {
+                //overwrite color due to global style
+                Foreground = new SolidColorBrush(Colors.Black)
+            };
+            var completionData = completionWindow.CompletionList.CompletionData;
+            CodeCompletionDecorator.Insatnce.Decorate(ref completionData, completionList); ;
+            completionWindow.Width = 250;
+            completionWindow.CompletionList.ListBox.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
+
+            completionWindow.Show();
+            completionWindow.Closed += delegate { completionWindow = null; };
         }
 
         private void AddAction_OnClick(object sender, RoutedEventArgs e)
@@ -255,6 +430,16 @@ namespace c3IDE.Windows
             AcePanel.Width = new GridLength(0);
             CodePanel.Width = new GridLength(0);
             LangPanel.Width = new GridLength(3, GridUnitType.Star);
+        }
+
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && completionWindow != null)
+            {
+                e.Handled = true;
+                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
+                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
+            }
         }
     }
 }

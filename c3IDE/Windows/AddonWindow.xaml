@@ -15,7 +15,8 @@
                     FontFamily="Consolas"
                     SyntaxHighlighting="JavaScript"
                     FontSize="10pt"
-                    ShowLineNumbers="True">
+                    ShowLineNumbers="True"
+                    PreviewKeyDown="TextEditor_OnPreviewKeyDown">
 
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>

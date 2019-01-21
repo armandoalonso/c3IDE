@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using c3IDE.DataAccess;
 using c3IDE.Utilities;
@@ -11,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using c3IDE.Models;
 using ICSharpCode.AvalonEdit.Editing;
 
 namespace c3IDE.Windows
@@ -33,26 +35,6 @@ namespace c3IDE.Windows
             EditTimePluginTextEditor.TextArea.TextEntered += EditTimePluginTextEditor_TextEntered;
             RunTimePluginTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             RunTimePluginTextEditor.TextArea.TextEntered += RunTimePluginTextEditor_TextEntered;
-
-            //hanlde mouse wheel scrolling
-            //EditTimePluginTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-            //RunTimePluginTextEditor.TextArea.MouseWheel += MouseWheelHandler;
-        }
-
-        private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
-        {
-            if (!e.Handled)
-            {
-                e.Handled = true;
-                var eventArg =
-                    new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
-                    {
-                        RoutedEvent = UIElement.MouseWheelEvent,
-                        Source = sender
-                    };
-                var parent = PluginGrid as UIElement;
-                parent.RaiseEvent(eventArg);
-            }
         }
 
         private void EditTimePluginTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
@@ -85,7 +67,8 @@ namespace c3IDE.Windows
                     EditTimePluginTextEditor.TextArea.Caret.Offset--;
                     return;
                 case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EdittimeJavascript).Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules);
+                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EdittimeJavascript)
+                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
                     ShowCompletion(EditTimePluginTextEditor.TextArea, methodsData.ToList());
                     break;
                 default:
@@ -137,7 +120,8 @@ namespace c3IDE.Windows
                     RunTimePluginTextEditor.TextArea.Caret.Offset--;
                     return;
                 case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript).Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules);
+                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript)
+                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
                     ShowCompletion(RunTimePluginTextEditor.TextArea, methodsData.ToList());
                     break;
                 default:
@@ -186,7 +170,6 @@ namespace c3IDE.Windows
             CodeCompletionDecorator.Insatnce.Decorate(ref completionData, completionList); ;
             completionWindow.Width = 250;
             completionWindow.CompletionList.ListBox.Items.SortDescriptions.Add(new SortDescription("Type", ListSortDirection.Ascending));
-            //todo: change sort of completion types to change sort of list box
 
             completionWindow.Show();
             completionWindow.Closed += delegate { completionWindow = null; };
@@ -194,6 +177,8 @@ namespace c3IDE.Windows
 
         public void OnEnter()
         {
+            TitleTab.Header = AppData.Insatnce.CurrentAddon.Type == PluginType.Behavior ? "Behavior.js" : "Plugin.js";
+
             EditTimePluginTextEditor.Text = AppData.Insatnce.CurrentAddon?.PluginEditTime;
             RunTimePluginTextEditor.Text = AppData.Insatnce.CurrentAddon?.PluginRunTime;
         }
@@ -272,6 +257,15 @@ namespace c3IDE.Windows
 
             EditTimePluginTextEditor.Text =
                 FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PopContext(); //.properties", $"{template}\n\nSDK.Lang.PopContext(); //.properties"));
+        }
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && completionWindow != null)
+            {
+                e.Handled = true;
+                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
+                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
+            }
         }
     }
 }

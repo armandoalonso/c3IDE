@@ -37,8 +37,8 @@ namespace c3IDE.Templates
         public static string LanguagePropertyDefault(string id)
         {
            return $@"    ""{id}"" : {{
-        ""name"": ""property name"",
-        ""desc"": ""property desc""
+        ""name"": ""property_name"",
+        ""desc"": ""property_desc""
     }}";
         }
 
@@ -63,7 +63,7 @@ namespace c3IDE.Templates
 
         public static string AceLang(string id, string type, string name, string desc)
         {
-            var items = type == "combo" ? ",\n            \"items\":{\"item1\":\n                \"item one\",\n                \"item2\": \"item two\",\n                \"item3\": \"item three\"\n            }" : string.Empty;
+            var items = type == "combo" ? ",\n            \"items\":{\n                \"item1\": \"item_one\",\n                \"item2\": \"item_two\",\n                \"item3\": \"item_three\"\n            }" : string.Empty;
             return $@"    ""params"": {{
         ""{id}"": {{
             ""name"": ""{name}"",
@@ -96,7 +96,7 @@ namespace c3IDE.Templates
 
         public static string AceLangFirst(string id, string type, string name, string desc)
         {
-            var items = type == "combo" ? ",\n            \"items\":{\"item1\":\n                \"item one\",\n                \"item2\": \"item two\",\n                \"item3\": \"item three\"\n            }" : string.Empty;
+            var items = type == "combo" ? ",\n            \"items\":{\n                \"item1\": \"item_one\",\n                \"item2\": \"item_two\",\n                \"item3\": \"item_three\"\n            }" : string.Empty;
             return $@""",
 	""params"": {{
         ""{id}"": {{
