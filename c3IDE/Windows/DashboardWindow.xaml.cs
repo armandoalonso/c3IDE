@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using c3IDE.Compiler;
 using c3IDE.DataAccess;
 using c3IDE.Models;
 using c3IDE.Templates;
@@ -26,8 +27,11 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class DashboardWindow : UserControl, IWindow
     {
+        //properties
         public string DisplayName { get; set; } = "Dashboard";
         private string IconXml { get; set; }
+
+        //ctor
         public DashboardWindow()
         {
             InitializeComponent();
@@ -38,6 +42,7 @@ namespace c3IDE.Windows
             ResetInputs();
         }
 
+        //window states
         public void OnEnter()
         {
             AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
@@ -48,6 +53,83 @@ namespace c3IDE.Windows
             
         }
 
+        //file drop
+        private void Addon_OnDragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effects = DragDropEffects.Copy;
+            }
+        }
+
+        private void AddonIcon_OnDrop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                var file = ((string[]) e.Data.GetData(DataFormats.FileDrop))?.FirstOrDefault();
+                if (!string.IsNullOrWhiteSpace(file))
+                {
+                    IconXml = File.ReadAllText(file);
+                    AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
+                }
+            }
+            catch(Exception exception) 
+            {
+                Console.WriteLine(exception.Message);
+                AppData.Insatnce.ErrorMessage($"error reading icon file, {exception.Message}");
+            }
+        }
+
+        private void AddonFile_OnDrop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                var file = ((string[])e.Data.GetData(DataFormats.FileDrop))?.FirstOrDefault();
+                var info = new FileInfo(file);
+
+                if (info.Extension.Contains("c3ide"))
+                {
+                    var data = File.ReadAllText(info.FullName);
+                    var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
+                    //when you import the project, it should not overwrite any other project 
+                    c3addon.Id = Guid.NewGuid();
+                    //get the plugin template
+                    c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
+
+                    var addonIndex = AppData.Insatnce.AddonList.Count - 1;
+                    AppData.Insatnce.CurrentAddon = c3addon;
+                    DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+                    AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
+                    AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
+                    AddonListBox.SelectedIndex = addonIndex + 1;
+                }
+                else
+                {
+                    throw new InvalidOperationException("invalid file type, for import");
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+                AppData.Insatnce.ErrorMessage($"error importing c3ide file, {exception.Message}");
+            }
+        }
+
+        //button double click
+        private void AddonListBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                AppData.Insatnce.ErrorMessage("error loading c3addon, no c3addon selected");
+                return;
+            }
+
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            currentAddon.LastModified = DateTime.Now;
+            LoadAddon(currentAddon);
+        }
+
+        //button click
         private void CreateAddonButton_OnClick(object sender, RoutedEventArgs e)
         {
             Enum.TryParse<PluginType>(AddonTypeDropdown.SelectedValue.ToString(), out var pluginType);
@@ -103,41 +185,15 @@ namespace c3IDE.Windows
             ResetInputs();
         }
 
-        private void Addon_OnDragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                e.Effects = DragDropEffects.Copy;
-            }
-        }
-
-        private void AddonIcon_OnDrop(object sender, DragEventArgs e)
-        {
-            try
-            {
-                var file = ((string[]) e.Data.GetData(DataFormats.FileDrop))?.FirstOrDefault();
-                if (!string.IsNullOrWhiteSpace(file))
-                {
-                    IconXml = File.ReadAllText(file);
-                    AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
-                }
-            }
-            catch(Exception exception) 
-            {
-                Console.WriteLine(exception.Message);
-                AppData.Insatnce.ErrorMessage($"error reading icon file, {exception.Message}");
-            }
-        }
-
         private void LoadAddonButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (AddonListBox.SelectedIndex == -1)
             {
                 AppData.Insatnce.ErrorMessage("error loading c3addon, no c3addon selected");
                 return;
-            } 
+            }
 
-            var currentAddon = (C3Addon) AddonListBox.SelectedItem;
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
             currentAddon.LastModified = DateTime.Now;
             LoadAddon(currentAddon);
         }
@@ -150,84 +206,19 @@ namespace c3IDE.Windows
                 return;
             }
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
-
-            AppData.Insatnce.CurrentAddon = null;
-            DataAccessFacade.Insatnce.AddonData.Delete(currentAddon);
-            AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
-            AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
-
-            AppData.Insatnce.InfoMessage($"addon removed successfully");
-        }
-
-        private void AddonListBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (AddonListBox.SelectedIndex == -1)
-            {
-                AppData.Insatnce.ErrorMessage("error loading c3addon, no c3addon selected");
-                return;
-            }
-
-            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
-            currentAddon.LastModified = DateTime.Now;
-            LoadAddon(currentAddon);
+            RemoveAddon(currentAddon);
         }
 
         private void ExportAddonButton_OnClick(object sender, RoutedEventArgs e)
         {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                AppData.Insatnce.ErrorMessage("error exporting c3addon, no c3addon selected");
+                return;
+            }
+
             //export addon to .c3ide format
-            var addonJson = JsonConvert.SerializeObject(AppData.Insatnce.CurrentAddon);
-            var timestamp = DateTime.Now.ToString("MMddyyyyHHmmssfff");
-            Utils.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.ExportPath, $"{AppData.Insatnce.CurrentAddon.Class}_{timestamp}.c3ide"), addonJson);
-
-            Utils.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
-        }
-
-        private void ResetInputs()
-        {
-            AddonNameText.Text = string.Empty;
-            AddonClassText.Text = string.Empty;
-            CompanyNameText.Text = AppData.Insatnce.Options.DefaultCompany;
-            AuthorText.Text = AppData.Insatnce.Options.DefaultAuthor;
-            VersionText.Text = "1.0.0.0";
-            AddonTypeDropdown.SelectedIndex = 0;
-            DescriptionText.Text = string.Empty;
-            IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
-            AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
-        }
-
-        private void AddonFile_OnDrop(object sender, DragEventArgs e)
-        {
-            try
-            {
-                var file = ((string[])e.Data.GetData(DataFormats.FileDrop))?.FirstOrDefault();
-                var info = new FileInfo(file);
-
-                if (info.Extension.Contains("c3ide"))
-                {
-                    var data = File.ReadAllText(info.FullName);
-                    var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
-                    //when you import the project, it should not overwrite any other project 
-                    c3addon.Id = Guid.NewGuid();
-                    //get the plugin template
-                    c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
-
-                    var addonIndex = AppData.Insatnce.AddonList.Count - 1;
-                    AppData.Insatnce.CurrentAddon = c3addon;
-                    DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
-                    AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
-                    AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
-                    AddonListBox.SelectedIndex = addonIndex + 1;
-                }
-                else
-                {
-                    throw new InvalidOperationException("invalid file type, for import");
-                }
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-                AppData.Insatnce.ErrorMessage($"error importing c3ide file, {exception.Message}");
-            }
+            ExportAddon(AppData.Insatnce.CurrentAddon);
         }
 
         private void ExportFolderButton_OnClick(object sender, RoutedEventArgs e)
@@ -240,6 +231,53 @@ namespace c3IDE.Windows
             ResetInputs();
         }
 
+        private void CreateC3AddonButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                AppData.Insatnce.ErrorMessage("error creating c3addon file, no c3addon selected");
+                return;
+            }
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            AddonExporter.Insatnce.ExportAddon(currentAddon);
+            Utils.Insatnce.StartProcess(AppData.Insatnce.Options.C3AddonPath);
+        }
+
+        //context menu
+        private void LoadAddonMenu_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                AppData.Insatnce.ErrorMessage("error loading c3addon, no c3addon selected");
+                return;
+            }
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            LoadAddon(currentAddon);
+        }
+
+        private void ExportProjectMenu_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                AppData.Insatnce.ErrorMessage("error exporting c3addon, no c3addon selected");
+                return;
+            }
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            ExportAddon(currentAddon);
+        }
+
+        private void RemoveAddonMenu_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                AppData.Insatnce.ErrorMessage("error removing c3addon, no c3addon selected");
+                return;
+            }
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            RemoveAddon(currentAddon);
+        }
+
+        // logic
         private void LoadAddon(C3Addon currentAddon)
         {
             AddonNameText.Text = currentAddon.Name;
@@ -254,6 +292,37 @@ namespace c3IDE.Windows
             AppData.Insatnce.CurrentAddon = currentAddon;
             AppData.Insatnce.InfoMessage($"{currentAddon.Name} loaded successfully");
             AppData.Insatnce.LoadAddon(AppData.Insatnce.CurrentAddon.Name);
+        }
+
+        private void ExportAddon(C3Addon addon)
+        {
+            var addonJson = JsonConvert.SerializeObject(addon);
+            var timestamp = DateTime.Now.ToString("MMddyyyyHHmmssfff");
+            Utils.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.ExportPath, $"{addon.Class}_{timestamp}.c3ide"), addonJson);
+            Utils.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
+        }
+
+        private void RemoveAddon(C3Addon currentAddon)
+        {
+            AppData.Insatnce.CurrentAddon = null;
+            DataAccessFacade.Insatnce.AddonData.Delete(currentAddon);
+            AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
+            AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
+
+            AppData.Insatnce.InfoMessage($"addon removed successfully");
+        }
+
+        private void ResetInputs()
+        {
+            AddonNameText.Text = string.Empty;
+            AddonClassText.Text = string.Empty;
+            CompanyNameText.Text = AppData.Insatnce.Options.DefaultCompany;
+            AuthorText.Text = AppData.Insatnce.Options.DefaultAuthor;
+            VersionText.Text = "1.0.0.0";
+            AddonTypeDropdown.SelectedIndex = 0;
+            DescriptionText.Text = string.Empty;
+            IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
+            AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
         }
     }
 }

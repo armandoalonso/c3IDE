@@ -31,12 +31,17 @@
                 <TextBox Name="DefaultCompanyTextBox" Text="" Margin="0,0,10,0"></TextBox>
                 <TextBox Name="DefaultAuthorTextBox" Text=""></TextBox>
             </UniformGrid>
+            <Separator Visibility="Hidden" Height="5" />
+            
+            <TextBlock  Style="{StaticResource TextBlockStyle}">C3Addon Path :</TextBlock>
+            <TextBox Name="C3AddonPathText" Text="" IsReadOnly="True"></TextBox>
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
             <Button Name="OpenCompiledButton" Content="Open Compiled Folder" Margin="10" Click="OpenCompiledButton_OnClick" ></Button>
             <Button Name="OpenExportButton" Content="Open Export Folder" Margin="10" Click="OpenExportButton_OnClick"></Button>
             <Button Name="OpenDataButton" Content="Open Data Folder" Margin="10" Click="OpenDataButton_OnClick" ></Button>
+            <Button Name="OpenAddonButton" Content="Open C3Addon Folder" Margin="10" Click="OpenAddonButton_OnClick" ></Button>
             <Button Name="ResetOptionsButton" Content="Reset Options" Margin="10" Click="ResetOptionsButton_OnClick" ></Button>
             <Button Name="ClearDataButton" Content="Clear Saved Data" Margin="10" Click="ClearDataButton_Click" ></Button>
         </StackPanel>

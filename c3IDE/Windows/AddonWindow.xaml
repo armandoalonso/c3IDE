@@ -20,6 +20,7 @@
 
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
+                            <MenuItem Header="Format JSON" Click="FormatJsonMenu_OnClick" />
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
 
@@ -46,6 +47,13 @@
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
+                            
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Add Javascript File" Click="AddFileMenu_OnClick" />
+                                    <MenuItem Header="Remove Javascript File" Click="RemoveFileMenu_OnClick" />
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
                         </ListBox>
                     </DockPanel>
 
@@ -61,6 +69,7 @@
 
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
+                                <MenuItem Header="Format Javascript" Click="FormatJavascriptMenu_OnClick" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>

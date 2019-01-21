@@ -98,6 +98,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.4.0.0-alpha0197\lib\net462\System.Windows.Interactivity.dll</HintPath>
@@ -125,6 +127,7 @@
     </ApplicationDefinition>
     <Compile Include="AppData.cs" />
     <Compile Include="Compiler\AddonCompiler.cs" />
+    <Compile Include="Compiler\AddonExporter.cs" />
     <Compile Include="Compiler\CompilerLog.cs" />
     <Compile Include="DataAccess\AddonRepository.cs" />
     <Compile Include="DataAccess\DataAccessFacade.cs" />

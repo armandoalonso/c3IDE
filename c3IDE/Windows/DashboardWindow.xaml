@@ -27,6 +27,13 @@
                         </DockPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Load Addon" Click="LoadAddonMenu_OnClick" />
+                        <MenuItem Header="Remove Addon" Click="RemoveAddonMenu_OnClick" />
+                        <MenuItem Header="Export Project" Click="ExportProjectMenu_OnClick" />
+                    </ContextMenu>
+                </ListBox.ContextMenu>
             </ListBox>
         </DockPanel>
 
@@ -78,6 +85,7 @@
             <Button Name="ClearInputsButton" Content="Clear Inputs" Margin="10" Click="ClearInputsButton_OnClick" ></Button>
             <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="10" Click="RemoveAddonButton_OnClick" ></Button>
             <Button Name="ExportAddonButton" Content="Export Addon" Margin="10" Click="ExportAddonButton_OnClick" ></Button>
+            <Button Name="CreateC3AddonButton" Content="Create C3Addon File" Margin="10" Click="CreateC3AddonButton_OnClick"></Button>
             <Button Name="ExportFolderButton" Content="Open Export Folder" Margin="10" Click="ExportFolderButton_OnClick" ></Button>
         </StackPanel>
     </Grid>

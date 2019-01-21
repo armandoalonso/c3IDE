@@ -143,6 +143,13 @@
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add Condition" Click="AddCondition_OnClick" />
+                        <MenuItem Header="Remove Condition" Click="RemoveCondition_OnClick" />
+                    </ContextMenu>
+                </ListBox.ContextMenu>
             </ListBox>
         </DockPanel>
 
@@ -159,7 +166,8 @@
                     PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Insert Condition Parameter" Click="InsertNewParam" />
+                                <MenuItem Header="Insert Condition Parameter" Click="InsertNewParam_OnClick" />
+                                <MenuItem Header="Format Json" Click="FormatJsonAce_OnClick" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>
@@ -187,7 +195,8 @@
                         PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Insert Condition Parameter" Click="InsertNewParam" />
+                                <MenuItem Header="Insert Condition Parameter"  Click="InsertNewParam_OnClick" />
+                                <MenuItem Header="Format Json" Click="FormatJsonLang_OnClick" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>
@@ -215,7 +224,8 @@
                     PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Insert Condition Parameter" Click="InsertNewParam" />
+                                <MenuItem Header="Insert Condition Parameter" Click="InsertNewParam_OnClick" />
+                                <MenuItem Header="Format Javascript" Click="FormatJavascript_OnClick" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>

@@ -22,9 +22,11 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class PluginWindow : UserControl, IWindow
     {
+        //properties
         public string DisplayName { get; set; } = "Plugin";
         private CompletionWindow completionWindow;
 
+        //ctor
         public PluginWindow()
         {
             InitializeComponent();
@@ -37,6 +39,7 @@ namespace c3IDE.Windows
             RunTimePluginTextEditor.TextArea.TextEntered += RunTimePluginTextEditor_TextEntered;
         }
 
+        //editor events
         private void EditTimePluginTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if(string.IsNullOrWhiteSpace(e.Text)) return;
@@ -158,6 +161,17 @@ namespace c3IDE.Windows
             // We still want to insert the character that was typed.
         }
 
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
+            {
+                e.Handled = true;
+                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
+                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
+            }
+        }
+
+        //completion window
         private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
         {
             //if any data matches show completion list
@@ -175,6 +189,7 @@ namespace c3IDE.Windows
             completionWindow.Closed += delegate { completionWindow = null; };
         }
 
+        //window states
         public void OnEnter()
         {
             TitleTab.Header = AppData.Insatnce.CurrentAddon.Type == PluginType.Behavior ? "Behavior.js" : "Plugin.js";
@@ -193,13 +208,34 @@ namespace c3IDE.Windows
             }
         }
 
-        private void InsertNewProperty(object sender, RoutedEventArgs e)
+        //context menu
+        private void InsertNewProperty_OnClick(object sender, RoutedEventArgs e)
         {
             NewPropertyWindow.IsOpen = true;
             PropertyIdText.Text = "test-property";
             PropertyTypeDropdown.Text = "text";
         }
 
+        private void GenerateFileDependency_OnClick(object sender, RoutedEventArgs e)
+        {
+            var content = string.Join(",\n", AppData.Insatnce.CurrentAddon.ThirdPartyFiles.Values.Select(x => x.PluginTemplate));
+            var template = $@"this._info.AddFileDependency({content});";
+
+            EditTimePluginTextEditor.Text =
+                FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PopContext(); //.properties", $"{template}\n\nSDK.Lang.PopContext(); //.properties"));
+        }
+
+        private void FormatJavascriptEdittime_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FormatJavascriptRuntime_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        //button clicks
         private void AddPropertyButton_Click(object sender, RoutedEventArgs e)
         {
             var id = PropertyIdText.Text;
@@ -250,22 +286,7 @@ namespace c3IDE.Windows
             NewPropertyWindow.IsOpen = false;
         }
 
-        private void GenerateFileDependency(object sender, RoutedEventArgs e)
-        {
-            var content = string.Join(",\n", AppData.Insatnce.CurrentAddon.ThirdPartyFiles.Values.Select(x => x.PluginTemplate));
-            var template = $@"this._info.AddFileDependency({content});";
 
-            EditTimePluginTextEditor.Text =
-                FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PopContext(); //.properties", $"{template}\n\nSDK.Lang.PopContext(); //.properties"));
-        }
-        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
-            {
-                e.Handled = true;
-                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
-                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
-            }
-        }
+
     }
 }

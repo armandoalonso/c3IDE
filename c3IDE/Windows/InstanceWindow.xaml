@@ -20,6 +20,7 @@
                     PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
+                            <MenuItem Header="Format Javascript" Click="FormatJavascriptEdittime_OnClick" />
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>
@@ -36,6 +37,7 @@
                     PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
+                            <MenuItem Header="Format Javascript" Click="FormatJavascriptRuntime_OnClick" />
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>

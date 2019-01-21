@@ -742,5 +742,1199 @@
     "Type": 0,
     "Container": "SDKWorldInstanceBase",
     "DescriptionText": "Optional overrides for handling WebGL context loss. This is only necessary if your addon creates any WebGL resources. These overrides are only called if your instance first calls HandleWebGLContextLoss() (normally in the constructor to enable these callbacks for the lifetime of the instance). In a context loss event, all WebGL resources have been released, so any references to them must be dropped. In a context restored event the resources may be recreated again if necessary. Alternatively they can be left released if a lazy-loading approach is used."
+  },
+  {
+    "Text": "GetEventSheetManager()",
+    "Type": 0,
+    "Container": "EventBlock",
+    "DescriptionText": "Return the associated EventSheetManager."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "EventBlock",
+    "DescriptionText": "Return the associated Runtime."
+  },
+  {
+    "Text": "GetParent()",
+    "Type": 0,
+    "Container": "EventBlock",
+    "DescriptionText": "Return the parent EventBlock, or null if this is a top-level event."
+  },
+  {
+    "Text": "IsOrBlock()",
+    "Type": 0,
+    "Container": "EventBlock",
+    "DescriptionText": "If true, this is an OR block, else it is an AND block."
+  },
+  {
+    "Text": "GetSolModifiers()",
+    "Type": 0,
+    "Container": "EventBlock",
+    "DescriptionText": "Return an array of ObjectClass that the event block may modify."
+  },
+  {
+    "Text": "Retrigger(oldFrame, newFrame)",
+    "Type": 0,
+    "Container": "EventBlock",
+    "DescriptionText": "Re-run the current event. This is useful for implementing looping conditions. Prior to calling this, you must push a new EventStackFrame, and pass both the old and the new stack frames to this call. Be sure to pop the pushed stack frame once complete. See the code sample above."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "EventSheetManager",
+    "DescriptionText": "Return the associated Runtime."
+  },
+  {
+    "Text": "GetEventStack()",
+    "Type": 0,
+    "Container": "EventSheetManager",
+    "DescriptionText": "Return the EventStack representing the current execution stack in the event system."
+  },
+  {
+    "Text": "GetCurrentEventStackFrame()",
+    "Type": 0,
+    "Container": "EventSheetManager",
+    "DescriptionText": "Return the current EventStackFrame, representing the current execution context in the event system. This is a shorthand for GetEventStack().GetCurrentStackFrame()."
+  },
+  {
+    "Text": "GetCurrentEvent()",
+    "Type": 0,
+    "Container": "EventSheetManager",
+    "DescriptionText": "Return the current EventBlock being executed. This is a shorthand for GetCurrentEventStackFrame().GetCurrentEvent()."
+  },
+  {
+    "Text": "IsInTrigger()",
+    "Type": 0,
+    "Container": "EventSheetManager",
+    "DescriptionText": "True if execution is currently within a triggered event."
+  },
+  {
+    "Text": "ClearSol(objectClasses)",
+    "Type": 0,
+    "Container": "EventSheetManager",
+    "DescriptionText": "For each ObjectClass in the given array, reset the selected object list (SOL) back to \"all picked\" state."
+  },
+  {
+    "Text": "PushCleanSol(objectClasses)",
+    "Type": 0,
+    "Container": "EventSheetManager",
+    "DescriptionText": "For each ObjectClass in the given array, push a new selected object list (SOL) to the SOL stack. PushCleanSol pushes cleared SOLs in the \"all picked\" state, whereas PushCopySol pushes a copy of the top SOL. These methods are necessary when retriggering events. Every pushed SOL must have a corresponding PopSol call."
+  },
+  {
+    "Text": "PushCopySol(objectClasses)",
+    "Type": 0,
+    "Container": "EventSheetManager",
+    "DescriptionText": "For each ObjectClass in the given array, push a new selected object list (SOL) to the SOL stack. PushCleanSol pushes cleared SOLs in the \"all picked\" state, whereas PushCopySol pushes a copy of the top SOL. These methods are necessary when retriggering events. Every pushed SOL must have a corresponding PopSol call."
+  },
+  {
+    "Text": "PopSol(objectClasses)",
+    "Type": 0,
+    "Container": "EventSheetManager",
+    "DescriptionText": "For each ObjectClass in the given array, pop the top SOL on the SOL stack. This must be called after PushCleanSol or PushCopySol."
+  },
+  {
+    "Text": "GetEventSheetManager()",
+    "Type": 0,
+    "Container": "EventStack",
+    "DescriptionText": "Return the associated EventSheetManager."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "EventStack",
+    "DescriptionText": "Return the associated Runtime."
+  },
+  {
+    "Text": "GetCurrentStackFrame()",
+    "Type": 0,
+    "Container": "EventStack",
+    "DescriptionText": "Return the current EventStackFrame."
+  },
+  {
+    "Text": "Push(currentEvent)",
+    "Type": 0,
+    "Container": "EventStack",
+    "DescriptionText": "Push a new EventStackFrame to the event stack, and return it. The initial current EventBlock for the new stack frame must be passed to this call. Every push must have a corresponding Pop call."
+  },
+  {
+    "Text": "Pop()",
+    "Type": 0,
+    "Container": "EventStack",
+    "DescriptionText": "Pop the top EventStackFrame from the event stack. This must be called after every Push call."
+  },
+  {
+    "Text": "GetCurrentEvent()",
+    "Type": 0,
+    "Container": "EventStackFrame",
+    "DescriptionText": "Return the currently executing EventBlock."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "AssetManager",
+    "DescriptionText": "Return the associated Runtime."
+  },
+  {
+    "Text": "async FetchBlob(url)",
+    "Type": 0,
+    "Container": "AssetManager",
+    "DescriptionText": "Fetch a blob from a given URL. Returns a promise that resolves with the fetched blob. Note this method handles various cross-platform details when used to fetch project files so is preferable if the content being requested will be used as a blob."
+  },
+  {
+    "Text": "async FetchJson(url)",
+    "Type": 0,
+    "Container": "AssetManager",
+    "DescriptionText": "As with FetchBlob(), but returns the content in JSON format."
+  },
+  {
+    "Text": "async LoadProjectFileUrl(filename)",
+    "Type": 0,
+    "Container": "AssetManager",
+    "DescriptionText": "Obtain a URL to a given project filename that can be directly fetched. On some platforms this will be translated to a blob URL; in other cases it will simply return the filename if it can already be directly fetched. Note this method returns a promise that resolves with the URL to use."
+  },
+  {
+    "Text": "GetLayout()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Return the Layout the layer belongs to."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Return the Runtime for this layer."
+  },
+  {
+    "Text": "GetName()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Return a string of the name of the layer."
+  },
+  {
+    "Text": "GetIndex()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Return the zero-based index of this layer on its layout."
+  },
+  {
+    "Text": "SetVisible(v)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set or get a boolean determining whether the layer is visible."
+  },
+  {
+    "Text": "IsVisible()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set or get a boolean determining whether the layer is visible."
+  },
+  {
+    "Text": "GetViewport()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Return a C3.Rect representing the axis-aligned bounding box of the visible area of the layer in layout co-ordinates."
+  },
+  {
+    "Text": "SetOpacity(o)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the opacity of the layer in the [0,1] range. 0 is fully transparent and 1 is opaque. This changes the alphacomponent of the layer color."
+  },
+  {
+    "Text": "GetOpacity()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the opacity of the layer in the [0,1] range. 0 is fully transparent and 1 is opaque. This changes the alphacomponent of the layer color."
+  },
+  {
+    "Text": "SetOwnScale(s)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the layer's scale as a factor."
+  },
+  {
+    "Text": "GetOwnScale()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the layer's scale as a factor."
+  },
+  {
+    "Text": "GetRenderScale()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Get the scale the layer is rendered at. This is the scale relevant to draw calls."
+  },
+  {
+    "Text": "GetDisplayScale()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Get the scale the layer is rendered at. This is the scale relevant for translating co-ordinates from the canvas/window tothe layer."
+  },
+  {
+    "Text": "GetNormalScale()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Get the scale of the layer only using its own scale, the layout scale, and the scale rate."
+  },
+  {
+    "Text": "SetScaleRate(r)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the scale rate of the layer as a multiplier."
+  },
+  {
+    "Text": "GetScaleRate()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the scale rate of the layer as a multiplier."
+  },
+  {
+    "Text": "SetParallaxX(px)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the X and Y parallax ratios for the layer, as multipliers."
+  },
+  {
+    "Text": "SetParallaxY(py)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the X and Y parallax ratios for the layer, as multipliers."
+  },
+  {
+    "Text": "SetParallax(px, py)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the X and Y parallax ratios for the layer, as multipliers."
+  },
+  {
+    "Text": "GetParallaxX()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the X and Y parallax ratios for the layer, as multipliers."
+  },
+  {
+    "Text": "GetParallaxY()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the X and Y parallax ratios for the layer, as multipliers."
+  },
+  {
+    "Text": "SetAngle(a)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the layer's angle in radians. Use C3.toDegrees() and C3.toRadians() to convert from degrees to radians."
+  },
+  {
+    "Text": "GetOwnAngle()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the layer's angle in radians. Use C3.toDegrees() and C3.toRadians() to convert from degrees to radians."
+  },
+  {
+    "Text": "GetAngle()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Get the layer's display angle in radians. This is also affected by the layout angle."
+  },
+  {
+    "Text": "GetBackgroundColor()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Return a C3.Color representing the layer background color. Only the RGB components are used."
+  },
+  {
+    "Text": "SetTransparent(t)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get a boolean indicating if the layer background is transparent."
+  },
+  {
+    "Text": "IsTransparent()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get a boolean indicating if the layer background is transparent."
+  },
+  {
+    "Text": "SetBlendMode(bm)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the layer blend mode, as an index in to the dropdown list used in Construct's Blend mode property. E.g. 0 is\"normal\", 1 is \"additive\", etc."
+  },
+  {
+    "Text": "GetBlendMode()",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Set and get the layer blend mode, as an index in to the dropdown list used in Construct's Blend mode property. E.g. 0 is\"normal\", 1 is \"additive\", etc."
+  },
+  {
+    "Text": "MoveInstanceAdjacent(inst, otherInst, isAfter)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Move the Instance inst adjacent to otherInst in the Z order. If isAfter is true it moves inst just after (above) otherInstin the Z order; otherwise it moves inst just before (below)."
+  },
+  {
+    "Text": "CanvasCssToLayer(x, y)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Translate CSS pixel co-ordinates on the canvas to layout co-ordinates on the layer, and vice versa. Returns [x, y]."
+  },
+  {
+    "Text": "LayerToCanvasCss(x, y)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Translate CSS pixel co-ordinates on the canvas to layout co-ordinates on the layer, and vice versa. Returns [x, y]."
+  },
+  {
+    "Text": "DrawSurfaceToLayer(x, y)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Translate device pixels on the rendered surface to layout co-ordinates on the layer, and vice versa. Returns [x, y]."
+  },
+  {
+    "Text": "LayerToDrawSurface(x, y)",
+    "Type": 0,
+    "Container": "Layer",
+    "DescriptionText": "Translate device pixels on the rendered surface to layout co-ordinates on the layer, and vice versa. Returns [x, y]."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Return the Runtime for this layout."
+  },
+  {
+    "Text": "GetName()",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Return a string of the name of the layout."
+  },
+  {
+    "Text": "SetScrollX(x)",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Set and get the scroll position in layout co-ordinates."
+  },
+  {
+    "Text": "SetScrollY(y)",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Set and get the scroll position in layout co-ordinates."
+  },
+  {
+    "Text": "GetScrollX()",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Set and get the scroll position in layout co-ordinates."
+  },
+  {
+    "Text": "GetScrollY()",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Set and get the scroll position in layout co-ordinates."
+  },
+  {
+    "Text": "SetScale(s)",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Set and get the layout scale as a multiplier. Note that the layout scale affects all layers."
+  },
+  {
+    "Text": "GetScale()",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Set and get the layout scale as a multiplier. Note that the layout scale affects all layers."
+  },
+  {
+    "Text": "SetAngle(a)",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Set and get the layout angle in radians. Note that the layout angle affects all layers. Use C3.toDegrees() and C3.toRadias() to convert from degrees to radians."
+  },
+  {
+    "Text": "GetAngle()",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Set and get the layout angle in radians. Note that the layout angle affects all layers. Use C3.toDegrees() and C3.toRadins() to convert from degrees to radians."
+  },
+  {
+    "Text": "GetWidth()",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Get the size of the layout."
+  },
+  {
+    "Text": "GetHeight()",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Get the size of the layout."
+  },
+  {
+    "Text": "GetLayerCount()",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Return the number of Layers on this layout."
+  },
+  {
+    "Text": "GetLayer(p)",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Get a Layer on the layout either by its zero-based index or a case-insensitive string of its name. The GetLayer() method accepts eiher an index or a name."
+  },
+  {
+    "Text": "GetLayerByIndex(i)",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Get a Layer on the layout either by its zero-based index or a case-insensitive string of its name. The GetLayer() method accepts either anindex or a name."
+  },
+  {
+    "Text": "GetLayerByName(name)",
+    "Type": 0,
+    "Container": "Layout",
+    "DescriptionText": "Get a Layer on the layout either by its zero-based index or a case-insensitive string of its name. The GetLayer() method accepts either an idex or a name."
+  },
+  {
+    "Text": "GetSdkInstance()",
+    "Type": 0,
+    "Container": "BehaviorInstance",
+    "DescriptionText": "Return the behavior-specific behavior instance class, which derives from SDKBehaviorInstanceBase."
+  },
+  {
+    "Text": "GetObjectInstance()",
+    "Type": 0,
+    "Container": "BehaviorInstance",
+    "DescriptionText": "Return the Instance associated with this behavior instance."
+  },
+  {
+    "Text": "GetBehaviorType()",
+    "Type": 0,
+    "Container": "BehaviorInstance",
+    "DescriptionText": "Return the BehaviorType this behavior belongs to."
+  },
+  {
+    "Text": "GetBehavior()",
+    "Type": 0,
+    "Container": "BehaviorInstance",
+    "DescriptionText": "Return the behavior-specific class that derives from SDKBehaviorBase."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "BehaviorInstance",
+    "DescriptionText": "Return the Runtime for this behavior instance."
+  },
+  {
+    "Text": "GetSdkType()",
+    "Type": 0,
+    "Container": "BehaviorType",
+    "DescriptionText": "Return the behavior-specific behavior type class, which derives from SDKBehaviorTypeBase."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "BehaviorType",
+    "DescriptionText": "Get the Runtime for the behavior type."
+  },
+  {
+    "Text": "GetObjectClass()",
+    "Type": 0,
+    "Container": "BehaviorType",
+    "DescriptionText": "Get the ObjectClass that the behavior type was added to. Note this can be either an object type or a family."
+  },
+  {
+    "Text": "GetBehavior()",
+    "Type": 0,
+    "Container": "BehaviorType",
+    "DescriptionText": "Return the behavior-specific class that derives from SDKBehaviorBase."
+  },
+  {
+    "Text": "GetName()",
+    "Type": 0,
+    "Container": "BehaviorType",
+    "DescriptionText": "Return a string of the name of the behavior type"
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "Container",
+    "DescriptionText": "Return the Runtime for this container."
+  },
+  {
+    "Text": "GetObjectTypes()",
+    "Type": 0,
+    "Container": "Container",
+    "DescriptionText": "Return a read-only array of ObjectClass representing the object classes that have been added to the container."
+  },
+  {
+    "Text": "GetWorldInfo()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "For \"world\" type plugins, get the instance's associated WorldInfo. This allows modification of the position, size, angle etc."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Get the Runtime for this instance."
+  },
+  {
+    "Text": "GetSdkInstance()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Get the plugin-specific instance class for this instance, which derives from SDKInstanceBase. See also Addon interfaces for the public APIs exposed by some of the built-in addons in Construct."
+  },
+  {
+    "Text": "GetObjectClass()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Get the ObjectClass representing the object type this instance belongs to."
+  },
+  {
+    "Text": "GetPlugin()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Return the plugin class for this instance, which derives from SDKPluginBase."
+  },
+  {
+    "Text": "BelongsToObjectClass(objectClass)",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Returns true if this instance's object class is the given object class, or the given object class is a family and this instance's object class is a member of that family."
+  },
+  {
+    "Text": "GetImagePoint(nameOrIndex)",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Get an image point from the instance by either its index or a string of its name. Note image points are returned in a [0,1] range, such that 0.5 represents the middle."
+  },
+  {
+    "Text": "IsInContainer()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Returns true if the instance is in a container."
+  },
+  {
+    "Text": "GetSiblings()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Return a read-only array of sibling instances for this instance, i.e. its associated other instances in its container. This is only applicable if the instance is in a container."
+  },
+  {
+    "Text": "GetUID()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Get the unique identifier (UID) for this instance. UIDs are unique integer numbers assigned to every instance, and never change during the lifetime of the instance."
+  },
+  {
+    "Text": "GetIID()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Get the instance identifier (IID) for this instance. IIDs are the zero-based index of this instance in its object type's instance list. Note IIDs can change during the lifetime of the instance; if an instance with a lower IID is destroyed, all instances with higher IIDs are renumbered so the IIDs are contiguous from 0."
+  },
+  {
+    "Text": "GetBehaviorInstances()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Return a read-only array of BehaviorInstance for this instance."
+  },
+  {
+    "Text": "GetBehaviorInstanceFromCtor(ctor)",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Look up a behavior instance by its behavior constructor. For example GetBehaviorInstanceFromCtor(C3.Behaviors.Platform) will return the first BehaviorInstance for the Platform behavior if the instance has one, else null."
+  },
+  {
+    "Text": "GetBehaviorSdkInstanceFromCtor(ctor)",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "As with GetBehaviorInstanceFromCtor(ctor), but returns the behavior-specific behavior instance class (which derives from SDKBehaviorInstanceBase) instead."
+  },
+  {
+    "Text": "GetInstanceVariableCount()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Return the number of instance variables for this instance."
+  },
+  {
+    "Text": "SetInstanceVariableValue(index, value)",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Set or get an instance variable value by its index. Note the type of the instance variable will be preserved."
+  },
+  {
+    "Text": "GetInstanceVariableValue(index)",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Set or get an instance variable value by its index. Note the type of the instance variable will be preserved."
+  },
+  {
+    "Text": "GetSavedDataMap()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Return a Map to store additional data to associate with this instance. Use string keys only, and ensure keys are unique. The saved data map is written to savegame files so should be used for persistent state. The unsaved data map is not written to savegame files so should be used for transient storage or caching."
+  },
+  {
+    "Text": "GetUnsavedDataMap()",
+    "Type": 0,
+    "Container": "Instance",
+    "DescriptionText": "Return a Map to store additional data to associate with this instance. Use string keys only, and ensure keys are unique. The saved data map is written to savegame files so should be used for persistent state. The unsaved data map is not written to savegame files so should be used for transient storage or caching."
+  },
+  {
+    "Text": "GetSdkType()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Return the plugin-specific SDK type class, which derives from SDKTypeBase."
+  },
+  {
+    "Text": "GetPlugin()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Return the plugin class for this object class, which derives from SDKPluginBase."
+  },
+  {
+    "Text": "GetRuntime()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Return the Runtime for this object class."
+  },
+  {
+    "Text": "GetName()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Return a string of the name of this object class."
+  },
+  {
+    "Text": "IsGlobal()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Return a boolean indicating if this is a global object class. Global instances are not destroyed when changing layout."
+  },
+  {
+    "Text": "IsWorldType()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Return a boolean indicating if the associated plugin is a \"world\" type."
+  },
+  {
+    "Text": "GetBehaviorTypes()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Return a read-only array of BehaviorType representing behaviors added to this object class."
+  },
+  {
+    "Text": "IsFamily()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Return a boolean indicating if this is an object type (if false) or family (if true)."
+  },
+  {
+    "Text": "GetFamilies()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "For object types only. Return a read-only array of families (also ObjectClass) that this object type belongs to."
+  },
+  {
+    "Text": "GetFamilyMembers()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "For families only. Return a read-only array of object types (also ObjectClass) that are in this family."
+  },
+  {
+    "Text": "GetInstances()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Return a read-only array of Instance that have been created."
+  },
+  {
+    "Text": "GetSingleGlobalInstance()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "For single-global plugins only. Returns the single-global instance of the object."
+  },
+  {
+    "Text": "GetFirstPicked()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Return the first picked Instance in an action, condition or expression."
+  },
+  {
+    "Text": "IsInContainer()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Return true if the object class is in a container."
+  },
+  {
+    "Text": "GetContainer()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "If the object class is in a container, return the Container class representing the container. Otherwise returns null."
+  },
+  {
+    "Text": "HasSolidBehavior()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Convenience methods to indicate if the given behavior has been added to the object class."
+  },
+  {
+    "Text": "HasNoSaveBehavior()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Convenience methods to indicate if the given behavior has been added to the object class."
+  },
+  {
+    "Text": "HasPersistBehavior()",
+    "Type": 0,
+    "Container": "ObjectClass",
+    "DescriptionText": "Convenience methods to indicate if the given behavior has been added to the object class."
+  },
+  {
+    "Text": "GetInstance()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Return the associated Instance that this WorldInfo represents state for."
+  },
+  {
+    "Text": "SetX(x)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the position of the instance in layout co-ordinates."
+  },
+  {
+    "Text": "SetY(y)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the position of the instance in layout co-ordinates."
+  },
+  {
+    "Text": "SetXY(x, y)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the position of the instance in layout co-ordinates."
+  },
+  {
+    "Text": "GetX()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the position of the instance in layout co-ordinates."
+  },
+  {
+    "Text": "GetY()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the position of the instance in layout co-ordinates."
+  },
+  {
+    "Text": "OffsetX(x)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Add to the X and Y components of the instance's position. For example OffsetX(5) is equivalent to SetX(GetX() + 5)."
+  },
+  {
+    "Text": "OffsetY(y)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Add to the X and Y components of the instance's position. For example OffsetX(5) is equivalent to SetX(GetX() + 5)."
+  },
+  {
+    "Text": "OffsetXY(x, y)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Add to the X and Y components of the instance's position. For example OffsetX(5) is equivalent to SetX(GetX() + 5)."
+  },
+  {
+    "Text": "SetWidth(w)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the width and height of the instance in layout co-ordinates."
+  },
+  {
+    "Text": "SetHeight(h)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the width and height of the instance in layout co-ordinates."
+  },
+  {
+    "Text": "SetSize(w, h)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the width and height of the instance in layout co-ordinates."
+  },
+  {
+    "Text": "GetWidth()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the width and height of the instance in layout co-ordinates."
+  },
+  {
+    "Text": "GetHeight()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the width and height of the instance in layout co-ordinates."
+  },
+  {
+    "Text": "SetAngle(a)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the angle of the instance in radians. Use C3.toDegrees() and C3.toRadians() to convert from degrees to radians."
+  },
+  {
+    "Text": "GetAngle(",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": ""
+  },
+  {
+    "Text": "SetOrigiX(x)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the origin of the instance as a normalized position in the [0,1] range, i.e. 0.5 is the middle."
+  },
+  {
+    "Text": "SetOriginY(y)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the origin of the instance as a normalized position in the [0,1] range, i.e. 0.5 is the middle."
+  },
+  {
+    "Text": "GetOriginX()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the origin of the instance as a normalized position in the [0,1] range, i.e. 0.5 is the middle."
+  },
+  {
+    "Text": "GetOriginY()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the origin of the instance as a normalized position in the [0,1] range, i.e. 0.5 is the middle."
+  },
+  {
+    "Text": "SetBboxChanged()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Mark the instance's bounding box as having been changed. Call this after altering the position, size, angle or origin of the instance."
+  },
+  {
+    "Text": "GetBoundingBox()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Return a C3.Rect representing the axis-aligned bounding box of the instance in layout co-ordinates."
+  },
+  {
+    "Text": "GetBoundingQuad()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Return a C3.Quad representing the bounding quad of the instance in layout co-ordinates, which is essentially the rotated bounding box."
+  },
+  {
+    "Text": "SetOpacity(o)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the opacity of the instance in the [0,1] range. 0 is fully transparent and 1 is opaque. This changes the alpha component of the instance color."
+  },
+  {
+    "Text": "GetOpacity()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the opacity of the instance in the [0,1] range. 0 is fully transparent and 1 is opaque. This changes the alpha component of the instance color."
+  },
+  {
+    "Text": "SetUnpremultipliedColor(c)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set the RGB components of the instance color. This applies a built-in color multiply effect which appears like a tint. As with opacity, color values are in the [0,1] range. The default is RGB 1,1,1 (white) which means the instance appears with normal colors. Pass a C3.Color as the parameter. The runtime internally uses premultiplied alpha for best rendering quality; in this method the RGB values do not need to be premultiplied with the alpha (opacity) value, since it will apply the premultiplication for you."
+  },
+  {
+    "Text": "GetUnpremultipliedColor()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Get the instance color as a read-only C3.Color, either without or with premultiplied alpha (respectively). The instance color includes the opacity in the alpha channel."
+  },
+  {
+    "Text": "GetPremultipliedColor()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Get the instance color as a read-only C3.Color, either without or with premultiplied alpha (respectively). The instance color includes the opacity in the alpha channel."
+  },
+  {
+    "Text": "HasDefaultColor()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Returns true if the instance color RGBA value equals (1,1,1,1), else false."
+  },
+  {
+    "Text": "SetBlendMode(bm)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the instance blend mode, as an index in to the dropdown list used in Construct's Blend mode property. E.g. 0 is \"normal\", 1 is \"additive\", etc."
+  },
+  {
+    "Text": "GetBlendMode()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the instance blend mode, as an index in to the dropdown list used in Construct's Blend mode property. E.g. 0 is \"normal\", 1 is \"additive\", etc."
+  },
+  {
+    "Text": "GetLayer()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Get the Layer the instance is currently on."
+  },
+  {
+    "Text": "GetLayout()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Get the Layout the instance currently belongs to."
+  },
+  {
+    "Text": "SetVisible(v)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the visible state for the instance. This is a boolean that hides the instance when set to false."
+  },
+  {
+    "Text": "IsVisible()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get the visible state for the instance. This is a boolean that hides the instance when set to false."
+  },
+  {
+    "Text": "SetCollisionEnabled(e)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get a boolean indicating whether collisions are enabled for this instance."
+  },
+  {
+    "Text": "IsCollisionEnabled()",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Set and get a boolean indicating whether collisions are enabled for this instance."
+  },
+  {
+    "Text": "ContainsPoint(x, y)",
+    "Type": 0,
+    "Container": "WorldInfo",
+    "DescriptionText": "Test if a point in layout co-ordinates intersects this instance, respecting its collision polygon and collisions enabled flag."
+  },
+  {
+    "Text": "GetAssetManager()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return the project's AssetManager, which is used to load sub-resources."
+  },
+  {
+    "Text": "AddLoadPromise(promise)",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Only valid while the project is still loading. Add a promise that the runtime will wait to resolve before starting the first layout. This is useful if you want to make sure your addon loads a dynamic resource before the game starts. Single-global plugins create their instance before loading, so this method can be used in single-global instance constructors. Otherwise it can only be used in the plugin or behavior constructor."
+  },
+  {
+    "Text": "IsInWorker()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return true if the runtime is hosted in a worker. The DOM will be unavailable."
+  },
+  {
+    "Text": "IsPreview()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Returns true if running in Construct 3's preview mode."
+  },
+  {
+    "Text": "GetAllObjectClasses()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return a read-only array of all ObjectClass in the project. Note this includes families."
+  },
+  {
+    "Text": "GetObjectClassByName(name)",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Look up an ObjectClass by a case-insensitive string of its name. Note this can return a family."
+  },
+  {
+    "Text": "GetSingleGlobalObjectClassByCtor(ctor)",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Look up a single-global plugin's ObjectClass by its plugin constructor function, e.g. C3.Plugins.Facebook. Returns null if the plugin is not added to the project."
+  },
+  {
+    "Text": "CreateInstance(objectClass, layer, x, y)",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Create and return a new Instance of an ObjectClass on the given Layer at a position."
+  },
+  {
+    "Text": "DestroyInstance(inst)",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Destroy an Instance."
+  },
+  {
+    "Text": "GetObjectCount()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Get the total number of instances created."
+  },
+  {
+    "Text": "GetInstanceByUID(uid)",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Look up an Instance by its UID. If none exists with the given UID, returns null."
+  },
+  {
+    "Text": "GetEventSheetManager()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return the EventSheetManager that handles the event system."
+  },
+  {
+    "Text": "GetEventStack()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return the EventStack. This is a shorthand for GetEventSheetManager().GetEventStack()."
+  },
+  {
+    "Text": "GetCurrentEventStackFrame()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return the current EventStackFrame. This is a shorthand for GetEventSheetManager().GetCurrentEventStackFrame()."
+  },
+  {
+    "Text": "GetCurrentEvent()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return the current EventBlock. This is a shorthand for GetEventSheetManager().GetCurrentEvent()."
+  },
+  {
+    "Text": "GetCanvasClientX()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return the offset of the canvas in the document in CSS pixels."
+  },
+  {
+    "Text": "GetCanvasClientY()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return the offset of the canvas in the document in CSS pixels."
+  },
+  {
+    "Text": "GetCanvasCssWidth()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return the size of the canvas in the document in CSS pixels."
+  },
+  {
+    "Text": "GetCanvasCssHeight()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return the size of the canvas in the document in CSS pixels."
+  },
+  {
+    "Text": "IsLinearSampling()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return true if the project is set to use linear sampling. False indicates point sampling."
+  },
+  {
+    "Text": "UpdateRender()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Call to indicate that something visible has changed. Most runtime code calls this automatically. However by default if this is not called during a tick, the runtime will skip drawing a frame on the assumption nothing visible has changed."
+  },
+  {
+    "Text": "GetWebGLRenderer()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return the WebGLRenderer for the runtime, which is responsible for rendering graphics."
+  },
+  {
+    "Text": "GetMainRunningLayout()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return the main Layout that is currently running."
+  },
+  {
+    "Text": "SetTimescale(t)",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Set and get the timescale as a multiplier."
+  },
+  {
+    "Text": "GetTimescale()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Set and get the timescale as a multiplier."
+  },
+  {
+    "Text": "GetStartTime()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Get the timestamp in milliseconds at the time the runtime started up."
+  },
+  {
+    "Text": "GetGameTime()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Get the in-game time in seconds, which can be affected by time scaling."
+  },
+  {
+    "Text": "GetWallTime()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Get the in-game time in seconds without taking in to account time scaling (aka the \"wall clock\" time)."
+  },
+  {
+    "Text": "GetTickCount()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Get the number of ticks that have elapsed so far."
+  },
+  {
+    "Text": "GetProjectName()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return a string of the name and version of the project."
+  },
+  {
+    "Text": "GetProjectVersion()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return a string of the name and version of the project."
+  },
+  {
+    "Text": "GetProjectUniqueId()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Return a string representing a unique identifier for this project."
+  },
+  {
+    "Text": "SetPixelRoundingEnabled(e)",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Set and get a boolean indicating whether pixel rounding is enabled."
+  },
+  {
+    "Text": "IsPixelRoundingEnabled()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Set and get a boolean indicating whether pixel rounding is enabled."
+  },
+  {
+    "Text": "InvokeDownload(url, filename)",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Invoke a download of the given URL and use the provided filename. The URL can be a blob URL."
+  },
+  {
+    "Text": "Random()",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Generate a random number in the range [0,1), which is the same range as Math.random(). Use this method to allow the runtime control over the random number generator, e.g. setting a fixed seed to reproduce the same random sequence."
+  },
+  {
+    "Text": "SetSuspended(suspend)",
+    "Type": 0,
+    "Container": "Runtime",
+    "DescriptionText": "Pass true to suspend the runtime or false to resume it if paused. When suspended, the entire runtime halts and stops processing events or drawing the screen. This is done by default when the window or app goes in to the background. Make sure that suspend and resume calls are paired one-to-one. For example do not suspend once but resume twice."
   }
 ]

@@ -26,13 +26,16 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class LanguageWindow : UserControl, IWindow
     {
+        //properties
         public string DisplayName { get; set; } = "Language";
 
+        //ctor
         public LanguageWindow()
         {
             InitializeComponent();
         }
 
+        //window states
         public void OnEnter()
         {
             PropertyLanguageTextEditor.Text = AppData.Insatnce.CurrentAddon?.LanguageProperties;
@@ -49,12 +52,11 @@ namespace c3IDE.Windows
             }
         }
 
-        //generate property json based on edittimeplugin properties
-        //TODO: figure out a way to preserve modified text
+        //context menu
         private void GeneratePropertyText(object sender, RoutedEventArgs e)
         {
             //generate new property json
-            var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+\""(?<id>.*)\""");
+            var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+\""(?<id>(\w+|-)+)\""");
             var propertyMatches = propertyRegex.Matches(AppData.Insatnce.CurrentAddon.PluginEditTime);
 
             var propList = new List<string>();

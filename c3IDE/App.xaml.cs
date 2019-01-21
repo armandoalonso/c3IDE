@@ -24,6 +24,7 @@ namespace c3IDE
             var dataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "C3IDE_DATA");
             var defaultExportPath = Path.Combine(dataFolder, "Exports");
             var defaultCompilePath = Path.Combine(dataFolder, "Server", "Test");
+            var defaultC3AddonPath = Path.Combine(dataFolder, "C3Addons");
 
             DataFolder = dataFolder;
 
@@ -33,6 +34,7 @@ namespace c3IDE
                 DataPath = dataFolder,
                 CompilePath = defaultCompilePath,
                 ExportPath = defaultExportPath,
+                C3AddonPath = defaultC3AddonPath,
                 DefaultCompany = "c3IDE",
                 DefaultAuthor = "c3IDE"
             };
@@ -41,10 +43,10 @@ namespace c3IDE
             if (!System.IO.Directory.Exists(dataFolder)) Directory.CreateDirectory(dataFolder);
             if (!System.IO.Directory.Exists(defaultExportPath)) Directory.CreateDirectory(defaultExportPath);
             if (!System.IO.Directory.Exists(defaultCompilePath)) Directory.CreateDirectory(defaultCompilePath);
+            if (!System.IO.Directory.Exists(defaultC3AddonPath)) Directory.CreateDirectory(defaultC3AddonPath);
 
             //create default options
             AppData.Insatnce.Options = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? DefaultOptions;
-
         }
     }
 }

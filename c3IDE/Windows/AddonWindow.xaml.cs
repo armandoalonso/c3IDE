@@ -22,11 +22,13 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class AddonWindow : UserControl, IWindow
     {
+        //properties
         public string DisplayName { get; set; } = "Addon";
         private CompletionWindow completionWindow;
         private Dictionary<string, ThirdPartyFile> _files;
         private ThirdPartyFile _selectedFile;
 
+        //ctor
         public AddonWindow()
         {
             InitializeComponent();
@@ -35,6 +37,7 @@ namespace c3IDE.Windows
             AddonTextEditor.TextArea.TextEntered += AddonTextEditor_TextEntered;
         }
 
+        //editor events
         private void AddonTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -97,6 +100,17 @@ namespace c3IDE.Windows
             // We still want to insert the character that was typed.
         }
 
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
+            {
+                e.Handled = true;
+                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
+                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
+            }
+        }
+
+        //completion window
         private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
         {
             //if any data matches show completion list
@@ -114,6 +128,7 @@ namespace c3IDE.Windows
             completionWindow.Closed += delegate { completionWindow = null; };
         }
 
+        //window states
         public void OnEnter()
         {
             if (AppData.Insatnce.CurrentAddon != null)
@@ -153,6 +168,32 @@ namespace c3IDE.Windows
             }
         }
 
+        //button clicks
+        private async void AddFile_OnClick(object sender, RoutedEventArgs e)
+        {
+            var filename = await AppData.Insatnce.ShowInputDialog("New File Name?", "please enter the name for the new javascript file", "javascriptFile.js");
+            if (string.IsNullOrWhiteSpace(filename)) return;
+
+            _files.Add(filename, new ThirdPartyFile
+            {
+                Content = string.Empty,
+                FileName = filename,
+                PluginTemplate = $@"{{
+	filename: ""c3runtime/{filename}"",
+	type: ""inline-script""
+}}"
+            });
+
+            AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
+        ""c3runtime/{filename}"","));
+
+            //add
+            FileListBox.Items.Refresh();
+            FileListBox.SelectedIndex = _files.Count - 1;
+            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
+            FileTextEditor.Text = _selectedFile.Content;
+        }
+
         private void RemoveFile_OnClick(object sender, RoutedEventArgs e)
         {
             _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
@@ -177,29 +218,7 @@ namespace c3IDE.Windows
             }
         }
 
-        private void FileListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (FileListBox.SelectedIndex == -1)
-            {
-                //ignore
-                return;
-            }
-
-            //save current selection
-            if (_selectedFile != null)
-            {
-                //todo: determine if i should display file content
-                _selectedFile.Content = FileTextEditor.Text;
-                _files[_selectedFile.FileName] = _selectedFile;
-
-                //load new selection
-                _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-
-                //todo: determine if i should display file content
-                FileTextEditor.Text = _selectedFile.Content;
-            }
-        }
-
+        //file drop
         private void FileListBox_OnDragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -248,39 +267,49 @@ namespace c3IDE.Windows
             }
         }
 
-        private async void AddFile_OnClick(object sender, RoutedEventArgs e)
+        //list box events
+        private void FileListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var filename = await AppData.Insatnce.ShowInputDialog("New File Name?", "please enter the name for the new javascript file", "javascriptFile.js");
-            if (string.IsNullOrWhiteSpace(filename)) return;
-
-            _files.Add(filename, new ThirdPartyFile
+            if (FileListBox.SelectedIndex == -1)
             {
-                Content = string.Empty,
-                FileName = filename,
-                PluginTemplate = $@"{{
-	filename: ""c3runtime/{filename}"",
-	type: ""inline-script""
-}}"
-            });
+                //ignore
+                return;
+            }
 
-            AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
-        ""c3runtime/{filename}"","));
+            //save current selection
+            if (_selectedFile != null)
+            {
+                //todo: determine if i should display file content
+                _selectedFile.Content = FileTextEditor.Text;
+                _files[_selectedFile.FileName] = _selectedFile;
 
-            //add
-            FileListBox.Items.Refresh();
-            FileListBox.SelectedIndex = _files.Count - 1;
-            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-            FileTextEditor.Text = _selectedFile.Content;
+                //load new selection
+                _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
+
+                //todo: determine if i should display file content
+                FileTextEditor.Text = _selectedFile.Content;
+            }
         }
 
-        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        //context menu
+        private void FormatJsonMenu_OnClick(object sender, RoutedEventArgs e)
         {
-            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
-            {
-                e.Handled = true;
-                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
-                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
-            }
+            throw new NotImplementedException();
+        }
+
+        private void AddFileMenu_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void RemoveFileMenu_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FormatJavascriptMenu_OnClick(object sender, RoutedEventArgs e)
+        {
+            //properties
         }
     }
 }

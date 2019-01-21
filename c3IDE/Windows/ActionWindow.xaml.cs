@@ -25,12 +25,13 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class ActionWindow : UserControl, IWindow
     {
+        //properties
+        public string DisplayName { get; set; } = "Actions";
         private Dictionary<string, Action> _actions;
         private Action _selectedAction;
         private CompletionWindow completionWindow;
 
-        public string DisplayName { get; set; } = "Actions";
-
+        //ctor
         public ActionWindow()
         {
             InitializeComponent();
@@ -45,6 +46,7 @@ namespace c3IDE.Windows
             LanguageTextEditor.TextArea.TextEntered += LanguageTextEditor_TextEntered;
         }
 
+        //editor events
         private void LanguageTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -207,6 +209,17 @@ namespace c3IDE.Windows
             // We still want to insert the character that was typed.
         }
 
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
+            {
+                e.Handled = true;
+                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
+                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
+            }
+        }
+
+        //completion window
         private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
         {
             //if any data matches show completion list
@@ -224,6 +237,7 @@ namespace c3IDE.Windows
             completionWindow.Closed += delegate { completionWindow = null; };
         }
 
+        //button clicks 
         private void AddAction_OnClick(object sender, RoutedEventArgs e)
         {
             ActionIdText.Text = "action-id";
@@ -252,81 +266,6 @@ namespace c3IDE.Windows
             {
                 AppData.Insatnce.ErrorMessage("failed to remove action, no action selected");
             }
-        }
-
-        public void OnEnter()
-        {
-            if (AppData.Insatnce.CurrentAddon != null)
-            {
-                _actions = AppData.Insatnce.CurrentAddon.Actions;
-                ActionListBox.ItemsSource = _actions;
-
-                if (_actions.Any())
-                {
-                    ActionListBox.SelectedIndex = 0;
-                }
-            }
-            else
-            {
-                ActionListBox.ItemsSource = null;
-                AceTextEditor.Text = string.Empty;
-                LanguageTextEditor.Text = string.Empty;
-                CodeTextEditor.Text = string.Empty;
-            }
-          
-        }
-
-        public void OnExit()
-        {
-            if (AppData.Insatnce.CurrentAddon != null)
-            {
-                //save the current selected action
-                if (_selectedAction != null)
-                {
-                    _selectedAction.Ace = AceTextEditor.Text;
-                    _selectedAction.Language = LanguageTextEditor.Text;
-                    _selectedAction.Code = CodeTextEditor.Text;
-                    _actions[_selectedAction.Id] = _selectedAction;
-                }
-
-                AppData.Insatnce.CurrentAddon.Actions = _actions;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
-            }          
-        }
-
-        private void ActionListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ActionListBox.SelectedIndex == -1)
-            {
-                //ignore
-                return;
-            }
-
-            //save current selection
-            if (_selectedAction != null)
-            {
-                _selectedAction.Ace = AceTextEditor.Text;
-                _selectedAction.Language = LanguageTextEditor.Text;
-                _selectedAction.Code = CodeTextEditor.Text;
-                _actions[_selectedAction.Id] = _selectedAction;
-            }
-
-            //load new selection
-            _selectedAction = ((KeyValuePair<string, Action>)ActionListBox.SelectedItem).Value;
-            AceTextEditor.Text = _selectedAction.Ace;
-            LanguageTextEditor.Text = _selectedAction.Language;
-            CodeTextEditor.Text = _selectedAction.Code;
-        }
-
-        private void InsertNewParam(object sender, RoutedEventArgs e)
-        {
-            if (_selectedAction == null) return;
-            ParamIdText.Text = "param-id";
-            ParamTypeDropdown.Text = "number";
-            ParamValueText.Text = string.Empty;
-            ParamNameText.Text = "This is the parameters name";
-            ParamDescText.Text = "This is the parameters description";
-            NewParamWindow.IsOpen = true;
         }
 
         private void SaveActionButton_Click(object sender, RoutedEventArgs e)
@@ -374,7 +313,7 @@ namespace c3IDE.Windows
             {
                 //ace param
                 var aceTemplate = TemplateHelper.AceParam(id, type, value);
-               AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("\"params\": [", aceTemplate));
+                AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("\"params\": [", aceTemplate));
 
                 //language param
                 var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
@@ -382,14 +321,14 @@ namespace c3IDE.Windows
 
                 //code param
                 var codeTemplate = TemplateHelper.AceCode(id, _selectedAction.ScriptName);
-                CodeTextEditor.Text =CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}(", codeTemplate);
+                CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}(", codeTemplate);
             }
             //this will be the first param
             else
             {
                 //ace param
                 var aceTemplate = TemplateHelper.AceParamFirst(id, type, value);
-               AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("}", aceTemplate));
+                AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("}", aceTemplate));
 
                 //language param
                 var langTemplate = TemplateHelper.AceLangFirst(id, type, name, desc);
@@ -398,12 +337,106 @@ namespace c3IDE.Windows
 
                 //code param
                 var codeTemplate = TemplateHelper.AceCodeFirst(id, _selectedAction.ScriptName);
-               CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}()", codeTemplate);
+                CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}()", codeTemplate);
             }
 
             NewParamWindow.IsOpen = false;
         }
 
+        //window states
+        public void OnEnter()
+        {
+            if (AppData.Insatnce.CurrentAddon != null)
+            {
+                _actions = AppData.Insatnce.CurrentAddon.Actions;
+                ActionListBox.ItemsSource = _actions;
+
+                if (_actions.Any())
+                {
+                    ActionListBox.SelectedIndex = 0;
+                }
+            }
+            else
+            {
+                ActionListBox.ItemsSource = null;
+                AceTextEditor.Text = string.Empty;
+                LanguageTextEditor.Text = string.Empty;
+                CodeTextEditor.Text = string.Empty;
+            }
+          
+        }
+
+        public void OnExit()
+        {
+            if (AppData.Insatnce.CurrentAddon != null)
+            {
+                //save the current selected action
+                if (_selectedAction != null)
+                {
+                    _selectedAction.Ace = AceTextEditor.Text;
+                    _selectedAction.Language = LanguageTextEditor.Text;
+                    _selectedAction.Code = CodeTextEditor.Text;
+                    _actions[_selectedAction.Id] = _selectedAction;
+                }
+
+                AppData.Insatnce.CurrentAddon.Actions = _actions;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+            }          
+        }
+
+        //list box events
+        private void ActionListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ActionListBox.SelectedIndex == -1)
+            {
+                //ignore
+                return;
+            }
+
+            //save current selection
+            if (_selectedAction != null)
+            {
+                _selectedAction.Ace = AceTextEditor.Text;
+                _selectedAction.Language = LanguageTextEditor.Text;
+                _selectedAction.Code = CodeTextEditor.Text;
+                _actions[_selectedAction.Id] = _selectedAction;
+            }
+
+            //load new selection
+            _selectedAction = ((KeyValuePair<string, Action>)ActionListBox.SelectedItem).Value;
+            AceTextEditor.Text = _selectedAction.Ace;
+            LanguageTextEditor.Text = _selectedAction.Language;
+            CodeTextEditor.Text = _selectedAction.Code;
+        }
+
+        //context menu
+        private void InsertNewParam_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_selectedAction == null) return;
+            ParamIdText.Text = "param-id";
+            ParamTypeDropdown.Text = "number";
+            ParamValueText.Text = string.Empty;
+            ParamNameText.Text = "This is the parameters name";
+            ParamDescText.Text = "This is the parameters description";
+            NewParamWindow.IsOpen = true;
+        }
+
+        private void FormatJavascript_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FormatJsonLang_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FormatJsonAce_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        //view buttons
         private void AceView_OnClick(object sender, RoutedEventArgs e)
         {
             CodePanel.Width = new GridLength(0);
@@ -432,14 +465,6 @@ namespace c3IDE.Windows
             LangPanel.Width = new GridLength(3, GridUnitType.Star);
         }
 
-        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
-            {
-                e.Handled = true;
-                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
-                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
-            }
-        }
+
     }
 }

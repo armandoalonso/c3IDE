@@ -466,3 +466,799 @@ OnWebGLContextRestored()
 0
 SDKWorldInstanceBase
 Optional overrides for handling WebGL context loss. This is only necessary if your addon creates any WebGL resources. These overrides are only called if your instance first calls HandleWebGLContextLoss() (normally in the constructor to enable these callbacks for the lifetime of the instance). In a context loss event, all WebGL resources have been released, so any references to them must be dropped. In a context restored event the resources may be recreated again if necessary. Alternatively they can be left released if a lazy-loading approach is used.
+GetEventSheetManager()
+0
+EventBlock
+Return the associated EventSheetManager.
+GetRuntime()
+0
+EventBlock
+Return the associated Runtime.
+GetParent()
+0
+EventBlock
+Return the parent EventBlock, or null if this is a top-level event.
+IsOrBlock()
+0
+EventBlock
+If true, this is an OR block, else it is an AND block.
+GetSolModifiers()
+0
+EventBlock
+Return an array of ObjectClass that the event block may modify.
+Retrigger(oldFrame, newFrame)
+0
+EventBlock
+Re-run the current event. This is useful for implementing looping conditions. Prior to calling this, you must push a new EventStackFrame, and pass both the old and the new stack frames to this call. Be sure to pop the pushed stack frame once complete. See the code sample above.
+GetRuntime()
+0
+EventSheetManager
+Return the associated Runtime.
+GetEventStack()
+0
+EventSheetManager
+Return the EventStack representing the current execution stack in the event system.
+GetCurrentEventStackFrame()
+0
+EventSheetManager
+Return the current EventStackFrame, representing the current execution context in the event system. This is a shorthand for GetEventStack().GetCurrentStackFrame().
+GetCurrentEvent()
+0
+EventSheetManager
+Return the current EventBlock being executed. This is a shorthand for GetCurrentEventStackFrame().GetCurrentEvent().
+IsInTrigger()
+0
+EventSheetManager
+True if execution is currently within a triggered event.
+ClearSol(objectClasses)
+0
+EventSheetManager
+For each ObjectClass in the given array, reset the selected object list (SOL) back to "all picked" state.
+PushCleanSol(objectClasses)
+0
+EventSheetManager
+For each ObjectClass in the given array, push a new selected object list (SOL) to the SOL stack. PushCleanSol pushes cleared SOLs in the "all picked" state, whereas PushCopySol pushes a copy of the top SOL. These methods are necessary when retriggering events. Every pushed SOL must have a corresponding PopSol call.
+PushCopySol(objectClasses)
+0
+EventSheetManager
+For each ObjectClass in the given array, push a new selected object list (SOL) to the SOL stack. PushCleanSol pushes cleared SOLs in the "all picked" state, whereas PushCopySol pushes a copy of the top SOL. These methods are necessary when retriggering events. Every pushed SOL must have a corresponding PopSol call.
+PopSol(objectClasses)
+0
+EventSheetManager
+For each ObjectClass in the given array, pop the top SOL on the SOL stack. This must be called after PushCleanSol or PushCopySol.
+GetEventSheetManager()
+0
+EventStack
+Return the associated EventSheetManager.
+GetRuntime()
+0
+EventStack
+Return the associated Runtime.
+GetCurrentStackFrame()
+0
+EventStack
+Return the current EventStackFrame.
+Push(currentEvent)
+0
+EventStack
+Push a new EventStackFrame to the event stack, and return it. The initial current EventBlock for the new stack frame must be passed to this call. Every push must have a corresponding Pop call.
+Pop()
+0
+EventStack
+Pop the top EventStackFrame from the event stack. This must be called after every Push call.
+GetCurrentEvent()
+0
+EventStackFrame
+Return the currently executing EventBlock.
+GetRuntime()
+0
+AssetManager
+Return the associated Runtime.
+async FetchBlob(url)
+0
+AssetManager
+Fetch a blob from a given URL. Returns a promise that resolves with the fetched blob. Note this method handles various cross-platform details when used to fetch project files so is preferable if the content being requested will be used as a blob.
+async FetchJson(url)
+0
+AssetManager
+As with FetchBlob(), but returns the content in JSON format.
+async LoadProjectFileUrl(filename)
+0
+AssetManager
+Obtain a URL to a given project filename that can be directly fetched. On some platforms this will be translated to a blob URL; in other cases it will simply return the filename if it can already be directly fetched. Note this method returns a promise that resolves with the URL to use.
+GetLayout()
+0
+Layer
+Return the Layout the layer belongs to.
+GetRuntime()
+0
+Layer
+Return the Runtime for this layer.
+GetName()
+0
+Layer
+Return a string of the name of the layer.
+GetIndex()
+0
+Layer
+Return the zero-based index of this layer on its layout.
+SetVisible(v)
+0
+Layer
+Set or get a boolean determining whether the layer is visible.
+IsVisible()
+0
+Layer
+Set or get a boolean determining whether the layer is visible.
+GetViewport()
+0
+Layer
+Return a C3.Rect representing the axis-aligned bounding box of the visible area of the layer in layout co-ordinates.
+SetOpacity(o)
+0
+Layer
+Set and get the opacity of the layer in the [0,1] range. 0 is fully transparent and 1 is opaque. This changes the alphacomponent of the layer color.
+GetOpacity()
+0
+Layer
+Set and get the opacity of the layer in the [0,1] range. 0 is fully transparent and 1 is opaque. This changes the alphacomponent of the layer color.
+SetOwnScale(s)
+0
+Layer
+Set and get the layer's scale as a factor.
+GetOwnScale()
+0
+Layer
+Set and get the layer's scale as a factor.
+GetRenderScale()
+0
+Layer
+Get the scale the layer is rendered at. This is the scale relevant to draw calls.
+GetDisplayScale()
+0
+Layer
+Get the scale the layer is rendered at. This is the scale relevant for translating co-ordinates from the canvas/window tothe layer.
+GetNormalScale()
+0
+Layer
+Get the scale of the layer only using its own scale, the layout scale, and the scale rate.
+SetScaleRate(r)
+0
+Layer
+Set and get the scale rate of the layer as a multiplier.
+GetScaleRate()
+0
+Layer
+Set and get the scale rate of the layer as a multiplier.
+SetParallaxX(px)
+0
+Layer
+Set and get the X and Y parallax ratios for the layer, as multipliers.
+SetParallaxY(py)
+0
+Layer
+Set and get the X and Y parallax ratios for the layer, as multipliers.
+SetParallax(px, py)
+0
+Layer
+Set and get the X and Y parallax ratios for the layer, as multipliers.
+GetParallaxX()
+0
+Layer
+Set and get the X and Y parallax ratios for the layer, as multipliers.
+GetParallaxY()
+0
+Layer
+Set and get the X and Y parallax ratios for the layer, as multipliers.
+SetAngle(a)
+0
+Layer
+Set and get the layer's angle in radians. Use C3.toDegrees() and C3.toRadians() to convert from degrees to radians.
+GetOwnAngle()
+0
+Layer
+Set and get the layer's angle in radians. Use C3.toDegrees() and C3.toRadians() to convert from degrees to radians.
+GetAngle()
+0
+Layer
+Get the layer's display angle in radians. This is also affected by the layout angle.
+GetBackgroundColor()
+0
+Layer
+Return a C3.Color representing the layer background color. Only the RGB components are used.
+SetTransparent(t)
+0
+Layer
+Set and get a boolean indicating if the layer background is transparent.
+IsTransparent()
+0
+Layer
+Set and get a boolean indicating if the layer background is transparent.
+SetBlendMode(bm)
+0
+Layer
+Set and get the layer blend mode, as an index in to the dropdown list used in Construct's Blend mode property. E.g. 0 is"normal", 1 is "additive", etc.
+GetBlendMode()
+0
+Layer
+Set and get the layer blend mode, as an index in to the dropdown list used in Construct's Blend mode property. E.g. 0 is"normal", 1 is "additive", etc.
+MoveInstanceAdjacent(inst, otherInst, isAfter)
+0
+Layer
+Move the Instance inst adjacent to otherInst in the Z order. If isAfter is true it moves inst just after (above) otherInstin the Z order; otherwise it moves inst just before (below).
+CanvasCssToLayer(x, y)
+0
+Layer
+Translate CSS pixel co-ordinates on the canvas to layout co-ordinates on the layer, and vice versa. Returns [x, y].
+LayerToCanvasCss(x, y)
+0
+Layer
+Translate CSS pixel co-ordinates on the canvas to layout co-ordinates on the layer, and vice versa. Returns [x, y].
+DrawSurfaceToLayer(x, y)
+0
+Layer
+Translate device pixels on the rendered surface to layout co-ordinates on the layer, and vice versa. Returns [x, y].
+LayerToDrawSurface(x, y)
+0
+Layer
+Translate device pixels on the rendered surface to layout co-ordinates on the layer, and vice versa. Returns [x, y].
+GetRuntime()
+0
+Layout
+Return the Runtime for this layout.
+GetName()
+0
+Layout
+Return a string of the name of the layout.
+SetScrollX(x)
+0
+Layout
+Set and get the scroll position in layout co-ordinates.
+SetScrollY(y)
+0
+Layout
+Set and get the scroll position in layout co-ordinates.
+GetScrollX()
+0
+Layout
+Set and get the scroll position in layout co-ordinates.
+GetScrollY()
+0
+Layout
+Set and get the scroll position in layout co-ordinates.
+SetScale(s)
+0
+Layout
+Set and get the layout scale as a multiplier. Note that the layout scale affects all layers.
+GetScale()
+0
+Layout
+Set and get the layout scale as a multiplier. Note that the layout scale affects all layers.
+SetAngle(a)
+0
+Layout
+Set and get the layout angle in radians. Note that the layout angle affects all layers. Use C3.toDegrees() and C3.toRadias() to convert from degrees to radians.
+GetAngle()
+0
+Layout
+Set and get the layout angle in radians. Note that the layout angle affects all layers. Use C3.toDegrees() and C3.toRadins() to convert from degrees to radians.
+GetWidth()
+0
+Layout
+Get the size of the layout.
+GetHeight()
+0
+Layout
+Get the size of the layout.
+GetLayerCount()
+0
+Layout
+Return the number of Layers on this layout.
+GetLayer(p)
+0
+Layout
+Get a Layer on the layout either by its zero-based index or a case-insensitive string of its name. The GetLayer() method accepts eiher an index or a name.
+GetLayerByIndex(i)
+0
+Layout
+Get a Layer on the layout either by its zero-based index or a case-insensitive string of its name. The GetLayer() method accepts either anindex or a name.
+GetLayerByName(name)
+0
+Layout
+Get a Layer on the layout either by its zero-based index or a case-insensitive string of its name. The GetLayer() method accepts either an idex or a name.
+GetSdkInstance()
+0
+BehaviorInstance
+Return the behavior-specific behavior instance class, which derives from SDKBehaviorInstanceBase.
+GetObjectInstance()
+0
+BehaviorInstance
+Return the Instance associated with this behavior instance.
+GetBehaviorType()
+0
+BehaviorInstance
+Return the BehaviorType this behavior belongs to.
+GetBehavior()
+0
+BehaviorInstance
+Return the behavior-specific class that derives from SDKBehaviorBase.
+GetRuntime()
+0
+BehaviorInstance
+Return the Runtime for this behavior instance.
+GetSdkType()
+0
+BehaviorType
+Return the behavior-specific behavior type class, which derives from SDKBehaviorTypeBase.
+GetRuntime()
+0
+BehaviorType
+Get the Runtime for the behavior type.
+GetObjectClass()
+0
+BehaviorType
+Get the ObjectClass that the behavior type was added to. Note this can be either an object type or a family.
+GetBehavior()
+0
+BehaviorType
+Return the behavior-specific class that derives from SDKBehaviorBase.
+GetName()
+0
+BehaviorType
+Return a string of the name of the behavior type
+GetRuntime()
+0
+Container
+Return the Runtime for this container.
+GetObjectTypes()
+0
+Container
+Return a read-only array of ObjectClass representing the object classes that have been added to the container.
+GetWorldInfo()
+0
+Instance
+For "world" type plugins, get the instance's associated WorldInfo. This allows modification of the position, size, angle etc.
+GetRuntime()
+0
+Instance
+Get the Runtime for this instance.
+GetSdkInstance()
+0
+Instance
+Get the plugin-specific instance class for this instance, which derives from SDKInstanceBase. See also Addon interfaces for the public APIs exposed by some of the built-in addons in Construct.
+GetObjectClass()
+0
+Instance
+Get the ObjectClass representing the object type this instance belongs to.
+GetPlugin()
+0
+Instance
+Return the plugin class for this instance, which derives from SDKPluginBase.
+BelongsToObjectClass(objectClass)
+0
+Instance
+Returns true if this instance's object class is the given object class, or the given object class is a family and this instance's object class is a member of that family.
+GetImagePoint(nameOrIndex)
+0
+Instance
+Get an image point from the instance by either its index or a string of its name. Note image points are returned in a [0,1] range, such that 0.5 represents the middle.
+IsInContainer()
+0
+Instance
+Returns true if the instance is in a container.
+GetSiblings()
+0
+Instance
+Return a read-only array of sibling instances for this instance, i.e. its associated other instances in its container. This is only applicable if the instance is in a container.
+GetUID()
+0
+Instance
+Get the unique identifier (UID) for this instance. UIDs are unique integer numbers assigned to every instance, and never change during the lifetime of the instance.
+GetIID()
+0
+Instance
+Get the instance identifier (IID) for this instance. IIDs are the zero-based index of this instance in its object type's instance list. Note IIDs can change during the lifetime of the instance; if an instance with a lower IID is destroyed, all instances with higher IIDs are renumbered so the IIDs are contiguous from 0.
+GetBehaviorInstances()
+0
+Instance
+Return a read-only array of BehaviorInstance for this instance.
+GetBehaviorInstanceFromCtor(ctor)
+0
+Instance
+Look up a behavior instance by its behavior constructor. For example GetBehaviorInstanceFromCtor(C3.Behaviors.Platform) will return the first BehaviorInstance for the Platform behavior if the instance has one, else null.
+GetBehaviorSdkInstanceFromCtor(ctor)
+0
+Instance
+As with GetBehaviorInstanceFromCtor(ctor), but returns the behavior-specific behavior instance class (which derives from SDKBehaviorInstanceBase) instead.
+GetInstanceVariableCount()
+0
+Instance
+Return the number of instance variables for this instance.
+SetInstanceVariableValue(index, value)
+0
+Instance
+Set or get an instance variable value by its index. Note the type of the instance variable will be preserved.
+GetInstanceVariableValue(index)
+0
+Instance
+Set or get an instance variable value by its index. Note the type of the instance variable will be preserved.
+GetSavedDataMap()
+0
+Instance
+Return a Map to store additional data to associate with this instance. Use string keys only, and ensure keys are unique. The saved data map is written to savegame files so should be used for persistent state. The unsaved data map is not written to savegame files so should be used for transient storage or caching.
+GetUnsavedDataMap()
+0
+Instance
+Return a Map to store additional data to associate with this instance. Use string keys only, and ensure keys are unique. The saved data map is written to savegame files so should be used for persistent state. The unsaved data map is not written to savegame files so should be used for transient storage or caching.
+GetSdkType()
+0
+ObjectClass
+Return the plugin-specific SDK type class, which derives from SDKTypeBase.
+GetPlugin()
+0
+ObjectClass
+Return the plugin class for this object class, which derives from SDKPluginBase.
+GetRuntime()
+0
+ObjectClass
+Return the Runtime for this object class.
+GetName()
+0
+ObjectClass
+Return a string of the name of this object class.
+IsGlobal()
+0
+ObjectClass
+Return a boolean indicating if this is a global object class. Global instances are not destroyed when changing layout.
+IsWorldType()
+0
+ObjectClass
+Return a boolean indicating if the associated plugin is a "world" type.
+GetBehaviorTypes()
+0
+ObjectClass
+Return a read-only array of BehaviorType representing behaviors added to this object class.
+IsFamily()
+0
+ObjectClass
+Return a boolean indicating if this is an object type (if false) or family (if true).
+GetFamilies()
+0
+ObjectClass
+For object types only. Return a read-only array of families (also ObjectClass) that this object type belongs to.
+GetFamilyMembers()
+0
+ObjectClass
+For families only. Return a read-only array of object types (also ObjectClass) that are in this family.
+GetInstances()
+0
+ObjectClass
+Return a read-only array of Instance that have been created.
+GetSingleGlobalInstance()
+0
+ObjectClass
+For single-global plugins only. Returns the single-global instance of the object.
+GetFirstPicked()
+0
+ObjectClass
+Return the first picked Instance in an action, condition or expression.
+IsInContainer()
+0
+ObjectClass
+Return true if the object class is in a container.
+GetContainer()
+0
+ObjectClass
+If the object class is in a container, return the Container class representing the container. Otherwise returns null.
+HasSolidBehavior()
+0
+ObjectClass
+Convenience methods to indicate if the given behavior has been added to the object class.
+HasNoSaveBehavior()
+0
+ObjectClass
+Convenience methods to indicate if the given behavior has been added to the object class.
+HasPersistBehavior()
+0
+ObjectClass
+Convenience methods to indicate if the given behavior has been added to the object class.
+GetInstance()
+0
+WorldInfo
+Return the associated Instance that this WorldInfo represents state for.
+SetX(x)
+0
+WorldInfo
+Set and get the position of the instance in layout co-ordinates.
+SetY(y)
+0
+WorldInfo
+Set and get the position of the instance in layout co-ordinates.
+SetXY(x, y)
+0
+WorldInfo
+Set and get the position of the instance in layout co-ordinates.
+GetX()
+0
+WorldInfo
+Set and get the position of the instance in layout co-ordinates.
+GetY()
+0
+WorldInfo
+Set and get the position of the instance in layout co-ordinates.
+OffsetX(x)
+0
+WorldInfo
+Add to the X and Y components of the instance's position. For example OffsetX(5) is equivalent to SetX(GetX() + 5).
+OffsetY(y)
+0
+WorldInfo
+Add to the X and Y components of the instance's position. For example OffsetX(5) is equivalent to SetX(GetX() + 5).
+OffsetXY(x, y)
+0
+WorldInfo
+Add to the X and Y components of the instance's position. For example OffsetX(5) is equivalent to SetX(GetX() + 5).
+SetWidth(w)
+0
+WorldInfo
+Set and get the width and height of the instance in layout co-ordinates.
+SetHeight(h)
+0
+WorldInfo
+Set and get the width and height of the instance in layout co-ordinates.
+SetSize(w, h)
+0
+WorldInfo
+Set and get the width and height of the instance in layout co-ordinates.
+GetWidth()
+0
+WorldInfo
+Set and get the width and height of the instance in layout co-ordinates.
+GetHeight()
+0
+WorldInfo
+Set and get the width and height of the instance in layout co-ordinates.
+SetAngle(a)
+0
+WorldInfo
+Set and get the angle of the instance in radians. Use C3.toDegrees() and C3.toRadians() to convert from degrees to radians.
+GetAngle(
+0
+WorldInfo
+
+SetOrigiX(x)
+0
+WorldInfo
+Set and get the origin of the instance as a normalized position in the [0,1] range, i.e. 0.5 is the middle.
+SetOriginY(y)
+0
+WorldInfo
+Set and get the origin of the instance as a normalized position in the [0,1] range, i.e. 0.5 is the middle.
+GetOriginX()
+0
+WorldInfo
+Set and get the origin of the instance as a normalized position in the [0,1] range, i.e. 0.5 is the middle.
+GetOriginY()
+0
+WorldInfo
+Set and get the origin of the instance as a normalized position in the [0,1] range, i.e. 0.5 is the middle.
+SetBboxChanged()
+0
+WorldInfo
+Mark the instance's bounding box as having been changed. Call this after altering the position, size, angle or origin of the instance.
+GetBoundingBox()
+0
+WorldInfo
+Return a C3.Rect representing the axis-aligned bounding box of the instance in layout co-ordinates.
+GetBoundingQuad()
+0
+WorldInfo
+Return a C3.Quad representing the bounding quad of the instance in layout co-ordinates, which is essentially the rotated bounding box.
+SetOpacity(o)
+0
+WorldInfo
+Set and get the opacity of the instance in the [0,1] range. 0 is fully transparent and 1 is opaque. This changes the alpha component of the instance color.
+GetOpacity()
+0
+WorldInfo
+Set and get the opacity of the instance in the [0,1] range. 0 is fully transparent and 1 is opaque. This changes the alpha component of the instance color.
+SetUnpremultipliedColor(c)
+0
+WorldInfo
+Set the RGB components of the instance color. This applies a built-in color multiply effect which appears like a tint. As with opacity, color values are in the [0,1] range. The default is RGB 1,1,1 (white) which means the instance appears with normal colors. Pass a C3.Color as the parameter. The runtime internally uses premultiplied alpha for best rendering quality; in this method the RGB values do not need to be premultiplied with the alpha (opacity) value, since it will apply the premultiplication for you.
+GetUnpremultipliedColor()
+0
+WorldInfo
+Get the instance color as a read-only C3.Color, either without or with premultiplied alpha (respectively). The instance color includes the opacity in the alpha channel.
+GetPremultipliedColor()
+0
+WorldInfo
+Get the instance color as a read-only C3.Color, either without or with premultiplied alpha (respectively). The instance color includes the opacity in the alpha channel.
+HasDefaultColor()
+0
+WorldInfo
+Returns true if the instance color RGBA value equals (1,1,1,1), else false.
+SetBlendMode(bm)
+0
+WorldInfo
+Set and get the instance blend mode, as an index in to the dropdown list used in Construct's Blend mode property. E.g. 0 is "normal", 1 is "additive", etc.
+GetBlendMode()
+0
+WorldInfo
+Set and get the instance blend mode, as an index in to the dropdown list used in Construct's Blend mode property. E.g. 0 is "normal", 1 is "additive", etc.
+GetLayer()
+0
+WorldInfo
+Get the Layer the instance is currently on.
+GetLayout()
+0
+WorldInfo
+Get the Layout the instance currently belongs to.
+SetVisible(v)
+0
+WorldInfo
+Set and get the visible state for the instance. This is a boolean that hides the instance when set to false.
+IsVisible()
+0
+WorldInfo
+Set and get the visible state for the instance. This is a boolean that hides the instance when set to false.
+SetCollisionEnabled(e)
+0
+WorldInfo
+Set and get a boolean indicating whether collisions are enabled for this instance.
+IsCollisionEnabled()
+0
+WorldInfo
+Set and get a boolean indicating whether collisions are enabled for this instance.
+ContainsPoint(x, y)
+0
+WorldInfo
+Test if a point in layout co-ordinates intersects this instance, respecting its collision polygon and collisions enabled flag.
+GetAssetManager()
+0
+Runtime
+Return the project's AssetManager, which is used to load sub-resources.
+AddLoadPromise(promise)
+0
+Runtime
+Only valid while the project is still loading. Add a promise that the runtime will wait to resolve before starting the first layout. This is useful if you want to make sure your addon loads a dynamic resource before the game starts. Single-global plugins create their instance before loading, so this method can be used in single-global instance constructors. Otherwise it can only be used in the plugin or behavior constructor.
+IsInWorker()
+0
+Runtime
+Return true if the runtime is hosted in a worker. The DOM will be unavailable.
+IsPreview()
+0
+Runtime
+Returns true if running in Construct 3's preview mode.
+GetAllObjectClasses()
+0
+Runtime
+Return a read-only array of all ObjectClass in the project. Note this includes families.
+GetObjectClassByName(name)
+0
+Runtime
+Look up an ObjectClass by a case-insensitive string of its name. Note this can return a family.
+GetSingleGlobalObjectClassByCtor(ctor)
+0
+Runtime
+Look up a single-global plugin's ObjectClass by its plugin constructor function, e.g. C3.Plugins.Facebook. Returns null if the plugin is not added to the project.
+CreateInstance(objectClass, layer, x, y)
+0
+Runtime
+Create and return a new Instance of an ObjectClass on the given Layer at a position.
+DestroyInstance(inst)
+0
+Runtime
+Destroy an Instance.
+GetObjectCount()
+0
+Runtime
+Get the total number of instances created.
+GetInstanceByUID(uid)
+0
+Runtime
+Look up an Instance by its UID. If none exists with the given UID, returns null.
+GetEventSheetManager()
+0
+Runtime
+Return the EventSheetManager that handles the event system.
+GetEventStack()
+0
+Runtime
+Return the EventStack. This is a shorthand for GetEventSheetManager().GetEventStack().
+GetCurrentEventStackFrame()
+0
+Runtime
+Return the current EventStackFrame. This is a shorthand for GetEventSheetManager().GetCurrentEventStackFrame().
+GetCurrentEvent()
+0
+Runtime
+Return the current EventBlock. This is a shorthand for GetEventSheetManager().GetCurrentEvent().
+GetCanvasClientX()
+0
+Runtime
+Return the offset of the canvas in the document in CSS pixels.
+GetCanvasClientY()
+0
+Runtime
+Return the offset of the canvas in the document in CSS pixels.
+GetCanvasCssWidth()
+0
+Runtime
+Return the size of the canvas in the document in CSS pixels.
+GetCanvasCssHeight()
+0
+Runtime
+Return the size of the canvas in the document in CSS pixels.
+IsLinearSampling()
+0
+Runtime
+Return true if the project is set to use linear sampling. False indicates point sampling.
+UpdateRender()
+0
+Runtime
+Call to indicate that something visible has changed. Most runtime code calls this automatically. However by default if this is not called during a tick, the runtime will skip drawing a frame on the assumption nothing visible has changed.
+GetWebGLRenderer()
+0
+Runtime
+Return the WebGLRenderer for the runtime, which is responsible for rendering graphics.
+GetMainRunningLayout()
+0
+Runtime
+Return the main Layout that is currently running.
+SetTimescale(t)
+0
+Runtime
+Set and get the timescale as a multiplier.
+GetTimescale()
+0
+Runtime
+Set and get the timescale as a multiplier.
+GetStartTime()
+0
+Runtime
+Get the timestamp in milliseconds at the time the runtime started up.
+GetGameTime()
+0
+Runtime
+Get the in-game time in seconds, which can be affected by time scaling.
+GetWallTime()
+0
+Runtime
+Get the in-game time in seconds without taking in to account time scaling (aka the "wall clock" time).
+GetTickCount()
+0
+Runtime
+Get the number of ticks that have elapsed so far.
+GetProjectName()
+0
+Runtime
+Return a string of the name and version of the project.
+GetProjectVersion()
+0
+Runtime
+Return a string of the name and version of the project.
+GetProjectUniqueId()
+0
+Runtime
+Return a string representing a unique identifier for this project.
+SetPixelRoundingEnabled(e)
+0
+Runtime
+Set and get a boolean indicating whether pixel rounding is enabled.
+IsPixelRoundingEnabled()
+0
+Runtime
+Set and get a boolean indicating whether pixel rounding is enabled.
+InvokeDownload(url, filename)
+0
+Runtime
+Invoke a download of the given URL and use the provided filename. The URL can be a blob URL.
+Random()
+0
+Runtime
+Generate a random number in the range [0,1), which is the same range as Math.random(). Use this method to allow the runtime control over the random number generator, e.g. setting a fixed seed to reproduce the same random sequence.
+SetSuspended(suspend)
+0
+Runtime
+Pass true to suspend the runtime or false to resume it if paused. When suspended, the entire runtime halts and stops processing events or drawing the screen. This is done by default when the window or app goes in to the background. Make sure that suspend and resume calls are paired one-to-one. For example do not suspend once but resume twice.

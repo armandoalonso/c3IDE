@@ -49,8 +49,9 @@
                     PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Insert New Plugin Property" Click="InsertNewProperty" />
-                            <MenuItem Header="Generate File Dependency Json" Click="GenerateFileDependency" />
+                            <MenuItem Header="Format Javascript" Click="FormatJavascriptEdittime_OnClick" />
+                            <MenuItem Header="Insert New Plugin Property" Click="InsertNewProperty_OnClick" />
+                            <MenuItem Header="Generate File Dependency Json" Click="GenerateFileDependency_OnClick" />
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>
@@ -67,6 +68,7 @@
                     PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
+                            <MenuItem Header="Format Javascript" Click="FormatJavascriptRuntime_OnClick" />
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>

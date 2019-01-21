@@ -27,7 +27,11 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class TypeWindow : UserControl, IWindow
     {
+        //properties
+        public string DisplayName { get; set; } = "Type";
         private CompletionWindow completionWindow;
+
+        //ctor
         public TypeWindow()
         {
             InitializeComponent();
@@ -37,6 +41,7 @@ namespace c3IDE.Windows
             RunTimeTypeTextEditor.TextArea.TextEntered += RunTimeTypeTextEditor_TextEntered;
         }
 
+        //editor events
         private void EditTimeTypeTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -162,6 +167,17 @@ namespace c3IDE.Windows
             // We still want to insert the character that was typed.
         }
 
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
+            {
+                e.Handled = true;
+                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
+                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
+            }
+        }
+
+        //completion window
         private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
         {
             //if any data matches show completion list
@@ -180,8 +196,7 @@ namespace c3IDE.Windows
             completionWindow.Closed += delegate { completionWindow = null; };
         }
 
-        public string DisplayName { get; set; } = "Type";
-
+        //window states
         public void OnEnter()
         {
             EditTimeTypeTextEditor.Text = AppData.Insatnce.CurrentAddon?.TypeEditTime;
@@ -197,14 +212,16 @@ namespace c3IDE.Windows
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
         }
-        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+
+        //context menu
+        private void FormatJavascriptRuntime_OnClick(object sender, RoutedEventArgs e)
         {
-            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
-            {
-                e.Handled = true;
-                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
-                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
-            }
+            throw new NotImplementedException();
+        }
+
+        private void FormatJavascriptEdittime_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace c3IDE.Compiler
         public WebServerClient WebServer { get; set; }
         public bool IsCompilationValid { get; set; }
 
-        public void CompileAddon(C3Addon addon)
+        public void CompileAddon(C3Addon addon, bool startWebServer = true)
         {
             _log = new CompilerLog(UpdateLogText);
 
@@ -146,12 +146,15 @@ namespace c3IDE.Compiler
                 _log.Insert($"writing file => icon.svg");
                 _log.Insert($"compilation complete...");
 
-                //start web server installation
-                Task.Run(() =>
+                if (startWebServer)
                 {
-                    WebServer = new WebServerClient();
-                    WebServer.Start(_log);
-                });
+                    //start web server installation
+                    Task.Run(() =>
+                    {
+                        WebServer = new WebServerClient();
+                        WebServer.Start(_log);
+                    });
+                }           
             }
             catch (Exception ex)
             {

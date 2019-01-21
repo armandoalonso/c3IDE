@@ -25,13 +25,16 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class OptionsWindow : UserControl, IWindow
     {
+        //properties
         public string DisplayName { get; set; } = "Options";
 
+        //ctor
         public OptionsWindow()
         {
             InitializeComponent();
         }
 
+        //window states
         public void OnEnter()
         {
             CompilePathText.Text = AppData.Insatnce.Options.CompilePath;
@@ -39,6 +42,7 @@ namespace c3IDE.Windows
             DataPathText.Text = AppData.Insatnce.Options.DataPath;
             DefaultAuthorTextBox.Text = AppData.Insatnce.Options.DefaultAuthor;
             DefaultCompanyTextBox.Text = AppData.Insatnce.Options.DefaultCompany;
+            C3AddonPathText.Text = AppData.Insatnce.Options.C3AddonPath;
         }
 
         public void OnExit()
@@ -47,24 +51,26 @@ namespace c3IDE.Windows
             {
                 AppData.Insatnce.Options = new Options
                 {
-                    CompilePath = CompilePathText.Text,
-                    ExportPath = ExportPathText.Text,
-                    DataPath = DataPathText.Text,
-                    DefaultCompany = DefaultCompanyTextBox.Text,
-                    DefaultAuthor = DefaultAuthorTextBox.Text
-                        
+                    CompilePath = !string.IsNullOrWhiteSpace(CompilePathText.Text) ? CompilePathText.Text : App.DefaultOptions.CompilePath,
+                    ExportPath = !string.IsNullOrWhiteSpace(ExportPathText.Text) ? ExportPathText.Text : App.DefaultOptions.ExportPath ,
+                    DataPath = !string.IsNullOrWhiteSpace(DataPathText.Text) ? DataPathText.Text : App.DefaultOptions.DataPath,
+                    DefaultCompany = !string.IsNullOrWhiteSpace(DefaultCompanyTextBox.Text) ? DefaultCompanyTextBox.Text : App.DefaultOptions.DefaultCompany, 
+                    DefaultAuthor = !string.IsNullOrWhiteSpace(DefaultAuthorTextBox.Text) ? DefaultAuthorTextBox.Text : App.DefaultOptions.DefaultAuthor,
+                    C3AddonPath = !string.IsNullOrWhiteSpace(C3AddonPathText.Text) ? C3AddonPathText.Text : App.DefaultOptions.C3AddonPath
                 };
 
                 //create exports folder if it does not exists
                 if (!System.IO.Directory.Exists(AppData.Insatnce.Options.DataPath)) Directory.CreateDirectory(AppData.Insatnce.Options.DataPath);
                 if (!System.IO.Directory.Exists(AppData.Insatnce.Options.ExportPath)) Directory.CreateDirectory(AppData.Insatnce.Options.ExportPath);
                 if (!System.IO.Directory.Exists(AppData.Insatnce.Options.CompilePath)) Directory.CreateDirectory(AppData.Insatnce.Options.CompilePath);
+                if (!System.IO.Directory.Exists(AppData.Insatnce.Options.C3AddonPath)) Directory.CreateDirectory(AppData.Insatnce.Options.C3AddonPath);
 
                 //persist options
                 DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
             }
         }
 
+        //buttons
         private async void ClearDataButton_Click(object sender, RoutedEventArgs e)
         {
             var result = await AppData.Insatnce.ShowDialog("Delete saved addon data", "All saved addon's will be deleted");
@@ -124,6 +130,19 @@ namespace c3IDE.Windows
             if (!System.IO.Directory.Exists(AppData.Insatnce.Options.DataPath)) Directory.CreateDirectory(AppData.Insatnce.Options.DataPath);
             if (!System.IO.Directory.Exists(AppData.Insatnce.Options.ExportPath)) Directory.CreateDirectory(AppData.Insatnce.Options.ExportPath);
             if (!System.IO.Directory.Exists(AppData.Insatnce.Options.CompilePath)) Directory.CreateDirectory(AppData.Insatnce.Options.CompilePath);
+            if (!System.IO.Directory.Exists(AppData.Insatnce.Options.C3AddonPath)) Directory.CreateDirectory(AppData.Insatnce.Options.C3AddonPath);
+        }
+
+        private void OpenAddonButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Utils.Insatnce.StartProcess(C3AddonPathText.Text);
+            }
+            catch (Exception ex)
+            {
+                AppData.Insatnce.ErrorMessage($"error opening c3addon folder, {ex.Message}");
+            }
         }
     }
 }

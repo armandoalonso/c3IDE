@@ -15,6 +15,7 @@ namespace c3IDE.Models
         public string DataPath { get; set; }
         public string CompilePath { get; set; }
         public string ExportPath { get; set; }
+        public string C3AddonPath { get; set; }
         public string FontSize { get; set; }
         public string FontFamily { get; set; }
         public string DefaultCompany { get; set; }

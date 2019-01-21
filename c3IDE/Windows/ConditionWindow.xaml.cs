@@ -30,11 +30,13 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class ConditionWindow : UserControl, IWindow
     {
+        //properties
         public string DisplayName { get; set; } = "Conditions";
         private Dictionary<string, Condition> _conditions;
         private Condition _selectedCondition;
         private CompletionWindow completionWindow;
 
+        //ctor
         public ConditionWindow()
         {
             InitializeComponent();
@@ -49,6 +51,7 @@ namespace c3IDE.Windows
             LanguageTextEditor.TextArea.TextEntered += LanguageTextEditor_TextEntered;
         }
 
+        //editor events
         private void LanguageTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -211,6 +214,17 @@ namespace c3IDE.Windows
             // We still want to insert the character that was typed.
         }
 
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
+            {
+                e.Handled = true;
+                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
+                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
+            }
+        }
+
+        //completion window
         private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
         {
             //if any data matches show completion list
@@ -228,6 +242,7 @@ namespace c3IDE.Windows
             completionWindow.Closed += delegate { completionWindow = null; };
         }
 
+        //button clicks
         private void SaveConditionButton_Click(object sender, RoutedEventArgs e)
         {
             var id = ConditionIdText.Text;
@@ -273,6 +288,26 @@ namespace c3IDE.Windows
             NewConditionWindow.IsOpen = false;
         }
 
+        private void RemoveCondition_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_selectedCondition != null)
+            {
+                _conditions.Remove(_selectedCondition.Id);
+                ConditionListBox.ItemsSource = _conditions;
+                ConditionListBox.Items.Refresh();
+
+                //clear editors
+                AceTextEditor.Text = string.Empty;
+                LanguageTextEditor.Text = string.Empty;
+                CodeTextEditor.Text = string.Empty;
+                _selectedCondition = null;
+            }
+            else
+            {
+                AppData.Insatnce.ErrorMessage("failed to remove condition, no condition selected");
+            }
+        }
+
         private void SaveParamButton_Click(object sender, RoutedEventArgs e)
         {
             var id = ParamIdText.Text;
@@ -316,6 +351,17 @@ namespace c3IDE.Windows
             NewParamWindow.IsOpen = false;
         }
 
+        private void AddCondition_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_selectedCondition == null) return;
+            ConditionIdText.Text = "condition-id";
+            ConditionCategoryText.Text = "custom";
+            DisplayText.Text = "This is the conditions display text {0}";
+            DescriptionText.Text = "This is the conditions description";
+            NewConditionWindow.IsOpen = true;
+        }
+
+        //window states
         public void OnEnter()
         {
             if (AppData.Insatnce.CurrentAddon != null)
@@ -359,36 +405,7 @@ namespace c3IDE.Windows
 
         }
 
-        private void RemoveCondition_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (_selectedCondition != null)
-            {
-                _conditions.Remove(_selectedCondition.Id);
-                ConditionListBox.ItemsSource = _conditions;
-                ConditionListBox.Items.Refresh();
-
-                //clear editors
-                AceTextEditor.Text = string.Empty;
-                LanguageTextEditor.Text = string.Empty;
-                CodeTextEditor.Text = string.Empty;
-                _selectedCondition = null;
-            }
-            else
-            {
-                AppData.Insatnce.ErrorMessage("failed to remove condition, no condition selected");
-            }
-        }
-
-        private void AddCondition_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (_selectedCondition == null) return;
-            ConditionIdText.Text = "condition-id";
-            ConditionCategoryText.Text = "custom";
-            DisplayText.Text = "This is the conditions display text {0}";
-            DescriptionText.Text = "This is the conditions description";
-            NewConditionWindow.IsOpen = true;
-        }
-
+        //list box events
         private void ConditionListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //save current selection
@@ -408,7 +425,8 @@ namespace c3IDE.Windows
            CodeTextEditor.Text = _selectedCondition.Code;
         }
 
-        private void InsertNewParam(object sender, RoutedEventArgs e)
+        //context menu
+        private void InsertNewParam_OnClick(object sender, RoutedEventArgs e)
         {
             ParamIdText.Text = "param-id";
             ParamTypeDropdown.Text = "number";
@@ -418,6 +436,22 @@ namespace c3IDE.Windows
             NewParamWindow.IsOpen = true;
         }
 
+        private void FormatJavascript_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FormatJsonLang_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FormatJsonAce_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        //view buttons
         private void AceView_OnClick(object sender, RoutedEventArgs e)
         {
             CodePanel.Width = new GridLength(0);
@@ -444,16 +478,6 @@ namespace c3IDE.Windows
             AcePanel.Width = new GridLength(0);
             CodePanel.Width = new GridLength(0);
             LangPanel.Width = new GridLength(3, GridUnitType.Star);
-        }
-
-        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
-            {
-                e.Handled = true;
-                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
-                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
-            }
         }
     }
 }

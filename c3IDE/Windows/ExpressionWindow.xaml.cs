@@ -31,11 +31,13 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class ExpressionWindow : UserControl, IWindow
     {
+        //properties
         public string DisplayName { get; set; } = "Expressions";
         private Dictionary<string, Expression> _expressions;
         private Expression _selectedExpression;
         private CompletionWindow completionWindow;
 
+        //ctor
         public ExpressionWindow()
         {
             InitializeComponent();
@@ -50,6 +52,7 @@ namespace c3IDE.Windows
             LanguageTextEditor.TextArea.TextEntered += LanguageTextEditor_TextEntered;
         }
 
+        //editor event 
         private void LanguageTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -212,6 +215,17 @@ namespace c3IDE.Windows
             // We still want to insert the character that was typed.
         }
 
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
+            {
+                e.Handled = true;
+                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
+                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
+            }
+        }
+
+        //completion window
         private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
         {
             //if any data matches show completion list
@@ -229,6 +243,7 @@ namespace c3IDE.Windows
             completionWindow.Closed += delegate { completionWindow = null; };
         }
 
+        //button clicks
         private void SaveExpressionButton_Click(object sender, RoutedEventArgs e)
         {
             var id = ExpressionIdText.Text;
@@ -337,6 +352,7 @@ namespace c3IDE.Windows
             NewExpressionWindow.IsOpen = true;
         }
 
+        //list box events
         private void ExpressionListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //save current selection
@@ -355,7 +371,8 @@ namespace c3IDE.Windows
             CodeTextEditor.Text = _selectedExpression.Code;
         }
 
-        private void InsertNewParam(object sender, RoutedEventArgs e)
+        //context menu
+        private void InsertNewParam_OnClick(object sender, RoutedEventArgs e)
         {
             ParamIdText.Text = "param-id";
             ParamTypeDropdown.Text = "number";
@@ -365,6 +382,22 @@ namespace c3IDE.Windows
             NewParamWindow.IsOpen = true;
         }
 
+        private void FormatJavascript_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FormatJsonLang_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FormatJsonAce_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        //window states
         public void OnEnter()
         {
             if (AppData.Insatnce.CurrentAddon != null)
@@ -404,6 +437,7 @@ namespace c3IDE.Windows
             }
         }
 
+        //view buttons
         private void AceView_OnClick(object sender, RoutedEventArgs e)
         {
             CodePanel.Width = new GridLength(0);
@@ -430,16 +464,6 @@ namespace c3IDE.Windows
             AcePanel.Width = new GridLength(0);
             CodePanel.Width = new GridLength(0);
             LangPanel.Width = new GridLength(3, GridUnitType.Star);
-        }
-
-        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
-            {
-                e.Handled = true;
-                completionWindow.CompletionList.ListBox.SelectedIndex = 0;
-                completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
-            }
         }
     }
 }

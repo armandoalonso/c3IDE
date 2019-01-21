@@ -12,6 +12,12 @@
     "DescriptionText": ""
   },
   {
+    "Text": "SDK",
+    "Type": 4,
+    "Container": "SDK",
+    "DescriptionText": "the mian namespace of the editor sdk"
+  },
+  {
     "Text": "Release()",
     "Type": 0,
     "Container": "IInstanceBase",
@@ -1800,31 +1806,31 @@
     "DescriptionText": "A Color can be constructed with no parameters, which defaults all components to zero, or with given RGBA components."
   },
   {
-    "Text": "SDK.Color(r, g, b, a)",
+    "Text": "Color(r, g, b, a)",
     "Type": 2,
     "Container": "SDK",
     "DescriptionText": "A Color can be constructed with no parameters, which defaults all components to zero, or with given RGBA components."
   },
   {
-    "Text": "SDK.Quad()",
+    "Text": "Quad()",
     "Type": 2,
     "Container": "SDK",
     "DescriptionText": "A Quad can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for each point. The naming convention is tl for the \"top-left\" point, tr for the \"top-right\" point, br for the \"bottom-right\" point, and bl for the \"bottom-left\" point, followed by \"x\" or \"y\" for each component of the point. Note that the points can appear at any orientation for rotated quads; the names only correspond to their actual position when the quad is set to an unrotated rectangle."
   },
   {
-    "Text": "SDK.Quad(tlx, tly, trx, try_, brx, bry, blx, bly)",
+    "Text": "Quad(tlx, tly, trx, try_, brx, bry, blx, bly)",
     "Type": 2,
     "Container": "SDK",
     "DescriptionText": "A Quad can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for each point. The naming convention is tl for the \"top-left\" point, tr for the \"top-right\" point, br for the \"bottom-right\" point, and bl for the \"bottom-left\" point, followed by \"x\" or \"y\" for each component of the point. Note that the points can appear at any orientation for rotated quads; the names only correspond to their actual position when the quad is set to an unrotated rectangle."
   },
   {
-    "Text": "SDK.Rect();",
+    "Text": "Rect();",
     "Type": 2,
     "Container": "SDK",
     "DescriptionText": "A Rect can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for the left, top, right and bottom positions"
   },
   {
-    "Text": "SDK.Rect(left, top, right, bottom);",
+    "Text": "Rect(left, top, right, bottom);",
     "Type": 2,
     "Container": "SDK",
     "DescriptionText": "A Rect can be constructed with no parameters, which defaults all co-ordinates to zero, or with given positions for the left, top, right and bottom positions"
