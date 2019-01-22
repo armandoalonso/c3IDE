@@ -17,6 +17,8 @@ namespace c3IDE.Models
         private string _language;
         private string _code;
         private string _highlight;
+        private string _listname;
+
 
         private string _trigger;
         private string _faketrigger;
@@ -38,6 +40,12 @@ namespace c3IDE.Models
         {
             get => _category;
             set { _category = value.ToLower(); OnPropertyChanged(); }
+        }
+
+        public string ListName
+        {
+            get => _listname;
+            set { _listname = value; OnPropertyChanged(); }
         }
 
         public string ScriptName

@@ -5,6 +5,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using c3IDE.Utilities.CodeCompletion.Bindings;
+using c3IDE.Utilities.Extentions;
+using c3IDE.Utilities.Helpers;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 
 namespace c3IDE.Utilities.CodeCompletion

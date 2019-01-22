@@ -36,7 +36,9 @@ namespace c3IDE
             //bind notification container
             AppData.Insatnce.InfoMessage = OpenNotification;
             AppData.Insatnce.ErrorMessage = OpenErrorNotification;
-            AppData.Insatnce.LoadAddon = s => { this.Title = $"C3IDE - {s}"; }; 
+            AppData.Insatnce.LoadAddon = s => { this.Title = $"C3IDE - {s}"; };
+            AppData.Insatnce.GlobalSave = Save;
+            AppData.Insatnce.MainWidnow = this;
 
             //load data
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
@@ -121,7 +123,7 @@ namespace c3IDE
                     _dashboardWindow.OnEnter();
                     break;
                 case "Addon":
-                    if(!_checkForLoadedAddon()) return;
+                    if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _addonWindow;
                     _addonWindow.OnEnter();
                     break;

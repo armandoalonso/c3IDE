@@ -14,6 +14,8 @@ using c3IDE.Models;
 using c3IDE.Templates;
 using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
+using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
 using Action = c3IDE.Models.Action;
@@ -217,6 +219,10 @@ namespace c3IDE.Windows
                 completionWindow.CompletionList.ListBox.SelectedIndex = 0;
                 completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
             }
+            else if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                AppData.Insatnce.GlobalSave();
+            }
         }
 
         //completion window
@@ -242,9 +248,10 @@ namespace c3IDE.Windows
         {
             ActionIdText.Text = "action-id";
             ActionCategoryText.Text = "custom";
+            ActionListNameText.Text = "Execute Action";
             HighlightDropdown.Text = "false";
-            DisplayText.Text = "This is the actions display text {0}";
-            DescriptionText.Text = "This is the actions description";
+            DisplayText.Text = "this is the display text";
+            DescriptionText.Text = "this is the description";
             NewActionWindow.IsOpen = true;
         }
 
@@ -270,8 +277,9 @@ namespace c3IDE.Windows
 
         private void SaveActionButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ActionIdText.Text.ToLower();
+            var id = ActionIdText.Text.ToLower().Replace(" ", "-");
             var category = ActionCategoryText.Text;
+            var list = ActionListNameText.Text;
             var highlight = HighlightDropdown.Text;
             var displayText = DisplayText.Text;
             var desc = DescriptionText.Text;
@@ -287,7 +295,8 @@ namespace c3IDE.Windows
                 Category = category.Trim().ToLower(),
                 Highlight = highlight,
                 DisplayText = displayText,
-                Description = desc
+                Description = desc,
+                ListName = list
             };
 
             action.Ace = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionAces, action);
@@ -302,7 +311,7 @@ namespace c3IDE.Windows
 
         private void SaveParamButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ParamIdText.Text.ToLower();
+            var id = ParamIdText.Text.ToLower().Replace(" ", "-");
             var type = ParamTypeDropdown.Text;
             var value = ParamValueText.Text;
             var name = ParamNameText.Text;
@@ -346,12 +355,9 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
-            AceTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            AceTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
-            LanguageTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            LanguageTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
-            CodeTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            CodeTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            AppData.Insatnce.SetupTextEditor(AceTextEditor);
+            AppData.Insatnce.SetupTextEditor(LanguageTextEditor);
+            AppData.Insatnce.SetupTextEditor(CodeTextEditor);
 
             if (AppData.Insatnce.CurrentAddon != null)
             {
@@ -421,7 +427,7 @@ namespace c3IDE.Windows
         {
             if (_selectedAction == null) return;
             ParamIdText.Text = "param-id";
-            ParamTypeDropdown.Text = "number";
+            ParamTypeDropdown.Text = "any";
             ParamValueText.Text = string.Empty;
             ParamNameText.Text = "This is the parameters name";
             ParamDescText.Text = "This is the parameters description";
@@ -488,6 +494,22 @@ namespace c3IDE.Windows
             AcePanel.Width = new GridLength(0);
             CodePanel.Width = new GridLength(0);
             LangPanel.Width = new GridLength(3, GridUnitType.Star);
+        }
+
+        //text box events
+        private void SelectAllText(object sender, RoutedEventArgs e)
+        {
+            var tb = (sender as TextBox);
+            tb?.SelectAll();
+        }
+
+        private void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is TextBox tb && !tb.IsKeyboardFocusWithin)
+            {
+                e.Handled = true;
+                tb.Focus();
+            }
         }
     }
 }

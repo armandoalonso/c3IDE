@@ -24,9 +24,9 @@
 
             <StackPanel>
                 <TextBlock Text="Expression ID:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ExpressionIdText" Margin="5"></TextBox>
+                <TextBox Name="ExpressionIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Expression Category:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ExpressionCategoryText" Margin="5"></TextBox>
+                <TextBox Name="ExpressionCategoryText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Return Type:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
                 <ComboBox Name="ReturnTypeDropdown" Margin="5">
                     <ComboBoxItem IsSelected="True">any</ComboBoxItem>
@@ -39,9 +39,9 @@
                     <ComboBoxItem>true</ComboBoxItem>
                 </ComboBox>
                 <TextBlock Text="Translated Name:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="TranslatedName" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+                <TextBox Name="TranslatedName" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Description:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="DescriptionText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+                <TextBox Name="DescriptionText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <Button Content="Save Expression" Margin="5" Click="SaveExpressionButton_Click"></Button>
 
                 <Separator Visibility="Hidden" Height="20"></Separator>
@@ -55,7 +55,7 @@
 
             <StackPanel>
                 <TextBlock Text="Parameter ID:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ParamIdText" Margin="5"></TextBox>
+                <TextBox Name="ParamIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Parameter Type:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
                 <ComboBox Name="ParamTypeDropdown" Margin="5">
                     <ComboBoxItem IsSelected="True">any</ComboBoxItem>
@@ -63,11 +63,11 @@
                     <ComboBoxItem>number</ComboBoxItem>
                 </ComboBox>
                 <TextBlock Text="Inital Value:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ParamValueText" Margin="5"></TextBox>
+                <TextBox Name="ParamValueText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Parameter Name:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ParamNameText" Margin="5"></TextBox>
+                <TextBox Name="ParamNameText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Parameter Description:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ParamDescText" Margin="5"></TextBox>
+                <TextBox Name="ParamDescText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <Button Content="Add Parameter" Margin="5" Click="SaveParamButton_Click"></Button>
                 <Separator Visibility="Hidden" Height="20"></Separator>
             </StackPanel>
@@ -104,7 +104,7 @@
 
         <DockPanel Grid.Column="1" Margin="10">
             <TabControl DockPanel.Dock="Top">
-                <TabItem Header="Ace.json" Name="Ace">
+                <TabItem Header="Ace.json" Name="Ace" Background="Transparent">
                     <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="AceTextEditor"
@@ -133,7 +133,7 @@
 
         <DockPanel Grid.Column="3" LastChildFill="True" Margin="10">
             <TabControl DockPanel.Dock="Bottom">
-                <TabItem Header="Language" Name="Language">
+                <TabItem Header="Language" Name="Language" Background="Transparent">
                     <avalonEdit:TextEditor
                         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                         Name="LanguageTextEditor"
@@ -162,7 +162,7 @@
 
         <DockPanel Grid.Column="5" Margin="10" LastChildFill="True">
             <TabControl DockPanel.Dock="Top">
-                <TabItem Header="Code" Name="Code">
+                <TabItem Header="Code" Name="Code" Background="Transparent">
                     <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="CodeTextEditor"

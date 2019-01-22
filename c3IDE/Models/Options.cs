@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using c3IDE.Utilities.SyntaxHighlighting;
+using ICSharpCode.AvalonEdit.Highlighting;
 using LiteDB;
+using Newtonsoft.Json;
 
 namespace c3IDE.Models
 {
@@ -20,5 +24,12 @@ namespace c3IDE.Models
         public string FontFamily { get; set; }
         public string DefaultCompany { get; set; }
         public string DefaultAuthor { get; set; }
+        public string HighlightKey { get; set; }
+
+        [JsonIgnore]
+        public IHighlightingDefinition HighlightingDefinition => SyntaxHighligtResolver.Insatnce.Resolve(HighlightKey);
+
+       // [JsonIgnore]
+       // public SolidBrush BackgroundColor => 
     }
 }

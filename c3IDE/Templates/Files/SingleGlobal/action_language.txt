@@ -1,5 +1,5 @@
 "{{id}}": {
-	"list-name": "{{script_name}}",
+	"list-name": "{{list_name}}",
 	"display-text": "{{display_text}}",
 	"description": "{{description}}"
 }

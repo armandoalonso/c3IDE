@@ -13,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using c3IDE.Models;
+using c3IDE.Utilities.Helpers;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Highlighting;
 
@@ -170,6 +171,10 @@ namespace c3IDE.Windows
                 completionWindow.CompletionList.ListBox.SelectedIndex = 0;
                 completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
             }
+            else if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                AppData.Insatnce.GlobalSave();
+            }
         }
 
         //completion window
@@ -195,10 +200,8 @@ namespace c3IDE.Windows
         {
             TitleTab.Header = AppData.Insatnce.CurrentAddon.Type == PluginType.Behavior ? "Behavior.js" : "Plugin.js";
 
-            EditTimePluginTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            EditTimePluginTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
-            RunTimePluginTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            RunTimePluginTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            AppData.Insatnce.SetupTextEditor(EditTimePluginTextEditor);
+            AppData.Insatnce.SetupTextEditor(RunTimePluginTextEditor);
 
             EditTimePluginTextEditor.Text = AppData.Insatnce.CurrentAddon?.PluginEditTime;
             RunTimePluginTextEditor.Text = AppData.Insatnce.CurrentAddon?.PluginRunTime;

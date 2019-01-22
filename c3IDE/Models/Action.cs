@@ -20,6 +20,7 @@ namespace c3IDE.Models
         private string _highlight;
         private string _displaytext;
         private string _desc;
+        private string _listname;
 
         public string Id
         {
@@ -76,6 +77,12 @@ namespace c3IDE.Models
         {
             get => _code;
             set { _code = value; OnPropertyChanged(); }
+        }
+
+        public string ListName
+        {
+            get => _listname;
+            set { _listname = value; OnPropertyChanged(); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -1,0 +1,18 @@
+﻿{
+	"languageTag": "en-US",
+	"fileDescription": "Strings for the 'MyCustomEffect' effect.",
+	"text": {
+		"effects": {
+			"mycompany_myeffect": {
+				"name": "My custom effect",
+				"description": "An example effect for the SDK, which is a copy of the 'Set color' effect.",
+				"parameters": {
+					"color": {
+						"name": "Color",
+						"desc": "Color to set over the image."
+					}
+				}
+			}
+		}
+	}
+}

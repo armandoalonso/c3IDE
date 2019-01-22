@@ -13,6 +13,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.Editing;
 
 namespace c3IDE.Windows
@@ -108,6 +110,10 @@ namespace c3IDE.Windows
                 completionWindow.CompletionList.ListBox.SelectedIndex = 0;
                 completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
             }
+            else if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                AppData.Insatnce.GlobalSave();
+            }
         }
 
         //completion window
@@ -131,11 +137,8 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
-            AddonTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            AddonTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
-
-            FileTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            FileTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            AppData.Insatnce.SetupTextEditor(AddonTextEditor);
+            AppData.Insatnce.SetupTextEditor(FileTextEditor);
 
             if (AppData.Insatnce.CurrentAddon != null)
             {

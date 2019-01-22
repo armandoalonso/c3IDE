@@ -2,22 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using c3IDE.DataAccess;
 using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
+using c3IDE.Utilities.Helpers;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
@@ -222,6 +216,10 @@ namespace c3IDE.Windows
                 completionWindow.CompletionList.ListBox.SelectedIndex = 0;
                 completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
             }
+            else if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                AppData.Insatnce.GlobalSave();
+            }
         }
 
         //completion window
@@ -245,8 +243,9 @@ namespace c3IDE.Windows
         //button clicks
         private void SaveConditionButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ConditionIdText.Text.ToLower();
+            var id = ConditionIdText.Text.ToLower().Replace(" ", "-");
             var category = ConditionCategoryText.Text;
+            var list = ConditionListNameText.Text;
             var highlight = HighlightDropdown.Text;
             var trigger = TriggerDropdown.Text;
             var faketrigger = FakeTriggerDropdown.Text;
@@ -266,6 +265,7 @@ namespace c3IDE.Windows
             {
                 Id = id.Trim().ToLower(),
                 Category = category.Trim().ToLower(),
+                ListName = list,
                 Highlight = highlight,
                 Trigger = trigger,
                 FakeTrigger = faketrigger,
@@ -310,7 +310,7 @@ namespace c3IDE.Windows
 
         private void SaveParamButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ParamIdText.Text;
+            var id = ParamIdText.Text.ToLower().Replace(" ", "-");
             var type = ParamTypeDropdown.Text;
             var value = ParamValueText.Text;
             var name = ParamNameText.Text;
@@ -355,20 +355,25 @@ namespace c3IDE.Windows
         {
             ConditionIdText.Text = "condition-id";
             ConditionCategoryText.Text = "custom";
-            DisplayText.Text = "This is the conditions display text {0}";
-            DescriptionText.Text = "This is the conditions description";
+            ConditionListNameText.Text = "On Condition";
+            HighlightDropdown.SelectedIndex = 0;
+            TriggerDropdown.SelectedIndex = 0;
+            FakeTriggerDropdown.SelectedIndex = 0;
+            LoopingDropdown.SelectedIndex = 0;
+            StaticDropdown.SelectedIndex = 0;
+            CompatibleWithTriggersDropdown.SelectedIndex = 0;
+            InvertibleDropdown.SelectedIndex = 0;
+            DisplayText.Text = "this is the display text";
+            DescriptionText.Text = "this is the description";
             NewConditionWindow.IsOpen = true;
         }
 
         //window states
         public void OnEnter()
         {
-            AceTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            AceTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
-            LanguageTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            LanguageTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
-            CodeTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            CodeTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            AppData.Insatnce.SetupTextEditor(AceTextEditor);
+            AppData.Insatnce.SetupTextEditor(LanguageTextEditor);
+            AppData.Insatnce.SetupTextEditor(CodeTextEditor);
 
             if (AppData.Insatnce.CurrentAddon != null)
             {
@@ -502,6 +507,22 @@ namespace c3IDE.Windows
             AcePanel.Width = new GridLength(0);
             CodePanel.Width = new GridLength(0);
             LangPanel.Width = new GridLength(3, GridUnitType.Star);
+        }
+
+        //text box events
+        private void SelectAllText(object sender, RoutedEventArgs e)
+        {
+            var tb = (sender as TextBox);
+            tb?.SelectAll();
+        }
+
+        private void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is TextBox tb && !tb.IsKeyboardFocusWithin)
+            {
+                e.Handled = true;
+                tb.Focus();
+            }
         }
     }
 }

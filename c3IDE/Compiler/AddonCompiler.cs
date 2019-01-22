@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using c3IDE.Models;
 using c3IDE.Server;
 using c3IDE.Utilities;
+using c3IDE.Utilities.Helpers;
 using Action = System.Action;
 
 namespace c3IDE.Compiler
@@ -67,7 +68,7 @@ namespace c3IDE.Compiler
 
                 //generate simple files
                 _log.Insert($"generating addon.json");
-                _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "addon.json"), FormatHelper.Insatnce.Json(addon.AddonJson, "addon.json", _log));
+                _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "addon.json"), _log.WrapLogger(() => FormatHelper.Insatnce.Json(addon.AddonJson)));
                 _log.Insert($"generating addon.json => complete");
 
                 if (addon.Type == PluginType.Behavior)
@@ -100,11 +101,11 @@ namespace c3IDE.Compiler
                 _log.Insert($"generating instance.js (edittime) => complete");
 
                 _log.Insert($"generating ace.json");
-                _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "aces.json"), FormatHelper.Insatnce.Json(CompileAce(addon), "aces.json", _log));
+                _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "aces.json"), _log.WrapLogger(() => FormatHelper.Insatnce.Json(CompileAce(addon))));
                 _log.Insert($"generating ace.json => complete");
 
                 _log.Insert($"generating en-US.json");
-                _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "lang", "en-US.json"), FormatHelper.Insatnce.Json(CompileLang(addon), "lang/en-US.json", _log));
+                _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "lang", "en-US.json"), _log.WrapLogger(() => FormatHelper.Insatnce.Json(CompileLang(addon))));
                 _log.Insert($"generating en-US.json => complete");
 
                 _log.Insert($"generating type.js (runtime)");

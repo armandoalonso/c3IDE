@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ICSharpCode.AvalonEdit.Snippets;
 
 namespace c3IDE.Compiler
 {
@@ -25,8 +26,20 @@ namespace c3IDE.Compiler
             Logs.Add(log);
             _insertCallback?.Invoke(log.ToString());
         }
-    }
 
+        public string WrapLogger(Func<string> action)
+        {
+            try
+            {
+                return action();
+            }
+            catch (Exception ex)
+            {
+                Insert($"error message => {ex.Message}");
+            }
+            return string.Empty;
+        }
+    }
 
     //simple log structure
     public class LogMessage

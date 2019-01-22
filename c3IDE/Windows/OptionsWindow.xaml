@@ -37,11 +37,16 @@
             <TextBox Name="C3AddonPathText" Text="" IsReadOnly="True"></TextBox>
             <Separator Visibility="Hidden" Height="5" />
 
-            <UniformGrid Columns="2">
+            <UniformGrid Columns="3">
                 <TextBlock  Style="{StaticResource TextBlockStyle}">Editor Font Size :</TextBlock>
                 <TextBlock  Style="{StaticResource TextBlockStyle}">Editor Font Family :</TextBlock>
+                <TextBlock  Style="{StaticResource TextBlockStyle}">Editor Theme :</TextBlock>
                 <ComboBox Name="FontSizeCombo"  Margin="0,0,10,0" SelectionChanged="FontSizeCombo_OnSelectionChanged" />
-                <ComboBox Name="FontFamilyCombo" SelectionChanged="FontFamilyCombo_OnSelectionChanged"/>
+                <ComboBox Name="FontFamilyCombo" Margin="0,0,10,0" SelectionChanged="FontFamilyCombo_OnSelectionChanged" />
+                <ComboBox Name="ThemeCombo" SelectionChanged="ThemeCombo_OnSelectionChanged">
+                    <ComboBoxItem>Default Theme</ComboBoxItem>
+                    <!--<ComboBoxItem>Test Theme</ComboBoxItem>-->
+                </ComboBox>
             </UniformGrid>
         </StackPanel>
 
