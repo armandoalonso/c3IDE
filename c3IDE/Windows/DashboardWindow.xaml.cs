@@ -30,6 +30,7 @@ namespace c3IDE.Windows
         //properties
         public string DisplayName { get; set; } = "Dashboard";
         private string IconXml { get; set; }
+        public System.Action AddonLoaded { get; set; }
 
         //ctor
         public DashboardWindow()
@@ -292,6 +293,8 @@ namespace c3IDE.Windows
             AppData.Insatnce.CurrentAddon = currentAddon;
             AppData.Insatnce.InfoMessage($"{currentAddon.Name} loaded successfully");
             AppData.Insatnce.LoadAddon(AppData.Insatnce.CurrentAddon.Name);
+
+            AddonLoaded?.Invoke();
         }
 
         private void ExportAddon(C3Addon addon)
@@ -340,5 +343,6 @@ namespace c3IDE.Windows
                 tb.Focus();
             }
         }
+
     }
 }

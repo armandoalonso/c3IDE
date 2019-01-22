@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using c3IDE.Compiler;
 using c3IDE.DataAccess;
+using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Windows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -42,6 +43,9 @@ namespace c3IDE
             AppData.Insatnce.CurrentAddon = null;
             AppData.Insatnce.ShowDialog = ShowDialogBox;
             AppData.Insatnce.ShowInputDialog = ShowInputDialogBox;
+
+            //setup load action callback
+            _dashboardWindow.AddonLoaded = AddonLoadDelegate;
 
             //setup default view
             ActiveItem.Content = _dashboardWindow;
@@ -256,6 +260,36 @@ namespace c3IDE
             }
 
             return true;
+        }
+
+        public void AddonLoadDelegate()
+        {
+            var addon = AppData.Insatnce.CurrentAddon;
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.Json, addon.AddonJson);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.RuntimeJavascript, addon.PluginRunTime);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.EditTimeJavascript, addon.PluginEditTime);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.RuntimeJavascript, addon.TypeRunTime);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.EditTimeJavascript, addon.TypeEditTime);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.RuntimeJavascript, addon.InstanceRunTime);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.EditTimeJavascript, addon.InstanceEditTime);
+
+            foreach (var act in addon.Actions)
+            {
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.RuntimeJavascript, act.Value.Code);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.Json, act.Value.Ace, act.Value.Language);
+            }
+
+            foreach (var cnd in addon.Conditions)
+            {
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.RuntimeJavascript, cnd.Value.Code);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.Json, cnd.Value.Ace, cnd.Value.Language);
+            }
+
+            foreach (var exp in addon.Expressions)
+            {
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.RuntimeJavascript, exp.Value.Code);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(CodeType.Json, exp.Value.Ace, exp.Value.Language);
+            }
         }
     }
 }

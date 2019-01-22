@@ -96,6 +96,7 @@
                     <ContextMenu>
                         <MenuItem Header="Add Expression" Click="AddExpression_OnClick" />
                         <MenuItem Header="Remove Expression" Click="RemoveExpression_OnClick" />
+                        <MenuItem Header="Change Expression Category" Click="ChangeCategory_OnClick" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>

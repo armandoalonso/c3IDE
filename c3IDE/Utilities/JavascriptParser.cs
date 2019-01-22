@@ -55,7 +55,7 @@ namespace c3IDE.Utilities
             return hashset.ToList();
         }
 
-        public List<string> ParseJavascriptMethodCalls(string text)
+        public List<string> ParseJavascriptUserTokens(string text)
         {
             var mathes = _userRegex.Matches(text);
             var hashset = new HashSet<string>();
@@ -75,7 +75,7 @@ namespace c3IDE.Utilities
             //populate dictionary
             switch (type)
             {
-                case CodeType.EdittimeJavascript:
+                case CodeType.EditTimeJavascript:
                     if (_editorMethodCache.Count == 0)
                     {
                         var mapping = new MethodInterfaceMapping();

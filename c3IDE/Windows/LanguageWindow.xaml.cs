@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using c3IDE.DataAccess;
 using c3IDE.Templates;
 using c3IDE.Utilities;
+using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Windows.Interfaces;
 using Newtonsoft.Json;
 

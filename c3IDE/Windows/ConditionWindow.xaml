@@ -148,6 +148,7 @@
                     <ContextMenu>
                         <MenuItem Header="Add Condition" Click="AddCondition_OnClick" />
                         <MenuItem Header="Remove Condition" Click="RemoveCondition_OnClick" />
+                        <MenuItem Header="Change Condition Category" Click="ChangeCategory_OnClick" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>

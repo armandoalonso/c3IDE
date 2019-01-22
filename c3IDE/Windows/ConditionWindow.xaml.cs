@@ -90,7 +90,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
                     if (data.Any())
                     {
                         ShowCompletion(LanguageTextEditor.TextArea, data);
@@ -137,7 +137,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
                     if (data.Any())
                     {
                         ShowCompletion(AceTextEditor.TextArea, data);
@@ -150,7 +150,7 @@ namespace c3IDE.Windows
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
             var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(CodeTextEditor.Text, CodeType.RuntimeJavascript);
-            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptMethodCalls(CodeTextEditor.Text);
+            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptUserTokens(CodeTextEditor.Text);
             var allTokens = JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.RuntimeJavascript);
 
             //add matching closing symbol
@@ -190,7 +190,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript).Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(CodeTextEditor.TextArea, data);
@@ -353,7 +353,6 @@ namespace c3IDE.Windows
 
         private void AddCondition_OnClick(object sender, RoutedEventArgs e)
         {
-            if (_selectedCondition == null) return;
             ConditionIdText.Text = "condition-id";
             ConditionCategoryText.Text = "custom";
             DisplayText.Text = "This is the conditions display text {0}";
@@ -449,6 +448,24 @@ namespace c3IDE.Windows
         private void FormatJsonAce_OnClick(object sender, RoutedEventArgs e)
         {
             AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text);
+        }
+
+        private async void ChangeCategory_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_selectedCondition != null)
+            {
+                var cat = _selectedCondition.Category;
+                var newCategory = await AppData.Insatnce.ShowInputDialog("Change Condition Category", "enter new condition category", cat);
+
+                if (!string.IsNullOrWhiteSpace(newCategory))
+                {
+                    _selectedCondition.Category = newCategory;
+                }
+            }
+            else
+            {
+                AppData.Insatnce.ErrorMessage("failed to remove action, no action selected");
+            }
         }
 
         //view buttons

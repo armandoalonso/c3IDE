@@ -46,7 +46,7 @@ namespace c3IDE.Utilities.CodeCompletion
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return string.Equals(Text, other.Text);
+            return string.Equals(Text, other.Text) && Type == other.Type && string.Equals(Container, other.Container);
         }
 
         public override bool Equals(object obj)
@@ -59,7 +59,13 @@ namespace c3IDE.Utilities.CodeCompletion
 
         public override int GetHashCode()
         {
-            return (Text != null ? Text.GetHashCode() : 0);
+            unchecked
+            {
+                var hashCode = (Text != null ? Text.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (int) Type;
+                hashCode = (hashCode * 397) ^ (Container != null ? Container.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

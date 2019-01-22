@@ -85,7 +85,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(LanguageTextEditor.TextArea, data);
@@ -132,7 +132,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
                     if (data.Any())
                     {
                         ShowCompletion(AceTextEditor.TextArea, data);
@@ -145,7 +145,7 @@ namespace c3IDE.Windows
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
             var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(CodeTextEditor.Text, CodeType.RuntimeJavascript);
-            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptMethodCalls(CodeTextEditor.Text);
+            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptUserTokens(CodeTextEditor.Text);
             var allTokens = JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.RuntimeJavascript);
 
             //add matching closing symbol
@@ -185,7 +185,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript).Where(x => x.Text.ToLower().Contains(text)).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript).Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(CodeTextEditor.TextArea, data);
@@ -436,6 +436,24 @@ namespace c3IDE.Windows
             AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text);
         }
 
+        private async void ChangeCategory_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_selectedAction != null)
+            {
+                var cat = _selectedAction.Category;
+                var newCategory = await AppData.Insatnce.ShowInputDialog("Change Action Category", "enter new action category", cat);
+
+                if (!string.IsNullOrWhiteSpace(newCategory))
+                {
+                    _selectedAction.Category = newCategory;
+                }
+            }
+            else
+            {
+                AppData.Insatnce.ErrorMessage("failed to remove action, no action selected");
+            }
+        }
+
         //view buttons
         private void AceView_OnClick(object sender, RoutedEventArgs e)
         {
@@ -464,7 +482,5 @@ namespace c3IDE.Windows
             CodePanel.Width = new GridLength(0);
             LangPanel.Width = new GridLength(3, GridUnitType.Star);
         }
-
-
     }
 }
