@@ -32,6 +32,14 @@ namespace c3IDE.Windows
         public OptionsWindow()
         {
             InitializeComponent();
+
+            FontSizeCombo.Items.Add(10f);
+            FontSizeCombo.Items.Add(12f);
+            FontSizeCombo.Items.Add(14f);
+            FontSizeCombo.Items.Add(16f);
+            FontSizeCombo.Items.Add(20f);
+            FontSizeCombo.Items.Add(22f);
+            FontFamilyCombo.Items.Add("Consolas");
         }
 
         //window states
@@ -43,6 +51,8 @@ namespace c3IDE.Windows
             DefaultAuthorTextBox.Text = AppData.Insatnce.Options.DefaultAuthor;
             DefaultCompanyTextBox.Text = AppData.Insatnce.Options.DefaultCompany;
             C3AddonPathText.Text = AppData.Insatnce.Options.C3AddonPath;
+            FontSizeCombo.Text = AppData.Insatnce.Options.FontSize.ToString();
+            FontFamilyCombo.Text = AppData.Insatnce.Options.FontFamily;
         }
 
         public void OnExit()
@@ -56,8 +66,10 @@ namespace c3IDE.Windows
                     DataPath = !string.IsNullOrWhiteSpace(DataPathText.Text) ? DataPathText.Text : App.DefaultOptions.DataPath,
                     DefaultCompany = !string.IsNullOrWhiteSpace(DefaultCompanyTextBox.Text) ? DefaultCompanyTextBox.Text : App.DefaultOptions.DefaultCompany, 
                     DefaultAuthor = !string.IsNullOrWhiteSpace(DefaultAuthorTextBox.Text) ? DefaultAuthorTextBox.Text : App.DefaultOptions.DefaultAuthor,
-                    C3AddonPath = !string.IsNullOrWhiteSpace(C3AddonPathText.Text) ? C3AddonPathText.Text : App.DefaultOptions.C3AddonPath
-                };
+                    C3AddonPath = !string.IsNullOrWhiteSpace(C3AddonPathText.Text) ? C3AddonPathText.Text : App.DefaultOptions.C3AddonPath,
+                    FontSize = Convert.ToDouble(FontSizeCombo.Text),
+                    FontFamily = !string.IsNullOrWhiteSpace(FontFamilyCombo.Text) ? FontFamilyCombo.Text : App.DefaultOptions.FontFamily
+            };
 
                 //create exports folder if it does not exists
                 if (!System.IO.Directory.Exists(AppData.Insatnce.Options.DataPath)) Directory.CreateDirectory(AppData.Insatnce.Options.DataPath);
@@ -143,6 +155,18 @@ namespace c3IDE.Windows
             {
                 AppData.Insatnce.ErrorMessage($"error opening c3addon folder, {ex.Message}");
             }
+        }
+
+        private void FontSizeCombo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var size = Convert.ToDouble(FontSizeCombo.Text);
+            AppData.Insatnce.Options.FontSize = size;
+        }
+
+        private void FontFamilyCombo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var font = FontFamilyCombo.Text;
+            AppData.Insatnce.Options.FontFamily = font;
         }
     }
 }

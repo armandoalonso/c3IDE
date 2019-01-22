@@ -245,7 +245,7 @@ namespace c3IDE.Windows
         //button clicks
         private void SaveConditionButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ConditionIdText.Text;
+            var id = ConditionIdText.Text.ToLower();
             var category = ConditionCategoryText.Text;
             var highlight = HighlightDropdown.Text;
             var trigger = TriggerDropdown.Text;
@@ -363,6 +363,13 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
+            AceTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            AceTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            LanguageTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            LanguageTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            CodeTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            CodeTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+
             if (AppData.Insatnce.CurrentAddon != null)
             {
                 {

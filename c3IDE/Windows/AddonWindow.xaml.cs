@@ -131,6 +131,12 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
+            AddonTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            AddonTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+
+            FileTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            FileTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+
             if (AppData.Insatnce.CurrentAddon != null)
             {
                 AddonTextEditor.Text = AppData.Insatnce.CurrentAddon.AddonJson;

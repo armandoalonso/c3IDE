@@ -217,9 +217,8 @@ namespace c3IDE.Windows
                 AppData.Insatnce.ErrorMessage("error exporting c3addon, no c3addon selected");
                 return;
             }
-
-            //export addon to .c3ide format
-            ExportAddon(AppData.Insatnce.CurrentAddon);
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            ExportAddon(currentAddon);
         }
 
         private void ExportFolderButton_OnClick(object sender, RoutedEventArgs e)

@@ -33,7 +33,7 @@
     <ProductName>c3IDE</ProductName>
     <PublisherName>Piranha305</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>20</ApplicationRevision>
+    <ApplicationRevision>21</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -282,6 +282,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="c3IDE_1_TemporaryKey.pfx" />
+    <EmbeddedResource Include="Examples\Log_Example.c3ide" />
+    <None Include="Examples\FSM_Example %28wip%29.c3ide" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -536,5 +538,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Templates\Files\Behavior\instance_runtime.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

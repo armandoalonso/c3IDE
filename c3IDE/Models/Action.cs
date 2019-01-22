@@ -23,7 +23,7 @@ namespace c3IDE.Models
 
         public string Id
         {
-            get => _id;
+            get => _id.ToLower();
             set { _id = value.ToLower(); OnPropertyChanged(); InvokePropertyChanged("ScriptName");}
         }
 

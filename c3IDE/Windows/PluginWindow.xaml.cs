@@ -195,6 +195,11 @@ namespace c3IDE.Windows
         {
             TitleTab.Header = AppData.Insatnce.CurrentAddon.Type == PluginType.Behavior ? "Behavior.js" : "Plugin.js";
 
+            EditTimePluginTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            EditTimePluginTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            RunTimePluginTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            RunTimePluginTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+
             EditTimePluginTextEditor.Text = AppData.Insatnce.CurrentAddon?.PluginEditTime;
             RunTimePluginTextEditor.Text = AppData.Insatnce.CurrentAddon?.PluginRunTime;
         }
@@ -208,8 +213,6 @@ namespace c3IDE.Windows
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
         }
-
-
 
         //context menu
         private void InsertNewProperty_OnClick(object sender, RoutedEventArgs e)

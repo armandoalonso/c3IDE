@@ -197,6 +197,11 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
+            EditTimeInstanceTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            EditTimeInstanceTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            RunTimeInstanceTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            RunTimeInstanceTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+
             EditTimeInstanceTextEditor.Text = AppData.Insatnce.CurrentAddon?.InstanceEditTime;
             RunTimeInstanceTextEditor.Text = AppData.Insatnce.CurrentAddon?.InstanceRunTime;
         }

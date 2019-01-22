@@ -36,6 +36,13 @@
             <TextBlock  Style="{StaticResource TextBlockStyle}">C3Addon Path :</TextBlock>
             <TextBox Name="C3AddonPathText" Text="" IsReadOnly="True"></TextBox>
             <Separator Visibility="Hidden" Height="5" />
+
+            <UniformGrid Columns="2">
+                <TextBlock  Style="{StaticResource TextBlockStyle}">Editor Font Size :</TextBlock>
+                <TextBlock  Style="{StaticResource TextBlockStyle}">Editor Font Family :</TextBlock>
+                <ComboBox Name="FontSizeCombo"  Margin="0,0,10,0" SelectionChanged="FontSizeCombo_OnSelectionChanged" />
+                <ComboBox Name="FontFamilyCombo" SelectionChanged="FontFamilyCombo_OnSelectionChanged"/>
+            </UniformGrid>
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Bottom">

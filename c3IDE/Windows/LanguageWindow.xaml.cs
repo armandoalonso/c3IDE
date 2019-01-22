@@ -39,6 +39,10 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
+            PropertyLanguageTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            PropertyLanguageTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            CategoryLanguageTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            CategoryLanguageTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
             PropertyLanguageTextEditor.Text = AppData.Insatnce.CurrentAddon?.LanguageProperties;
             CategoryLanguageTextEditor.Text = AppData.Insatnce.CurrentAddon?.LanguageCategories;
         }

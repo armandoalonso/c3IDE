@@ -346,6 +346,13 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
+            AceTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            AceTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            LanguageTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            LanguageTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            CodeTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            CodeTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+
             if (AppData.Insatnce.CurrentAddon != null)
             {
                 _actions = AppData.Insatnce.CurrentAddon.Actions;

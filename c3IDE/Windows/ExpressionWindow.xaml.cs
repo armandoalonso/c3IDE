@@ -246,7 +246,7 @@ namespace c3IDE.Windows
         //button clicks
         private void SaveExpressionButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ExpressionIdText.Text;
+            var id = ExpressionIdText.Text.ToLower();
             var category = ExpressionCategoryText.Text;
             var returntype = ReturnTypeDropdown.Text;
             var translatedname = TranslatedName.Text;
@@ -417,6 +417,13 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
+            AceTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            AceTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            LanguageTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            LanguageTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            CodeTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
+            CodeTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+
             if (AppData.Insatnce.CurrentAddon != null)
             {
                 _expressions = AppData.Insatnce.CurrentAddon.Expressions;
