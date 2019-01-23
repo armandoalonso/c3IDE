@@ -286,7 +286,8 @@ namespace c3IDE.Windows
 
             if (_actions.ContainsKey(id))
             {
-                //TODO: error duplicate id
+                AppData.Insatnce.ErrorMessage("action id already exists");
+                return;
             }
 
             var action = new Action

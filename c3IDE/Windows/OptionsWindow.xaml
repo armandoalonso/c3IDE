@@ -25,6 +25,10 @@
             <TextBox Name="DataPathText" Text="" IsReadOnly="True"></TextBox>
             <Separator Visibility="Hidden" Height="5" />
 
+            <TextBlock  Style="{StaticResource TextBlockStyle}">C3Addon Path :</TextBlock>
+            <TextBox Name="C3AddonPathText" Text="" IsReadOnly="True"></TextBox>
+            <Separator Visibility="Hidden" Height="5" />
+
             <UniformGrid Columns="2">
                 <TextBlock  Style="{StaticResource TextBlockStyle}">Default Company :</TextBlock>
                 <TextBlock  Style="{StaticResource TextBlockStyle}">Default Author :</TextBlock>
@@ -33,10 +37,6 @@
             </UniformGrid>
             <Separator Visibility="Hidden" Height="5" />
             
-            <TextBlock  Style="{StaticResource TextBlockStyle}">C3Addon Path :</TextBlock>
-            <TextBox Name="C3AddonPathText" Text="" IsReadOnly="True"></TextBox>
-            <Separator Visibility="Hidden" Height="5" />
-
             <UniformGrid Columns="3">
                 <TextBlock  Style="{StaticResource TextBlockStyle}">Editor Font Size :</TextBlock>
                 <TextBlock  Style="{StaticResource TextBlockStyle}">Editor Font Family :</TextBlock>

@@ -258,7 +258,8 @@ namespace c3IDE.Windows
 
             if (_conditions.ContainsKey(id))
             {
-                //TODO: error duplicate id
+                AppData.Insatnce.ErrorMessage("condition id already exists");
+                return;
             }
 
             var cnd = new Condition

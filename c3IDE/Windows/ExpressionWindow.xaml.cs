@@ -260,7 +260,8 @@ namespace c3IDE.Windows
 
             if (_expressions.ContainsKey(id))
             {
-                //TODO: error duplicate id
+                AppData.Insatnce.ErrorMessage("expression id already exists");
+                return;
             }
 
             var expression = new Expression

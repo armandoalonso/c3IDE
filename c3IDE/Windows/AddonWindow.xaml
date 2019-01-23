@@ -69,7 +69,6 @@
 
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Format Javascript" Click="FormatJavascriptMenu_OnClick" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>

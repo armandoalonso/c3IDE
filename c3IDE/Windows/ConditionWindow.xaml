@@ -52,11 +52,6 @@
                             <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                             <ComboBoxItem>true</ComboBoxItem>
                         </ComboBox>
-                        <TextBlock Text="Is Compatible With Triggers:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                        <ComboBox Name="CompatibleWithTriggersDropdown" Margin="5">
-                            <ComboBoxItem IsSelected="True">true</ComboBoxItem>
-                            <ComboBoxItem>false</ComboBoxItem>
-                        </ComboBox>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1">
@@ -77,6 +72,12 @@
                         </ComboBox>
                     </StackPanel>
                 </Grid>
+
+                <TextBlock Text="Is Compatible With Triggers:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <ComboBox Name="CompatibleWithTriggersDropdown" Margin="5">
+                    <ComboBoxItem IsSelected="True">true</ComboBoxItem>
+                    <ComboBoxItem>false</ComboBoxItem>
+                </ComboBox>
 
                 <TextBlock Text="Display Text:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="DisplayText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
