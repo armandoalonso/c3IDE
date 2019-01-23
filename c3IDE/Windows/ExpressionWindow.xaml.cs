@@ -92,7 +92,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json, $"{_selectedExpression.Id}_lang").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
                     if (data.Any())
                     {
                         ShowCompletion(LanguageTextEditor.TextArea, data);
@@ -139,7 +139,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json, $"{_selectedExpression.Id}_ace").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
                     if (data.Any())
                     {
                         ShowCompletion(AceTextEditor.TextArea, data);
@@ -178,7 +178,7 @@ namespace c3IDE.Windows
                     CodeTextEditor.TextArea.Caret.Offset--;
                     return;
                 case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript)
+                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript, $"{_selectedExpression.Id}_code")
                         .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
                     ShowCompletion(CodeTextEditor.TextArea, methodsData.ToList());
                     break;
@@ -192,7 +192,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript).Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript, $"{_selectedExpression.Id}_code").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(CodeTextEditor.TextArea, data);

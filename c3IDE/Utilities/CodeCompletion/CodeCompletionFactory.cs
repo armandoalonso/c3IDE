@@ -15,9 +15,9 @@ namespace c3IDE.Utilities.CodeCompletion
     {
         private readonly Dictionary<CodeType, IList<GenericCompletionItem>> _bindingCache = new Dictionary<CodeType, IList<GenericCompletionItem>>();
         private readonly Dictionary<string, IList<GenericCompletionItem>> _contextCache = new Dictionary<string, IList<GenericCompletionItem>>();
-        private readonly HashSet<GenericCompletionItem> _globalEditTimeTokens = new HashSet<GenericCompletionItem>();
-        private readonly HashSet<GenericCompletionItem> _globalRunTimeTokens = new HashSet<GenericCompletionItem>();
-        private readonly HashSet<GenericCompletionItem> _globalJsonTokens = new HashSet<GenericCompletionItem>();
+        private readonly Dictionary<string, HashSet<GenericCompletionItem>> _globalTokens = new Dictionary<string, HashSet<GenericCompletionItem>>();
+        //private readonly HashSet<GenericCompletionItem> _globalRunTimeTokens = new HashSet<GenericCompletionItem>();
+        //private readonly HashSet<GenericCompletionItem> _globalJsonTokens = new HashSet<GenericCompletionItem>();
 
         public IList<GenericCompletionItem> GetCompletionData(CodeType type)
         {
@@ -42,7 +42,7 @@ namespace c3IDE.Utilities.CodeCompletion
             }
         }
 
-        public IList<GenericCompletionItem> GetCompletionData(IEnumerable<string> tokenList, CodeType type)
+        public IList<GenericCompletionItem> GetCompletionData(IEnumerable<string> tokenList, CodeType type, string key)
         {
             var completionList = new HashSet<GenericCompletionItem>();
             var allList = GetCompletionData(type);
@@ -63,86 +63,44 @@ namespace c3IDE.Utilities.CodeCompletion
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
 
+            //get defined method completions
             foreach (var token in tokenList)
             {
-                if(token.Length < 2) continue;
-
                 if (_contextCache.ContainsKey(token))
                 {
                     completionList.AddRange(_contextCache[token]);
                 }
                 else
                 {
-                    var definedCompletions = allList.Where(x => x.Container.StartsWith(token)).ToList();
+                    var definedCompletions = allList.Where(x => x.Container.Contains(token)).ToList();
                     if (definedCompletions.Any())
                     {
                         _contextCache[token] = definedCompletions;
                         completionList.AddRange(_contextCache[token]);
                     }
-                    else
-                    {
-                        switch (type)
-                        {
-                            case CodeType.Json:
-                                _globalJsonTokens.RemoveWhere(x => token.Contains(x.Text));
-                                _globalJsonTokens.Add(new GenericCompletionItem(token, "user defined", CompletionType.Misc));
-                                break;
-                            case CodeType.EditTimeJavascript:
-                                _globalEditTimeTokens.RemoveWhere(x => token.Contains(x.Text));
-                                _globalEditTimeTokens.Add(new GenericCompletionItem(token, "user defined", CompletionType.Misc));
-                                break;
-                            case CodeType.RuntimeJavascript:
-                                _globalRunTimeTokens.RemoveWhere(x => token.Contains(x.Text));
-                                _globalRunTimeTokens.Add(new GenericCompletionItem(token, "user defined", CompletionType.Misc));
-                                break;
-                        }
-
-                    }
                 }
             }
 
-            switch (type)
-            {
-                case CodeType.Json:
-                    completionList.AddRange(_globalJsonTokens);
-                    break;
-                case CodeType.EditTimeJavascript:
-                    completionList.AddRange(_globalEditTimeTokens);
-                    break;
-                case CodeType.RuntimeJavascript:
-                    completionList.AddRange(_globalRunTimeTokens);
-                    break;
-            }
+            //get user completion
+            var hashSets = _globalTokens.Where(x => x.Key != key).SelectMany(x => x.Value);
+            completionList.AddRange(hashSets.Select(x => x));
 
             return completionList.ToList();
         }
 
-        public void PopulateUserDefinedTokens(CodeType type, params string[] texts)
+        public void PopulateUserDefinedTokens(string key, string text)
         {
-            switch (type)
+            if (_globalTokens.ContainsKey(key))
             {
-                case CodeType.Json:
-                    foreach (var text in texts)
-                    {
-                        _globalJsonTokens.AddRange(JavascriptParser.Insatnce.ParseJavascriptUserTokens(text)
-                            .Select(x => new GenericCompletionItem(x, "user defined", CompletionType.Misc)));
-                    }
-                    break;
-                case CodeType.EditTimeJavascript:
-                    foreach (var text in texts)
-                    {
-                        _globalEditTimeTokens.AddRange(JavascriptParser.Insatnce.ParseJavascriptUserTokens(text)
-                            .Select(x => new GenericCompletionItem(x, "user defined", CompletionType.Misc)));
-                    }
-                    break;
-                case CodeType.RuntimeJavascript:
-                    foreach (var text in texts)
-                    {
-                        _globalRunTimeTokens.AddRange(JavascriptParser.Insatnce.ParseJavascriptUserTokens(text)
-                            .Select(x => new GenericCompletionItem(x, "user defined", CompletionType.Misc)));
-                    }
-                    break;
-            }  
+                _globalTokens[key].AddRange(JavascriptParser.Insatnce.ParseJavascriptUserTokens(text)
+                    .Select(x => new GenericCompletionItem(x, "user defined", CompletionType.Misc)));
+            }
+            else
+            {
+                _globalTokens.Add(key, new HashSet<GenericCompletionItem>());
+                _globalTokens[key].AddRange(JavascriptParser.Insatnce.ParseJavascriptUserTokens(text)
+                    .Select(x => new GenericCompletionItem(x, "user defined", CompletionType.Misc)));
+            } 
         }
     }
 

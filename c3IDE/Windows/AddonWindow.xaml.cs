@@ -78,7 +78,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json).Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json, "addonjs").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
                     if (data.Any())
                     {
                         ShowCompletion(AddonTextEditor.TextArea, data);

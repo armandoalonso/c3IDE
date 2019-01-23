@@ -72,7 +72,7 @@ namespace c3IDE.Windows
                     EditTimePluginTextEditor.TextArea.Caret.Offset--;
                     return;
                 case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EditTimeJavascript)
+                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EditTimeJavascript, "edittime_pluginjs")
                         .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
                     ShowCompletion(EditTimePluginTextEditor.TextArea, methodsData.ToList());
                     break;
@@ -86,7 +86,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EditTimeJavascript).Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EditTimeJavascript, "edittime_pluginjs").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(EditTimePluginTextEditor.TextArea, data);
@@ -125,7 +125,7 @@ namespace c3IDE.Windows
                     RunTimePluginTextEditor.TextArea.Caret.Offset--;
                     return;
                 case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript)
+                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript, "runtime_pluginjs")
                         .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
                     ShowCompletion(RunTimePluginTextEditor.TextArea, methodsData.ToList());
                     break;
@@ -139,7 +139,7 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript).Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript, "runtime_pluginjs").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(RunTimePluginTextEditor.TextArea, data);

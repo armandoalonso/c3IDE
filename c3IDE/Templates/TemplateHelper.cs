@@ -82,7 +82,8 @@ namespace c3IDE.Templates
 
         public static string AceParamFirst(string id, string type, string initValue)
         {
-            var val = string.IsNullOrWhiteSpace(initValue) ? string.Empty : $",\n            \"initialValue\":{initValue}";
+
+            var val = string.IsNullOrWhiteSpace(initValue) ? string.Empty : $",\n            \"initialValue\":\"{initValue}\"";
             var items = type == "combo" ? ",\n            \"items\":[\"item1\",\"item2\",\"item3\"]" : string.Empty;
             var objects = type == "object" ? ",\n            \"allowedPluginIds\":[\"Sprite\"]" : string.Empty;
             return $@",    ""params"": [
