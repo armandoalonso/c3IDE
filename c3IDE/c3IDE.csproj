@@ -33,7 +33,7 @@
     <ProductName>c3IDE</ProductName>
     <PublisherName>Piranha305</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>21</ApplicationRevision>
+    <ApplicationRevision>22</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -139,7 +139,8 @@
     <Compile Include="Templates\BehaviorTemplate.cs" />
     <Compile Include="Templates\DrawingPluginTemplate.cs" />
     <Compile Include="Templates\MultiInstancePluginTemplate.cs" />
-    <Compile Include="Utilities\AvaloneEditColorizer.cs" />
+    <Compile Include="Utilities\SyntaxHighlighting\AvaloneEditColorizer.cs" />
+    <Compile Include="Utilities\JsBeautifier\JsonBeautifier.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\RuntimeJavascriptBinding.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\EditorJavascriptBinding.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\JsonBindings.cs" />
@@ -150,8 +151,8 @@
     <Compile Include="Utilities\CodeCompletion\GenericCompletionItem.cs" />
     <Compile Include="Utilities\CodeCompletion\CodeCompletionFactory.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\ICompletionBindings.cs" />
-    <Compile Include="Utilities\HashSetExtension.cs" />
-    <Compile Include="Utilities\JavascriptParser.cs" />
+    <Compile Include="Utilities\Extentions\HashSetExtension.cs" />
+    <Compile Include="Utilities\Helpers\JavascriptParser.cs" />
     <Compile Include="Utilities\JsBeautifier\Beautifier.cs" />
     <Compile Include="Utilities\JsBeautifier\BeautifierFlags.cs" />
     <Compile Include="Utilities\JsBeautifier\BeautifierOptions.cs" />
@@ -167,10 +168,12 @@
     <Compile Include="Templates\TemplateCompiler.cs" />
     <Compile Include="Templates\TemplateFactory.cs" />
     <Compile Include="Templates\TemplateHelper.cs" />
-    <Compile Include="Utilities\ImageHelper.cs" />
-    <Compile Include="Utilities\FormatHelper.cs" />
-    <Compile Include="Utilities\ResourceReader.cs" />
+    <Compile Include="Utilities\Helpers\ImageHelper.cs" />
+    <Compile Include="Utilities\Helpers\FormatHelper.cs" />
+    <Compile Include="Utilities\Helpers\ResourceReader.cs" />
     <Compile Include="Utilities\Singleton.cs" />
+    <Compile Include="Utilities\SyntaxHighlighting\SyntaxHighligtResolver.cs" />
+    <Compile Include="Utilities\SyntaxHighlighting\ThemeResolver.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="Windows\ActionWindow.xaml.cs">
       <DependentUpon>ActionWindow.xaml</DependentUpon>
@@ -277,13 +280,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="Templates\Files\Effect\effect.fx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="c3IDE_1_TemporaryKey.pfx" />
-    <EmbeddedResource Include="Examples\Log_Example.c3ide" />
-    <None Include="Examples\FSM_Example %28wip%29.c3ide" />
+    <EmbeddedResource Include="Examples\Example_Log.c3ide" />
+    <EmbeddedResource Include="Examples\Example_FSM.c3ide" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -297,6 +301,10 @@
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_json.json" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\editor_return_type.json" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_runtime_javascript.json" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavaScriptTest.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavaScriptDefault.xshd" />
+    <Resource Include="Templates\Files\Effect\lang.txt" />
+    <Content Include="Templates\Files\Effect\addon.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

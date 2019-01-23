@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using c3IDE.DataAccess;
 using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
+using c3IDE.Utilities.Helpers;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
@@ -174,6 +175,10 @@ namespace c3IDE.Windows
                 completionWindow.CompletionList.ListBox.SelectedIndex = 0;
                 completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
             }
+            else if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                AppData.Insatnce.GlobalSave();
+            }
         }
 
         //completion window
@@ -198,10 +203,8 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
-            EditTimeTypeTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            EditTimeTypeTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
-            RunTimeTypeTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            RunTimeTypeTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            AppData.Insatnce.SetupTextEditor(EditTimeTypeTextEditor);
+            AppData.Insatnce.SetupTextEditor(RunTimeTypeTextEditor);
 
             EditTimeTypeTextEditor.Text = AppData.Insatnce.CurrentAddon?.TypeEditTime;
             RunTimeTypeTextEditor.Text = AppData.Insatnce.CurrentAddon?.TypeRunTime;

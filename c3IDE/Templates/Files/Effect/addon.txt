@@ -1,0 +1,35 @@
+﻿{
+	"is-c3-addon": true,
+	"type": "effect",
+	"name": "My custom effect",
+	"id": "MyCompany_MyEffect",
+	"version": "1.0.0.0",
+	"author": "Scirra",
+	"website": "https://www.construct.net",
+	"documentation": "https://www.construct.net",
+	"description": "Example custom Construct 3 effect.",
+	"file-list": [
+		"lang/en-US.json",
+		"addon.json",
+		"effect.fx"
+	],
+	
+	"category": "color",
+	"blends-background": false,
+	"cross-sampling": false,
+	"preserves-opaqueness": true,
+	"animated": false,
+	"extend-box": {
+		"horizontal": 0,
+		"vertical": 0
+	},
+	
+	"parameters": [
+		{
+			"id": "color",
+			"type": "color",
+			"initial-value": [1, 0, 0],
+			"uniform": "setColor"
+		}
+	]
+}

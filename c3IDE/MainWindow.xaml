@@ -7,12 +7,12 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="c3IDE" Height="800" Width="1200" WindowStartupLocation="CenterScreen">
+        Title="c3IDE" Height="820" Width="1200" WindowStartupLocation="CenterScreen">
     
     <mah:MetroWindow.Resources>
         <!-- Hamburger Menu Button Template -->
         <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type mah:HamburgerMenuIconItem}">
-            <Grid Height="48">
+            <Grid Height="40">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48" />
                     <ColumnDefinition />
@@ -91,8 +91,8 @@
             </mah:HamburgerMenu.ItemsSource>
             <mah:HamburgerMenu.OptionsItemsSource>
                 <mah:HamburgerMenuItemCollection>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=SaveRegular}" Label="Save" Tag="Save"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Gear}" Label="Options" Tag="Options"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=SaveRegular}" Label="Save" Tag="Save"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=QuestionSolid}" Label="SDK Help" Tag="SDK Help"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=PowerOffSolid}" Label="Exit" Tag="Exit"/>
                 </mah:HamburgerMenuItemCollection>

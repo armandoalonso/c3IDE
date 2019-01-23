@@ -17,26 +17,28 @@
             <ColumnDefinition Width="3*" Name="CodePanel"/>
         </Grid.ColumnDefinitions>
 
-        <mah:ChildWindow Name="NewActionWindow" Grid.Column="0" Grid.ColumnSpan="6" Title="Add New Action" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
+        <mah:ChildWindow Name="NewActionWindow" Grid.Column="0" Grid.ColumnSpan="6" Title="Add New Action" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True" >
             <mah:ChildWindow.OverlayBrush>
                 <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
             </mah:ChildWindow.OverlayBrush>
 
             <StackPanel>
                 <TextBlock Text="Action ID:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ActionIdText" Margin="5"></TextBox>
+                <TextBox Name="ActionIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Action Category:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ActionCategoryText" Margin="5"></TextBox>
+                <TextBox Name="ActionCategoryText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
+                <TextBlock Text="Action List Name:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBox Name="ActionListNameText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Highlight:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
                 <ComboBox Name="HighlightDropdown" Margin="5">
                     <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                     <ComboBoxItem>true</ComboBoxItem>
                 </ComboBox>
                 <TextBlock Text="Display Text:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="DisplayText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+                <TextBox Name="DisplayText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
 
                 <TextBlock Text="Description:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="DescriptionText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+                <TextBox Name="DescriptionText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
                 <Button Content="Save Action" Margin="5" Click="SaveActionButton_Click"></Button>
 
                 <Separator Visibility="Hidden" Height="20"></Separator>
@@ -50,7 +52,7 @@
 
             <StackPanel>
                 <TextBlock Text="Parameter ID:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ParamIdText" Margin="5"></TextBox>
+                <TextBox Name="ParamIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
                 <TextBlock Text="Parameter Type:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
                 <ComboBox Name="ParamTypeDropdown" Margin="5">
                     <ComboBoxItem IsSelected="True">number</ComboBoxItem>
@@ -71,11 +73,11 @@
                     <ComboBoxItem>objinstancevar</ComboBoxItem>
                 </ComboBox>
                 <TextBlock Text="Inital Value:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ParamValueText" Margin="5"></TextBox>
+                <TextBox Name="ParamValueText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
                 <TextBlock Text="Parameter Name:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ParamNameText" Margin="5"></TextBox>
+                <TextBox Name="ParamNameText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
                 <TextBlock Text="Parameter Description:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ParamDescText" Margin="5"></TextBox>
+                <TextBox Name="ParamDescText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
                 <Button Content="Add Parameter" Margin="5" Click="SaveParamButton_Click"></Button>
                 <Separator Visibility="Hidden" Height="20"></Separator>
             </StackPanel>
@@ -112,7 +114,7 @@
 
         <DockPanel Grid.Column="1" Margin="10" LastChildFill="True">
             <TabControl DockPanel.Dock="Top">
-                <TabItem Header="Ace.json" Name="Ace">
+                <TabItem Header="Ace.json" Name="Ace" Background="Transparent">
                     <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="AceTextEditor"
@@ -141,7 +143,7 @@
         
         <DockPanel Grid.Column="3" Margin="10" LastChildFill="True">
             <TabControl DockPanel.Dock="Bottom">
-                <TabItem Header="Language" Name="Language">
+                <TabItem Header="Language" Name="Language" Background="Transparent">
                     <avalonEdit:TextEditor
                         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                         Name="LanguageTextEditor"
@@ -170,7 +172,7 @@
 
         <DockPanel Grid.Column="5" Margin="10" LastChildFill="True">
             <TabControl DockPanel.Dock="Top">
-                <TabItem Header="Code" Name="Code">
+                <TabItem Header="Code" Name="Code" Background="Transparent">
                     <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="CodeTextEditor"

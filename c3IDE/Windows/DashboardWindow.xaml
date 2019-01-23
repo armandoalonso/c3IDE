@@ -41,27 +41,27 @@
             <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black"> Addon Data</TextBlock>
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Addon Name :</TextBlock>
-                <TextBox Name="AddonNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+                <TextBox Name="AddonNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Addon Class Name :</TextBlock>
-                <TextBox Name="AddonClassText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+                <TextBox Name="AddonClassText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Company Name :</TextBlock>
-                <TextBox Name="CompanyNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+                <TextBox Name="CompanyNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Author :</TextBlock>
-                <TextBox Name="AuthorText" DockPanel.Dock="Right" Text="c3IDE" MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+                <TextBox Name="AuthorText" DockPanel.Dock="Right" Text="c3IDE" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Version :</TextBlock>
-                <TextBox Name="VersionText" DockPanel.Dock="Right" Text="1.0.0.0" MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+                <TextBox Name="VersionText" DockPanel.Dock="Right" Text="1.0.0.0" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
@@ -80,13 +80,13 @@
                 <Image Name="AddonIcon" DockPanel.Dock="Right" Height="150" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop"></Image>
             </DockPanel>
 
-            <Button Name="CreateAddonButton" Content="Create Addon" Margin="10" Click="CreateAddonButton_OnClick" ></Button>
-            <Button Name="LoadAddonButton" Content="Load Addon" Margin="10" Click="LoadAddonButton_OnClick" ></Button>
-            <Button Name="ClearInputsButton" Content="Clear Inputs" Margin="10" Click="ClearInputsButton_OnClick" ></Button>
-            <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="10" Click="RemoveAddonButton_OnClick" ></Button>
-            <Button Name="ExportAddonButton" Content="Export Addon" Margin="10" Click="ExportAddonButton_OnClick" ></Button>
-            <Button Name="CreateC3AddonButton" Content="Create C3Addon File" Margin="10" Click="CreateC3AddonButton_OnClick"></Button>
-            <Button Name="ExportFolderButton" Content="Open Export Folder" Margin="10" Click="ExportFolderButton_OnClick" ></Button>
+            <Button Name="CreateAddonButton" Content="Create Addon" Margin="7" Click="CreateAddonButton_OnClick" ></Button>
+            <Button Name="LoadAddonButton" Content="Load Addon" Margin="7" Click="LoadAddonButton_OnClick" ></Button>
+            <Button Name="ClearInputsButton" Content="Clear Inputs" Margin="7" Click="ClearInputsButton_OnClick" ></Button>
+            <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="7" Click="RemoveAddonButton_OnClick" ></Button>
+            <Button Name="ExportAddonButton" Content="Export Addon" Margin="7" Click="ExportAddonButton_OnClick" ></Button>
+            <Button Name="ExportFolderButton" Content="Open Export Folder" Margin="7" Click="ExportFolderButton_OnClick" ></Button>
+            <Button Name="CreateC3AddonButton" Content="Create C3Addon File" Margin="7" Click="CreateC3AddonButton_OnClick"></Button>
         </StackPanel>
     </Grid>
 </UserControl>

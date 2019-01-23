@@ -8,8 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
     <Grid Margin="10" Name="TypeGrid">
         <TabControl>
-            <TabItem Header="Type.js" IsEnabled="False"/>
-            <TabItem Header="(Edit Time)" IsSelected="True">
+            <TabItem Header="Type.js" IsEnabled="False" Background="Transparent"/>
+            <TabItem Header="(Edit Time)" IsSelected="True" Background="Transparent">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="EditTimeTypeTextEditor"
@@ -26,7 +26,7 @@
                 </avalonEdit:TextEditor>
             </TabItem>
 
-            <TabItem Header="(Run Time)">
+            <TabItem Header="(Run Time)" Background="Transparent">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="RunTimeTypeTextEditor"

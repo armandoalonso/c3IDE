@@ -37,8 +37,8 @@
         </mah:ChildWindow>
         
         <TabControl>
-            <TabItem Header="Plugin.js" IsEnabled="False" Name="TitleTab"/>
-            <TabItem Header="(Edit Time)" IsSelected="True">
+            <TabItem Header="Plugin.js" IsEnabled="False" Name="TitleTab" Background="Transparent"/>
+            <TabItem Header="(Edit Time)" IsSelected="True" Background="Transparent">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="EditTimePluginTextEditor"
@@ -57,7 +57,7 @@
                 </avalonEdit:TextEditor>
             </TabItem>
 
-            <TabItem Header="(Run Time)">
+            <TabItem Header="(Run Time)" Background="Transparent">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="RunTimePluginTextEditor"

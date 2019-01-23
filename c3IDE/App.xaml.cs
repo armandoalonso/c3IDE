@@ -7,6 +7,8 @@ using System.Windows;
 using c3IDE.DataAccess;
 using c3IDE.Models;
 using c3IDE.Utilities;
+using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.SyntaxHighlighting;
 
 namespace c3IDE
 {
@@ -39,7 +41,8 @@ namespace c3IDE
                 DefaultCompany = "c3IDE",
                 DefaultAuthor = "c3IDE",
                 FontSize = 12,
-                FontFamily = "Consolas"
+                FontFamily = "Consolas",
+                HighlightKey = "Default Theme"
             };
 
             //create exports folder if it does not exists
@@ -60,13 +63,20 @@ namespace c3IDE
             if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.DefaultAuthor)) AppData.Insatnce.Options.DefaultAuthor = DefaultOptions.DefaultAuthor;
             if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.FontFamily)) AppData.Insatnce.Options.FontFamily = DefaultOptions.FontFamily;
             if (AppData.Insatnce.Options.FontSize < 5) AppData.Insatnce.Options.FontSize = DefaultOptions.FontSize;
+            if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.HighlightKey)) AppData.Insatnce.Options.HighlightKey = DefaultOptions.HighlightKey;
 
-            //load example projects
-            if(!System.IO.File.Exists(Path.Combine(AppData.Insatnce.Options.ExportPath, "Log_Example.c3ide")))
+            //create exmaple projects if they don't exists
+            var examples = new string[] {"Example_Log.c3ide", "Example_FSM.c3ide" };
+            foreach (var example in examples)
             {
-                var data = ResourceReader.Insatnce.GetResourceText("c3IDE.Examples.Log_Example.c3ide");
-                Utils.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.ExportPath, "Log_Example.c3ide"), data);
+                var path = Path.Combine(AppData.Insatnce.Options.ExportPath, example);
+                if (!System.IO.File.Exists(path))
+                {
+                    var data = ResourceReader.Insatnce.GetResourceText($"c3IDE.Examples.{example}");
+                    Utils.Insatnce.WriteFile(path, data);
+                }
             }
+
         }
     }
 }

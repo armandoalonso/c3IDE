@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using c3IDE.Utilities;
+using c3IDE.Utilities.Helpers;
 
 namespace c3IDE.Templates
 {

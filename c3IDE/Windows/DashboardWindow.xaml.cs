@@ -14,6 +14,7 @@ using c3IDE.Models;
 using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities;
+using c3IDE.Utilities.Helpers;
 using c3IDE.Windows.Interfaces;
 using Newtonsoft.Json;
 using Action = c3IDE.Models.Action;
@@ -328,7 +329,7 @@ namespace c3IDE.Windows
         }
 
         //text box events
-        private void SelectUrl(object sender, RoutedEventArgs e)
+        private void SelectAllText(object sender, RoutedEventArgs e)
         {
             var tb = (sender as TextBox);
             tb?.SelectAll();

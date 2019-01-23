@@ -16,7 +16,7 @@
         <DockPanel Grid.Column="0" LastChildFill="True">
             <Button DockPanel.Dock="Top" Content="Generate Property Json" Margin="0,5" Width="250" Click="GeneratePropertyText"/>
             <TabControl DockPanel.Dock="Bottom">
-                <TabItem Header="Properties">
+                <TabItem Header="Properties" Background="Transparent">
                     <avalonEdit:TextEditor
                         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                         Name="PropertyLanguageTextEditor"
@@ -45,7 +45,7 @@
         <DockPanel Grid.Column="2" LastChildFill="True">
             <Button DockPanel.Dock="Top" Content="Generate Category Json" Margin="0,5" Width="250" Click="GenerateCategoryText"/>
             <TabControl DockPanel.Dock="Bottom">
-                <TabItem Header="Categories">
+                <TabItem Header="Categories" Background="Transparent">
                     <avalonEdit:TextEditor
                         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                         Name="CategoryLanguageTextEditor"

@@ -19,6 +19,7 @@ using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
+using c3IDE.Utilities.Helpers;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
@@ -223,6 +224,10 @@ namespace c3IDE.Windows
                 completionWindow.CompletionList.ListBox.SelectedIndex = 0;
                 completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
             }
+            else if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                AppData.Insatnce.GlobalSave();
+            }
         }
 
         //completion window
@@ -246,7 +251,7 @@ namespace c3IDE.Windows
         //button clicks
         private void SaveExpressionButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ExpressionIdText.Text.ToLower();
+            var id = ExpressionIdText.Text.ToLower().Replace(" ", "-");
             var category = ExpressionCategoryText.Text;
             var returntype = ReturnTypeDropdown.Text;
             var translatedname = TranslatedName.Text;
@@ -280,7 +285,7 @@ namespace c3IDE.Windows
 
         private void SaveParamButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ParamIdText.Text;
+            var id = ParamIdText.Text.ToLower().Replace(" ", "-");
             var type = ParamTypeDropdown.Text;
             var value = ParamValueText.Text;
             var name = ParamNameText.Text;
@@ -417,12 +422,9 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
-            AceTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            AceTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
-            LanguageTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            LanguageTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
-            CodeTextEditor.FontSize = AppData.Insatnce.Options.FontSize;
-            CodeTextEditor.FontFamily = new FontFamily(AppData.Insatnce.Options.FontFamily);
+            AppData.Insatnce.SetupTextEditor(AceTextEditor);
+            AppData.Insatnce.SetupTextEditor(LanguageTextEditor);
+            AppData.Insatnce.SetupTextEditor(CodeTextEditor);
 
             if (AppData.Insatnce.CurrentAddon != null)
             {
@@ -488,6 +490,22 @@ namespace c3IDE.Windows
             AcePanel.Width = new GridLength(0);
             CodePanel.Width = new GridLength(0);
             LangPanel.Width = new GridLength(3, GridUnitType.Star);
+        }
+
+        //text box events
+        private void SelectAllText(object sender, RoutedEventArgs e)
+        {
+            var tb = (sender as TextBox);
+            tb?.SelectAll();
+        }
+
+        private void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is TextBox tb && !tb.IsKeyboardFocusWithin)
+            {
+                e.Handled = true;
+                tb.Focus();
+            }
         }
     }
 }

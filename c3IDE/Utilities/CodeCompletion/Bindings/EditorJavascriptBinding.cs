@@ -1,6 +1,7 @@
 ﻿using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.Collections.Generic;
 using System.Linq;
+using c3IDE.Utilities.Helpers;
 using Newtonsoft.Json;
 
 namespace c3IDE.Utilities.CodeCompletion.Bindings
