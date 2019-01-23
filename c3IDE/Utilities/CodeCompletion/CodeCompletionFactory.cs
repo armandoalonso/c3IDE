@@ -73,7 +73,7 @@ namespace c3IDE.Utilities.CodeCompletion
                 }
                 else
                 {
-                    var definedCompletions = allList.Where(x => x.Container.Contains(token)).ToList();
+                    var definedCompletions = allList.Where(x => x.Container.StartsWith(token)).ToList();
                     if (definedCompletions.Any())
                     {
                         _contextCache[token] = definedCompletions;
@@ -84,12 +84,15 @@ namespace c3IDE.Utilities.CodeCompletion
                         switch (type)
                         {
                             case CodeType.Json:
+                                _globalJsonTokens.RemoveWhere(x => token.Contains(x.Text));
                                 _globalJsonTokens.Add(new GenericCompletionItem(token, "user defined", CompletionType.Misc));
                                 break;
                             case CodeType.EditTimeJavascript:
+                                _globalEditTimeTokens.RemoveWhere(x => token.Contains(x.Text));
                                 _globalEditTimeTokens.Add(new GenericCompletionItem(token, "user defined", CompletionType.Misc));
                                 break;
                             case CodeType.RuntimeJavascript:
+                                _globalRunTimeTokens.RemoveWhere(x => token.Contains(x.Text));
                                 _globalRunTimeTokens.Add(new GenericCompletionItem(token, "user defined", CompletionType.Misc));
                                 break;
                         }
