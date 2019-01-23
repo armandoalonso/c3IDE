@@ -1,4 +1,4 @@
-#c3IDE Documentation 
+# c3IDE Documentation 
 
 ## Introduction
 c3IDE is a Construct3 plugin development tool. It lets you you quickly iterate and test your plugins. And there are a few improvment to help speed up your workflow.
@@ -11,7 +11,7 @@ The application is composed of multiple windows, You can navigate to the multipl
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/c3IDE-mainmenu.gif)
 
-##Dashboard
+## Dashboard
 
 The Dashboard is the main window that starts up when you first load load application, From this window you can create, manage, and export all the addons you have created with c3IDE.
 
@@ -59,7 +59,7 @@ From the dashboard you can package you addon into the c3addon file format used b
 
 When you create you c3addon file, It will be saved in *AppData\Roaming\C3IDE_DATA\C3Addons* folder. The c3addon file name will contain the class name followed by the version.
 
-##Addon
+## Addon
 The addon window contains 2 tabs, One tab manages the addon.json which contains all the metadata about your plugin. The other tab is the Third Party Files tab. You can you the tab to add external librarys or your own extra javascript files.
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/c3IDE-addon-format.gif)
