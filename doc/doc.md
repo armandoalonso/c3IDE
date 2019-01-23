@@ -59,4 +59,32 @@ From the dashboard you can package you addon into the c3addon file format used b
 
 When you create you c3addon file, It will be saved in *AppData\Roaming\C3IDE_DATA\C3Addons* folder. The c3addon file name will contain the class name followed by the version.
 
+##Addon
+The addon window contains 2 tabs, One tab manages the addon.json which contains all the metadata about your plugin. The other tab is the Third Party Files tab. You can you the tab to add external librarys or your own extra javascript files.
+
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/c3IDE-addon-format.gif)
+
+You can add extra javascript files to your peoject by clicking on the "Add New File" button, Or dragging a js file over the Third Party File list. Adding (or removing) a  javascript file will automatcially update the addon.json file
+
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/c3IDE-thirdparty-js.gif)
+
+##Plugin / Behavior
+The plugin/behavior will contain 2 tabs, each tab will manage the plugin.js/behavior.js files in the addon. The edit time tab manages the file on the root of the addon, and the run time tab manages the file in the c3runtime folder.
+
+#### Edit time
+In the edit time plugin file you can specify the plugin properties. A qucik way to create plugin properties is to right click and choose "Insert New Plugin Property" this will bring up the property wizard which will guide you through creating a new property.
+
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/c3IDE-new-prop.gif)
+
+If you have added extra javascript files to your project, you can right click and choose "Generate File Dependeny" to generate the correct code to link those added files to your addon.
+
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/c3IDE-file-dep.gif)
+
+#### Run time
+The run time tab will contain allow you to edit the run time plugin file. 
+
+## Type & Instance 
+Both the type and instance window allow you to edit the edit time and run time files for both the type.js and the instance.js.  These editors have auto completion and basic syntax highlightin for javascript. 
+
+
 
