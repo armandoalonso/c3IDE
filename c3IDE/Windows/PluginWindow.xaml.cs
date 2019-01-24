@@ -14,8 +14,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using c3IDE.Models;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Highlighting;
+using c3IDE.Utilities.ThemeEngine;
 
 namespace c3IDE.Windows
 {
@@ -37,8 +39,13 @@ namespace c3IDE.Windows
             //handle auto completion when entering text
             EditTimePluginTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             EditTimePluginTextEditor.TextArea.TextEntered += EditTimePluginTextEditor_TextEntered;
+            EditTimePluginTextEditor.Options.EnableHyperlinks = false;
+            EditTimePluginTextEditor.Options.EnableEmailHyperlinks = false;
+
             RunTimePluginTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             RunTimePluginTextEditor.TextArea.TextEntered += RunTimePluginTextEditor_TextEntered;
+            RunTimePluginTextEditor.Options.EnableHyperlinks = false;
+            RunTimePluginTextEditor.Options.EnableEmailHyperlinks = false;
         }
 
         //editor events
@@ -200,8 +207,8 @@ namespace c3IDE.Windows
         {
             TitleTab.Header = AppData.Insatnce.CurrentAddon.Type == PluginType.Behavior ? "Behavior.js" : "Plugin.js";
 
-            AppData.Insatnce.SetupTextEditor(EditTimePluginTextEditor);
-            AppData.Insatnce.SetupTextEditor(RunTimePluginTextEditor);
+            AppData.Insatnce.SetupTextEditor(EditTimePluginTextEditor, Syntax.Javascript);
+            AppData.Insatnce.SetupTextEditor(RunTimePluginTextEditor, Syntax.Javascript);
 
             EditTimePluginTextEditor.Text = AppData.Insatnce.CurrentAddon?.PluginEditTime;
             RunTimePluginTextEditor.Text = AppData.Insatnce.CurrentAddon?.PluginRunTime;
@@ -215,6 +222,11 @@ namespace c3IDE.Windows
                 AppData.Insatnce.CurrentAddon.PluginRunTime = RunTimePluginTextEditor.Text;
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
+        }
+
+        public void SetupTheme(Theme t)
+        {
+           
         }
 
         //context menu

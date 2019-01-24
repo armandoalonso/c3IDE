@@ -5,10 +5,13 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using c3IDE.Models;
 using c3IDE.Utilities;
 using c3IDE.Utilities.SyntaxHighlighting;
+using c3IDE.Utilities.ThemeEngine;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using uhttpsharp.Listeners;
@@ -23,7 +26,6 @@ namespace c3IDE
         public C3Addon CurrentAddon = new C3Addon();
         public Options Options = new Options();
         public TcpListener TcpListener = new TcpListener(IPAddress.Any, 8080);
-        public MainWindow MainWidnow { get; set; }
 
         public Func<string, string, Task<bool>> ShowDialog { get; internal set; }
         public Func<string, string, string, Task<string>> ShowInputDialog { get; set; }
@@ -33,18 +35,23 @@ namespace c3IDE
 
         public Action<string> LoadAddon { get; set; }
         public Action GlobalSave { get; set; }
+        public Action<Theme> ThemeChangedEvent { get; set; }
 
-        public void SetupTextEditor(TextEditor editor)
+        public void SetupTextEditor(TextEditor editor, Syntax syntax)
         { 
             editor.FontSize = Options.FontSize;
             editor.FontFamily = new FontFamily(Options.FontFamily);
-            editor.SyntaxHighlighting = Options.HighlightingDefinition;
-            editor.Background = ThemeResolver.Insatnce.ResolveBackground(Options.HighlightKey);
+            var syntaxDefinition = syntax == Syntax.Javascript
+                ? Options.ApplicationTheme.JavascriptSyntaxTheme
+                : Options.ApplicationTheme.JsonSyntaxTheme;
+            editor.SyntaxHighlighting = syntaxDefinition;
+            editor.Background = Options.ApplicationTheme.SyntaxBackgroundColor;
+            editor.Foreground = Options.ApplicationTheme.SyntaxForegroundColor;
+        }
 
-            if (MainWidnow != null)
-            {
-                MainWidnow.MainGrid.Background = ThemeResolver.Insatnce.ResolveFormBackground(Options.HighlightKey);
-            }
+        public void SetupTheme(Grid grid)
+        {
+           
         }
     }
 }

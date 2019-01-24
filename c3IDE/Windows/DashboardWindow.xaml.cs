@@ -15,7 +15,9 @@ using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Logging;
 using c3IDE.Windows.Interfaces;
+using c3IDE.Utilities.ThemeEngine;
 using Newtonsoft.Json;
 using Action = c3IDE.Models.Action;
 using Condition = c3IDE.Models.Condition;
@@ -53,6 +55,14 @@ namespace c3IDE.Windows
         public void OnExit()
         {
             
+        }
+
+        public void SetupTheme(Theme t)
+        {
+            foreach (var textblox in ControlHelper.Insatnce.FindVisualChildren<TextBlock>(this))
+            {
+                textblox.Foreground = t.ApplicationForegroundColor;
+            }    
         }
 
         //file drop
@@ -226,7 +236,7 @@ namespace c3IDE.Windows
 
         private void ExportFolderButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Utils.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
+            ProcessHelper.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
         }
 
         private void ClearInputsButton_OnClick(object sender, RoutedEventArgs e)
@@ -243,7 +253,7 @@ namespace c3IDE.Windows
             }
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
             AddonExporter.Insatnce.ExportAddon(currentAddon);
-            Utils.Insatnce.StartProcess(AppData.Insatnce.Options.C3AddonPath);
+            ProcessHelper.Insatnce.StartProcess(AppData.Insatnce.Options.C3AddonPath);
         }
 
         //context menu
@@ -303,8 +313,8 @@ namespace c3IDE.Windows
         {
             var addonJson = JsonConvert.SerializeObject(addon);
             var timestamp = DateTime.Now.ToString("MMddyyyyHHmmssfff");
-            Utils.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.ExportPath, $"{addon.Class}_{timestamp}.c3ide"), addonJson);
-            Utils.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
+            ProcessHelper.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.ExportPath, $"{addon.Class}_{timestamp}.c3ide"), addonJson);
+            ProcessHelper.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
         }
 
         private void RemoveAddon(C3Addon currentAddon)

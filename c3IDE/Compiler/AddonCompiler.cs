@@ -10,6 +10,7 @@ using c3IDE.Models;
 using c3IDE.Server;
 using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Logging;
 using Action = System.Action;
 
 namespace c3IDE.Compiler

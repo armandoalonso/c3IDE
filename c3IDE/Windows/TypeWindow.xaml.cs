@@ -17,9 +17,11 @@ using c3IDE.DataAccess;
 using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
+using c3IDE.Utilities.ThemeEngine;
 
 namespace c3IDE.Windows
 {
@@ -38,8 +40,13 @@ namespace c3IDE.Windows
             InitializeComponent();
             EditTimeTypeTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             EditTimeTypeTextEditor.TextArea.TextEntered += EditTimeTypeTextEditor_TextEntered;
+            EditTimeTypeTextEditor.Options.EnableHyperlinks = false;
+            EditTimeTypeTextEditor.Options.EnableEmailHyperlinks = false;
+
             RunTimeTypeTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             RunTimeTypeTextEditor.TextArea.TextEntered += RunTimeTypeTextEditor_TextEntered;
+            RunTimeTypeTextEditor.Options.EnableHyperlinks = false;
+            RunTimeTypeTextEditor.Options.EnableEmailHyperlinks = false;
         }
 
         //editor events
@@ -203,8 +210,8 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
-            AppData.Insatnce.SetupTextEditor(EditTimeTypeTextEditor);
-            AppData.Insatnce.SetupTextEditor(RunTimeTypeTextEditor);
+            AppData.Insatnce.SetupTextEditor(EditTimeTypeTextEditor, Syntax.Javascript);
+            AppData.Insatnce.SetupTextEditor(RunTimeTypeTextEditor, Syntax.Javascript);
 
             EditTimeTypeTextEditor.Text = AppData.Insatnce.CurrentAddon?.TypeEditTime;
             RunTimeTypeTextEditor.Text = AppData.Insatnce.CurrentAddon?.TypeRunTime;
@@ -220,6 +227,10 @@ namespace c3IDE.Windows
             }
         }
 
+        public void SetupTheme(Theme t)
+        {
+
+        }
 
 
         //context menu

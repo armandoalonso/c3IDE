@@ -15,9 +15,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.Compiler;
+using c3IDE.Utilities;
+using c3IDE.Utilities.Helpers;
 using c3IDE.Windows.Interfaces;
 using MahApps.Metro.Controls;
-using Utils = c3IDE.Utilities.Utils;
+using c3IDE.Utilities.ThemeEngine;
+using Theme = c3IDE.Utilities.ThemeEngine.Theme;
 
 namespace c3IDE.Windows
 {
@@ -84,12 +87,12 @@ namespace c3IDE.Windows
 
         private void OpenConstructButton_Click(object sender, RoutedEventArgs e)
         {
-            Utils.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/");
+            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/");
         }
 
         private void OpenConstructSafeButton_Click(object sender, RoutedEventArgs e)
         {
-            Utils.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/?safe-mode");
+            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/?safe-mode");
         }
 
         //sindow states
@@ -101,6 +104,11 @@ namespace c3IDE.Windows
         public void OnExit()    
         {
             
+        }
+
+        public void SetupTheme(Theme t)
+        {
+
         }
 
         //text box events

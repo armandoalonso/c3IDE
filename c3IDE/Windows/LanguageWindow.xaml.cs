@@ -17,7 +17,9 @@ using c3IDE.DataAccess;
 using c3IDE.Templates;
 using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
+using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
+using c3IDE.Utilities.ThemeEngine;
 using Newtonsoft.Json;
 
 namespace c3IDE.Windows
@@ -34,13 +36,19 @@ namespace c3IDE.Windows
         public LanguageWindow()
         {
             InitializeComponent();
+
+            PropertyLanguageTextEditor.Options.EnableHyperlinks = false;
+            PropertyLanguageTextEditor.Options.EnableEmailHyperlinks = false;
+
+            CategoryLanguageTextEditor.Options.EnableHyperlinks = false;
+            CategoryLanguageTextEditor.Options.EnableEmailHyperlinks = false;
         }
 
         //window states
         public void OnEnter()
         {
-            AppData.Insatnce.SetupTextEditor(PropertyLanguageTextEditor);
-            AppData.Insatnce.SetupTextEditor(CategoryLanguageTextEditor);
+            AppData.Insatnce.SetupTextEditor(PropertyLanguageTextEditor, Syntax.Json);
+            AppData.Insatnce.SetupTextEditor(CategoryLanguageTextEditor, Syntax.Json);
 
             PropertyLanguageTextEditor.Text = AppData.Insatnce.CurrentAddon?.LanguageProperties;
             CategoryLanguageTextEditor.Text = AppData.Insatnce.CurrentAddon?.LanguageCategories;
@@ -54,6 +62,11 @@ namespace c3IDE.Windows
                 AppData.Insatnce.CurrentAddon.LanguageCategories = CategoryLanguageTextEditor.Text;
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
+        }
+
+        public void SetupTheme(Theme t)
+        {
+           
         }
 
         //context menu

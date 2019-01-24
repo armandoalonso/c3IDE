@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using c3IDE.Compiler;
 using c3IDE.DataAccess;
 using c3IDE.Utilities.CodeCompletion;
+using c3IDE.Utilities.Helpers;
 using c3IDE.Windows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Utils = c3IDE.Utilities.Utils;
+using Theme = c3IDE.Utilities.ThemeEngine.Theme;
 
 namespace c3IDE
 {
@@ -38,7 +39,7 @@ namespace c3IDE
             AppData.Insatnce.ErrorMessage = OpenErrorNotification;
             AppData.Insatnce.LoadAddon = s => { this.Title = $"C3IDE - {s}"; };
             AppData.Insatnce.GlobalSave = Save;
-            AppData.Insatnce.MainWidnow = this;
+            AppData.Insatnce.ThemeChangedEvent = SetupTheme;
 
             //load data
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
@@ -53,6 +54,19 @@ namespace c3IDE
             ActiveItem.Content = _dashboardWindow;
             _dashboardWindow.OnEnter();
             _currentActiveWindow = _dashboardWindow.DisplayName;
+        }
+
+        private void SetupTheme(Theme t) 
+        {
+            MainGrid.Background = t.ApplicationBackgroundColor;
+
+            //foreach (var tabItem in _addonWindow.Tabs)
+            //{
+            //    tabItem.Background = t.ApplicationBackgroundColor;
+            //    tabItem.Foreground = t.ApplicationForegroundColor;
+            //}
+
+            _dashboardWindow.SetupTheme(t);
         }
 
         private void HambugerMenuItem_Click(object sender, ItemClickEventArgs e)
@@ -74,7 +88,7 @@ namespace c3IDE
 
             if (clickedLabel == "SDK Help")
             {
-                c3IDE.Utilities.Utils.Insatnce.StartProcess("chrome.exe","https://www.construct.net/en/make-games/manuals/addon-sdk");
+                ProcessHelper.Insatnce.StartProcess("chrome.exe","https://www.construct.net/en/make-games/manuals/addon-sdk");
                 return;
             }
 

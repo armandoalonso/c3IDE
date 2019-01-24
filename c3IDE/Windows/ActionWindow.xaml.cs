@@ -18,6 +18,7 @@ using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
+using c3IDE.Utilities.ThemeEngine;
 using Action = c3IDE.Models.Action;
 
 namespace c3IDE.Windows
@@ -40,12 +41,18 @@ namespace c3IDE.Windows
 
             CodeTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             CodeTextEditor.TextArea.TextEntered += CodeTextEditor_TextEntered;
+            CodeTextEditor.Options.EnableEmailHyperlinks = false;
+            CodeTextEditor.Options.EnableHyperlinks = false;
 
             AceTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             AceTextEditor.TextArea.TextEntered += AceTextEditor_TextEntered;
+            AceTextEditor.Options.EnableEmailHyperlinks = false;
+            AceTextEditor.Options.EnableHyperlinks = false;
 
             LanguageTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             LanguageTextEditor.TextArea.TextEntered += LanguageTextEditor_TextEntered;
+            LanguageTextEditor.Options.EnableEmailHyperlinks = false;
+            LanguageTextEditor.Options.EnableHyperlinks = false;
         }
 
         //editor events
@@ -356,9 +363,9 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
-            AppData.Insatnce.SetupTextEditor(AceTextEditor);
-            AppData.Insatnce.SetupTextEditor(LanguageTextEditor);
-            AppData.Insatnce.SetupTextEditor(CodeTextEditor);
+            AppData.Insatnce.SetupTextEditor(AceTextEditor, Syntax.Json);
+            AppData.Insatnce.SetupTextEditor(LanguageTextEditor, Syntax.Json);
+            AppData.Insatnce.SetupTextEditor(CodeTextEditor, Syntax.Javascript);
 
             if (AppData.Insatnce.CurrentAddon != null)
             {
@@ -396,6 +403,11 @@ namespace c3IDE.Windows
                 AppData.Insatnce.CurrentAddon.Actions = _actions;
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }          
+        }
+
+        public void SetupTheme(Theme t)
+        {
+            
         }
 
         //list box events

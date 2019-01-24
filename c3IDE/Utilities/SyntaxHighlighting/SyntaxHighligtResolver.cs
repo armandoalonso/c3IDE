@@ -14,8 +14,10 @@ namespace c3IDE.Utilities.SyntaxHighlighting
     {
         public Dictionary<string, IHighlightingDefinition> Cache = new Dictionary<string, IHighlightingDefinition>();
 
-        public IHighlightingDefinition Resolve(string key)
+        public IHighlightingDefinition Resolve(string key, Syntax syntax)
         {
+            var syntaxKey = syntax == Syntax.Javascript ? "JS" : "JSON";
+            key = key + " " + syntaxKey;
             if (Cache.ContainsKey(key))
             {
                 return Cache[key];
@@ -24,15 +26,22 @@ namespace c3IDE.Utilities.SyntaxHighlighting
             IHighlightingDefinition def;
             switch (key)
             {
-                case "Default Theme":
+                case "Default Theme JS":
                     def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptDefault.xshd");
                     break;
-                case "Test Theme":
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptTest.xshd");
+                case "Monokai Theme JS":
+                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptMonokai.xshd");
+                    break;
+                case "Default Theme JSON":
+                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptDefault.xshd");
+                    //def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptDefault.xshd");
+                    break;
+                case "Monokai Theme JSON":
+                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptMonokai.xshd");
+                    //def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JsonMonokai.xshd");
                     break;
                 default:
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptDefault.xshd");
-                    break;
+                    throw new InvalidOperationException("Invaild Syntax Highlighting Key");
             }
 
             Cache.Add(key, def);

@@ -44,5 +44,6 @@
                 <Setter Property="BorderThickness" Value="0"></Setter>
             </Style>
         </ResourceDictionary>
+        
     </Application.Resources>
 </Application>

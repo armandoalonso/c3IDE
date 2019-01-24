@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SyntaxDefinition name="JsonDefault" extensions=".js" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+
+  <Color name="String" foreground="Navy" fontWeight="bold"  />
+
+  <!-- This is the main ruleset. -->
+  <RuleSet>
+
+
+    <Keywords fontWeight="bold" foreground="Blue">
+      <Word>{</Word>
+      <Word>}</Word>
+      <Word>[</Word>
+      <Word>]</Word>
+      <Word>:</Word>
+      <Word>,</Word>
+
+    </Keywords>
+    <!--<Span color="String">
+      <Begin>^\s+\"</Begin>
+      <End>\:|\s+</End>
+    
+    </Span>-->
+
+
+    <!-- Digits -->
+    <Rule foreground="DarkBlue">
+      \b0[xX][0-9a-fA-F]+  # hex number
+      |    \b
+      (    \d+(\.[0-9]+)?   #number with optional floating point
+      |    \.[0-9]+         #or just starting with floating point
+      )
+      ([eE][+-]?[0-9]+)? # optional exponent
+    </Rule>
+    <Rule foreground="DarkGreen">
+      ".*",
+    </Rule>
+    <Rule foreground="Purple">
+      \s+"\S+":
+    </Rule>
+
+  </RuleSet>
+  
+</SyntaxDefinition>

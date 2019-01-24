@@ -16,7 +16,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.Utilities;
+using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Logging;
+using c3IDE.Utilities.ThemeEngine;
 using c3IDE.Windows.Interfaces;
+
 
 namespace c3IDE.Windows
 {
@@ -79,7 +83,7 @@ namespace c3IDE.Windows
             C3AddonPathText.Text = AppData.Insatnce.Options.C3AddonPath;
             FontSizeCombo.Text = AppData.Insatnce.Options.FontSize.ToString();
             FontFamilyCombo.Text = AppData.Insatnce.Options.FontFamily;
-            ThemeCombo.Text = AppData.Insatnce.Options.HighlightKey;
+            ThemeCombo.Text = AppData.Insatnce.Options.ThemeKey;
         }
 
         public void OnExit()
@@ -96,7 +100,7 @@ namespace c3IDE.Windows
                     C3AddonPath = !string.IsNullOrWhiteSpace(C3AddonPathText.Text) ? C3AddonPathText.Text : App.DefaultOptions.C3AddonPath,
                     FontSize = Convert.ToDouble(FontSizeCombo.Text),
                     FontFamily = !string.IsNullOrWhiteSpace(FontFamilyCombo.Text) ? FontFamilyCombo.Text : App.DefaultOptions.FontFamily,
-                    HighlightKey = !string.IsNullOrWhiteSpace(ThemeCombo.Text) ? ThemeCombo.Text : App.DefaultOptions.HighlightKey,
+                    ThemeKey = !string.IsNullOrWhiteSpace(ThemeCombo.Text) ? ThemeCombo.Text : App.DefaultOptions.ThemeKey,
                 };
 
                 //create exports folder if it does not exists
@@ -108,6 +112,11 @@ namespace c3IDE.Windows
                 //persist options
                 DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
             }
+        }
+
+        public void SetupTheme(Theme t)
+        {
+           
         }
 
         //buttons
@@ -129,7 +138,7 @@ namespace c3IDE.Windows
         {
             try
             {
-                Utils.Insatnce.StartProcess(CompilePathText.Text);
+                ProcessHelper.Insatnce.StartProcess(CompilePathText.Text);
             }
             catch (Exception ex)
             {
@@ -142,7 +151,7 @@ namespace c3IDE.Windows
         {
             try
             {
-                Utils.Insatnce.StartProcess(ExportPathText.Text);
+                ProcessHelper.Insatnce.StartProcess(ExportPathText.Text);
             }
             catch (Exception ex)
             {
@@ -155,7 +164,7 @@ namespace c3IDE.Windows
         {
             try
             {
-                Utils.Insatnce.StartProcess(DataPathText.Text);
+                ProcessHelper.Insatnce.StartProcess(DataPathText.Text);
             }
             catch (Exception ex)
             {
@@ -180,7 +189,7 @@ namespace c3IDE.Windows
         {
             try
             {
-                Utils.Insatnce.StartProcess(C3AddonPathText.Text);
+                ProcessHelper.Insatnce.StartProcess(C3AddonPathText.Text);
             }
             catch (Exception ex)
             {
@@ -204,8 +213,10 @@ namespace c3IDE.Windows
 
         private void ThemeCombo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selection = ThemeCombo.SelectedValue.ToString();
-            AppData.Insatnce.Options.HighlightKey = selection;
+            var selection = ThemeCombo.Text;
+            AppData.Insatnce.Options.ThemeKey = selection;
+
+            //AppData.Insatnce.ThemeChangedEvent(ThemeResolver.Insatnce.Resolve(selection));
         }
     }
 }

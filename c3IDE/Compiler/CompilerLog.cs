@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using c3IDE.Utilities;
+using c3IDE.Utilities.Logging;
 using ICSharpCode.AvalonEdit.Snippets;
 
 namespace c3IDE.Compiler

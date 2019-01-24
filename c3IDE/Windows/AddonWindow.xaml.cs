@@ -14,8 +14,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Logging;
 using c3IDE.Utilities.SyntaxHighlighting;
+using c3IDE.Utilities.ThemeEngine;
 using ICSharpCode.AvalonEdit.Editing;
+
 
 namespace c3IDE.Windows
 {
@@ -29,7 +32,8 @@ namespace c3IDE.Windows
         private CompletionWindow completionWindow;
         private Dictionary<string, ThirdPartyFile> _files;
         private ThirdPartyFile _selectedFile;
-
+        public  List<TabItem> Tabs { get; set; }
+ 
         //ctor
         public AddonWindow()
         {
@@ -37,6 +41,14 @@ namespace c3IDE.Windows
 
             AddonTextEditor.TextArea.TextEntering += AddonTextEditor_TextEntering;
             AddonTextEditor.TextArea.TextEntered += AddonTextEditor_TextEntered;
+
+            AddonTextEditor.Options.EnableEmailHyperlinks = false;
+            AddonTextEditor.Options.EnableHyperlinks = false;
+            FileTextEditor.Options.EnableEmailHyperlinks = false;
+            FileTextEditor.Options.EnableHyperlinks = false;
+
+            //add tabs
+            Tabs = new List<TabItem> { AddonJsTab, ThirdPartyFileTab };
         }
 
         //editor events
@@ -137,8 +149,8 @@ namespace c3IDE.Windows
         //window states
         public void OnEnter()
         {
-            AppData.Insatnce.SetupTextEditor(AddonTextEditor);
-            AppData.Insatnce.SetupTextEditor(FileTextEditor);
+            AppData.Insatnce.SetupTextEditor(AddonTextEditor, Syntax.Json);
+            AppData.Insatnce.SetupTextEditor(FileTextEditor, Syntax.Javascript);
 
             if (AppData.Insatnce.CurrentAddon != null)
             {
@@ -175,6 +187,11 @@ namespace c3IDE.Windows
                 AppData.Insatnce.CurrentAddon.AddonJson = AddonTextEditor.Text;
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
+        }
+
+        public void SetupTheme(Theme t)
+        {
+            
         }
 
         //button clicks

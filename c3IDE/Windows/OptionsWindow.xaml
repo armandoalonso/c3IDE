@@ -45,7 +45,7 @@
                 <ComboBox Name="FontFamilyCombo" Margin="0,0,10,0" SelectionChanged="FontFamilyCombo_OnSelectionChanged" />
                 <ComboBox Name="ThemeCombo" SelectionChanged="ThemeCombo_OnSelectionChanged">
                     <ComboBoxItem>Default Theme</ComboBoxItem>
-                    <!--<ComboBoxItem>Test Theme</ComboBoxItem>-->
+                    <ComboBoxItem>Monokai Theme</ComboBoxItem>
                 </ComboBox>
             </UniformGrid>
         </StackPanel>

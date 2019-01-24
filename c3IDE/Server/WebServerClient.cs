@@ -50,10 +50,10 @@ namespace c3IDE.Server
 
         public void Stop()
         {
-            _log.Insert("server stopped...");
             _httpServer.Dispose();
             _httpServer = null;
             AppData.Insatnce.TcpListener.Stop();
+            _log.Insert("server stopped...");
         }
     }
 }

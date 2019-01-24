@@ -10,6 +10,7 @@ using c3IDE.DataAccess;
 using c3IDE.Models;
 using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Logging;
 using c3IDE.Utilities.SyntaxHighlighting;
 
 namespace c3IDE
@@ -47,7 +48,7 @@ namespace c3IDE
                 DefaultAuthor = "c3IDE",
                 FontSize = 12,
                 FontFamily = "Consolas",
-                HighlightKey = "Default Theme"
+                ThemeKey = "Default Theme"
             };
 
             //create exports folder if it does not exists
@@ -68,7 +69,7 @@ namespace c3IDE
             if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.DefaultAuthor)) AppData.Insatnce.Options.DefaultAuthor = DefaultOptions.DefaultAuthor;
             if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.FontFamily)) AppData.Insatnce.Options.FontFamily = DefaultOptions.FontFamily;
             if (AppData.Insatnce.Options.FontSize < 5) AppData.Insatnce.Options.FontSize = DefaultOptions.FontSize;
-            if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.HighlightKey)) AppData.Insatnce.Options.HighlightKey = DefaultOptions.HighlightKey;
+            if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.ThemeKey)) AppData.Insatnce.Options.ThemeKey = DefaultOptions.ThemeKey;
 
             //create exmaple projects if they don't exists
             var examples = new string[] {"Example_Log.c3ide", "Example_FSM.c3ide" };
@@ -78,7 +79,7 @@ namespace c3IDE
                 if (!System.IO.File.Exists(path))
                 {
                     var data = ResourceReader.Insatnce.GetResourceText($"c3IDE.Examples.{example}");
-                    Utils.Insatnce.WriteFile(path, data);
+                    ProcessHelper.Insatnce.WriteFile(path, data);
                 }
             }
 
@@ -109,8 +110,8 @@ namespace c3IDE
             }
 
             var logFile = Path.Combine(AppData.Insatnce.Options.DataPath, $"log_{DateTime.Now:yyyyMMdd_hhmmmss}.txt");
-            Utils.Insatnce.WriteFile(logFile, sb.ToString());
-            Utils.Insatnce.StartProcess(logFile);
+            ProcessHelper.Insatnce.WriteFile(logFile, sb.ToString());
+            ProcessHelper.Insatnce.StartProcess(logFile);
 
             //stop the application
             Application.Current.Shutdown();
