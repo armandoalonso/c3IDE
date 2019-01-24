@@ -1,4 +1,4 @@
-# c3IDE Documentation 
+# c3IDE - Construct 3 Plugin Development Environment 
 
 ## Introduction
 c3IDE is a Construct3 plugin development tool. It lets you you quickly iterate and test your plugins. And there are a few improvment to help speed up your workflow.
