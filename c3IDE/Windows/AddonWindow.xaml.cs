@@ -204,7 +204,7 @@ namespace c3IDE.Windows
         }
 
         private void RemoveFile_OnClick(object sender, RoutedEventArgs e)
-        {
+        {         
             _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
             if (_selectedFile != null)
             {
@@ -223,7 +223,7 @@ namespace c3IDE.Windows
             }
             else
             {
-                AppData.Insatnce.ErrorMessage("failed to remove action, no action selected");
+                AppData.Insatnce.ErrorMessage("failed to remove action, no 3rd party files selected");
             }
         }
 
@@ -271,6 +271,7 @@ namespace c3IDE.Windows
             }
             catch (Exception exception)
             {
+                LogManager.Insatnce.Exceptions.Add(exception);
                 Console.WriteLine(exception.Message);
                 AppData.Insatnce.ErrorMessage($"error adding third party file, {exception.Message}");
             }

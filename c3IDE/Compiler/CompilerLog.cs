@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using c3IDE.Utilities;
 using ICSharpCode.AvalonEdit.Snippets;
 
 namespace c3IDE.Compiler
@@ -35,6 +36,7 @@ namespace c3IDE.Compiler
             }
             catch (Exception ex)
             {
+                LogManager.Insatnce.Exceptions.Add(ex);
                 Insert($"error message => {ex.Message}");
             }
             return string.Empty;

@@ -133,6 +133,7 @@ namespace c3IDE.Windows
             }
             catch (Exception ex)
             {
+                LogManager.Insatnce.Exceptions.Add(ex);
                 AppData.Insatnce.ErrorMessage($"error opening compiled folder, {ex.Message}");
             }
         }
@@ -145,6 +146,7 @@ namespace c3IDE.Windows
             }
             catch (Exception ex)
             {
+                LogManager.Insatnce.Exceptions.Add(ex);
                 AppData.Insatnce.ErrorMessage($"error opening export folder, {ex.Message}");
             }
         }
@@ -157,6 +159,7 @@ namespace c3IDE.Windows
             }
             catch (Exception ex)
             {
+                LogManager.Insatnce.Exceptions.Add(ex);
                 AppData.Insatnce.ErrorMessage($"error opening data folder, {ex.Message}");
             }
         }
@@ -181,6 +184,7 @@ namespace c3IDE.Windows
             }
             catch (Exception ex)
             {
+                LogManager.Insatnce.Exceptions.Add(ex);
                 AppData.Insatnce.ErrorMessage($"error opening c3addon folder, {ex.Message}");
             }
         }

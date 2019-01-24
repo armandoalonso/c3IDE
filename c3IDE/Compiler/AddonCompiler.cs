@@ -159,6 +159,7 @@ namespace c3IDE.Compiler
             }
             catch (Exception ex)
             {
+                LogManager.Insatnce.Exceptions.Add(ex);
                 _log.Insert($"compilation terminated due to error...");
                 _log.Insert($"error => {ex.Message}");
             }

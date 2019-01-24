@@ -2,8 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using c3IDE.DataAccess;
 using c3IDE.Models;
 using c3IDE.Utilities;
@@ -22,6 +24,9 @@ namespace c3IDE
 
         public App()
         {
+            //global unhandled exception catch
+            this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+
             //load saved options if none are saved
             var executingPath = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory?.FullName;
             var dataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "C3IDE_DATA");
@@ -77,6 +82,38 @@ namespace c3IDE
                 }
             }
 
+        }
+
+        private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            //create log
+            var sb = new StringBuilder();
+
+            sb.AppendLine("There was an unhandled error in the application. see logs below => ");
+            sb.AppendLine($"ERROR MESSAGE => {e.Exception.Message}");
+            sb.AppendLine($"ERROR TRACE => {e.Exception.StackTrace}");
+            sb.AppendLine($"ERROR INNER EX => {e.Exception.InnerException}");
+            sb.AppendLine($"ERROR SOURCE => {e.Exception.Source}");
+
+            sb.AppendLine();
+            sb.AppendLine("EXCEPTION LIST =>");
+
+            foreach (var exception in LogManager.Insatnce.Exceptions)
+            {
+                sb.AppendLine("\n===============================================================\n");
+                sb.AppendLine($"ERROR MESSAGE => {exception.Message}");
+                sb.AppendLine($"ERROR TRACE => {exception.StackTrace}");
+                sb.AppendLine($"ERROR INNER EX => {exception.InnerException}");
+                sb.AppendLine($"ERROR SOURCE => {exception.Source}");
+                sb.AppendLine("\n===============================================================\n");
+            }
+
+            var logFile = Path.Combine(AppData.Insatnce.Options.DataPath, $"log_{DateTime.Now:yyyyMMdd_hhmmmss}.txt");
+            Utils.Insatnce.WriteFile(logFile, sb.ToString());
+            Utils.Insatnce.StartProcess(logFile);
+
+            //stop the application
+            Application.Current.Shutdown();
         }
     }
 }

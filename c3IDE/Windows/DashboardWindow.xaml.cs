@@ -77,6 +77,7 @@ namespace c3IDE.Windows
             }
             catch(Exception exception) 
             {
+                LogManager.Insatnce.Exceptions.Add(exception);
                 Console.WriteLine(exception.Message);
                 AppData.Insatnce.ErrorMessage($"error reading icon file, {exception.Message}");
             }
@@ -112,6 +113,7 @@ namespace c3IDE.Windows
             }
             catch (Exception exception)
             {
+                LogManager.Insatnce.Exceptions.Add(exception);
                 Console.WriteLine(exception.Message);
                 AppData.Insatnce.ErrorMessage($"error importing c3ide file, {exception.Message}");
             }
