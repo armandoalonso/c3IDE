@@ -240,7 +240,7 @@ namespace c3IDE.Compiler
 
         private string CompileExpressions(C3Addon addon)
         {
-            var expressions = addon.Conditions.Select(x => x.Value.Code);
+            var expressions = addon.Expressions.Select(x => x.Value.Code);
             var expressionString = string.Join(",\n\n", expressions);
             var pluginType = addon.Type == PluginType.Behavior ? "Behaviors" : "Plugins";
 
