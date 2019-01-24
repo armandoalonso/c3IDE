@@ -433,6 +433,12 @@ namespace c3IDE.Windows
         //list box events
         private void ConditionListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ConditionListBox.SelectedIndex == -1)
+            {
+                //ignore
+                return;
+            }
+
             //save current selection
             if (_selectedCondition != null)
             {
@@ -443,11 +449,10 @@ namespace c3IDE.Windows
             }
 
             //load new selection
-            //TODO: error here when removing with 2 configured
             _selectedCondition = ((KeyValuePair<string, Condition>)ConditionListBox.SelectedItem).Value;
             AceTextEditor.Text = _selectedCondition.Ace;
             LanguageTextEditor.Text = _selectedCondition.Language;
-           CodeTextEditor.Text = _selectedCondition.Code;
+            CodeTextEditor.Text = _selectedCondition.Code;
         }
 
         //context menu

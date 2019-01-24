@@ -368,6 +368,12 @@ namespace c3IDE.Windows
         //list box events
         private void ExpressionListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ExpressionListBox.SelectedIndex == -1)
+            {
+                //ignore
+                return;
+            }
+
             //save current selection
             if (_selectedExpression != null)
             {
@@ -377,11 +383,10 @@ namespace c3IDE.Windows
                 _expressions[_selectedExpression.Id] = _selectedExpression;
             }
 
-            //load new selection
-            _selectedExpression = ((KeyValuePair<string, Expression>)ExpressionListBox.SelectedItem).Value;
-            AceTextEditor.Text = _selectedExpression.Ace;
-            LanguageTextEditor.Text = _selectedExpression.Language;
-            CodeTextEditor.Text = _selectedExpression.Code;
+           _selectedExpression = ((KeyValuePair<string, Expression>)ExpressionListBox.SelectedItem).Value;
+           AceTextEditor.Text = _selectedExpression.Ace;
+           LanguageTextEditor.Text = _selectedExpression.Language;
+           CodeTextEditor.Text = _selectedExpression.Code;
         }
 
         //context menu
