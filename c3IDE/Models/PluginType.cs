@@ -8,9 +8,9 @@ namespace c3IDE.Models
 {
     public enum PluginType
     {
-        SingleGlobalPlugin,
+        SingleGlobalPlugin = 0,
         //MultiInstance,
-        DrawingPlugin,
-        Behavior
+        DrawingPlugin = 2,
+        Behavior = 3
     }
 }
