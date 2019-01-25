@@ -371,6 +371,7 @@ namespace c3IDE.Windows
             if (ExpressionListBox.SelectedIndex == -1)
             {
                 //ignore
+                Category.Text = string.Empty;
                 return;
             }
 
@@ -380,11 +381,13 @@ namespace c3IDE.Windows
                 _selectedExpression.Ace = AceTextEditor.Text;
                 _selectedExpression.Language = LanguageTextEditor.Text;
                 _selectedExpression.Code = CodeTextEditor.Text;
+                _selectedExpression.Category = Category.Text;
                 _expressions[_selectedExpression.Id] = _selectedExpression;
             }
 
            _selectedExpression = ((KeyValuePair<string, Expression>)ExpressionListBox.SelectedItem).Value;
-           AceTextEditor.Text = _selectedExpression.Ace;
+            Category.Text = _selectedExpression.Category;
+            AceTextEditor.Text = _selectedExpression.Ace;
            LanguageTextEditor.Text = _selectedExpression.Language;
            CodeTextEditor.Text = _selectedExpression.Code;
         }

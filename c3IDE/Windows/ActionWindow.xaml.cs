@@ -417,7 +417,7 @@ namespace c3IDE.Windows
             if (ActionListBox.SelectedIndex == -1)
             {
                 //ignore
-                ActionCategory.Text = string.Empty;
+                Category.Text = string.Empty;
                 return;
             }
 
@@ -427,13 +427,13 @@ namespace c3IDE.Windows
                 _selectedAction.Ace = AceTextEditor.Text;
                 _selectedAction.Language = LanguageTextEditor.Text;
                 _selectedAction.Code = CodeTextEditor.Text;
-                _selectedAction.Category = ActionCategory.Text;
+                _selectedAction.Category = Category.Text;
                 _actions[_selectedAction.Id] = _selectedAction;
             }
 
             //load new selection
             _selectedAction = ((KeyValuePair<string, Action>)ActionListBox.SelectedItem).Value;
-            ActionCategory.Text = _selectedAction.Category;
+            Category.Text = _selectedAction.Category;
             AceTextEditor.Text = _selectedAction.Ace;
             LanguageTextEditor.Text = _selectedAction.Language;
             CodeTextEditor.Text = _selectedAction.Code;

@@ -82,6 +82,8 @@
             </UniformGrid>
             <Button Name="RemoveExpression" Content="RemoveExpression" Margin="2" Click="RemoveExpression_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="AddExpression" Content="Add New Expression" Margin="2" Click="AddExpression_OnClick" DockPanel.Dock="Bottom"></Button>
+            <TextBox Name="Category" DockPanel.Dock="Bottom" Margin="2" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+            <TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource TextBlockStyle}">Category</TextBlock>
             <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Expressions</TextBlock>
             <ListBox Name="ExpressionListBox" DockPanel.Dock="Top" Background="{DynamicResource ListBoxBackColor}" Margin="2"  BorderThickness="1" BorderBrush="{DynamicResource ListBoxBorder}" ItemsSource="{Binding}"  SelectionChanged="ExpressionListBox_OnSelectionChanged">
                 <ListBox.ItemTemplate>

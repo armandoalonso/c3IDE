@@ -436,6 +436,7 @@ namespace c3IDE.Windows
             if (ConditionListBox.SelectedIndex == -1)
             {
                 //ignore
+                Category.Text = string.Empty;
                 return;
             }
 
@@ -445,11 +446,13 @@ namespace c3IDE.Windows
                 _selectedCondition.Ace = AceTextEditor.Text;
                 _selectedCondition.Language = LanguageTextEditor.Text;
                 _selectedCondition.Code = CodeTextEditor.Text;
+                _selectedCondition.Category = Category.Text;
                 _conditions[_selectedCondition.Id] = _selectedCondition;
             }
 
             //load new selection
             _selectedCondition = ((KeyValuePair<string, Condition>)ConditionListBox.SelectedItem).Value;
+            Category.Text = _selectedCondition.Category;
             AceTextEditor.Text = _selectedCondition.Ace;
             LanguageTextEditor.Text = _selectedCondition.Language;
             CodeTextEditor.Text = _selectedCondition.Code;
