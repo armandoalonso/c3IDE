@@ -13,34 +13,34 @@
         </Grid.ColumnDefinitions>
          
         <StackPanel Grid.Column="0">
-            <TextBlock  Style="{StaticResource TextBlockStyle}">Compile Path :</TextBlock>
+            <TextBlock  Style="{DynamicResource TextBlockStyle}">Compile Path :</TextBlock>
             <TextBox Name="CompilePathText" Text=""></TextBox>
             <Separator Visibility="Hidden" Height="5" />
             
-            <TextBlock  Style="{StaticResource TextBlockStyle}">Exort Path :</TextBlock>
+            <TextBlock  Style="{DynamicResource TextBlockStyle}">Exort Path :</TextBlock>
             <TextBox Name="ExportPathText" Text=""></TextBox>
             <Separator Visibility="Hidden" Height="5" />
 
-            <TextBlock  Style="{StaticResource TextBlockStyle}">Data Path :</TextBlock>
+            <TextBlock  Style="{DynamicResource TextBlockStyle}">Data Path :</TextBlock>
             <TextBox Name="DataPathText" Text="" IsReadOnly="True"></TextBox>
             <Separator Visibility="Hidden" Height="5" />
 
-            <TextBlock  Style="{StaticResource TextBlockStyle}">C3Addon Path :</TextBlock>
+            <TextBlock  Style="{DynamicResource TextBlockStyle}">C3Addon Path :</TextBlock>
             <TextBox Name="C3AddonPathText" Text="" IsReadOnly="True"></TextBox>
             <Separator Visibility="Hidden" Height="5" />
 
             <UniformGrid Columns="2">
-                <TextBlock  Style="{StaticResource TextBlockStyle}">Default Company :</TextBlock>
-                <TextBlock  Style="{StaticResource TextBlockStyle}">Default Author :</TextBlock>
+                <TextBlock  Style="{DynamicResource TextBlockStyle}">Default Company :</TextBlock>
+                <TextBlock  Style="{DynamicResource TextBlockStyle}">Default Author :</TextBlock>
                 <TextBox Name="DefaultCompanyTextBox" Text="" Margin="0,0,10,0"></TextBox>
                 <TextBox Name="DefaultAuthorTextBox" Text=""></TextBox>
             </UniformGrid>
             <Separator Visibility="Hidden" Height="5" />
             
             <UniformGrid Columns="3">
-                <TextBlock  Style="{StaticResource TextBlockStyle}">Editor Font Size :</TextBlock>
-                <TextBlock  Style="{StaticResource TextBlockStyle}">Editor Font Family :</TextBlock>
-                <TextBlock  Style="{StaticResource TextBlockStyle}">Editor Theme :</TextBlock>
+                <TextBlock  Style="{DynamicResource TextBlockStyle}">Editor Font Size :</TextBlock>
+                <TextBlock  Style="{DynamicResource TextBlockStyle}">Editor Font Family :</TextBlock>
+                <TextBlock  Style="{DynamicResource TextBlockStyle}">Editor Theme :</TextBlock>
                 <ComboBox Name="FontSizeCombo"  Margin="0,0,10,0" SelectionChanged="FontSizeCombo_OnSelectionChanged" />
                 <ComboBox Name="FontFamilyCombo" Margin="0,0,10,0" SelectionChanged="FontFamilyCombo_OnSelectionChanged" />
                 <ComboBox Name="ThemeCombo" SelectionChanged="ThemeCombo_OnSelectionChanged">

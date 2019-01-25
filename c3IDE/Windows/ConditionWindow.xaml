@@ -23,11 +23,11 @@
             </mah:ChildWindow.OverlayBrush>
 
             <StackPanel>
-                <TextBlock Text="Condition ID:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Condition ID:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ConditionIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <TextBlock Text="Condition Category:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Condition Category:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ConditionCategoryText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <TextBlock Text="Condition List Name:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Condition List Name:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ConditionListNameText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
 
                 <Grid>
@@ -37,17 +37,17 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
-                        <TextBlock Text="Highlight:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <TextBlock Text="Highlight:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                         <ComboBox Name="HighlightDropdown" Margin="5">
                             <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                             <ComboBoxItem>true</ComboBoxItem>
                         </ComboBox>
-                        <TextBlock Text="Is Trigger:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <TextBlock Text="Is Trigger:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                         <ComboBox Name="TriggerDropdown" Margin="5">
                             <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                             <ComboBoxItem>true</ComboBoxItem>
                         </ComboBox>
-                        <TextBlock Text="Is Looping:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <TextBlock Text="Is Looping:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                         <ComboBox Name="LoopingDropdown" Margin="5">
                             <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                             <ComboBoxItem>true</ComboBoxItem>
@@ -55,17 +55,17 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1">
-                        <TextBlock Text="Is Static:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <TextBlock Text="Is Static:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                         <ComboBox Name="StaticDropdown" Margin="5">
                             <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                             <ComboBoxItem>true</ComboBoxItem>
                         </ComboBox>
-                        <TextBlock Text="Is FakeTrigger:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <TextBlock Text="Is FakeTrigger:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                         <ComboBox Name="FakeTriggerDropdown" Margin="5">
                             <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                             <ComboBoxItem>true</ComboBoxItem>
                         </ComboBox>
-                        <TextBlock Text="Is Invertible:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                        <TextBlock Text="Is Invertible:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                         <ComboBox Name="InvertibleDropdown" Margin="5">
                             <ComboBoxItem IsSelected="True">true</ComboBoxItem>
                             <ComboBoxItem>false</ComboBoxItem>
@@ -73,16 +73,16 @@
                     </StackPanel>
                 </Grid>
 
-                <TextBlock Text="Is Compatible With Triggers:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Is Compatible With Triggers:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <ComboBox Name="CompatibleWithTriggersDropdown" Margin="5">
                     <ComboBoxItem IsSelected="True">true</ComboBoxItem>
                     <ComboBoxItem>false</ComboBoxItem>
                 </ComboBox>
 
-                <TextBlock Text="Display Text:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Display Text:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="DisplayText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
 
-                <TextBlock Text="Description:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Description:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="DescriptionText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
                 <Button Content="Save Condition" Margin="5" Click="SaveConditionButton_Click"></Button>
 
@@ -96,9 +96,9 @@
             </mah:ChildWindow.OverlayBrush>
 
             <StackPanel>
-                <TextBlock Text="Parameter ID:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Parameter ID:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ParamIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <TextBlock Text="Parameter Type:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Parameter Type:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <ComboBox Name="ParamTypeDropdown" Margin="5">
                     <ComboBoxItem IsSelected="True">number</ComboBoxItem>
                     <ComboBoxItem>string</ComboBoxItem>
@@ -117,11 +117,11 @@
                     <ComboBoxItem>animation</ComboBoxItem>
                     <ComboBoxItem>objinstancevar</ComboBoxItem>
                 </ComboBox>
-                <TextBlock Text="Inital Value:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Inital Value:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ParamValueText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <TextBlock Text="Parameter Name:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Parameter Name:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ParamNameText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <TextBlock Text="Parameter Description:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Parameter Description:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ParamDescText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <Button Content="Add Parameter" Margin="5" Click="SaveParamButton_Click"></Button>
                 <Separator Visibility="Hidden" Height="20"></Separator>
@@ -137,8 +137,8 @@
             </UniformGrid>
             <Button Name="RemoveCondition" Content="Remove Condition" Margin="2" Click="RemoveCondition_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="AddCondition" Content="Add New Condition" Margin="2" Click="AddCondition_OnClick" DockPanel.Dock="Bottom"></Button>
-            <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black" Style="{StaticResource TextBlockStyle}"> Conditions</TextBlock>
-            <ListBox Name="ConditionListBox" DockPanel.Dock="Top"  Margin="2"  BorderThickness="1" BorderBrush="Black" ItemsSource="{Binding}"  SelectionChanged="ConditionListBox_OnSelectionChanged">
+            <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Conditions</TextBlock>
+            <ListBox Name="ConditionListBox" DockPanel.Dock="Top"  Margin="2" Background="{DynamicResource ListBoxBackColor}" BorderThickness="1" BorderBrush="{DynamicResource ListBoxBorder}" ItemsSource="{Binding}"  SelectionChanged="ConditionListBox_OnSelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="2">

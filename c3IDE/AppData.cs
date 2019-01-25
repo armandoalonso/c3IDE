@@ -11,11 +11,13 @@ using System.Windows.Media;
 using c3IDE.Models;
 using c3IDE.Utilities;
 using c3IDE.Utilities.SyntaxHighlighting;
-using c3IDE.Utilities.ThemeEngine;
 using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Highlighting;
+using MahApps.Metro;
 using uhttpsharp.Listeners;
 using Action = System.Action;
+using Theme = c3IDE.Utilities.ThemeEngine.Theme;
 
 
 namespace c3IDE
@@ -49,9 +51,30 @@ namespace c3IDE
             editor.Foreground = Options.ApplicationTheme.SyntaxForegroundColor;
         }
 
-        public void SetupTheme(Grid grid)
+        public void SetupTheme()
         {
-           
+            //change window style
+            ThemeManager.ChangeTheme(Application.Current, Options.ApplicationTheme.ApplicationTheme);
+
+            //change textbox style
+            var txtboxStyle = new Style {TargetType = typeof(TextBlock)};
+            txtboxStyle.Setters.Add(new Setter(TextBlock.ForegroundProperty, Options.ApplicationTheme.TextBoxForground));
+            Application.Current.Resources["TextBlockStyle"] = txtboxStyle;
+
+            //change auto completion window style
+            var autoCompleteStyle = new Style{TargetType = typeof(CompletionListBox)};
+            autoCompleteStyle.Setters.Add(new Setter(CompletionListBox.BackgroundProperty, Options.ApplicationTheme.AutoCompleteBackground));
+            Application.Current.Resources[typeof(CompletionListBox)] = autoCompleteStyle;
+
+            //list box item bg
+            var listboxItemStyle = new Style { TargetType = typeof(ListBoxItem) };
+            listboxItemStyle.Setters.Add(new Setter(ListBoxItem.BackgroundProperty, Options.ApplicationTheme.AutoCompleteBackground));
+            Application.Current.Resources[typeof(ListBoxItem)] = listboxItemStyle;
+
+            //change listbox border & background style
+            Application.Current.Resources["ListBoxBorder"] = Options.ApplicationTheme.ListBoxBorderColor;
+            Application.Current.Resources["ListBoxBackColor"] = Options.ApplicationTheme.AutoCompleteBackground;
+
         }
     }
 }

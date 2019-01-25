@@ -82,7 +82,6 @@ namespace c3IDE
                     ProcessHelper.Insatnce.WriteFile(path, data);
                 }
             }
-
         }
 
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

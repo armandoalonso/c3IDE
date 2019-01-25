@@ -14,8 +14,8 @@
         </Grid.ColumnDefinitions>
 
         <DockPanel LastChildFill="True" Grid.Column="0">
-            <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black" Style="{StaticResource TextBlockStyle}"> Addon's</TextBlock>
-            <ListBox Name="AddonListBox" Margin="3" BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Bottom" ItemsSource="{Binding}" MouseDoubleClick="AddonListBox_OnMouseDoubleClick" AllowDrop="True" 
+            <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Addon's</TextBlock>
+            <ListBox Name="AddonListBox" Margin="3" BorderThickness="1" Background="{DynamicResource ListBoxBackColor}" BorderBrush="{DynamicResource ListBoxBorder}" DockPanel.Dock="Bottom" ItemsSource="{Binding}" MouseDoubleClick="AddonListBox_OnMouseDoubleClick" AllowDrop="True" 
                      DragEnter="Addon_OnDragEnter" Drop="AddonFile_OnDrop">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -38,45 +38,45 @@
         </DockPanel>
 
         <StackPanel Grid.Column="1">
-            <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black"> Addon Data</TextBlock>
+            <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Addon Data</TextBlock>
             <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Addon Name :</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Name :</TextBlock>
                 <TextBox Name="AddonNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Addon Class Name :</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Class Name :</TextBlock>
                 <TextBox Name="AddonClassText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Company Name :</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Company Name :</TextBlock>
                 <TextBox Name="CompanyNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Author :</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Author :</TextBlock>
                 <TextBox Name="AuthorText" DockPanel.Dock="Right" Text="c3IDE" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Version :</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Version :</TextBlock>
                 <TextBox Name="VersionText" DockPanel.Dock="Right" Text="1.0.0.0" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Description :</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Description :</TextBlock>
                 <TextBox Name="DescriptionText" DockPanel.Dock="Right" Text="" VerticalScrollBarVisibility="Auto" Height="80"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Addon Type::</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Type::</TextBlock>
                 <ComboBox Name="AddonTypeDropdown" DockPanel.Dock="Right">
                 </ComboBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{StaticResource TextBlockStyle}">Addon Icon : </TextBlock>
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Icon : </TextBlock>
                 <Image Name="AddonIcon" DockPanel.Dock="Right" Height="150" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop"></Image>
             </DockPanel>
 

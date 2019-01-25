@@ -14,9 +14,9 @@
             </mah:ChildWindow.OverlayBrush>
 
             <StackPanel>
-                <TextBlock Text="Property ID:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Property ID:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="PropertyIdText" Margin="5"></TextBox>
-                <TextBlock Text="Property Type:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Property Type:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <ComboBox Name="PropertyTypeDropdown" Margin="5">
                     <ComboBoxItem>integer</ComboBoxItem>
                     <ComboBoxItem>float</ComboBoxItem>

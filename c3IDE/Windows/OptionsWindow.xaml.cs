@@ -213,9 +213,9 @@ namespace c3IDE.Windows
 
         private void ThemeCombo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selection = ThemeCombo.Text;
-            AppData.Insatnce.Options.ThemeKey = selection;
-
+            var selection = ((ComboBoxItem)ThemeCombo.SelectedItem).Content;
+            AppData.Insatnce.Options.ThemeKey = selection.ToString();
+            AppData.Insatnce.SetupTheme();
             //AppData.Insatnce.ThemeChangedEvent(ThemeResolver.Insatnce.Resolve(selection));
         }
     }

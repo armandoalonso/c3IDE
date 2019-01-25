@@ -27,7 +27,7 @@
             </UniformGrid>
 
             <TextBox Name="UrlTextBox" DockPanel.Dock="Bottom" Margin="10" MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
-            <TextBlock DockPanel.Dock="Bottom" Style="{StaticResource TextBlockStyle}" Margin="10,0">Addon URL :</TextBlock>
+            <TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource TextBlockStyle}" Margin="10,0">Addon URL :</TextBlock>
 
         </DockPanel>
     </Grid>

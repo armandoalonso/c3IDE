@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using c3IDE.Utilities.SyntaxHighlighting;
+using MahApps.Metro;
 
 namespace c3IDE.Utilities.ThemeEngine
 {
@@ -22,9 +23,10 @@ namespace c3IDE.Utilities.ThemeEngine
                         JsonSyntaxTheme = SyntaxHighlighting.SyntaxHighligtResolver.Insatnce.Resolve("Default Theme", Syntax.Json),
                         SyntaxBackgroundColor = new SolidColorBrush(Colors.White),
                         SyntaxForegroundColor = new SolidColorBrush(Colors.Black),
-
-                        ApplicationForegroundColor = new SolidColorBrush(Colors.Black),
-                        ApplicationBackgroundColor = new SolidColorBrush(Colors.White)
+                        ApplicationTheme = ThemeManager.GetTheme("Light.Blue"),
+                        TextBoxForground = new SolidColorBrush(Colors.Black),
+                        AutoCompleteBackground = new SolidColorBrush(Color.FromRgb(240,240,240)),
+                        ListBoxBorderColor = new SolidColorBrush(Colors.Black)
                     };
                 case ThemeTypes.Monokai:
                     return new Theme
@@ -34,9 +36,10 @@ namespace c3IDE.Utilities.ThemeEngine
                         JsonSyntaxTheme = SyntaxHighlighting.SyntaxHighligtResolver.Insatnce.Resolve("Monokai Theme", Syntax.Json),
                         SyntaxBackgroundColor = new SolidColorBrush(Color.FromRgb(39,40,34)),
                         SyntaxForegroundColor = new SolidColorBrush(Color.FromRgb(248,248,240)),
-
-                        ApplicationForegroundColor = new SolidColorBrush(Colors.White),
-                        ApplicationBackgroundColor = new SolidColorBrush(Color.FromRgb(50, 50, 54)),
+                        ApplicationTheme = ThemeManager.GetTheme("Dark.Blue"),
+                        TextBoxForground = new SolidColorBrush(Colors.White),
+                        AutoCompleteBackground = new SolidColorBrush(Color.FromRgb(50, 50, 50)),
+                        ListBoxBorderColor = new SolidColorBrush(Colors.White)
                     };
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -48,6 +51,5 @@ namespace c3IDE.Utilities.ThemeEngine
     {
         DefaultTheme = 0,
         Monokai = 1
-
     }
 }

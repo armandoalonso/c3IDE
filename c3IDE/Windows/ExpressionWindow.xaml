@@ -23,24 +23,24 @@
             </mah:ChildWindow.OverlayBrush>
 
             <StackPanel>
-                <TextBlock Text="Expression ID:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Expression ID:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ExpressionIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <TextBlock Text="Expression Category:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Expression Category:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ExpressionCategoryText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <TextBlock Text="Return Type:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Return Type:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <ComboBox Name="ReturnTypeDropdown" Margin="5">
                     <ComboBoxItem IsSelected="True">any</ComboBoxItem>
                     <ComboBoxItem>string</ComboBoxItem>
                     <ComboBoxItem>number</ComboBoxItem>
                 </ComboBox>
-                <TextBlock Text="Is Variadic Parameters:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Is Variadic Parameters:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <ComboBox Name="IsVariadicParametersDropdown" Margin="5">
                     <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                     <ComboBoxItem>true</ComboBoxItem>
                 </ComboBox>
-                <TextBlock Text="Translated Name:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Translated Name:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="TranslatedName" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <TextBlock Text="Description:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Description:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="DescriptionText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <Button Content="Save Expression" Margin="5" Click="SaveExpressionButton_Click"></Button>
 
@@ -54,19 +54,19 @@
             </mah:ChildWindow.OverlayBrush>
 
             <StackPanel>
-                <TextBlock Text="Parameter ID:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Parameter ID:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ParamIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <TextBlock Text="Parameter Type:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Parameter Type:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <ComboBox Name="ParamTypeDropdown" Margin="5">
                     <ComboBoxItem IsSelected="True">any</ComboBoxItem>
                     <ComboBoxItem>string</ComboBoxItem>
                     <ComboBoxItem>number</ComboBoxItem>
                 </ComboBox>
-                <TextBlock Text="Inital Value:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Inital Value:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ParamValueText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <TextBlock Text="Parameter Name:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Parameter Name:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ParamNameText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <TextBlock Text="Parameter Description:" Margin="5" Style="{StaticResource TextBlockStyle}"></TextBlock>
+                <TextBlock Text="Parameter Description:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ParamDescText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <Button Content="Add Parameter" Margin="5" Click="SaveParamButton_Click"></Button>
                 <Separator Visibility="Hidden" Height="20"></Separator>
@@ -82,8 +82,8 @@
             </UniformGrid>
             <Button Name="RemoveExpression" Content="RemoveExpression" Margin="2" Click="RemoveExpression_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="AddExpression" Content="Add New Expression" Margin="2" Click="AddExpression_OnClick" DockPanel.Dock="Bottom"></Button>
-            <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black" Style="{StaticResource TextBlockStyle}"> Expressions</TextBlock>
-            <ListBox Name="ExpressionListBox" DockPanel.Dock="Top"  Margin="2"  BorderThickness="1" BorderBrush="Black" ItemsSource="{Binding}"  SelectionChanged="ExpressionListBox_OnSelectionChanged">
+            <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Expressions</TextBlock>
+            <ListBox Name="ExpressionListBox" DockPanel.Dock="Top" Background="{DynamicResource ListBoxBackColor}" Margin="2"  BorderThickness="1" BorderBrush="{DynamicResource ListBoxBorder}" ItemsSource="{Binding}"  SelectionChanged="ExpressionListBox_OnSelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="2">

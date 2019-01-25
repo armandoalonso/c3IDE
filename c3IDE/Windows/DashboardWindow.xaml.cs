@@ -59,10 +59,7 @@ namespace c3IDE.Windows
 
         public void SetupTheme(Theme t)
         {
-            foreach (var textblox in ControlHelper.Insatnce.FindVisualChildren<TextBlock>(this))
-            {
-                textblox.Foreground = t.ApplicationForegroundColor;
-            }    
+  
         }
 
         //file drop

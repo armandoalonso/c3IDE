@@ -43,6 +43,15 @@
                 <Setter Property="ResizeMode" Value="NoResize"></Setter>
                 <Setter Property="BorderThickness" Value="0"></Setter>
             </Style>
+
+            
+            <SolidColorBrush x:Key="ListBoxBorder" Color="Black" />
+            
+            <SolidColorBrush x:Key="ListBoxBackColor" Color="White" />
+            
+            <!--<Style TargetType="{x:Type CodeCompletion:CompletionListBox}">
+                <Setter Property="Background" Value="#505050" />
+            </Style>-->
         </ResourceDictionary>
         
     </Application.Resources>

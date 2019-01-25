@@ -34,6 +34,9 @@ namespace c3IDE
         {
             InitializeComponent();
 
+            //apply default theme
+            AppData.Insatnce.SetupTheme();
+
             //bind notification container
             AppData.Insatnce.InfoMessage = OpenNotification;
             AppData.Insatnce.ErrorMessage = OpenErrorNotification;
@@ -58,13 +61,6 @@ namespace c3IDE
 
         private void SetupTheme(Theme t) 
         {
-            MainGrid.Background = t.ApplicationBackgroundColor;
-
-            //foreach (var tabItem in _addonWindow.Tabs)
-            //{
-            //    tabItem.Background = t.ApplicationBackgroundColor;
-            //    tabItem.Foreground = t.ApplicationForegroundColor;
-            //}
 
             _dashboardWindow.SetupTheme(t);
         }
