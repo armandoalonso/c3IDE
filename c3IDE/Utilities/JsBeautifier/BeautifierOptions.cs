@@ -34,7 +34,7 @@
             PreserveNewlines = true;
             MaxPreserveNewlines = 10.0f;
             JslintHappy = false;
-            BraceStyle = BraceStyle.Collapse;
+            BraceStyle = BraceStyle.Expand;
             KeepArrayIndentation = true;
             KeepFunctionIndentation = false;
             EvalCode = false;

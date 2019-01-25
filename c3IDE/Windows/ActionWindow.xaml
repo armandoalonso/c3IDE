@@ -92,6 +92,8 @@
             </UniformGrid>
             <Button Name="RemoveAction" Content="RemoveAction" Margin="2" Click="RemoveAction_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="AddAction" Content="Add New Action" Margin="2" Click="AddAction_OnClick" DockPanel.Dock="Bottom"></Button>
+            <TextBox Name="ActionCategory" DockPanel.Dock="Bottom" Margin="2"></TextBox>
+            <TextBlock DockPanel.Dock="Bottom" Style="{StaticResource TextBlockStyle}">Category</TextBlock>
             <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Foreground="Black" Style="{StaticResource TextBlockStyle}"> Actions</TextBlock>
             <ListBox Name="ActionListBox" DockPanel.Dock="Top"  Margin="2"  BorderThickness="1" BorderBrush="Black" ItemsSource="{Binding}"  SelectionChanged="ActionListBox_OnSelectionChanged">
                 <ListBox.ItemTemplate>

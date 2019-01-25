@@ -312,7 +312,7 @@ namespace c3IDE.Windows
         private void ExportAddon(C3Addon addon)
         {
             var addonJson = JsonConvert.SerializeObject(addon);
-            var timestamp = DateTime.Now.ToString("MMddyyyyHHmmssfff");
+            var timestamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
             ProcessHelper.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.ExportPath, $"{addon.Class}_{timestamp}.c3ide"), addonJson);
             ProcessHelper.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
         }
@@ -356,5 +356,62 @@ namespace c3IDE.Windows
             }
         }
 
+        private void UpdateAddonButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1 && AppData.Insatnce.CurrentAddon != null)
+            {
+                AppData.Insatnce.ErrorMessage("error removing c3addon, no c3addon selected");
+                return;
+            }
+            var currentAddon = AppData.Insatnce.CurrentAddon;
+
+            //previous values
+            var addonclass = currentAddon.Class;
+            var name = currentAddon.Name;
+            var company = currentAddon.Company;
+            var author = currentAddon.Author;
+            var version = currentAddon.Version;
+            var description = currentAddon.Description;
+            var addonid = $"{company}_{addonclass}";
+                
+            //update addon
+            currentAddon.Name = AddonNameText.Text;
+            currentAddon.Class = AddonClassText.Text;
+            currentAddon.Company = CompanyNameText.Text;
+            currentAddon.Author = AuthorText.Text;
+            currentAddon.Version = VersionText.Text;
+            currentAddon.Description = DescriptionText.Text;
+            currentAddon.IconXml = IconXml;
+            var newid = $"{CompanyNameText.Text}_{AddonClassText.Text}";
+
+            //update files
+            currentAddon.AddonJson = currentAddon.AddonJson.Replace(addonclass, currentAddon.Class);
+            currentAddon.AddonJson = currentAddon.AddonJson.Replace(name, currentAddon.Name);
+            currentAddon.AddonJson = currentAddon.AddonJson.Replace(company, currentAddon.Company);
+            currentAddon.AddonJson = currentAddon.AddonJson.Replace(author, currentAddon.Author);
+            currentAddon.AddonJson = currentAddon.AddonJson.Replace(version, currentAddon.Version);
+            currentAddon.AddonJson = currentAddon.AddonJson.Replace(description, currentAddon.Description);
+
+            currentAddon.PluginEditTime = currentAddon.PluginEditTime.Replace(addonid, newid);
+            currentAddon.PluginEditTime = currentAddon.PluginEditTime.Replace($"{addonclass}Plugin", $"{currentAddon.Class}Plugin");
+            currentAddon.PluginEditTime = currentAddon.PluginEditTime.Replace($"{addonclass}Behavior", $"{currentAddon.Class}Behavior");
+            currentAddon.PluginRunTime = currentAddon.PluginRunTime.Replace(addonid, newid);
+            currentAddon.PluginRunTime = currentAddon.PluginRunTime.Replace($"{addonclass}Plugin", $"{currentAddon.Class}Plugin");
+            currentAddon.PluginRunTime = currentAddon.PluginRunTime.Replace($"{addonclass}Behavior", $"{currentAddon.Class}Behavior");
+
+            currentAddon.TypeEditTime = currentAddon.TypeEditTime.Replace(addonid, newid);
+            currentAddon.TypeEditTime = currentAddon.TypeEditTime.Replace($"{addonclass}Type", $"{currentAddon.Class}Type");
+            currentAddon.TypeRunTime =  currentAddon.TypeRunTime.Replace(addonid, newid);
+            currentAddon.TypeRunTime =  currentAddon.TypeRunTime.Replace($"{addonclass}Type", $"{currentAddon.Class}Type");
+
+            currentAddon.InstanceEditTime = currentAddon.InstanceEditTime.Replace(addonid, newid);
+            currentAddon.InstanceEditTime = currentAddon.InstanceEditTime.Replace($"{addonclass}Instance", $"{currentAddon.Class}Instance");
+            currentAddon.InstanceRunTime =  currentAddon.InstanceRunTime.Replace(addonid, newid);
+            currentAddon.InstanceRunTime =  currentAddon.InstanceRunTime.Replace($"{addonclass}Instance", $"{currentAddon.Class}Instance");
+
+            DataAccessFacade.Insatnce.AddonData.Upsert(currentAddon);
+            AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
+            AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
+        }
     }
 }

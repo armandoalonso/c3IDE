@@ -80,13 +80,16 @@
                 <Image Name="AddonIcon" DockPanel.Dock="Right" Height="150" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop"></Image>
             </DockPanel>
 
-            <Button Name="CreateAddonButton" Content="Create Addon" Margin="7" Click="CreateAddonButton_OnClick" ></Button>
-            <Button Name="LoadAddonButton" Content="Load Addon" Margin="7" Click="LoadAddonButton_OnClick" ></Button>
-            <Button Name="ClearInputsButton" Content="Clear Inputs" Margin="7" Click="ClearInputsButton_OnClick" ></Button>
-            <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="7" Click="RemoveAddonButton_OnClick" ></Button>
-            <Button Name="ExportAddonButton" Content="Export Addon" Margin="7" Click="ExportAddonButton_OnClick" ></Button>
-            <Button Name="ExportFolderButton" Content="Open Export Folder" Margin="7" Click="ExportFolderButton_OnClick" ></Button>
-            <Button Name="CreateC3AddonButton" Content="Create C3Addon File" Margin="7" Click="CreateC3AddonButton_OnClick"></Button>
+            <UniformGrid Columns="2">
+                <Button Name="CreateAddonButton" Content="Create Addon" Margin="5" Click="CreateAddonButton_OnClick" ></Button>
+                <Button Name="LoadAddonButton" Content="Load Addon" Margin="5" Click="LoadAddonButton_OnClick" ></Button>
+                <Button Name="UpdateAddonButton" Content="Update Addon" Margin="5" Click="UpdateAddonButton_OnClick" ></Button>
+                <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="5" Click="RemoveAddonButton_OnClick" ></Button>
+                <Button Name="ExportAddonButton" Content="Export Addon" Margin="5" Click="ExportAddonButton_OnClick" ></Button>
+                <Button Name="ExportFolderButton" Content="Open Export Folder" Margin="5" Click="ExportFolderButton_OnClick" ></Button>
+                <Button Name="CreateC3AddonButton" Content="Create C3Addon File" Margin="5" Click="CreateC3AddonButton_OnClick"></Button>
+                <Button Name="ClearInputsButton" Content="Clear Inputs" Margin="5" Click="ClearInputsButton_OnClick" ></Button>
+            </UniformGrid>
         </StackPanel>
     </Grid>
 </UserControl>
