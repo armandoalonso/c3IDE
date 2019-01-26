@@ -32,6 +32,8 @@
                         <MenuItem Header="Load Addon" Click="LoadAddonMenu_OnClick" />
                         <MenuItem Header="Remove Addon" Click="RemoveAddonMenu_OnClick" />
                         <MenuItem Header="Export Project" Click="ExportProjectMenu_OnClick" />
+                        <MenuItem Header="Duplicate Project" Click="DuplicateProjectMenu_OnClick" />
+                        <MenuItem Header="Open In Other Instance" Click="OtherInstanceOpenMenu_OnClick" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>

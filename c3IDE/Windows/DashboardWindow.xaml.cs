@@ -414,5 +414,27 @@ namespace c3IDE.Windows
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
             AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
         }
+
+        private void DuplicateProjectMenu_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                AppData.Insatnce.ErrorMessage("error duplicating c3addon, no c3addon selected");
+                return;
+            }
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            currentAddon.Id = Guid.NewGuid();
+
+            DataAccessFacade.Insatnce.AddonData.Upsert(currentAddon);
+            AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
+            AddonListBox.ItemsSource = AppData.Insatnce.AddonList;
+            AppData.Insatnce.InfoMessage($"{currentAddon.Name} duplicated successfully...");
+            ResetInputs();
+        }
+
+        private void OtherInstanceOpenMenu_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
