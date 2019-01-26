@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace c3IDE.Utilities.Helpers
@@ -29,5 +30,16 @@ namespace c3IDE.Utilities.Helpers
                 }
             }
         }
+
+        public void PopulateComboBox(ComboBox cmbBox, params object[] items)
+        {
+            foreach (var item in items)
+            {
+                cmbBox.Items.Add(item);
+            }
+            cmbBox.Items.Refresh();
+        }
     }
+
+
 }

@@ -310,7 +310,11 @@ namespace c3IDE.Windows
         {
             var addonJson = JsonConvert.SerializeObject(addon);
             var timestamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-            ProcessHelper.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.ExportPath, $"{addon.Class}_{timestamp}.c3ide"), addonJson);
+            var name = AppData.Insatnce.Options.IncludeTimeStampOnExport
+                ? $"{addon.Class}_{timestamp}.c3ide"
+                : $"{addon.Class}.c3ide";
+
+            ProcessHelper.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.ExportPath, name), addonJson);
             ProcessHelper.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
         }
 

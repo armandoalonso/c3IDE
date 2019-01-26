@@ -26,6 +26,7 @@ namespace c3IDE.Models
         public string DefaultCompany { get; set; }
         public string DefaultAuthor { get; set; }
         public string ThemeKey { get; set; }
+        public bool IncludeTimeStampOnExport { get; set; }
 
         [BsonIgnore]
         public Theme ApplicationTheme => ThemeResolver.Insatnce.Resolve(ThemeKey);

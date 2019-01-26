@@ -36,40 +36,13 @@ namespace c3IDE.Windows
         public OptionsWindow()
         {
             InitializeComponent();
-            FontSizeCombo.Items.Add(8f);
-            FontSizeCombo.Items.Add(9f);
-            FontSizeCombo.Items.Add(10f);
-            FontSizeCombo.Items.Add(11f);
-            FontSizeCombo.Items.Add(12f);
-            FontSizeCombo.Items.Add(13f);
-            FontSizeCombo.Items.Add(14f);
-            FontSizeCombo.Items.Add(15f);
-            FontSizeCombo.Items.Add(16f);
-            FontSizeCombo.Items.Add(17f);
-            FontSizeCombo.Items.Add(18f);
-            FontSizeCombo.Items.Add(19f);
-            FontSizeCombo.Items.Add(20f);
-            FontSizeCombo.Items.Add(21f);
-            FontSizeCombo.Items.Add(22f);
-            FontSizeCombo.Items.Add(23f);
-            FontSizeCombo.Items.Add(24f);
-            FontSizeCombo.Items.Add(25f);
-            FontFamilyCombo.Items.Add("Consolas");
-            FontFamilyCombo.Items.Add("Calibri");
-            FontFamilyCombo.Items.Add("Cambria");
-            FontFamilyCombo.Items.Add("Candara");
-            FontFamilyCombo.Items.Add("Constantia");
-            FontFamilyCombo.Items.Add("Corbel");
-            FontFamilyCombo.Items.Add("Lucida Console, Monaco, monospace");
-            FontFamilyCombo.Items.Add("Courier New, Courier, monospace");
-            FontFamilyCombo.Items.Add("Arial, Helvetica, sans-serif");
-            FontFamilyCombo.Items.Add("Courier New");
-            FontFamilyCombo.Items.Add("Georgia, serif");
-            FontFamilyCombo.Items.Add("Trebuchet MS, Helvetica, sans-serif");
-            FontFamilyCombo.Items.Add("Verdana, Geneva, sans-serif");
-            FontFamilyCombo.Items.Add("Tahoma, Geneva, sans-serif");
-            FontFamilyCombo.Items.Add("Palatino Linotype, Book Antiqua, Palatino, serif");
-            FontFamilyCombo.Items.Add("Lucida Sans Unicode, Lucida Grande, sans-serif");
+            ControlHelper.Insatnce.PopulateComboBox(FontSizeCombo, 
+                8f, 9f, 10f, 11f, 12f, 13f, 14f, 15f, 16f, 17f ,18f, 19f, 20f, 21f, 22f, 23f, 24f, 25f);
+
+            ControlHelper.Insatnce.PopulateComboBox(FontFamilyCombo, "Consolas", "Calibri", "Cambria", "Candara",
+                "Constantia", "Corbel", "Lucida Console, Monaco, monospace", "Courier New, Courier, monospace", "Arial, Helvetica, sans-serif",
+                "Courier New", "Georgia, serif", "Trebuchet MS, Helvetica, sans-serif", "Verdana, Geneva, sans-serif", "Tahoma, Geneva, sans-serif",
+                "Palatino Linotype, Book Antiqua, Palatino, serif", "Lucida Sans Unicode, Lucida Grande, sans-serif");
         }
 
         //window states
@@ -84,6 +57,7 @@ namespace c3IDE.Windows
             FontSizeCombo.Text = AppData.Insatnce.Options.FontSize.ToString();
             FontFamilyCombo.Text = AppData.Insatnce.Options.FontFamily;
             ThemeCombo.Text = AppData.Insatnce.Options.ThemeKey;
+            IncludeTimeStamp.IsChecked = AppData.Insatnce.Options.IncludeTimeStampOnExport;
         }
 
         public void OnExit()
@@ -101,6 +75,7 @@ namespace c3IDE.Windows
                     FontSize = Convert.ToDouble(FontSizeCombo.Text),
                     FontFamily = !string.IsNullOrWhiteSpace(FontFamilyCombo.Text) ? FontFamilyCombo.Text : App.DefaultOptions.FontFamily,
                     ThemeKey = !string.IsNullOrWhiteSpace(ThemeCombo.Text) ? ThemeCombo.Text : App.DefaultOptions.ThemeKey,
+                    IncludeTimeStampOnExport = IncludeTimeStamp.IsChecked != null && IncludeTimeStamp.IsChecked.Value
                 };
 
                 //create exports folder if it does not exists

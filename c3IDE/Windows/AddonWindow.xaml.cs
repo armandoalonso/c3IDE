@@ -221,7 +221,13 @@ namespace c3IDE.Windows
         }
 
         private void RemoveFile_OnClick(object sender, RoutedEventArgs e)
-        {         
+        {
+            if (FileListBox.SelectedIndex == -1)
+            {
+                AppData.Insatnce.ErrorMessage("failed to remove file, no file selected");
+                return;
+            }
+
             _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
             if (_selectedFile != null)
             {
@@ -324,14 +330,61 @@ namespace c3IDE.Windows
             AddonTextEditor.Text = AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text);
         }
 
-        private void AddFileMenu_OnClick(object sender, RoutedEventArgs e)
+        private async void AddFileMenu_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            //todo: remove duplicate code
+            var filename = await AppData.Insatnce.ShowInputDialog("New File Name?", "please enter the name for the new javascript file", "javascriptFile.js");
+            if (string.IsNullOrWhiteSpace(filename)) return;
+
+            _files.Add(filename, new ThirdPartyFile
+            {
+                Content = string.Empty,
+                FileName = filename,
+                PluginTemplate = $@"{{
+	filename: ""c3runtime/{filename}"",
+	type: ""inline-script""
+}}"
+            });
+
+            AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
+        ""c3runtime/{filename}"","));
+
+            //add
+            FileListBox.Items.Refresh();
+            FileListBox.SelectedIndex = _files.Count - 1;
+            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
+            FileTextEditor.Text = _selectedFile.Content;
         }
 
         private void RemoveFileMenu_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (FileListBox.SelectedIndex == -1)
+            {
+                AppData.Insatnce.ErrorMessage("failed to remove file, no file selected");
+                return;
+            }
+
+            //todo: remove duplicate code
+            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
+            if (_selectedFile != null)
+            {
+                _files.Remove(_selectedFile.FileName);
+                FileListBox.ItemsSource = _files;
+                FileListBox.Items.Refresh();
+
+                AppData.Insatnce.CurrentAddon.ThirdPartyFiles = _files;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+                AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
+
+                //clear editors
+                FileTextEditor.Text = string.Empty;
+                AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace($@"""c3runtime/{_selectedFile.FileName}"",", string.Empty));
+                _selectedFile = null;
+            }
+            else
+            {
+                AppData.Insatnce.ErrorMessage("failed to remove action, no 3rd party files selected");
+            }
         }
 
         private void FormatJavascriptMenu_OnClick(object sender, RoutedEventArgs e)

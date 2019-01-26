@@ -46,6 +46,7 @@ namespace c3IDE
                 C3AddonPath = defaultC3AddonPath,
                 DefaultCompany = "c3IDE",
                 DefaultAuthor = "c3IDE",
+                IncludeTimeStampOnExport = true,
                 FontSize = 12,
                 FontFamily = "Consolas",
                 ThemeKey = "Default Theme"
@@ -72,16 +73,16 @@ namespace c3IDE
             if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.ThemeKey)) AppData.Insatnce.Options.ThemeKey = DefaultOptions.ThemeKey;
 
             //create exmaple projects if they don't exists
-            var examples = new string[] {"Example_Log.c3ide", "Example_FSM.c3ide" };
-            foreach (var example in examples)
-            {
-                var path = Path.Combine(AppData.Insatnce.Options.ExportPath, example);
-                if (!System.IO.File.Exists(path))
-                {
-                    var data = ResourceReader.Insatnce.GetResourceText($"c3IDE.Examples.{example}");
-                    ProcessHelper.Insatnce.WriteFile(path, data);
-                }
-            }
+            //var examples = new string[] {"Example_Log.c3ide", "Example_FSM.c3ide" };
+            //foreach (var example in examples)
+            //{
+            //    var path = Path.Combine(AppData.Insatnce.Options.ExportPath, example);
+            //    if (!System.IO.File.Exists(path))
+            //    {
+            //        var data = ResourceReader.Insatnce.GetResourceText($"c3IDE.Examples.{example}");
+            //        ProcessHelper.Insatnce.WriteFile(path, data);
+            //    }
+            //}
         }
 
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
