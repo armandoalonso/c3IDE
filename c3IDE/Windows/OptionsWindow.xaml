@@ -50,8 +50,8 @@
             </UniformGrid>
             <Separator Visibility="Hidden" Height="5" />
 
-            <UniformGrid Columns="3">
-                <CheckBox Name="IncludeTimeStamp">Include Timestamp On Export</CheckBox>
+            <UniformGrid Columns="2">
+                <CheckBox Name="IncludeTimeStamp" FontFamily="Century Gothic" FontSize="16">Include Timestamp On Export</CheckBox>
             </UniformGrid>
         </StackPanel>
 
