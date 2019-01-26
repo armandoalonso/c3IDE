@@ -85,6 +85,33 @@ namespace c3IDE
             //}
         }
 
+        public void App_Startup(object sender, StartupEventArgs e)
+        {
+            try
+            {
+                //process command line args
+                var args = e.Args;
+                if (args.Any())
+                {
+                    var gui = Guid.Parse(args[0].ToString());
+                    var addon = DataAccessFacade.Insatnce.AddonData.Get(x => x.Id == gui).FirstOrDefault();
+
+                    if (addon != null)
+                    {
+                        AppData.Insatnce.CurrentAddon = addon;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.Insatnce.Exceptions.Add(ex);
+            }
+
+            //always start main window
+            //MainWindow main = new MainWindow();
+            //main.Show();
+        }
+
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             //create log

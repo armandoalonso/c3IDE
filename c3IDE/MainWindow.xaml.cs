@@ -16,7 +16,7 @@ namespace c3IDE
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private readonly DashboardWindow _dashboardWindow = new DashboardWindow();
+        private readonly DashboardWindow _dashboardWindow;
         private readonly AddonWindow _addonWindow = new AddonWindow();
         private readonly PluginWindow _pluginWindow = new PluginWindow();
         private readonly TypeWindow _typeWindow = new TypeWindow();
@@ -46,12 +46,11 @@ namespace c3IDE
 
             //load data
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
-            AppData.Insatnce.CurrentAddon = null;
             AppData.Insatnce.ShowDialog = ShowDialogBox;
             AppData.Insatnce.ShowInputDialog = ShowInputDialogBox;
 
             //setup load action callback
-            _dashboardWindow.AddonLoaded = AddonLoadDelegate;
+            _dashboardWindow = new DashboardWindow { AddonLoaded = AddonLoadDelegate };
 
             //setup default view
             ActiveItem.Content = _dashboardWindow;

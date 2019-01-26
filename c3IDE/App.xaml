@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:c3IDE"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:CodeCompletion="clr-namespace:ICSharpCode.AvalonEdit.CodeCompletion;assembly=ICSharpCode.AvalonEdit"
-             StartupUri="MainWindow.xaml">
+             StartupUri="MainWindow.xaml" Startup="App_Startup">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
