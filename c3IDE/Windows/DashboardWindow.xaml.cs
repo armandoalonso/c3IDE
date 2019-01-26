@@ -434,7 +434,14 @@ namespace c3IDE.Windows
 
         private void OtherInstanceOpenMenu_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                AppData.Insatnce.ErrorMessage("error duplicating c3addon, no c3addon selected");
+                return;
+            }
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            var currentAppPath = System.Reflection.Assembly.GetEntryAssembly().Location;
+            ProcessHelper.Insatnce.StartProcess(currentAppPath, currentAddon.Id.ToString());
         }
     }
 }

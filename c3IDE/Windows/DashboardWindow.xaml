@@ -87,6 +87,8 @@
                 <Button Name="LoadAddonButton" Content="Load Addon" Margin="5" Click="LoadAddonButton_OnClick" ></Button>
                 <Button Name="UpdateAddonButton" Content="Update Addon" Margin="5" Click="UpdateAddonButton_OnClick" ></Button>
                 <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="5" Click="RemoveAddonButton_OnClick" ></Button>
+                <Button Name="DuplicateAddonButton" Content="Duplicate Addon" Margin="5" Click="DuplicateProjectMenu_OnClick" ></Button>
+                <Button Name="OpenOtherInstanceButton" Content="Open Addon In New Instance" Margin="5" Click="OtherInstanceOpenMenu_OnClick" ></Button>
                 <Button Name="ExportAddonButton" Content="Export Addon" Margin="5" Click="ExportAddonButton_OnClick" ></Button>
                 <Button Name="ExportFolderButton" Content="Open Export Folder" Margin="5" Click="ExportFolderButton_OnClick" ></Button>
                 <Button Name="CreateC3AddonButton" Content="Create C3Addon File" Margin="5" Click="CreateC3AddonButton_OnClick"></Button>
