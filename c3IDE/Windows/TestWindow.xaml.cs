@@ -53,13 +53,10 @@ namespace c3IDE.Windows
             StopWebServerButton.IsEnabled = true;
             StartAndTestButton.IsEnabled = false;
 
-            await Task.Run(() =>
-            {
-                AddonCompiler.Insatnce.CompileAddon(AppData.Insatnce.CurrentAddon);
-            });
+            var isValid = await AddonCompiler.Insatnce.CompileAddon(AppData.Insatnce.CurrentAddon);
 
             //there was an error detected in complication
-            if (!AddonCompiler.Insatnce.IsCompilationValid)
+            if (!isValid)
             {
                 //TODO: error notification
                 StopWebServerButton.IsEnabled = false;
@@ -68,8 +65,6 @@ namespace c3IDE.Windows
             }
 
             UrlTextBox.Text = $"http://localhost:8080/{AppData.Insatnce.CurrentAddon.Class.ToLower()}/addon.json";
-
-            //add url to clipboard
             Clipboard.SetText(UrlTextBox.Text);
         }
 

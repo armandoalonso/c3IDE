@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace c3IDE.Models
 {
-    public class C3Addon
+    public class C3Addon : IEquatable<C3Addon>
     {
         [BsonId]
         public Guid Id { get; set; }
@@ -61,6 +61,26 @@ namespace c3IDE.Models
         public Dictionary<string, Condition> Conditions { get; set; }
         public Dictionary<string, Expression> Expressions { get; set; }
         public Dictionary<string, ThirdPartyFile> ThirdPartyFiles { get; set; }
+
+        public bool Equals(C3Addon other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id.Equals(other.Id);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((C3Addon)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }
 

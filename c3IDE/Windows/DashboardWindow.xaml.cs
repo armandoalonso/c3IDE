@@ -44,6 +44,23 @@ namespace c3IDE.Windows
             AddonTypeDropdown.ItemsSource = Enum.GetValues(typeof(PluginType));
             AddonTypeDropdown.SelectedIndex = -1;
             ResetInputs();
+
+            //load addon if it was passed through cmd args
+            if (AppData.Insatnce.CurrentAddon.Id != Guid.Empty)
+            {
+                LoadAddon(AppData.Insatnce.CurrentAddon);
+                for (int i = 0; i < AppData.Insatnce.AddonList.Count; i++)
+                {
+                    if (AppData.Insatnce.AddonList[i].Equals(AppData.Insatnce.CurrentAddon))
+                    {
+                        AddonListBox.SelectedIndex = i;
+                    }
+                }
+            }
+            else
+            {
+                AppData.Insatnce.CurrentAddon = null;
+            }
         }
 
         //window states

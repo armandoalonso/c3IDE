@@ -23,7 +23,7 @@ namespace c3IDE.Compiler
         public WebServerClient WebServer { get; set; }
         public bool IsCompilationValid { get; set; }
 
-        public void CompileAddon(C3Addon addon, bool startWebServer = true)
+        public async Task<bool> CompileAddon(C3Addon addon, bool startWebServer = true)
         {
             _log = new CompilerLog(UpdateLogText);
 
@@ -33,7 +33,7 @@ namespace c3IDE.Compiler
                 if (!vaild)
                 {
                     IsCompilationValid = false;
-                    return;
+                    return false;
                 }
                 IsCompilationValid = true;
 
@@ -148,10 +148,23 @@ namespace c3IDE.Compiler
                 _log.Insert($"writing file => icon.svg");
                 _log.Insert($"compilation complete...");
 
+            }
+            catch (Exception ex)
+            {
+                IsCompilationValid = false;
+                LogManager.Insatnce.Exceptions.Add(ex);
+                _log.Insert($"compilation terminated due to error...");
+                _log.Insert($"error => {ex.Message}");
+                return false;
+            }
+
+            //try and start the web server
+            try
+            {
                 if (startWebServer)
                 {
                     //start web server installation
-                    Task.Run(() =>
+                    await Task.Run(() =>
                     {
                         WebServer = new WebServerClient();
                         WebServer.Start(_log);
@@ -160,10 +173,13 @@ namespace c3IDE.Compiler
             }
             catch (Exception ex)
             {
+                IsCompilationValid = false;
                 LogManager.Insatnce.Exceptions.Add(ex);
-                _log.Insert($"compilation terminated due to error...");
-                _log.Insert($"error => {ex.Message}");
+                _log.Insert($"web server failed to start...");
+                return false;
             }
+
+            return true;
         }
 
         private bool ValidateFiles(C3Addon addon)
