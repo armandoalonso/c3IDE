@@ -406,6 +406,17 @@ namespace c3IDE.Windows
             }          
         }
 
+        public void Clear()
+        {
+            _actions = new Dictionary<string, Action>();
+            _selectedAction = null;
+            ActionListBox.ItemsSource = null;
+            AceTextEditor.Text = string.Empty;
+            CodeTextEditor.Text = string.Empty;
+            LanguageTextEditor.Text = string.Empty;
+            Category.Text = string.Empty;
+        }
+
         public void SetupTheme(Theme t)
         {
             

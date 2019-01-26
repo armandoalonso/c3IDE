@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using c3IDE.Compiler;
 using c3IDE.DataAccess;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Windows;
+using c3IDE.Windows.Interfaces;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Theme = c3IDE.Utilities.ThemeEngine.Theme;
@@ -275,6 +277,12 @@ namespace c3IDE
 
         public void AddonLoadDelegate()
         {
+            //clear out all addons
+            foreach (IWindow window in new List<IWindow> {_addonWindow, _actionWindow, _conditionWindow, _expressionWindow, _pluginWindow, _typeWindow, _instanceWindow})
+            {
+                window.Clear();
+            }
+
             var addon = AppData.Insatnce.CurrentAddon;
             CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("addonjs", addon.AddonJson);
             CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_pluginjs", addon.PluginRunTime);

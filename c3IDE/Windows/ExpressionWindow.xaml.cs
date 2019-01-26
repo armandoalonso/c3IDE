@@ -480,6 +480,17 @@ namespace c3IDE.Windows
             }
         }
 
+        public void Clear()
+        {
+            _expressions = new Dictionary<string, Expression>();
+            _selectedExpression = null;
+            ExpressionListBox.ItemsSource = null;
+            AceTextEditor.Text = string.Empty;
+            CodeTextEditor.Text = string.Empty;
+            LanguageTextEditor.Text = string.Empty;
+            Category.Text = string.Empty;
+        }
+
         public void SetupTheme(Theme t)
         {
             

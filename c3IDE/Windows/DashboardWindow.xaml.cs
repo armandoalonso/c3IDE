@@ -74,6 +74,11 @@ namespace c3IDE.Windows
             
         }
 
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetupTheme(Theme t)
         {
   

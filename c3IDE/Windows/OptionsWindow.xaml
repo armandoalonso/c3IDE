@@ -50,7 +50,12 @@
             </UniformGrid>
             <Separator Visibility="Hidden" Height="5" />
 
+            <TextBlock  Style="{DynamicResource TextBlockStyle}">Construct 3 Desktop Path :</TextBlock>
+            <TextBox Name="C3DesktopPathText" Text=""></TextBox>
+            <Separator Visibility="Hidden" Height="5" />
+
             <UniformGrid Columns="2">
+                <CheckBox Name="OpenC3InWeb" FontFamily="Century Gothic" FontSize="16">Open Construct 3 On Web</CheckBox>
                 <CheckBox Name="IncludeTimeStamp" FontFamily="Century Gothic" FontSize="16">Include Timestamp On Export</CheckBox>
             </UniformGrid>
         </StackPanel>

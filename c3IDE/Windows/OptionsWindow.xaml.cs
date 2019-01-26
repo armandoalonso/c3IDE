@@ -58,6 +58,8 @@ namespace c3IDE.Windows
             FontFamilyCombo.Text = AppData.Insatnce.Options.FontFamily;
             ThemeCombo.Text = AppData.Insatnce.Options.ThemeKey;
             IncludeTimeStamp.IsChecked = AppData.Insatnce.Options.IncludeTimeStampOnExport;
+            OpenC3InWeb.IsChecked = AppData.Insatnce.Options.OpenC3InWeb;
+            C3DesktopPathText.Text = AppData.Insatnce.Options.C3DesktopPath;
         }
 
         public void OnExit()
@@ -75,7 +77,9 @@ namespace c3IDE.Windows
                     FontSize = Convert.ToDouble(FontSizeCombo.Text),
                     FontFamily = !string.IsNullOrWhiteSpace(FontFamilyCombo.Text) ? FontFamilyCombo.Text : App.DefaultOptions.FontFamily,
                     ThemeKey = !string.IsNullOrWhiteSpace(ThemeCombo.Text) ? ThemeCombo.Text : App.DefaultOptions.ThemeKey,
-                    IncludeTimeStampOnExport = IncludeTimeStamp.IsChecked != null && IncludeTimeStamp.IsChecked.Value
+                    IncludeTimeStampOnExport = IncludeTimeStamp.IsChecked != null && IncludeTimeStamp.IsChecked.Value,
+                    OpenC3InWeb = OpenC3InWeb.IsChecked != null && OpenC3InWeb.IsChecked.Value,
+                    C3DesktopPath = C3DesktopPathText.Text
                 };
 
                 //create exports folder if it does not exists
@@ -87,6 +91,10 @@ namespace c3IDE.Windows
                 //persist options
                 DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
             }
+        }
+
+        public void Clear()
+        {
         }
 
         public void SetupTheme(Theme t)

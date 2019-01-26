@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using c3IDE.Compiler;
 using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Logging;
 using c3IDE.Windows.Interfaces;
 using MahApps.Metro.Controls;
 using c3IDE.Utilities.ThemeEngine;
@@ -82,7 +83,27 @@ namespace c3IDE.Windows
 
         private void OpenConstructButton_Click(object sender, RoutedEventArgs e)
         {
-            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/");
+            if (AppData.Insatnce.Options.OpenC3InWeb)
+            {
+                ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/");
+            }
+            else
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(AppData.Insatnce.Options.C3DesktopPath))
+                    {
+                        throw new InvalidOperationException("Construct 3 Desktop Path is Invalid");
+                    }
+
+                    ProcessHelper.Insatnce.StartProcess(AppData.Insatnce.Options.C3DesktopPath);
+                }
+                catch (Exception ex)
+                {
+                    LogManager.Insatnce.Exceptions.Add(ex);
+                    AppData.Insatnce.ErrorMessage("Invalid C3 desktop path, please check plath in options");
+                }
+            }
         }
 
         private void OpenConstructSafeButton_Click(object sender, RoutedEventArgs e)
@@ -99,6 +120,11 @@ namespace c3IDE.Windows
         public void OnExit()    
         {
             
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
         }
 
         public void SetupTheme(Theme t)

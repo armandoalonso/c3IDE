@@ -425,6 +425,17 @@ namespace c3IDE.Windows
 
         }
 
+        public void Clear()
+        {
+            _conditions = new Dictionary<string, Condition>();
+            _selectedCondition = null;
+            ConditionListBox.ItemsSource = null;
+            AceTextEditor.Text = string.Empty;
+            CodeTextEditor.Text = string.Empty;
+            LanguageTextEditor.Text = string.Empty;
+            Category.Text = string.Empty;
+        }
+
         public void SetupTheme(Theme t)
         {
           

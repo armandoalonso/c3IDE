@@ -7,6 +7,7 @@ namespace c3IDE.Windows.Interfaces
         string DisplayName { get; set; }
         void OnEnter();
         void OnExit();
+        void Clear();
         void SetupTheme(Theme t);
     }
 }

@@ -64,6 +64,12 @@ namespace c3IDE.Windows
             }
         }
 
+        public void Clear()
+        {
+            PropertyLanguageTextEditor.Text = string.Empty;
+            CategoryLanguageTextEditor.Text = string.Empty;
+        }
+
         public void SetupTheme(Theme t)
         {
            

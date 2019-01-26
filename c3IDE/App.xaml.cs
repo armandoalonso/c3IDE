@@ -49,7 +49,9 @@ namespace c3IDE
                 IncludeTimeStampOnExport = true,
                 FontSize = 12,
                 FontFamily = "Consolas",
-                ThemeKey = "Default Theme"
+                ThemeKey = "Default Theme",
+                OpenC3InWeb = true,
+                C3DesktopPath = string.Empty
             };
 
             //create exports folder if it does not exists

@@ -225,6 +225,12 @@ namespace c3IDE.Windows
             }
         }
 
+        public void Clear()
+        {
+            EditTimeInstanceTextEditor.Text = string.Empty;
+             RunTimeInstanceTextEditor.Text = string.Empty;
+        }
+
         public void SetupTheme(Theme t)
         {
             

@@ -189,6 +189,16 @@ namespace c3IDE.Windows
             }
         }
 
+        public void Clear()
+        {
+            _files = new Dictionary<string, ThirdPartyFile>();
+            _selectedFile = null;
+            FileListBox.ItemsSource = null;
+            FileTextEditor.Text = string.Empty;
+
+            AddonTextEditor.Text = string.Empty;
+        }
+
         public void SetupTheme(Theme t)
         {
             
