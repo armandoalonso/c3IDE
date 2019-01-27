@@ -140,5 +140,17 @@ namespace c3IDE.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public Condition Copy(string newId)
+        {
+            Condition ace = (Condition)this.MemberwiseClone();
+            var oldId = ace.Id;
+            var oldScript = ace.ScriptName;
+            ace.Id = newId;
+            ace.Ace = ace.Ace.Replace(oldId, newId);
+            ace.Language = ace.Language.Replace(oldId, newId);
+            ace.Code = ace.Code.Replace(oldScript, ace.ScriptName);
+            return ace;
+        }
     }
 }

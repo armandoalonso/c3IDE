@@ -99,6 +99,7 @@
                         <MenuItem Header="Add Expression" Click="AddExpression_OnClick" />
                         <MenuItem Header="Remove Expression" Click="RemoveExpression_OnClick" />
                         <MenuItem Header="Change Expression Category" Click="ChangeCategory_OnClick" />
+                        <MenuItem Header="Duplicate Expression" Click="DuplicateAce_OnClick" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>

@@ -547,6 +547,17 @@ namespace c3IDE.Windows
             {
                 var newId = await AppData.Insatnce.ShowInputDialog("New Action ID", "enter new action id", string.Empty);
 
+                if (_actions.ContainsKey(newId))
+                {
+                    AppData.Insatnce.ErrorMessage("failed to duplicate action, action id already exists");
+                    return;
+                }
+
+                _selectedAction.Ace = AceTextEditor.Text;
+                _selectedAction.Language = LanguageTextEditor.Text;
+                _selectedAction.Code = CodeTextEditor.Text;
+                _selectedAction.Category = Category.Text;
+
                 if (!string.IsNullOrWhiteSpace(newId))
                 {
                     var newAction = _selectedAction.Copy(newId.Replace(" ", "-"));
