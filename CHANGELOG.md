@@ -1,5 +1,5 @@
 
-#c3IDE - CHANGE LOG
+# c3IDE - CHANGE LOG
 
 #### Build# 1.0.019  (01/27/2019)
 * Added duplicate action function to context menu.
