@@ -24,9 +24,8 @@ The Dashboard is the main window that starts up when you first load load applica
 To create a new addon, you have to fill out the information under Addon Data, and then press the "Create Addon" button.
 
 - **Addon Name** : This is the name of the Addon, This value can include spaces. 
-- **Addon Class Name**: This is one part of the the Addon Identifier and is used to prefix a few of the javascript class. This value cannot have any spaces
-- **Company Name**: This is the name of your company. This value will be combined with the class name to form the addon's ID *Company_Class*. 
-- **Author** - Is the name of the author that will be placed in the Addon.json files
+- **Addon Class Name**: This is one part of the the Addon Identifier and is used to prefix a few of the javascript class. This value cannot have any spaces 
+- **Author** - This is the name of the author. This value will be combined with the class name to form the addon's ID *Author_Class*, and is the name of the author that will be placed in the Addon.json files
 - **Version** - Is the current version of your addon.
 - **Addon Type** - This will control what template will be used in creating the addon. You can choose from *SingleGlobal*, *MultiInstance*, *Drawing*, *Behavior*
 - **Addon Icon** - This is an svg file that will be used as the addon icon inside of construct 3. You can change the addon by dragging an svg file over the existing icon.
@@ -177,7 +176,6 @@ The Option window has some global options that e=affect how the application beha
 - **Export Path** : The path where exported project from the dashboard will appear
 - **Data Path** : (READONLY) The data path points to the root where the application will store all it's data
 - **C3Addon Path** : (READONLY) The C3Addon Path is the path where .c3addon files will be created 
-- **Default Company** : This is the company that will be used when starting a new addon
 - **Default Author** : This is the author that will be used when starting a new addon
 - **Editor Font Size** : This value effect the font size of all the code editors
 - **Editor Font Family** : This value effects the font that will be used in all editors

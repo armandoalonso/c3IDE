@@ -52,7 +52,7 @@ namespace c3IDE.Windows
             ExportPathText.Text = AppData.Insatnce.Options.ExportPath;
             DataPathText.Text = AppData.Insatnce.Options.DataPath;
             DefaultAuthorTextBox.Text = AppData.Insatnce.Options.DefaultAuthor;
-            DefaultCompanyTextBox.Text = AppData.Insatnce.Options.DefaultCompany;
+            //DefaultCompanyTextBox.Text = AppData.Insatnce.Options.DefaultCompany;
             C3AddonPathText.Text = AppData.Insatnce.Options.C3AddonPath;
             FontSizeCombo.Text = AppData.Insatnce.Options.FontSize.ToString();
             FontFamilyCombo.Text = AppData.Insatnce.Options.FontFamily;
@@ -71,7 +71,7 @@ namespace c3IDE.Windows
                     CompilePath = !string.IsNullOrWhiteSpace(CompilePathText.Text) ? CompilePathText.Text : App.DefaultOptions.CompilePath,
                     ExportPath = !string.IsNullOrWhiteSpace(ExportPathText.Text) ? ExportPathText.Text : App.DefaultOptions.ExportPath ,
                     DataPath = !string.IsNullOrWhiteSpace(DataPathText.Text) ? DataPathText.Text : App.DefaultOptions.DataPath,
-                    DefaultCompany = !string.IsNullOrWhiteSpace(DefaultCompanyTextBox.Text) ? DefaultCompanyTextBox.Text : App.DefaultOptions.DefaultCompany, 
+                    //DefaultCompany = !string.IsNullOrWhiteSpace(DefaultCompanyTextBox.Text) ? DefaultCompanyTextBox.Text : App.DefaultOptions.DefaultCompany, 
                     DefaultAuthor = !string.IsNullOrWhiteSpace(DefaultAuthorTextBox.Text) ? DefaultAuthorTextBox.Text : App.DefaultOptions.DefaultAuthor,
                     C3AddonPath = !string.IsNullOrWhiteSpace(C3AddonPathText.Text) ? C3AddonPathText.Text : App.DefaultOptions.C3AddonPath,
                     FontSize = Convert.ToDouble(FontSizeCombo.Text),

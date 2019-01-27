@@ -23,7 +23,7 @@ namespace c3IDE.Models
         public string C3AddonPath { get; set; }
         public double FontSize { get; set; }
         public string FontFamily { get; set; }
-        public string DefaultCompany { get; set; }
+        //public string DefaultCompany { get; set; }
         public string DefaultAuthor { get; set; }
         public string ThemeKey { get; set; }
         public bool IncludeTimeStampOnExport { get; set; } = true;
