@@ -124,5 +124,21 @@ namespace c3IDE.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public Expression Copy(string newId)
+        {
+            Expression ace = (Expression)this.MemberwiseClone();
+            var oldId = ace.Id;
+            var oldScript = ace.ScriptName;
+            ace.Id = newId;
+
+            var ti = new CultureInfo("en-US", false).TextInfo;
+            ace.TranslatedName = ti.ToTitleCase(newId.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
+
+            ace.Ace = ace.Ace.Replace(oldId, newId);
+            ace.Language = ace.Language.Replace(oldId, newId);
+            ace.Code = ace.Code.Replace(oldScript, ace.ScriptName);
+            return ace;
+        }
     }
 }

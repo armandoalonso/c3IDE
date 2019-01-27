@@ -558,6 +558,40 @@ namespace c3IDE.Windows
                 tb.Focus();
             }
         }
+
+        private async void DuplicateAce_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_selectedCondition != null)
+            {
+                var newId = await AppData.Insatnce.ShowInputDialog("New Condition ID", "enter new condition id", string.Empty);
+                if (_conditions.ContainsKey(newId))
+                {
+                    AppData.Insatnce.ErrorMessage("failed to duplicate condition, condition id already exists");
+                    return;
+                }
+
+                _selectedCondition.Ace = AceTextEditor.Text;
+                _selectedCondition.Language = LanguageTextEditor.Text;
+                _selectedCondition.Code = CodeTextEditor.Text;
+                _selectedCondition.Category = Category.Text;
+
+                if (!string.IsNullOrWhiteSpace(newId))
+                {
+                    var newCondition = _selectedCondition.Copy(newId.Replace(" ", "-"));
+                    _conditions.Add(newCondition.Id, newCondition);
+                    ConditionListBox.Items.Refresh();
+                    ConditionListBox.SelectedIndex = _conditions.Count - 1;
+                }
+                else
+                {
+                    AppData.Insatnce.ErrorMessage("failed to duplicate condition, no condition id entered");
+                }
+            }
+            else
+            {
+                AppData.Insatnce.ErrorMessage("failed to duplicate condition, no condition selected");
+            }
+        }
     }
 }
     

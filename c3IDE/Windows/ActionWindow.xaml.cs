@@ -540,5 +540,40 @@ namespace c3IDE.Windows
                 tb.Focus();
             }
         }
+
+        private async void DuplicateAce_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_selectedAction != null)
+            {
+                var newId = await AppData.Insatnce.ShowInputDialog("New Action ID", "enter new action id", string.Empty);
+
+                if (_actions.ContainsKey(newId))
+                {
+                    AppData.Insatnce.ErrorMessage("failed to duplicate action, action id already exists");
+                    return;
+                }
+
+                _selectedAction.Ace = AceTextEditor.Text;
+                _selectedAction.Language = LanguageTextEditor.Text;
+                _selectedAction.Code = CodeTextEditor.Text;
+                _selectedAction.Category = Category.Text;
+
+                if (!string.IsNullOrWhiteSpace(newId))
+                {
+                    var newAction = _selectedAction.Copy(newId.Replace(" ", "-"));
+                    _actions.Add(newAction.Id, newAction);
+                    ActionListBox.Items.Refresh();
+                    ActionListBox.SelectedIndex = _actions.Count - 1;
+                }
+                else
+                {
+                    AppData.Insatnce.ErrorMessage("failed to duplicate action, no action id entered");
+                }
+            }
+            else
+            {
+                AppData.Insatnce.ErrorMessage("failed to duplicate action, no action selected");
+            }
+        }
     }
 }

@@ -541,5 +541,40 @@ namespace c3IDE.Windows
                 tb.Focus();
             }
         }
+
+        private async void DuplicateAce_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_selectedExpression != null)
+            {
+                var newId = await AppData.Insatnce.ShowInputDialog("New Expression ID", "enter new expression id", string.Empty);
+
+                if (_expressions.ContainsKey(newId))
+                {
+                    AppData.Insatnce.ErrorMessage("failed to duplicate expression, expression id already exists");
+                    return;
+                }
+
+                _selectedExpression.Ace = AceTextEditor.Text;
+                _selectedExpression.Language = LanguageTextEditor.Text;
+                _selectedExpression.Code = CodeTextEditor.Text;
+                _selectedExpression.Category = Category.Text;
+
+                if (!string.IsNullOrWhiteSpace(newId))
+                {
+                    var newExpression = _selectedExpression.Copy(newId.Replace(" ", "-"));
+                    _expressions.Add(newExpression.Id, newExpression);
+                    ExpressionListBox.Items.Refresh();
+                    ExpressionListBox.SelectedIndex = _expressions.Count - 1;
+                }
+                else
+                {
+                    AppData.Insatnce.ErrorMessage("failed to duplicate expression, no expression id entered");
+                }
+            }
+            else
+            {
+                AppData.Insatnce.ErrorMessage("failed to duplicate expression, no expression selected");
+            }
+        }
     }
 }
