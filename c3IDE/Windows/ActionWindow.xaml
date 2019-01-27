@@ -110,6 +110,7 @@
                         <MenuItem Header="Add Action" Click="AddAction_OnClick" />
                         <MenuItem Header="Remove Action" Click="RemoveAction_OnClick" />
                         <MenuItem Header="Change Action Category" Click="ChangeCategory_OnClick" />
+                        <MenuItem Header="Duplicate Action" Click="DuplicateAce_OnClick" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>

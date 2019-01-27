@@ -96,5 +96,13 @@ namespace c3IDE.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public Action Copy(string newId)
+        {
+            Action act = (Action) this.MemberwiseClone();
+            act.Id = newId;
+            return act;
+        }
+        
     }
 }
