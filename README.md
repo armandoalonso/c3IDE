@@ -6,11 +6,13 @@ c3IDE is a Construct3 plugin development tool. It lets you you quickly iterate a
 ## Setup & Installation
 You can download and install the application from this link [https://github.com/armandoalonso/c3IDE/raw/master/c3IDE/publish/setup.exe](https://github.com/armandoalonso/c3IDE/raw/master/c3IDE/publish/setup.exe "Setup & Install"). The application is hosted on Github. The application updates automaticlly when a new version is detected.
 
+##Change Log
+You can see detailed change log here : [https://github.com/armandoalonso/c3IDE/raw/master/CHANGELOG.md](https://github.com/armandoalonso/c3IDE/raw/master/CHANGELOG.md "Change Log").
+
 ## Application Layout
 The application is composed of multiple windows, You can navigate to the multiple windows using the menu on the top left corner. 
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/c3IDE-mainmenu.gif)
-
 
 ## Sample Projects
 I have include a few sample projects that you can import into the application, to see how the add is layed out. These exported projects and be found *AppData\Roaming\C3IDE_DATA\Exports* folder they will be prefixed with Example_, I will be adding more examples as I keep updating the application.  
