@@ -13,30 +13,32 @@
         </Grid.ColumnDefinitions>
          
         <StackPanel Grid.Column="0">
-            <TextBlock  Style="{DynamicResource TextBlockStyle}">Compile Path :</TextBlock>
-            <TextBox Name="CompilePathText" Text=""></TextBox>
-            <Separator Visibility="Hidden" Height="5" />
-            
-            <TextBlock  Style="{DynamicResource TextBlockStyle}">Exort Path :</TextBlock>
-            <TextBox Name="ExportPathText" Text=""></TextBox>
-            <Separator Visibility="Hidden" Height="5" />
-
-            <TextBlock  Style="{DynamicResource TextBlockStyle}">Data Path :</TextBlock>
-            <TextBox Name="DataPathText" Text="" IsReadOnly="True"></TextBox>
-            <Separator Visibility="Hidden" Height="5" />
-
-            <TextBlock  Style="{DynamicResource TextBlockStyle}">C3Addon Path :</TextBlock>
-            <TextBox Name="C3AddonPathText" Text="" IsReadOnly="True"></TextBox>
-            <Separator Visibility="Hidden" Height="5" />
-
+        
             <UniformGrid Columns="2">
-                <TextBlock  Style="{DynamicResource TextBlockStyle}">Default Company :</TextBlock>
+                <TextBlock  Style="{DynamicResource TextBlockStyle}">Data Path :</TextBlock>
+                <TextBlock  Style="{DynamicResource TextBlockStyle}">Compile Path :</TextBlock>
+                <TextBox Name="DataPathText" Text="" IsReadOnly="True" Margin="0,0,10,0"></TextBox>
+                <TextBox Name="CompilePathText" Text=""></TextBox>
+                <Separator Visibility="Hidden" Height="5" />
+                <Separator Visibility="Hidden" Height="5" />
+
+
+                <TextBlock  Style="{DynamicResource TextBlockStyle}">Export Path :</TextBlock>
+                <TextBlock  Style="{DynamicResource TextBlockStyle}">C3Addon Path :</TextBlock>
+                <TextBox Name="ExportPathText" Text=""  Margin="0,0,10,0"></TextBox>
+                <TextBox Name="C3AddonPathText" Text="" IsReadOnly="True"></TextBox>
+                <Separator Visibility="Hidden" Height="5" />
+                <Separator Visibility="Hidden" Height="5" />
+
+                <TextBlock  Style="{DynamicResource TextBlockStyle}">Construct 3 Desktop Path :</TextBlock>
                 <TextBlock  Style="{DynamicResource TextBlockStyle}">Default Author :</TextBlock>
-                <TextBox Name="DefaultCompanyTextBox" Text="" Margin="0,0,10,0"></TextBox>
+                <TextBox Name="C3DesktopPathText" Text=""  Margin="0,0,10,0"></TextBox>
                 <TextBox Name="DefaultAuthorTextBox" Text=""></TextBox>
+                <Separator Visibility="Hidden" Height="5" />
+                <Separator Visibility="Hidden" Height="5" />
             </UniformGrid>
-            <Separator Visibility="Hidden" Height="5" />
-            
+
+
             <UniformGrid Columns="3">
                 <TextBlock  Style="{DynamicResource TextBlockStyle}">Editor Font Size :</TextBlock>
                 <TextBlock  Style="{DynamicResource TextBlockStyle}">Editor Font Family :</TextBlock>
@@ -49,15 +51,13 @@
                 </ComboBox>
             </UniformGrid>
             <Separator Visibility="Hidden" Height="5" />
-
-            <TextBlock  Style="{DynamicResource TextBlockStyle}">Construct 3 Desktop Path :</TextBlock>
-            <TextBox Name="C3DesktopPathText" Text=""></TextBox>
-            <Separator Visibility="Hidden" Height="5" />
-
+ 
             <UniformGrid Columns="2">
                 <CheckBox Name="OpenC3InWeb" FontFamily="Century Gothic" FontSize="16">Open Construct 3 On Web</CheckBox>
                 <CheckBox Name="IncludeTimeStamp" FontFamily="Century Gothic" FontSize="16">Include Timestamp On Export</CheckBox>
             </UniformGrid>
+            <Separator Visibility="Hidden" Height="5" />
+
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Bottom">

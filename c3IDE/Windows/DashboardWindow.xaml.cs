@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using c3IDE.Compiler;
 using c3IDE.DataAccess;
 using c3IDE.Models;
 using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
-using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Logging;
 using c3IDE.Windows.Interfaces;
@@ -170,7 +166,7 @@ namespace c3IDE.Windows
             {
                 Name = AddonNameText.Text,
                 Class = AddonClassText.Text,
-                Company = CompanyNameText.Text,
+                Company = AuthorText.Text,
                 Author = AuthorText.Text,
                 Version = VersionText.Text,
                 Description = DescriptionText.Text,
@@ -314,7 +310,7 @@ namespace c3IDE.Windows
         {
             AddonNameText.Text = currentAddon.Name;
             AddonClassText.Text = currentAddon.Class;
-            CompanyNameText.Text = currentAddon.Company;
+            //CompanyNameText.Text = currentAddon.Company;
             AuthorText.Text = currentAddon.Author;
             VersionText.Text = currentAddon.Version;
             AddonTypeDropdown.Text = currentAddon.Type.ToString();
@@ -354,7 +350,7 @@ namespace c3IDE.Windows
         {
             AddonNameText.Text = string.Empty;
             AddonClassText.Text = string.Empty;
-            CompanyNameText.Text = AppData.Insatnce.Options.DefaultCompany;
+            //CompanyNameText.Text = AppData.Insatnce.Options.DefaultCompany;
             AuthorText.Text = AppData.Insatnce.Options.DefaultAuthor;
             VersionText.Text = "1.0.0.0";
             AddonTypeDropdown.SelectedIndex = 0;
@@ -388,32 +384,33 @@ namespace c3IDE.Windows
             }
             var currentAddon = AppData.Insatnce.CurrentAddon;
 
+            //todo: move this logic somewhere else
             //previous values
             var addonclass = currentAddon.Class;
             var name = currentAddon.Name;
-            var company = currentAddon.Company;
+            var company = currentAddon.Author;
             var author = currentAddon.Author;
             var version = currentAddon.Version;
             var description = currentAddon.Description;
-            var addonid = $"{company}_{addonclass}";
+            var addonid = $"{author}_{addonclass}";
                 
             //update addon
             currentAddon.Name = AddonNameText.Text;
             currentAddon.Class = AddonClassText.Text;
-            currentAddon.Company = CompanyNameText.Text;
+            currentAddon.Company = AuthorText.Text;
             currentAddon.Author = AuthorText.Text;
             currentAddon.Version = VersionText.Text;
             currentAddon.Description = DescriptionText.Text;
             currentAddon.IconXml = IconXml;
-            var newid = $"{CompanyNameText.Text}_{AddonClassText.Text}";
+            var newid = $"{AuthorText.Text}_{AddonClassText.Text}";
 
             //update files
-            currentAddon.AddonJson = currentAddon.AddonJson.Replace(addonclass, currentAddon.Class);
-            currentAddon.AddonJson = currentAddon.AddonJson.Replace(name, currentAddon.Name);
-            currentAddon.AddonJson = currentAddon.AddonJson.Replace(company, currentAddon.Company);
-            currentAddon.AddonJson = currentAddon.AddonJson.Replace(author, currentAddon.Author);
-            currentAddon.AddonJson = currentAddon.AddonJson.Replace(version, currentAddon.Version);
-            currentAddon.AddonJson = currentAddon.AddonJson.Replace(description, currentAddon.Description);
+            currentAddon.AddonJson = string.IsNullOrWhiteSpace(addonclass) ? string.Empty : currentAddon.AddonJson.Replace(addonclass, currentAddon.Class);
+            currentAddon.AddonJson = string.IsNullOrWhiteSpace(name) ? string.Empty : currentAddon.AddonJson.Replace(name, currentAddon.Name);
+            currentAddon.AddonJson = string.IsNullOrWhiteSpace(company) ? string.Empty : currentAddon.AddonJson.Replace(company, currentAddon.Company);
+            currentAddon.AddonJson = string.IsNullOrWhiteSpace(author) ? string.Empty : currentAddon.AddonJson.Replace(author, currentAddon.Author);
+            currentAddon.AddonJson = string.IsNullOrWhiteSpace(version) ? string.Empty : currentAddon.AddonJson.Replace(version, currentAddon.Version);
+            currentAddon.AddonJson = string.IsNullOrWhiteSpace(description) ? string.Empty : currentAddon.AddonJson.Replace(description, currentAddon.Description);
 
             currentAddon.PluginEditTime = currentAddon.PluginEditTime.Replace(addonid, newid);
             currentAddon.PluginEditTime = currentAddon.PluginEditTime.Replace($"{addonclass}Plugin", $"{currentAddon.Class}Plugin");
