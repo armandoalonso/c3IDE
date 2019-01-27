@@ -398,6 +398,7 @@ namespace c3IDE.Windows
                     _selectedAction.Ace = AceTextEditor.Text;
                     _selectedAction.Language = LanguageTextEditor.Text;
                     _selectedAction.Code = CodeTextEditor.Text;
+                    _selectedAction.Category = Category.Text;
                     _actions[_selectedAction.Id] = _selectedAction;
                 }
 

@@ -416,6 +416,7 @@ namespace c3IDE.Windows
                     _selectedCondition.Ace = AceTextEditor.Text;
                     _selectedCondition.Language = LanguageTextEditor.Text;
                     _selectedCondition.Code = CodeTextEditor.Text;
+                    _selectedCondition.Category = Category.Text;
                     _conditions[_selectedCondition.Id] = _selectedCondition;
                 }
 
