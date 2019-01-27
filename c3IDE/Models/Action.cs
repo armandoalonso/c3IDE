@@ -104,6 +104,7 @@ namespace c3IDE.Models
             var oldScript = ace.ScriptName;
             ace.Id = newId;
             ace.Ace = ace.Ace.Replace(oldId, newId);
+            ace.Ace = ace.Ace.Replace(oldScript, ace.ScriptName);
             ace.Language = ace.Language.Replace(oldId, newId);
             ace.Code = ace.Code.Replace(oldScript, ace.ScriptName);
             return ace;

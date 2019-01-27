@@ -129,14 +129,16 @@ namespace c3IDE.Models
         {
             Expression ace = (Expression)this.MemberwiseClone();
             var oldId = ace.Id;
-            var oldScript = ace.ScriptName;
+            var oldScript = ace.TranslatedName;
             ace.Id = newId;
 
             var ti = new CultureInfo("en-US", false).TextInfo;
             ace.TranslatedName = ti.ToTitleCase(newId.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
 
             ace.Ace = ace.Ace.Replace(oldId, newId);
+            ace.Ace = ace.Ace.Replace(oldScript, ace.TranslatedName);
             ace.Language = ace.Language.Replace(oldId, newId);
+            ace.Language = ace.Language.Replace(oldScript, ace.TranslatedName);
             ace.Code = ace.Code.Replace(oldScript, ace.ScriptName);
             return ace;
         }
