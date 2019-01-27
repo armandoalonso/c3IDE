@@ -472,6 +472,7 @@ namespace c3IDE.Windows
                     _selectedExpression.Ace = AceTextEditor.Text;
                     _selectedExpression.Language = LanguageTextEditor.Text;
                     _selectedExpression.Code = CodeTextEditor.Text;
+                    _selectedExpression.Category = Category.Text;
                     _expressions[_selectedExpression.Id] = _selectedExpression;
                 }
 
