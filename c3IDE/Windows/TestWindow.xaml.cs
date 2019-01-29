@@ -53,6 +53,7 @@ namespace c3IDE.Windows
 
             StopWebServerButton.IsEnabled = true;
             StartAndTestButton.IsEnabled = false;
+            StartWebServerButton.IsEnabled = false;
 
             var isValid = await AddonCompiler.Insatnce.CompileAddon(AppData.Insatnce.CurrentAddon);
 
@@ -62,6 +63,7 @@ namespace c3IDE.Windows
                 //TODO: error notification
                 StopWebServerButton.IsEnabled = false;
                 StartAndTestButton.IsEnabled = true;
+                StartWebServerButton.IsEnabled = true;
                 return;
             }
 
@@ -74,6 +76,7 @@ namespace c3IDE.Windows
             AddonCompiler.Insatnce.WebServer.Stop();
             StopWebServerButton.IsEnabled = false;
             StartAndTestButton.IsEnabled = true;
+            StartWebServerButton.IsEnabled = true;
         }
 
         private void OpenCompiledFolderButton_Click(object sender, RoutedEventArgs e)
@@ -113,23 +116,19 @@ namespace c3IDE.Windows
 
         //sindow states
         public void OnEnter()
-        {
-
+        { 
         }
 
         public void OnExit()    
-        {
-            
+        {  
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
         }
 
         public void SetupTheme(Theme t)
         {
-
         }
 
         //text box events
@@ -151,6 +150,41 @@ namespace c3IDE.Windows
             {
                 e.Handled = true;
                 tb.Focus();
+            }
+        }
+
+        private async void CompileOnly_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddonCompiler.Insatnce.UpdateLogText = s => Dispatcher.Invoke(() =>
+            {
+                LogText.AppendText(s);
+                LogText.ScrollToLine(LogText.LineCount - 1);
+            });
+
+            var isValid = AddonValidator.Insatnce.Validate(AppData.Insatnce.CurrentAddon);
+            await AddonCompiler.Insatnce.CompileAddon(AppData.Insatnce.CurrentAddon, false);
+        }
+
+        private void ValidateAllFiles_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddonValidator.Insatnce.UpdateLogText = s => Dispatcher.Invoke(() =>
+            {
+                LogText.AppendText(s);
+                LogText.ScrollToLine(LogText.LineCount - 1);
+            });
+
+            AddonValidator.Insatnce.Validate(AppData.Insatnce.CurrentAddon);
+        }
+
+        private void StartWebServerButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

@@ -404,6 +404,8 @@ namespace c3IDE.Windows
 
                 AppData.Insatnce.CurrentAddon.Actions = _actions;
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+                AppData.Insatnce.CurrentAddon =
+                    DataAccessFacade.Insatnce.AddonData.Get(x => x.Id.Equals(AppData.Insatnce.CurrentAddon.Id)).FirstOrDefault();
             }          
         }
 

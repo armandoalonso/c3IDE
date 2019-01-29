@@ -201,5 +201,10 @@ namespace c3IDE.Windows
             AppData.Insatnce.SetupTheme();
             //AppData.Insatnce.ThemeChangedEvent(ThemeResolver.Insatnce.Resolve(selection));
         }
+
+        private void OpenChangeLog_OnClick(object sender, RoutedEventArgs e)
+        {
+            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://github.com/armandoalonso/c3IDE/blob/master/CHANGELOG.md");
+        }
     }
 }

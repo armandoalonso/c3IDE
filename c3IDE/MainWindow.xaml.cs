@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using c3IDE.Compiler;
 using c3IDE.DataAccess;
 using c3IDE.Utilities.CodeCompletion;
+using c3IDE.Utilities.Eventing;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Windows;
 using c3IDE.Windows.Interfaces;
