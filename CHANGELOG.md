@@ -1,7 +1,7 @@
 
 # c3IDE - CHANGE LOG
 
-#### Build# 1.0.1.1  (01/27/2019)
+#### Build# 1.0.1.1  (01/29/2019)
 * Fixed bug with addon compiler, now the process will terminate when there is an error
 * Added a validate addon button test window, (as of now this only check json)
 * Fixed bug when navigating from the aces windows, sometimes the changes were not being saved
