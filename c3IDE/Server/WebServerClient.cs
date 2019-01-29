@@ -15,10 +15,11 @@ namespace c3IDE.Server
     {
         private CompilerLog _log;
         private HttpServer _httpServer;
+        public Action<string> UpdateLogText;
 
-        public void Start(CompilerLog log)
+        public void Start()
         {
-            this._log = log;
+            this._log = new CompilerLog(UpdateLogText);
 
             _httpServer = new HttpServer(new HttpRequestProvider());
 
@@ -43,7 +44,7 @@ namespace c3IDE.Server
             //handle static files (only suport js, json, png and svg)
             _httpServer.Use(new C3FileHandler());
 
-            _log.Insert("starting server => http://localhost:8080/addon.json");
+            _log.Insert("starting server => http://localhost:8080/.../addon.json");
             _httpServer.Start();
 
         }

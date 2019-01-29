@@ -167,8 +167,8 @@ namespace c3IDE.Compiler
                     //start web server installation
                     await Task.Run(() =>
                     {
-                        WebServer = new WebServerClient();
-                        WebServer.Start(_log);
+                        WebServer = new WebServerClient{UpdateLogText = UpdateLogText};
+                        WebServer.Start();
                     });
                 }           
             }

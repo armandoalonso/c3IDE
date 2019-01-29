@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.Compiler;
+using c3IDE.Server;
 using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Logging;
@@ -180,11 +181,23 @@ namespace c3IDE.Windows
         {
             try
             {
-
+                AddonCompiler.Insatnce.UpdateLogText = s => Dispatcher.Invoke(() =>
+                {
+                    LogText.AppendText(s);
+                    LogText.ScrollToLine(LogText.LineCount - 1);
+                });
+                AddonCompiler.Insatnce.WebServer = new WebServerClient { UpdateLogText = AddonCompiler.Insatnce.UpdateLogText };
+                AddonCompiler.Insatnce.WebServer.Start();
+                StartAndTestButton.IsEnabled = false;
+                StartWebServerButton.IsEnabled = false;
+                StopWebServerButton.IsEnabled = true;
             }
             catch (Exception ex)
             {
-
+                LogManager.Insatnce.Exceptions.Add(ex);
+                StopWebServerButton.IsEnabled = false;
+                StartAndTestButton.IsEnabled = true;
+                StartWebServerButton.IsEnabled = true;
             }
         }
     }

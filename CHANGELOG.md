@@ -1,6 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
+#### Build# 1.0.1.2  (01/29/2019)
+* (hotfix) fix issue with start server 
+
 #### Build# 1.0.1.1  (01/29/2019)
 * Fixed bug with addon compiler, now the process will terminate when there is an error
 * Added a validate addon button test window, (as of now this only check json)
