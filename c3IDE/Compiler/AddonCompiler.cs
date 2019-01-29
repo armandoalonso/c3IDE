@@ -155,13 +155,14 @@ namespace c3IDE.Compiler
                 LogManager.Insatnce.Exceptions.Add(ex);
                 _log.Insert($"compilation terminated due to error...");
                 _log.Insert($"error => {ex.Message}");
+                AppData.Insatnce.ErrorMessage("There was an error generating the addon, please check the log.");
                 return false;
             }
 
             //try and start the web server
             try
             {
-                if (startWebServer)
+                if (startWebServer && IsCompilationValid)
                 {
                     //start web server installation
                     await Task.Run(() =>
@@ -176,6 +177,7 @@ namespace c3IDE.Compiler
                 IsCompilationValid = false;
                 LogManager.Insatnce.Exceptions.Add(ex);
                 _log.Insert($"web server failed to start...");
+                AppData.Insatnce.ErrorMessage("The web server failed to start... check that the port 8080, is not being used by another application.");
                 return false;
             }
 

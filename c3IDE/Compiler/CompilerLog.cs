@@ -39,8 +39,8 @@ namespace c3IDE.Compiler
             {
                 LogManager.Insatnce.Exceptions.Add(ex);
                 Insert($"error message => {ex.Message}");
+                throw;
             }
-            return string.Empty;
         }
     }
 
