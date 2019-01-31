@@ -36,7 +36,7 @@ namespace c3IDE.Models
             get => _category;
             set
             {
-                _category = value.ToLower();
+                _category = value?.ToLower();
                 OnPropertyChanged();
             }
         }
@@ -48,7 +48,7 @@ namespace c3IDE.Models
             get => _isvaradic;
             set
             {
-                _isvaradic = value.ToLower();
+                _isvaradic = value?.ToLower();
                 OnPropertyChanged();
             }
         }
@@ -88,7 +88,7 @@ namespace c3IDE.Models
             get => _returntype;
             set
             {
-                _returntype = value.ToLower();
+                _returntype = value?.ToLower();
                 OnPropertyChanged();
             }
         }

@@ -39,7 +39,7 @@ namespace c3IDE.Models
         public string Category
         {
             get => _category;
-            set { _category = value.ToLower(); OnPropertyChanged(); }
+            set { _category = value?.ToLower(); OnPropertyChanged(); }
         }
 
         public string ListName
@@ -78,7 +78,7 @@ namespace c3IDE.Models
         public string Highlight
         {
             get => _highlight;
-            set { _highlight = value.ToLower(); OnPropertyChanged(); }
+            set { _highlight = value?.ToLower(); OnPropertyChanged(); }
         }
 
         public string Language
@@ -96,37 +96,37 @@ namespace c3IDE.Models
         public string Trigger
         {
             get => _trigger;
-            set { _trigger = value.ToLower(); OnPropertyChanged(); }
+            set { _trigger = value?.ToLower(); OnPropertyChanged(); }
         }
 
         public string FakeTrigger
         {
             get => _faketrigger;
-            set { _faketrigger = value.ToLower(); OnPropertyChanged(); }
+            set { _faketrigger = value?.ToLower(); OnPropertyChanged(); }
         }
 
         public string Static
         {
             get => _static;
-            set { _static = value.ToLower(); OnPropertyChanged(); }
+            set { _static = value?.ToLower(); OnPropertyChanged(); }
         }
 
         public string Looping
         {
             get => _looping;
-            set { _looping = value.ToLower(); OnPropertyChanged(); }
+            set { _looping = value?.ToLower(); OnPropertyChanged(); }
         }
 
         public string Invertible
         {
             get => _invertible;
-            set { _invertible = value.ToLower(); OnPropertyChanged(); }
+            set { _invertible = value?.ToLower(); OnPropertyChanged(); }
         }
 
         public string TriggerCompatible
         {
             get => _triggercompatible;
-            set { _triggercompatible = value.ToLower(); OnPropertyChanged(); }
+            set { _triggercompatible = value?.ToLower(); OnPropertyChanged(); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
