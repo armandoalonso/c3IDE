@@ -36,7 +36,7 @@ namespace c3IDE.Utilities.SyntaxHighlighting
                     def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptMonokai.xshd");
                     break;
                 case "Default Theme JSON":
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavascriptAyuLight.xshd");
+                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JsonAyuLight.xshd");
                     //def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptDefault.xshd");
                     break;
                 case "Monokai Theme JSON":

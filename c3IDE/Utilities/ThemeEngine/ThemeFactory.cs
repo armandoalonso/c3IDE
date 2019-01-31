@@ -21,11 +21,11 @@ namespace c3IDE.Utilities.ThemeEngine
                         Name = "Default Theme",
                         JavascriptSyntaxTheme = SyntaxHighlighting.SyntaxHighligtResolver.Insatnce.Resolve("Default Theme", Syntax.Javascript),
                         JsonSyntaxTheme = SyntaxHighlighting.SyntaxHighligtResolver.Insatnce.Resolve("Default Theme", Syntax.Json),
-                        SyntaxBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FAFAFA")),
-                        SyntaxForegroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#959DA6")),
+                        SyntaxBackgroundColor = new SolidColorBrush(Color.FromRgb(250,250,250)),
+                        SyntaxForegroundColor = new SolidColorBrush(Color.FromRgb(130,140,150)),
                         ApplicationTheme = ThemeManager.GetTheme("Light.Blue"),
                         TextBoxForground = new SolidColorBrush(Colors.Black),
-                        AutoCompleteBackground = new SolidColorBrush(Color.FromRgb(240,240,240)),
+                        AutoCompleteBackground = new SolidColorBrush(Color.FromRgb(200,200,200)),
                         ListBoxBorderColor = new SolidColorBrush(Colors.Black)
                     };
                 case ThemeTypes.Monokai:

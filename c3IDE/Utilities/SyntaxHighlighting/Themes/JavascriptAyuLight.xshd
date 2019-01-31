@@ -17,7 +17,7 @@
   <Color name="Booleans" foreground="#A37ACC" />
   <Color name="Operator" foreground="#ED9366" fontWeight="bold"/>
   <Color name="Digits" foreground="#399EE6" />
-  <Color name ="Punctuation" foreground="#399EE6" />
+  <Color name ="Punctuation" foreground="#399EE6" fontWeight="bold"/>
 
  
   <RuleSet ignoreCase="false">
