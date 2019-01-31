@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 
-namespace c3IDE.Utilities.CodeCompletion
+namespace c3IDE.Utilities.Extentions
 {
     public static class DocumentExtensions
     {

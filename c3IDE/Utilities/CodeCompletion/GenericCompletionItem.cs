@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using c3IDE.Utilities.Extentions;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
@@ -24,21 +25,21 @@ namespace c3IDE.Utilities.CodeCompletion
             this.Text = text;
             this.DescriptionText = description;
             this.Type = type;
-            this.Image = CompletionTypeFactory.Insatnce.GetIcon(this.Type);
+            //todo : remove iconf or now until we get a better way to identify the types
+            //this.Image = CompletionTypeFactory.Insatnce.GetIcon(this.Type);
             this.Container = string.Empty;
         }
 
         [JsonIgnore]
         public ImageSource Image { get; }
         public string Text { get; }
-
         [JsonIgnore]
         public object Content => $"{Text}";
         public CompletionType Type { get; }
         public string Container { get; set; }
         public string DescriptionText { get; set; }
         [JsonIgnore]
-        public object Description => $"{Container} : {DescriptionText}";
+        public object Description => null; //todo: $"{Container} : {DescriptionText}";
         [JsonIgnore]
         public double Priority => 1.0;
 

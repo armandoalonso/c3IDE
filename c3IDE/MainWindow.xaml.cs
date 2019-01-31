@@ -285,33 +285,33 @@ namespace c3IDE
             }
 
             var addon = AppData.Insatnce.CurrentAddon;
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("addonjs", addon.AddonJson);
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_pluginjs", addon.PluginRunTime);
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_pluginjs", addon.PluginEditTime);
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_typejs", addon.TypeRunTime);
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_typejs", addon.TypeEditTime);
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_instancejs", addon.InstanceRunTime);
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_instancejs", addon.InstanceEditTime);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("addon_json", addon.AddonJson);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_plugin_script", addon.PluginRunTime);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_plugin_script", addon.PluginEditTime);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_type_script", addon.TypeRunTime);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_type_script", addon.TypeEditTime);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_instance_script", addon.InstanceRunTime);
+            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_instance_script", addon.InstanceEditTime);
 
             foreach (var act in addon.Actions)
             {
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_code", act.Value.Code);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_lang", act.Value.Language);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_ace", act.Value.Ace);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_code_script", act.Value.Code);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_lang_json", act.Value.Language);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_ace_json", act.Value.Ace);
             }
 
             foreach (var cnd in addon.Conditions)
             {
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_code", cnd.Value.Code);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_lang", cnd.Value.Language);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_ace", cnd.Value.Ace);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_code_script", cnd.Value.Code);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_lang_json", cnd.Value.Language);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_ace_json", cnd.Value.Ace);
             }
 
             foreach (var exp in addon.Expressions)
             {
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_code", exp.Value.Code);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_lang", exp.Value.Language);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_ace", exp.Value.Ace);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_code_script", exp.Value.Code);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_lang_json", exp.Value.Language);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_ace_json", exp.Value.Ace);
             }
         }
     }

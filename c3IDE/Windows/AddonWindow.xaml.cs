@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Logging;
 using c3IDE.Utilities.SyntaxHighlighting;
@@ -57,45 +58,23 @@ namespace c3IDE.Windows
             if (string.IsNullOrWhiteSpace(e.Text)) return;
             var allTokens = JavascriptParser.Insatnce.ParseJsonDocument(AddonTextEditor.Text);
 
-            //add matching closing symbol
-            switch (e.Text)
+
+            if (!TextEditorHelper.Insatnce.MatchSymbol(AddonTextEditor, e.Text))
             {
-                case "{":
-                    AddonTextEditor.Document.Insert(AddonTextEditor.TextArea.Caret.Offset, "}");
-                    AddonTextEditor.TextArea.Caret.Offset--;
-                    return;
+                //figure out word segment
+                var segment = AddonTextEditor.TextArea.GetCurrentWord();
+                if (segment == null) return;
 
-                case "\"":
-                    AddonTextEditor.Document.Insert(AddonTextEditor.TextArea.Caret.Offset, "\"");
-                    AddonTextEditor.TextArea.Caret.Offset--;
-                    return;
+                //get string from segment
+                var text = AddonTextEditor.Document.GetText(segment);
+                if (string.IsNullOrWhiteSpace(text)) return;
 
-                case "[":
-                    AddonTextEditor.Document.Insert(AddonTextEditor.TextArea.Caret.Offset, "]");
-                    AddonTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "(":
-                    AddonTextEditor.Document.Insert(AddonTextEditor.TextArea.Caret.Offset, ")");
-                    AddonTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                default:
-                    //figure out word segment
-                    var segment = AddonTextEditor.TextArea.GetCurrentWord();
-                    if (segment == null) return;
-
-                    //get string from segment
-                    var text = AddonTextEditor.Document.GetText(segment);
-                    if (string.IsNullOrWhiteSpace(text)) return;
-
-                    //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json, "addonjs").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
-                    if (data.Any())
-                    {
-                        ShowCompletion(AddonTextEditor.TextArea, data);
-                    }
-                    break;
+                //filter completion list by string
+                var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, "addon_json").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
+                if (data.Any())
+                {
+                    ShowCompletion(AddonTextEditor.TextArea, data);
+                }
             }
         }
 

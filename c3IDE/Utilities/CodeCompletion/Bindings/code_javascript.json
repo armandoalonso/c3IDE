@@ -1,0 +1,1117 @@
+[{
+  "Text": "abstract",
+  "Content": "",
+  "Type": 14,
+  "Description": ""
+},
+{
+	"Text":"arguments",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"await*",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"boolean",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"break",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"byte",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"case",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"catch",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"char",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"class",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"const",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"continue",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"debugger",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"default",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"delete",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"do",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"double",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"else",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"enum",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"eval",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"export",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"extends",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"false",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"final",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"finally",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"float",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"for",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"function",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"goto",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"if",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"implements",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"import",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"in",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"instanceof",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"int",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"interface",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"let*",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"long",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"native",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"new",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"null",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"package",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"private",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"protected",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"public",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"return",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"short",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"static",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"super",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"switch",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"synchronized",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"this",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"throw",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"throws",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"transient",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"true",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"try",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"typeof",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"var",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"void",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"volatile",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"while",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"with",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"yield",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"Array",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"Date",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"eval",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"function",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"hasOwnProperty",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"Infinity",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"isFinite",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"isNaN",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"isPrototypeOf",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"length",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"Math",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"NaN",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"name",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"Number",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"Object",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"prototype",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"String",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"toString",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"undefined",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"valueOf",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"alert",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"all",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"anchor",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"anchors",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"area",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"assign",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"blur",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"button",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"checkbox",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"clearInterval",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"clearTimeout",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"clientInformation",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"close",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"closed",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"confirm",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"constructor",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"crypto",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"decodeURI",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"decodeURIComponent",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"defaultStatus",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"document",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"element",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"elements",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"embed",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"embeds",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"encodeURI",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"encodeURIComponent",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"escape",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"event",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"fileUpload",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"focus",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"form",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"forms",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"frame",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"innerHeight",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"innerWidth",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"layer",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"layers",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"link",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"location",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"mimeTypes",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"navigate",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"navigator",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"frames",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"frameRate",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"hidden",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"history",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"image",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"images",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"offscreenBuffering",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"open",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"opener",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"option",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"outerHeight",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"outerWidth",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"packages",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"pageXOffset",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"pageYOffset",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"parent",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"parseFloat",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"parseInt",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"password",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"pkcs11",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"plugin",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"prompt",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"propertyIsEnum",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"radio",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"reset",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"screenX",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"screenY",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"scroll",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"secure",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"select",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"self",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"setInterval",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"setTimeout",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"status",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"submit",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"taint",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"text",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"textarea",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"top",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"unescape",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"untaint",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"window",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"console",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"trim()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"isArray()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"forEach()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"map()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"filter()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"reduce()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"reduceRight()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"every()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"some()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"indexOf()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"lastIndexOf()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"parse()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"stringify()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"now()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+	"Text":"log()",
+	"Content" : "",
+	"Type":14,
+	"Description":""
+},
+{
+  "Text": "toUpperCase()",
+  "Content": "",
+  "Type": 14,
+  "Description": ""
+}
+]

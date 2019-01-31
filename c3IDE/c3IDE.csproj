@@ -140,10 +140,13 @@
     <Compile Include="Templates\BehaviorTemplate.cs" />
     <Compile Include="Templates\DrawingPluginTemplate.cs" />
     <Compile Include="Templates\MultiInstancePluginTemplate.cs" />
+    <Compile Include="Utilities\CodeCompletion\Bindings\JavascriptBinding.cs" />
+    <Compile Include="Utilities\CodeCompletion\CodeCompletionPipeline.cs" />
     <Compile Include="Utilities\Eventing\Events.cs" />
     <Compile Include="Utilities\Eventing\EventQueue.cs" />
     <Compile Include="Utilities\Extentions\StringExtentions.cs" />
     <Compile Include="Utilities\Helpers\ControlHelper.cs" />
+    <Compile Include="Utilities\Helpers\TextEditorHelper.cs" />
     <Compile Include="Utilities\Logging\LogManager.cs" />
     <Compile Include="Utilities\SyntaxHighlighting\AvaloneEditColorizer.cs" />
     <Compile Include="Utilities\JsBeautifier\JsonBeautifier.cs" />
@@ -153,7 +156,7 @@
     <Compile Include="Utilities\CodeCompletion\Bindings\MethodInterfaceMapping.cs" />
     <Compile Include="Utilities\CodeCompletion\CodeCompletionDecorator.cs" />
     <Compile Include="Utilities\CodeCompletion\CompletionTypeFactory.cs" />
-    <Compile Include="Utilities\CodeCompletion\DocumentExtensions.cs" />
+    <Compile Include="Utilities\Extentions\DocumentExtensions.cs" />
     <Compile Include="Utilities\CodeCompletion\GenericCompletionItem.cs" />
     <Compile Include="Utilities\CodeCompletion\CodeCompletionFactory.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\ICompletionBindings.cs" />
@@ -315,6 +318,7 @@
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavaScriptDefault.xshd" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonDefault.xshd" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonMonokai.xshd" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_javascript.json" />
     <Resource Include="Templates\Files\Effect\lang.txt" />
     <Content Include="Templates\Files\Effect\addon.txt" />
   </ItemGroup>
