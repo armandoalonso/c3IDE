@@ -23,17 +23,20 @@ namespace c3IDE.Utilities.SyntaxHighlighting
                 return Cache[key];
             }
 
+            //TODO: add ayu theme https://github.com/ayu-theme/ayu-colors
+            //TODO: fix monokai theme
+            
             IHighlightingDefinition def;
             switch (key)
             {
                 case "Default Theme JS":
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptDefault.xshd");
+                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavascriptAyuLight.xshd");
                     break;
                 case "Monokai Theme JS":
                     def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptMonokai.xshd");
                     break;
                 case "Default Theme JSON":
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptDefault.xshd");
+                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavascriptAyuLight.xshd");
                     //def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavaScriptDefault.xshd");
                     break;
                 case "Monokai Theme JSON":
