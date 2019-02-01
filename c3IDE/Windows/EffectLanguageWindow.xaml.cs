@@ -60,9 +60,5 @@ namespace c3IDE.Windows
             LanguageTextEditor.Text = string.Empty;
         }
 
-        public void SetupTheme(Theme t)
-        {
-           
-        }
     }
 }

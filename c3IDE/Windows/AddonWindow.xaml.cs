@@ -178,11 +178,6 @@ namespace c3IDE.Windows
             AddonTextEditor.Text = string.Empty;
         }
 
-        public void SetupTheme(Theme t)
-        {
-            
-        }
-
         //button clicks
         private async void AddFile_OnClick(object sender, RoutedEventArgs e)
         {

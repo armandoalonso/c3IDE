@@ -8,6 +8,5 @@ namespace c3IDE.Windows.Interfaces
         void OnEnter();
         void OnExit();
         void Clear();
-        void SetupTheme(Theme t);
     }
 }

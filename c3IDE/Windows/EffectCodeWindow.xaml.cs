@@ -60,11 +60,6 @@ namespace c3IDE.Windows
 
         }
 
-        public void SetupTheme(Theme t)
-        {
-           
-        }
-
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)

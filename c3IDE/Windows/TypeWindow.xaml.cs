@@ -197,12 +197,6 @@ namespace c3IDE.Windows
              RunTimeTypeTextEditor.Text = string.Empty;
         }
 
-        public void SetupTheme(Theme t)
-        {
-
-        }
-
-
         //context menu
         private void FormatJavascriptRuntime_OnClick(object sender, RoutedEventArgs e)
         {

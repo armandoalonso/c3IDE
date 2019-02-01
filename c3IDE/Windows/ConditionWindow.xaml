@@ -137,7 +137,7 @@
             </UniformGrid>
             <Button Name="RemoveCondition" Content="Remove Condition" Margin="2" Click="RemoveCondition_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="AddCondition" Content="Add New Condition" Margin="2" Click="AddCondition_OnClick" DockPanel.Dock="Bottom"></Button>
-            <TextBox Name="Category" DockPanel.Dock="Bottom" Margin="2" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+            <TextBox Name="Category" DockPanel.Dock="Bottom" Margin="2" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" TextChanged="Category_OnTextChanged"></TextBox>
             <TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource TextBlockStyle}">Category</TextBlock>
             <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Conditions</TextBlock>
             <ListBox Name="ConditionListBox" DockPanel.Dock="Top"  Margin="2" Background="{DynamicResource ListBoxBackColor}" BorderThickness="1" BorderBrush="{DynamicResource ListBoxBorder}" ItemsSource="{Binding}"  SelectionChanged="ConditionListBox_OnSelectionChanged">

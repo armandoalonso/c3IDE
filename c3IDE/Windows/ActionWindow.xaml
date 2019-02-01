@@ -92,7 +92,7 @@
             </UniformGrid>
             <Button Name="RemoveAction" Content="RemoveAction" Margin="2" Click="RemoveAction_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="AddAction" Content="Add New Action" Margin="2" Click="AddAction_OnClick" DockPanel.Dock="Bottom"></Button>
-            <TextBox Name="Category" DockPanel.Dock="Bottom" Margin="2" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+            <TextBox Name="Category" DockPanel.Dock="Bottom" Margin="2" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" TextChanged="Category_OnTextChanged"></TextBox>
             <TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource TextBlockStyle}">Category</TextBlock>
             <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Actions</TextBlock>
             <ListBox Name="ActionListBox" DockPanel.Dock="Top"  Margin="2" Background="{DynamicResource ListBoxBackColor}" 

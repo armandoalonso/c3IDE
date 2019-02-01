@@ -15,6 +15,7 @@ using System.Windows.Media;
 using c3IDE.Models;
 using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Highlighting;
@@ -149,6 +150,12 @@ namespace c3IDE.Windows
             {
                 AppData.Insatnce.GlobalSave();
             }
+            else if (e.Key == Key.F1)
+            {
+                var text = EditTimePluginTextEditor.SelectedText;
+                //EditTimePluginTextEditor.TextArea.SelectionChanged  
+                Searcher.Insatnce.Find(EditTimePluginTextEditor, text);
+            }
         }
 
         //completion window
@@ -195,11 +202,6 @@ namespace c3IDE.Windows
         {
             EditTimePluginTextEditor.Text = string.Empty;
             RunTimePluginTextEditor.Text = string.Empty;
-        }
-
-        public void SetupTheme(Theme t)
-        {
-           
         }
 
         //context menu

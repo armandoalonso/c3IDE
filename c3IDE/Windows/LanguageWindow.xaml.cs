@@ -72,11 +72,6 @@ namespace c3IDE.Windows
             CategoryLanguageTextEditor.Text = string.Empty;
         }
 
-        public void SetupTheme(Theme t)
-        {
-           
-        }
-
         //context menu
         private void GeneratePropertyText(object sender, RoutedEventArgs e)
         {

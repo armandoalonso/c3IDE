@@ -51,7 +51,7 @@ namespace c3IDE
             AppData.Insatnce.ErrorMessage = OpenErrorNotification;
             AppData.Insatnce.LoadAddon = s => { this.Title = $"C3IDE - {s}"; };
             AppData.Insatnce.GlobalSave = Save;
-            AppData.Insatnce.ThemeChangedEvent = SetupTheme;
+          
 
             //load data
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
@@ -65,11 +65,6 @@ namespace c3IDE
             ActiveItem.Content = _dashboardWindow;
             _dashboardWindow.OnEnter();
             _currentActiveWindow = _dashboardWindow.DisplayName;
-        }
-
-        private void SetupTheme(Theme t) 
-        {
-            _dashboardWindow.SetupTheme(t);
         }
 
         private void HambugerMenuItem_Click(object sender, ItemClickEventArgs e)
@@ -336,7 +331,7 @@ namespace c3IDE
             }
         }
 
-        //effect stuff
+        //effect menu
         private void HambugerMenuItemEffect_Click(object sender, ItemClickEventArgs e)
         {
             var clickedLabel = ((HamburgerMenuIconItem)e.ClickedItem).Label;

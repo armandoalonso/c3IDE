@@ -324,8 +324,8 @@ namespace c3IDE.Windows
                 AceTextEditor.Text = string.Empty;
                 LanguageTextEditor.Text = string.Empty;
                 CodeTextEditor.Text = string.Empty;
-            }
-          
+                Category.Text = string.Empty;
+            } 
         }
 
         public void OnExit()
@@ -360,18 +360,12 @@ namespace c3IDE.Windows
             Category.Text = string.Empty;
         }
 
-        public void SetupTheme(Theme t)
-        {
-            
-        }
-
         //list box events
         private void ActionListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ActionListBox.SelectedIndex == -1)
             {
                 //ignore
-                Category.Text = string.Empty;
                 return;
             }
 
@@ -383,6 +377,8 @@ namespace c3IDE.Windows
                 _selectedAction.Code = CodeTextEditor.Text;
                 _selectedAction.Category = Category.Text;
                 _actions[_selectedAction.Id] = _selectedAction;
+                AppData.Insatnce.CurrentAddon.Actions = _actions;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
 
             //load new selection
@@ -515,6 +511,14 @@ namespace c3IDE.Windows
             else
             {
                 AppData.Insatnce.ErrorMessage("failed to duplicate action, no action selected");
+            }
+        }
+
+        private void Category_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_selectedAction != null)
+            {
+                _selectedAction.Category = Category.Text;
             }
         }
     }

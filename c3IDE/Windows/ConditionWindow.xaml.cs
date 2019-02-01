@@ -326,7 +326,7 @@ namespace c3IDE.Windows
 
             if (AppData.Insatnce.CurrentAddon != null)
             {
-                {
+                
                     _conditions = AppData.Insatnce.CurrentAddon.Conditions;
                     ConditionListBox.ItemsSource = _conditions;
 
@@ -334,7 +334,7 @@ namespace c3IDE.Windows
                     {
                         ConditionListBox.SelectedIndex = 0;
                     }
-                }
+                
             }
             else
             {
@@ -342,6 +342,7 @@ namespace c3IDE.Windows
                 AceTextEditor.Text = string.Empty;
                 LanguageTextEditor.Text = string.Empty;
                 CodeTextEditor.Text = string.Empty;
+                Category.Text = string.Empty;
             }
 
         }
@@ -379,18 +380,12 @@ namespace c3IDE.Windows
             Category.Text = string.Empty;
         }
 
-        public void SetupTheme(Theme t)
-        {
-          
-        }
-
         //list box events
         private void ConditionListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ConditionListBox.SelectedIndex == -1)
             {
                 //ignore
-                Category.Text = string.Empty;
                 return;
             }
 
@@ -402,6 +397,8 @@ namespace c3IDE.Windows
                 _selectedCondition.Code = CodeTextEditor.Text;
                 _selectedCondition.Category = Category.Text;
                 _conditions[_selectedCondition.Id] = _selectedCondition;
+                AppData.Insatnce.CurrentAddon.Conditions = _conditions;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
 
             //load new selection
@@ -532,6 +529,14 @@ namespace c3IDE.Windows
             else
             {
                 AppData.Insatnce.ErrorMessage("failed to duplicate condition, no condition selected");
+            }
+        }
+
+        private void Category_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_selectedCondition != null)
+            {
+                _selectedCondition.Category = Category.Text;
             }
         }
     }

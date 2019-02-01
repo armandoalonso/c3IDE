@@ -56,7 +56,7 @@ namespace c3IDE.Models
             get
             {
                 var set = new HashSet<string>();
-                set.UnionWith(Actions?.Select(x => x.Value.Category) ?? new List<string>());
+                set.UnionWith(Actions?.Select(x =>   x.Value.Category) ?? new List<string>());
                 set.UnionWith(Conditions?.Select(x => x.Value.Category) ?? new List<string>());
                 set.UnionWith(Expressions?.Select(x => x.Value.Category) ?? new List<string>());
                 return set.ToList();

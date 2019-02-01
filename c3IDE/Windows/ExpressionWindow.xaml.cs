@@ -311,7 +311,6 @@ namespace c3IDE.Windows
             if (ExpressionListBox.SelectedIndex == -1)
             {
                 //ignore
-                Category.Text = string.Empty;
                 return;
             }
 
@@ -323,6 +322,8 @@ namespace c3IDE.Windows
                 _selectedExpression.Code = CodeTextEditor.Text;
                 _selectedExpression.Category = Category.Text;
                 _expressions[_selectedExpression.Id] = _selectedExpression;
+                AppData.Insatnce.CurrentAddon.Expressions = _expressions;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
 
            _selectedExpression = ((KeyValuePair<string, Expression>)ExpressionListBox.SelectedItem).Value;
@@ -434,11 +435,6 @@ namespace c3IDE.Windows
             Category.Text = string.Empty;
         }
 
-        public void SetupTheme(Theme t)
-        {
-            
-        }
-
         //view buttons
         private void AceView_OnClick(object sender, RoutedEventArgs e)
         {
@@ -516,6 +512,14 @@ namespace c3IDE.Windows
             else
             {
                 AppData.Insatnce.ErrorMessage("failed to duplicate expression, no expression selected");
+            }
+        }
+
+        private void Category_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_selectedExpression != null)
+            {
+                _selectedExpression.Category = Category.Text;
             }
         }
     }

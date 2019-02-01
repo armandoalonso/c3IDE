@@ -147,9 +147,11 @@
     <Compile Include="Utilities\Eventing\EventQueue.cs" />
     <Compile Include="Utilities\Extentions\StringExtentions.cs" />
     <Compile Include="Utilities\Helpers\ControlHelper.cs" />
-    <Compile Include="Utilities\Helpers\FindAndReplaceHelper.cs" />
+    <Compile Include="Utilities\Search\FindAndReplaceHelper.cs" />
     <Compile Include="Utilities\Helpers\TextEditorHelper.cs" />
     <Compile Include="Utilities\Logging\LogManager.cs" />
+    <Compile Include="Utilities\Search\Searcher.cs" />
+    <Compile Include="Utilities\Search\SearchResult.cs" />
     <Compile Include="Utilities\SyntaxHighlighting\AvaloneEditColorizer.cs" />
     <Compile Include="Utilities\JsBeautifier\JsonBeautifier.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\RuntimeJavascriptBinding.cs" />

@@ -61,10 +61,6 @@ namespace c3IDE.Windows
             AddonTextEditor.Text = string.Empty;
         }
 
-        public void SetupTheme(Theme t)
-        {
-     
-        }
 
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {

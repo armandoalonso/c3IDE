@@ -12,6 +12,7 @@ using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Logging;
+using c3IDE.Utilities.Search;
 using c3IDE.Windows.Interfaces;
 using c3IDE.Utilities.ThemeEngine;
 using Newtonsoft.Json;
@@ -75,9 +76,6 @@ namespace c3IDE.Windows
         {
         }
 
-        public void SetupTheme(Theme t)
-        {
-        }
 
         //file drop
         private void Addon_OnDragEnter(object sender, DragEventArgs e)
