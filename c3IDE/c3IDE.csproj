@@ -315,8 +315,8 @@
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_json.json" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\editor_return_type.json" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_runtime_javascript.json" />
-    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavaScriptMonokai.xshd" />
-    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavaScriptDefault.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavascriptMonokai.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavascriptDefault.xshd" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonDefault.xshd" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonMonokai.xshd" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_javascript.json" />

@@ -21,8 +21,8 @@ namespace c3IDE.Utilities.ThemeEngine
                         Name = "Default Theme",
                         JavascriptSyntaxTheme = SyntaxHighlighting.SyntaxHighligtResolver.Insatnce.Resolve("Default Theme", Syntax.Javascript),
                         JsonSyntaxTheme = SyntaxHighlighting.SyntaxHighligtResolver.Insatnce.Resolve("Default Theme", Syntax.Json),
-                        SyntaxBackgroundColor = new SolidColorBrush(Color.FromRgb(250,250,250)),
-                        SyntaxForegroundColor = new SolidColorBrush(Color.FromRgb(130,140,150)),
+                        SyntaxBackgroundColor = new SolidColorBrush(Colors.White),
+                        SyntaxForegroundColor = new SolidColorBrush(Colors.Black),
                         ApplicationTheme = ThemeManager.GetTheme("Light.Blue"),
                         TextBoxForground = new SolidColorBrush(Colors.Black),
                         AutoCompleteBackground = new SolidColorBrush(Color.FromRgb(200,200,200)),
@@ -41,6 +41,19 @@ namespace c3IDE.Utilities.ThemeEngine
                         AutoCompleteBackground = new SolidColorBrush(Color.FromRgb(50, 50, 50)),
                         ListBoxBorderColor = new SolidColorBrush(Colors.White)
                     };
+                case ThemeTypes.AyuLight:
+                    return new Theme
+                    {
+                        Name = "Ayu Light Theme",
+                        JavascriptSyntaxTheme = SyntaxHighlighting.SyntaxHighligtResolver.Insatnce.Resolve("Ayu Light Theme", Syntax.Javascript),
+                        JsonSyntaxTheme = SyntaxHighlighting.SyntaxHighligtResolver.Insatnce.Resolve("Ayu Light Theme", Syntax.Json),
+                        SyntaxBackgroundColor = new SolidColorBrush(Color.FromRgb(250, 250, 250)),
+                        SyntaxForegroundColor = new SolidColorBrush(Color.FromRgb(108,118,128)),
+                        ApplicationTheme = ThemeManager.GetTheme("Light.Blue"),
+                        TextBoxForground = new SolidColorBrush(Colors.Black),
+                        AutoCompleteBackground = new SolidColorBrush(Color.FromRgb(210, 210, 210)),
+                        ListBoxBorderColor = new SolidColorBrush(Color.FromRgb(108, 118, 128))
+                    };
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
@@ -50,6 +63,7 @@ namespace c3IDE.Utilities.ThemeEngine
     public enum ThemeTypes
     {
         DefaultTheme = 0,
-        Monokai = 1
+        Monokai = 1,
+        AyuLight = 2
     }
 }

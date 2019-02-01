@@ -19,7 +19,6 @@
   <Color name="Digits" foreground="#399EE6" />
   <Color name ="Punctuation" foreground="#399EE6" fontWeight="bold"/>
 
- 
   <RuleSet ignoreCase="false">
     <Keywords color="Keywords">
       <Word>abstract</Word>

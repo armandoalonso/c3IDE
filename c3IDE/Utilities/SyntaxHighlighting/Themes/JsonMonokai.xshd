@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <SyntaxDefinition name="JsonMonokai" extensions=".js" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
 
-  <Color name="String" foreground="Navy" fontWeight="bold"  />
+  <Color name="Background" foreground="#FAFAFA" />
+  <Color name="Foreground" foreground="#959DA6" />
 
-  <!-- This is the main ruleset. -->
-  <RuleSet>
+  <Color name="Comment" foreground="#75715E"  />
+  <Color name="Property" foreground="#F92672" fontWeight="bold"/>
+  <Color name="Strings" foreground="#E6DB74" />
+  <Color name="Digits" foreground="#A6E22E" />
+  <Color name="Booleans" foreground="#A6E22E" />
+  <Color name ="Punctuation" foreground="#F8F8F2" fontWeight="bold" />
 
-
-    <Keywords fontWeight="bold" foreground="Blue">
-      <Word>{</Word>
-      <Word>}</Word>
-      <Word>[</Word>
-      <Word>]</Word>
-      <Word>:</Word>
-      <Word>,</Word>
+  <RuleSet ignoreCase="false">
+    <Keywords color="Booleans">
+      <Word>false</Word>
+      <Word>true</Word>
     </Keywords>
-    
-    <!--<Span color="String">
-      <Begin>^\s+\"</Begin>
-      <End>\:|\s+</End>
-    
-    </Span>-->
 
+    <Keywords color="Digits">
+      <Word>null</Word>
+    </Keywords>
 
-    <!-- Digits -->
-    <Rule foreground="DarkBlue">
-      \b0[xX][0-9a-fA-F]+  # hex number
-      |    \b
-      (    \d+(\.[0-9]+)?   #number with optional floating point
-      |    \.[0-9]+         #or just starting with floating point
-      )
-      ([eE][+-]?[0-9]+)? # optional exponent
+    <Rule color="Comment">
+      \/\/.*|\/\*[\s\S]*?(?:\*\/|$)
     </Rule>
-    
-    <Rule foreground="Pink">
-      ".*",
+
+    <Rule color="Property">
+      \"(?:\\.|[^\\"\r\n])*"(?=\s*:)
     </Rule>
-    
-    <Rule foreground="White">
-      \s+"\S+":
+
+    <Rule color="Strings">
+      ((["])(?:\\(?:\r\n|[\s\S])|(?!["])[^\\\r\n])*(["]))|((['])(?:\\(?:\r\n|[\s\S])|(?!['])[^\\\r\n])*([']))
+    </Rule>
+
+    <Rule color="Digits">
+      \b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?
+    </Rule>
+
+    <Rule color="Punctuation">
+      [{}[\];(),.:]
     </Rule>
 
   </RuleSet>
