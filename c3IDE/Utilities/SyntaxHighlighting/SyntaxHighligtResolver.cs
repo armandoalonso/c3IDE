@@ -46,6 +46,12 @@ namespace c3IDE.Utilities.SyntaxHighlighting
                 case "Ayu Light Theme JSON":
                     def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JsonAyuLight.xshd");
                     break;
+                case "Ayu Mirage Theme JS":
+                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavascriptAyuMirage.xshd");
+                    break;
+                case "Ayu Mirage Theme JSON":
+                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JsonAyuMirage.xshd");
+                    break;
                 default:
                     throw new InvalidOperationException("Invaild Syntax Highlighting Key");
             }

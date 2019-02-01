@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<SyntaxDefinition name="JavascriptAyuLight" extensions=".js" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+
+  <Color name="Background" foreground="#1F2430" />
+  <Color name="Foreground" foreground="#CBCCC6" />
+
+  <Color name="Interfaces" foreground="#5CCFE6" />
+  <Color name="Functions" foreground="#FFD580" />
+  <Color name="Strings" foreground="#BAE67E" />
+  <Color name="Character" foreground="#BAE67E" />
+  <Color name="Regex" foreground="#95E6CB" />
+  <Color name="Keywords" foreground="#FFA759" fontWeight="bold"/>
+  <Color name="Intrinsics" foreground="#FFA759" />
+  <Color name="OtherKeywords" foreground="#FFE6B3" />
+  <Color name="Comment" foreground="#5C6773" />
+  <Color name="Constants" foreground="#D4BFFF" />
+  <Color name="Booleans" foreground="#D4BFFF" />
+  <Color name="Operator" foreground="#F29E74" fontWeight="bold"/>
+  <Color name="Digits" foreground="#399EE6" />
+  <Color name ="Punctuation" foreground="#73D0FF" fontWeight="bold"/>
+
+  <RuleSet ignoreCase="false">
+    <Keywords color="Keywords">
+      <Word>abstract</Word>
+      <Word>arguments</Word>
+      <Word>await</Word>
+      <Word>boolean</Word>
+      <Word>break</Word>
+      <Word>byte</Word>
+      <Word>case</Word>
+      <Word>catch</Word>
+      <Word>char</Word>
+      <Word>class</Word>
+      <Word>const</Word>
+      <Word>continue</Word>
+      <Word>debugger</Word>
+      <Word>default</Word>
+      <Word>delete</Word>
+      <Word>do</Word>
+      <Word>double</Word>
+      <Word>else</Word>
+      <Word>enum*</Word>
+      <Word>eval</Word>
+      <Word>export</Word>
+      <Word>extends</Word>
+      <Word>false</Word>
+      <Word>final</Word>
+      <Word>finally</Word>
+      <Word>float</Word>
+      <Word>for</Word>
+      <Word>function</Word>
+      <Word>goto</Word>
+      <Word>if</Word>
+      <Word>implements</Word>
+      <Word>import</Word>
+      <Word>in</Word>
+      <Word>instanceof</Word>
+      <Word>int</Word>
+      <Word>interface</Word>
+      <Word>let</Word>
+      <Word>long</Word>
+      <Word>native</Word>
+      <Word>new</Word>
+      <Word>null</Word>
+      <Word>package</Word>
+      <Word>private</Word>
+      <Word>protected</Word>
+      <Word>public</Word>
+      <Word>return</Word>
+      <Word>short</Word>
+      <Word>static</Word>
+      <Word>super</Word>
+      <Word>switch</Word>
+      <Word>synchronized</Word>
+      <Word>this</Word>
+      <Word>throw</Word>
+      <Word>throws</Word>
+      <Word>transient</Word>
+      <Word>true</Word>
+      <Word>try</Word>
+      <Word>typeof</Word>
+      <Word>var</Word>
+      <Word>void</Word>
+      <Word>volatile</Word>
+      <Word>while</Word>
+      <Word>with</Word>
+      <Word>yield</Word>
+    </Keywords>
+    
+    <Keywords color="Intrinsics">
+      <Word>Array</Word>
+      <Word>Boolean</Word>
+      <Word>Date</Word>
+      <Word>Function</Word>
+      <Word>Global</Word>
+      <Word>Math</Word>
+      <Word>Number</Word>
+      <Word>Object</Word>
+      <Word>RegExp</Word>
+      <Word>String</Word>
+    </Keywords>
+
+    <Keywords color="Booleans">
+      <Word>false</Word>
+      <Word>true</Word>
+    </Keywords>
+
+    <Keywords color="Digits">
+      <Word>null</Word>
+      <Word>NaN</Word>
+      <Word>Infinity</Word>
+    </Keywords>
+
+    <Keywords color="Functions">
+      <Word>eval</Word>
+      <Word>parseInt</Word>
+      <Word>parseFloat</Word>
+      <Word>escape</Word>
+      <Word>unescape</Word>
+      <Word>isNaN</Word>
+      <Word>isFinite</Word>
+      <Word>hasOwnProperty</Word>
+      <Word>isPrototypeOf</Word>
+    </Keywords>
+
+    <Keywords color="OtherKeywords">
+      <Word>alert</Word>
+      <Word>all</Word>
+      <Word>anchor</Word>
+      <Word>anchors</Word>
+      <Word>area</Word>
+      <Word>assign</Word>
+      <Word>blur</Word>
+      <Word>button</Word>
+      <Word>checkbox</Word>
+      <Word>clearInterval</Word>
+      <Word>clearTimeout</Word>
+      <Word>clientInformation</Word>
+      <Word>close</Word>
+      <Word>closed</Word>
+      <Word>confirm</Word>
+      <Word>constructor</Word>
+      <Word>crypto</Word>
+      <Word>decodeURI</Word>
+      <Word>decodeURIComponent</Word>
+      <Word>defaultStatus</Word>
+      <Word>document</Word>
+      <Word>element</Word>
+      <Word>elements</Word>
+      <Word>embed</Word>
+      <Word>embeds</Word>
+      <Word>encodeURI</Word>
+      <Word>encodeURIComponent</Word>
+      <Word>escape</Word>
+      <Word>event</Word>
+      <Word>fileUpload</Word>
+      <Word>focus</Word>
+      <Word>form</Word>
+      <Word>forms</Word>
+      <Word>frame</Word>
+      <Word>innerHeight</Word>
+      <Word>innerWidth</Word>
+      <Word>layer</Word>
+      <Word>layers</Word>
+      <Word>link</Word>
+      <Word>location</Word>
+      <Word>mimeTypes</Word>
+      <Word>navigate</Word>
+      <Word>navigator</Word>
+      <Word>frames</Word>
+      <Word>frameRate</Word>
+      <Word>hidden</Word>
+      <Word>history</Word>
+      <Word>image</Word>
+      <Word>images</Word>
+      <Word>offscreenBuffering</Word>
+      <Word>open</Word>
+      <Word>opener</Word>
+      <Word>option</Word>
+      <Word>outerHeight</Word>
+      <Word>outerWidth</Word>
+      <Word>packages</Word>
+      <Word>pageXOffset</Word>
+      <Word>pageYOffset</Word>
+      <Word>parent</Word>
+      <Word>parseFloat</Word>
+      <Word>parseInt</Word>
+      <Word>password</Word>
+      <Word>pkcs11</Word>
+      <Word>plugin</Word>
+      <Word>prompt</Word>
+      <Word>propertyIsEnum</Word>
+      <Word>radio</Word>
+      <Word>reset</Word>
+      <Word>screenX</Word>
+      <Word>screenY</Word>
+      <Word>scroll</Word>
+      <Word>secure</Word>
+      <Word>select</Word>
+      <Word>self</Word>
+      <Word>setInterval</Word>
+      <Word>setTimeout</Word>
+      <Word>status</Word>
+      <Word>submit</Word>
+      <Word>taint</Word>
+      <Word>text</Word>
+      <Word>textarea</Word>
+      <Word>top</Word>
+      <Word>unescape</Word>
+      <Word>untaint</Word>
+      <Word>window</Word>
+    </Keywords>
+
+    <Keywords color="Interfaces">
+      <Word>C3</Word>
+      <Word>SDK</Word>
+    </Keywords>
+    
+    <Span color="Comment">
+      <Begin>//</Begin>
+    </Span>
+    
+    <Span color="Comment" multiline="true">
+      <Begin>/\*</Begin>
+      <End>\*/</End>
+    </Span>
+    
+    <Span color="Regex">
+      <Begin>/</Begin>
+      <End>/</End>
+      <RuleSet>
+        <Span begin="\\/" end="." />
+      </RuleSet>
+    </Span>
+    
+    <Span color="Strings" multiline="true">
+      <Begin>"</Begin>
+      <End>"</End>
+      <RuleSet>
+        <Span begin="\\" end="." />
+      </RuleSet>
+    </Span>
+    
+    <Span color="Character">
+      <Begin>'</Begin>
+      <End>'</End>
+      <RuleSet>
+        <Span begin="\\" end="." />
+      </RuleSet>
+    </Span>
+
+    <Rule color="Digits">
+      \b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?
+    </Rule>
+
+    <Rule color="Strings">
+      ((["])(?:\\(?:\r\n|[\s\S])|(?!["])[^\\\r\n])*(["]))|((['])(?:\\(?:\r\n|[\s\S])|(?!['])[^\\\r\n])*([']))
+    </Rule>
+    
+    <Rule color="Functions">
+      \b
+      [\d\w_]+
+      (?=\s*\()
+    </Rule>
+
+    <Rule color="Operator">
+      /-[-=]?|\+[+=]?|!=?=?|&lt;&lt;?=?|&gt;&gt;?&gt;?=?|=(?:==?|&gt;)?|&amp;[&amp;=]?|\|[|=]?|\*\*?=?|\/=?|~|\^=?|%=?|\?|\.{3}/
+    </Rule>
+
+    <Rule color="Interfaces">
+      (?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)[\w.\\]+
+    </Rule>
+
+    <Rule color="Punctuation">
+      [{}[\];(),.:]
+    </Rule>
+    
+  </RuleSet>
+</SyntaxDefinition>

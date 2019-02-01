@@ -321,6 +321,8 @@
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonMonokai.xshd" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_javascript.json" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonAyuLight.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavascriptAyuMirage.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonAyuMirage.xshd" />
     <Resource Include="Templates\Files\Effect\lang.txt" />
     <Content Include="Templates\Files\Effect\addon.txt" />
   </ItemGroup>
