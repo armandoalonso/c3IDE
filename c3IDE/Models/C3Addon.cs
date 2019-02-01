@@ -46,6 +46,11 @@ namespace c3IDE.Models
         public string InstanceRunTime { get; set; }
         public string LanguageProperties { get; set; }
         public string LanguageCategories { get; set; }
+
+        //effect property
+        public string EffectLanguage { get; set; }
+        public string EffectCode { get; set; }
+
         [BsonIgnore]
         public List<string> Categories  {
             get

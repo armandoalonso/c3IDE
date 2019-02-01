@@ -22,6 +22,8 @@ namespace c3IDE.Templates
                     return new DrawingPluginTemplate();
                 case PluginType.Behavior:
                     return new BehaviorTemplate();
+                case PluginType.Effect:
+                    return new EffectTemplate();
             }
 
             throw new InvalidOperationException("Not Valid Plugin Type");

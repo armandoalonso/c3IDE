@@ -1,11 +1,11 @@
 ﻿{
 	"languageTag": "en-US",
-	"fileDescription": "Strings for the 'MyCustomEffect' effect.",
+	"fileDescription": "Strings for the '{{addon_class}}Effect' effect.",
 	"text": {
 		"effects": {
-			"mycompany_myeffect": {
-				"name": "My custom effect",
-				"description": "An example effect for the SDK, which is a copy of the 'Set color' effect.",
+			"{{company | string.downcase}}_{{class | string.downcase}}": {
+				"name": "{{name}}",
+				"description": "{{description}}",
 				"parameters": {
 					"color": {
 						"name": "Color",
@@ -16,3 +16,4 @@
 		}
 	}
 }
+

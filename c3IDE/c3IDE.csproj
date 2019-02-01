@@ -139,6 +139,7 @@
     <Compile Include="Server\WebServerClient.cs" />
     <Compile Include="Templates\BehaviorTemplate.cs" />
     <Compile Include="Templates\DrawingPluginTemplate.cs" />
+    <Compile Include="Templates\EffectTemplate.cs" />
     <Compile Include="Templates\MultiInstancePluginTemplate.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\JavascriptBinding.cs" />
     <Compile Include="Utilities\CodeCompletion\CodeCompletionPipeline.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Utilities\Eventing\EventQueue.cs" />
     <Compile Include="Utilities\Extentions\StringExtentions.cs" />
     <Compile Include="Utilities\Helpers\ControlHelper.cs" />
+    <Compile Include="Utilities\Helpers\FindAndReplaceHelper.cs" />
     <Compile Include="Utilities\Helpers\TextEditorHelper.cs" />
     <Compile Include="Utilities\Logging\LogManager.cs" />
     <Compile Include="Utilities\SyntaxHighlighting\AvaloneEditColorizer.cs" />
@@ -200,6 +202,15 @@
     <Compile Include="Windows\DashboardWindow.xaml.cs">
       <DependentUpon>DashboardWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\EffectAddonWindow.xaml.cs">
+      <DependentUpon>EffectAddonWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EffectCodeWindow.xaml.cs">
+      <DependentUpon>EffectCodeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EffectLanguageWindow.xaml.cs">
+      <DependentUpon>EffectLanguageWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ExpressionWindow.xaml.cs">
       <DependentUpon>ExpressionWindow.xaml</DependentUpon>
     </Compile>
@@ -250,6 +261,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\EffectAddonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EffectCodeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EffectLanguageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ExpressionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -293,7 +316,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="Templates\Files\Effect\effect.fx" />
+    <EmbeddedResource Include="Templates\Files\Effect\effect.fx" />
+    <EmbeddedResource Include="Templates\Files\fx.svg" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavascriptAyuLight.xshd" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -323,8 +347,8 @@
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonAyuLight.xshd" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavascriptAyuMirage.xshd" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonAyuMirage.xshd" />
-    <Resource Include="Templates\Files\Effect\lang.txt" />
-    <Content Include="Templates\Files\Effect\addon.txt" />
+    <EmbeddedResource Include="Templates\Files\Effect\lang.txt" />
+    <EmbeddedResource Include="Templates\Files\Effect\addon.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

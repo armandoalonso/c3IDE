@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using c3IDE.Compiler;
 using c3IDE.DataAccess;
+using c3IDE.Models;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Eventing;
 using c3IDE.Utilities.Helpers;
@@ -30,6 +32,10 @@ namespace c3IDE
         private readonly LanguageWindow _languageWindow = new LanguageWindow();
         private readonly TestWindow _testWidnow = new TestWindow();
         private readonly OptionsWindow _optionsWindow = new OptionsWindow();
+
+        private readonly EffectAddonWindow _fxAddonWindow = new EffectAddonWindow();
+        private readonly EffectCodeWindow _fxCodeWindow = new EffectCodeWindow();
+        private readonly EffectLanguageWindow _fxLanguageWindow = new EffectLanguageWindow();
 
         private string _currentActiveWindow;
 
@@ -63,7 +69,6 @@ namespace c3IDE
 
         private void SetupTheme(Theme t) 
         {
-
             _dashboardWindow.SetupTheme(t);
         }
 
@@ -74,7 +79,7 @@ namespace c3IDE
             if (clickedLabel == "Save")
             {
                 Save();
-                MainMenu.IsPaneOpen = false;
+                DefaultMainMenu.IsPaneOpen = false;
                 return;
             }
 
@@ -191,7 +196,7 @@ namespace c3IDE
             //set the current active window
             _currentActiveWindow = clickedLabel;
             //close menu pane
-            MainMenu.IsPaneOpen = false;
+            DefaultMainMenu.IsPaneOpen = false;
         }
 
         public void Save()
@@ -279,40 +284,144 @@ namespace c3IDE
         public void AddonLoadDelegate()
         {
             //clear out all addons
-            foreach (IWindow window in new List<IWindow> {_addonWindow, _actionWindow, _conditionWindow, _expressionWindow, _pluginWindow, _typeWindow, _instanceWindow})
+            foreach (IWindow window in new List<IWindow> {_addonWindow, _actionWindow, _conditionWindow, _expressionWindow, _pluginWindow, _typeWindow, _instanceWindow, _fxAddonWindow, _fxCodeWindow, _fxLanguageWindow})
             {
                 window.Clear();
             }
 
             var addon = AppData.Insatnce.CurrentAddon;
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("addon_json", addon.AddonJson);
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_plugin_script", addon.PluginRunTime);
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_plugin_script", addon.PluginEditTime);
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_type_script", addon.TypeRunTime);
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_type_script", addon.TypeEditTime);
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_instance_script", addon.InstanceRunTime);
-            CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_instance_script", addon.InstanceEditTime);
 
-            foreach (var act in addon.Actions)
+            if (addon.Type == PluginType.Effect)
             {
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_code_script", act.Value.Code);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_lang_json", act.Value.Language);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_ace_json", act.Value.Ace);
+                DefaultMainMenu.Visibility = Visibility.Collapsed;
+                EffectMainMenu.Visibility = Visibility.Visible;
+                ActiveItemEffect.Content = _dashboardWindow;
+
+                //todo: do other effect stuff here
+            }
+            else
+            {
+                DefaultMainMenu.Visibility = Visibility.Visible;
+                EffectMainMenu.Visibility = Visibility.Collapsed;
+                ActiveItem.Content = _dashboardWindow;
+
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("addon_json", addon.AddonJson);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_plugin_script", addon.PluginRunTime);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_plugin_script", addon.PluginEditTime);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_type_script", addon.TypeRunTime);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_type_script", addon.TypeEditTime);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_instance_script", addon.InstanceRunTime);
+                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_instance_script", addon.InstanceEditTime);
+
+                foreach (var act in addon.Actions)
+                {
+                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_code_script", act.Value.Code);
+                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_lang_json", act.Value.Language);
+                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_ace_json", act.Value.Ace);
+                }
+
+                foreach (var cnd in addon.Conditions)
+                {
+                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_code_script", cnd.Value.Code);
+                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_lang_json", cnd.Value.Language);
+                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_ace_json", cnd.Value.Ace);
+                }
+
+                foreach (var exp in addon.Expressions)
+                {
+                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_code_script", exp.Value.Code);
+                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_lang_json", exp.Value.Language);
+                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_ace_json", exp.Value.Ace);
+                }
+            }
+        }
+
+        //effect stuff
+        private void HambugerMenuItemEffect_Click(object sender, ItemClickEventArgs e)
+        {
+            var clickedLabel = ((HamburgerMenuIconItem)e.ClickedItem).Label;
+            //short circut saving and shutdown
+            if (clickedLabel == "Save")
+            {
+                Save();
+                DefaultMainMenu.IsPaneOpen = false;
+                return;
             }
 
-            foreach (var cnd in addon.Conditions)
+            if (clickedLabel == "Exit")
             {
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_code_script", cnd.Value.Code);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_lang_json", cnd.Value.Language);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_ace_json", cnd.Value.Ace);
+                Save();
+                Close();
             }
 
-            foreach (var exp in addon.Expressions)
+            if (clickedLabel == "SDK Help")
             {
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_code_script", exp.Value.Code);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_lang_json", exp.Value.Language);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_ace_json", exp.Value.Ace);
+                ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://www.construct.net/en/make-games/manuals/addon-sdk");
+                return;
             }
+
+            //execute on exit
+            switch (_currentActiveWindow)
+            {
+                case "Dashboard":
+                    _dashboardWindow.OnExit();
+                    break;
+                case "Addon":
+                    _fxAddonWindow.OnExit();
+                    break;
+                case "Effect":
+                    _fxCodeWindow.OnExit();
+                    break;
+                case "Language":
+                    _fxLanguageWindow.OnExit();
+                    break;
+                case "Test":
+                    _testWidnow.OnExit();
+                    break;
+                case "Options":
+                    _optionsWindow.OnExit();
+                    break;
+            }
+
+            switch (clickedLabel)
+            {
+                case "Dashboard":
+                    ActiveItemEffect.Content = _dashboardWindow;
+                    _dashboardWindow.OnEnter();
+                    break;
+                case "Addon":
+                    if (!_checkForLoadedAddon()) return;
+                    ActiveItemEffect.Content = _fxAddonWindow;
+                    _fxAddonWindow.OnEnter();
+                    break;
+                case "Effect":
+                    if (!_checkForLoadedAddon()) return;
+                    ActiveItemEffect.Content = _fxCodeWindow;
+                    _fxCodeWindow.OnEnter();
+                    break;
+                case "Language":
+                    if (!_checkForLoadedAddon()) return;
+                    ActiveItemEffect.Content = _fxLanguageWindow;
+                    _fxLanguageWindow.OnEnter();
+                    break;
+                case "Test":
+                    if (!_checkForLoadedAddon()) return;
+                    ActiveItemEffect.Content = _testWidnow;
+                    _testWidnow.OnEnter();
+                    break;
+                case "Options":
+                    ActiveItemEffect.Content = _optionsWindow;
+                    _optionsWindow.OnEnter();
+                    break;
+                default:
+                    ActiveItemEffect.Content = _dashboardWindow;
+                    break;
+            }
+
+            //set the current active window
+            _currentActiveWindow = clickedLabel;
+            //close menu pane
+            DefaultMainMenu.IsPaneOpen = false;
         }
     }
 }

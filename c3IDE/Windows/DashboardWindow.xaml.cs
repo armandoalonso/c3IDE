@@ -29,6 +29,7 @@ namespace c3IDE.Windows
         //properties
         public string DisplayName { get; set; } = "Dashboard";
         private string IconXml { get; set; }
+        private string EffectXml { get; set; }
         public System.Action AddonLoaded { get; set; }
 
         //ctor
@@ -36,6 +37,7 @@ namespace c3IDE.Windows
         {
             InitializeComponent();
             IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
+            EffectXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.fx.svg");
             AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml)); //ImageHelper.Insatnce.Base64ToBitmap(defaultIcon);
             AddonTypeDropdown.ItemsSource = Enum.GetValues(typeof(PluginType));
             AddonTypeDropdown.SelectedIndex = -1;
@@ -66,18 +68,15 @@ namespace c3IDE.Windows
         }
 
         public void OnExit()
-        {
-            
+        { 
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
         }
 
         public void SetupTheme(Theme t)
         {
-  
         }
 
         //file drop
@@ -189,19 +188,28 @@ namespace c3IDE.Windows
                 return;
             }
 
-            //apply the templates
-            addon.AddonJson = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.AddonJson, addon);
-            addon.PluginEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.PluginEditTime, addon);
-            addon.PluginRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.PluginRunTime, addon);
-            addon.TypeEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.TypeEditTime, addon);
-            addon.TypeRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.TypeRunTime, addon);
-            addon.InstanceEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.InstanceEditTime, addon);
-            addon.InstanceRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.InstanceRunTime, addon);
-            addon.Actions = new Dictionary<string, Action>();
-            addon.Conditions = new Dictionary<string, Condition>();
-            addon.Expressions = new Dictionary<string, Expression>();
-            addon.ThirdPartyFiles = new Dictionary<string, ThirdPartyFile>();
-            addon.LanguageProperties = addon.Template.LanguageProperty;
+            if (addon.Type == PluginType.Effect)
+            {
+                addon.AddonJson = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.AddonJson, addon);
+                addon.EffectCode = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.EffectCode, addon);
+                addon.EffectLanguage = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.EffectLangauge, addon);
+            }
+            else
+            {
+                //apply the templates
+                addon.AddonJson = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.AddonJson, addon);
+                addon.PluginEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.PluginEditTime, addon);
+                addon.PluginRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.PluginRunTime, addon);
+                addon.TypeEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.TypeEditTime, addon);
+                addon.TypeRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.TypeRunTime, addon);
+                addon.InstanceEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.InstanceEditTime, addon);
+                addon.InstanceRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.InstanceRunTime, addon);
+                addon.Actions = new Dictionary<string, Action>();
+                addon.Conditions = new Dictionary<string, Condition>();
+                addon.Expressions = new Dictionary<string, Expression>();
+                addon.ThirdPartyFiles = new Dictionary<string, ThirdPartyFile>();
+                addon.LanguageProperties = addon.Template.LanguageProperty;
+            }
 
             var addonIndex = AppData.Insatnce.AddonList.Count - 1;
             AppData.Insatnce.CurrentAddon = addon;
@@ -384,50 +392,18 @@ namespace c3IDE.Windows
             }
             var currentAddon = AppData.Insatnce.CurrentAddon;
 
-            //todo: move this logic somewhere else
-            //previous values
-            var addonclass = currentAddon.Class;
-            var name = currentAddon.Name;
-            var company = currentAddon.Author;
-            var author = currentAddon.Author;
-            var version = currentAddon.Version;
-            var description = currentAddon.Description;
-            var addonid = $"{author}_{addonclass}";
-                
-            //update addon
-            currentAddon.Name = AddonNameText.Text;
-            currentAddon.Class = AddonClassText.Text;
-            currentAddon.Company = AuthorText.Text;
-            currentAddon.Author = AuthorText.Text;
-            currentAddon.Version = VersionText.Text;
-            currentAddon.Description = DescriptionText.Text;
-            currentAddon.IconXml = IconXml;
-            var newid = $"{AuthorText.Text}_{AddonClassText.Text}";
+            if (currentAddon == null)
+            {
+                AppData.Insatnce.ErrorMessage("update addon failed, no c3 addon selected");
+                return;
+            }
 
-            //update files
-            currentAddon.AddonJson = string.IsNullOrWhiteSpace(addonclass) ? string.Empty : currentAddon.AddonJson.Replace(addonclass, currentAddon.Class);
-            currentAddon.AddonJson = string.IsNullOrWhiteSpace(name) ? string.Empty : currentAddon.AddonJson.Replace(name, currentAddon.Name);
-            currentAddon.AddonJson = string.IsNullOrWhiteSpace(company) ? string.Empty : currentAddon.AddonJson.Replace(company, currentAddon.Company);
-            currentAddon.AddonJson = string.IsNullOrWhiteSpace(author) ? string.Empty : currentAddon.AddonJson.Replace(author, currentAddon.Author);
-            currentAddon.AddonJson = string.IsNullOrWhiteSpace(version) ? string.Empty : currentAddon.AddonJson.Replace(version, currentAddon.Version);
-            currentAddon.AddonJson = string.IsNullOrWhiteSpace(description) ? string.Empty : currentAddon.AddonJson.Replace(description, currentAddon.Description);
-
-            currentAddon.PluginEditTime = currentAddon.PluginEditTime.Replace(addonid, newid);
-            currentAddon.PluginEditTime = currentAddon.PluginEditTime.Replace($"{addonclass}Plugin", $"{currentAddon.Class}Plugin");
-            currentAddon.PluginEditTime = currentAddon.PluginEditTime.Replace($"{addonclass}Behavior", $"{currentAddon.Class}Behavior");
-            currentAddon.PluginRunTime = currentAddon.PluginRunTime.Replace(addonid, newid);
-            currentAddon.PluginRunTime = currentAddon.PluginRunTime.Replace($"{addonclass}Plugin", $"{currentAddon.Class}Plugin");
-            currentAddon.PluginRunTime = currentAddon.PluginRunTime.Replace($"{addonclass}Behavior", $"{currentAddon.Class}Behavior");
-
-            currentAddon.TypeEditTime = currentAddon.TypeEditTime.Replace(addonid, newid);
-            currentAddon.TypeEditTime = currentAddon.TypeEditTime.Replace($"{addonclass}Type", $"{currentAddon.Class}Type");
-            currentAddon.TypeRunTime =  currentAddon.TypeRunTime.Replace(addonid, newid);
-            currentAddon.TypeRunTime =  currentAddon.TypeRunTime.Replace($"{addonclass}Type", $"{currentAddon.Class}Type");
-
-            currentAddon.InstanceEditTime = currentAddon.InstanceEditTime.Replace(addonid, newid);
-            currentAddon.InstanceEditTime = currentAddon.InstanceEditTime.Replace($"{addonclass}Instance", $"{currentAddon.Class}Instance");
-            currentAddon.InstanceRunTime =  currentAddon.InstanceRunTime.Replace(addonid, newid);
-            currentAddon.InstanceRunTime =  currentAddon.InstanceRunTime.Replace($"{addonclass}Instance", $"{currentAddon.Class}Instance");
+            var addonclass = AddonClassText.Text;
+            var name = AddonNameText.Text;
+            var author = AuthorText.Text;
+            var version = VersionText.Text;
+            var description = DescriptionText.Text;     
+            FindAndReplaceHelper.Insatnce.ReplaceMetadata(addonclass, name, author, version, description, currentAddon);
 
             DataAccessFacade.Insatnce.AddonData.Upsert(currentAddon);
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
