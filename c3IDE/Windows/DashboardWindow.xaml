@@ -19,12 +19,17 @@
                      DragEnter="Addon_OnDragEnter" Drop="AddonFile_OnDrop">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <DockPanel LastChildFill="True">
-                            <Image DockPanel.Dock="Left" Source="{Binding IconImage}" Width="50" Height="50"/>
-                            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center"> 
-                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                            </StackPanel>
-                        </DockPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0" Source="{Binding IconImage}" Width="50" Height="50"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Grid.Column="2" Text="{Binding TypeName}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12"></TextBlock>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
                 <ListBox.ContextMenu>

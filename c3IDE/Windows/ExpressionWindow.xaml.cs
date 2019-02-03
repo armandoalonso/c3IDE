@@ -326,9 +326,11 @@ namespace c3IDE.Windows
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
 
-           _selectedExpression = ((KeyValuePair<string, Expression>)ExpressionListBox.SelectedItem).Value;
-            Category.Text = _selectedExpression.Category;
-            AceTextEditor.Text = _selectedExpression.Ace;
+           var selectedKey = ((KeyValuePair<string, Expression>)ExpressionListBox.SelectedItem).Key;
+           _selectedExpression = _expressions[selectedKey];
+
+           Category.Text = _selectedExpression.Category;
+           AceTextEditor.Text = _selectedExpression.Ace;
            LanguageTextEditor.Text = _selectedExpression.Language;
            CodeTextEditor.Text = _selectedExpression.Code;
         }

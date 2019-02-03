@@ -382,7 +382,9 @@ namespace c3IDE.Windows
             }
 
             //load new selection
-            _selectedAction = ((KeyValuePair<string, Action>)ActionListBox.SelectedItem).Value;
+            var selectedKey = ((KeyValuePair<string, Action>)ActionListBox.SelectedItem).Key;
+            _selectedAction = _actions[selectedKey];
+
             Category.Text = _selectedAction.Category;
             AceTextEditor.Text = _selectedAction.Ace;
             LanguageTextEditor.Text = _selectedAction.Language;

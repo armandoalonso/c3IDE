@@ -26,6 +26,26 @@ namespace c3IDE.Models
         public string AddonFolder { get; set; }
 
         public PluginType Type { get; set; }
+
+        [BsonIgnore]
+        public string TypeName
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case PluginType.SingleGlobalPlugin:
+                    case PluginType.DrawingPlugin:
+                        return "(Plugin)";
+                    case PluginType.Behavior:
+                        return "(Behavior)";
+                    case PluginType.Effect:
+                        return "(Effect)";
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
         //public string IconBase64 { get; set; }
         public string IconXml { get; set; }
 

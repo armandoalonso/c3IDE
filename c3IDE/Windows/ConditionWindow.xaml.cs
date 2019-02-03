@@ -402,7 +402,9 @@ namespace c3IDE.Windows
             }
 
             //load new selection
-            _selectedCondition = ((KeyValuePair<string, Condition>)ConditionListBox.SelectedItem).Value;
+            var selectedKey = ((KeyValuePair<string, Condition>)ConditionListBox.SelectedItem).Key;
+            _selectedCondition = _conditions[selectedKey];
+
             Category.Text = _selectedCondition.Category;
             AceTextEditor.Text = _selectedCondition.Ace;
             LanguageTextEditor.Text = _selectedCondition.Language;
