@@ -1,6 +1,16 @@
 
 # c3IDE - CHANGE LOG
 
+#### Build# 1.0.1.3  (02/02/2019)
+* refactor auto completion, there were some issue that need to be fixed, as a quick fix, i disbaled the embedded documentaion until i can recolve the issue,. as of now auto completion still works but its not context based. it works more like how sublime text works.
+* updated syntax highlighting across the board for all themes, now json and js are highlighted differently
+* added ayu light and ayu mirage themesn (https://github.com/ayu-theme/ayu-colors )
+* added effect template, and changed parts of the ui to be dynamic based on addon type
+* updated the addon compiler to support effects
+* start working on the infustrature to create find and replace, and improve the editors workflow
+* added a label on the dashboard to show plugin type
+* fix issue with aces category being overwritten
+
 #### Build# 1.0.1.2  (01/29/2019)
 * (hotfix) fix issue with start server 
 
