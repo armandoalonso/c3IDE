@@ -13,7 +13,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using c3IDE.Models;
+using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Highlighting;
@@ -51,39 +53,22 @@ namespace c3IDE.Windows
         //editor events
         private void EditTimePluginTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(e.Text)) return;
-            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(EditTimePluginTextEditor.Text, CodeType.EditTimeJavascript);
-            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptUserTokens(EditTimePluginTextEditor.Text);
-            var allTokens = JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.EditTimeJavascript);
+            if (string.IsNullOrWhiteSpace(e.Text)) return;
+            var allTokens = JavascriptParser.Insatnce.ParseJavascriptUserTokens(EditTimePluginTextEditor.Text);
 
             //add matching closing symbol
-            switch (e.Text)
-            { 
-                case "{":
-                    EditTimePluginTextEditor.Document.Insert(EditTimePluginTextEditor.TextArea.Caret.Offset, "}");
-                    EditTimePluginTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "\"":
-                    EditTimePluginTextEditor.Document.Insert(EditTimePluginTextEditor.TextArea.Caret.Offset, "\"");
-                    EditTimePluginTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "[":
-                    EditTimePluginTextEditor.Document.Insert(EditTimePluginTextEditor.TextArea.Caret.Offset, "]");
-                    EditTimePluginTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "(":
-                    EditTimePluginTextEditor.Document.Insert(EditTimePluginTextEditor.TextArea.Caret.Offset, ")");
-                    EditTimePluginTextEditor.TextArea.Caret.Offset--;
-                    return;
-                case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EditTimeJavascript, "edittime_pluginjs")
-                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
-                    ShowCompletion(EditTimePluginTextEditor.TextArea, methodsData.ToList());
-                    break;
-                default:
+            if (!TextEditorHelper.Insatnce.MatchSymbol(EditTimePluginTextEditor, e.Text))
+            {
+                if (e.Text == ".")
+                {
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"edittime_plugin_script").ToList();
+                    if (data.Any())
+                    {
+                        ShowCompletion(EditTimePluginTextEditor.TextArea, data);
+                    }
+                }
+                else
+                {
                     //figure out word segment
                     var segment = EditTimePluginTextEditor.TextArea.GetCurrentWord();
                     if (segment == null) return;
@@ -93,50 +78,33 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EditTimeJavascript, "edittime_pluginjs").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"edittime_plugin_script").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(EditTimePluginTextEditor.TextArea, data);
                     }
-                    break;
+                }
             }
         }
 
         private void RunTimePluginTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
-            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(RunTimePluginTextEditor.Text, CodeType.RuntimeJavascript);
-            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptUserTokens(RunTimePluginTextEditor.Text);
-            var allTokens = JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.RuntimeJavascript);
+            var allTokens = JavascriptParser.Insatnce.ParseJavascriptUserTokens(RunTimePluginTextEditor.Text);
 
             //add matching closing symbol
-            switch (e.Text)
+            if (!TextEditorHelper.Insatnce.MatchSymbol(RunTimePluginTextEditor, e.Text))
             {
-                case "{":
-                    RunTimePluginTextEditor.Document.Insert(RunTimePluginTextEditor.TextArea.Caret.Offset, "}");
-                    RunTimePluginTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "\"":
-                    RunTimePluginTextEditor.Document.Insert(RunTimePluginTextEditor.TextArea.Caret.Offset, "\"");
-                    RunTimePluginTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "[":
-                    RunTimePluginTextEditor.Document.Insert(RunTimePluginTextEditor.TextArea.Caret.Offset, "]");
-                    RunTimePluginTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "(":
-                    RunTimePluginTextEditor.Document.Insert(RunTimePluginTextEditor.TextArea.Caret.Offset, ")");
-                    RunTimePluginTextEditor.TextArea.Caret.Offset--;
-                    return;
-                case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript, "runtime_pluginjs")
-                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
-                    ShowCompletion(RunTimePluginTextEditor.TextArea, methodsData.ToList());
-                    break;
-                default:
+                if (e.Text == ".")
+                {
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"runtime_plugin_script").ToList();
+                    if (data.Any())
+                    {
+                        ShowCompletion(RunTimePluginTextEditor.TextArea, data);
+                    }
+                }
+                else
+                {
                     //figure out word segment
                     var segment = RunTimePluginTextEditor.TextArea.GetCurrentWord();
                     if (segment == null) return;
@@ -146,12 +114,12 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript, "runtime_pluginjs").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"runtime_plugin_script").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(RunTimePluginTextEditor.TextArea, data);
                     }
-                    break;
+                }
             }
         }
 
@@ -181,6 +149,12 @@ namespace c3IDE.Windows
             else if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 AppData.Insatnce.GlobalSave();
+            }
+            else if (e.Key == Key.F1)
+            {
+                var text = EditTimePluginTextEditor.SelectedText;
+                //EditTimePluginTextEditor.TextArea.SelectionChanged  
+                Searcher.Insatnce.Find(EditTimePluginTextEditor, text);
             }
         }
 
@@ -228,11 +202,6 @@ namespace c3IDE.Windows
         {
             EditTimePluginTextEditor.Text = string.Empty;
             RunTimePluginTextEditor.Text = string.Empty;
-        }
-
-        public void SetupTheme(Theme t)
-        {
-           
         }
 
         //context menu
@@ -312,8 +281,5 @@ namespace c3IDE.Windows
             EditTimePluginTextEditor.Text = EditTimePluginTextEditor.Text.Replace("this._info.SetProperties([", template);
             NewPropertyWindow.IsOpen = false;
         }
-
-
-
     }
 }

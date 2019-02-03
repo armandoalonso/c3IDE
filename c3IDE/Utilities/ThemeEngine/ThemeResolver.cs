@@ -27,6 +27,14 @@ namespace c3IDE.Utilities.ThemeEngine
                     theme = ThemeFactory.Insatnce.GetTheme(ThemeTypes.Monokai);
                     themeCache.Add(key, theme);
                     break;
+                case "Ayu Light Theme":
+                    theme = ThemeFactory.Insatnce.GetTheme(ThemeTypes.AyuLight);
+                    themeCache.Add(key, theme);
+                    break;
+                case "Ayu Mirage Theme":
+                    theme = ThemeFactory.Insatnce.GetTheme(ThemeTypes.AyuMirage);
+                    themeCache.Add(key, theme);
+                    break;
             }
 
             return theme;

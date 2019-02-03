@@ -1,13 +1,13 @@
 ﻿{
 	"is-c3-addon": true,
 	"type": "effect",
-	"name": "My custom effect",
-	"id": "MyCompany_MyEffect",
-	"version": "1.0.0.0",
-	"author": "Scirra",
+	"name": "{{name}}",
+	"id": "{{company}}_{{class}}",
+	"version": "{{version}}",
+	"author": "{{author}}",
 	"website": "https://www.construct.net",
 	"documentation": "https://www.construct.net",
-	"description": "Example custom Construct 3 effect.",
+	"description": "{{description}}",
 	"file-list": [
 		"lang/en-US.json",
 		"addon.json",

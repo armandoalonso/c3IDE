@@ -74,7 +74,7 @@
 
     <Grid Name="MainGrid">
         <mah:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}"
-                           ItemClick="HambugerMenuItem_Click" OptionsItemClick="HambugerMenuItem_Click" x:Name="MainMenu">
+                           ItemClick="HambugerMenuItem_Click" OptionsItemClick="HambugerMenuItem_Click" x:Name="DefaultMainMenu" Visibility="Visible">
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Dashboard" Tag="Dashboard"/>
@@ -104,6 +104,37 @@
                     </Border>-->
                     <ScrollViewer Grid.Row="1" CanContentScroll="False" IsDeferredScrollingEnabled="False" VerticalScrollBarVisibility="Hidden">
                         <mah:TransitioningContentControl Transition="LeftReplace" x:Name="ActiveItem" Height="{Binding ElementName=MainGrid, Path=ActualHeight}"/>
+                    </ScrollViewer>
+                </DockPanel>
+            </mah:HamburgerMenu.Content>
+        </mah:HamburgerMenu>
+
+        <mah:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}"
+                           x:Name="EffectMainMenu" Visibility="Collapsed" ItemClick="HambugerMenuItemEffect_Click" OptionsItemClick="HambugerMenuItemEffect_Click">
+            <mah:HamburgerMenu.ItemsSource>
+                <mah:HamburgerMenuItemCollection>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Dashboard" Tag="Dashboard"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=PlusBox}" Label="Addon" Tag="Addon"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=PowerPlug}" Label="Effect" Tag="Effect"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=GlobeAmericasSolid}" Label="Language" Tag="Language"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Beaker}" Label="Test" Tag="Test"/>
+                </mah:HamburgerMenuItemCollection>
+            </mah:HamburgerMenu.ItemsSource>
+            <mah:HamburgerMenu.OptionsItemsSource>
+                <mah:HamburgerMenuItemCollection>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Gear}" Label="Options" Tag="Options"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=SaveRegular}" Label="Save" Tag="Save"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=QuestionSolid}" Label="SDK Help" Tag="SDK Help"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=PowerOffSolid}" Label="Exit" Tag="Exit"/>
+                </mah:HamburgerMenuItemCollection>
+            </mah:HamburgerMenu.OptionsItemsSource>
+            <mah:HamburgerMenu.Content>
+                <DockPanel>
+                    <!--<Border Background="#FF444444" DockPanel.Dock="Top">
+                        <TextBlock x:Name="Header" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Foreground="White" Text="{Binding ActiveItem.DisplayName}" />
+                    </Border>-->
+                    <ScrollViewer Grid.Row="1" CanContentScroll="False" IsDeferredScrollingEnabled="False" VerticalScrollBarVisibility="Hidden">
+                        <mah:TransitioningContentControl Transition="LeftReplace" x:Name="ActiveItemEffect" Height="{Binding ElementName=MainGrid, Path=ActualHeight}"/>
                     </ScrollViewer>
                 </DockPanel>
             </mah:HamburgerMenu.Content>

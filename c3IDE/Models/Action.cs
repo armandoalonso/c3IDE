@@ -31,7 +31,7 @@ namespace c3IDE.Models
         public string Category
         {
             get => _category;
-            set { _category = value.ToLower(); OnPropertyChanged(); }
+            set { _category = string.IsNullOrWhiteSpace(value) ? "none" : value.ToLower(); OnPropertyChanged(); }
         }
 
         public string ScriptName

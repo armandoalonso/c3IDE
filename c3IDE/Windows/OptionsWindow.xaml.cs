@@ -97,11 +97,6 @@ namespace c3IDE.Windows
         {
         }
 
-        public void SetupTheme(Theme t)
-        {
-           
-        }
-
         //buttons
         private async void ClearDataButton_Click(object sender, RoutedEventArgs e)
         {

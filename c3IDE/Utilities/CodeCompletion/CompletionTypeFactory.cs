@@ -8,6 +8,7 @@ using c3IDE.Utilities.Helpers;
 
 namespace c3IDE.Utilities.CodeCompletion
 {
+    //This class resolves the icon type for the completion item
     public class CompletionTypeFactory : Singleton<CompletionTypeFactory>
     {
 

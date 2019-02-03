@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<SyntaxDefinition name="JsonAyuLight" extensions=".js" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+
+  <Color name="Background" foreground="#FAFAFA" />
+  <Color name="Foreground" foreground="#959DA6" />
+
+  <Color name="Comment" foreground="#ABB0B6" />
+  <Color name="Property" foreground="#FA8D3E" />
+  <Color name="Strings" foreground="#55B4D4" />
+  <Color name="Digits" foreground="#86B300" />
+  <Color name="Booleans" foreground="#86B300" />
+  <Color name ="Punctuation" foreground="#86B300" fontWeight="bold" />
+
+  <RuleSet ignoreCase="false">
+    <Keywords color="Booleans">
+      <Word>false</Word>
+      <Word>true</Word>
+    </Keywords>
+
+    <Keywords color="Digits">
+      <Word>null</Word>
+    </Keywords>
+
+    <Rule color="Comment">
+      \/\/.*|\/\*[\s\S]*?(?:\*\/|$)
+    </Rule>
+
+    <Rule color="Property">
+      \"(?:\\.|[^\\"\r\n])*"(?=\s*:)
+    </Rule>
+
+    <Rule color="Strings">
+      ((["])(?:\\(?:\r\n|[\s\S])|(?!["])[^\\\r\n])*(["]))|((['])(?:\\(?:\r\n|[\s\S])|(?!['])[^\\\r\n])*([']))
+    </Rule>
+
+    <Rule color="Digits">
+      \b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?
+    </Rule>
+
+    <Rule color="Punctuation">
+      [{}[\];(),.:]
+    </Rule>
+
+  </RuleSet>
+</SyntaxDefinition>

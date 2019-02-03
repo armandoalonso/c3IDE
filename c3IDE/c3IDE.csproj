@@ -33,7 +33,7 @@
     <ProductName>c3IDE</ProductName>
     <PublisherName>Piranha305</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -139,12 +139,19 @@
     <Compile Include="Server\WebServerClient.cs" />
     <Compile Include="Templates\BehaviorTemplate.cs" />
     <Compile Include="Templates\DrawingPluginTemplate.cs" />
+    <Compile Include="Templates\EffectTemplate.cs" />
     <Compile Include="Templates\MultiInstancePluginTemplate.cs" />
+    <Compile Include="Utilities\CodeCompletion\Bindings\JavascriptBinding.cs" />
+    <Compile Include="Utilities\CodeCompletion\CodeCompletionPipeline.cs" />
     <Compile Include="Utilities\Eventing\Events.cs" />
     <Compile Include="Utilities\Eventing\EventQueue.cs" />
     <Compile Include="Utilities\Extentions\StringExtentions.cs" />
     <Compile Include="Utilities\Helpers\ControlHelper.cs" />
+    <Compile Include="Utilities\Search\FindAndReplaceHelper.cs" />
+    <Compile Include="Utilities\Helpers\TextEditorHelper.cs" />
     <Compile Include="Utilities\Logging\LogManager.cs" />
+    <Compile Include="Utilities\Search\Searcher.cs" />
+    <Compile Include="Utilities\Search\SearchResult.cs" />
     <Compile Include="Utilities\SyntaxHighlighting\AvaloneEditColorizer.cs" />
     <Compile Include="Utilities\JsBeautifier\JsonBeautifier.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\RuntimeJavascriptBinding.cs" />
@@ -153,7 +160,7 @@
     <Compile Include="Utilities\CodeCompletion\Bindings\MethodInterfaceMapping.cs" />
     <Compile Include="Utilities\CodeCompletion\CodeCompletionDecorator.cs" />
     <Compile Include="Utilities\CodeCompletion\CompletionTypeFactory.cs" />
-    <Compile Include="Utilities\CodeCompletion\DocumentExtensions.cs" />
+    <Compile Include="Utilities\Extentions\DocumentExtensions.cs" />
     <Compile Include="Utilities\CodeCompletion\GenericCompletionItem.cs" />
     <Compile Include="Utilities\CodeCompletion\CodeCompletionFactory.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\ICompletionBindings.cs" />
@@ -196,6 +203,15 @@
     </Compile>
     <Compile Include="Windows\DashboardWindow.xaml.cs">
       <DependentUpon>DashboardWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EffectAddonWindow.xaml.cs">
+      <DependentUpon>EffectAddonWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EffectCodeWindow.xaml.cs">
+      <DependentUpon>EffectCodeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EffectLanguageWindow.xaml.cs">
+      <DependentUpon>EffectLanguageWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ExpressionWindow.xaml.cs">
       <DependentUpon>ExpressionWindow.xaml</DependentUpon>
@@ -247,6 +263,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\EffectAddonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EffectCodeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EffectLanguageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ExpressionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -290,7 +318,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="Templates\Files\Effect\effect.fx" />
+    <EmbeddedResource Include="Templates\Files\Effect\effect.fx" />
+    <EmbeddedResource Include="Templates\Files\fx.svg" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavascriptAyuLight.xshd" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -311,12 +341,16 @@
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_json.json" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\editor_return_type.json" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_runtime_javascript.json" />
-    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavaScriptMonokai.xshd" />
-    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavaScriptDefault.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavascriptMonokai.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavascriptDefault.xshd" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonDefault.xshd" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonMonokai.xshd" />
-    <Resource Include="Templates\Files\Effect\lang.txt" />
-    <Content Include="Templates\Files\Effect\addon.txt" />
+    <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_javascript.json" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonAyuLight.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavascriptAyuMirage.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonAyuMirage.xshd" />
+    <EmbeddedResource Include="Templates\Files\Effect\lang.txt" />
+    <EmbeddedResource Include="Templates\Files\Effect\addon.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

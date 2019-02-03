@@ -39,5 +39,7 @@ namespace c3IDE.Templates
         public string ActionCode { get; }
         public string LanguageProperty { get; }
         public string ExpressionLanguage { get; }
+        public string EffectCode => string.Empty;
+        public string EffectLangauge => string.Empty;
     }
 }

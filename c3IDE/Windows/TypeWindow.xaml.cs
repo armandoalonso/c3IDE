@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using c3IDE.DataAccess;
 using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
+using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
@@ -53,41 +54,21 @@ namespace c3IDE.Windows
         private void EditTimeTypeTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
-            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(EditTimeTypeTextEditor.Text, CodeType.EditTimeJavascript);
-            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptUserTokens(EditTimeTypeTextEditor.Text);
-            var allTokens =
-                JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens,
-                    CodeType.EditTimeJavascript);
+            var allTokens = JavascriptParser.Insatnce.ParseJavascriptUserTokens(EditTimeTypeTextEditor.Text);
 
             //add matching closing symbol
-            switch (e.Text)
+            if (!TextEditorHelper.Insatnce.MatchSymbol(EditTimeTypeTextEditor, e.Text))
             {
-                case "{":
-                    EditTimeTypeTextEditor.Document.Insert(EditTimeTypeTextEditor.TextArea.Caret.Offset, "}");
-                    EditTimeTypeTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "\"":
-                    EditTimeTypeTextEditor.Document.Insert(EditTimeTypeTextEditor.TextArea.Caret.Offset, "\"");
-                    EditTimeTypeTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "[":
-                    EditTimeTypeTextEditor.Document.Insert(EditTimeTypeTextEditor.TextArea.Caret.Offset, "]");
-                    EditTimeTypeTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "(":
-                    EditTimeTypeTextEditor.Document.Insert(EditTimeTypeTextEditor.TextArea.Caret.Offset, ")");
-                    EditTimeTypeTextEditor.TextArea.Caret.Offset--;
-                    return;
-                case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce
-                        .GetCompletionData(allTokens, CodeType.EditTimeJavascript, "edittime_typejs")
-                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
-                    ShowCompletion(EditTimeTypeTextEditor.TextArea, methodsData.ToList());
-                    break;
-                default:
+                if (e.Text == ".")
+                {
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"edittime_type_script").ToList();
+                    if (data.Any())
+                    {
+                        ShowCompletion(EditTimeTypeTextEditor.TextArea, data);
+                    }
+                }
+                else
+                {
                     //figure out word segment
                     var segment = EditTimeTypeTextEditor.TextArea.GetCurrentWord();
                     if (segment == null) return;
@@ -97,50 +78,33 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.EditTimeJavascript, "edittime_typejs").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"edittime_type_script").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(EditTimeTypeTextEditor.TextArea, data);
                     }
-                    break;
+                }
             }
         }
 
         private void RunTimeTypeTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
-            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(RunTimeTypeTextEditor.Text, CodeType.RuntimeJavascript);
-            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptUserTokens(RunTimeTypeTextEditor.Text);
-            var allTokens = JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.RuntimeJavascript);
+            var allTokens = JavascriptParser.Insatnce.ParseJavascriptUserTokens(RunTimeTypeTextEditor.Text);
 
             //add matching closing symbol
-            switch (e.Text)
+            if (!TextEditorHelper.Insatnce.MatchSymbol(RunTimeTypeTextEditor, e.Text))
             {
-                case "{":
-                    RunTimeTypeTextEditor.Document.Insert(RunTimeTypeTextEditor.TextArea.Caret.Offset, "}");
-                    RunTimeTypeTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "\"":
-                    RunTimeTypeTextEditor.Document.Insert(RunTimeTypeTextEditor.TextArea.Caret.Offset, "\"");
-                    RunTimeTypeTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "[":
-                    RunTimeTypeTextEditor.Document.Insert(RunTimeTypeTextEditor.TextArea.Caret.Offset, "]");
-                    RunTimeTypeTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "(":
-                    RunTimeTypeTextEditor.Document.Insert(RunTimeTypeTextEditor.TextArea.Caret.Offset, ")");
-                    RunTimeTypeTextEditor.TextArea.Caret.Offset--;
-                    return;
-                case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript, "runtime_typejs")
-                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
-                    ShowCompletion(RunTimeTypeTextEditor.TextArea, methodsData.ToList());
-                    break;
-                default:
+                if (e.Text == ".")
+                {
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"runtime_type_script").ToList();
+                    if (data.Any())
+                    {
+                        ShowCompletion(RunTimeTypeTextEditor.TextArea, data);
+                    }
+                }
+                else
+                {
                     //figure out word segment
                     var segment = RunTimeTypeTextEditor.TextArea.GetCurrentWord();
                     if (segment == null) return;
@@ -150,12 +114,12 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript, "runtime_typejs").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"runtime_type_script").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(RunTimeTypeTextEditor.TextArea, data);
                     }
-                    break;
+                }
             }
         }
 
@@ -232,12 +196,6 @@ namespace c3IDE.Windows
             EditTimeTypeTextEditor.Text = string.Empty;
              RunTimeTypeTextEditor.Text = string.Empty;
         }
-
-        public void SetupTheme(Theme t)
-        {
-
-        }
-
 
         //context menu
         private void FormatJavascriptRuntime_OnClick(object sender, RoutedEventArgs e)

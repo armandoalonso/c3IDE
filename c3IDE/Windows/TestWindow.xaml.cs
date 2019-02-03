@@ -128,10 +128,6 @@ namespace c3IDE.Windows
         {
         }
 
-        public void SetupTheme(Theme t)
-        {
-        }
-
         //text box events
         private void SelectUrl(object sender, RoutedEventArgs e)
         {

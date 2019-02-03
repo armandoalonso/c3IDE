@@ -26,6 +26,26 @@ namespace c3IDE.Models
         public string AddonFolder { get; set; }
 
         public PluginType Type { get; set; }
+
+        [BsonIgnore]
+        public string TypeName
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case PluginType.SingleGlobalPlugin:
+                    case PluginType.DrawingPlugin:
+                        return "(Plugin)";
+                    case PluginType.Behavior:
+                        return "(Behavior)";
+                    case PluginType.Effect:
+                        return "(Effect)";
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
         //public string IconBase64 { get; set; }
         public string IconXml { get; set; }
 
@@ -46,12 +66,17 @@ namespace c3IDE.Models
         public string InstanceRunTime { get; set; }
         public string LanguageProperties { get; set; }
         public string LanguageCategories { get; set; }
+
+        //effect property
+        public string EffectLanguage { get; set; }
+        public string EffectCode { get; set; }
+
         [BsonIgnore]
         public List<string> Categories  {
             get
             {
                 var set = new HashSet<string>();
-                set.UnionWith(Actions?.Select(x => x.Value.Category) ?? new List<string>());
+                set.UnionWith(Actions?.Select(x =>   x.Value.Category) ?? new List<string>());
                 set.UnionWith(Conditions?.Select(x => x.Value.Category) ?? new List<string>());
                 set.UnionWith(Expressions?.Select(x => x.Value.Category) ?? new List<string>());
                 return set.ToList();

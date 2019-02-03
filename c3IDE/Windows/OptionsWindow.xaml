@@ -48,6 +48,8 @@
                 <ComboBox Name="ThemeCombo" SelectionChanged="ThemeCombo_OnSelectionChanged">
                     <ComboBoxItem>Default Theme</ComboBoxItem>
                     <ComboBoxItem>Monokai Theme</ComboBoxItem>
+                    <ComboBoxItem>Ayu Light Theme</ComboBoxItem>
+                    <ComboBoxItem>Ayu Mirage Theme</ComboBoxItem>
                 </ComboBox>
             </UniformGrid>
             <Separator Visibility="Hidden" Height="5" />

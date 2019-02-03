@@ -19,6 +19,7 @@ using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
+using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
@@ -68,44 +69,22 @@ namespace c3IDE.Windows
             var allTokens = JavascriptParser.Insatnce.ParseJsonDocument(LanguageTextEditor.Text);
 
             //add matching closing symbol
-            switch (e.Text)
+            if (!TextEditorHelper.Insatnce.MatchSymbol(LanguageTextEditor, e.Text))
             {
-                case "{":
-                    LanguageTextEditor.Document.Insert(LanguageTextEditor.TextArea.Caret.Offset, "}");
-                    LanguageTextEditor.TextArea.Caret.Offset--;
-                    return;
+                //figure out word segment
+                var segment = LanguageTextEditor.TextArea.GetCurrentWord();
+                if (segment == null) return;
 
-                case "\"":
-                    LanguageTextEditor.Document.Insert(LanguageTextEditor.TextArea.Caret.Offset, "\"");
-                    LanguageTextEditor.TextArea.Caret.Offset--;
-                    return;
+                //get string from segment
+                var text = LanguageTextEditor.Document.GetText(segment);
+                if (string.IsNullOrWhiteSpace(text)) return;
 
-                case "[":
-                    LanguageTextEditor.Document.Insert(LanguageTextEditor.TextArea.Caret.Offset, "]");
-                    LanguageTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "(":
-                    LanguageTextEditor.Document.Insert(LanguageTextEditor.TextArea.Caret.Offset, ")");
-                    LanguageTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                default:
-                    //figure out word segment
-                    var segment = LanguageTextEditor.TextArea.GetCurrentWord();
-                    if (segment == null) return;
-
-                    //get string from segment
-                    var text = LanguageTextEditor.Document.GetText(segment);
-                    if (string.IsNullOrWhiteSpace(text)) return;
-
-                    //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json, $"{_selectedExpression.Id}_lang").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
-                    if (data.Any())
-                    {
-                        ShowCompletion(LanguageTextEditor.TextArea, data);
-                    }
-                    break;
+                //filter completion list by string
+                var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"{_selectedExpression.Id}_lang_json").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
+                if (data.Any())
+                {
+                    ShowCompletion(LanguageTextEditor.TextArea, data);
+                }
             }
         }
 
@@ -115,82 +94,43 @@ namespace c3IDE.Windows
             var allTokens = JavascriptParser.Insatnce.ParseJsonDocument(AceTextEditor.Text);
 
             //add matching closing symbol
-            switch (e.Text)
+            if (!TextEditorHelper.Insatnce.MatchSymbol(AceTextEditor, e.Text))
             {
-                case "{":
-                    AceTextEditor.Document.Insert(AceTextEditor.TextArea.Caret.Offset, "}");
-                    AceTextEditor.TextArea.Caret.Offset--;
-                    return;
+                //figure out word segment
+                var segment = AceTextEditor.TextArea.GetCurrentWord();
+                if (segment == null) return;
 
-                case "\"":
-                    AceTextEditor.Document.Insert(AceTextEditor.TextArea.Caret.Offset, "\"");
-                    AceTextEditor.TextArea.Caret.Offset--;
-                    return;
+                //get string from segment
+                var text = AceTextEditor.Document.GetText(segment);
+                if (string.IsNullOrWhiteSpace(text)) return;
 
-                case "[":
-                    AceTextEditor.Document.Insert(AceTextEditor.TextArea.Caret.Offset, "]");
-                    AceTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "(":
-                    AceTextEditor.Document.Insert(AceTextEditor.TextArea.Caret.Offset, ")");
-                    AceTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                default:
-                    //figure out word segment
-                    var segment = AceTextEditor.TextArea.GetCurrentWord();
-                    if (segment == null) return;
-
-                    //get string from segment
-                    var text = AceTextEditor.Document.GetText(segment);
-                    if (string.IsNullOrWhiteSpace(text)) return;
-
-                    //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.Json, $"{_selectedExpression.Id}_ace").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
-                    if (data.Any())
-                    {
-                        ShowCompletion(AceTextEditor.TextArea, data);
-                    }
-                    break;
+                //filter completion list by string
+                var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"{_selectedExpression.Id}_ace_json").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
+                if (data.Any())
+                {
+                    ShowCompletion(AceTextEditor.TextArea, data);
+                }
             }
         }
 
         private void CodeTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
-            var tokenList = JavascriptParser.Insatnce.ParseJavascriptDocument(CodeTextEditor.Text, CodeType.RuntimeJavascript);
-            var methodsTokens = JavascriptParser.Insatnce.ParseJavascriptUserTokens(CodeTextEditor.Text);
-            var allTokens = JavascriptParser.Insatnce.DecorateMethodInterfaces(tokenList, methodsTokens, CodeType.RuntimeJavascript);
+            var allTokens = JavascriptParser.Insatnce.ParseJavascriptUserTokens(CodeTextEditor.Text);
 
             //add matching closing symbol
-            switch (e.Text)
+            if (!TextEditorHelper.Insatnce.MatchSymbol(CodeTextEditor, e.Text))
             {
-                case "{":
-                    CodeTextEditor.Document.Insert(CodeTextEditor.TextArea.Caret.Offset, "}");
-                    CodeTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "\"":
-                    CodeTextEditor.Document.Insert(CodeTextEditor.TextArea.Caret.Offset, "\"");
-                    CodeTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "[":
-                    CodeTextEditor.Document.Insert(CodeTextEditor.TextArea.Caret.Offset, "]");
-                    CodeTextEditor.TextArea.Caret.Offset--;
-                    return;
-
-                case "(":
-                    CodeTextEditor.Document.Insert(CodeTextEditor.TextArea.Caret.Offset, ")");
-                    CodeTextEditor.TextArea.Caret.Offset--;
-                    return;
-                case ".":
-                    var methodsData = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript, $"{_selectedExpression.Id}_code")
-                        .Where(x => x.Type == CompletionType.Methods || x.Type == CompletionType.Modules || x.Type == CompletionType.Misc);
-                    ShowCompletion(CodeTextEditor.TextArea, methodsData.ToList());
-                    break;
-                default:
+                if (e.Text == ".")
+                {
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"{_selectedExpression.Id}_code_script").ToList();
+                    if (data.Any())
+                    {
+                        ShowCompletion(CodeTextEditor.TextArea, data);
+                    }
+                }
+                else
+                {
                     //figure out word segment
                     var segment = CodeTextEditor.TextArea.GetCurrentWord();
                     if (segment == null) return;
@@ -200,12 +140,12 @@ namespace c3IDE.Windows
                     if (string.IsNullOrWhiteSpace(text)) return;
 
                     //filter completion list by string
-                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, CodeType.RuntimeJavascript, $"{_selectedExpression.Id}_code").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
+                    var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"{_selectedExpression.Id}_code_script").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
                         ShowCompletion(CodeTextEditor.TextArea, data);
                     }
-                    break;
+                }
             }
         }
 
@@ -371,7 +311,6 @@ namespace c3IDE.Windows
             if (ExpressionListBox.SelectedIndex == -1)
             {
                 //ignore
-                Category.Text = string.Empty;
                 return;
             }
 
@@ -383,11 +322,15 @@ namespace c3IDE.Windows
                 _selectedExpression.Code = CodeTextEditor.Text;
                 _selectedExpression.Category = Category.Text;
                 _expressions[_selectedExpression.Id] = _selectedExpression;
+                AppData.Insatnce.CurrentAddon.Expressions = _expressions;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
             }
 
-           _selectedExpression = ((KeyValuePair<string, Expression>)ExpressionListBox.SelectedItem).Value;
-            Category.Text = _selectedExpression.Category;
-            AceTextEditor.Text = _selectedExpression.Ace;
+           var selectedKey = ((KeyValuePair<string, Expression>)ExpressionListBox.SelectedItem).Key;
+           _selectedExpression = _expressions[selectedKey];
+
+           Category.Text = _selectedExpression.Category;
+           AceTextEditor.Text = _selectedExpression.Ace;
            LanguageTextEditor.Text = _selectedExpression.Language;
            CodeTextEditor.Text = _selectedExpression.Code;
         }
@@ -494,11 +437,6 @@ namespace c3IDE.Windows
             Category.Text = string.Empty;
         }
 
-        public void SetupTheme(Theme t)
-        {
-            
-        }
-
         //view buttons
         private void AceView_OnClick(object sender, RoutedEventArgs e)
         {
@@ -576,6 +514,14 @@ namespace c3IDE.Windows
             else
             {
                 AppData.Insatnce.ErrorMessage("failed to duplicate expression, no expression selected");
+            }
+        }
+
+        private void Category_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_selectedExpression != null)
+            {
+                _selectedExpression.Category = Category.Text;
             }
         }
     }
