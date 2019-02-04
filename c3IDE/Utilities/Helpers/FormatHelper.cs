@@ -1,4 +1,6 @@
-﻿using c3IDE.Utilities.JsBeautifier;
+﻿using System.Text;
+using System.Text.RegularExpressions;
+using c3IDE.Utilities.JsBeautifier;
 
 namespace c3IDE.Utilities.Helpers
 {
@@ -23,19 +25,33 @@ namespace c3IDE.Utilities.Helpers
             }
         }
 
+        public string JsonCondensed(string json)
+        {
+            return jsonBeautifier.GetResultsCompressed(json).Trim();
+        }
+
         public string JsonCompress(string json, bool wrap = false)
         {
             if (wrap)
             {
-                json = $"{{{json}}}";
-                var returnString = jsonBeautifier.GetResultsCompressed(json).Trim();
+                var returnString = $"{{{json}}}";
                 returnString = returnString.Remove(0, 1);
                 returnString = returnString.Remove(returnString.Length - 1, 1);
-                return returnString.Trim();
+                var sb = new StringBuilder(returnString);
+                sb.Replace("\t", string.Empty);
+                sb.Replace("\n", string.Empty);
+                sb.Replace("\r", string.Empty);
+                sb.Replace(" ", string.Empty);
+                return sb.ToString();
             }
             else
             {
-                return jsonBeautifier.GetResultsCompressed(json).Trim();
+                var sb = new StringBuilder(json);
+                sb.Replace("\t", string.Empty);
+                sb.Replace("\n", string.Empty);
+                sb.Replace("\r", string.Empty);
+                sb.Replace(" ", string.Empty);
+                return sb.ToString();
             }
         }
 

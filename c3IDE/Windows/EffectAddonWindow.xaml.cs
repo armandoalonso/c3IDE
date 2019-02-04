@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -74,5 +75,64 @@ namespace c3IDE.Windows
         {
             AddonTextEditor.Text = AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text);
         }
+        private void AddParameterMenu_Click(object sender, RoutedEventArgs e)
+        {
+            NewPropertyWindow.IsOpen = true;
+            ParameterIdText.Text = "test-parameter";
+            ParameterTypeDropdown.Text = "color";
+            ParameterUniformText.Text = "setColor";
+            ParameterNameText.Text = "Name";
+            ParameterDescText.Text = "Description";
+        }
+
+        private void AddParameterButton_Click(object sender, RoutedEventArgs e)
+        {
+            var id = ParameterIdText.Text;
+            var type = ParameterTypeDropdown.Text;
+            var uniform = ParameterUniformText.Text;
+            var name = ParameterNameText.Text;
+            var desc = ParameterDescText.Text;
+            string template;
+
+            //check for duplicate property id
+            var propertyRegex = new Regex(@"{""id"":""(?<id>.*)"",""type"":""(?<type>.*)"",""initial-value"":(?<val>.*),""uniform"":""(?<uniform>.*)""}", RegexOptions.IgnorePatternWhitespace );
+
+            var compress = FormatHelper.Insatnce.JsonCompress(AddonTextEditor.Text);
+            var propertyMatches = propertyRegex.Matches(compress);
+            var firstProperty = propertyMatches.Count == 0;
+
+            foreach (Match propertyMatch in propertyMatches)
+            {
+                if (propertyMatch.Groups["id"].ToString() == id)
+                {
+                    AppData.Insatnce.ErrorMessage("cannot have duplicate parameter id.");
+                    return;
+                }
+            }
+
+            var comma = firstProperty ? string.Empty : ",";
+            switch (type)
+            {
+                case "float":
+                    template = $@"{{""id"":""{id}"",""type"": ""{type}"",""initial-value"":1,""uniform"": ""{uniform}""}}{comma}";
+                    break;
+
+                case "color":
+                    template = $@"{{""id"":""{id}"",""type"": ""{type}"",""initial-value"":@COLOR@,""uniform"": ""{uniform}""}}{comma}";
+                    break;
+
+                case "percent":
+                    template = $@"{{""id"":""{id}"",""type"": ""{type}"",""initial-value"":100,""uniform"": ""{uniform}""}}{comma}";
+                    break;
+
+                default:
+                    throw new ArgumentException();
+            }
+
+            AddonTextEditor.Text = FormatHelper.Insatnce.Json(compress.Replace("parameters\":[", $"parameters\":[{template}")).Replace("@COLOR@", "[1,0,0]");
+            NewPropertyWindow.IsOpen = false;
+        }
+
+
     }
 }

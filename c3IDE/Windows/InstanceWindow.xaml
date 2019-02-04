@@ -9,7 +9,7 @@
     <Grid Margin="10" Name="InstanceGrid">
         <TabControl>
             <TabItem Header="Instance.js" IsEnabled="False" Background="Transparent"/>
-            <TabItem Header="(Edit Time)" IsSelected="True" Background="Transparent">
+            <TabItem Header="(Edit Time)" Background="Transparent">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="EditTimeInstanceTextEditor"
@@ -26,7 +26,7 @@
                 </avalonEdit:TextEditor>
             </TabItem>
 
-            <TabItem Header="(Run Time)" Background="Transparent">
+            <TabItem Header="(Run Time)" Background="Transparent" IsSelected="True">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="RunTimeInstanceTextEditor"
