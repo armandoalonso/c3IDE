@@ -96,9 +96,11 @@ namespace c3IDE
         {
             try
             {
+                ProcessHelper.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.DataPath, "start.log"), JsonConvert.SerializeObject(e));
                 //check for oneclick args
                 if (AppDomain.CurrentDomain?.SetupInformation?.ActivationArguments?.ActivationData != null)
                 {
+                    MessageBox.Show($"loading arg => {AppDomain.CurrentDomain?.SetupInformation?.ActivationArguments?.ActivationData}");
                     var path = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData[0];
                     if(string.IsNullOrWhiteSpace(path)) return;
                     var data = File.ReadAllText(path);
