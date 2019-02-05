@@ -33,7 +33,7 @@
     <ProductName>c3IDE</ProductName>
     <PublisherName>Piranha305</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -84,6 +84,7 @@
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="MahApps.Metro.SimpleChildWindow, Version=2.0.0.0, Culture=neutral, PublicKeyToken=ca3e0454e54ef52a, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.SimpleChildWindow.2.0.0-alpha0005\lib\net47\MahApps.Metro.SimpleChildWindow.dll</HintPath>
@@ -603,7 +604,7 @@
     <FileAssociation Include=".c3ide">
       <Visible>False</Visible>
       <Description>c3IDE Project File</Description>
-      <Progid>c3ide.Export.1</Progid>
+      <Progid>c3ide.Project</Progid>
       <DefaultIcon>c3ide_proj_Obi_icon.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>

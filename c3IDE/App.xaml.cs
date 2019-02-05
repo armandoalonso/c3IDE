@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Logging;
 using c3IDE.Utilities.SyntaxHighlighting;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 
 namespace c3IDE
@@ -38,6 +40,8 @@ namespace c3IDE
             var defaultC3AddonPath = Path.Combine(dataFolder, "C3Addons");
 
             DataFolder = dataFolder;
+
+            var x = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData;
 
             //setup default options
             DefaultOptions = new Options
@@ -93,6 +97,15 @@ namespace c3IDE
         {
             try
             {
+                //check for oneclick args
+                if (AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData != null)
+                {
+                    foreach (string commandLineFile in AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData)
+                    {
+                        MessageBox.Show($"Command Line File: {commandLineFile}");
+                    }
+                }
+
                 //process command line args
                 var args = e.Args;
                 if (args.Any())
@@ -106,22 +119,22 @@ namespace c3IDE
                             AppData.Insatnce.CurrentAddon = addon;
                         }
                     }
-                    //check if guid is valid path
-                    else if(File.Exists(args[0]))
-                    {
-                        var path = args[0];
+                    ////check if guid is valid path
+                    //else if(File.Exists(args[0]))
+                    //{
+                    //    var path = args[0];
 
-                        var data = File.ReadAllText(path);
-                        var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
+                    //    var data = File.ReadAllText(path);
+                    //    var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
 
-                        //todo: this will overwrite you addon
-                        DataAccessFacade.Insatnce.AddonData.Upsert(c3addon);
+                    //    //todo: this will overwrite you addon
+                    //    DataAccessFacade.Insatnce.AddonData.Upsert(c3addon);
 
-                        //get the plugin template
-                        c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
+                    //    //get the plugin template
+                    //    c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
 
-                        AppData.Insatnce.CurrentAddon = c3addon;
-                    }  
+                    //    AppData.Insatnce.CurrentAddon = c3addon;
+                    //}  
                 }
             }
             catch (Exception ex)
