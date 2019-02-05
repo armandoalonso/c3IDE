@@ -33,7 +33,7 @@
     <ProductName>c3IDE</ProductName>
     <PublisherName>Piranha305</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -60,7 +60,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>c3ide_icon.ico</ApplicationIcon>
+    <ApplicationIcon>c3ide_icon_AaX_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>c3IDE.App</StartupObject>
@@ -410,9 +410,6 @@
     <EmbeddedResource Include="Utilities\CodeCompletion\Icons\words.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="c3ide_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.1 %28x86 and x64%29</ProductName>
@@ -592,6 +589,19 @@
   <ItemGroup>
     <EmbeddedResource Include="Templates\Files\Behavior\instance_runtime.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="c3ide_icon_AaX_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="c3ide_proj_Obi_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <FileAssociation Include=".c3ide">
+      <Visible>False</Visible>
+      <Description>c3IDE Project File</Description>
+      <Progid>c3ide.Export.1</Progid>
+      <DefaultIcon>c3ide_proj_Obi_icon.ico</DefaultIcon>
+    </FileAssociation>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,10 +8,12 @@ using System.Windows;
 using System.Windows.Threading;
 using c3IDE.DataAccess;
 using c3IDE.Models;
+using c3IDE.Templates;
 using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Logging;
 using c3IDE.Utilities.SyntaxHighlighting;
+using Newtonsoft.Json;
 
 namespace c3IDE
 {
@@ -95,13 +97,31 @@ namespace c3IDE
                 var args = e.Args;
                 if (args.Any())
                 {
-                    var gui = Guid.Parse(args[0].ToString());
-                    var addon = DataAccessFacade.Insatnce.AddonData.Get(x => x.Id == gui).FirstOrDefault();
-
-                    if (addon != null)
+                    //checked if string is guid
+                    if (Guid.TryParse(args[0], out var guid))
                     {
-                        AppData.Insatnce.CurrentAddon = addon;
+                        var addon = DataAccessFacade.Insatnce.AddonData.Get(x => x.Id == guid).FirstOrDefault();
+                        if (addon != null)
+                        {
+                            AppData.Insatnce.CurrentAddon = addon;
+                        }
                     }
+                    //check if guid is valid path
+                    else if(File.Exists(args[0]))
+                    {
+                        var path = args[0];
+
+                        var data = File.ReadAllText(path);
+                        var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
+
+                        //todo: this will overwrite you addon
+                        DataAccessFacade.Insatnce.AddonData.Upsert(c3addon);
+
+                        //get the plugin template
+                        c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
+
+                        AppData.Insatnce.CurrentAddon = c3addon;
+                    }  
                 }
             }
             catch (Exception ex)
