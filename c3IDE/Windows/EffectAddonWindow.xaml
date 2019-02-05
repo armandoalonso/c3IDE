@@ -47,7 +47,7 @@
 
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Add Parameter" Click="AddParameterMenu_Click" />
+                            <!--<MenuItem Header="Add Parameter" Click="AddParameterMenu_Click" />-->
                             <MenuItem Header="Format JSON" Click="FormatJsonMenu_OnClick" />
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
