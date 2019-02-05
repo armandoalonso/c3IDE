@@ -100,10 +100,18 @@ namespace c3IDE
                 //check for oneclick args
                 if (AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData != null)
                 {
-                    foreach (string commandLineFile in AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData)
-                    {
-                        MessageBox.Show($"Command Line File: {commandLineFile}");
-                    }
+                    var path = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData[0];
+                    if(string.IsNullOrWhiteSpace(path)) return;
+                    var data = File.ReadAllText(path);
+                    var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
+
+                    //todo: this will overwrite you addon
+                    DataAccessFacade.Insatnce.AddonData.Upsert(c3addon);
+
+                    //get the plugin template
+                    c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
+
+                    AppData.Insatnce.CurrentAddon = c3addon;
                 }
 
                 //process command line args
@@ -119,22 +127,6 @@ namespace c3IDE
                             AppData.Insatnce.CurrentAddon = addon;
                         }
                     }
-                    ////check if guid is valid path
-                    //else if(File.Exists(args[0]))
-                    //{
-                    //    var path = args[0];
-
-                    //    var data = File.ReadAllText(path);
-                    //    var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
-
-                    //    //todo: this will overwrite you addon
-                    //    DataAccessFacade.Insatnce.AddonData.Upsert(c3addon);
-
-                    //    //get the plugin template
-                    //    c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
-
-                    //    AppData.Insatnce.CurrentAddon = c3addon;
-                    //}  
                 }
             }
             catch (Exception ex)

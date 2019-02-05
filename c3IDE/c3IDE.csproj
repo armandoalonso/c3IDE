@@ -33,7 +33,7 @@
     <ProductName>c3IDE</ProductName>
     <PublisherName>Piranha305</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -603,8 +603,8 @@
   <ItemGroup>
     <FileAssociation Include=".c3ide">
       <Visible>False</Visible>
-      <Description>c3IDE Project File</Description>
-      <Progid>c3ide.Project</Progid>
+      <Description>c3IDE Project</Description>
+      <Progid>c3ideProject</Progid>
       <DefaultIcon>c3ide_proj_Obi_icon.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>
