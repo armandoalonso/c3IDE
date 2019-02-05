@@ -36,8 +36,9 @@ namespace c3IDE
         public Action<string> ErrorMessage { get; set; }
 
         public Action<string> LoadAddon { get; set; }
+        public Action<Options> OptionChanged { get; set; }
         public Action GlobalSave { get; set; }
-        public Action<Theme> ThemeChangedEvent { get; set; }
+
 
         public void SetupTextEditor(TextEditor editor, Syntax syntax)
         { 

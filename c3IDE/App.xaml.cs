@@ -41,8 +41,6 @@ namespace c3IDE
 
             DataFolder = dataFolder;
 
-            var x = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData;
-
             //setup default options
             DefaultOptions = new Options
             {
@@ -57,7 +55,8 @@ namespace c3IDE
                 FontFamily = "Consolas",
                 ThemeKey = "Default Theme",
                 OpenC3InWeb = true,
-                C3DesktopPath = string.Empty
+                C3DesktopPath = string.Empty,
+                PinMenu = false
             };
 
             //create exports folder if it does not exists
@@ -98,7 +97,7 @@ namespace c3IDE
             try
             {
                 //check for oneclick args
-                if (AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData != null)
+                if (AppDomain.CurrentDomain?.SetupInformation?.ActivationArguments?.ActivationData != null)
                 {
                     var path = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData[0];
                     if(string.IsNullOrWhiteSpace(path)) return;
@@ -126,6 +125,10 @@ namespace c3IDE
                         {
                             AppData.Insatnce.CurrentAddon = addon;
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"invalid arg => {args[0]}");
                     }
                 }
             }

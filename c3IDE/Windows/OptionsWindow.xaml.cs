@@ -60,6 +60,7 @@ namespace c3IDE.Windows
             IncludeTimeStamp.IsChecked = AppData.Insatnce.Options.IncludeTimeStampOnExport;
             OpenC3InWeb.IsChecked = AppData.Insatnce.Options.OpenC3InWeb;
             C3DesktopPathText.Text = AppData.Insatnce.Options.C3DesktopPath;
+            PinMainMenu.IsChecked = AppData.Insatnce.Options.PinMenu;
         }
 
         public void OnExit()
@@ -79,7 +80,8 @@ namespace c3IDE.Windows
                     ThemeKey = !string.IsNullOrWhiteSpace(ThemeCombo.Text) ? ThemeCombo.Text : App.DefaultOptions.ThemeKey,
                     IncludeTimeStampOnExport = IncludeTimeStamp.IsChecked != null && IncludeTimeStamp.IsChecked.Value,
                     OpenC3InWeb = OpenC3InWeb.IsChecked != null && OpenC3InWeb.IsChecked.Value,
-                    C3DesktopPath = C3DesktopPathText.Text
+                    C3DesktopPath = C3DesktopPathText.Text,
+                    PinMenu = PinMainMenu.IsChecked != null && PinMainMenu.IsChecked.Value
                 };
 
                 //create exports folder if it does not exists
@@ -200,6 +202,13 @@ namespace c3IDE.Windows
         private void OpenChangeLog_OnClick(object sender, RoutedEventArgs e)
         {
             ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://github.com/armandoalonso/c3IDE/blob/master/CHANGELOG.md");
+        }
+
+        private void PinMainMenu_OnChecked(object sender, RoutedEventArgs e)
+        {
+            AppData.Insatnce.Options.PinMenu = PinMainMenu.IsChecked != null && PinMainMenu.IsChecked.Value;
+            AppData.Insatnce.OptionChanged(AppData.Insatnce.Options);
+            DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
         }
     }
 }

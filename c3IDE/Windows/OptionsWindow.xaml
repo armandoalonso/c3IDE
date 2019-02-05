@@ -60,6 +60,10 @@
             </UniformGrid>
             <Separator Visibility="Hidden" Height="5" />
 
+            <UniformGrid Columns="2">
+                <CheckBox Name="PinMainMenu" FontFamily="Century Gothic" FontSize="16" Checked="PinMainMenu_OnChecked" Unchecked="PinMainMenu_OnChecked">Pin Main Menu</CheckBox>
+            </UniformGrid>
+
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Bottom">

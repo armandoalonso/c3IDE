@@ -29,6 +29,7 @@ namespace c3IDE.Models
         public bool IncludeTimeStampOnExport { get; set; } = true;
         public bool OpenC3InWeb { get; set; } = true;
         public string C3DesktopPath { get; set; }
+        public bool PinMenu { get; set; } = false;
 
 
         [BsonIgnore]

@@ -32,7 +32,6 @@ namespace c3IDE
         private readonly LanguageWindow _languageWindow = new LanguageWindow();
         private readonly TestWindow _testWidnow = new TestWindow();
         private readonly OptionsWindow _optionsWindow = new OptionsWindow();
-
         private readonly EffectAddonWindow _fxAddonWindow = new EffectAddonWindow();
         private readonly EffectCodeWindow _fxCodeWindow = new EffectCodeWindow();
         private readonly EffectLanguageWindow _fxLanguageWindow = new EffectLanguageWindow();
@@ -51,6 +50,7 @@ namespace c3IDE
             AppData.Insatnce.ErrorMessage = OpenErrorNotification;
             AppData.Insatnce.LoadAddon = s => { this.Title = $"C3IDE - {s}"; };
             AppData.Insatnce.GlobalSave = Save;
+            AppData.Insatnce.OptionChanged = OptionChanged;
           
 
             //load data
@@ -61,10 +61,41 @@ namespace c3IDE
             //setup load action callback
             _dashboardWindow = new DashboardWindow { AddonLoaded = AddonLoadDelegate };
 
+            //apply pinned menu
+            OptionChanged(AppData.Insatnce.Options);
+
             //setup default view
             ActiveItem.Content = _dashboardWindow;
             _dashboardWindow.OnEnter();
             _currentActiveWindow = _dashboardWindow.DisplayName;
+        }
+
+        private void OptionChanged(Options obj)
+        {
+            if (obj.PinMenu)
+            {
+                DefaultMainMenu.DisplayMode = SplitViewDisplayMode.Inline;
+                DefaultMainMenu.IsPaneOpen = true;
+                DefaultMainMenu.HamburgerVisibility = Visibility.Collapsed;
+                DefaultMainMenu.HamburgerHeight = 0;
+
+                EffectMainMenu.DisplayMode = SplitViewDisplayMode.Inline;
+                EffectMainMenu.IsPaneOpen = true;
+                EffectMainMenu.HamburgerVisibility = Visibility.Collapsed;
+                EffectMainMenu.HamburgerHeight = 0;
+            }
+            else
+            {
+                DefaultMainMenu.DisplayMode = SplitViewDisplayMode.CompactOverlay;
+                DefaultMainMenu.IsPaneOpen = false;
+                DefaultMainMenu.HamburgerVisibility = Visibility.Visible;
+                DefaultMainMenu.HamburgerHeight = 48;
+
+                EffectMainMenu.DisplayMode = SplitViewDisplayMode.CompactOverlay;
+                EffectMainMenu.IsPaneOpen = false;
+                EffectMainMenu.HamburgerVisibility = Visibility.Visible;
+                EffectMainMenu.HamburgerHeight = 48;
+            }
         }
 
         private void HambugerMenuItem_Click(object sender, ItemClickEventArgs e)
@@ -74,7 +105,7 @@ namespace c3IDE
             if (clickedLabel == "Save")
             {
                 Save();
-                DefaultMainMenu.IsPaneOpen = false;
+                DefaultMainMenu.IsPaneOpen = AppData.Insatnce.Options.PinMenu;
                 return;
             }
 
@@ -191,7 +222,7 @@ namespace c3IDE
             //set the current active window
             _currentActiveWindow = clickedLabel;
             //close menu pane
-            DefaultMainMenu.IsPaneOpen = false;
+            DefaultMainMenu.IsPaneOpen = AppData.Insatnce.Options.PinMenu;
         }
 
         public void Save()
@@ -339,7 +370,7 @@ namespace c3IDE
             if (clickedLabel == "Save")
             {
                 Save();
-                DefaultMainMenu.IsPaneOpen = false;
+                EffectMainMenu.IsPaneOpen = AppData.Insatnce.Options.PinMenu;
                 return;
             }
 
@@ -416,7 +447,7 @@ namespace c3IDE
             //set the current active window
             _currentActiveWindow = clickedLabel;
             //close menu pane
-            DefaultMainMenu.IsPaneOpen = false;
+            EffectMainMenu.IsPaneOpen = AppData.Insatnce.Options.PinMenu;
         }
     }
 }
