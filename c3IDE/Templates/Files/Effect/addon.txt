@@ -19,6 +19,8 @@
 	"cross-sampling": false,
 	"preserves-opaqueness": true,
 	"animated": false,
+	"must-predraw" : "false",
+
 	"extend-box": {
 		"horizontal": 0,
 		"vertical": 0

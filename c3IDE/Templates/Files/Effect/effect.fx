@@ -2,6 +2,8 @@
 // Set color effect
 varying mediump vec2 vTex;
 uniform lowp sampler2D samplerFront;
+
+// effect parameters
 uniform lowp vec3 setColor;
 
 void main(void)
