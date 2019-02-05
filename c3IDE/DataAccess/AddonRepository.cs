@@ -26,6 +26,7 @@ namespace c3IDE.DataAccess
 
         public void Upsert(C3Addon value)
         {
+            value.LastModified = DateTime.Now;
             using (var db = new LiteDatabase(Path))
             {
                 var collection = db.GetCollection<C3Addon>(Collection);

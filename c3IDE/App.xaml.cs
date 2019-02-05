@@ -167,12 +167,12 @@ namespace c3IDE
                 sb.AppendLine("\n===============================================================\n");
             }
 
-            var logFile = Path.Combine(AppData.Insatnce.Options.DataPath, $"log_{DateTime.Now:yyyyMMdd_hhmmmss}.txt");
+            var logFile = Path.Combine(AppData.Insatnce.Options.DataPath, $"app_log.txt");
             ProcessHelper.Insatnce.WriteFile(logFile, sb.ToString());
             ProcessHelper.Insatnce.StartProcess(logFile);
 
             //stop the application
-            Application.Current.Shutdown();
+            Environment.Exit(0);
         }
     }
 }

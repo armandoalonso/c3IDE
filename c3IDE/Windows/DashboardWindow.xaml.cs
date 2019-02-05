@@ -151,7 +151,6 @@ namespace c3IDE.Windows
             }
 
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
-            currentAddon.LastModified = DateTime.Now;
             LoadAddon(currentAddon);
         }
 
@@ -229,7 +228,6 @@ namespace c3IDE.Windows
             }
 
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
-            currentAddon.LastModified = DateTime.Now;
             LoadAddon(currentAddon);
         }
 

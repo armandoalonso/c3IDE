@@ -57,6 +57,9 @@ namespace c3IDE.Models
         public ITemplate Template { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime LastModified { get; set; }
+
+        [BsonIgnore]
+        public string ChangeDate => LastModified.ToString("yyyy-MM-dd, hh:mm");
         public string AddonJson { get; set; }
         public string PluginEditTime { get; set; }
         public string PluginRunTime { get; set; }
