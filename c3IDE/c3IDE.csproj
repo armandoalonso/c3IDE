@@ -590,10 +590,14 @@
     <EmbeddedResource Include="Templates\Files\Behavior\instance_runtime.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="c3ide_icon_AaX_icon.ico" />
+    <Content Include="c3ide_icon_AaX_icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="c3ide_proj_Obi_icon.ico" />
+    <Content Include="c3ide_proj_Obi_icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <FileAssociation Include=".c3ide">
