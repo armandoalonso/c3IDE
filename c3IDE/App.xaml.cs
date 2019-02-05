@@ -99,8 +99,8 @@ namespace c3IDE
                 //check for oneclick args
                 if (AppDomain.CurrentDomain?.SetupInformation?.ActivationArguments?.ActivationData != null)
                 {
-                    ProcessHelper.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.DataPath, "start.log"), JsonConvert.SerializeObject(AppDomain.CurrentDomain?.SetupInformation?.ActivationArguments?.ActivationData));
-                    var path = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData[0];
+                    
+                    var path = new Uri(AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData[0]).LocalPath;
                     if(string.IsNullOrWhiteSpace(path)) return;
                     var data = File.ReadAllText(path);
                     var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
