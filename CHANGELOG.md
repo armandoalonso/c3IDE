@@ -1,6 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.0.1.20 (02/06/19)
+* added extra buttons to compile window, to start web server/open construct, refactored how compile logging wroks 
+* remove spaces from author, since it's used as part of the addon id   
+
 ### Build# 1.0.1.17 (02/06/19)
 * add compile on save option - this option will compile the selected addon when a change is saved (ctrl-s), this will bring up a compilation log popout window, this allows for quicker iteration. you can go in start the web server, start making changes and compile on the fly, this avoids having to manually recompile the files everytime.    
 

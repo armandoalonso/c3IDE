@@ -101,6 +101,7 @@ namespace c3IDE.Compiler
                 LogManager.Insatnce.Exceptions.Add(ex);
                 _log.Insert($"web server failed to start...");
                 AppData.Insatnce.ErrorMessage("The web server failed to start... check that the port 8080, is not being used by another application.");
+                AppData.Insatnce.WebServerStarted = false;
                 return false;
             }
 

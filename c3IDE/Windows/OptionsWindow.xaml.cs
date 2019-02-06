@@ -81,7 +81,7 @@ namespace c3IDE.Windows
                     ThemeKey = !string.IsNullOrWhiteSpace(ThemeCombo.Text) ? ThemeCombo.Text : App.DefaultOptions.ThemeKey,
                     IncludeTimeStampOnExport = IncludeTimeStamp.IsChecked != null && IncludeTimeStamp.IsChecked.Value,
                     OpenC3InWeb = OpenC3InWeb.IsChecked != null && OpenC3InWeb.IsChecked.Value,
-                    C3DesktopPath = C3DesktopPathText.Text,
+                    C3DesktopPath = C3DesktopPathText.Text.Contains(".exe") ? C3DesktopPathText.Text : System.IO.Path.Combine(C3DesktopPathText.Text, "Construct3.exe"),
                     PinMenu = PinMainMenu.IsChecked != null && PinMainMenu.IsChecked.Value,
                     CompileOnSave = CompileOnSave.IsChecked != null && CompileOnSave.IsChecked.Value
                 };

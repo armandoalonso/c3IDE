@@ -42,6 +42,10 @@ namespace c3IDE
         public Action GlobalSave { get; set; }
         public string WebServerUrl { get; set; }
         public Action<string> WebServiceUrlChanged { get; set; }
+        public bool WebServerStarted { get; set; }
+
+        public Action<bool> WebServerStateChanged { get; set; }
+        public Action UpdateTestWindow { get; set; }
 
 
         public void SetupTextEditor(TextEditor editor, Syntax syntax)

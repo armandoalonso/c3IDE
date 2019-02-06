@@ -163,7 +163,7 @@ namespace c3IDE.Windows
                 Name = AddonNameText.Text,
                 Class = AddonClassText.Text,
                 Company = AuthorText.Text,
-                Author = AuthorText.Text,
+                Author = AuthorText.Text.Replace(" ", string.Empty),
                 Version = VersionText.Text,
                 Description = DescriptionText.Text,
                 Type = pluginType,

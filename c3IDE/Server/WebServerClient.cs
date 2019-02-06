@@ -46,7 +46,8 @@ namespace c3IDE.Server
             if(AppData.Insatnce.WebServiceUrlChanged != null) AppData.Insatnce?.WebServiceUrlChanged(AppData.Insatnce.WebServerUrl);
             _log.Insert($"starting server => {AppData.Insatnce.WebServerUrl}");
             _httpServer.Start();
-
+            AppData.Insatnce.WebServerStarted = true;
+            AppData.Insatnce.WebServerStateChanged(true);
         }
 
         public void Stop()
@@ -57,6 +58,8 @@ namespace c3IDE.Server
             AppData.Insatnce.CompilerLog.Insert("server stopped...");
             AppData.Insatnce.WebServerUrl = string.Empty;
             if (AppData.Insatnce.WebServiceUrlChanged != null) AppData.Insatnce?.WebServiceUrlChanged(AppData.Insatnce.WebServerUrl);
+            AppData.Insatnce.WebServerStarted = false;
+            AppData.Insatnce.WebServerStateChanged(false);
         }
     }
 }

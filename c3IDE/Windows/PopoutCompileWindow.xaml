@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:c3IDE.Windows"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="Compile Log Window" Height="450" Width="309" WindowStartupLocation="CenterOwner" Closing="MetroWindow_Closing">
+        Title="Compile Log Window" Height="522" Width="369" WindowStartupLocation="CenterOwner" Closing="MetroWindow_Closing">
     <Grid>
         <DockPanel Grid.Column="0" LastChildFill="True" VerticalAlignment="Stretch" Margin="5">
+            <Button Name="WebServerButton" DockPanel.Dock="Bottom" Content="Start Web Server" Margin="2" Click="StartWebServerButton_Click"></Button>
+            <Button DockPanel.Dock="Bottom" Content="Open Construct" Margin="2" Click="OpenConstructButton_Click"></Button>
             <TextBox Name="UrlTextBox" DockPanel.Dock="Bottom"  MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
             <TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource TextBlockStyle}" Margin="0,10,0,0">Addon URL :</TextBlock>
             <TextBox Name="LogText" TextWrapping="Wrap" DockPanel.Dock="Top" VerticalAlignment="Stretch" />

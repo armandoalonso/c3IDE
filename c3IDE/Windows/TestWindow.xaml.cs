@@ -50,6 +50,15 @@ namespace c3IDE.Windows
                     }
                 });
             });
+
+            AppData.Insatnce.UpdateTestWindow = Update;
+        }
+
+        public void Update()
+        {
+            StopWebServerButton.IsEnabled = AppData.Insatnce.WebServerStarted;
+            StartAndTestButton.IsEnabled = !AppData.Insatnce.WebServerStarted;
+            StartWebServerButton.IsEnabled = !AppData.Insatnce.WebServerStarted;
         }
 
         //button clicks
@@ -58,22 +67,16 @@ namespace c3IDE.Windows
             //compile the addon
             //LogText.Document.Blocks.Clear();
             LogText.Text = string.Empty;
-            StopWebServerButton.IsEnabled = true;
-            StartAndTestButton.IsEnabled = false;
-            StartWebServerButton.IsEnabled = false;
 
             var isValid = await AddonCompiler.Insatnce.CompileAddon(AppData.Insatnce.CurrentAddon);
 
             //there was an error detected in complication
             if (!isValid)
             {
-                //TODO: error notification
-                StopWebServerButton.IsEnabled = false;
-                StartAndTestButton.IsEnabled = true;
-                StartWebServerButton.IsEnabled = true;
                 return;
             }
 
+            Update();
             UrlTextBox.Text = $"http://localhost:8080/{AppData.Insatnce.CurrentAddon.Class.ToLower()}/addon.json";
             Clipboard.SetText(UrlTextBox.Text);
         }
@@ -81,9 +84,7 @@ namespace c3IDE.Windows
         public void StopWebServerButton_Click(object sender, RoutedEventArgs e)
         {
             AddonCompiler.Insatnce.WebServer.Stop();
-            StopWebServerButton.IsEnabled = false;
-            StartAndTestButton.IsEnabled = true;
-            StartWebServerButton.IsEnabled = true;
+            Update();
         }
 
         private void OpenCompiledFolderButton_Click(object sender, RoutedEventArgs e)
@@ -123,7 +124,8 @@ namespace c3IDE.Windows
 
         //sindow states
         public void OnEnter()
-        { 
+        {
+            Update();
         }
 
         public void OnExit()    
@@ -178,17 +180,14 @@ namespace c3IDE.Windows
             {
                 AddonCompiler.Insatnce.WebServer = new WebServerClient();
                 AddonCompiler.Insatnce.WebServer.Start();
-                StartAndTestButton.IsEnabled = false;
-                StartWebServerButton.IsEnabled = false;
-                StopWebServerButton.IsEnabled = true;
             }
             catch (Exception ex)
             {
                 LogManager.Insatnce.Exceptions.Add(ex);
-                StopWebServerButton.IsEnabled = false;
-                StartAndTestButton.IsEnabled = true;
-                StartWebServerButton.IsEnabled = true;
+                AppData.Insatnce.ErrorMessage($"failed to start web server => {ex.Message}");
             }
+
+            Update();
         }
     }
 }
