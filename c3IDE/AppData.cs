@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using c3IDE.Compiler;
 using c3IDE.Models;
 using c3IDE.Utilities;
 using c3IDE.Utilities.SyntaxHighlighting;
@@ -28,6 +29,7 @@ namespace c3IDE
         public C3Addon CurrentAddon = new C3Addon();
         public Options Options = new Options();
         public TcpListener TcpListener = new TcpListener(IPAddress.Any, 8080);
+        public CompilerLog CompilerLog { get; set; } = new CompilerLog();
 
         public Func<string, string, Task<bool>> ShowDialog { get; internal set; }
         public Func<string, string, string, Task<string>> ShowInputDialog { get; set; }
@@ -38,6 +40,8 @@ namespace c3IDE
         public Action<string> LoadAddon { get; set; }
         public Action<Options> OptionChanged { get; set; }
         public Action GlobalSave { get; set; }
+        public string WebServerUrl { get; set; }
+        public Action<string> WebServiceUrlChanged { get; set; }
 
 
         public void SetupTextEditor(TextEditor editor, Syntax syntax)

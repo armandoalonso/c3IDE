@@ -164,10 +164,6 @@ namespace c3IDE.Windows
                 completionWindow.CompletionList.ListBox.SelectedIndex = 0;
                 completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
             }
-            else if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
-            {
-                AppData.Insatnce.GlobalSave();
-            }
         }
 
         //completion window

@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 using c3IDE.DataAccess;
 using c3IDE.Models;
@@ -16,6 +17,7 @@ using c3IDE.Utilities.Logging;
 using c3IDE.Utilities.SyntaxHighlighting;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using Action = System.Action;
 
 namespace c3IDE
 {
@@ -29,6 +31,9 @@ namespace c3IDE
 
         public App()
         {
+            //register global key down
+            EventManager.RegisterClassHandler(typeof(Window), Window.PreviewKeyUpEvent, new KeyEventHandler(OnWindowKeyUp));
+
             //global unhandled exception catch
             this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
@@ -56,7 +61,8 @@ namespace c3IDE
                 ThemeKey = "Default Theme",
                 OpenC3InWeb = true,
                 C3DesktopPath = string.Empty,
-                PinMenu = false
+                PinMenu = false,
+                CompileOnSave = false
             };
 
             //create exports folder if it does not exists
@@ -78,18 +84,19 @@ namespace c3IDE
             if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.FontFamily)) AppData.Insatnce.Options.FontFamily = DefaultOptions.FontFamily;
             if (AppData.Insatnce.Options.FontSize < 5) AppData.Insatnce.Options.FontSize = DefaultOptions.FontSize;
             if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.ThemeKey)) AppData.Insatnce.Options.ThemeKey = DefaultOptions.ThemeKey;
+        }
 
-            //create exmaple projects if they don't exists
-            //var examples = new string[] {"Example_Log.c3ide", "Example_FSM.c3ide" };
-            //foreach (var example in examples)
-            //{
-            //    var path = Path.Combine(AppData.Insatnce.Options.ExportPath, example);
-            //    if (!System.IO.File.Exists(path))
-            //    {
-            //        var data = ResourceReader.Insatnce.GetResourceText($"c3IDE.Examples.{example}");
-            //        ProcessHelper.Insatnce.WriteFile(path, data);
-            //    }
-            //}
+        private void OnWindowKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.S && e.KeyboardDevice.IsKeyDown(Key.LeftCtrl))
+            {
+                AppData.Insatnce.GlobalSave();
+
+                if (AppData.Insatnce.Options.CompileOnSave)
+                {
+                    //compile on save
+                }
+            }
         }
 
         public void App_Startup(object sender, StartupEventArgs e)

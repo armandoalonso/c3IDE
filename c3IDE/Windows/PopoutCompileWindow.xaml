@@ -1,0 +1,18 @@
+﻿<mah:MetroWindow x:Class="c3IDE.Windows.PopoutCompileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:c3IDE.Windows"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Title="Compile Log Window" Height="450" Width="309" WindowStartupLocation="CenterOwner" Closing="MetroWindow_Closing">
+    <Grid>
+        <DockPanel Grid.Column="0" LastChildFill="True" VerticalAlignment="Stretch" Margin="5">
+            <TextBox Name="UrlTextBox" DockPanel.Dock="Bottom"  MouseDoubleClick="SelectUrl" GotKeyboardFocus="SelectUrl" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
+            <TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource TextBlockStyle}" Margin="0,10,0,0">Addon URL :</TextBlock>
+            <TextBox Name="LogText" TextWrapping="Wrap" DockPanel.Dock="Top" VerticalAlignment="Stretch" />
+        </DockPanel>
+    </Grid>
+</mah:MetroWindow>
+

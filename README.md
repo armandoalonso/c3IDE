@@ -179,8 +179,13 @@ The Option window has some global options that e=affect how the application beha
 - **Export Path** : The path where exported project from the dashboard will appear
 - **Data Path** : (READONLY) The data path points to the root where the application will store all it's data
 - **C3Addon Path** : (READONLY) The C3Addon Path is the path where .c3addon files will be created 
-- **Default Company** : This is the company that will be used when starting a new addon
+- **Construct 3 Desktop Path** : This is the path on your local computer pointing to the desktop version of construct, this exe will start when the open construct button is checked
+- **Open Construct 3 On Web** : When this is checked the Open Construct button will open up chrome, to the construct.net web site, if this is unchecked it will try and open up construct for the desktop path provided.
 - **Default Author** : This is the author that will be used when starting a new addon
 - **Editor Font Size** : This value effect the font size of all the code editors
 - **Editor Font Family** : This value effects the font that will be used in all editors
-- **Editor Theme** : This value effects the theme of application, as of now there is only one theme, but more are planned for the future
+- **Editor Theme** : This value effects the theme of application, there are currently serveral dark/light tehemes that can be applied
+- **Include Timestamp on Export** : When this is checked every export will include a timestamp, if this is not check all export will just contain the class name and any previous export will be overwritten.
+- **Pin Main Menu** : This check will open the main menu and dock it on the side.
+- **Compile On Save** : When this is checked saving using ctrl-s or clickign the save button, will recompile the selected addon. a compliation log popout window will open with the compliation details, this allows for faster iteration when creating addons.
+

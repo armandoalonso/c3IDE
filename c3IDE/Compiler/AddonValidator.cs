@@ -14,12 +14,11 @@ namespace c3IDE.Compiler
 {
     public class AddonValidator : Singleton<AddonValidator>
     {
-        private CompilerLog _log;
         public Action<string> UpdateLogText;
 
         public bool Validate(C3Addon addon)
         {
-            this._log = new CompilerLog(UpdateLogText);
+            var _log = AppData.Insatnce.CompilerLog;
 
             _log.Insert("\n***VALIDATING JSON FILES***");
             _log.Insert("==============================");
@@ -41,6 +40,7 @@ namespace c3IDE.Compiler
 
         private bool ValidateJsonFiles(C3Addon addon)
         {
+            var _log = AppData.Insatnce.CompilerLog;
             var isValid = true;
 
             //addon.json
@@ -96,7 +96,7 @@ namespace c3IDE.Compiler
             }
             catch (Exception e)
             {
-                _log.Insert(e.Message, "ERROR");
+                AppData.Insatnce.CompilerLog.Insert(e.Message, "ERROR");
                 return false;
             }
         }

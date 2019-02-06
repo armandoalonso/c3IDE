@@ -1,6 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.0.1.17 (02/06/19)
+* add compile on save option - this option will compile the selected addon when a change is saved (ctrl-s), this will bring up a compilation log popout window, this allows for quicker iteration. you can go in start the web server, start making changes and compile on the fly, this avoids having to manually recompile the files everytime.    
+
 #### Build# 1.0.1.16 (02/05/19) 
 * add new c3ide icons and file association, now there are 2 new ways to pass arguments into the application, it will accept a path to .c3ide file or a guid to identify the addon to load. 
 * added option to pin menu, which will leave menu open 

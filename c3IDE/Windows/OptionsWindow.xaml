@@ -62,6 +62,7 @@
 
             <UniformGrid Columns="2">
                 <CheckBox Name="PinMainMenu" FontFamily="Century Gothic" FontSize="16" Checked="PinMainMenu_OnChecked" Unchecked="PinMainMenu_OnChecked">Pin Main Menu</CheckBox>
+                <CheckBox Name="CompileOnSave" FontFamily="Century Gothic" FontSize="16" Checked="CompileOnSave_OnChecked" Unchecked="CompileOnSave_OnChecked">Compile On Save (Ctrl-S)</CheckBox>
             </UniformGrid>
 
         </StackPanel>

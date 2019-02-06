@@ -38,6 +38,18 @@ namespace c3IDE.Windows
         public TestWindow()
         {
             InitializeComponent();
+
+            AppData.Insatnce.CompilerLog.AddUpdateCallback((s) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    LogText.AppendText(s);
+                    if (LogText.LineCount > 0)
+                    {
+                        LogText.ScrollToLine(LogText.LineCount - 1);
+                    }
+                });
+            });
         }
 
         //button clicks
@@ -46,12 +58,6 @@ namespace c3IDE.Windows
             //compile the addon
             //LogText.Document.Blocks.Clear();
             LogText.Text = string.Empty;
-            AddonCompiler.Insatnce.UpdateLogText = s => Dispatcher.Invoke(() =>
-            {
-                LogText.AppendText(s);
-                LogText.ScrollToLine(LogText.LineCount-1);
-            });
-
             StopWebServerButton.IsEnabled = true;
             StartAndTestButton.IsEnabled = false;
             StartWebServerButton.IsEnabled = false;
@@ -152,14 +158,7 @@ namespace c3IDE.Windows
 
         private async void CompileOnly_OnClick(object sender, RoutedEventArgs e)
         {
-            AddonCompiler.Insatnce.UpdateLogText = s => Dispatcher.Invoke(() =>
-            {
-                LogText.AppendText(s);
-                LogText.ScrollToLine(LogText.LineCount - 1);
-            });
-
-            var isValid = AddonValidator.Insatnce.Validate(AppData.Insatnce.CurrentAddon);
-            await AddonCompiler.Insatnce.CompileAddon(AppData.Insatnce.CurrentAddon, false);
+            var isValid = await AddonCompiler.Insatnce.CompileAddon(AppData.Insatnce.CurrentAddon, false);
         }
 
         private void ValidateAllFiles_OnClick(object sender, RoutedEventArgs e)
@@ -177,12 +176,7 @@ namespace c3IDE.Windows
         {
             try
             {
-                AddonCompiler.Insatnce.UpdateLogText = s => Dispatcher.Invoke(() =>
-                {
-                    LogText.AppendText(s);
-                    LogText.ScrollToLine(LogText.LineCount - 1);
-                });
-                AddonCompiler.Insatnce.WebServer = new WebServerClient { UpdateLogText = AddonCompiler.Insatnce.UpdateLogText };
+                AddonCompiler.Insatnce.WebServer = new WebServerClient();
                 AddonCompiler.Insatnce.WebServer.Start();
                 StartAndTestButton.IsEnabled = false;
                 StartWebServerButton.IsEnabled = false;

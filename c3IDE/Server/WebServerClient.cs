@@ -13,13 +13,11 @@ namespace c3IDE.Server
 {
     public class WebServerClient
     {
-        private CompilerLog _log;
         private HttpServer _httpServer;
-        public Action<string> UpdateLogText;
 
         public void Start()
         {
-            this._log = new CompilerLog(UpdateLogText);
+            var _log = AppData.Insatnce.CompilerLog;
 
             _httpServer = new HttpServer(new HttpRequestProvider());
 
@@ -44,7 +42,9 @@ namespace c3IDE.Server
             //handle static files (only suport js, json, png and svg)
             _httpServer.Use(new C3FileHandler());
 
-            _log.Insert("starting server => http://localhost:8080/.../addon.json");
+            AppData.Insatnce.WebServerUrl = $"http://localhost:8080/{AppData.Insatnce.CurrentAddon.Class}/addon.json";
+            AppData.Insatnce.WebServiceUrlChanged(AppData.Insatnce.WebServerUrl);
+            _log.Insert($"starting server => {AppData.Insatnce.WebServerUrl}");
             _httpServer.Start();
 
         }
@@ -54,7 +54,9 @@ namespace c3IDE.Server
             _httpServer.Dispose();
             _httpServer = null;
             AppData.Insatnce.TcpListener.Stop();
-            _log.Insert("server stopped...");
+            AppData.Insatnce.CompilerLog.Insert("server stopped...");
+            AppData.Insatnce.WebServerUrl = string.Empty;
+            AppData.Insatnce.WebServiceUrlChanged(AppData.Insatnce.WebServerUrl);
         }
     }
 }

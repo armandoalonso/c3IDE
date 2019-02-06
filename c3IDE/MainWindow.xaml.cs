@@ -35,6 +35,7 @@ namespace c3IDE
         private readonly EffectAddonWindow _fxAddonWindow = new EffectAddonWindow();
         private readonly EffectCodeWindow _fxCodeWindow = new EffectCodeWindow();
         private readonly EffectLanguageWindow _fxLanguageWindow = new EffectLanguageWindow();
+        private PopoutCompileWindow _popoutCompileWindow;
 
         private string _currentActiveWindow;
 
@@ -269,7 +270,21 @@ namespace c3IDE
             {
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
                 OpenNotification($"Saved {AppData.Insatnce.CurrentAddon.Name} successfully.");
-            }
+
+                if (AppData.Insatnce.Options.CompileOnSave)
+                {
+                    if (!ControlHelper.Insatnce.IsWindowOpen<PopoutCompileWindow>())
+                    {
+                        //open popout compile window
+                        _popoutCompileWindow = new PopoutCompileWindow();
+                        _popoutCompileWindow.Show();
+                    }
+
+                    _popoutCompileWindow.LogText.Text = string.Empty;
+                    _popoutCompileWindow.LogText.Text = "starting addon compliation...";
+                    Task.Run(() => AddonCompiler.Insatnce.CompileAddon(AppData.Insatnce.CurrentAddon, false));
+                }
+            }    
         }
 
         public async Task<bool> ShowDialogBox(string title, string message)

@@ -12,21 +12,28 @@ namespace c3IDE.Compiler
     public class CompilerLog
     {
         public List<LogMessage>  Logs = new List<LogMessage>();
-        private readonly Action<string> _insertCallback;
+        private readonly List<Action<string>> _insertCallbacks = new List<Action<string>>();
 
-        public CompilerLog(Action<string> callback = null)
+        public CompilerLog()
         {
-            if (callback != null)
-            {
-                _insertCallback = callback;
-            }
+        }
+
+        public int AddUpdateCallback(Action<string> callback)
+        {
+            var index = _insertCallbacks.Count;
+            _insertCallbacks.Add(callback);
+            return index;
         }
 
         public void Insert(string message, string type = "INFO")
         {
             var log = new LogMessage {Date = DateTime.Now, Message = message, Type = type};
             Logs.Add(log);
-            _insertCallback?.Invoke(log.ToString());
+
+            foreach (var callback in _insertCallbacks)
+            {
+                callback?.Invoke(log.ToString());
+            }
         }
 
         public string WrapLogger(Func<string> action)
@@ -41,6 +48,11 @@ namespace c3IDE.Compiler
                 Insert($"error message => {ex.Message}");
                 throw;
             }
+        }
+
+        public void RemoveCallback(int callbackIndex)
+        {
+            _insertCallbacks.RemoveAt(callbackIndex);
         }
     }
 

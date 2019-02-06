@@ -62,10 +62,7 @@ namespace c3IDE.Windows
 
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control)
-            {
-                AppData.Insatnce.GlobalSave();
-            }
+
         }
     }
 }

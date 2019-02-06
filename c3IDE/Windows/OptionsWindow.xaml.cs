@@ -61,6 +61,7 @@ namespace c3IDE.Windows
             OpenC3InWeb.IsChecked = AppData.Insatnce.Options.OpenC3InWeb;
             C3DesktopPathText.Text = AppData.Insatnce.Options.C3DesktopPath;
             PinMainMenu.IsChecked = AppData.Insatnce.Options.PinMenu;
+            CompileOnSave.IsChecked = AppData.Insatnce.Options.CompileOnSave;
         }
 
         public void OnExit()
@@ -81,7 +82,8 @@ namespace c3IDE.Windows
                     IncludeTimeStampOnExport = IncludeTimeStamp.IsChecked != null && IncludeTimeStamp.IsChecked.Value,
                     OpenC3InWeb = OpenC3InWeb.IsChecked != null && OpenC3InWeb.IsChecked.Value,
                     C3DesktopPath = C3DesktopPathText.Text,
-                    PinMenu = PinMainMenu.IsChecked != null && PinMainMenu.IsChecked.Value
+                    PinMenu = PinMainMenu.IsChecked != null && PinMainMenu.IsChecked.Value,
+                    CompileOnSave = CompileOnSave.IsChecked != null && CompileOnSave.IsChecked.Value
                 };
 
                 //create exports folder if it does not exists
@@ -182,6 +184,7 @@ namespace c3IDE.Windows
         {
             var size = Convert.ToDouble(FontSizeCombo.Text);
             AppData.Insatnce.Options.FontSize = size;
+            DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
         }
 
         private void FontFamilyCombo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -189,6 +192,7 @@ namespace c3IDE.Windows
             var font = FontFamilyCombo.Text;
             AppData.Insatnce.Options.FontFamily = font;
             FontFamilyCombo.FontFamily = new FontFamily(font);
+            DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
         }
 
         private void ThemeCombo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -196,6 +200,7 @@ namespace c3IDE.Windows
             var selection = ((ComboBoxItem)ThemeCombo.SelectedItem).Content;
             AppData.Insatnce.Options.ThemeKey = selection.ToString();
             AppData.Insatnce.SetupTheme();
+            DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
             //AppData.Insatnce.ThemeChangedEvent(ThemeResolver.Insatnce.Resolve(selection));
         }
 
@@ -207,6 +212,13 @@ namespace c3IDE.Windows
         private void PinMainMenu_OnChecked(object sender, RoutedEventArgs e)
         {
             AppData.Insatnce.Options.PinMenu = PinMainMenu.IsChecked != null && PinMainMenu.IsChecked.Value;
+            AppData.Insatnce.OptionChanged(AppData.Insatnce.Options);
+            DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
+        }
+
+        private void CompileOnSave_OnChecked(object sender, RoutedEventArgs e)
+        {
+            AppData.Insatnce.Options.CompileOnSave = CompileOnSave.IsChecked != null && CompileOnSave.IsChecked.Value;
             AppData.Insatnce.OptionChanged(AppData.Insatnce.Options);
             DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
         }

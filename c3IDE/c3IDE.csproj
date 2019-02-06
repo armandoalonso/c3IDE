@@ -33,7 +33,7 @@
     <ProductName>c3IDE</ProductName>
     <PublisherName>Piranha305</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>17</ApplicationRevision>
+    <ApplicationRevision>18</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -230,6 +230,9 @@
     <Compile Include="Windows\PluginWindow.xaml.cs">
       <DependentUpon>PluginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\PopoutCompileWindow.xaml.cs">
+      <DependentUpon>PopoutCompileWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
@@ -293,6 +296,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\PluginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PopoutCompileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

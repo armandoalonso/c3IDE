@@ -18,14 +18,12 @@ namespace c3IDE.Compiler
     public class AddonCompiler : Singleton<AddonCompiler>
     {
         private Dictionary<string, string> _addonFiles;
-        public Action<string> UpdateLogText;
-        private CompilerLog _log;
         public WebServerClient WebServer { get; set; }
         public bool IsCompilationValid { get; set; }
 
         public async Task<bool> CompileAddon(C3Addon addon, bool startWebServer = true)
         {
-            _log = new CompilerLog(UpdateLogText);
+            var _log = AppData.Insatnce.CompilerLog;
 
             //validate addon
             if (!ValidateFiles(addon))
@@ -34,7 +32,6 @@ namespace c3IDE.Compiler
                 return false;
             }
             IsCompilationValid = true;
-
 
             try
             {
@@ -93,7 +90,7 @@ namespace c3IDE.Compiler
                     //start web server installation
                     await Task.Run(() =>
                     {
-                        WebServer = new WebServerClient{UpdateLogText = UpdateLogText};
+                        WebServer = new WebServerClient();
                         WebServer.Start();
                     });
                 }           
@@ -112,6 +109,7 @@ namespace c3IDE.Compiler
 
         private void CreateAddonFiles(C3Addon addon, string folderName)
         {
+            var _log = AppData.Insatnce.CompilerLog;
             //generate file strings
             _addonFiles = new Dictionary<string, string>();
 
@@ -199,6 +197,7 @@ namespace c3IDE.Compiler
 
         private void CreateEffectFiles(C3Addon addon, string folderName)
         {
+            var _log = AppData.Insatnce.CompilerLog;
             //generate file strings
             _addonFiles = new Dictionary<string, string>();
 
@@ -228,6 +227,7 @@ namespace c3IDE.Compiler
 
         private bool ValidateFiles(C3Addon addon)
         {
+            var _log = AppData.Insatnce.CompilerLog;
             //todo: add effect validation here
             if (addon.Type == PluginType.Effect) return true;
 

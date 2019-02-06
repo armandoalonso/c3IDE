@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using MahApps.Metro.Controls;
 
 namespace c3IDE.Utilities.Helpers
 {
@@ -39,6 +40,13 @@ namespace c3IDE.Utilities.Helpers
             }
             cmbBox.Items.Refresh();
         }
+
+        public bool IsWindowOpen<T>(string name = "") where T : MetroWindow
+        {
+            return string.IsNullOrWhiteSpace(name)
+                ? Application.Current.Windows.OfType<T>().Any()
+                : Application.Current.Windows.OfType<T>().Any(x => x.Name.Equals(name));
+        } 
     }
 
 
