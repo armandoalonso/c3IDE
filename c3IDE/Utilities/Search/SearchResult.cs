@@ -8,6 +8,7 @@ namespace c3IDE.Utilities.Search
 {
     public class SearchResult
     {
+        public bool Selected { get; set; }
         public string Document { get; set; }
         public string Line { get; set; }
         public int LineNumber { get; set; }

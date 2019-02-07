@@ -150,7 +150,7 @@ namespace c3IDE.Windows
             {
                 var text = EditTimePluginTextEditor.SelectedText;
                 //EditTimePluginTextEditor.TextArea.SelectionChanged  
-                Searcher.Insatnce.Find(EditTimePluginTextEditor, text);
+                Searcher.Insatnce.GlobalFind(text);
             }
         }
 

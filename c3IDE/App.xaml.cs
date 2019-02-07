@@ -28,6 +28,7 @@ namespace c3IDE
     {
         public static string DataFolder { get; set; }
         public static Options DefaultOptions { get; set; }
+        private bool ApplicationError = false;
 
         public App()
         {
@@ -152,34 +153,38 @@ namespace c3IDE
 
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            //create log
-            var sb = new StringBuilder();
-
-            sb.AppendLine("There was an unhandled error in the application. see logs below => ");
-            sb.AppendLine($"ERROR MESSAGE => {e.Exception.Message}");
-            sb.AppendLine($"ERROR TRACE => {e.Exception.StackTrace}");
-            sb.AppendLine($"ERROR INNER EX => {e.Exception.InnerException}");
-            sb.AppendLine($"ERROR SOURCE => {e.Exception.Source}");
-
-            sb.AppendLine();
-            sb.AppendLine("EXCEPTION LIST =>");
-
-            foreach (var exception in LogManager.Insatnce.Exceptions)
+            e.Handled = true;
+            if (!ApplicationError)
             {
-                sb.AppendLine("\n===============================================================\n");
-                sb.AppendLine($"ERROR MESSAGE => {exception.Message}");
-                sb.AppendLine($"ERROR TRACE => {exception.StackTrace}");
-                sb.AppendLine($"ERROR INNER EX => {exception.InnerException}");
-                sb.AppendLine($"ERROR SOURCE => {exception.Source}");
-                sb.AppendLine("\n===============================================================\n");
+                //create log
+                var sb = new StringBuilder();
+
+                sb.AppendLine("There was an unhandled error in the application. see logs below => ");
+                sb.AppendLine($"ERROR MESSAGE => {e.Exception.Message}");
+                sb.AppendLine($"ERROR TRACE => {e.Exception.StackTrace}");
+                sb.AppendLine($"ERROR INNER EX => {e.Exception.InnerException}");
+                sb.AppendLine($"ERROR SOURCE => {e.Exception.Source}");
+
+                sb.AppendLine();
+                sb.AppendLine("EXCEPTION LIST =>");
+
+                foreach (var exception in LogManager.Insatnce.Exceptions)
+                {
+                    sb.AppendLine("\n===============================================================\n");
+                    sb.AppendLine($"ERROR MESSAGE => {exception.Message}");
+                    sb.AppendLine($"ERROR TRACE => {exception.StackTrace}");
+                    sb.AppendLine($"ERROR INNER EX => {exception.InnerException}");
+                    sb.AppendLine($"ERROR SOURCE => {exception.Source}");
+                    sb.AppendLine("\n===============================================================\n");
+                }
+
+                var logFile = Path.Combine(AppData.Insatnce.Options.DataPath, $"app_log.txt");
+                ProcessHelper.Insatnce.WriteFile(logFile, sb.ToString());
+                ProcessHelper.Insatnce.StartProcess(logFile);
             }
 
-            var logFile = Path.Combine(AppData.Insatnce.Options.DataPath, $"app_log.txt");
-            ProcessHelper.Insatnce.WriteFile(logFile, sb.ToString());
-            ProcessHelper.Insatnce.StartProcess(logFile);
-
-            //stop the application
             Environment.Exit(0);
+
         }
     }
 }

@@ -8,6 +8,7 @@ using c3IDE.Models;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Eventing;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Search;
 using c3IDE.Windows;
 using c3IDE.Windows.Interfaces;
 using MahApps.Metro.Controls;
@@ -36,6 +37,7 @@ namespace c3IDE
         private readonly EffectCodeWindow _fxCodeWindow = new EffectCodeWindow();
         private readonly EffectLanguageWindow _fxLanguageWindow = new EffectLanguageWindow();
         private PopoutCompileWindow _popoutCompileWindow;
+        private FindAndReplaceWindow _findAndReplaceWindow;
 
         private string _currentActiveWindow;
 
@@ -52,6 +54,7 @@ namespace c3IDE
             AppData.Insatnce.LoadAddon = s => { this.Title = $"C3IDE - {s}"; };
             AppData.Insatnce.GlobalSave = Save;
             AppData.Insatnce.OptionChanged = OptionChanged;
+            AppData.Insatnce.OpenFindAndReplace = OpenFindAndReplace;
           
 
             //load data
@@ -69,6 +72,18 @@ namespace c3IDE
             ActiveItem.Content = _dashboardWindow;
             _dashboardWindow.OnEnter();
             _currentActiveWindow = _dashboardWindow.DisplayName;
+        }
+
+        private void OpenFindAndReplace(List<SearchResult> records)
+        {
+            if (!ControlHelper.Insatnce.IsWindowOpen<FindAndReplaceWindow>())
+            {
+                //open popout compile window
+                _findAndReplaceWindow = new FindAndReplaceWindow();
+                _findAndReplaceWindow.Show();
+            }
+
+            _findAndReplaceWindow.SearchGrid.DataContext = records;
         }
 
         private void OptionChanged(Options obj)
@@ -346,34 +361,8 @@ namespace c3IDE
                 EffectMainMenu.Visibility = Visibility.Collapsed;
                 ActiveItem.Content = _dashboardWindow;
 
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("addon_json", addon.AddonJson);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_plugin_script", addon.PluginRunTime);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_plugin_script", addon.PluginEditTime);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_type_script", addon.TypeRunTime);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_type_script", addon.TypeEditTime);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("runtime_instance_script", addon.InstanceRunTime);
-                CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens("edittime_instance_script", addon.InstanceEditTime);
-
-                foreach (var act in addon.Actions)
-                {
-                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_code_script", act.Value.Code);
-                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_lang_json", act.Value.Language);
-                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{act.Value.Id}_ace_json", act.Value.Ace);
-                }
-
-                foreach (var cnd in addon.Conditions)
-                {
-                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_code_script", cnd.Value.Code);
-                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_lang_json", cnd.Value.Language);
-                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{cnd.Value.Id}_ace_json", cnd.Value.Ace);
-                }
-
-                foreach (var exp in addon.Expressions)
-                {
-                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_code_script", exp.Value.Code);
-                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_lang_json", exp.Value.Language);
-                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens($"{exp.Value.Id}_ace_json", exp.Value.Ace);
-                }
+                CodeCompletionFactory.Insatnce.ParseAddon(addon);
+                Searcher.Insatnce.ParseAddon(addon);
             }
         }
 

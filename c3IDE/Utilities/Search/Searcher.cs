@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using c3IDE.Models;
+using c3IDE.Utilities.Extentions;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
 
@@ -11,66 +14,71 @@ namespace c3IDE.Utilities.Search
 {
     public class Searcher : Singleton<Searcher>
     {
-        private int lastUsedIndex = 0;
-        private int lastSearchIndex = 0;
+        public Dictionary<string, SortedList<int, SearchResult>> FileIndex = new Dictionary<string, SortedList<int, SearchResult>>();
 
-        public void Find(TextEditor textEditor, string searchQuery)
+        public async void GlobalFind(string text)
         {
-            if (string.IsNullOrEmpty(searchQuery))
+             var results = await Task.Run(() =>
             {
-                lastUsedIndex = 0;
-                return;
-            }
+                return FileIndex.Values.SelectMany(x => x.Values.Where(rec => rec.Line.Contains(text)));
+            });
 
-            string editorText = textEditor.Text;
+            AppData.Insatnce.OpenFindAndReplace(results.ToList());
+        }
 
-            if (string.IsNullOrEmpty(editorText))
+        public void ParseAddon(C3Addon addon)
+        {
+            FileIndex = new Dictionary<string, SortedList<int, SearchResult>>();
+            if (addon.Type != PluginType.Effect)
             {
-                lastUsedIndex = 0;
-                return;
-            }
+                UpdateFileIndex("addon.json", addon.AddonJson);
+                UpdateFileIndex("edittime_plugin.js", addon.PluginEditTime);
+                UpdateFileIndex("runtime_plugin.js", addon.PluginRunTime);
+                UpdateFileIndex("edittime_instance.js", addon.InstanceEditTime);
+                UpdateFileIndex("runtime_instance.js", addon.InstanceRunTime);
+                UpdateFileIndex("edittime_type.js", addon.TypeEditTime);
+                UpdateFileIndex("runtime_type.js", addon.TypeRunTime);
 
-            if (lastUsedIndex >= searchQuery.Count())
-            {
-                lastUsedIndex = 0;
-            }
+                foreach (var action in addon.Actions)
+                {
+                    UpdateFileIndex($"action_{action.Key}_ace", action.Value.Ace);
+                    UpdateFileIndex($"action_{action.Key}_lang", action.Value.Language);
+                    UpdateFileIndex($"action_{action.Key}_code", action.Value.Code);
+                }
 
-            int nIndex = editorText.IndexOf(searchQuery, lastUsedIndex);
-            if (nIndex != -1)
-            {
-                var area = textEditor.TextArea;
-                textEditor.Select(nIndex, searchQuery.Length);
-                lastUsedIndex = nIndex + searchQuery.Length;
+                foreach (var conditions in addon.Conditions)
+                {
+                    UpdateFileIndex($"condition_{conditions.Key}_ace", conditions.Value.Ace);
+                    UpdateFileIndex($"condition_{conditions.Key}_lang", conditions.Value.Language);
+                    UpdateFileIndex($"condition_{conditions.Key}_code", conditions.Value.Code);
+                }
+
+                foreach (var expression in addon.Expressions)
+                {
+                    UpdateFileIndex($"expression_{expression.Key}_ace", expression.Value.Ace);
+                    UpdateFileIndex($"expression_{expression.Key}_lang", expression.Value.Language);
+                    UpdateFileIndex($"expression_{expression.Key}_code", expression.Value.Code);
+                }
+
+                UpdateFileIndex("lang_property.js", addon.LanguageProperties);
+                UpdateFileIndex("lang_category.js", addon.LanguageCategories);
             }
             else
             {
-                lastUsedIndex = 0;
+                //handle effect specific files
             }
         }
 
-        public void Replace(TextEditor textEditor, string s, string replacement, bool selectedonly)
+        public void UpdateFileIndex(string filename, string content)
         {
-            int nIndex = -1;
-            if (selectedonly)
+            var sList = new SortedList<int, SearchResult>();
+            var result = Regex.Split(content, "\r\n|\r|\n");
+            for (int index = 0; index < result.Length; index++)
             {
-                nIndex = textEditor.Text.IndexOf(s, textEditor.SelectionStart, textEditor.SelectionLength);
-            }
-            else
-            {
-                nIndex = textEditor.Text.IndexOf(s);
+                sList.Add(index, new SearchResult { Document = filename, Line = result[index], LineNumber = index });
             }
 
-            if (nIndex != -1)
-            {
-                textEditor.Document.Replace(nIndex, s.Length, replacement);
-
-
-                textEditor.Select(nIndex, replacement.Length);
-            }
-            else
-            {
-                lastSearchIndex = 0;
-            }
+            FileIndex.AddOrUpdate(filename, sList);
         }
     }
 }
