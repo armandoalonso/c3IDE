@@ -27,10 +27,9 @@ To create a new addon, you have to fill out the information under Addon Data, an
 
 - **Addon Name** : This is the name of the Addon, This value can include spaces. 
 - **Addon Class Name**: This is one part of the the Addon Identifier and is used to prefix a few of the javascript class. This value cannot have any spaces
-- **Company Name**: This is the name of your company. This value will be combined with the class name to form the addon's ID *Company_Class*. 
-- **Author** - Is the name of the author that will be placed in the Addon.json files
+- **Author** - Is the name of the author that will be placed in the Addon.json files and will also be used as part of the Addon Identifier, This value cannot have any spaces
 - **Version** - Is the current version of your addon.
-- **Addon Type** - This will control what template will be used in creating the addon. You can choose from *SingleGlobal*, *MultiInstance*, *Drawing*, *Behavior*
+- **Addon Type** - This will control what template will be used in creating the addon. You can choose from *SingleGlobal*, *Drawing*, *Behavior*, *Effect*
 - **Addon Icon** - This is an svg file that will be used as the addon icon inside of construct 3. You can change the addon by dragging an svg file over the existing icon.
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/c3IDE-change-icon.gif)
