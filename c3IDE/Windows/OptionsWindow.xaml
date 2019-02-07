@@ -26,7 +26,7 @@
                 <TextBlock  Style="{DynamicResource TextBlockStyle}">Export Path :</TextBlock>
                 <TextBlock  Style="{DynamicResource TextBlockStyle}">C3Addon Path :</TextBlock>
                 <TextBox Name="ExportPathText" Text=""  Margin="0,0,10,0"></TextBox>
-                <TextBox Name="C3AddonPathText" Text="" IsReadOnly="True"></TextBox>
+                <TextBox Name="C3AddonPathText" Text=""></TextBox>
                 <Separator Visibility="Hidden" Height="5" />
                 <Separator Visibility="Hidden" Height="5" />
 

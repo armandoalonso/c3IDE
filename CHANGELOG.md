@@ -1,11 +1,12 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.0.1.21 (02/07/19)
+### Build# 1.0.1.22 (02/07/19)
 * fix issue with update plugin when values were null or empty
 * enforce all addon metadata values to not be empty (description was previously nullable which caused issues down stream)
 * fix validate addon for effects
 * include addon validator logic in the compilation 
+* fix issue with c3addon path being readonly, it is no longer readonly
 
 ### Build# 1.0.1.20 (02/06/19)
 * added extra buttons to compile window, to start web server/open construct, refactored how compile logging wroks 
