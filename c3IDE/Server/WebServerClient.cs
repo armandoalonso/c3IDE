@@ -43,11 +43,11 @@ namespace c3IDE.Server
             _httpServer.Use(new C3FileHandler());
 
             AppData.Insatnce.WebServerUrl = $"http://localhost:8080/{AppData.Insatnce.CurrentAddon.Class}/addon.json";
-            if(AppData.Insatnce.WebServiceUrlChanged != null) AppData.Insatnce?.WebServiceUrlChanged(AppData.Insatnce.WebServerUrl);
+            AppData.Insatnce.WebServiceUrlChanged?.Invoke(AppData.Insatnce.WebServerUrl);
             _log.Insert($"starting server => {AppData.Insatnce.WebServerUrl}");
             _httpServer.Start();
             AppData.Insatnce.WebServerStarted = true;
-            AppData.Insatnce.WebServerStateChanged(true);
+            AppData.Insatnce.WebServerStateChanged?.Invoke(true);
         }
 
         public void Stop()
@@ -57,9 +57,9 @@ namespace c3IDE.Server
             AppData.Insatnce.TcpListener.Stop();
             AppData.Insatnce.CompilerLog.Insert("server stopped...");
             AppData.Insatnce.WebServerUrl = string.Empty;
-            if (AppData.Insatnce.WebServiceUrlChanged != null) AppData.Insatnce?.WebServiceUrlChanged(AppData.Insatnce.WebServerUrl);
+            AppData.Insatnce.WebServiceUrlChanged?.Invoke(AppData.Insatnce.WebServerUrl);
             AppData.Insatnce.WebServerStarted = false;
-            AppData.Insatnce.WebServerStateChanged(false);
+            AppData.Insatnce.WebServerStateChanged?.Invoke(false);
         }
     }
 }

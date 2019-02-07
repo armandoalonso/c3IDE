@@ -179,7 +179,8 @@ namespace c3IDE.Windows
                 string.IsNullOrWhiteSpace(addon.Company) ||
                 string.IsNullOrWhiteSpace(addon.Name) ||
                 string.IsNullOrWhiteSpace(addon.Author) ||
-                string.IsNullOrWhiteSpace(addon.Version))
+                string.IsNullOrWhiteSpace(addon.Version) ||
+                string.IsNullOrWhiteSpace(addon.Description))
             {
                 AppData.Insatnce.ErrorMessage("addon data fields cannot be blank");
                 return;
@@ -396,9 +397,21 @@ namespace c3IDE.Windows
 
             var addonclass = AddonClassText.Text;
             var name = AddonNameText.Text;
-            var author = AuthorText.Text;
+            var author = AuthorText.Text.Replace(" ", string.Empty);
             var version = VersionText.Text;
-            var description = DescriptionText.Text;     
+            var description = DescriptionText.Text;
+
+            //validate all fields are entered
+            if (string.IsNullOrWhiteSpace(addonclass) ||
+                string.IsNullOrWhiteSpace(name) ||
+                string.IsNullOrWhiteSpace(author) ||
+                string.IsNullOrWhiteSpace(version) ||
+                string.IsNullOrWhiteSpace(description))
+            {
+                AppData.Insatnce.ErrorMessage("addon data fields cannot be blank");
+                return;
+            }
+
             FindAndReplaceHelper.Insatnce.ReplaceMetadata(addonclass, name, author, version, description, currentAddon);
 
             DataAccessFacade.Insatnce.AddonData.Upsert(currentAddon);

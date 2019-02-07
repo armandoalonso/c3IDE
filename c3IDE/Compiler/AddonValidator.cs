@@ -20,19 +20,20 @@ namespace c3IDE.Compiler
         {
             var _log = AppData.Insatnce.CompilerLog;
 
-            _log.Insert("\n***VALIDATING JSON FILES***");
+            _log.Insert("***validating json files***");
             _log.Insert("==============================");
             var isValid = ValidateJsonFiles(addon);
 
             if (isValid)
             {
                 _log.Insert("==============================");
-                _log.Insert("\n***VALIDATING JSON COMPLETED SUCCESSFULLY***");
+                _log.Insert("***validating json files - completed***");
+                _log.Insert("***all json files are valid***");
             }
             else
             {
                 _log.Insert("==============================");
-                _log.Insert("\n***VALIDATING JSON HAS ERRORS***");
+                _log.Insert("***validating json files - has errors***");
             }
 
             return isValid;
@@ -47,45 +48,53 @@ namespace c3IDE.Compiler
             isValid = TryAction(() => JObject.Parse(addon.AddonJson));
             if(!isValid) { _log.Insert("failed validation on addon.json"); return false; } else { _log.Insert("addon.json is valid json");}
 
-            //aces.json
-            foreach (var action in addon.Actions.Values)
+
+            if (addon.Type != PluginType.Effect)
             {
-                isValid = TryAction(() => JObject.Parse(action.Ace));
-                if (!isValid) { _log.Insert($"failed validation on action : {action.Id} ace.json"); return false; } else { _log.Insert($"action : {action.Id} ace.json is valid json"); }
+                //aces.json
+                foreach (var action in addon.Actions.Values)
+                {
+                    isValid = TryAction(() => JObject.Parse(action.Ace));
+                    if (!isValid) { _log.Insert($"failed validation on action : {action.Id} ace.json"); return false; } else { _log.Insert($"action : {action.Id} ace.json is valid json"); }
 
-                isValid = TryAction(() => FormatHelper.Insatnce.Json(action.Language, true));
-                if (!isValid) { _log.Insert($"failed validation on action : {action.Id} lang.json"); return false; } else { _log.Insert($"action : {action.Id} lang.json is valid json"); }
+                    isValid = TryAction(() => FormatHelper.Insatnce.Json(action.Language, true));
+                    if (!isValid) { _log.Insert($"failed validation on action : {action.Id} lang.json"); return false; } else { _log.Insert($"action : {action.Id} lang.json is valid json"); }
+                }
+
+                foreach (var condition in addon.Conditions.Values)
+                {
+                    isValid = TryAction(() => JObject.Parse(condition.Ace));
+                    if (!isValid) { _log.Insert($"failed validation on condition : {condition.Id} ace.json"); return false; } else { _log.Insert($"condition : {condition.Id} ace.json is valid json"); }
+
+                    isValid = TryAction(() => FormatHelper.Insatnce.Json(condition.Language, true));
+                    if (!isValid) { _log.Insert($"failed validation on condition : {condition.Id} lang.json"); return false; } else { _log.Insert($"condition : {condition.Id} lang.json is valid json"); }
+                }
+
+                foreach (var expression in addon.Expressions.Values)
+                {
+                    isValid = TryAction(() => JObject.Parse(expression.Ace));
+                    if (!isValid) { _log.Insert($"failed validation on expression : {expression.Id} ace.json"); return false; } else { _log.Insert($"expression : {expression.Id} ace.json is valid json"); }
+
+                    isValid = TryAction(() => FormatHelper.Insatnce.Json(expression.Language, true));
+                    if (!isValid) { _log.Insert($"failed validation on expression : {expression.Id} lang.json"); return false; } else { _log.Insert($"expression : {expression.Id} lang.json is valid json"); }
+                }
+
+                //property lang
+                isValid = TryAction(() => FormatHelper.Insatnce.Json(addon.LanguageProperties, true));
+                if (!isValid) { _log.Insert($"failed validation on language properties json"); return false; } else { _log.Insert($"language properties json is valid json"); }
+
+                //property categories
+                isValid = TryAction(() => FormatHelper.Insatnce.Json(addon.LanguageCategories, true));
+                if (!isValid) { _log.Insert($"failed validation on language categories json"); return false; } else { _log.Insert($"language categories json is valid json"); }
+
             }
-
-            foreach (var condition in addon.Conditions.Values)
+            else
             {
-                isValid = TryAction(() => JObject.Parse(condition.Ace));
-                if (!isValid) { _log.Insert($"failed validation on condition : {condition.Id} ace.json"); return false; } else { _log.Insert($"condition : {condition.Id} ace.json is valid json"); }
-
-                isValid = TryAction(() => FormatHelper.Insatnce.Json(condition.Language, true));
-                if (!isValid) { _log.Insert($"failed validation on condition : {condition.Id} lang.json"); return false; } else { _log.Insert($"condition : {condition.Id} lang.json is valid json"); }
+                isValid = TryAction(() => FormatHelper.Insatnce.Json(addon.EffectLanguage, false));
+                if (!isValid) { _log.Insert($"failed validation on effect language json"); return false; } else { _log.Insert($"effect language json is valid json"); }
             }
-
-            foreach (var expression in addon.Expressions.Values)
-            {
-                isValid = TryAction(() => JObject.Parse(expression.Ace));
-                if (!isValid) { _log.Insert($"failed validation on expression : {expression.Id} ace.json"); return false; } else { _log.Insert($"expression : {expression.Id} ace.json is valid json"); }
-
-                isValid = TryAction(() => FormatHelper.Insatnce.Json(expression.Language, true));
-                if (!isValid) { _log.Insert($"failed validation on expression : {expression.Id} lang.json"); return false; } else { _log.Insert($"expression : {expression.Id} lang.json is valid json"); }
-            }
-
-            //property lang
-            isValid = TryAction(() => FormatHelper.Insatnce.Json(addon.LanguageProperties, true));
-            if (!isValid) { _log.Insert($"failed validation on language properties json"); return false; } else { _log.Insert($"language properties json is valid json"); }
-
-            //property categories
-            isValid = TryAction(() => FormatHelper.Insatnce.Json(addon.LanguageCategories, true));
-            if (!isValid) { _log.Insert($"failed validation on language categories json"); return false; } else { _log.Insert($"language categories json is valid json"); }
-
             return true;
         }
-
 
         public bool TryAction(Action act)
         {

@@ -230,47 +230,54 @@ namespace c3IDE.Compiler
         {
             var _log = AppData.Insatnce.CompilerLog;
             //todo: add effect validation here
-            if (addon.Type == PluginType.Effect) return true;
-
-            //TODO: add other validation here to help ensure a proper add has been created
-            //validate all the files & properties 
-            if (string.IsNullOrWhiteSpace(addon.LanguageProperties))
+            if (addon.Type == PluginType.Effect)
             {
-                _log.Insert("generate properties json has not been ran, generate the json in the langauge view");
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(addon.LanguageCategories))
-            {
-                _log.Insert("generate category json has not been ran, generate the json in the langauge view");
-                return false;
-            }
-
-            var placeholder = new Regex("{(\\d+)}");
-            //validate actions
-            foreach (var action in addon.Actions)
-            {
-                var paramCount = action.Value.Ace.Count(x => x == '{') - 1;
-                var displayCount = placeholder.Matches(action.Value.Language).Count;
-
-                if (paramCount != displayCount)
+                if (!AddonValidator.Insatnce.Validate(addon))
                 {
-                    _log.Insert($"invalid parameter placeholder {{0}} in display text for {action.Value.Id}");
                     return false;
                 }
             }
-
-            foreach (var condition in addon.Conditions)
+            else
             {
-                var paramCount = condition.Value.Ace.Count(x => x == '{') - 1;
-                var displayCount = placeholder.Matches(condition.Value.Language).Count;
-
-                if (paramCount != displayCount)
+                //TODO: add other validation here to help ensure a proper add has been created
+                //validate all the files & properties 
+                if (string.IsNullOrWhiteSpace(addon.LanguageProperties))
                 {
-                    _log.Insert($"invalid parameter placeholder {{0}} in display text for {condition.Value.Id}");
+                    _log.Insert("generate properties json has not been ran, generate the json in the langauge view");
                     return false;
                 }
-            }
+                if (string.IsNullOrWhiteSpace(addon.LanguageCategories))
+                {
+                    _log.Insert("generate category json has not been ran, generate the json in the langauge view");
+                    return false;
+                }
 
+                var placeholder = new Regex("{(\\d+)}");
+                //validate actions
+                foreach (var action in addon.Actions)
+                {
+                    var paramCount = action.Value.Ace.Count(x => x == '{') - 1;
+                    var displayCount = placeholder.Matches(action.Value.Language).Count;
+
+                    if (paramCount != displayCount)
+                    {
+                        _log.Insert($"invalid parameter placeholder {{0}} in display text for {action.Value.Id}");
+                        return false;
+                    }
+                }
+                foreach (var condition in addon.Conditions)
+                {
+                    var paramCount = condition.Value.Ace.Count(x => x == '{') - 1;
+                    var displayCount = placeholder.Matches(condition.Value.Language).Count;
+
+                    if (paramCount != displayCount)
+                    {
+                        _log.Insert($"invalid parameter placeholder {{0}} in display text for {condition.Value.Id}");
+                        return false;
+                    }
+                }
+            }
+           
             return true;
         }
 
