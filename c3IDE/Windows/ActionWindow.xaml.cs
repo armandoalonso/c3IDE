@@ -16,11 +16,13 @@ using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
 using c3IDE.Utilities.ThemeEngine;
 using ControlzEx.Standard;
+using ICSharpCode.AvalonEdit;
 using Action = c3IDE.Models.Action;
 
 namespace c3IDE.Windows
@@ -166,6 +168,11 @@ namespace c3IDE.Windows
                 e.Handled = true;
                 completionWindow.CompletionList.ListBox.SelectedIndex = 0;
                 completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
+            }
+            else if (e.Key == Key.F && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+            {
+                var text = ((TextEditor)sender).SelectedText;
+                Searcher.Insatnce.GlobalFind(text);
             }
         }
 

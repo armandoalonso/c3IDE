@@ -16,8 +16,10 @@ using System.Windows.Media;
 using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Logging;
+using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Utilities.ThemeEngine;
+using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
 
 
@@ -100,6 +102,11 @@ namespace c3IDE.Windows
                 e.Handled = true;
                 completionWindow.CompletionList.ListBox.SelectedIndex = 0;
                 completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
+            }
+            else if (e.Key == Key.F && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+            {
+                var text = ((TextEditor)sender).SelectedText;
+                Searcher.Insatnce.GlobalFind(text);
             }
         }
 

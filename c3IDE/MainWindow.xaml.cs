@@ -37,7 +37,7 @@ namespace c3IDE
         private readonly EffectCodeWindow _fxCodeWindow = new EffectCodeWindow();
         private readonly EffectLanguageWindow _fxLanguageWindow = new EffectLanguageWindow();
         private PopoutCompileWindow _popoutCompileWindow;
-        private FindAndReplaceWindow _findAndReplaceWindow;
+        private readonly SearchAndReplaceWindow _findAndReplaceWindow = new SearchAndReplaceWindow();
 
         private string _currentActiveWindow;
 
@@ -74,16 +74,52 @@ namespace c3IDE
             _currentActiveWindow = _dashboardWindow.DisplayName;
         }
 
-        private void OpenFindAndReplace(List<SearchResult> records)
+        private void OpenFindAndReplace(IEnumerable<SearchResult> records, IWindow window)
         {
-            if (!ControlHelper.Insatnce.IsWindowOpen<FindAndReplaceWindow>())
+            //execute on exit
+            switch (_currentActiveWindow)
             {
-                //open popout compile window
-                _findAndReplaceWindow = new FindAndReplaceWindow();
-                _findAndReplaceWindow.Show();
+                case "Dashboard":
+                    _dashboardWindow.OnExit();
+                    break;
+                case "Addon":
+                    _addonWindow.OnExit();
+                    break;
+                case "Plugin":
+                    _pluginWindow.OnExit();
+                    break;
+                case "Type":
+                    _typeWindow.OnExit();
+                    break;
+                case "Instance":
+                    _instanceWindow.OnExit();
+                    break;
+                case "Actions":
+                    _actionWindow.OnExit();
+                    break;
+                case "Conditions":
+                    _conditionWindow.OnExit();
+                    break;
+                case "Expressions":
+                    _expressionWindow.OnExit();
+                    break;
+                case "Language":
+                    _languageWindow.OnExit();
+                    break;
+                case "Test":
+                    _testWidnow.OnExit();
+                    break;
+                case "Options":
+                    _optionsWindow.OnExit();
+                    break;
             }
 
-            _findAndReplaceWindow.SearchGrid.DataContext = records;
+            ActiveItem.Content = _findAndReplaceWindow;
+            _findAndReplaceWindow.PopulateSearchData(records);
+            _findAndReplaceWindow.RestoreWindow = () =>
+            {
+                ActiveItem.Content = _currentActiveWindow;
+            };
         }
 
         private void OptionChanged(Options obj)

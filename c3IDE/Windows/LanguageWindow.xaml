@@ -23,7 +23,7 @@
                         FontFamily="Consolas"
                         SyntaxHighlighting="JavaScript"
                         FontSize="10pt"
-                        ShowLineNumbers="True">
+                        ShowLineNumbers="True" PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Generate Property JSON" Click="GeneratePropertyText" />
@@ -52,7 +52,7 @@
                         FontFamily="Consolas"
                         SyntaxHighlighting="JavaScript"
                         FontSize="10pt"
-                        ShowLineNumbers="True">
+                        ShowLineNumbers="True" PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Generate Category JSON" Click="GenerateCategoryText" />

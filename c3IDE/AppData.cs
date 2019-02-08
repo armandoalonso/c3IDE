@@ -13,6 +13,7 @@ using c3IDE.Models;
 using c3IDE.Utilities;
 using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
+using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Highlighting;
@@ -47,7 +48,7 @@ namespace c3IDE
 
         public Action<bool> WebServerStateChanged { get; set; }
         public Action UpdateTestWindow { get; set; }
-        public Action<List<SearchResult>> OpenFindAndReplace { get; set; } 
+        public Action<IEnumerable<SearchResult>, IWindow> OpenFindAndReplace { get; set; } 
 
 
         public void SetupTextEditor(TextEditor editor, Syntax syntax)

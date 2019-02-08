@@ -20,6 +20,7 @@ using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Highlighting;
 using c3IDE.Utilities.ThemeEngine;
+using ICSharpCode.AvalonEdit;
 
 namespace c3IDE.Windows
 {
@@ -146,10 +147,10 @@ namespace c3IDE.Windows
                 completionWindow.CompletionList.ListBox.SelectedIndex = 0;
                 completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
             }
-            else if (e.Key == Key.F1)
+            else if(e.Key == Key.F1)
             {
-                var text = EditTimePluginTextEditor.SelectedText;
-                //EditTimePluginTextEditor.TextArea.SelectionChanged  
+                var editor = ((TextEditor) sender);
+                var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text);
             }
         }

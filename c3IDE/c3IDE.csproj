@@ -218,9 +218,6 @@
     <Compile Include="Windows\ExpressionWindow.xaml.cs">
       <DependentUpon>ExpressionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\FindAndReplaceWindow.xaml.cs">
-      <DependentUpon>FindAndReplaceWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\InstanceWindow.xaml.cs">
       <DependentUpon>InstanceWindow.xaml</DependentUpon>
     </Compile>
@@ -236,6 +233,9 @@
     </Compile>
     <Compile Include="Windows\PopoutCompileWindow.xaml.cs">
       <DependentUpon>PopoutCompileWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SearchAndReplaceWindow.xaml.cs">
+      <DependentUpon>SearchAndReplaceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
@@ -287,10 +287,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\FindAndReplaceWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\InstanceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -308,6 +304,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\PopoutCompileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SearchAndReplaceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

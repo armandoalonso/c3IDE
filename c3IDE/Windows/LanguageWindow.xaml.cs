@@ -18,9 +18,11 @@ using c3IDE.Templates;
 using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
 using c3IDE.Utilities.ThemeEngine;
+using ICSharpCode.AvalonEdit;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -70,6 +72,15 @@ namespace c3IDE.Windows
         {
             PropertyLanguageTextEditor.Text = string.Empty;
             CategoryLanguageTextEditor.Text = string.Empty;
+        }
+
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+            {
+                var text = ((TextEditor)sender).SelectedText;
+                Searcher.Insatnce.GlobalFind(text);
+            }
         }
 
         //context menu
