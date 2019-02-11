@@ -156,6 +156,7 @@ namespace c3IDE
         private void HambugerMenuItem_Click(object sender, ItemClickEventArgs e)
         {
             var clickedLabel = ((HamburgerMenuIconItem)e.ClickedItem).Label;
+
             //short circut saving and shutdown
             if (clickedLabel == "Save")
             {
@@ -288,6 +289,9 @@ namespace c3IDE
 
             //close menu pane
             DefaultMainMenu.IsPaneOpen = AppData.Insatnce.Options.PinMenu;
+
+            //parse addon
+            if(AppData.Insatnce.CurrentAddon != null) Searcher.Insatnce.ParseAddon(AppData.Insatnce.CurrentAddon);
         }
 
         public void Save()

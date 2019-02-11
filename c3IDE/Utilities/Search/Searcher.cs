@@ -89,7 +89,9 @@ namespace c3IDE.Utilities.Search
             }
             else
             {
-                //handle effect specific files
+                UpdateFileIndex("addon.json", addon.AddonJson, AppData.Insatnce.MainWindow._addonWindow);
+                UpdateFileIndex("fxcode.js", addon.EffectCode, AppData.Insatnce.MainWindow._fxCodeWindow);
+                UpdateFileIndex("fxlang.js", addon.EffectLanguage, AppData.Insatnce.MainWindow._fxLanguageWindow);
             }
         }
 
@@ -142,6 +144,12 @@ namespace c3IDE.Utilities.Search
 
                 addon.LanguageProperties = string.Join("\n", FileIndex["lang_property.js"].Select(x => x.Value.Line));
                 addon.LanguageCategories = string.Join("\n", FileIndex["lang_category.js"].Select(x => x.Value.Line));
+            }
+            else
+            {
+                addon.AddonJson = string.Join("\n", FileIndex["addon.json"].Select(x => x.Value.Line));
+                addon.EffectCode = string.Join("\n", FileIndex["fxcode.js"].Select(x => x.Value.Line));
+                addon.EffectLanguage = string.Join("\n", FileIndex["fxlang.js"].Select(x => x.Value.Line));
             }
 
             AppData.Insatnce.CurrentAddon = addon;
