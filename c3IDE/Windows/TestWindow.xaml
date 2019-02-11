@@ -24,6 +24,9 @@
             <Button Name="CompileOnly" Content="Compile Only" Margin="10" DockPanel.Dock="Top" Click="CompileOnly_OnClick"></Button>
             <Button Name="OpenCompiledFOlder" Content="Open Compiled Folder" Margin="10" Click="OpenCompiledFolderButton_Click" DockPanel.Dock="Top" ></Button>
             <Button Name="ValidateAllFiles" Content="Validate Addon" Margin="10" DockPanel.Dock="Top" Click="ValidateAllFiles_OnClick"></Button>
+            <Button Name="ExportAddonButton" Content="Export Addon" Margin="10" DockPanel.Dock="Top" Click="ExportAddonButton_OnClick" ></Button>
+            <Button Name="ExportFolderButton" Content="Open Export Folder"  Margin="10" DockPanel.Dock="Top" Click="ExportFolderButton_OnClick" ></Button>
+            <Button Name="CreateC3AddonButton" Content="Create C3Addon File"  Margin="10" DockPanel.Dock="Top" Click="CreateC3AddonButton_OnClick"></Button>
             <UniformGrid Columns="2" DockPanel.Dock="Top">
                 <Button Name="OpenConstructButton" Content="Open Construct" Margin="10" Click="OpenConstructButton_Click" ></Button>
                 <Button Name="OpenConstructSafeButton" Content="Open Construct (Safe)" Margin="10" Click="OpenConstructSafeButton_Click" ></Button>

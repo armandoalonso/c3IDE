@@ -174,10 +174,11 @@ namespace c3IDE.Windows
                 completionWindow.CompletionList.ListBox.SelectedIndex = 0;
                 completionWindow.CompletionList.RequestInsertion(EventArgs.Empty);
             }
-            else if (e.Key == Key.F && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+            else if (e.Key == Key.F1)
             {
-                var text = ((TextEditor)sender).SelectedText;
-                Searcher.Insatnce.GlobalFind(text);
+                var editor = ((TextEditor)sender);
+                var text = editor.SelectedText;
+                Searcher.Insatnce.GlobalFind(text, this);
             }
         }
 

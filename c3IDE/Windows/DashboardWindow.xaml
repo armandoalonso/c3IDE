@@ -46,7 +46,7 @@
                     <ContextMenu>
                         <MenuItem Header="Load Addon" Click="LoadAddonMenu_OnClick" />
                         <MenuItem Header="Remove Addon" Click="RemoveAddonMenu_OnClick" />
-                        <MenuItem Header="Export Project" Click="ExportProjectMenu_OnClick" />
+                        <!--<MenuItem Header="Export Project" Click="ExportProjectMenu_OnClick" />-->
                         <MenuItem Header="Duplicate Project" Click="DuplicateProjectMenu_OnClick" />
                         <MenuItem Header="Open In Other Instance" Click="OtherInstanceOpenMenu_OnClick" />
                     </ContextMenu>
@@ -97,16 +97,16 @@
                 <Image Name="AddonIcon" DockPanel.Dock="Right" Height="150" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop"></Image>
             </DockPanel>
 
-            <UniformGrid Columns="2">
+            <UniformGrid Columns="1">
                 <Button Name="CreateAddonButton" Content="Create Addon" Margin="5" Click="CreateAddonButton_OnClick" ></Button>
                 <Button Name="LoadAddonButton" Content="Load Addon" Margin="5" Click="LoadAddonButton_OnClick" ></Button>
-                <Button Name="UpdateAddonButton" Content="Update Addon" Margin="5" Click="UpdateAddonButton_OnClick" ></Button>
+                <!--<Button Name="UpdateAddonButton" Content="Update Addon" Margin="5" Click="UpdateAddonButton_OnClick" ></Button>-->
                 <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="5" Click="RemoveAddonButton_OnClick" ></Button>
                 <Button Name="DuplicateAddonButton" Content="Duplicate Addon" Margin="5" Click="DuplicateProjectMenu_OnClick" ></Button>
                 <Button Name="OpenOtherInstanceButton" Content="Open Addon In New Instance" Margin="5" Click="OtherInstanceOpenMenu_OnClick" ></Button>
-                <Button Name="ExportAddonButton" Content="Export Addon" Margin="5" Click="ExportAddonButton_OnClick" ></Button>
+                <!--<Button Name="ExportAddonButton" Content="Export Addon" Margin="5" Click="ExportAddonButton_OnClick" ></Button>
                 <Button Name="ExportFolderButton" Content="Open Export Folder" Margin="5" Click="ExportFolderButton_OnClick" ></Button>
-                <Button Name="CreateC3AddonButton" Content="Create C3Addon File" Margin="5" Click="CreateC3AddonButton_OnClick"></Button>
+                <Button Name="CreateC3AddonButton" Content="Create C3Addon File" Margin="5" Click="CreateC3AddonButton_OnClick"></Button>-->
                 <Button Name="ClearInputsButton" Content="Clear Inputs" Margin="5" Click="ClearInputsButton_OnClick" ></Button>
             </UniformGrid>
         </StackPanel>

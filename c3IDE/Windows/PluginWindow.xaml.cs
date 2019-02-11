@@ -151,7 +151,7 @@ namespace c3IDE.Windows
             {
                 var editor = ((TextEditor) sender);
                 var text = editor.SelectedText;
-                Searcher.Insatnce.GlobalFind(text);
+                Searcher.Insatnce.GlobalFind(text, this);
             }
         }
 

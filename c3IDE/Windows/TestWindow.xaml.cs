@@ -22,6 +22,8 @@ using c3IDE.Utilities.Logging;
 using c3IDE.Windows.Interfaces;
 using MahApps.Metro.Controls;
 using c3IDE.Utilities.ThemeEngine;
+using Newtonsoft.Json;
+using Path = System.IO.Path;
 using Theme = c3IDE.Utilities.ThemeEngine.Theme;
 
 namespace c3IDE.Windows
@@ -188,6 +190,40 @@ namespace c3IDE.Windows
             }
 
             Update();
+        }
+
+        private void ExportAddonButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (AppData.Insatnce.CurrentAddon == null)
+            {
+                AppData.Insatnce.ErrorMessage("error exporting c3addon, no c3addon selected");
+                return;
+            }
+
+            var addonJson = JsonConvert.SerializeObject(AppData.Insatnce.CurrentAddon);
+            var timestamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            var name = AppData.Insatnce.Options.IncludeTimeStampOnExport
+                ? $"{AppData.Insatnce.CurrentAddon.Class}_{timestamp}.c3ide"
+                : $"{AppData.Insatnce.CurrentAddon.Class}.c3ide";
+
+            ProcessHelper.Insatnce.WriteFile(Path.Combine(AppData.Insatnce.Options.ExportPath, name), addonJson);
+            ProcessHelper.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
+        }
+
+        private void ExportFolderButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ProcessHelper.Insatnce.StartProcess(AppData.Insatnce.Options.ExportPath);
+        }
+
+        private void CreateC3AddonButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (AppData.Insatnce.CurrentAddon == null)
+            {
+                AppData.Insatnce.ErrorMessage("error creating c3addon file, no c3addon selected");
+                return;
+            }
+            AddonExporter.Insatnce.ExportAddon(AppData.Insatnce.CurrentAddon);
+            ProcessHelper.Insatnce.StartProcess(AppData.Insatnce.Options.C3AddonPath);
         }
     }
 }

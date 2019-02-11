@@ -18,6 +18,7 @@ using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Highlighting;
 using MahApps.Metro;
+using MahApps.Metro.Converters;
 using uhttpsharp.Listeners;
 using Action = System.Action;
 using Theme = c3IDE.Utilities.ThemeEngine.Theme;
@@ -32,6 +33,7 @@ namespace c3IDE
         public Options Options = new Options();
         public TcpListener TcpListener = new TcpListener(IPAddress.Any, 8080);
         public CompilerLog CompilerLog { get; set; } = new CompilerLog();
+        public MainWindow MainWindow { get; set; }
 
         public Func<string, string, Task<bool>> ShowDialog { get; internal set; }
         public Func<string, string, string, Task<string>> ShowInputDialog { get; set; }
@@ -48,7 +50,8 @@ namespace c3IDE
 
         public Action<bool> WebServerStateChanged { get; set; }
         public Action UpdateTestWindow { get; set; }
-        public Action<IEnumerable<SearchResult>, IWindow> OpenFindAndReplace { get; set; } 
+        public Action<IEnumerable<SearchResult>, IWindow> OpenFindAndReplace { get; set; }
+        public Action<IWindow> NavigateToWindow { get; set; }
 
 
         public void SetupTextEditor(TextEditor editor, Syntax syntax)

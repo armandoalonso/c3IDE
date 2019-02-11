@@ -161,7 +161,7 @@ namespace c3IDE.Windows
             var addon = new C3Addon
             {
                 Name = AddonNameText.Text,
-                Class = AddonClassText.Text,
+                Class = AddonClassText.Text.Replace(" ", string.Empty),
                 Company = AuthorText.Text,
                 Author = AuthorText.Text.Replace(" ", string.Empty),
                 Version = VersionText.Text,

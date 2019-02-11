@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using c3IDE.Windows.Interfaces;
 
 namespace c3IDE.Utilities.Search
 {
@@ -44,12 +45,15 @@ namespace c3IDE.Utilities.Search
             set { _lineNumber = value; OnPropertyChanged();}
         }
 
-        public SearchResult(string doc, string text, int line)
+        public IWindow Window { get; }
+
+        public SearchResult(string doc, string text, int line, IWindow window)
         {
             Document = doc;
             Line = text;
             LineNumber = line;
             StrippedText = Regex.Replace(Line, RegexExperession, string.Empty);
+            Window = window;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

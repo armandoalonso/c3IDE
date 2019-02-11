@@ -76,10 +76,11 @@ namespace c3IDE.Windows
 
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.F && (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0)
+             if (e.Key == Key.F1)
             {
-                var text = ((TextEditor)sender).SelectedText;
-                Searcher.Insatnce.GlobalFind(text);
+                var editor = ((TextEditor)sender);
+                var text = editor.SelectedText;
+                Searcher.Insatnce.GlobalFind(text, this);
             }
         }
 

@@ -22,28 +22,31 @@ namespace c3IDE
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private readonly DashboardWindow _dashboardWindow;
-        private readonly AddonWindow _addonWindow = new AddonWindow();
-        private readonly PluginWindow _pluginWindow = new PluginWindow();
-        private readonly TypeWindow _typeWindow = new TypeWindow();
-        private readonly InstanceWindow _instanceWindow = new InstanceWindow();
-        private readonly ActionWindow _actionWindow = new ActionWindow();
-        private readonly ConditionWindow _conditionWindow = new ConditionWindow();
-        private readonly ExpressionWindow _expressionWindow = new ExpressionWindow();
-        private readonly LanguageWindow _languageWindow = new LanguageWindow();
-        private readonly TestWindow _testWidnow = new TestWindow();
-        private readonly OptionsWindow _optionsWindow = new OptionsWindow();
-        private readonly EffectAddonWindow _fxAddonWindow = new EffectAddonWindow();
-        private readonly EffectCodeWindow _fxCodeWindow = new EffectCodeWindow();
-        private readonly EffectLanguageWindow _fxLanguageWindow = new EffectLanguageWindow();
-        private PopoutCompileWindow _popoutCompileWindow;
-        private readonly SearchAndReplaceWindow _findAndReplaceWindow = new SearchAndReplaceWindow();
+        public readonly DashboardWindow _dashboardWindow;
+        public readonly AddonWindow _addonWindow = new AddonWindow();
+        public readonly PluginWindow _pluginWindow = new PluginWindow();
+        public readonly TypeWindow _typeWindow = new TypeWindow();
+        public readonly InstanceWindow _instanceWindow = new InstanceWindow();
+        public readonly ActionWindow _actionWindow = new ActionWindow();
+        public readonly ConditionWindow _conditionWindow = new ConditionWindow();
+        public readonly ExpressionWindow _expressionWindow = new ExpressionWindow();
+        public readonly LanguageWindow _languageWindow = new LanguageWindow();
+        public readonly TestWindow _testWidnow = new TestWindow();
+        public readonly OptionsWindow _optionsWindow = new OptionsWindow();
+        public readonly EffectAddonWindow _fxAddonWindow = new EffectAddonWindow();
+        public readonly EffectCodeWindow _fxCodeWindow = new EffectCodeWindow();
+        public readonly EffectLanguageWindow _fxLanguageWindow = new EffectLanguageWindow();
+        public PopoutCompileWindow _popoutCompileWindow;
+        public readonly SearchAndReplaceWindow _findAndReplaceWindow = new SearchAndReplaceWindow();
 
-        private string _currentActiveWindow;
+        private IWindow _currentActiveWindow;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            AppData.Insatnce.MainWindow = this;
+            AppData.Insatnce.NavigateToWindow = NavigateToWindow;
 
             //apply default theme
             AppData.Insatnce.SetupTheme();
@@ -56,7 +59,6 @@ namespace c3IDE
             AppData.Insatnce.OptionChanged = OptionChanged;
             AppData.Insatnce.OpenFindAndReplace = OpenFindAndReplace;
           
-
             //load data
             AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
             AppData.Insatnce.ShowDialog = ShowDialogBox;
@@ -71,13 +73,13 @@ namespace c3IDE
             //setup default view
             ActiveItem.Content = _dashboardWindow;
             _dashboardWindow.OnEnter();
-            _currentActiveWindow = _dashboardWindow.DisplayName;
+            _currentActiveWindow = _dashboardWindow;
         }
 
         private void OpenFindAndReplace(IEnumerable<SearchResult> records, IWindow window)
         {
             //execute on exit
-            switch (_currentActiveWindow)
+            switch (_currentActiveWindow.DisplayName)
             {
                 case "Dashboard":
                     _dashboardWindow.OnExit();
@@ -118,7 +120,8 @@ namespace c3IDE
             _findAndReplaceWindow.PopulateSearchData(records);
             _findAndReplaceWindow.RestoreWindow = () =>
             {
-                ActiveItem.Content = _currentActiveWindow;
+                ActiveItem.Content = window;
+                window.OnEnter();
             };
         }
 
@@ -174,7 +177,7 @@ namespace c3IDE
             }
 
             //execute on exit
-            switch (_currentActiveWindow)
+            switch (_currentActiveWindow.DisplayName)
             {
                 case "Dashboard":
                     _dashboardWindow.OnExit();
@@ -216,63 +219,73 @@ namespace c3IDE
                 case "Dashboard":
                     ActiveItem.Content = _dashboardWindow;
                     _dashboardWindow.OnEnter();
+                    _currentActiveWindow = _dashboardWindow;
                     break;
                 case "Addon":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _addonWindow;
                     _addonWindow.OnEnter();
+                    _currentActiveWindow = _addonWindow;
                     break;
                 case "Plugin":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _pluginWindow;
                     _pluginWindow.OnEnter();
+                    _currentActiveWindow = _pluginWindow;
                     break;
                 case "Type":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _typeWindow;
                     _typeWindow.OnEnter();
+                    _currentActiveWindow = _typeWindow;
                     break;
                 case "Instance":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _instanceWindow;
                     _instanceWindow.OnEnter();
+                    _currentActiveWindow = _instanceWindow;
                     break;
                 case "Actions":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _actionWindow;
                     _actionWindow.OnEnter();
+                    _currentActiveWindow = _actionWindow;
                     break;
                 case "Conditions":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _conditionWindow;
                     _conditionWindow.OnEnter();
+                    _currentActiveWindow = _conditionWindow;
                     break;
                 case "Expressions":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _expressionWindow;
                     _expressionWindow.OnEnter();
+                    _currentActiveWindow = _expressionWindow;
                     break;
                 case "Language":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _languageWindow;
                     _languageWindow.OnEnter();
+                    _currentActiveWindow = _languageWindow;
                     break;
                 case "Test":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItem.Content = _testWidnow;
                     _testWidnow.OnEnter();
+                    _currentActiveWindow = _testWidnow;
                     break;
                 case "Options":
                     ActiveItem.Content = _optionsWindow;
                     _optionsWindow.OnEnter();
+                    _currentActiveWindow = _optionsWindow;
                     break;
                 default:
                     ActiveItem.Content = _dashboardWindow;
+                    _currentActiveWindow = _dashboardWindow;
                     break;
             }
 
-            //set the current active window
-            _currentActiveWindow = clickedLabel;
             //close menu pane
             DefaultMainMenu.IsPaneOpen = AppData.Insatnce.Options.PinMenu;
         }
@@ -280,7 +293,7 @@ namespace c3IDE
         public void Save()
         {
             //make sure we save current window
-            switch (_currentActiveWindow)
+            switch (_currentActiveWindow.DisplayName)
             {
                 case "Dashboard":
                     _dashboardWindow.OnExit();
@@ -427,7 +440,7 @@ namespace c3IDE
             }
 
             //execute on exit
-            switch (_currentActiveWindow)
+            switch (_currentActiveWindow.DisplayName)
             {
                 case "Dashboard":
                     _dashboardWindow.OnExit();
@@ -454,40 +467,52 @@ namespace c3IDE
                 case "Dashboard":
                     ActiveItemEffect.Content = _dashboardWindow;
                     _dashboardWindow.OnEnter();
+                    _currentActiveWindow = _dashboardWindow;
                     break;
                 case "Addon":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItemEffect.Content = _fxAddonWindow;
                     _fxAddonWindow.OnEnter();
+                    _currentActiveWindow = _fxAddonWindow;
                     break;
                 case "Effect":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItemEffect.Content = _fxCodeWindow;
                     _fxCodeWindow.OnEnter();
+                    _currentActiveWindow = _fxCodeWindow;
                     break;
                 case "Language":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItemEffect.Content = _fxLanguageWindow;
                     _fxLanguageWindow.OnEnter();
+                    _currentActiveWindow = _fxLanguageWindow;
                     break;
                 case "Test":
                     if (!_checkForLoadedAddon()) return;
                     ActiveItemEffect.Content = _testWidnow;
                     _testWidnow.OnEnter();
+                    _currentActiveWindow = _testWidnow;
                     break;
                 case "Options":
                     ActiveItemEffect.Content = _optionsWindow;
                     _optionsWindow.OnEnter();
+                    _currentActiveWindow = _optionsWindow;
                     break;
                 default:
                     ActiveItemEffect.Content = _dashboardWindow;
+                    _currentActiveWindow = _dashboardWindow;
                     break;
             }
-
-            //set the current active window
-            _currentActiveWindow = clickedLabel;
             //close menu pane
             EffectMainMenu.IsPaneOpen = AppData.Insatnce.Options.PinMenu;
+        }
+
+        public void NavigateToWindow(IWindow window)
+        {
+            _currentActiveWindow.OnExit();
+            ActiveItemEffect.Content = window;
+            window.OnEnter();
+            _currentActiveWindow = window;
         }
     }
 }

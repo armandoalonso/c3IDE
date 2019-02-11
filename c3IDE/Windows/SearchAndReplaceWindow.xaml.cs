@@ -66,5 +66,13 @@ namespace c3IDE.Windows
             Searcher.Insatnce.GlobalReplace(AppData.Insatnce.CurrentAddon, replaceList);
             RestoreWindow();
         }
+
+        private void SearchGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            //if (SearchGrid.SelectedItem is SearchResult item)
+            //{
+            //    AppData.Insatnce.NavigateToWindow(item.Window);
+            //}
+        }
     }
 }

@@ -5,23 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:c3IDE.Windows"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="14">
+
     <DockPanel LastChildFill="True">
-        <UniformGrid Columns="3" DockPanel.Dock="Top" Margin="10">
-            <TextBlock DockPanel.Dock="Left" Style="{DynamicResource TextBlockStyle}">Find :</TextBlock>
-            <TextBlock DockPanel.Dock="Left" Style="{DynamicResource TextBlockStyle}">Replace :</TextBlock>
-            <Separator></Separator>
-            <TextBox Name="FindText"  MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
-            <TextBox Name="ReplaceText"  MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
-            <Button Content="Replace" Click="ReplaceAllSelected_Click"></Button>
+        <UniformGrid Columns="3" DockPanel.Dock="Top" Margin="10,0">
+            <TextBlock DockPanel.Dock="Left" Style="{DynamicResource TextBlockStyle}" VerticalAlignment="Bottom">Find :</TextBlock>
+            <TextBlock DockPanel.Dock="Left" Style="{DynamicResource TextBlockStyle}" VerticalAlignment="Bottom">Replace :</TextBlock>
+            <Separator Visibility="Hidden"></Separator>
+            <TextBox Name="FindText" Margin="2" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+            <TextBox Name="ReplaceText" Margin="2"  MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+            <Button Content="Replace" Margin="2" Click="ReplaceAllSelected_Click"></Button>
         </UniformGrid>
 
-        <DataGrid Margin="10" Name="SearchGrid" ItemsSource="{Binding}" AutoGenerateColumns="False"  DockPanel.Dock="Bottom">
+        <DataGrid Margin="10" Name="SearchGrid" ItemsSource="{Binding}" AutoGenerateColumns="False"  DockPanel.Dock="Bottom" MouseDoubleClick="SearchGrid_OnMouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}" Width="100" EditingElementStyle="{DynamicResource MetroDataGridCheckBox}" Header="Is Selected" Binding="{Binding Selected}" />
-                <DataGridTextColumn Header="Text" Binding="{Binding StrippedText, Mode=OneWay}" Width="400" />
-                <DataGridTextColumn Header="File" Binding="{Binding Document}" Width="100"/>
-                <DataGridTextColumn Header="Line Number" Binding="{Binding LineNumber}" Width="50"/>
+                <DataGridTextColumn Header="Text" Binding="{Binding StrippedText, Mode=OneWay}" MinWidth="600" IsReadOnly="True"/>
+                <DataGridTextColumn Header="File" Binding="{Binding Document}" MinWidth="150" IsReadOnly="True" />
+                <DataGridTextColumn Header="Line Number" Binding="{Binding LineNumber}" Width="150" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>
