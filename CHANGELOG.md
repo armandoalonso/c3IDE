@@ -1,6 +1,14 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.0.1.23 (02/11/19)
+* add global search and replace (highlight word and hit F1 to bring up the search and replace window) (effect addon does not have search and replace yet, this will be in the next update, where i will focus a bit more on the effect workflow)
+* fixed an issue with the export
+* moved the export buttons to the test windows (this ensure that you can only export the currently loaded addon)
+* fixed issue with aces not saving properly when navigating the windows
+* forced class name to not have spaces on creation
+* removed update button while i rework a better way to replace addon metadata. this should be much easier now that i have the search and replace system in place
+
 ### Build# 1.0.1.22 (02/07/19)
 * fix issue with update plugin when values were null or empty
 * enforce all addon metadata values to not be empty (description was previously nullable which caused issues down stream)
