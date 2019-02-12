@@ -549,6 +549,24 @@ namespace c3IDE.Windows
                 _selectedCondition.Category = Category.Text;
             }
         }
+
+        private void DisplayText_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            var currentIndex = DisplayText.CaretIndex;
+            if (e.Key == Key.OemOpenBrackets && (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) != 0)
+            {
+                e.Handled = true;
+                DisplayText.Text = DisplayText.Text.Insert(DisplayText.CaretIndex, "{}");
+                DisplayText.CaretIndex = currentIndex + 1;
+
+            }
+            else if (e.Key == Key.OemOpenBrackets)
+            {
+                e.Handled = true;
+                DisplayText.Text = DisplayText.Text.Insert(DisplayText.CaretIndex, "[]");
+                DisplayText.CaretIndex = currentIndex + 1;
+            }
+        }
     }
 }
     

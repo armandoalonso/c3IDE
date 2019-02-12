@@ -532,5 +532,6 @@ namespace c3IDE.Windows
                 _selectedExpression.Category = Category.Text;
             }
         }
+
     }
 }

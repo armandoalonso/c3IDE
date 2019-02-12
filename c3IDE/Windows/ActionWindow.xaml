@@ -35,7 +35,7 @@
                     <ComboBoxItem>true</ComboBoxItem>
                 </ComboBox>
                 <TextBlock Text="Display Text:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="DisplayText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
+                <TextBox Name="DisplayText" Margin="5" Height="70" PreviewKeyDown="DisplayText_OnPreviewKeyDown" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
 
                 <TextBlock Text="Description:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="DescriptionText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
