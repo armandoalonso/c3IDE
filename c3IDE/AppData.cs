@@ -43,7 +43,7 @@ namespace c3IDE
 
         public Action<string> LoadAddon { get; set; }
         public Action<Options> OptionChanged { get; set; }
-        public Action GlobalSave { get; set; }
+        public Action<bool> GlobalSave { get; set; }
         public string WebServerUrl { get; set; }
         public Action<string> WebServiceUrlChanged { get; set; }
         public bool WebServerStarted { get; set; }

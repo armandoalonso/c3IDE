@@ -91,7 +91,7 @@ namespace c3IDE
         {
             if (e.Key == Key.S && e.KeyboardDevice.IsKeyDown(Key.LeftCtrl))
             {
-                AppData.Insatnce.GlobalSave();
+                AppData.Insatnce.GlobalSave(true);
 
                 if (AppData.Insatnce.Options.CompileOnSave)
                 {

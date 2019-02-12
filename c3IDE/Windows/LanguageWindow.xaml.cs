@@ -76,8 +76,11 @@ namespace c3IDE.Windows
 
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-             if (e.Key == Key.F1)
+            if (e.Key == Key.F1)
             {
+                //AppData.Insatnce.GlobalSave(false);
+                Searcher.Insatnce.UpdateFileIndex("lang_property.js", PropertyLanguageTextEditor.Text, AppData.Insatnce.MainWindow._languageWindow);
+                Searcher.Insatnce.UpdateFileIndex("lang_category.js", CategoryLanguageTextEditor.Text, AppData.Insatnce.MainWindow._languageWindow);
                 var editor = ((TextEditor)sender);
                 var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text, this);

@@ -16,6 +16,7 @@ using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Logging;
 using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.CodeCompletion;
@@ -171,6 +172,11 @@ namespace c3IDE.Windows
             }
             else if (e.Key == Key.F1)
             {
+                //AppData.Insatnce.GlobalSave(false);
+                Searcher.Insatnce.UpdateFileIndex($"act_{_selectedAction.Id}_ace", AceTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"act_{_selectedAction.Id}_lang", LanguageTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"act_{_selectedAction.Id}_code", CodeTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
+
                 var editor = ((TextEditor)sender);
                 var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text, this);
@@ -264,42 +270,49 @@ namespace c3IDE.Windows
 
         private void SaveParamButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ParamIdText.Text.ToLower().Replace(" ", "-");
-            var type = ParamTypeDropdown.Text;
-            var value = ParamValueText.Text;
-            var name = ParamNameText.Text;
-            var desc = ParamDescText.Text;
-
-            //there is at least one param defined
-            if (AceTextEditor.Text.Contains("\"params\": ["))
+            try
             {
-                //ace param
-                var aceTemplate = TemplateHelper.AceParam(id, type, value);
-                AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("\"params\": [", aceTemplate));
+                var id = ParamIdText.Text.ToLower().Replace(" ", "-");
+                var type = ParamTypeDropdown.Text;
+                var value = ParamValueText.Text;
+                var name = ParamNameText.Text;
+                var desc = ParamDescText.Text;
 
-                //language param
-                var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
-                LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""params"": {", langTemplate);
+                //there is at least one param defined
+                if (AceTextEditor.Text.Contains("\"params\": ["))
+                {
+                    //ace param
+                    var aceTemplate = TemplateHelper.AceParam(id, type, value);
+                    AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("\"params\": [", aceTemplate));
 
-                //code param
-                var codeTemplate = TemplateHelper.AceCode(id, _selectedAction.ScriptName);
-                CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}(", codeTemplate);
-            }
-            //this will be the first param
-            else
-            {
-                //ace param
-                var aceTemplate = TemplateHelper.AceParamFirst(id, type, value);
-                AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("}", aceTemplate));
+                    //language param
+                    var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
+                    LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""params"": {", langTemplate);
 
-                //language param
-                var langTemplate = TemplateHelper.AceLangFirst(id, type, name, desc);
-                LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""
+                    //code param
+                    var codeTemplate = TemplateHelper.AceCode(id, _selectedAction.ScriptName);
+                    CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}(", codeTemplate);
+                }
+                //this will be the first param
+                else
+                {
+                    //ace param
+                    var aceTemplate = TemplateHelper.AceParamFirst(id, type, value);
+                    AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("}", aceTemplate));
+
+                    //language param
+                    var langTemplate = TemplateHelper.AceLangFirst(id, type, name, desc);
+                    LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""
 }", langTemplate);
 
-                //code param
-                var codeTemplate = TemplateHelper.AceCodeFirst(id, _selectedAction.ScriptName);
-                CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}()", codeTemplate);
+                    //code param
+                    var codeTemplate = TemplateHelper.AceCodeFirst(id, _selectedAction.ScriptName);
+                    CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}()", codeTemplate);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.Insatnce.Exceptions.Add(ex);
             }
 
             NewParamWindow.IsOpen = false;

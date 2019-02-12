@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using c3IDE.Models;
 
@@ -51,13 +52,23 @@ namespace c3IDE.Templates
 
         public static string AceParam(string id, string type, string initValue)
         {
-            var val = string.IsNullOrWhiteSpace(initValue) ? string.Empty : $",\n            \"initialValue\":{initValue}";
+            string value;
+            if (!string.IsNullOrWhiteSpace(initValue))
+            {
+                initValue = initValue.Trim();
+                initValue = initValue.Trim('"');
+                value = $",\n            \"initialValue\":\"{initValue}\"";
+            }
+            else
+            {
+                value = string.Empty;
+            }
             var items = type == "combo" ? ",\n            \"items\":[\"item1\",\"item2\",\"item3\"]" : string.Empty;
             var objects = type == "object" ? ",\n            \"allowedPluginIds\":[\"Sprite\"]" : string.Empty;
             return $@"    ""params"": [
         {{
             ""id"": ""{id}"",
-            ""type"": ""{type}""{val}{items}{objects}
+            ""type"": ""{type}""{value}{items}{objects}
         }},";
         }
 
@@ -82,14 +93,24 @@ namespace c3IDE.Templates
 
         public static string AceParamFirst(string id, string type, string initValue)
         {
-
-            var val = string.IsNullOrWhiteSpace(initValue) ? string.Empty : $",\n            \"initialValue\":\"{initValue}\"";
+            string value;
+            if (!string.IsNullOrWhiteSpace(initValue))
+            {
+                initValue = initValue.Trim();
+                initValue = initValue.Trim('"');
+                value = $",\n            \"initialValue\":\"{initValue}\"";
+            }
+            else
+            {
+                value = string.Empty;
+            }
+          
             var items = type == "combo" ? ",\n            \"items\":[\"item1\",\"item2\",\"item3\"]" : string.Empty;
             var objects = type == "object" ? ",\n            \"allowedPluginIds\":[\"Sprite\"]" : string.Empty;
             return $@",    ""params"": [
         {{
             ""id"": ""{id}"",
-            ""type"": ""{type}""{val}{items}{objects}
+            ""type"": ""{type}""{value}{items}{objects}
         }}
     ]
 }}";

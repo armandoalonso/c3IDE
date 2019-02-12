@@ -1,6 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.0.1.24 (02/12/19)
+* fix bug with empty string param values
+* fix bug with search not looking at current file being searched
+
 ### Build# 1.0.1.23 (02/11/19)
 * add global search and replace (highlight word and hit F1 to bring up the search and replace window) (effect addon does not have search and replace yet, this will be in the next update, where i will focus a bit more on the effect workflow)
 * fixed an issue with the export

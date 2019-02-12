@@ -150,6 +150,9 @@ namespace c3IDE.Windows
             }
             else if (e.Key == Key.F1)
             {
+                //AppData.Insatnce.GlobalSave(false);
+                Searcher.Insatnce.UpdateFileIndex("edittime_instance.js", EditTimeInstanceTextEditor.Text, AppData.Insatnce.MainWindow._instanceWindow);
+                Searcher.Insatnce.UpdateFileIndex("runtime_instance.js", RunTimeInstanceTextEditor.Text, AppData.Insatnce.MainWindow._instanceWindow);
                 var editor = ((TextEditor)sender);
                 var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text, this);

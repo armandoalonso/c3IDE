@@ -168,6 +168,10 @@ namespace c3IDE.Windows
             }
             else if (e.Key == Key.F1)
             {
+                //AppData.Insatnce.GlobalSave(false);
+                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_ace", AceTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_lang", LanguageTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_code", CodeTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
                 var editor = ((TextEditor)sender);
                 var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text, this);

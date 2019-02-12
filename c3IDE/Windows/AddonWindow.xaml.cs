@@ -105,6 +105,8 @@ namespace c3IDE.Windows
             }
             else if (e.Key == Key.F1)
             {
+                //AppData.Insatnce.GlobalSave(false);
+                Searcher.Insatnce.UpdateFileIndex("addon.json", AddonTextEditor.Text, AppData.Insatnce.MainWindow._addonWindow);
                 var editor = ((TextEditor)sender);
                 var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text, this);

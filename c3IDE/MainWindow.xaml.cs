@@ -214,6 +214,11 @@ namespace c3IDE
                     break;
             }
 
+            if (AppData.Insatnce.CurrentAddon != null)
+            {
+                Searcher.Insatnce.UpdateFileIndex(AppData.Insatnce.CurrentAddon, _currentActiveWindow);
+            }
+
             switch (clickedLabel)
             {
                 case "Dashboard":
@@ -290,7 +295,7 @@ namespace c3IDE
             DefaultMainMenu.IsPaneOpen = AppData.Insatnce.Options.PinMenu;
         }
 
-        public void Save()
+        public void Save(bool compile = true)
         {
             //make sure we save current window
             switch (_currentActiveWindow.DisplayName)
@@ -332,10 +337,11 @@ namespace c3IDE
 
             if (AppData.Insatnce.CurrentAddon != null)
             {
+                Searcher.Insatnce.UpdateFileIndex(AppData.Insatnce.CurrentAddon, _currentActiveWindow);
                 DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
                 OpenNotification($"Saved {AppData.Insatnce.CurrentAddon.Name} successfully.");
 
-                if (AppData.Insatnce.Options.CompileOnSave)
+                if (AppData.Insatnce.Options.CompileOnSave && compile)
                 {
                     if (!ControlHelper.Insatnce.IsWindowOpen<PopoutCompileWindow>())
                     {
