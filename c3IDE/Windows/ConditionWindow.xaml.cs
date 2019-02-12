@@ -422,12 +422,14 @@ namespace c3IDE.Windows
         //context menu
         private void InsertNewParam_OnClick(object sender, RoutedEventArgs e)
         {
+            if (_selectedCondition == null) return;
             ParamIdText.Text = "param-id";
             ParamTypeDropdown.Text = "number";
             ParamValueText.Text = string.Empty;
             ParamNameText.Text = "This is the parameters name";
             ParamDescText.Text = "This is the parameters description";
             NewParamWindow.IsOpen = true;
+            
         }
 
         private void FormatJavascript_OnClick(object sender, RoutedEventArgs e)

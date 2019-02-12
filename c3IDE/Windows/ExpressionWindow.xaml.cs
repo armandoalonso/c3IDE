@@ -346,6 +346,7 @@ namespace c3IDE.Windows
         //context menu
         private void InsertNewParam_OnClick(object sender, RoutedEventArgs e)
         {
+            if (_selectedExpression == null) return;
             ParamIdText.Text = "param-id";
             ParamTypeDropdown.Text = "number";
             ParamValueText.Text = string.Empty;

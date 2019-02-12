@@ -71,6 +71,7 @@
                     <ComboBoxItem>eventvarbool</ComboBoxItem>
                     <ComboBoxItem>animation</ComboBoxItem>
                     <ComboBoxItem>objinstancevar</ComboBoxItem>
+                    <ComboBoxItem>variadic</ComboBoxItem>
                 </ComboBox>
                 <TextBlock Text="Inital Value:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ParamValueText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
@@ -108,6 +109,7 @@
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Add Action" Click="AddAction_OnClick" />
+                        <MenuItem Header="Insert Action Parameter" Click="InsertNewParam_OnClick" />
                         <MenuItem Header="Remove Action" Click="RemoveAction_OnClick" />
                         <MenuItem Header="Change Action Category" Click="ChangeCategory_OnClick" />
                         <MenuItem Header="Duplicate Action" Click="DuplicateAce_OnClick" />

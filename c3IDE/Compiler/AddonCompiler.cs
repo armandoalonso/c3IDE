@@ -252,7 +252,7 @@ namespace c3IDE.Compiler
                     return false;
                 }
 
-                var placeholder = new Regex("{(\\d+)}");
+                var placeholder = new Regex("{(\\d+)}|{\\.\\.\\.}");
                 //validate actions
                 foreach (var action in addon.Actions)
                 {
@@ -272,7 +272,7 @@ namespace c3IDE.Compiler
 
                     if (paramCount != displayCount)
                     {
-                        _log.Insert($"invalid parameter placeholder {{0}} in display text for {condition.Value.Id}");
+                        _log.Insert($"invalid parameter placeholder {{#}} in display text for {condition.Value.Id}");
                         return false;
                     }
                 }
