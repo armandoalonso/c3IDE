@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="c3IDE.Windows.AddonMetadataWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:c3IDE.Windows"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel LastChildFill="True" Margin="2" Grid.Column="0">
+            <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}">Addon Icon :</TextBlock>
+            <Image Name="AddonIcon" DockPanel.Dock="Top" MaxHeight="250" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop"></Image>
+        </DockPanel>
+
+        <StackPanel Grid.Column="1">
+            <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Addon Data</TextBlock>
+            <DockPanel LastChildFill="True" Margin="2">
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Name :</TextBlock>
+                <TextBox Name="AddonNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+            </DockPanel>
+
+            <DockPanel LastChildFill="True" Margin="2">
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Class Name :</TextBlock>
+                <TextBox Name="AddonClassText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+            </DockPanel>
+
+            <!--<DockPanel LastChildFill="True" Margin="2">
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Company Name :</TextBlock>
+                <TextBox Name="CompanyNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+            </DockPanel>-->
+
+            <DockPanel LastChildFill="True" Margin="2">
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Author :</TextBlock>
+                <TextBox Name="AuthorText" DockPanel.Dock="Right" Text="c3IDE" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+            </DockPanel>
+
+            <DockPanel LastChildFill="True" Margin="2">
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Version :</TextBlock>
+                <TextBox Name="VersionText" DockPanel.Dock="Right" Text="1.0.0.0" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
+            </DockPanel>
+
+            <DockPanel LastChildFill="True" Margin="2">
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Description :</TextBlock>
+                <TextBox Name="DescriptionText" DockPanel.Dock="Right" Text="" VerticalScrollBarVisibility="Auto" Height="80"></TextBox>
+            </DockPanel>
+
+            <DockPanel LastChildFill="True" Margin="2">
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Type::</TextBlock>
+                <ComboBox Name="AddonTypeDropdown" DockPanel.Dock="Right">
+                </ComboBox>
+            </DockPanel>
+            
+            <StackPanel Margin="2">
+                <Button Content="Save"></Button>
+            </StackPanel>
+         </StackPanel>
+    </Grid>
+</UserControl>

@@ -197,6 +197,9 @@
     <Compile Include="Windows\ActionWindow.xaml.cs">
       <DependentUpon>ActionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\AddonMetadataWindow.xaml.cs">
+      <DependentUpon>AddonMetadataWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AddonWindow.xaml.cs">
       <DependentUpon>AddonWindow.xaml</DependentUpon>
     </Compile>
@@ -256,6 +259,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\ActionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddonMetadataWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

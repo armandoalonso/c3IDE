@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,7 @@ namespace c3IDE.Compiler
         {
             var outputPath = AppData.Insatnce.Options.C3AddonPath;
             var c3addonFile = System.IO.Path.Combine(outputPath,$"{addon.Class.ToLower()}_{addon.Version.Replace(".", "_")}.c3addon");
+            if(System.IO.File.Exists(c3addonFile)) File.Delete(c3addonFile);
             ZipFile.CreateFromDirectory(addonAddonFolder, c3addonFile);
         }
     }
