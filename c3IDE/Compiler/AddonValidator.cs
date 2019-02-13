@@ -59,6 +59,12 @@ namespace c3IDE.Compiler
 
                     isValid = TryAction(() => FormatHelper.Insatnce.Json(action.Language, true));
                     if (!isValid) { _log.Insert($"failed validation on action : {action.Id} lang.json"); return false; } else { _log.Insert($"action : {action.Id} lang.json is valid json"); }
+
+                    //variadic param type warning
+                    if (action.Ace.Contains("\"type\": \"variadic\""))
+                    {
+                        _log.Insert($"WARNING _ {action.Id} is using a variadic parameter, this feature is not documented in the C3 SDK => USE AT YOUR OWN RISK!");
+                    }
                 }
 
                 foreach (var condition in addon.Conditions.Values)

@@ -276,6 +276,7 @@ namespace c3IDE.Windows
                 var value = ParamValueText.Text;
                 var name = ParamNameText.Text;
                 var desc = ParamDescText.Text;
+                var isVariadic = type == "variadic";
 
                 //there is at least one param defined
                 if (AceTextEditor.Text.Contains("\"params\": ["))
@@ -289,7 +290,7 @@ namespace c3IDE.Windows
                     LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""params"": {", langTemplate);
 
                     //code param
-                    var codeTemplate = TemplateHelper.AceCode(id, _selectedAction.ScriptName);
+                    var codeTemplate = TemplateHelper.AceCode(id, _selectedAction.ScriptName, isVariadic);
                     CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}(", codeTemplate);
                 }
                 //this will be the first param
@@ -305,7 +306,7 @@ namespace c3IDE.Windows
 }", langTemplate);
 
                     //code param
-                    var codeTemplate = TemplateHelper.AceCodeFirst(id, _selectedAction.ScriptName);
+                    var codeTemplate = TemplateHelper.AceCodeFirst(id, _selectedAction.ScriptName, isVariadic);
                     CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}()", codeTemplate);
                 }
             }

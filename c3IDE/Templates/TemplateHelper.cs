@@ -83,13 +83,14 @@ namespace c3IDE.Templates
         }},";
         }
 
-        public static string AceCode(string id, string scriptName)
+        public static string AceCode(string id, string scriptName, bool variadic = false)
         {
             var ti = new CultureInfo("en-US", false).TextInfo;
             var param = ti.ToTitleCase(id.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
             param = char.ToLowerInvariant(param[0]) + param.Substring(1);
 
-            return $"{scriptName}({param}, ";
+            var prefix = variadic ? "..." : string.Empty;
+            return $"{scriptName}({prefix}{param}, ";
         }
 
         public static string AceParamFirst(string id, string type, string initValue)
@@ -131,13 +132,14 @@ namespace c3IDE.Templates
 }}";
         }
 
-        public static string AceCodeFirst(string id, string scriptName)
+        public static string AceCodeFirst(string id, string scriptName, bool variadic = false)
         {
             var ti = new CultureInfo("en-US", false).TextInfo;
             var param = ti.ToTitleCase(id.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
             param = char.ToLowerInvariant(param[0]) + param.Substring(1);
 
-            return $"{scriptName}({param})";
+            var prefix = variadic ? "..." : string.Empty;
+            return $"{scriptName}({prefix}{param})";
         }
 
         public static string CndAce(Condition cnd)

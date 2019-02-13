@@ -1,6 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.0.1.25 (02/12/19)
+* add variadic parameter to action type (this feature is undocumented in c3 sdk but might be useful) using it comes with a compiler warning
+* added add param to context menu in list box for all ace types
+
 ### Build# 1.0.1.24 (02/12/19)
 * fix bug with empty string param values
 * fix bug with search not looking at current file being searched
