@@ -113,7 +113,7 @@ namespace c3IDE.Utilities.JsBeautifier
             Whitespace = new[] { '\n', '\r', '\t', ' ' };
             Wordchar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$";
             Digits = "0123456789";
-            Punct = "+ - * / % & ++ -- = += -= *= /= %= == === != !== > < >= <= >> << >>> >>>= >>= <<= && &= | || ! !! , : ? ^ ^= |= :: <?= <? ?> <%= <% %>".Split(' ');
+            Punct = "+ - * / % & ++ -- = += -= *= /= %= == === != !== > < >= <= >> << >>> >>>= >>= <<= && &= | || ! !! , : ? ^ ^= |= :: <?= <? ?> <%= <% %> =>".Split(' ');
 
             // Words which always should start on a new line
             LineStarters = "continue,try,throw,return,var,if,switch,case,default,for,while,break,function".Split(',');

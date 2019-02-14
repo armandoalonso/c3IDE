@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Logging;
 using c3IDE.Windows.Interfaces;
 
 namespace c3IDE.Windows
@@ -21,6 +24,7 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class AddonMetadataWindow : UserControl, IWindow
     {
+        private string IconXml { get; set; }
         public AddonMetadataWindow()
         {
             InitializeComponent();
@@ -29,7 +33,10 @@ namespace c3IDE.Windows
         public string DisplayName { get; set; } = "Addon Metadata";
         public void OnEnter()
         {
-            throw new NotImplementedException();
+            if (AppData.Insatnce.CurrentAddon != null)
+            {
+                
+            }
         }
 
         public void OnExit()
@@ -44,12 +51,29 @@ namespace c3IDE.Windows
 
         private void Addon_OnDragEnter(object sender, DragEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effects = DragDropEffects.Copy;
+            }
         }
 
         private void AddonIcon_OnDrop(object sender, DragEventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var file = ((string[])e.Data.GetData(DataFormats.FileDrop))?.FirstOrDefault();
+                if (!string.IsNullOrWhiteSpace(file))
+                {
+                    IconXml = File.ReadAllText(file);
+                    AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
+                }
+            }
+            catch (Exception exception)
+            {
+                LogManager.Insatnce.Exceptions.Add(exception);
+                Console.WriteLine(exception.Message);
+                AppData.Insatnce.ErrorMessage($"error reading icon file, {exception.Message}");
+            }
         }
 
         private void SelectAllText(object sender, RoutedEventArgs e)
@@ -66,7 +90,5 @@ namespace c3IDE.Windows
                 tb.Focus();
             }
         }
-
-
     }
 }
