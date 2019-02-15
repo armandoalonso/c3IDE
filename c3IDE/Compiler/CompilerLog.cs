@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using c3IDE.Models;
 using c3IDE.Utilities;
 using c3IDE.Utilities.Logging;
 using ICSharpCode.AvalonEdit.Snippets;
@@ -53,19 +54,6 @@ namespace c3IDE.Compiler
         public void RemoveCallback(int callbackIndex)
         {
             _insertCallbacks.RemoveAt(callbackIndex);
-        }
-    }
-
-    //simple log structure
-    public class LogMessage
-    {
-        public DateTime Date;
-        public string Message;
-        public string Type;
-
-        public override string ToString()
-        {
-            return $"{Date} : {Type} => {Message}\n";
         }
     }
 }

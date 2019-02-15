@@ -1,6 +1,5 @@
 ﻿using c3IDE.DataAccess;
 using c3IDE.Models;
-using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
@@ -13,12 +12,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using c3IDE.Managers;
+using c3IDE.Templates;
 using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
-using c3IDE.Utilities.Logging;
 using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
-using c3IDE.Utilities.ThemeEngine;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
 
@@ -30,14 +29,14 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class AddonWindow : UserControl, IWindow
     {
-        //properties
         public string DisplayName { get; set; } = "Addon";
         private CompletionWindow completionWindow;
         private Dictionary<string, ThirdPartyFile> _files;
         private ThirdPartyFile _selectedFile;
-        public  List<TabItem> Tabs { get; set; }
  
-        //ctor
+        /// <summary>
+        /// addon widnow constructor, setup event handeling for auto completion, and setup properties for the editors 
+        /// </summary>
         public AddonWindow()
         {
             InitializeComponent();
@@ -49,17 +48,76 @@ namespace c3IDE.Windows
             AddonTextEditor.Options.EnableHyperlinks = false;
             FileTextEditor.Options.EnableEmailHyperlinks = false;
             FileTextEditor.Options.EnableHyperlinks = false;
-
-            //add tabs
-            Tabs = new List<TabItem> { AddonJsTab, ThirdPartyFileTab };
         }
 
-        //editor events
+        /// <summary>
+        /// handles when the addon widnow becomes the main window
+        /// </summary>
+        public void OnEnter()
+        {
+            ThemeManager.SetupTextEditor(AddonTextEditor, Syntax.Json);
+            ThemeManager.SetupTextEditor(FileTextEditor, Syntax.Javascript);
+
+            if (AddonManager.CurrentAddon != null)
+            {
+                AddonTextEditor.Text = AddonManager.CurrentAddon.AddonJson;
+                _files = AddonManager.CurrentAddon.ThirdPartyFiles;
+                FileListBox.ItemsSource = _files;
+
+                if (_files.Any())
+                {
+                    FileListBox.SelectedIndex = 0;
+                    _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
+                    FileTextEditor.Text = _selectedFile.Content;
+                }
+            }
+            else
+            {
+                AddonTextEditor.Text = string.Empty;
+                FileListBox.ItemsSource = null;
+                FileTextEditor.Text = string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// handles when the addon window is no longer the main window
+        /// </summary>
+        public void OnExit()
+        {
+            if (AddonManager.CurrentAddon != null)
+            {
+                if (_selectedFile != null)
+                {
+                    _selectedFile.Content = FileTextEditor.Text;
+                    _files[_selectedFile.FileName] = _selectedFile;
+                }
+
+                AddonManager.CurrentAddon.ThirdPartyFiles = _files;
+                AddonManager.CurrentAddon.AddonJson = AddonTextEditor.Text;
+            }
+        }
+
+        /// <summary>
+        /// clears all the input on the page
+        /// </summary>
+        public void Clear()
+        {
+            _files = new Dictionary<string, ThirdPartyFile>();
+            _selectedFile = null;
+            FileListBox.ItemsSource = null;
+            FileTextEditor.Text = string.Empty;
+            AddonTextEditor.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// handles the text entered event for addon.json window, 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddonTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
             var allTokens = JavascriptParser.Insatnce.ParseJsonDocument(AddonTextEditor.Text);
-
 
             if (!TextEditorHelper.Insatnce.MatchSymbol(AddonTextEditor, e.Text))
             {
@@ -80,6 +138,11 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// this handles when to insert the value being used by the autocompletion window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddonTextEditor_TextEntering(object sender, TextCompositionEventArgs e)
         {
             if (e.Text.Length > 0 && completionWindow != null)
@@ -95,6 +158,11 @@ namespace c3IDE.Windows
             // We still want to insert the character that was typed.
         }
 
+        /// <summary>
+        /// this handles the text editor shortcuts to insert data with tab, and to handel the find and replace
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
@@ -105,15 +173,18 @@ namespace c3IDE.Windows
             }
             else if (e.Key == Key.F1)
             {
-                //AppData.Insatnce.GlobalSave(false);
-                Searcher.Insatnce.UpdateFileIndex("addon.json", AddonTextEditor.Text, AppData.Insatnce.MainWindow._addonWindow);
+                Searcher.Insatnce.UpdateFileIndex("addon.json", AddonTextEditor.Text, ApplicationWindows.AddonWindow);
                 var editor = ((TextEditor)sender);
                 var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text, this);
             }
         }
 
-        //completion window
+        /// <summary>
+        /// this builds the autocompletion window and displays it
+        /// </summary>
+        /// <param name="textArea"></param>
+        /// <param name="completionList"></param>
         private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
         {
             //if any data matches show completion list
@@ -131,85 +202,32 @@ namespace c3IDE.Windows
             completionWindow.Closed += delegate { completionWindow = null; };
         }
 
-        //window states
-        public void OnEnter()
-        {
-            AppData.Insatnce.SetupTextEditor(AddonTextEditor, Syntax.Json);
-            AppData.Insatnce.SetupTextEditor(FileTextEditor, Syntax.Javascript);
-
-            if (AppData.Insatnce.CurrentAddon != null)
-            {
-                AddonTextEditor.Text = AppData.Insatnce.CurrentAddon.AddonJson;
-                _files = AppData.Insatnce.CurrentAddon.ThirdPartyFiles;
-                FileListBox.ItemsSource = _files;
-
-                if (_files.Any())
-                {
-                    FileListBox.SelectedIndex = 0;
-                    _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-                    FileTextEditor.Text = _selectedFile.Content;
-                }
-            }
-            else
-            {
-                AddonTextEditor.Text = string.Empty;
-                FileListBox.ItemsSource = null;
-                FileTextEditor.Text = string.Empty;
-            }
-        }
-
-        public void OnExit()
-        {
-            if (AppData.Insatnce.CurrentAddon != null)
-            {
-                if (_selectedFile != null)
-                {
-                    _selectedFile.Content = FileTextEditor.Text;
-                    _files[_selectedFile.FileName] = _selectedFile;
-                }
-
-                AppData.Insatnce.CurrentAddon.ThirdPartyFiles = _files;
-                AppData.Insatnce.CurrentAddon.AddonJson = AddonTextEditor.Text;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
-            }
-        }
-
-        public void Clear()
-        {
-            _files = new Dictionary<string, ThirdPartyFile>();
-            _selectedFile = null;
-            FileListBox.ItemsSource = null;
-            FileTextEditor.Text = string.Empty;
-
-            AddonTextEditor.Text = string.Empty;
-        }
-
-        //button clicks
+        /// <summary>
+        /// adds a new third party file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void AddFile_OnClick(object sender, RoutedEventArgs e)
         {
-            var filename = await AppData.Insatnce.ShowInputDialog("New File Name?", "please enter the name for the new javascript file", "javascriptFile.js");
+            var filename = await WindowManager.ShowInputDialog("New File Name?", "please enter the name for the new javascript file", "javascriptFile.js");
             if (string.IsNullOrWhiteSpace(filename)) return;
 
             _files.Add(filename, new ThirdPartyFile
             {
                 Content = string.Empty,
                 FileName = filename,
-                PluginTemplate = $@"{{
-	filename: ""c3runtime/{filename}"",
-	type: ""inline-script""
-}}"
+                PluginTemplate = TemplateHelper.ThirdPartyFile(filename)
             });
 
             AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
         ""c3runtime/{filename}"","));
 
-            //add
+            AddonManager.CurrentAddon.ThirdPartyFiles = _files;
+            FileListBox.ItemsSource = _files;
             FileListBox.Items.Refresh();
-            FileListBox.SelectedIndex = _files.Count - 1;
-            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-            FileTextEditor.Text = _selectedFile.Content;
         }
 
+        //TODO: finish HERE
         private void RemoveFile_OnClick(object sender, RoutedEventArgs e)
         {
             if (FileListBox.SelectedIndex == -1)

@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:c3IDE.Windows"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
+             d:DesignHeight="800" d:DesignWidth="1200" FontFamily="Century Gothic" FontSize="16">
     
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <DockPanel LastChildFill="True" Grid.Column="0">
@@ -35,7 +35,7 @@
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock  Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontWeight="Bold"/>
-                                    <TextBlock  Text="{Binding ChangeDate, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10"/>
+                                    <TextBlock  Text="{Binding CreateDate, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10"/>
                                 </Grid>
                             </Grid >
                             <TextBlock Grid.Column="2" Text="{Binding TypeName}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12"></TextBlock>
@@ -44,71 +44,16 @@
                 </ListBox.ItemTemplate>
                 <ListBox.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Load Addon" Click="LoadAddonMenu_OnClick" />
-                        <MenuItem Header="Remove Addon" Click="RemoveAddonMenu_OnClick" />
-                        <!--<MenuItem Header="Export Project" Click="ExportProjectMenu_OnClick" />-->
-                        <MenuItem Header="Duplicate Project" Click="DuplicateProjectMenu_OnClick" />
-                        <MenuItem Header="Open In Other Instance" Click="OtherInstanceOpenMenu_OnClick" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>
         </DockPanel>
-
+        
         <StackPanel Grid.Column="1">
-            <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Addon Data</TextBlock>
-            <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Name :</TextBlock>
-                <TextBox Name="AddonNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
-            </DockPanel>
-
-            <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Class Name :</TextBlock>
-                <TextBox Name="AddonClassText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
-            </DockPanel>
-
-            <!--<DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Company Name :</TextBlock>
-                <TextBox Name="CompanyNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
-            </DockPanel>-->
-
-            <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Author :</TextBlock>
-                <TextBox Name="AuthorText" DockPanel.Dock="Right" Text="c3IDE" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
-            </DockPanel>
-
-            <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Version :</TextBlock>
-                <TextBox Name="VersionText" DockPanel.Dock="Right" Text="1.0.0.0" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
-            </DockPanel>
-
-            <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Description :</TextBlock>
-                <TextBox Name="DescriptionText" DockPanel.Dock="Right" Text="" VerticalScrollBarVisibility="Auto" Height="80"></TextBox>
-            </DockPanel>
-
-            <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Type::</TextBlock>
-                <ComboBox Name="AddonTypeDropdown" DockPanel.Dock="Right">
-                </ComboBox>
-            </DockPanel>
-
-            <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Icon : </TextBlock>
-                <Image Name="AddonIcon" DockPanel.Dock="Right" Height="150" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop"></Image>
-            </DockPanel>
-
-            <UniformGrid Columns="1">
-                <Button Name="CreateAddonButton" Content="Create Addon" Margin="5" Click="CreateAddonButton_OnClick" ></Button>
-                <Button Name="LoadAddonButton" Content="Load Addon" Margin="5" Click="LoadAddonButton_OnClick" ></Button>
-                <!--<Button Name="UpdateAddonButton" Content="Update Addon" Margin="5" Click="UpdateAddonButton_OnClick" ></Button>-->
-                <Button Name="DeleteAddonButton" Content="Remove Addon" Margin="5" Click="RemoveAddonButton_OnClick" ></Button>
-                <Button Name="DuplicateAddonButton" Content="Duplicate Addon" Margin="5" Click="DuplicateProjectMenu_OnClick" ></Button>
-                <Button Name="OpenOtherInstanceButton" Content="Open Addon In New Instance" Margin="5" Click="OtherInstanceOpenMenu_OnClick" ></Button>
-                <!--<Button Name="ExportAddonButton" Content="Export Addon" Margin="5" Click="ExportAddonButton_OnClick" ></Button>
-                <Button Name="ExportFolderButton" Content="Open Export Folder" Margin="5" Click="ExportFolderButton_OnClick" ></Button>
-                <Button Name="CreateC3AddonButton" Content="Create C3Addon File" Margin="5" Click="CreateC3AddonButton_OnClick"></Button>-->
-                <Button Name="ClearInputsButton" Content="Clear Inputs" Margin="5" Click="ClearInputsButton_OnClick" ></Button>
-            </UniformGrid>
+            <Button Content="Create New Addon" Margin="5" Click="CreateNewAddon_Click"/>
+            <Button Content="Load Selected Addon" Margin="5" Click="LoadSelectedAddon_Click"/>
+            <Button Content="Delete Selected Addon" Margin="5" Click="DeleteSelectedAddon_Click"/>
+            <Button Content="Duplicate Selected Addon" Margin="5" Click="DuplicateSelectedAddon_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

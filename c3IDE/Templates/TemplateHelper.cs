@@ -168,5 +168,13 @@ namespace c3IDE.Templates
 	""returnType"": ""{exp.ReturnType}""{isvariadic}
 }}";
         }
+
+        public static string ThirdPartyFile(string filename)
+        {
+            return $@"{{
+	filename: ""c3runtime/{filename}"",
+	type: ""inline-script""
+}}";
+        }
     }
 }

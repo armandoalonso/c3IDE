@@ -71,6 +71,7 @@ namespace c3IDE.Models
         public string LanguageCategories { get; set; }
 
         //effect property
+        public string EffectAddon { get; set; }
         public string EffectLanguage { get; set; }
         public string EffectCode { get; set; }
 

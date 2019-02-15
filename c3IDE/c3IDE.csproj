@@ -135,6 +135,13 @@
     <Compile Include="DataAccess\DataAccessFacade.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\OptionReposiroty.cs" />
+    <Compile Include="Managers\AddonManager.cs" />
+    <Compile Include="Managers\LogManager.cs" />
+    <Compile Include="Managers\NotificationManager.cs" />
+    <Compile Include="Managers\OptionsManager.cs" />
+    <Compile Include="Managers\ThemeManager.cs" />
+    <Compile Include="Managers\WindowManager.cs" />
+    <Compile Include="Models\LogMessage.cs" />
     <Compile Include="Models\ThirdPartyFile.cs" />
     <Compile Include="Server\C3FileHandler.cs" />
     <Compile Include="Server\WebServerClient.cs" />
@@ -151,7 +158,6 @@
     <Compile Include="Utilities\Helpers\ControlHelper.cs" />
     <Compile Include="Utilities\Search\FindAndReplaceHelper.cs" />
     <Compile Include="Utilities\Helpers\TextEditorHelper.cs" />
-    <Compile Include="Utilities\Logging\LogManager.cs" />
     <Compile Include="Utilities\Search\Searcher.cs" />
     <Compile Include="Utilities\Search\SearchResult.cs" />
     <Compile Include="Utilities\SyntaxHighlighting\AvaloneEditColorizer.cs" />

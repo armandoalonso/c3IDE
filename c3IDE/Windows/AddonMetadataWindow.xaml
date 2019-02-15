@@ -29,11 +29,6 @@
                 <TextBox Name="AddonClassText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
             </DockPanel>
 
-            <!--<DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Company Name :</TextBlock>
-                <TextBox Name="CompanyNameText" DockPanel.Dock="Right" Text="" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
-            </DockPanel>-->
-
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Author :</TextBlock>
                 <TextBox Name="AuthorText" DockPanel.Dock="Right" Text="c3IDE" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
@@ -56,7 +51,7 @@
             </DockPanel>
             
             <StackPanel Margin="2">
-                <Button Content="Save"></Button>
+                <Button Content="Save" Click="SaveAddon_Click"/>
             </StackPanel>
          </StackPanel>
     </Grid>
