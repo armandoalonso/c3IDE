@@ -6,11 +6,9 @@
 		{
 			super(inst);
 			
-			//this._testProperty = 0;
 			
 			if (properties)
 			{
-				//this._testProperty = properties[0];
 			}
 		}
 		

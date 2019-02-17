@@ -1,6 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.0.1.27 (02/17/2019)
+* fix issue with javascript arrow function and js beauitifer.
+* default template now dont contain any pre-defined properties 
+
 ### Build# 1.0.1.25 (02/12/19)
 * add variadic parameter to action type (this feature is undocumented in c3 sdk but might be useful) using it comes with a compiler warning
 * added add param to context menu in list box for all ace types
