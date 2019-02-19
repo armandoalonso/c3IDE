@@ -227,12 +227,16 @@ namespace c3IDE.Windows
             FileListBox.Items.Refresh();
         }
 
-        //TODO: finish HERE
+        /// <summary>
+        /// removes the selected file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveFile_OnClick(object sender, RoutedEventArgs e)
         {
             if (FileListBox.SelectedIndex == -1)
             {
-                AppData.Insatnce.ErrorMessage("failed to remove file, no file selected");
+                NotificationManager.PublishErrorNotification("failed to remove file, no file selected");
                 return;
             }
 
@@ -243,9 +247,9 @@ namespace c3IDE.Windows
                 FileListBox.ItemsSource = _files;
                 FileListBox.Items.Refresh();
 
-                AppData.Insatnce.CurrentAddon.ThirdPartyFiles = _files;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
-                AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
+                AddonManager.CurrentAddon.ThirdPartyFiles = _files;
+                AddonManager.SaveCurrentAddon();
+                AddonManager.LoadAllAddons();
 
                 //clear editors
                 FileTextEditor.Text = string.Empty;
@@ -254,11 +258,15 @@ namespace c3IDE.Windows
             }
             else
             {
-                AppData.Insatnce.ErrorMessage("failed to remove action, no 3rd party files selected");
+                NotificationManager.PublishErrorNotification("failed to remove action, no 3rd party files selected");
             }
         }
 
-        //file drop
+        /// <summary>
+        /// create file copy effect
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FileListBox_OnDragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -267,6 +275,11 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FileListBox_OnDrop(object sender, DragEventArgs e)
         {
             try
