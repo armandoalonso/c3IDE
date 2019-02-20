@@ -2,19 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using c3IDE.DataAccess;
-using c3IDE.Utilities;
+using c3IDE.Managers;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
@@ -23,7 +16,6 @@ using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
-using c3IDE.Utilities.ThemeEngine;
 using ICSharpCode.AvalonEdit;
 
 namespace c3IDE.Windows
@@ -33,23 +25,63 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class InstanceWindow : UserControl,IWindow
     {
-        //properties
         public string DisplayName { get; set; } = "Instance";
         private CompletionWindow completionWindow;
 
-        //ctor
+        /// <summary>
+        /// instance window constructor
+        /// </summary>
         public InstanceWindow()
         {
             InitializeComponent();
+
             EditTimeInstanceTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             EditTimeInstanceTextEditor.TextArea.TextEntered += EditTimeInstanceTextEditor_TextEntered;
-            EditTimeInstanceTextEditor.Options.EnableHyperlinks = false;
-            EditTimeInstanceTextEditor.Options.EnableEmailHyperlinks = false;
-
             RunTimeInstanceTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             RunTimeInstanceTextEditor.TextArea.TextEntered += RunTimeInstanceTextEditor_TextEntered;
+
+            EditTimeInstanceTextEditor.Options.EnableHyperlinks = false;
+            EditTimeInstanceTextEditor.Options.EnableEmailHyperlinks = false;
             RunTimeInstanceTextEditor.Options.EnableHyperlinks = false;
             RunTimeInstanceTextEditor.Options.EnableEmailHyperlinks = false;
+        }
+
+        /// <summary>
+        /// handles when the instance window gets focus
+        /// </summary>
+        public void OnEnter()
+        {
+            ThemeManager.SetupTextEditor(EditTimeInstanceTextEditor, Syntax.Javascript);
+            ThemeManager.SetupTextEditor(RunTimeInstanceTextEditor, Syntax.Javascript);
+
+            if (AddonManager.CurrentAddon != null)
+            {
+                EditTimeInstanceTextEditor.Text = AddonManager.CurrentAddon.TypeEditTime;
+                RunTimeInstanceTextEditor.Text = AddonManager.CurrentAddon.TypeRunTime;
+            }
+        }
+
+        /// <summary>
+        /// handles when the instance window loses focus
+        /// </summary>
+        public void OnExit()
+        {
+            if (AddonManager.CurrentAddon != null)
+            {
+                AddonManager.CurrentAddon.InstanceEditTime = EditTimeInstanceTextEditor.Text;
+                AddonManager.CurrentAddon.InstanceRunTime = RunTimeInstanceTextEditor.Text;
+                AddonManager.SaveCurrentAddon();
+            }
+        }
+
+        //todo:finish here
+        /// <summary>
+        /// clears all inputs from instance window
+        /// </summary>
+        public void Clear()
+        {
+            EditTimeInstanceTextEditor.Text = string.Empty;
+            RunTimeInstanceTextEditor.Text = string.Empty;
         }
 
         //editor events
@@ -179,30 +211,7 @@ namespace c3IDE.Windows
         }
 
         //window states
-        public void OnEnter()
-        {
-            AppData.Insatnce.SetupTextEditor(EditTimeInstanceTextEditor, Syntax.Javascript);
-            AppData.Insatnce.SetupTextEditor(RunTimeInstanceTextEditor, Syntax.Javascript);
 
-            EditTimeInstanceTextEditor.Text = AppData.Insatnce.CurrentAddon?.InstanceEditTime;
-            RunTimeInstanceTextEditor.Text = AppData.Insatnce.CurrentAddon?.InstanceRunTime;
-        }
-
-        public void OnExit()
-        {
-            if (AppData.Insatnce.CurrentAddon != null)
-            {
-                AppData.Insatnce.CurrentAddon.InstanceEditTime = EditTimeInstanceTextEditor.Text;
-                AppData.Insatnce.CurrentAddon.InstanceRunTime = RunTimeInstanceTextEditor.Text;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
-            }
-        }
-
-        public void Clear()
-        {
-            EditTimeInstanceTextEditor.Text = string.Empty;
-             RunTimeInstanceTextEditor.Text = string.Empty;
-        }
 
         //context menu
         private void FormatJavascriptEdittime_OnClick(object sender, RoutedEventArgs e)

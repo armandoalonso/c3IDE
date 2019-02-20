@@ -94,6 +94,7 @@ namespace c3IDE.Windows
 
                 AddonManager.CurrentAddon.ThirdPartyFiles = _files;
                 AddonManager.CurrentAddon.AddonJson = AddonTextEditor.Text;
+                AddonManager.SaveCurrentAddon();
             }
         }
 
@@ -276,7 +277,7 @@ namespace c3IDE.Windows
         }
 
         /// <summary>
-        /// 
+        /// imports a thrird party file
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -288,40 +289,37 @@ namespace c3IDE.Windows
                 if (!string.IsNullOrWhiteSpace(file))
                 {
                     var info = new FileInfo(file);
-                    var name = info.Name;
+                    var filename = info.Name;
                     var content = File.ReadAllText(file);
 
-                    _files.Add(name, new ThirdPartyFile
+                    _files.Add(filename, new ThirdPartyFile
                     {
                         Content = content,
-                        FileName = name,
-                        PluginTemplate = $@"{{
-	filename: ""c3runtime/{name}"",
-	type: ""inline-script""
-}}"
+                        FileName = filename,
+                        PluginTemplate = TemplateHelper.ThirdPartyFile(filename)
                     });
 
                     AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
-        ""c3runtime/{name}"","));
+        ""c3runtime/{filename}"","));
 
                     //add
+                    AddonManager.CurrentAddon.ThirdPartyFiles = _files;
+                    FileListBox.ItemsSource = _files;
                     FileListBox.Items.Refresh();
-                    FileListBox.SelectedIndex = _files.Count - 1;
-                    _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-
-                    //todo: determine if i should display file content
-                    FileTextEditor.Text = _selectedFile.Content;
                 }
             }
             catch (Exception exception)
             {
-                LogManager.Insatnce.Exceptions.Add(exception);
-                Console.WriteLine(exception.Message);
-                AppData.Insatnce.ErrorMessage($"error adding third party file, {exception.Message}");
+                LogManager.AddErrorLog(exception);
+                NotificationManager.PublishErrorNotification($"error adding third party file, {exception.Message}");
             }
         }
 
-        //list box events
+        /// <summary>
+        /// changes the active thrird party file and displays the content
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FileListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (FileListBox.SelectedIndex == -1)
@@ -333,81 +331,32 @@ namespace c3IDE.Windows
             //save current selection
             if (_selectedFile != null)
             {
-                //todo: determine if i should display file content
                 _selectedFile.Content = FileTextEditor.Text;
                 _files[_selectedFile.FileName] = _selectedFile;
-
-                //load new selection
-                _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-
-                //todo: determine if i should display file content
-                FileTextEditor.Text = _selectedFile.Content;
+                AddonManager.CurrentAddon.ThirdPartyFiles = _files;
             }
+
+            //load new selection
+            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
+            FileTextEditor.Text = _selectedFile.Content;
         }
 
-        //context menu
+        /// <summary>
+        /// apply json formatting to addon.json
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormatJsonMenu_OnClick(object sender, RoutedEventArgs e)
         {
             AddonTextEditor.Text = AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text);
         }
 
-        private async void AddFileMenu_OnClick(object sender, RoutedEventArgs e)
-        {
-            //todo: remove duplicate code
-            var filename = await AppData.Insatnce.ShowInputDialog("New File Name?", "please enter the name for the new javascript file", "javascriptFile.js");
-            if (string.IsNullOrWhiteSpace(filename)) return;
-
-            _files.Add(filename, new ThirdPartyFile
-            {
-                Content = string.Empty,
-                FileName = filename,
-                PluginTemplate = $@"{{
-	filename: ""c3runtime/{filename}"",
-	type: ""inline-script""
-}}"
-            });
-
-            AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
-        ""c3runtime/{filename}"","));
-
-            //add
-            FileListBox.Items.Refresh();
-            FileListBox.SelectedIndex = _files.Count - 1;
-            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-            FileTextEditor.Text = _selectedFile.Content;
-        }
-
-        private void RemoveFileMenu_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (FileListBox.SelectedIndex == -1)
-            {
-                AppData.Insatnce.ErrorMessage("failed to remove file, no file selected");
-                return;
-            }
-
-            //todo: remove duplicate code
-            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-            if (_selectedFile != null)
-            {
-                _files.Remove(_selectedFile.FileName);
-                FileListBox.ItemsSource = _files;
-                FileListBox.Items.Refresh();
-
-                AppData.Insatnce.CurrentAddon.ThirdPartyFiles = _files;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
-                AppData.Insatnce.AddonList = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
-
-                //clear editors
-                FileTextEditor.Text = string.Empty;
-                AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace($@"""c3runtime/{_selectedFile.FileName}"",", string.Empty));
-                _selectedFile = null;
-            }
-            else
-            {
-                AppData.Insatnce.ErrorMessage("failed to remove action, no 3rd party files selected");
-            }
-        }
-
+        //todo: should we allow formatting thrid party files? if so we need to do it by extention and have differetn formatting strageties
+        /// <summary>
+        /// format thrid party file as javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormatJavascriptMenu_OnClick(object sender, RoutedEventArgs e)
         {
             FileTextEditor.Text = FormatHelper.Insatnce.Json(FileTextEditor.Text);

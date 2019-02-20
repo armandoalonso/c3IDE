@@ -2,18 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using c3IDE.DataAccess;
+using c3IDE.Managers;
+using c3IDE.Models;
 using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Extentions;
@@ -33,26 +28,69 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class TypeWindow : UserControl, IWindow
     {
-        //properties
         public string DisplayName { get; set; } = "Type";
         private CompletionWindow completionWindow;
 
-        //ctor
+        /// <summary>
+        /// constructor for type window
+        /// </summary>
         public TypeWindow()
         {
             InitializeComponent();
+
             EditTimeTypeTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             EditTimeTypeTextEditor.TextArea.TextEntered += EditTimeTypeTextEditor_TextEntered;
-            EditTimeTypeTextEditor.Options.EnableHyperlinks = false;
-            EditTimeTypeTextEditor.Options.EnableEmailHyperlinks = false;
-
             RunTimeTypeTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             RunTimeTypeTextEditor.TextArea.TextEntered += RunTimeTypeTextEditor_TextEntered;
+
+            EditTimeTypeTextEditor.Options.EnableHyperlinks = false;
+            EditTimeTypeTextEditor.Options.EnableEmailHyperlinks = false;
             RunTimeTypeTextEditor.Options.EnableHyperlinks = false;
             RunTimeTypeTextEditor.Options.EnableEmailHyperlinks = false;
         }
 
-        //editor events
+        /// <summary>
+        /// handles the type window getting focus
+        /// </summary>
+        public void OnEnter()
+        {
+            ThemeManager.SetupTextEditor(EditTimeTypeTextEditor, Syntax.Javascript);
+            ThemeManager.SetupTextEditor(RunTimeTypeTextEditor, Syntax.Javascript);
+
+            if (AddonManager.CurrentAddon != null)
+            {
+                EditTimeTypeTextEditor.Text = AddonManager.CurrentAddon.TypeEditTime;
+                RunTimeTypeTextEditor.Text = AddonManager.CurrentAddon.TypeRunTime;
+            }
+        }
+
+        /// <summary>
+        /// handles the type window losing focus
+        /// </summary>
+        public void OnExit()
+        {
+            if (AddonManager.CurrentAddon != null)
+            {
+                AddonManager.CurrentAddon.TypeEditTime = EditTimeTypeTextEditor.Text;
+                AddonManager.CurrentAddon.TypeRunTime = RunTimeTypeTextEditor.Text;
+                AddonManager.SaveCurrentAddon();
+            }
+        }
+
+        /// <summary>
+        /// clears all the inputs in the type window
+        /// </summary>
+        public void Clear()
+        {
+            EditTimeTypeTextEditor.Text = string.Empty;
+            RunTimeTypeTextEditor.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// handles autocompletion and parsing edit time type
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditTimeTypeTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -89,6 +127,11 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// handles autocompletiona dn parsing of run time type
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RunTimeTypeTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -125,6 +168,11 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// this handles when to insert the value being used by the autocompletion window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextEditor_TextEntering(object sender, TextCompositionEventArgs e)
         {
             if (e.Text.Length > 0 && completionWindow != null)
@@ -140,6 +188,11 @@ namespace c3IDE.Windows
             // We still want to insert the character that was typed.
         }
 
+        /// <summary>
+        /// this handles keyboard shortcuts
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
@@ -159,7 +212,11 @@ namespace c3IDE.Windows
             }
         }
 
-        //completion window
+        /// <summary>
+        /// this shows the suto completion window
+        /// </summary>
+        /// <param name="textArea"></param>
+        /// <param name="completionList"></param>
         private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
         {
             //if any data matches show completion list
@@ -177,39 +234,22 @@ namespace c3IDE.Windows
             completionWindow.Show();
             completionWindow.Closed += delegate { completionWindow = null; };
         }
-
-        //window states
-        public void OnEnter()
-        {
-            AppData.Insatnce.SetupTextEditor(EditTimeTypeTextEditor, Syntax.Javascript);
-            AppData.Insatnce.SetupTextEditor(RunTimeTypeTextEditor, Syntax.Javascript);
-
-            EditTimeTypeTextEditor.Text = AppData.Insatnce.CurrentAddon?.TypeEditTime;
-            RunTimeTypeTextEditor.Text = AppData.Insatnce.CurrentAddon?.TypeRunTime;
-        }
-
-        public void OnExit()
-        {
-            if (AppData.Insatnce.CurrentAddon != null)
-            {
-                AppData.Insatnce.CurrentAddon.TypeEditTime = EditTimeTypeTextEditor.Text;
-                AppData.Insatnce.CurrentAddon.TypeRunTime = RunTimeTypeTextEditor.Text;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
-            }
-        }
-
-        public void Clear()
-        {
-            EditTimeTypeTextEditor.Text = string.Empty;
-             RunTimeTypeTextEditor.Text = string.Empty;
-        }
-
-        //context menu
+    
+        /// <summary>
+        /// this formats the run time type as javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormatJavascriptRuntime_OnClick(object sender, RoutedEventArgs e)
         {
             EditTimeTypeTextEditor.Text = FormatHelper.Insatnce.Javascript(EditTimeTypeTextEditor.Text);
         }
 
+        /// <summary>
+        /// this formats the edit time type as javascript 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormatJavascriptEdittime_OnClick(object sender, RoutedEventArgs e)
         {
             RunTimeTypeTextEditor.Text = FormatHelper.Insatnce.Javascript(RunTimeTypeTextEditor.Text);

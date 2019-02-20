@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using c3IDE.DataAccess;
-using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
@@ -12,14 +11,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using c3IDE.Managers;
 using c3IDE.Models;
 using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.Editing;
-using ICSharpCode.AvalonEdit.Highlighting;
-using c3IDE.Utilities.ThemeEngine;
 using ICSharpCode.AvalonEdit;
 
 namespace c3IDE.Windows
@@ -29,29 +27,71 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class PluginWindow : UserControl, IWindow
     {
-        //properties
         public string DisplayName { get; set; } = "Plugin";
         private CompletionWindow completionWindow;
 
-        //ctor
+        /// <summary>
+        /// plugin window constuctor
+        /// </summary>
         public PluginWindow()
         {
             InitializeComponent();
             this.DataContext = this;
 
-            //handle auto completion when entering text
             EditTimePluginTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             EditTimePluginTextEditor.TextArea.TextEntered += EditTimePluginTextEditor_TextEntered;
-            EditTimePluginTextEditor.Options.EnableHyperlinks = false;
-            EditTimePluginTextEditor.Options.EnableEmailHyperlinks = false;
-
             RunTimePluginTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             RunTimePluginTextEditor.TextArea.TextEntered += RunTimePluginTextEditor_TextEntered;
+
+            EditTimePluginTextEditor.Options.EnableHyperlinks = false;
+            EditTimePluginTextEditor.Options.EnableEmailHyperlinks = false;
             RunTimePluginTextEditor.Options.EnableHyperlinks = false;
             RunTimePluginTextEditor.Options.EnableEmailHyperlinks = false;
         }
 
-        //editor events
+        /// <summary>
+        /// handles when the plugin window gets the focus
+        /// </summary>
+        public void OnEnter()
+        {
+            ThemeManager.SetupTextEditor(EditTimePluginTextEditor, Syntax.Javascript);
+            ThemeManager.SetupTextEditor(RunTimePluginTextEditor, Syntax.Javascript);
+
+            if (AddonManager.CurrentAddon != null)
+            {
+                TitleTab.Header = AddonManager.CurrentAddon.Type == PluginType.Behavior ? "Behavior.js" : "Plugin.js";
+                EditTimePluginTextEditor.Text = AddonManager.CurrentAddon.PluginEditTime;
+                RunTimePluginTextEditor.Text = AddonManager.CurrentAddon.PluginRunTime;
+            }
+        }
+
+        /// <summary>
+        /// handles when the plugin windows loses focus
+        /// </summary>
+        public void OnExit()
+        {
+            if (AddonManager.CurrentAddon != null)
+            {
+                AddonManager.CurrentAddon.PluginEditTime = EditTimePluginTextEditor.Text;
+                AddonManager.CurrentAddon.PluginRunTime = RunTimePluginTextEditor.Text;
+                AddonManager.SaveCurrentAddon();
+            }
+        }
+
+        /// <summary>
+        /// clears all the input
+        /// </summary>
+        public void Clear()
+        {
+            EditTimePluginTextEditor.Text = string.Empty;
+            RunTimePluginTextEditor.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// handles auto completion and parsing of edit time plugin
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditTimePluginTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -88,6 +128,11 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// handles auto completion and parsing of run time plugin
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RunTimePluginTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -124,6 +169,11 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// this handles when to insert the value being used by the autocompletion window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextEditor_TextEntering(object sender, TextCompositionEventArgs e)
         {
             if (e.Text.Length > 0 && completionWindow != null)
@@ -139,6 +189,11 @@ namespace c3IDE.Windows
             // We still want to insert the character that was typed.
         }
 
+        /// <summary>
+        /// handles keyboard shortcuts
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
@@ -158,7 +213,11 @@ namespace c3IDE.Windows
             }
         }
 
-        //completion window
+        /// <summary>
+        /// this builds the autocompletion window and displays it
+        /// </summary>
+        /// <param name="textArea"></param>
+        /// <param name="completionList"></param>
         private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
         {
             //if any data matches show completion list
@@ -176,35 +235,11 @@ namespace c3IDE.Windows
             completionWindow.Closed += delegate { completionWindow = null; };
         }
 
-        //window states
-        public void OnEnter()
-        {
-            TitleTab.Header = AppData.Insatnce.CurrentAddon.Type == PluginType.Behavior ? "Behavior.js" : "Plugin.js";
-
-            AppData.Insatnce.SetupTextEditor(EditTimePluginTextEditor, Syntax.Javascript);
-            AppData.Insatnce.SetupTextEditor(RunTimePluginTextEditor, Syntax.Javascript);
-
-            EditTimePluginTextEditor.Text = AppData.Insatnce.CurrentAddon?.PluginEditTime;
-            RunTimePluginTextEditor.Text = AppData.Insatnce.CurrentAddon?.PluginRunTime;
-        }
-
-        public void OnExit()
-        {
-            if (AppData.Insatnce.CurrentAddon != null)
-            {
-                AppData.Insatnce.CurrentAddon.PluginEditTime = EditTimePluginTextEditor.Text;
-                AppData.Insatnce.CurrentAddon.PluginRunTime = RunTimePluginTextEditor.Text;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
-            }
-        }
-
-        public void Clear()
-        {
-            EditTimePluginTextEditor.Text = string.Empty;
-            RunTimePluginTextEditor.Text = string.Empty;
-        }
-
-        //context menu
+        /// <summary>
+        /// display the new property child window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InsertNewProperty_OnClick(object sender, RoutedEventArgs e)
         {
             NewPropertyWindow.IsOpen = true;
@@ -212,26 +247,11 @@ namespace c3IDE.Windows
             PropertyTypeDropdown.Text = "text";
         }
 
-        private void GenerateFileDependency_OnClick(object sender, RoutedEventArgs e)
-        {
-            var content = string.Join(",\n", AppData.Insatnce.CurrentAddon.ThirdPartyFiles.Values.Select(x => x.PluginTemplate));
-            var template = $@"this._info.AddFileDependency({content});";
-
-            EditTimePluginTextEditor.Text =
-                FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PopContext(); //.properties", $"{template}\n\nSDK.Lang.PopContext(); //.properties"));
-        }
-
-        private void FormatJavascriptEdittime_OnClick(object sender, RoutedEventArgs e)
-        {
-            EditTimePluginTextEditor.Text = FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text);
-        }
-
-        private void FormatJavascriptRuntime_OnClick(object sender, RoutedEventArgs e)
-        {
-           RunTimePluginTextEditor.Text = FormatHelper.Insatnce.Javascript(RunTimePluginTextEditor.Text);
-        }
-
-        //button clicks
+        /// <summary>
+        /// handles saving and creating new properties from the new property child window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddPropertyButton_Click(object sender, RoutedEventArgs e)
         {
             var id = PropertyIdText.Text;
@@ -280,6 +300,40 @@ namespace c3IDE.Windows
 
             EditTimePluginTextEditor.Text = EditTimePluginTextEditor.Text.Replace("this._info.SetProperties([", template);
             NewPropertyWindow.IsOpen = false;
+        }
+
+        /// <summary>
+        /// context menu generates a new file dependency section based on included 3rd party files
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GenerateFileDependency_OnClick(object sender, RoutedEventArgs e)
+        {
+            var content = string.Join(",\n", AddonManager.CurrentAddon.ThirdPartyFiles.Values.Select(x => x.PluginTemplate));
+            var template = $@"this._info.AddFileDependency({content});";
+
+            EditTimePluginTextEditor.Text =
+                FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PopContext(); //.properties", $"{template}\n\nSDK.Lang.PopContext(); //.properties"));
+        }
+
+        /// <summary>
+        /// formats the edit time plugin as javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FormatJavascriptEdittime_OnClick(object sender, RoutedEventArgs e)
+        {
+            EditTimePluginTextEditor.Text = FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text);
+        }
+
+        /// <summary>
+        /// formats the run time plugin as javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FormatJavascriptRuntime_OnClick(object sender, RoutedEventArgs e)
+        {
+           RunTimePluginTextEditor.Text = FormatHelper.Insatnce.Javascript(RunTimePluginTextEditor.Text);
         }
     }
 }
