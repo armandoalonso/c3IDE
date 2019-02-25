@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using c3IDE.DataAccess;
+using c3IDE.Managers;
 using c3IDE.Utilities.SyntaxHighlighting;
-using c3IDE.Utilities.ThemeEngine;
 using c3IDE.Windows.Interfaces;
 
 namespace c3IDE.Windows
@@ -24,6 +12,8 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class EffectCodeWindow : UserControl, IWindow
     {
+        public string DisplayName { get; set; } = "Effect";
+
         public EffectCodeWindow()
         {
             InitializeComponent();
@@ -31,12 +21,14 @@ namespace c3IDE.Windows
             EffectPluginTextEditor.Options.EnableHyperlinks = false;
         }
 
-        public string DisplayName { get; set; } = "Effect";
+        /// <summary>
+        /// handles when the effect code window gets focus
+        /// </summary>
         public void OnEnter()
         {
-            if (AppData.Insatnce.CurrentAddon != null)
+            if (AddonManager.CurrentAddon != null)
             {
-                EffectPluginTextEditor.Text = AppData.Insatnce.CurrentAddon.EffectCode;
+                EffectPluginTextEditor.Text = AddonManager.CurrentAddon.EffectCode;
             }
             else
             {
@@ -44,22 +36,33 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// handles when the effect code window loses focus
+        /// </summary>
         public void OnExit()
         {
-            AppData.Insatnce.SetupTextEditor(EffectPluginTextEditor, Syntax.Javascript);
+            ThemeManager.SetupTextEditor(EffectPluginTextEditor, Syntax.Javascript);
 
-            if (AppData.Insatnce.CurrentAddon != null)
+            if (AddonManager.CurrentAddon != null)
             {
-                AppData.Insatnce.CurrentAddon.EffectCode = EffectPluginTextEditor.Text;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+                AddonManager.CurrentAddon.EffectCode = EffectPluginTextEditor.Text;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AddonManager.CurrentAddon);
             }
         }
 
+        /// <summary>
+        /// clears all inputs on effect code window
+        /// </summary>
         public void Clear()
         {
 
         }
 
+        /// <summary>
+        /// handles keyboard shortcuts
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
 

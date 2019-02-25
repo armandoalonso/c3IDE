@@ -1,17 +1,14 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using c3IDE.Managers;
 using c3IDE.Models;
 using c3IDE.Server;
 using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
-using c3IDE.Utilities.Logging;
-using Action = System.Action;
 
 namespace c3IDE.Compiler
 {
@@ -21,11 +18,15 @@ namespace c3IDE.Compiler
         public WebServerClient WebServer { get; set; }
         public bool IsCompilationValid { get; set; }
 
+        /// <summary>
+        /// compiles an addon and starts the web server
+        /// </summary>
+        /// <param name="addon"></param>
+        /// <param name="startWebServer"></param>
+        /// <returns></returns>
         public async Task<bool> CompileAddon(C3Addon addon, bool startWebServer = true)
         {
-            var _log = AppData.Insatnce.CompilerLog;
-
-            //validate addon
+            
             if (!ValidateFiles(addon))
             {
                 IsCompilationValid = false;
@@ -35,32 +36,32 @@ namespace c3IDE.Compiler
 
             try
             {
-                _log.Insert($"compliation starting...");
+                LogManager.CompilerLog.Insert($"compilation starting...");
 
                 //generate unique folder for specific addon class
                 var folderName = addon.Class.ToLower();
-                addon.AddonFolder = Path.Combine(AppData.Insatnce.Options.CompilePath, folderName);
+                addon.AddonFolder = Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName);
 
                 //clear out compile path
                 if (Directory.Exists(addon.AddonFolder))
                 {
-                    _log.Insert($"compile directory exists => { addon.AddonFolder}");
+                    LogManager.CompilerLog.Insert($"compile directory exists => { addon.AddonFolder}");
                     System.IO.Directory.Delete(addon.AddonFolder, true);
-                    _log.Insert($"removed compile directory...");
+                    LogManager.CompilerLog.Insert($"removed compile directory...");
                 }
 
                 //create main compile directory
-                _log.Insert($"recreating compile directory => { addon.AddonFolder}");
-                if (!Directory.Exists(AppData.Insatnce.Options.CompilePath))
+                LogManager.CompilerLog.Insert($"recreating compile directory => { addon.AddonFolder}");
+                if (!Directory.Exists(OptionsManager.CurrentOptions.CompilePath))
                 {
-                    System.IO.Directory.CreateDirectory(AppData.Insatnce.Options.CompilePath);
+                    System.IO.Directory.CreateDirectory(OptionsManager.CurrentOptions.CompilePath);
                 }
 
                 //create addon compile directory and addon specific paths
                 System.IO.Directory.CreateDirectory(addon.AddonFolder);
                 System.IO.Directory.CreateDirectory(Path.Combine(addon.AddonFolder, "lang"));
                 System.IO.Directory.CreateDirectory(Path.Combine(addon.AddonFolder, "c3runtime"));
-                _log.Insert($"compile directory created successfully => { addon.AddonFolder}");
+                LogManager.CompilerLog.Insert($"compile directory created successfully => { addon.AddonFolder}");
 
 
                 if (addon.Type == PluginType.Effect)
@@ -75,10 +76,10 @@ namespace c3IDE.Compiler
             catch (Exception ex)
             {
                 IsCompilationValid = false;
-                LogManager.Insatnce.Exceptions.Add(ex);
-                _log.Insert($"compilation terminated due to error...");
-                _log.Insert($"error => {ex.Message}");
-                AppData.Insatnce.ErrorMessage("There was an error generating the addon, please check the log.");
+                LogManager.AddErrorLog(ex);
+                LogManager.CompilerLog.Insert($"compilation terminated due to error...");
+                LogManager.CompilerLog.Insert($"error => {ex.Message}");
+                NotificationManager.PublishErrorNotification("There was an error generating the addon, please check the log.");
                 return false;
             }
 
@@ -98,138 +99,151 @@ namespace c3IDE.Compiler
             catch (Exception ex)
             {
                 IsCompilationValid = false;
-                LogManager.Insatnce.Exceptions.Add(ex);
-                _log.Insert($"web server failed to start...");
-                AppData.Insatnce.ErrorMessage("The web server failed to start... check that the port 8080, is not being used by another application.");
-                AppData.Insatnce.WebServerStarted = false;
+                LogManager.AddErrorLog(ex);
+                LogManager.CompilerLog.Insert($"web server failed to start...");
+                NotificationManager.PublishErrorNotification("The web server failed to start... check that the port 8080, is not being used by another application.");
+                WebServerManager.WebServerStarted = false;
                 return false;
             }
 
             return true;
         }
 
+        /// <summary>
+        /// generates all the addon files
+        /// </summary>
+        /// <param name="addon"></param>
+        /// <param name="folderName"></param>
         private void CreateAddonFiles(C3Addon addon, string folderName)
         {
-            var _log = AppData.Insatnce.CompilerLog;
             //generate file strings
             _addonFiles = new Dictionary<string, string>();
 
             //generate simple files
-            _log.Insert($"generating addon.json");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "addon.json"), _log.WrapLogger(() => FormatHelper.Insatnce.Json(addon.AddonJson)));
-            _log.Insert($"generating addon.json => complete");
+            LogManager.CompilerLog.Insert($"generating addon.json");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "addon.json"), LogManager.CompilerLog.WrapLogger(() => FormatHelper.Insatnce.Json(addon.AddonJson)));
+            LogManager.CompilerLog.Insert($"generating addon.json => complete");
 
             if (addon.Type == PluginType.Behavior)
             {
-                _log.Insert($"generating behavior.js (edittime)");
-                _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "behavior.js"), FormatHelper.Insatnce.Javascript(addon.PluginEditTime));
-                _log.Insert($"generating behavior.js (edittime) => complete");
+                LogManager.CompilerLog.Insert($"generating behavior.js (edittime)");
+                _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "behavior.js"), FormatHelper.Insatnce.Javascript(addon.PluginEditTime));
+                LogManager.CompilerLog.Insert($"generating behavior.js (edittime) => complete");
 
-                _log.Insert($"generating behavior.js (runtime)");
-                _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "c3runtime", "behavior.js"), FormatHelper.Insatnce.Javascript(addon.PluginRunTime));
-                _log.Insert($"generating behavior.js (runtime) => complete");
+                LogManager.CompilerLog.Insert($"generating behavior.js (runtime)");
+                _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "behavior.js"), FormatHelper.Insatnce.Javascript(addon.PluginRunTime));
+                LogManager.CompilerLog.Insert($"generating behavior.js (runtime) => complete");
             }
             else
             {
-                _log.Insert($"generating plugin.js (edittime)");
-                _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "plugin.js"), FormatHelper.Insatnce.Javascript(addon.PluginEditTime));
-                _log.Insert($"generating plugin.js (edittime) => complete");
+                LogManager.CompilerLog.Insert($"generating plugin.js (edittime)");
+                _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "plugin.js"), FormatHelper.Insatnce.Javascript(addon.PluginEditTime));
+                LogManager.CompilerLog.Insert($"generating plugin.js (edittime) => complete");
 
-                _log.Insert($"generating plugin.js (runtime)");
-                _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "c3runtime", "plugin.js"), FormatHelper.Insatnce.Javascript(addon.PluginRunTime));
-                _log.Insert($"generating plugin.js (runtime) => complete");
+                LogManager.CompilerLog.Insert($"generating plugin.js (runtime)");
+                _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "plugin.js"), FormatHelper.Insatnce.Javascript(addon.PluginRunTime));
+                LogManager.CompilerLog.Insert($"generating plugin.js (runtime) => complete");
             }
 
-            _log.Insert($"generating type.js (edittime)");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "type.js"), FormatHelper.Insatnce.Javascript(addon.TypeEditTime));
-            _log.Insert($"generating type.js (edittime) => complete");
+            LogManager.CompilerLog.Insert($"generating type.js (edittime)");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "type.js"), FormatHelper.Insatnce.Javascript(addon.TypeEditTime));
+            LogManager.CompilerLog.Insert($"generating type.js (edittime) => complete");
 
-            _log.Insert($"generating instance.js (edittime)");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "instance.js"), FormatHelper.Insatnce.Javascript(addon.InstanceEditTime));
-            _log.Insert($"generating instance.js (edittime) => complete");
+            LogManager.CompilerLog.Insert($"generating instance.js (edittime)");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "instance.js"), FormatHelper.Insatnce.Javascript(addon.InstanceEditTime));
+            LogManager.CompilerLog.Insert($"generating instance.js (edittime) => complete");
 
-            _log.Insert($"generating ace.json");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "aces.json"), _log.WrapLogger(() => FormatHelper.Insatnce.Json(CompileAce(addon))));
-            _log.Insert($"generating ace.json => complete");
+            LogManager.CompilerLog.Insert($"generating ace.json");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "aces.json"), LogManager.CompilerLog.WrapLogger(() => FormatHelper.Insatnce.Json(CompileAce(addon))));
+            LogManager.CompilerLog.Insert($"generating ace.json => complete");
 
-            _log.Insert($"generating en-US.json");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "lang", "en-US.json"), _log.WrapLogger(() => FormatHelper.Insatnce.Json(CompileLang(addon))));
-            _log.Insert($"generating en-US.json => complete");
+            LogManager.CompilerLog.Insert($"generating en-US.json");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "lang", "en-US.json"), LogManager.CompilerLog.WrapLogger(() => FormatHelper.Insatnce.Json(CompileLang(addon))));
+            LogManager.CompilerLog.Insert($"generating en-US.json => complete");
 
-            _log.Insert($"generating type.js (runtime)");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "c3runtime", "type.js"), FormatHelper.Insatnce.Javascript(addon.TypeRunTime));
-            _log.Insert($"generating type.js (runtime) => complete");
+            LogManager.CompilerLog.Insert($"generating type.js (runtime)");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "type.js"), FormatHelper.Insatnce.Javascript(addon.TypeRunTime));
+            LogManager.CompilerLog.Insert($"generating type.js (runtime) => complete");
 
-            _log.Insert($"generating instance.js (runtime)");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "c3runtime", "instance.js"), FormatHelper.Insatnce.Javascript(addon.InstanceRunTime));
-            _log.Insert($"generating instance.js (runtime) => complete");
+            LogManager.CompilerLog.Insert($"generating instance.js (runtime)");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "instance.js"), FormatHelper.Insatnce.Javascript(addon.InstanceRunTime));
+            LogManager.CompilerLog.Insert($"generating instance.js (runtime) => complete");
 
-            _log.Insert($"generating action.js.json");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "c3runtime", "actions.js"), FormatHelper.Insatnce.Javascript(CompileActions(addon)));
-            _log.Insert($"generating action.js => complete");
+            LogManager.CompilerLog.Insert($"generating action.js.json");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "actions.js"), FormatHelper.Insatnce.Javascript(CompileActions(addon)));
+            LogManager.CompilerLog.Insert($"generating action.js => complete");
 
-            _log.Insert($"generating conditions.json");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "c3runtime", "conditions.js"), FormatHelper.Insatnce.Javascript(CompileConditions(addon)));
-            _log.Insert($"generating conditions.json => complete");
+            LogManager.CompilerLog.Insert($"generating conditions.json");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "conditions.js"), FormatHelper.Insatnce.Javascript(CompileConditions(addon)));
+            LogManager.CompilerLog.Insert($"generating conditions.json => complete");
 
-            _log.Insert($"generating expressions.json");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "c3runtime", "expressions.js"), FormatHelper.Insatnce.Javascript(CompileExpressions(addon)));
-            _log.Insert($"generating expressions.json => complete");
+            LogManager.CompilerLog.Insert($"generating expressions.json");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "expressions.js"), FormatHelper.Insatnce.Javascript(CompileExpressions(addon)));
+            LogManager.CompilerLog.Insert($"generating expressions.json => complete");
 
-            _log.Insert("generating 3rd party files");
+            LogManager.CompilerLog.Insert("generating 3rd party files");
             foreach (var files in addon.ThirdPartyFiles.Values)
             {
-                _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "c3runtime", files.FileName), files.Content);
-                _log.Insert($"generating {files.FileName}");
+                _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), files.Content);
+                LogManager.CompilerLog.Insert($"generating {files.FileName}");
             }
-            _log.Insert("generating 3rd party files => complete");
+            LogManager.CompilerLog.Insert("generating 3rd party files => complete");
 
             //write files to path
             foreach (var file in _addonFiles)
             {
                 System.IO.File.WriteAllText(file.Key, file.Value);
-                _log.Insert($"writing file => {file.Key}");
+                LogManager.CompilerLog.Insert($"writing file => {file.Key}");
             }
 
-            File.WriteAllText(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "icon.svg"), addon.IconXml);
-            _log.Insert($"writing file => icon.svg");
-            _log.Insert($"compilation complete...");
+            File.WriteAllText(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "icon.svg"), addon.IconXml);
+            LogManager.CompilerLog.Insert($"writing file => icon.svg");
+            LogManager.CompilerLog.Insert($"compilation complete...");
         }
 
+        //todo:  change this to a more involved string interpolation to include properties for effects
+        /// <summary>
+        /// generate effect files
+        /// </summary>
+        /// <param name="addon"></param>
+        /// <param name="folderName"></param>
         private void CreateEffectFiles(C3Addon addon, string folderName)
         {
-            var _log = AppData.Insatnce.CompilerLog;
             //generate file strings
             _addonFiles = new Dictionary<string, string>();
 
             //generate simple files
-            _log.Insert($"generating addon.json");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "addon.json"), _log.WrapLogger(() => FormatHelper.Insatnce.Json(addon.AddonJson)));
-            _log.Insert($"generating addon.json => complete");
+            LogManager.CompilerLog.Insert($"generating addon.json");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "addon.json"), LogManager.CompilerLog.WrapLogger(() => FormatHelper.Insatnce.Json(addon.AddonJson)));
+            LogManager.CompilerLog.Insert($"generating addon.json => complete");
 
-            _log.Insert($"generating effect.fx ");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "effect.fx"), addon.EffectCode);
-            _log.Insert($"generating effect.fx  => complete");
+            LogManager.CompilerLog.Insert($"generating effect.fx ");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "effect.fx"), addon.EffectCode);
+            LogManager.CompilerLog.Insert($"generating effect.fx  => complete");
 
-            //todo: change this to a more involved string interpolation to include properties for effects 
-            _log.Insert($"generating en-US.json");
-            _addonFiles.Add(Path.Combine(AppData.Insatnce.Options.CompilePath, folderName, "lang", "en-US.json"), _log.WrapLogger(() => FormatHelper.Insatnce.Json(addon.EffectLanguage)));
-            _log.Insert($"generating en-US.json => complete");
+            LogManager.CompilerLog.Insert($"generating en-US.json");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "lang", "en-US.json"), LogManager.CompilerLog.WrapLogger(() => FormatHelper.Insatnce.Json(addon.EffectLanguage)));
+            LogManager.CompilerLog.Insert($"generating en-US.json => complete");
 
             //write files to path
             foreach (var file in _addonFiles)
             {
                 System.IO.File.WriteAllText(file.Key, file.Value);
-                _log.Insert($"writing file => {file.Key}");
+                LogManager.CompilerLog.Insert($"writing file => {file.Key}");
             }
 
-            _log.Insert($"compilation complete...");
+            LogManager.CompilerLog.Insert($"compilation complete...");
         }
 
+        //todo: add effect validation here
+        //todo: move this into the validate addons helper
+        /// <summary>
+        /// run some simple validations for addon
+        /// </summary>
+        /// <param name="addon"></param>
+        /// <returns></returns>
         private bool ValidateFiles(C3Addon addon)
         {
-            var _log = AppData.Insatnce.CompilerLog;
-            //todo: add effect validation here
             if (addon.Type == PluginType.Effect)
             {
                 if (!AddonValidator.Insatnce.Validate(addon))
@@ -239,21 +253,19 @@ namespace c3IDE.Compiler
             }
             else
             {
-                //TODO: add other validation here to help ensure a proper add has been created
-                //validate all the files & properties 
                 if (string.IsNullOrWhiteSpace(addon.LanguageProperties))
                 {
-                    _log.Insert("generate properties json has not been ran, generate the json in the langauge view");
+                    LogManager.CompilerLog.Insert("generate properties json has not been ran, generate the json in the langauge view");
                     return false;
                 }
                 if (string.IsNullOrWhiteSpace(addon.LanguageCategories))
                 {
-                    _log.Insert("generate category json has not been ran, generate the json in the langauge view");
+                    LogManager.CompilerLog.Insert("generate category json has not been ran, generate the json in the langauge view");
                     return false;
                 }
 
                 var placeholder = new Regex("{(\\d+)}|{\\.\\.\\.}");
-                //validate actions
+
                 foreach (var action in addon.Actions)
                 {
                     var paramCount = action.Value.Ace.Count(x => x == '{') - 1;
@@ -261,10 +273,11 @@ namespace c3IDE.Compiler
 
                     if (paramCount != displayCount)
                     {
-                        _log.Insert($"invalid parameter placeholder {{0}} in display text for {action.Value.Id}");
+                        LogManager.CompilerLog.Insert($"invalid amount of parameter placeholder in display text for {action.Value.Id}, {paramCount} parameters expected {displayCount} placeholders {{#}} in display text");
                         return false;
                     }
                 }
+
                 foreach (var condition in addon.Conditions)
                 {
                     var paramCount = condition.Value.Ace.Count(x => x == '{') - 1;
@@ -272,7 +285,7 @@ namespace c3IDE.Compiler
 
                     if (paramCount != displayCount)
                     {
-                        _log.Insert($"invalid parameter placeholder {{#}} in display text for {condition.Value.Id}");
+                        LogManager.CompilerLog.Insert($"invalid amount parameter placeholder in display text for {condition.Value.Id}, {paramCount} parameters expected {displayCount} placeholders {{#}} in display text");
                         return false;
                     }
                 }
@@ -281,6 +294,11 @@ namespace c3IDE.Compiler
             return true;
         }
 
+        /// <summary>
+        /// generates the strings for actions
+        /// </summary>
+        /// <param name="addon"></param>
+        /// <returns></returns>
         private string CompileActions(C3Addon addon)
         {
             var actions = addon.Actions.Select(x => x.Value.Code);
@@ -295,6 +313,11 @@ namespace c3IDE.Compiler
 }}";
         }
 
+        /// <summary>
+        /// generates the strings for conditions
+        /// </summary>
+        /// <param name="addon"></param>
+        /// <returns></returns>
         private string CompileConditions(C3Addon addon)
         {
             var conditions = addon.Conditions.Select(x => x.Value.Code);
@@ -309,6 +332,11 @@ namespace c3IDE.Compiler
 }}";
         }
 
+        /// <summary>
+        /// generates the string for expressions
+        /// </summary>
+        /// <param name="addon"></param>
+        /// <returns></returns>
         private string CompileExpressions(C3Addon addon)
         {
             var expressions = addon.Expressions.Select(x => x.Value.Code);
@@ -323,6 +351,11 @@ namespace c3IDE.Compiler
 }}";
         }
 
+        /// <summary>
+        /// generates the string for the language file
+        /// </summary>
+        /// <param name="addon"></param>
+        /// <returns></returns>
         private string CompileLang(C3Addon addon)
         {
             var actionList = addon.Actions.Select(x => x.Value.Language);
@@ -361,6 +394,11 @@ namespace c3IDE.Compiler
 }}";
         }
 
+        /// <summary>
+        /// generates the string for the ace json
+        /// </summary>
+        /// <param name="addon"></param>
+        /// <returns></returns>
         private string CompileAce(C3Addon addon)
         {
             var categoryAce = new List<string>();

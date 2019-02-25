@@ -89,7 +89,7 @@ namespace c3IDE.Windows
             }
 
             Update();
-            UrlTextBox.Text = $"http://localhost:8080/{AppData.Insatnce.CurrentAddon.Class.ToLower()}/addon.json";
+            UrlTextBox.Text = $"http://localhost:8080/{AddonManager.CurrentAddon.Class.ToLower()}/addon.json";
             Clipboard.SetText(UrlTextBox.Text);
         }
 
@@ -150,7 +150,7 @@ namespace c3IDE.Windows
             {
                 try
                 {
-                    if (string.IsNullOrEmpty(AppData.Insatnce.Options.C3DesktopPath))
+                    if (string.IsNullOrEmpty(OptionsManager.CurrentOptions.C3DesktopPath))
                     {
                         throw new InvalidOperationException("Construct 3 Desktop Path is Invalid");
                     }
@@ -213,7 +213,7 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private async void CompileOnly_OnClick(object sender, RoutedEventArgs e)
         {
-            var isValid = await AddonCompiler.Insatnce.CompileAddon(AppData.Insatnce.CurrentAddon, false);
+            var isValid = await AddonCompiler.Insatnce.CompileAddon(AddonManager.CurrentAddon, false);
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace c3IDE.Windows
                 LogText.ScrollToLine(LogText.LineCount - 1);
             });
 
-            AddonValidator.Insatnce.Validate(AppData.Insatnce.CurrentAddon);
+            AddonValidator.Insatnce.Validate(AddonManager.CurrentAddon);
         }
         
         /// <summary>

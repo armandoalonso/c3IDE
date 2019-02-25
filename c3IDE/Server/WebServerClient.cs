@@ -1,10 +1,5 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Reflection;
-using c3IDE.Compiler;
+﻿using c3IDE.Managers;
 using uhttpsharp;
-using uhttpsharp.Headers;
 using uhttpsharp.Listeners;
 using uhttpsharp.RequestProviders;
 
@@ -15,25 +10,25 @@ namespace c3IDE.Server
     {
         private HttpServer _httpServer;
 
+        //todo: add option to log out headers
+        /// <summary>
+        /// starts the web server
+        /// </summary>
         public void Start()
         {
-            var _log = AppData.Insatnce.CompilerLog;
-
             _httpServer = new HttpServer(new HttpRequestProvider());
 
-            C3FileHandler.Logger = _log;
-            C3FileHandler.HttpRootDirectory = AppData.Insatnce.Options.CompilePath;
+            C3FileHandler.HttpRootDirectory = OptionsManager.CurrentOptions.CompilePath;
 
-            _httpServer.Use(new TcpListenerAdapter(AppData.Insatnce.TcpListener));
+            _httpServer.Use(new TcpListenerAdapter(WebServerManager.TcpListener));
 
             _httpServer.Use((context, next) =>
             {
-                _log.Insert($"got request => {context.Request.Uri}", "C3");
+                LogManager.CompilerLog.Insert($"got request => {context.Request.Uri}", "C3");
 
-                //TODO: add option to log out headers
                 //foreach (var requestHeader in context.Request.Headers)
                 //{
-                //    _log.Insert($"got request headers => {requestHeader.Key} : {requestHeader.Value}");
+                //    LogManager.CompilerLog.Insert($"got request headers => {requestHeader.Key} : {requestHeader.Value}");
                 //}
 
                 return next();
@@ -42,24 +37,27 @@ namespace c3IDE.Server
             //handle static files (only suport js, json, png and svg)
             _httpServer.Use(new C3FileHandler());
 
-            AppData.Insatnce.WebServerUrl = $"http://localhost:8080/{AppData.Insatnce.CurrentAddon.Class}/addon.json";
-            AppData.Insatnce.WebServiceUrlChanged?.Invoke(AppData.Insatnce.WebServerUrl);
-            _log.Insert($"starting server => {AppData.Insatnce.WebServerUrl}");
+            WebServerManager.WebServerUrl = $"http://localhost:8080/{AddonManager.CurrentAddon.Class}/addon.json";
+            WebServerManager.WebServiceUrlChanged?.Invoke(WebServerManager.WebServerUrl);
+            LogManager.CompilerLog.Insert($"starting server => {WebServerManager.WebServerUrl}");
             _httpServer.Start();
-            AppData.Insatnce.WebServerStarted = true;
-            AppData.Insatnce.WebServerStateChanged?.Invoke(true);
+            WebServerManager.WebServerStarted = true;
+            WebServerManager.WebServerStateChanged?.Invoke(true);
         }
 
+        /// <summary>
+        /// stops the web server
+        /// </summary>
         public void Stop()
         {
             _httpServer.Dispose();
             _httpServer = null;
-            AppData.Insatnce.TcpListener.Stop();
-            AppData.Insatnce.CompilerLog.Insert("server stopped...");
-            AppData.Insatnce.WebServerUrl = string.Empty;
-            AppData.Insatnce.WebServiceUrlChanged?.Invoke(AppData.Insatnce.WebServerUrl);
-            AppData.Insatnce.WebServerStarted = false;
-            AppData.Insatnce.WebServerStateChanged?.Invoke(false);
+            WebServerManager.TcpListener.Stop();
+            LogManager.CompilerLog.Insert("server stopped...");
+            WebServerManager.WebServerUrl = string.Empty;
+            WebServerManager.WebServiceUrlChanged?.Invoke(WebServerManager.WebServerUrl);
+            WebServerManager.WebServerStarted = false;
+            WebServerManager.WebServerStateChanged?.Invoke(false);
         }
     }
 }

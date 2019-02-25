@@ -38,7 +38,7 @@ namespace c3IDE.Windows
             InitializeComponent();
         
             //load addon if it was passed through cmd args
-            if (AppData.Insatnce.CurrentAddon.Id != Guid.Empty)
+            if (AddonManager.CurrentAddon != null && AddonManager.CurrentAddon.Id != Guid.Empty)
             {
                 for (int i = 0; i < AddonManager.AllAddons.Count; i++)
                 {
@@ -115,7 +115,7 @@ namespace c3IDE.Windows
                     //get the plugin template
                     c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
 
-                    var addonIndex = AppData.Insatnce.AddonList.Count - 1;
+                    var addonIndex = AddonManager.AllAddons.Count - 1;
                     AddonManager.CurrentAddon = c3addon;
                     AddonManager.SaveCurrentAddon();
                     AddonManager.LoadAllAddons();
@@ -203,7 +203,7 @@ namespace c3IDE.Windows
         {
             if (AddonListBox.SelectedIndex == -1)
             {
-                AppData.Insatnce.ErrorMessage("error removing c3addon, no c3addon selected");
+                NotificationManager.PublishErrorNotification("error removing c3addon, no c3addon selected");
                 return;
             }
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
@@ -221,7 +221,7 @@ namespace c3IDE.Windows
         {
             if (AddonListBox.SelectedIndex == -1)
             {
-                AppData.Insatnce.ErrorMessage("error duplicating c3addon, no c3addon selected");
+               NotificationManager.PublishErrorNotification("error duplicating c3addon, no c3addon selected");
                 return;
             }
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;

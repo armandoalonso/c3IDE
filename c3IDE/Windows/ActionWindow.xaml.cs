@@ -256,9 +256,9 @@ namespace c3IDE.Windows
             else if (e.Key == Key.F1)
             {
                 //AppData.Insatnce.GlobalSave(false);
-                Searcher.Insatnce.UpdateFileIndex($"act_{_selectedAction.Id}_ace", AceTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
-                Searcher.Insatnce.UpdateFileIndex($"act_{_selectedAction.Id}_lang", LanguageTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
-                Searcher.Insatnce.UpdateFileIndex($"act_{_selectedAction.Id}_code", CodeTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"act_{_selectedAction.Id}_ace", AceTextEditor.Text, ApplicationWindows.ActionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"act_{_selectedAction.Id}_lang", LanguageTextEditor.Text, ApplicationWindows.ActionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"act_{_selectedAction.Id}_code", CodeTextEditor.Text, ApplicationWindows.ActionWindow);
 
                 var editor = ((TextEditor)sender);
                 var text = editor.SelectedText;

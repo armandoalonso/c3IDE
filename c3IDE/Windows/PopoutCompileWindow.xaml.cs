@@ -127,7 +127,7 @@ namespace c3IDE.Windows
             {
                 try
                 {
-                    if (string.IsNullOrEmpty(AppData.Insatnce.Options.C3DesktopPath))
+                    if (string.IsNullOrEmpty(OptionsManager.CurrentOptions.C3DesktopPath))
                     {
                         throw new InvalidOperationException("Construct 3 Desktop Path is Invalid");
                     }

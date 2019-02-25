@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using c3IDE.Managers;
 using c3IDE.Utilities.Search;
 
 namespace c3IDE.Windows
@@ -63,7 +64,7 @@ namespace c3IDE.Windows
                 replaceList.Add(searchResult);
             }
 
-            Searcher.Insatnce.GlobalReplace(AppData.Insatnce.CurrentAddon, replaceList);
+            Searcher.Insatnce.GlobalReplace(AddonManager.CurrentAddon, replaceList);
             RestoreWindow();
         }
 

@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.RightsManagement;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows;
 using c3IDE.DataAccess;
+using c3IDE.Managers;
 using c3IDE.Models;
 using c3IDE.Utilities.Extentions;
 using c3IDE.Windows.Interfaces;
-using ICSharpCode.AvalonEdit;
-using ICSharpCode.AvalonEdit.Editing;
 
 namespace c3IDE.Utilities.Search
 {
@@ -30,7 +24,7 @@ namespace c3IDE.Utilities.Search
             });
             var searchResults = results as SearchResult[] ?? results.ToArray();
             searchResults.ToList().ForEach(x => x.Selected = true);
-            AppData.Insatnce.OpenFindAndReplace(searchResults, window);
+            WindowManager.OpenFindAndReplace(searchResults, window);
         }
 
         public void GlobalReplace(C3Addon addon, IEnumerable<SearchResult> replaceResults)
@@ -54,43 +48,43 @@ namespace c3IDE.Utilities.Search
             FileIndex = new Dictionary<string, SortedList<int, SearchResult>>();
             if (addon.Type != PluginType.Effect)
             {
-                UpdateFileIndex("addon.json", addon.AddonJson, AppData.Insatnce.MainWindow._addonWindow);
-                UpdateFileIndex("edittime_plugin.js", addon.PluginEditTime, AppData.Insatnce.MainWindow._pluginWindow);
-                UpdateFileIndex("runtime_plugin.js", addon.PluginRunTime, AppData.Insatnce.MainWindow._pluginWindow);
-                UpdateFileIndex("edittime_instance.js", addon.InstanceEditTime, AppData.Insatnce.MainWindow._instanceWindow);
-                UpdateFileIndex("runtime_instance.js", addon.InstanceRunTime, AppData.Insatnce.MainWindow._instanceWindow);
-                UpdateFileIndex("edittime_type.js", addon.TypeEditTime, AppData.Insatnce.MainWindow._typeWindow);
-                UpdateFileIndex("runtime_type.js", addon.TypeRunTime, AppData.Insatnce.MainWindow._typeWindow);
+                UpdateFileIndex("addon.json", addon.AddonJson, ApplicationWindows.AddonWindow);
+                UpdateFileIndex("edittime_plugin.js", addon.PluginEditTime, ApplicationWindows.PluginWindow);
+                UpdateFileIndex("runtime_plugin.js", addon.PluginRunTime, ApplicationWindows.PluginWindow);
+                UpdateFileIndex("edittime_instance.js", addon.InstanceEditTime, ApplicationWindows.InstanceWindow);
+                UpdateFileIndex("runtime_instance.js", addon.InstanceRunTime, ApplicationWindows.InstanceWindow);
+                UpdateFileIndex("edittime_type.js", addon.TypeEditTime, ApplicationWindows.TypeWindow);
+                UpdateFileIndex("runtime_type.js", addon.TypeRunTime, ApplicationWindows.TypeWindow);
 
                 foreach (var action in addon.Actions)
                 {
-                    UpdateFileIndex($"act_{action.Key}_ace", action.Value.Ace, AppData.Insatnce.MainWindow._actionWindow);
-                    UpdateFileIndex($"act_{action.Key}_lang", action.Value.Language, AppData.Insatnce.MainWindow._actionWindow);
-                    UpdateFileIndex($"act_{action.Key}_code", action.Value.Code, AppData.Insatnce.MainWindow._actionWindow);
+                    UpdateFileIndex($"act_{action.Key}_ace", action.Value.Ace, ApplicationWindows.ActionWindow);
+                    UpdateFileIndex($"act_{action.Key}_lang", action.Value.Language, ApplicationWindows.ActionWindow);
+                    UpdateFileIndex($"act_{action.Key}_code", action.Value.Code, ApplicationWindows.ActionWindow);
                 }
 
                 foreach (var conditions in addon.Conditions)
                 {
-                    UpdateFileIndex($"cnd_{conditions.Key}_ace", conditions.Value.Ace, AppData.Insatnce.MainWindow._conditionWindow);
-                    UpdateFileIndex($"cnd_{conditions.Key}_lang", conditions.Value.Language, AppData.Insatnce.MainWindow._conditionWindow);
-                    UpdateFileIndex($"cnd_{conditions.Key}_code", conditions.Value.Code, AppData.Insatnce.MainWindow._conditionWindow);
+                    UpdateFileIndex($"cnd_{conditions.Key}_ace", conditions.Value.Ace, ApplicationWindows.ConditionWindow);
+                    UpdateFileIndex($"cnd_{conditions.Key}_lang", conditions.Value.Language, ApplicationWindows.ConditionWindow);
+                    UpdateFileIndex($"cnd_{conditions.Key}_code", conditions.Value.Code, ApplicationWindows.ConditionWindow);
                 }
 
                 foreach (var expression in addon.Expressions)
                 {
-                    UpdateFileIndex($"exp_{expression.Key}_ace", expression.Value.Ace, AppData.Insatnce.MainWindow._expressionWindow);
-                    UpdateFileIndex($"exp_{expression.Key}_lang", expression.Value.Language, AppData.Insatnce.MainWindow._expressionWindow);
-                    UpdateFileIndex($"exp_{expression.Key}_code", expression.Value.Code, AppData.Insatnce.MainWindow._expressionWindow);
+                    UpdateFileIndex($"exp_{expression.Key}_ace", expression.Value.Ace, ApplicationWindows.ExpressionWindow);
+                    UpdateFileIndex($"exp_{expression.Key}_lang", expression.Value.Language, ApplicationWindows.ExpressionWindow);
+                    UpdateFileIndex($"exp_{expression.Key}_code", expression.Value.Code, ApplicationWindows.ExpressionWindow);
                 }
 
-                UpdateFileIndex("lang_property.js", addon.LanguageProperties, AppData.Insatnce.MainWindow._languageWindow);
-                UpdateFileIndex("lang_category.js", addon.LanguageCategories, AppData.Insatnce.MainWindow._languageWindow);
+                UpdateFileIndex("lang_property.js", addon.LanguageProperties, ApplicationWindows.LanguageWindow);
+                UpdateFileIndex("lang_category.js", addon.LanguageCategories, ApplicationWindows.LanguageWindow);
             }
             else
             {
-                UpdateFileIndex("addon.json", addon.AddonJson, AppData.Insatnce.MainWindow._addonWindow);
-                UpdateFileIndex("fxcode.js", addon.EffectCode, AppData.Insatnce.MainWindow._fxCodeWindow);
-                UpdateFileIndex("fxlang.js", addon.EffectLanguage, AppData.Insatnce.MainWindow._fxLanguageWindow);
+                UpdateFileIndex("addon.json", addon.AddonJson, ApplicationWindows.FxAddonWindow);
+                UpdateFileIndex("fxcode.js", addon.EffectCode, ApplicationWindows.FxCodeWindow);
+                UpdateFileIndex("fxlang.js", addon.EffectLanguage, ApplicationWindows.FxLanguageWindow);
             }
         }
 
@@ -151,7 +145,7 @@ namespace c3IDE.Utilities.Search
                 addon.EffectLanguage = string.Join("\n", FileIndex["fxlang.js"].Select(x => x.Value.Line));
             }
 
-            AppData.Insatnce.CurrentAddon = addon;
+            AddonManager.CurrentAddon = addon;
             DataAccessFacade.Insatnce.AddonData.Upsert(addon);
         }
 
@@ -160,47 +154,47 @@ namespace c3IDE.Utilities.Search
             switch (window.DisplayName)
             {
                 case "Addon":
-                    UpdateFileIndex("addon.json", addon.AddonJson, AppData.Insatnce.MainWindow._addonWindow);
+                    UpdateFileIndex("addon.json", addon.AddonJson, ApplicationWindows.AddonWindow);
                     break;
                 case "Plugin":
-                    UpdateFileIndex("edittime_plugin.js", addon.PluginEditTime, AppData.Insatnce.MainWindow._pluginWindow);
-                    UpdateFileIndex("runtime_plugin.js", addon.PluginRunTime, AppData.Insatnce.MainWindow._pluginWindow);
+                    UpdateFileIndex("edittime_plugin.js", addon.PluginEditTime, ApplicationWindows.PluginWindow);
+                    UpdateFileIndex("runtime_plugin.js", addon.PluginRunTime, ApplicationWindows.PluginWindow);
                     break;
                 case "Type":
-                    UpdateFileIndex("edittime_type.js", addon.TypeEditTime, AppData.Insatnce.MainWindow._typeWindow);
-                    UpdateFileIndex("runtime_type.js", addon.TypeRunTime, AppData.Insatnce.MainWindow._typeWindow);
+                    UpdateFileIndex("edittime_type.js", addon.TypeEditTime, ApplicationWindows.TypeWindow);
+                    UpdateFileIndex("runtime_type.js", addon.TypeRunTime, ApplicationWindows.TypeWindow);
                     break;
                 case "Instance":
-                    UpdateFileIndex("edittime_instance.js", addon.InstanceEditTime, AppData.Insatnce.MainWindow._instanceWindow);
-                    UpdateFileIndex("runtime_instance.js", addon.InstanceRunTime, AppData.Insatnce.MainWindow._instanceWindow);
+                    UpdateFileIndex("edittime_instance.js", addon.InstanceEditTime, ApplicationWindows.InstanceWindow);
+                    UpdateFileIndex("runtime_instance.js", addon.InstanceRunTime, ApplicationWindows.InstanceWindow);
                     break;
                 case "Actions":
-                    foreach (var action in addon.Actions)
+                    foreach (var act in addon.Actions)
                     {
-                        UpdateFileIndex($"act_{action.Key}_ace", action.Value.Ace, AppData.Insatnce.MainWindow._actionWindow);
-                        UpdateFileIndex($"act_{action.Key}_lang", action.Value.Language, AppData.Insatnce.MainWindow._actionWindow);
-                        UpdateFileIndex($"act_{action.Key}_code", action.Value.Code, AppData.Insatnce.MainWindow._actionWindow);
+                        addon.Actions[act.Key].Ace = string.Join("\n", FileIndex[$"act_{act.Key}_ace"].Select(x => x.Value.Line));
+                        addon.Actions[act.Key].Language = string.Join("\n", FileIndex[$"act_{act.Key}_lang"].Select(x => x.Value.Line));
+                        addon.Actions[act.Key].Code = string.Join("\n", FileIndex[$"act_{act.Key}_code"].Select(x => x.Value.Line));
                     }
                     break;
                 case "Conditions":
-                    foreach (var conditions in addon.Conditions)
+                    foreach (var cnd in addon.Conditions)
                     {
-                        UpdateFileIndex($"cnd_{conditions.Key}_ace", conditions.Value.Ace, AppData.Insatnce.MainWindow._conditionWindow);
-                        UpdateFileIndex($"cnd_{conditions.Key}_lang", conditions.Value.Language, AppData.Insatnce.MainWindow._conditionWindow);
-                        UpdateFileIndex($"cnd_{conditions.Key}_code", conditions.Value.Code, AppData.Insatnce.MainWindow._conditionWindow);
+                        addon.Conditions[cnd.Key].Ace = string.Join("\n", FileIndex[$"cnd_{cnd.Key}_ace"].Select(x => x.Value.Line));
+                        addon.Conditions[cnd.Key].Language = string.Join("\n", FileIndex[$"cnd_{cnd.Key}_lang"].Select(x => x.Value.Line));
+                        addon.Conditions[cnd.Key].Code = string.Join("\n", FileIndex[$"cnd_{cnd.Key}_code"].Select(x => x.Value.Line));
                     }
                     break;
                 case "Expressions":
                     foreach (var expression in addon.Expressions)
                     {
-                        UpdateFileIndex($"exp_{expression.Key}_ace", expression.Value.Ace, AppData.Insatnce.MainWindow._expressionWindow);
-                        UpdateFileIndex($"exp_{expression.Key}_lang", expression.Value.Language, AppData.Insatnce.MainWindow._expressionWindow);
-                        UpdateFileIndex($"exp_{expression.Key}_code", expression.Value.Code, AppData.Insatnce.MainWindow._expressionWindow);
+                        UpdateFileIndex($"exp_{expression.Key}_ace", expression.Value.Ace, ApplicationWindows.ExpressionWindow);
+                        UpdateFileIndex($"exp_{expression.Key}_lang", expression.Value.Language, ApplicationWindows.ExpressionWindow);
+                        UpdateFileIndex($"exp_{expression.Key}_code", expression.Value.Code, ApplicationWindows.ExpressionWindow);
                     }
                     break;
                 case "Language":
-                    UpdateFileIndex("lang_property.js", addon.LanguageProperties, AppData.Insatnce.MainWindow._languageWindow);
-                    UpdateFileIndex("lang_category.js", addon.LanguageCategories, AppData.Insatnce.MainWindow._languageWindow);
+                    UpdateFileIndex("lang_property.js", addon.LanguageProperties, ApplicationWindows.LanguageWindow);
+                    UpdateFileIndex("lang_category.js", addon.LanguageCategories, ApplicationWindows.LanguageWindow);
                     break;
             }
         }

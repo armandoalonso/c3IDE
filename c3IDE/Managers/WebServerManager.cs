@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
+using System.Net.Sockets;
 
 namespace c3IDE.Managers
 {
@@ -12,6 +9,9 @@ namespace c3IDE.Managers
         public static bool WebServerStarted { get; set; } = false;
         public static Action<string> WebServiceUrlChanged { get; set; }
         public static Action<bool> WebServerStateChanged { get; set; }
+        public static string WebServerUrl { get; set; }
+
+        public static TcpListener TcpListener = new TcpListener(IPAddress.Any, 8080);
 
     }
 }

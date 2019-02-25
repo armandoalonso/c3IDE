@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using System.Windows.Media.Imaging;
 using c3IDE.Templates;
-using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
 using LiteDB;
 using Newtonsoft.Json;

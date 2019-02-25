@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
 using c3IDE.DataAccess;
+using c3IDE.Managers;
 using c3IDE.Utilities.SyntaxHighlighting;
-using c3IDE.Utilities.ThemeEngine;
 using c3IDE.Windows.Interfaces;
 
 namespace c3IDE.Windows
@@ -24,6 +11,8 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class EffectLanguageWindow : UserControl, IWindow
     {
+        public string DisplayName { get; set; } = "Language";
+
         public EffectLanguageWindow()
         {
             InitializeComponent();
@@ -31,14 +20,13 @@ namespace c3IDE.Windows
             LanguageTextEditor.Options.EnableHyperlinks = false;
         }
 
-        public string DisplayName { get; set; } = "Language";
         public void OnEnter()
         {
-            AppData.Insatnce.SetupTextEditor(LanguageTextEditor, Syntax.Json);
+           ThemeManager.SetupTextEditor(LanguageTextEditor, Syntax.Json);
 
-            if (AppData.Insatnce.CurrentAddon != null)
+            if (AddonManager.CurrentAddon != null)
             {
-                LanguageTextEditor.Text = AppData.Insatnce.CurrentAddon.EffectLanguage;
+                LanguageTextEditor.Text = AddonManager.CurrentAddon.EffectLanguage;
             }
             else
             {
@@ -48,10 +36,10 @@ namespace c3IDE.Windows
 
         public void OnExit()
         {
-            if (AppData.Insatnce.CurrentAddon != null)
+            if (AddonManager.CurrentAddon != null)
             {
-                AppData.Insatnce.CurrentAddon.EffectLanguage = LanguageTextEditor.Text;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+                AddonManager.CurrentAddon.EffectLanguage = LanguageTextEditor.Text;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AddonManager.CurrentAddon);
             }
         }
 

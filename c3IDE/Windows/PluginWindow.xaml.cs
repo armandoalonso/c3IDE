@@ -205,8 +205,8 @@ namespace c3IDE.Windows
             else if(e.Key == Key.F1)
             {
                 //AppData.Insatnce.GlobalSave(false);
-                Searcher.Insatnce.UpdateFileIndex("edittime_plugin.js", EditTimePluginTextEditor.Text, AppData.Insatnce.MainWindow._pluginWindow);
-                Searcher.Insatnce.UpdateFileIndex("runtime_plugin.js", RunTimePluginTextEditor.Text, AppData.Insatnce.MainWindow._pluginWindow);
+                Searcher.Insatnce.UpdateFileIndex("edittime_plugin.js", EditTimePluginTextEditor.Text, ApplicationWindows.PluginWindow);
+                Searcher.Insatnce.UpdateFileIndex("runtime_plugin.js", RunTimePluginTextEditor.Text, ApplicationWindows.PluginWindow);
                 var editor = ((TextEditor) sender);
                 var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text, this);
@@ -267,7 +267,7 @@ namespace c3IDE.Windows
             {
                 if (propertyMatch.Groups["id"].ToString() == id)
                 {
-                    AppData.Insatnce.ErrorMessage("cannot have duplicate property id.");
+                    NotificationManager.PublishErrorNotification("cannot have duplicate property id.");
                     return;
                 }
             }

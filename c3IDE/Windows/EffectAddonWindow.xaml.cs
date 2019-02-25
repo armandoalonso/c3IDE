@@ -14,10 +14,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using c3IDE.DataAccess;
+using c3IDE.Managers;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Utilities.ThemeEngine;
 using c3IDE.Windows.Interfaces;
+
 
 namespace c3IDE.Windows
 {
@@ -26,21 +28,29 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class EffectAddonWindow : UserControl, IWindow
     {
+        public string DisplayName { get; set; } = "Addon";
+
+        /// <summary>
+        /// effect addon constructor
+        /// </summary>
         public EffectAddonWindow()
         {
             InitializeComponent();
+
             AddonTextEditor.Options.EnableEmailHyperlinks = false;
             AddonTextEditor.Options.EnableHyperlinks = false;
         }
 
-        public string DisplayName { get; set; } = "Addon";
+        /// <summary>
+        /// handles the effect addon getting focus
+        /// </summary>
         public void OnEnter()
         {
-            AppData.Insatnce.SetupTextEditor(AddonTextEditor, Syntax.Json);
+            ThemeManager.SetupTextEditor(AddonTextEditor, Syntax.Json);
 
-            if (AppData.Insatnce.CurrentAddon != null)
+            if (AddonManager.CurrentAddon != null)
             {
-                AddonTextEditor.Text = AppData.Insatnce.CurrentAddon.AddonJson;
+                AddonTextEditor.Text = AddonManager.CurrentAddon.AddonJson;
             }
             else
             {
@@ -48,30 +58,50 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// handles the effect addon window losing focus
+        /// </summary>
         public void OnExit()
         {
-            if (AppData.Insatnce.CurrentAddon != null)
+            if (AddonManager.CurrentAddon != null)
             {
-                AppData.Insatnce.CurrentAddon.AddonJson = AddonTextEditor.Text;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+                AddonManager.CurrentAddon.AddonJson = AddonTextEditor.Text;
+                DataAccessFacade.Insatnce.AddonData.Upsert(AddonManager.CurrentAddon);
             }
         }
 
+        /// <summary>
+        /// clear all inputs from the effect addon window
+        /// </summary>
         public void Clear()
         {
             AddonTextEditor.Text = string.Empty;
         }
 
-
+        /// <summary>
+        /// handle all keyboard shortcuts
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-
         }
 
+        /// <summary>
+        /// formats effect addon as json
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormatJsonMenu_OnClick(object sender, RoutedEventArgs e)
         {
             AddonTextEditor.Text = AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text);
         }
+
+        /// <summary>
+        /// opens the add effect parameter window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddParameterMenu_Click(object sender, RoutedEventArgs e)
         {
             NewPropertyWindow.IsOpen = true;
@@ -82,6 +112,11 @@ namespace c3IDE.Windows
             ParameterDescText.Text = "Description";
         }
 
+        /// <summary>
+        /// handles the save button to save effect parameter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddParameterButton_Click(object sender, RoutedEventArgs e)
         {
             var id = ParameterIdText.Text;
@@ -102,7 +137,7 @@ namespace c3IDE.Windows
             {
                 if (propertyMatch.Groups["id"].ToString() == id)
                 {
-                    AppData.Insatnce.ErrorMessage("cannot have duplicate parameter id.");
+                    NotificationManager.PublishErrorNotification("cannot have duplicate parameter id.");
                     return;
                 }
             }

@@ -2,22 +2,17 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using c3IDE.DataAccess;
+using c3IDE.Managers;
 using c3IDE.Models;
 using c3IDE.Templates;
-using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
-using c3IDE.Utilities.Logging;
-using c3IDE.Utilities.SyntaxHighlighting;
-using Microsoft.Win32;
 using Newtonsoft.Json;
-using Action = System.Action;
+
 
 namespace c3IDE
 {
@@ -27,7 +22,6 @@ namespace c3IDE
     public partial class App : Application
     {
         public static string DataFolder { get; set; }
-        public static Options DefaultOptions { get; set; }
         private bool ApplicationError = false;
 
         public App()
@@ -46,26 +40,6 @@ namespace c3IDE
             var defaultC3AddonPath = Path.Combine(dataFolder, "C3Addons");
 
             DataFolder = dataFolder;
-
-            //setup default options
-            DefaultOptions = new Options
-            {
-                DataPath = dataFolder,
-                CompilePath = defaultCompilePath,
-                ExportPath = defaultExportPath,
-                C3AddonPath = defaultC3AddonPath,
-                //DefaultCompany = "c3IDE",
-                DefaultAuthor = "c3IDE",
-                IncludeTimeStampOnExport = true,
-                FontSize = 12,
-                FontFamily = "Consolas",
-                ThemeKey = "Default Theme",
-                OpenC3InWeb = true,
-                C3DesktopPath = string.Empty,
-                PinMenu = false,
-                CompileOnSave = false
-            };
-
             //create exports folder if it does not exists
             if (!System.IO.Directory.Exists(dataFolder)) Directory.CreateDirectory(dataFolder);
             if (!System.IO.Directory.Exists(defaultExportPath)) Directory.CreateDirectory(defaultExportPath);
@@ -73,30 +47,25 @@ namespace c3IDE
             if (!System.IO.Directory.Exists(defaultC3AddonPath)) Directory.CreateDirectory(defaultC3AddonPath);
 
             //create default options
-            AppData.Insatnce.Options = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? DefaultOptions;
+           OptionsManager.CurrentOptions = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? OptionsManager.DefaultOptions;
 
             //check each property
-            if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.DataPath)) AppData.Insatnce.Options.DataPath = DefaultOptions.DataPath;
-            if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.CompilePath)) AppData.Insatnce.Options.CompilePath = DefaultOptions.CompilePath;
-            if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.ExportPath)) AppData.Insatnce.Options.ExportPath = DefaultOptions.ExportPath;
-            if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.C3AddonPath)) AppData.Insatnce.Options.C3AddonPath = DefaultOptions.C3AddonPath;
-            //if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.DefaultCompany)) AppData.Insatnce.Options.DefaultCompany = DefaultOptions.DefaultCompany;
-            if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.DefaultAuthor)) AppData.Insatnce.Options.DefaultAuthor = DefaultOptions.DefaultAuthor;
-            if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.FontFamily)) AppData.Insatnce.Options.FontFamily = DefaultOptions.FontFamily;
-            if (AppData.Insatnce.Options.FontSize < 5) AppData.Insatnce.Options.FontSize = DefaultOptions.FontSize;
-            if (string.IsNullOrWhiteSpace(AppData.Insatnce.Options.ThemeKey)) AppData.Insatnce.Options.ThemeKey = DefaultOptions.ThemeKey;
+            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.DataPath))  OptionsManager.CurrentOptions.DataPath = OptionsManager.DefaultOptions.DataPath;
+            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.DataPath))  OptionsManager.CurrentOptions.DataPath = OptionsManager.DefaultOptions.DataPath;
+            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.CompilePath))  OptionsManager.CurrentOptions.CompilePath = OptionsManager.DefaultOptions.CompilePath;
+            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.ExportPath))  OptionsManager.CurrentOptions.ExportPath = OptionsManager.DefaultOptions.ExportPath;
+            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.C3AddonPath))  OptionsManager.CurrentOptions.C3AddonPath = OptionsManager.DefaultOptions.C3AddonPath;
+            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.DefaultAuthor))  OptionsManager.CurrentOptions.DefaultAuthor = OptionsManager.DefaultOptions.DefaultAuthor;
+            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.FontFamily))  OptionsManager.CurrentOptions.FontFamily = OptionsManager.DefaultOptions.FontFamily;
+            if ( OptionsManager.CurrentOptions.FontSize < 5)  OptionsManager.CurrentOptions.FontSize = OptionsManager.DefaultOptions.FontSize;
+            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.ThemeKey))  OptionsManager.CurrentOptions.ThemeKey = OptionsManager.DefaultOptions.ThemeKey;
         }
 
         private void OnWindowKeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.S && e.KeyboardDevice.IsKeyDown(Key.LeftCtrl))
             {
-                AppData.Insatnce.GlobalSave(true);
-
-                if (AppData.Insatnce.Options.CompileOnSave)
-                {
-                    //compile on save
-                }
+                WindowManager.MainWindow.Save(true);
             }
         }
 
@@ -119,7 +88,7 @@ namespace c3IDE
                     //get the plugin template
                     c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
 
-                    AppData.Insatnce.CurrentAddon = c3addon;
+                    AddonManager.CurrentAddon = c3addon;
                 }
 
                 //process command line args
@@ -132,7 +101,7 @@ namespace c3IDE
                         var addon = DataAccessFacade.Insatnce.AddonData.Get(x => x.Id == guid).FirstOrDefault();
                         if (addon != null)
                         {
-                            AppData.Insatnce.CurrentAddon = addon;
+                           AddonManager.CurrentAddon = addon;
                         }
                     }
                     else
@@ -143,7 +112,7 @@ namespace c3IDE
             }
             catch (Exception ex)
             {
-                LogManager.Insatnce.Exceptions.Add(ex);
+                LogManager.AddErrorLog(ex);
             }
 
             //always start main window
@@ -168,7 +137,7 @@ namespace c3IDE
                 sb.AppendLine();
                 sb.AppendLine("EXCEPTION LIST =>");
 
-                foreach (var exception in LogManager.Insatnce.Exceptions)
+                foreach (var exception in LogManager.Exceptions)
                 {
                     sb.AppendLine("\n===============================================================\n");
                     sb.AppendLine($"ERROR MESSAGE => {exception.Message}");
@@ -178,7 +147,7 @@ namespace c3IDE
                     sb.AppendLine("\n===============================================================\n");
                 }
 
-                var logFile = Path.Combine(AppData.Insatnce.Options.DataPath, $"app_log.txt");
+                var logFile = Path.Combine( OptionsManager.CurrentOptions.DataPath, $"app_log.txt");
                 ProcessHelper.Insatnce.WriteFile(logFile, sb.ToString());
                 ProcessHelper.Insatnce.StartProcess(logFile);
             }

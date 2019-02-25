@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using c3IDE.Models;
 
 namespace c3IDE.Templates
 {
-    //this class contains a set of template strings used to create snippets of text for multiple files
     public class TemplateHelper
     {
+        /// <summary>
+        /// creates language property with combo type
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static string LanguagePropertyCombo(string id)
         {
             return $@"    ""{id}"" : {{
@@ -26,6 +23,11 @@ namespace c3IDE.Templates
     }}";
         }
 
+        /// <summary>
+        /// creates language property with link type
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static string LanguagePropertyLink(string id)
         {
             return $@"    ""{id}"" : {{
@@ -35,6 +37,11 @@ namespace c3IDE.Templates
     }}";
         }
 
+        /// <summary>
+        /// creates default language property
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static string LanguagePropertyDefault(string id)
         {
            return $@"    ""{id}"" : {{
@@ -43,6 +50,11 @@ namespace c3IDE.Templates
     }}";
         }
 
+        /// <summary>
+        /// create language properties for language file
+        /// </summary>
+        /// <param name="properties"></param>
+        /// <returns></returns>
         public static string LanguageProperty(string properties)
         {
             return $@"""properties"":{{
@@ -50,6 +62,13 @@ namespace c3IDE.Templates
 }}";
         }
 
+        /// <summary>
+        /// create ace param
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <param name="initValue"></param>
+        /// <returns></returns>
         public static string AceParam(string id, string type, string initValue)
         {
             string value;
@@ -72,6 +91,14 @@ namespace c3IDE.Templates
         }},";
         }
 
+        /// <summary>
+        /// create ace language counterpart
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <param name="name"></param>
+        /// <param name="desc"></param>
+        /// <returns></returns>
         public static string AceLang(string id, string type, string name, string desc)
         {
             var items = type == "combo" ? ",\n            \"items\":{\n                \"item1\": \"item_one\",\n                \"item2\": \"item_two\",\n                \"item3\": \"item_three\"\n            }" : string.Empty;
@@ -83,6 +110,13 @@ namespace c3IDE.Templates
         }},";
         }
 
+        /// <summary>
+        /// create ace code segment
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="scriptName"></param>
+        /// <param name="variadic"></param>
+        /// <returns></returns>
         public static string AceCode(string id, string scriptName, bool variadic = false)
         {
             var ti = new CultureInfo("en-US", false).TextInfo;
@@ -93,6 +127,13 @@ namespace c3IDE.Templates
             return $"{scriptName}({prefix}{param}, ";
         }
 
+        /// <summary>
+        /// create ace parameter when it's the first 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <param name="initValue"></param>
+        /// <returns></returns>
         public static string AceParamFirst(string id, string type, string initValue)
         {
             string value;
@@ -118,6 +159,14 @@ namespace c3IDE.Templates
 }}";
         }
 
+        /// <summary>
+        /// create ace language counterpart when its the first
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <param name="name"></param>
+        /// <param name="desc"></param>
+        /// <returns></returns>
         public static string AceLangFirst(string id, string type, string name, string desc)
         {
             var items = type == "combo" ? ",\n            \"items\":{\n                \"item1\": \"item_one\",\n                \"item2\": \"item_two\",\n                \"item3\": \"item_three\"\n            }" : string.Empty;
@@ -132,6 +181,13 @@ namespace c3IDE.Templates
 }}";
         }
 
+        /// <summary>
+        /// creates ace code segment when it's the first
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="scriptName"></param>
+        /// <param name="variadic"></param>
+        /// <returns></returns>
         public static string AceCodeFirst(string id, string scriptName, bool variadic = false)
         {
             var ti = new CultureInfo("en-US", false).TextInfo;
@@ -142,6 +198,11 @@ namespace c3IDE.Templates
             return $"{scriptName}({prefix}{param})";
         }
 
+        /// <summary>
+        /// creates ace for conditions
+        /// </summary>
+        /// <param name="cnd"></param>
+        /// <returns></returns>
         public static string CndAce(Condition cnd)
         {
             var trigger = cnd.Trigger == "true" ? ",\n	\"isTrigger\": true" : string.Empty;
@@ -158,6 +219,11 @@ namespace c3IDE.Templates
 }}";
         }
 
+        /// <summary>
+        /// creates ace for expressions
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <returns></returns>
         public static string ExpAces(Expression exp)
         {
             var isvariadic = exp.IsVariadicParameters == "true" ? ",\n	\"isVariadicParameters\": true" : string.Empty;
@@ -169,6 +235,11 @@ namespace c3IDE.Templates
 }}";
         }
 
+        /// <summary>
+        /// creates third party file section
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
         public static string ThirdPartyFile(string filename)
         {
             return $@"{{

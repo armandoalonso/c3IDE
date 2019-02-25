@@ -110,7 +110,7 @@
         </mah:HamburgerMenu>
 
         <mah:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}"
-                           x:Name="EffectMainMenu" Visibility="Collapsed" ItemClick="HambugerMenuItemEffect_Click" OptionsItemClick="HambugerMenuItemEffect_Click">
+                           x:Name="EffectMainMenu" Visibility="Collapsed" ItemClick="HambugerMenuItem_Click" OptionsItemClick="HambugerMenuItem_Click">
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Dashboard" Tag="Dashboard"/>

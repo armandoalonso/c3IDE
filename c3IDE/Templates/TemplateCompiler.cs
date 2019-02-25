@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using c3IDE.Utilities;
+﻿using c3IDE.Utilities;
 using Scriban;
 
 namespace c3IDE.Templates

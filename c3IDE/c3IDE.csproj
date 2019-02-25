@@ -136,6 +136,7 @@
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\OptionReposiroty.cs" />
     <Compile Include="Managers\AddonManager.cs" />
+    <Compile Include="Managers\ApplicationWindows.cs" />
     <Compile Include="Managers\LogManager.cs" />
     <Compile Include="Managers\NotificationManager.cs" />
     <Compile Include="Managers\OptionsManager.cs" />
@@ -157,7 +158,6 @@
     <Compile Include="Utilities\Extentions\DictionaryExtentions.cs" />
     <Compile Include="Utilities\Extentions\StringExtentions.cs" />
     <Compile Include="Utilities\Helpers\ControlHelper.cs" />
-    <Compile Include="Utilities\Search\FindAndReplaceHelper.cs" />
     <Compile Include="Utilities\Helpers\TextEditorHelper.cs" />
     <Compile Include="Utilities\Search\Searcher.cs" />
     <Compile Include="Utilities\Search\SearchResult.cs" />

@@ -262,9 +262,9 @@ namespace c3IDE.Windows
             else if (e.Key == Key.F1)
             {
                 //AppData.Insatnce.GlobalSave(false);
-                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_ace", AceTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
-                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_lang", LanguageTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
-                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_code", CodeTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_ace", AceTextEditor.Text, ApplicationWindows.ConditionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_lang", LanguageTextEditor.Text, ApplicationWindows.ConditionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_code", CodeTextEditor.Text, ApplicationWindows.ConditionWindow);
                 var editor = ((TextEditor)sender);
                 var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text, this);
@@ -445,8 +445,8 @@ namespace c3IDE.Windows
             };
 
             cnd.Ace = TemplateHelper.CndAce(cnd);
-            cnd.Language = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionLanguage, cnd);
-            cnd.Code = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionCode, cnd);
+            cnd.Language = TemplateCompiler.Insatnce.CompileTemplates(AddonManager.CurrentAddon.Template.ActionLanguage, cnd);
+            cnd.Code = TemplateCompiler.Insatnce.CompileTemplates(AddonManager.CurrentAddon.Template.ActionCode, cnd);
 
             _conditions.Add(id, cnd);
             ConditionListBox.Items.Refresh();
@@ -599,7 +599,7 @@ namespace c3IDE.Windows
             if (_selectedCondition != null)
             {
                 var cat = _selectedCondition.Category;
-                var newCategory = await AppData.Insatnce.ShowInputDialog("Change Condition Category", "enter new condition category", cat);
+                var newCategory = await WindowManager.ShowInputDialog("Change Condition Category", "enter new condition category", cat);
 
                 if (!string.IsNullOrWhiteSpace(newCategory))
                 {
@@ -608,7 +608,7 @@ namespace c3IDE.Windows
             }
             else
             {
-                AppData.Insatnce.ErrorMessage("failed to remove action, no action selected");
+                NotificationManager.PublishErrorNotification("failed to remove action, no action selected");
             }
         }
 

@@ -83,8 +83,8 @@ namespace c3IDE.Windows
             if (e.Key == Key.F1)
             {
                 //AppData.Insatnce.GlobalSave(false);
-                Searcher.Insatnce.UpdateFileIndex("lang_property.js", PropertyLanguageTextEditor.Text, AppData.Insatnce.MainWindow._languageWindow);
-                Searcher.Insatnce.UpdateFileIndex("lang_category.js", CategoryLanguageTextEditor.Text, AppData.Insatnce.MainWindow._languageWindow);
+                Searcher.Insatnce.UpdateFileIndex("lang_property.js", PropertyLanguageTextEditor.Text, ApplicationWindows.LanguageWindow);
+                Searcher.Insatnce.UpdateFileIndex("lang_category.js", CategoryLanguageTextEditor.Text, ApplicationWindows.LanguageWindow);
                 var editor = ((TextEditor)sender);
                 var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text, this);

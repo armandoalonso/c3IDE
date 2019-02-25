@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using c3IDE.Managers;
 using c3IDE.Models;
-using c3IDE.Utilities;
-using c3IDE.Utilities.Logging;
-using ICSharpCode.AvalonEdit.Snippets;
 
 namespace c3IDE.Compiler
 {
@@ -15,10 +10,11 @@ namespace c3IDE.Compiler
         public List<LogMessage>  Logs = new List<LogMessage>();
         private readonly List<Action<string>> _insertCallbacks = new List<Action<string>>();
 
-        public CompilerLog()
-        {
-        }
-
+        /// <summary>
+        /// insert compile log callback
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
         public int AddUpdateCallback(Action<string> callback)
         {
             var index = _insertCallbacks.Count;
@@ -26,7 +22,12 @@ namespace c3IDE.Compiler
             return index;
         }
 
-        public void Insert(string message, string type = "INFO")
+        /// <summary>
+        /// inserts a compile log
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="type"></param>
+        public void Insert(string message, string type = "Info")
         {
             var log = new LogMessage {Date = DateTime.Now, Message = message, Type = type};
             Logs.Add(log);
@@ -37,6 +38,11 @@ namespace c3IDE.Compiler
             }
         }
 
+        /// <summary>
+        /// execute action, if error is thrown log and throw
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public string WrapLogger(Func<string> action)
         {
             try
@@ -45,12 +51,16 @@ namespace c3IDE.Compiler
             }
             catch (Exception ex)
             {
-                LogManager.Insatnce.Exceptions.Add(ex);
-                Insert($"error message => {ex.Message}");
+                LogManager.AddErrorLog(ex);
+                Insert($"error message => {ex.Message}", "Error");
                 throw;
             }
         }
 
+        /// <summary>
+        /// removes callback from compile log
+        /// </summary>
+        /// <param name="callbackIndex"></param>
         public void RemoveCallback(int callbackIndex)
         {
             _insertCallbacks.RemoveAt(callbackIndex);
