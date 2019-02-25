@@ -5,20 +5,13 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using c3IDE.Compiler;
-using c3IDE.DataAccess;
 using c3IDE.Managers;
 using c3IDE.Models;
 using c3IDE.Templates;
-using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities.Helpers;
-using c3IDE.Utilities.Search;
 using c3IDE.Windows.Interfaces;
-using c3IDE.Utilities.ThemeEngine;
 using Newtonsoft.Json;
-using Action = c3IDE.Models.Action;
-using Condition = c3IDE.Models.Condition;
-using Expression = c3IDE.Models.Expression;
+
 
 namespace c3IDE.Windows
 {
@@ -159,21 +152,8 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void CreateNewAddon_Click(object sender, RoutedEventArgs e)
         {
-            var addon = new C3Addon
-            {
-                Name = string.Empty,
-                Class = string.Empty,
-                Company = string.Empty,
-                Author = string.Empty,
-                Version = string.Empty,
-                Description = string.Empty,
-                Type = PluginType.SingleGlobalPlugin,
-                IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg"),
-                CreateDate = DateTime.Now
-            };
-
             //skip loaded addon callback
-            AddonManager.CurrentAddon = addon;
+            AddonManager.CurrentAddon = null;
             WindowManager.ChangeWindow(ApplicationWindows.MetadataWindow);
         }
 

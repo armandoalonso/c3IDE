@@ -26,8 +26,7 @@ namespace c3IDE.Windows
         public TestWindow()
         {
             InitializeComponent();
-
-            LogManager.AddLogCallback((s) =>
+            LogManager.CompilerLog.AddUpdateCallback((s) =>
             {
                 Dispatcher.Invoke(() =>
                 {
@@ -37,7 +36,7 @@ namespace c3IDE.Windows
                         LogText.ScrollToLine(LogText.LineCount - 1);
                     }
                 });
-            });
+            });        
         }
 
         /// <summary>

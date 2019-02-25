@@ -149,32 +149,43 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void SaveAddon_Click(object sender, RoutedEventArgs e)
         {
-            if (AddonManager.CurrentAddon != null)
+            AddonManager.CurrentAddon = new C3Addon
             {
-                Enum.TryParse<PluginType>(AddonTypeDropdown.SelectedValue.ToString(), out var pluginType);
-                AddonManager.CurrentAddon.Name = AddonNameText.Text;
-                AddonManager.CurrentAddon.Class = AddonClassText.Text.Replace(" ", string.Empty).Trim();
-                AddonManager.CurrentAddon.Company = AuthorText.Text.Replace(" ", string.Empty).Trim();
-                AddonManager.CurrentAddon.Author = AuthorText.Text;
-                AddonManager.CurrentAddon.Version = VersionText.Text;
-                AddonManager.CurrentAddon.Type = pluginType;
-                AddonManager.CurrentAddon.IconXml = ImageHelper.Insatnce.BitmapImageToBase64(AddonIcon.Source as BitmapImage);
-                AddonManager.CurrentAddon.Template = TemplateFactory.Insatnce.CreateTemplate(pluginType);
-                AddonManager.CurrentAddon.LastModified = DateTime.Now;
+                Name = string.Empty,
+                Class = string.Empty,
+                Company = string.Empty,
+                Author = string.Empty,
+                Version = string.Empty,
+                Description = string.Empty,
+                Type = PluginType.SingleGlobalPlugin,
+                IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg"),
+                CreateDate = DateTime.Now
+            };
 
-                //validate addon
-                if (!AddonManager.ValidateCurrentAddon())
-                {
-                    NotificationManager.PublishErrorNotification("addon data fields cannot be blank");
-                    return;
-                }
 
-                AddonManager.CompileTemplates();
-                AddonManager.SaveCurrentAddon();
-                AddonManager.LoadAllAddons();
-                NotificationManager.PublishNotification($"{AddonManager.CurrentAddon.Name} has been saved successfully");
-                WindowManager.ChangeWindow(ApplicationWindows.DashboardWindow);
+            Enum.TryParse<PluginType>(AddonTypeDropdown.SelectedValue.ToString(), out var pluginType);
+            AddonManager.CurrentAddon.Name = AddonNameText.Text;
+            AddonManager.CurrentAddon.Class = AddonClassText.Text.Replace(" ", string.Empty).Trim();
+            AddonManager.CurrentAddon.Company = AuthorText.Text.Replace(" ", string.Empty).Trim();
+            AddonManager.CurrentAddon.Author = AuthorText.Text;
+            AddonManager.CurrentAddon.Version = VersionText.Text;
+            AddonManager.CurrentAddon.Type = pluginType;
+            AddonManager.CurrentAddon.IconXml = ImageHelper.Insatnce.BitmapImageToBase64(AddonIcon.Source as BitmapImage);
+            AddonManager.CurrentAddon.Template = TemplateFactory.Insatnce.CreateTemplate(pluginType);
+            AddonManager.CurrentAddon.LastModified = DateTime.Now;
+
+            //validate addon
+            if (!AddonManager.ValidateCurrentAddon())
+            {
+                NotificationManager.PublishErrorNotification("addon data fields cannot be blank");
+                return;
             }
+
+            AddonManager.CompileTemplates();
+            AddonManager.SaveCurrentAddon();
+            AddonManager.LoadAllAddons();
+            NotificationManager.PublishNotification($"{AddonManager.CurrentAddon.Name} has been saved successfully");
+            WindowManager.ChangeWindow(ApplicationWindows.DashboardWindow);       
         }
     }
 }

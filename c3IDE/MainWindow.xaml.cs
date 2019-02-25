@@ -33,7 +33,7 @@ namespace c3IDE
             //set application callbacks
             AddonManager.AddLoadedCallback((s) =>
             {
-                this.Title = $"C3IDE - {s}";
+                this.Title = $"C3IDE - {s.Name}";
                 AddonLoadDelegate();
             });
             OptionsManager.OptionChangedCallback = OptionChanged;
@@ -287,9 +287,17 @@ namespace c3IDE
         /// <param name="window"></param>
         public void NavigateToWindow(IWindow window)
         {
-            ActiveItemEffect.Content = window;
-            window.OnEnter();
+            ActiveItem.Content = window;
+            //window.OnEnter();
         }
 
+        /// <summary>
+        /// checks if current addon is not null
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckIfAddonLoaded()
+        {
+            return AddonManager.CurrentAddon != null;
+        }
     }
 }
