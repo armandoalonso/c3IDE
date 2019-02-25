@@ -13,19 +13,8 @@ namespace c3IDE.Managers
     public static class OptionsManager
     {
         public static Options CurrentOptions { get; set; }
-        private static readonly List<Action<Options>> _optionsChangedCallback = new List<Action<Options>>();
-
-        /// <summary>
-        /// subscribe to callback when options change
-        /// </summary>
-        /// <param name="loadedCallback"></param>
-        /// <returns></returns>
-        public static int AddOptionsChangeddCallback(Action<Options> loadedCallback)
-        {
-            var index = _optionsChangedCallback.Count;
-            _optionsChangedCallback.Add(loadedCallback);
-            return index;
-        }
+        public static Options DefaultOptions { get; set; }
+        public static Action<Options> OptionChangedCallback { get; set; }
 
         /// <summary>
         /// saves the current options and calls the options changed callback
@@ -33,10 +22,6 @@ namespace c3IDE.Managers
         public static void SaveOptions()
         {
             DataAccessFacade.Insatnce.OptionData.Upsert(CurrentOptions);
-            foreach (var callback in _optionsChangedCallback)
-            {
-                callback?.Invoke(CurrentOptions);
-            }
         }
 
         /// <summary>
@@ -69,7 +54,8 @@ namespace c3IDE.Managers
                 CompileOnSave = false
             };
 
-            AppData.Insatnce.Options = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? defaultOptions;
+            DefaultOptions = defaultOptions;
+            CurrentOptions = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? defaultOptions;
         }
     }
 }

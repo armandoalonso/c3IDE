@@ -140,6 +140,7 @@
     <Compile Include="Managers\NotificationManager.cs" />
     <Compile Include="Managers\OptionsManager.cs" />
     <Compile Include="Managers\ThemeManager.cs" />
+    <Compile Include="Managers\WebServerManager.cs" />
     <Compile Include="Managers\WindowManager.cs" />
     <Compile Include="Models\LogMessage.cs" />
     <Compile Include="Models\ThirdPartyFile.cs" />

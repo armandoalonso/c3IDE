@@ -129,7 +129,7 @@ namespace c3IDE.Windows
         }
 
         /// <summary>
-        /// focus on teh textbox when clicked
+        /// focus on the textbox when clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

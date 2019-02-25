@@ -1,29 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using c3IDE.DataAccess;
+using c3IDE.Managers;
 using c3IDE.Templates;
-using c3IDE.Utilities;
-using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
-using c3IDE.Utilities.ThemeEngine;
 using ICSharpCode.AvalonEdit;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace c3IDE.Windows
@@ -33,47 +20,64 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class LanguageWindow : UserControl, IWindow
     {
-        //properties
         public string DisplayName { get; set; } = "Language";
 
-        //ctor
+        /// <summary>
+        /// language window constructor 
+        /// </summary>
         public LanguageWindow()
         {
             InitializeComponent();
 
             PropertyLanguageTextEditor.Options.EnableHyperlinks = false;
             PropertyLanguageTextEditor.Options.EnableEmailHyperlinks = false;
-
             CategoryLanguageTextEditor.Options.EnableHyperlinks = false;
             CategoryLanguageTextEditor.Options.EnableEmailHyperlinks = false;
         }
 
-        //window states
+        /// <summary>
+        /// handles when the language window gets focus
+        /// </summary>
         public void OnEnter()
         {
-            AppData.Insatnce.SetupTextEditor(PropertyLanguageTextEditor, Syntax.Json);
-            AppData.Insatnce.SetupTextEditor(CategoryLanguageTextEditor, Syntax.Json);
+            ThemeManager.SetupTextEditor(PropertyLanguageTextEditor, Syntax.Json);
+            ThemeManager.SetupTextEditor(CategoryLanguageTextEditor, Syntax.Json);
 
-            PropertyLanguageTextEditor.Text = AppData.Insatnce.CurrentAddon?.LanguageProperties;
-            CategoryLanguageTextEditor.Text = AppData.Insatnce.CurrentAddon?.LanguageCategories;
+            if (AddonManager.CurrentAddon != null)
+            {
+                PropertyLanguageTextEditor.Text = AddonManager.CurrentAddon.LanguageProperties;
+                CategoryLanguageTextEditor.Text = AddonManager.CurrentAddon.LanguageCategories;
+            }
+                
         }
 
+        /// <summary>
+        /// handles when the language windows loses focus
+        /// </summary>
         public void OnExit()
         {
-            if (AppData.Insatnce.CurrentAddon != null)
+            if (AddonManager.CurrentAddon != null)
             {
-                AppData.Insatnce.CurrentAddon.LanguageProperties = PropertyLanguageTextEditor.Text;
-                AppData.Insatnce.CurrentAddon.LanguageCategories = CategoryLanguageTextEditor.Text;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+                AddonManager.CurrentAddon.LanguageProperties = PropertyLanguageTextEditor.Text;
+                AddonManager.CurrentAddon.LanguageCategories = CategoryLanguageTextEditor.Text;
+                AddonManager.SaveCurrentAddon();
             }
         }
 
+        /// <summary>
+        /// clears all input from language window
+        /// </summary>
         public void Clear()
         {
             PropertyLanguageTextEditor.Text = string.Empty;
             CategoryLanguageTextEditor.Text = string.Empty;
         }
 
+        /// <summary>
+        /// handles keyboard shortcuts
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F1)
@@ -87,12 +91,16 @@ namespace c3IDE.Windows
             }
         }
 
-        //context menu
+        /// <summary>
+        /// generate properties json from configured configured properties
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GeneratePropertyText(object sender, RoutedEventArgs e)
         {
             //generate new property json
             var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+\""(?<id>(\w+|-)+)\""");
-            var propertyMatches = propertyRegex.Matches(AppData.Insatnce.CurrentAddon.PluginEditTime);
+            var propertyMatches = propertyRegex.Matches(AddonManager.CurrentAddon.PluginEditTime);
 
             //get current dynamic properties
             var dynamicProps = JToken.Parse($"{{{PropertyLanguageTextEditor.Text}}}")["properties"];
@@ -135,12 +143,17 @@ namespace c3IDE.Windows
             PropertyLanguageTextEditor.Text = FormatHelper.Insatnce.Json(TemplateHelper.LanguageProperty(string.Join(",\n", propList)), true);
         }
 
+        /// <summary>
+        /// generate category json from configured categories
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GenerateCategoryText(object sender, RoutedEventArgs e)
         {
             var catList = new List<string>();
             var dynamicCats = JToken.Parse($"{{{CategoryLanguageTextEditor.Text}}}")["aceCategories"];
 
-            foreach (var category in AppData.Insatnce.CurrentAddon.Categories)
+            foreach (var category in AddonManager.CurrentAddon.Categories)
             {
                 if (dynamicCats?[category] != null)
                 {
@@ -157,12 +170,6 @@ namespace c3IDE.Windows
             CategoryLanguageTextEditor.Text = $@"""aceCategories"": {{
 {string.Join(",\n", catList)}
 }}";
-        }
-
-        //heleprs
-        private void IdentifyAllProperties()
-        {
-
         }
     }
 }

@@ -1,20 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using c3IDE.Compiler;
+using c3IDE.Managers;
 using c3IDE.Server;
 using c3IDE.Utilities.Helpers;
-using c3IDE.Utilities.Logging;
 using MahApps.Metro.Controls;
 
 namespace c3IDE.Windows
@@ -25,16 +16,20 @@ namespace c3IDE.Windows
     public partial class PopoutCompileWindow : MetroWindow
     {
         private readonly int callbackIndex;
+
+        /// <summary>
+        /// popout window constructor
+        /// </summary>
         public PopoutCompileWindow()
         {
             InitializeComponent();
-            AppData.Insatnce.WebServiceUrlChanged = s => Dispatcher.Invoke(() => { UrlTextBox.Text = s; });
-            AppData.Insatnce.WebServerStateChanged = b => Dispatcher.Invoke(() =>
+            WebServerManager.WebServiceUrlChanged = s => Dispatcher.Invoke(() => { UrlTextBox.Text = s; });
+            WebServerManager.WebServerStateChanged = b => Dispatcher.Invoke(() =>
             {
                 WebServerButton.Content = b ? "Stop Web Server" : "Start Web Server";
             });
 
-            callbackIndex = AppData.Insatnce.CompilerLog.AddUpdateCallback((s) =>
+            callbackIndex = LogManager.CompilerLog.AddUpdateCallback((s) =>
             {
                 Dispatcher.Invoke(() =>
                 {
@@ -47,11 +42,21 @@ namespace c3IDE.Windows
             });
         }
 
+        /// <summary>
+        /// handles the closing of the popout window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            AppData.Insatnce.CompilerLog.RemoveCallback(callbackIndex);
+            LogManager.CompilerLog.RemoveCallback(callbackIndex);
         }
 
+        /// <summary>
+        /// handles selecting all text when the url text box is in focus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectUrl(object sender, RoutedEventArgs e)
         {
             var tb = (sender as TextBox);
@@ -60,10 +65,15 @@ namespace c3IDE.Windows
             if (string.IsNullOrWhiteSpace(url))
             {
                 Clipboard.SetText(url);
-                AppData.Insatnce.InfoMessage($"{url} copied to clipboard.");
+                NotificationManager.PublishNotification($"{url} copied to clipboard.");
             }
         }
 
+        /// <summary>
+        /// focus on the textbox when clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
         {
             if (sender is TextBox tb && !tb.IsKeyboardFocusWithin)
@@ -73,11 +83,16 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// handles the web server state
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartWebServerButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (!AppData.Insatnce.WebServerStarted)
+                if (!WebServerManager.WebServerStarted)
                 {
                     AddonCompiler.Insatnce.WebServer = new WebServerClient();
                     AddonCompiler.Insatnce.WebServer.Start();
@@ -89,17 +104,22 @@ namespace c3IDE.Windows
             }
             catch (Exception ex)
             {
-                LogManager.Insatnce.Exceptions.Add(ex);
-                AppData.Insatnce.WebServerStarted = false;
+                LogManager.AddErrorLog(ex);
+                WebServerManager.WebServerStarted = false;
             }
 
-            WebServerButton.Content = AppData.Insatnce.WebServerStarted ? "Stop Web Server" : "Start Web Server";
-            AppData.Insatnce.UpdateTestWindow();
+            WebServerButton.Content = WebServerManager.WebServerStarted ? "Stop Web Server" : "Start Web Server";
+            ApplicationWindows.TestWidnow.Update();
         }
 
+        /// <summary>
+        /// opens construct from the web or desktop
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenConstructButton_Click(object sender, RoutedEventArgs e)
         {
-            if (AppData.Insatnce.Options.OpenC3InWeb)
+            if (OptionsManager.CurrentOptions.OpenC3InWeb)
             {
                 ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/");
             }
@@ -112,12 +132,12 @@ namespace c3IDE.Windows
                         throw new InvalidOperationException("Construct 3 Desktop Path is Invalid");
                     }
 
-                    ProcessHelper.Insatnce.StartProcess(AppData.Insatnce.Options.C3DesktopPath);
+                    ProcessHelper.Insatnce.StartProcess(OptionsManager.CurrentOptions.C3DesktopPath);
                 }
                 catch (Exception ex)
                 {
-                    LogManager.Insatnce.Exceptions.Add(ex);
-                    AppData.Insatnce.ErrorMessage("Invalid C3 desktop path, please check plath in options");
+                    LogManager.AddErrorLog(ex);
+                    NotificationManager.PublishErrorNotification("Invalid C3 desktop path, please check plath in options");
                 }
             }
         }

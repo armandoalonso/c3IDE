@@ -87,7 +87,7 @@ namespace c3IDE.Windows
         }
 
         /// <summary>
-        /// handles autocompletion and parsing edit time type
+        /// handles auto completion and parsing edit time type
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

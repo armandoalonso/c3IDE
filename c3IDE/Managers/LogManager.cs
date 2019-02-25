@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using c3IDE.Compiler;
 using c3IDE.Models;
 
 
@@ -9,6 +10,7 @@ namespace c3IDE.Managers
     {
         public static List<LogMessage> Logs = new List<LogMessage>();
         public static List<Exception> Exceptions = new List<Exception>();
+        public static CompilerLog CompilerLog = new CompilerLog();
         private static readonly List<Action<string>> _logCallbacks = new List<Action<string>>();
         private static readonly List<Action<string>> _errorCallbacks = new List<Action<string>>();
 
