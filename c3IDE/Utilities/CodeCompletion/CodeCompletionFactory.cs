@@ -15,6 +15,7 @@ namespace c3IDE.Utilities.CodeCompletion
     public class CodeCompletionFactory : Singleton<CodeCompletionFactory>
     {
         private readonly Dictionary<string, HashSet<GenericCompletionItem>> _globalTokens = new Dictionary<string, HashSet<GenericCompletionItem>>();
+        private int _changeHash;
 
         public IList<GenericCompletionItem> GetCompletionData(IEnumerable<string> tokenList, string key)
         {
@@ -73,11 +74,16 @@ namespace c3IDE.Utilities.CodeCompletion
                     PopulateUserDefinedTokens($"{exp.Value.Id}_lang_json", exp.Value.Language);
                     PopulateUserDefinedTokens($"{exp.Value.Id}_ace_json", exp.Value.Ace);
                 }
+
+                foreach (var value in addon.ThirdPartyFiles.Values)
+                {
+                    PopulateUserDefinedTokens(value.FileName, value.Content);
+                }
             }
             else
             {
                 //handle auto completion in effect code
-            }      
+            }
         }
 
         public void PopulateUserDefinedTokens(string key, string text, bool wipe = false)

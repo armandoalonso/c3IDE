@@ -40,7 +40,7 @@ namespace c3IDE
             WindowManager.SetWindowChangeCallback(NavigateToWindow);
             NotificationManager.SetInfoCallback(OpenNotification);
             NotificationManager.SetErrorCallback(OpenErrorNotification);
-          
+
             //load data
             AddonManager.LoadAllAddons();
 
@@ -124,25 +124,28 @@ namespace c3IDE
 
             if (clickedLabel == "SDK Help")
             {
-                ProcessHelper.Insatnce.StartProcess("chrome.exe","https://www.construct.net/en/make-games/manuals/addon-sdk");
+                ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://www.construct.net/en/make-games/manuals/addon-sdk");
                 return;
             }
 
             //call exit on curretn window
             WindowManager.CurrentWindow.OnExit();
 
-
             if (AddonManager.CurrentAddon != null)
             {
                 //update file index for search
                 Searcher.Insatnce.UpdateFileIndex(AddonManager.CurrentAddon, WindowManager.CurrentWindow);
                 Searcher.Insatnce.ParseAddon(AddonManager.CurrentAddon);
-                switch (clickedLabel)
-                {
-                    case "Dashboard":
-                        WindowManager.ChangeWindow(ApplicationWindows.DashboardWindow);
-                        break;
-                    case "Addon":
+            }
+
+            switch (clickedLabel)
+            {
+                case "Dashboard":
+                    WindowManager.ChangeWindow(ApplicationWindows.DashboardWindow);
+                    break;
+                case "Addon":
+                    if (CheckIfAddonLoaded())
+                    {
                         if (AddonManager.CurrentAddon.Type == PluginType.Effect)
                         {
                             WindowManager.ChangeWindow(ApplicationWindows.FxAddonWindow);
@@ -151,29 +154,54 @@ namespace c3IDE
                         {
                             WindowManager.ChangeWindow(ApplicationWindows.AddonWindow);
                         }
-                        break;
-                    case "Plugin":
+                    }
+                    break;
+                case "Plugin":
+                    if (CheckIfAddonLoaded())
+                    {
                         WindowManager.ChangeWindow(ApplicationWindows.PluginWindow);
-                        break;
-                    case "Type":
-                       WindowManager.ChangeWindow(ApplicationWindows.TypeWindow);
-                        break;
-                    case "Instance":
+                    }
+                    
+                    break;
+                case "Type":
+                    if (CheckIfAddonLoaded())
+                    {
+                        WindowManager.ChangeWindow(ApplicationWindows.TypeWindow);
+                    }
+                    break;
+                case "Instance":
+                    if (CheckIfAddonLoaded())
+                    {
                         WindowManager.ChangeWindow(ApplicationWindows.InstanceWindow);
-                        break;
-                    case "Actions":
+                    }
+                    break;
+                case "Actions":
+                    if (CheckIfAddonLoaded())
+                    {
                         WindowManager.ChangeWindow(ApplicationWindows.ActionWindow);
-                        break;
-                    case "Conditions":
+                    }
+                    break;
+                case "Conditions":
+                    if (CheckIfAddonLoaded())
+                    {
                         WindowManager.ChangeWindow(ApplicationWindows.ConditionWindow);
-                        break;
-                    case "Expressions":
+                    }
+                    break;
+                case "Expressions":
+                    if (CheckIfAddonLoaded())
+                    {
                         WindowManager.ChangeWindow(ApplicationWindows.ExpressionWindow);
-                        break;
-                    case "Effect":
+                    }
+                    break;
+                case "Effect":
+                    if (CheckIfAddonLoaded())
+                    {
                         WindowManager.ChangeWindow(ApplicationWindows.FxCodeWindow);
-                        break;
-                    case "Language":
+                    }
+                    break;
+                case "Language":
+                    if (CheckIfAddonLoaded())
+                    {
                         if (AddonManager.CurrentAddon.Type == PluginType.Effect)
                         {
                             WindowManager.ChangeWindow(ApplicationWindows.FxLanguageWindow);
@@ -182,22 +210,20 @@ namespace c3IDE
                         {
                             WindowManager.ChangeWindow(ApplicationWindows.LanguageWindow);
                         }
-                        break;
-                    case "Test":
+                    }
+                    break;
+                case "Test":
+                    if (CheckIfAddonLoaded())
+                    {
                         WindowManager.ChangeWindow(ApplicationWindows.TestWidnow);
-                        break;
-                    case "Options":
-                        WindowManager.ChangeWindow(ApplicationWindows.OptionsWindow);
-                        break;
-                    default:
-                        WindowManager.ChangeWindow(ApplicationWindows.DashboardWindow);
-                        break;
-                }
-            }
-            else
-            {
-                NotificationManager.PublishErrorNotification("No addon loaded. load an addon from the dashboard");
-                return;
+                    }
+                    break;
+                case "Options":
+                    WindowManager.ChangeWindow(ApplicationWindows.OptionsWindow);
+                    break;
+                default:
+                    WindowManager.ChangeWindow(ApplicationWindows.DashboardWindow);
+                    break;
             }
 
             //close menu pane
@@ -218,6 +244,9 @@ namespace c3IDE
                 AddonManager.SaveCurrentAddon();
                 OpenNotification($"Saved {AddonManager.CurrentAddon.Name} successfully.");
 
+
+
+
                 if (OptionsManager.CurrentOptions.CompileOnSave && compile)
                 {
                     if (!ControlHelper.Insatnce.IsWindowOpen<PopoutCompileWindow>())
@@ -231,7 +260,7 @@ namespace c3IDE
                     ApplicationWindows.PopoutCompileWindow.LogText.Text = "starting addon compilation...";
                     Task.Run(() => AddonCompiler.Insatnce.CompileAddon(AddonManager.CurrentAddon, false));
                 }
-            }    
+            }
         }
 
         /// <summary>
@@ -296,7 +325,12 @@ namespace c3IDE
         /// <returns></returns>
         public bool CheckIfAddonLoaded()
         {
-            return AddonManager.CurrentAddon != null;
+            var loaded = AddonManager.CurrentAddon != null;
+            if (!loaded)
+            {
+                NotificationManager.PublishErrorNotification("No addon loaded. load an addon from the dashboard");
+            }
+            return loaded;
         }
     }
 }

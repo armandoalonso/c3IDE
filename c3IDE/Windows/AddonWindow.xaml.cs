@@ -302,8 +302,7 @@ namespace c3IDE.Windows
                     AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
         ""c3runtime/{filename}"","));
 
-                    //add
-                    AddonManager.CurrentAddon.ThirdPartyFiles = _files;
+                    CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(filename, content);
                     FileListBox.ItemsSource = _files;
                     FileListBox.Items.Refresh();
                 }
@@ -351,7 +350,7 @@ namespace c3IDE.Windows
             AddonTextEditor.Text = AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text);
         }
 
-        //todo: should we allow formatting thrid party files? if so we need to do it by extention and have differetn formatting strageties
+        //todo: should we allow formatting thrid party files? if so we need to do it by extention and have different formatting strageties
         /// <summary>
         /// format thrid party file as javascript
         /// </summary>
