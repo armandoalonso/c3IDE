@@ -6,11 +6,11 @@
 		{
 			super(behInst);
 			
-			this._testProperty = 0;
+			//this._testProperty = 0;
 			
 			if (properties)
 			{
-				this._testProperty = properties[0];
+				//this._testProperty = properties[0];
 			}
 
 			// Opt-in to getting calls to Tick()

@@ -28,6 +28,8 @@ namespace c3IDE.Windows
     {
         public string DisplayName { get; set; } = "Addon Metadata";
         private string IconXml { get; set; }
+        public bool IsEdit { get; set; } = false;
+        private bool IsSaved = false;
 
         /// <summary>
         /// addon metadata window constructor
@@ -46,7 +48,8 @@ namespace c3IDE.Windows
         /// </summary>
         public void OnEnter()
         {
-            if (AddonManager.CurrentAddon != null)
+            IsSaved = false;
+            if (IsEdit && AddonManager.CurrentAddon != null)
             {
                 AddonNameText.Text = AddonManager.CurrentAddon.Name;
                 AddonClassText.Text = AddonManager.CurrentAddon.Class;
@@ -56,14 +59,24 @@ namespace c3IDE.Windows
                 DescriptionText.Text = AddonManager.CurrentAddon.Description;
                 AddonIcon.Source = AddonManager.CurrentAddon.IconImage;
             }
+            else
+            {
+                AddonNameText.Text = "New Plugin";
+                AddonClassText.Text = "NewPlugin";
+                AuthorText.Text = OptionsManager.CurrentOptions.DefaultAuthor;
+                VersionText.Text = "1.0.0.0";
+                AddonTypeDropdown.Text = "SingleGlobalPlugin";
+                DescriptionText.Text = string.Empty;
+                
+            }
         }
 
         /// <summary>
-        /// called when this widnows stops being the main window
+        /// called when this windows stops being the main window
         /// </summary>
         public void OnExit()
         {
-            if (AddonManager.CurrentAddon != null)
+            if (IsSaved && AddonManager.CurrentAddon != null)
             {
                 AddonManager.CurrentAddon.Name = AddonNameText.Text;
                 AddonManager.CurrentAddon.Class = AddonClassText.Text;
@@ -169,8 +182,9 @@ namespace c3IDE.Windows
             AddonManager.CurrentAddon.Company = AuthorText.Text.Replace(" ", string.Empty).Trim();
             AddonManager.CurrentAddon.Author = AuthorText.Text;
             AddonManager.CurrentAddon.Version = VersionText.Text;
+            AddonManager.CurrentAddon.Description = DescriptionText.Text;
             AddonManager.CurrentAddon.Type = pluginType;
-            AddonManager.CurrentAddon.IconXml = ImageHelper.Insatnce.BitmapImageToBase64(AddonIcon.Source as BitmapImage);
+            AddonManager.CurrentAddon.IconXml = IconXml;
             AddonManager.CurrentAddon.Template = TemplateFactory.Insatnce.CreateTemplate(pluginType);
             AddonManager.CurrentAddon.LastModified = DateTime.Now;
 
@@ -181,6 +195,7 @@ namespace c3IDE.Windows
                 return;
             }
 
+            IsSaved = true;
             AddonManager.CompileTemplates();
             AddonManager.SaveCurrentAddon();
             AddonManager.LoadAllAddons();

@@ -55,8 +55,8 @@ namespace c3IDE.Windows
 
             if (AddonManager.CurrentAddon != null)
             {
-                EditTimeInstanceTextEditor.Text = AddonManager.CurrentAddon.TypeEditTime;
-                RunTimeInstanceTextEditor.Text = AddonManager.CurrentAddon.TypeRunTime;
+                EditTimeInstanceTextEditor.Text = AddonManager.CurrentAddon.InstanceEditTime;
+                RunTimeInstanceTextEditor.Text = AddonManager.CurrentAddon.InstanceRunTime;
             }
         }
 

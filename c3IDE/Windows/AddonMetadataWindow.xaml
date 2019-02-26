@@ -14,7 +14,7 @@
 
         <DockPanel LastChildFill="True" Margin="2" Grid.Column="0">
             <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}">Addon Icon :</TextBlock>
-            <Image Name="AddonIcon" DockPanel.Dock="Top" MaxHeight="250" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop"></Image>
+            <Image Name="AddonIcon" DockPanel.Dock="Top" MaxHeight="250" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop" VerticalAlignment="Top"></Image>
         </DockPanel>
 
         <StackPanel Grid.Column="1">

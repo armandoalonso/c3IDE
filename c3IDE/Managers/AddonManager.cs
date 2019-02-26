@@ -101,7 +101,7 @@ namespace c3IDE.Managers
         /// </summary>
         public static void CompileTemplates()
         {
-            //compile standrad templates
+            //compile standard templates
             CurrentAddon.AddonJson = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.AddonJson, CurrentAddon);
             CurrentAddon.PluginEditTime = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.PluginEditTime, CurrentAddon);
             CurrentAddon.PluginRunTime = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.PluginRunTime, CurrentAddon);
@@ -114,16 +114,12 @@ namespace c3IDE.Managers
             CurrentAddon.Expressions = new Dictionary<string, Expression>();
             CurrentAddon.ThirdPartyFiles = new Dictionary<string, ThirdPartyFile>();
             CurrentAddon.LanguageProperties = CurrentAddon.Template.LanguageProperty;
+            CurrentAddon.LanguageCategories = CurrentAddon.Template.LanguageCategory;
 
             //compile effect template
             CurrentAddon.EffectAddon = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.AddonJson, CurrentAddon);
             CurrentAddon.EffectCode = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.EffectCode, CurrentAddon);
             CurrentAddon.EffectLanguage = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.EffectLangauge, CurrentAddon);
-        }
-
-        public static void AddThirdPartyFile()
-        {
-            
         }
     }
 }

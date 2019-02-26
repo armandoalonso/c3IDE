@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using c3IDE.Compiler;
-using c3IDE.DataAccess;
 using c3IDE.Managers;
 using c3IDE.Models;
 using c3IDE.Utilities.CodeCompletion;

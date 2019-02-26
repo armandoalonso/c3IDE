@@ -13,6 +13,7 @@
         string ActionLanguage { get; }
         string ActionCode { get; }
         string LanguageProperty { get; }
+        string LanguageCategory { get; }
         string ExpressionLanguage { get; }
 
         string EffectCode { get; }

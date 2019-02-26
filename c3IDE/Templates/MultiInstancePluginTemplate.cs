@@ -15,6 +15,7 @@ namespace c3IDE.Templates
             InstanceEditTime = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.SingleGlobal.instance_edittime.txt");
             InstanceRunTime = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.SingleGlobal.instance_runtime.txt");
             LanguageProperty = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.SingleGlobal.language_property.txt");
+            LanguageCategory = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.SingleGlobal.language_category.txt");
             ActionAces = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.SingleGlobal.action_ace.txt");
             ActionLanguage = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.SingleGlobal.action_language.txt");
             ActionCode = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.SingleGlobal.action_code.txt");
@@ -29,6 +30,7 @@ namespace c3IDE.Templates
         public string InstanceEditTime { get; }
         public string InstanceRunTime { get; }
         public string LanguageProperty { get; }
+        public string LanguageCategory { get; }
         public string ActionAces { get; }
         public string ActionLanguage { get; }
         public string ExpressionLanguage { get; }

@@ -1,4 +1,5 @@
-﻿using c3IDE.Utilities.Helpers;
+﻿using System.Web.UI;
+using c3IDE.Utilities.Helpers;
 
 namespace c3IDE.Templates
 {
@@ -23,6 +24,7 @@ namespace c3IDE.Templates
         public string ActionLanguage => string.Empty;
         public string ActionCode => string.Empty;
         public string LanguageProperty => string.Empty;
+        public string LanguageCategory => string.Empty; 
         public string ExpressionLanguage => string.Empty;
         public string EffectCode { get; }
         public string EffectLangauge { get; }
