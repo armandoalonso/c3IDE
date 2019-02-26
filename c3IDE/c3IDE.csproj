@@ -616,6 +616,7 @@
     <Content Include="c3ide_icon_AaX_icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Templates\Files\SingleGlobal\language_category.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="c3ide_proj_Obi_icon.ico">
