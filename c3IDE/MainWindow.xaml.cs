@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,6 +39,8 @@ namespace c3IDE
             OptionsManager.OptionChangedCallback = OptionChanged;
             WindowManager.OpenFindAndReplace = OpenFindAndReplace;
             WindowManager.SetWindowChangeCallback(NavigateToWindow);
+            WindowManager.ShowDialog = ShowDialogBox;
+            WindowManager.ShowInputDialog = ShowInputDialogBox;
             NotificationManager.SetInfoCallback(OpenNotification);
             NotificationManager.SetErrorCallback(OpenErrorNotification);
 
@@ -128,7 +131,7 @@ namespace c3IDE
                 return;
             }
 
-            //call exit on curretn window
+            //call exit on current window
             WindowManager.CurrentWindow.OnExit();
 
             if (AddonManager.CurrentAddon != null)
@@ -244,8 +247,8 @@ namespace c3IDE
                 AddonManager.SaveCurrentAddon();
                 OpenNotification($"Saved {AddonManager.CurrentAddon.Name} successfully.");
 
-
-
+                //parse all addons for new code completions
+                CodeCompletionFactory.Insatnce.ParseAddon(AddonManager.CurrentAddon);
 
                 if (OptionsManager.CurrentOptions.CompileOnSave && compile)
                 {
@@ -331,6 +334,41 @@ namespace c3IDE
                 NotificationManager.PublishErrorNotification("No addon loaded. load an addon from the dashboard");
             }
             return loaded;
+        }
+
+        /// <summary>
+        /// when main window is closing close, all childe windows
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            ApplicationWindows.PopoutCompileWindow?.Close();
+        }
+
+        /// <summary>
+        /// shows a dialog box
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public async Task<bool> ShowDialogBox(string title, string message)
+        {
+            var result = await this.ShowMessageAsync(title, message, MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings { AffirmativeButtonText = "Yes", NegativeButtonText = "No" });
+            return result == MessageDialogResult.Affirmative ? true : false;
+        }
+
+        /// <summary>
+        /// shows a dialog box with an input value
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="message"></param>
+        /// <param name="deafultText"></param>
+        /// <returns></returns>
+        public async Task<string> ShowInputDialogBox(string title, string message, string deafultText)
+        {
+            var value = await this.ShowInputAsync(title, message, new MetroDialogSettings { DefaultText = deafultText });
+            return value;
         }
     }
 }

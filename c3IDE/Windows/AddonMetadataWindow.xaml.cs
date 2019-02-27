@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using c3IDE.Managers;
 using c3IDE.Models;
 using c3IDE.Templates;
@@ -67,7 +59,7 @@ namespace c3IDE.Windows
                 VersionText.Text = "1.0.0.0";
                 AddonTypeDropdown.Text = "SingleGlobalPlugin";
                 DescriptionText.Text = string.Empty;
-                
+                AddonCategoryDropdown.Text = "general";
             }
         }
 
@@ -83,6 +75,7 @@ namespace c3IDE.Windows
                 AddonManager.CurrentAddon.Company= AuthorText.Text;
                 AddonManager.CurrentAddon.Author = AuthorText.Text;
                 AddonManager.CurrentAddon.Version = VersionText.Text;
+                AddonManager.CurrentAddon.AddonCategory = AddonTypeDropdown.Text;
             }
         }
 
@@ -160,7 +153,7 @@ namespace c3IDE.Windows
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SaveAddon_Click(object sender, RoutedEventArgs e)
+        private async void SaveAddon_Click(object sender, RoutedEventArgs e)
         {
             AddonManager.CurrentAddon = new C3Addon
             {
@@ -170,6 +163,7 @@ namespace c3IDE.Windows
                 Author = string.Empty,
                 Version = string.Empty,
                 Description = string.Empty,
+                AddonCategory = string.Empty,
                 Type = PluginType.SingleGlobalPlugin,
                 IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg"),
                 CreateDate = DateTime.Now
@@ -177,6 +171,8 @@ namespace c3IDE.Windows
 
 
             Enum.TryParse<PluginType>(AddonTypeDropdown.SelectedValue.ToString(), out var pluginType);
+            var addonCategory = string.IsNullOrWhiteSpace(AddonCategoryDropdown.Text)? "other": AddonCategoryDropdown.Text;
+
             AddonManager.CurrentAddon.Name = AddonNameText.Text;
             AddonManager.CurrentAddon.Class = AddonClassText.Text.Replace(" ", string.Empty).Trim();
             AddonManager.CurrentAddon.Company = AuthorText.Text.Replace(" ", string.Empty).Trim();
@@ -184,6 +180,7 @@ namespace c3IDE.Windows
             AddonManager.CurrentAddon.Version = VersionText.Text;
             AddonManager.CurrentAddon.Description = DescriptionText.Text;
             AddonManager.CurrentAddon.Type = pluginType;
+            AddonManager.CurrentAddon.AddonCategory = addonCategory;
             AddonManager.CurrentAddon.IconXml = IconXml;
             AddonManager.CurrentAddon.Template = TemplateFactory.Insatnce.CreateTemplate(pluginType);
             AddonManager.CurrentAddon.LastModified = DateTime.Now;
@@ -195,12 +192,57 @@ namespace c3IDE.Windows
                 return;
             }
 
-            IsSaved = true;
-            AddonManager.CompileTemplates();
-            AddonManager.SaveCurrentAddon();
-            AddonManager.LoadAllAddons();
+            AddonMetadataGrid.IsEnabled = false;
+            await Task.Run(() =>
+            {
+                IsSaved = true;
+                AddonManager.CompileTemplates();
+                AddonManager.SaveCurrentAddon();
+                AddonManager.LoadAllAddons();
+            });
+            AddonMetadataGrid.IsEnabled = true;
             NotificationManager.PublishNotification($"{AddonManager.CurrentAddon.Name} has been saved successfully");
-            WindowManager.ChangeWindow(ApplicationWindows.DashboardWindow);       
+            WindowManager.ChangeWindow(ApplicationWindows.DashboardWindow);
+        }
+
+        /// <summary>
+        /// when the plugin type changes, change the available categories
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddonTypeDropdown_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selected = e.AddedItems[0].ToString();
+            AddonCategoryDropdown.SelectedIndex = -1;
+            switch (selected)
+            {
+                case "Behavior":
+                    AddonCategoryDropdown.Items.Clear();
+                    foreach (var s in new[] { "general", "attributes", "movements", "other" })
+                    {
+                        AddonCategoryDropdown.Items.Add(s);
+                    }
+
+                    break;
+                case "Effect":
+                    AddonCategoryDropdown.Items.Clear();
+                    foreach (var s in new[] { "blend", "color", "distortion", "normal-mapping", "other" })
+                    {
+                        AddonCategoryDropdown.Items.Add(s);
+                    }
+
+                    break;
+                default:
+                    AddonCategoryDropdown.Items.Clear();
+                    foreach (var s in new[] { "general", "data-and-storage", "form-controls", "input", "media", "monetisation", "platform-specific", "web", "other" })
+                    {
+                        AddonCategoryDropdown.Items.Add(s);
+                    }
+
+                    break;
+            }
         }
     }
 }
+
+

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:c3IDE.Windows"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
-    <Grid Margin="10">
+    <Grid Margin="10" Name="AddonMetadataGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -45,11 +45,17 @@
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Type::</TextBlock>
-                <ComboBox Name="AddonTypeDropdown" DockPanel.Dock="Right">
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Type:</TextBlock>
+                <ComboBox Name="AddonTypeDropdown" DockPanel.Dock="Right" SelectionChanged="AddonTypeDropdown_OnSelectionChanged">
                 </ComboBox>
             </DockPanel>
-            
+
+            <DockPanel LastChildFill="True" Margin="2">
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Addon Category:</TextBlock>
+                <ComboBox Name="AddonCategoryDropdown" DockPanel.Dock="Right" ItemsSource="{Binding}">
+                </ComboBox>
+            </DockPanel>
+
             <StackPanel Margin="2">
                 <Button Content="Save" Click="SaveAddon_Click"/>
             </StackPanel>

@@ -20,6 +20,7 @@ namespace c3IDE.Models
         public string Version { get; set; }
         public string Description { get; set; }
         public string AddonFolder { get; set; }
+        public string AddonCategory { get; set; } = "other";
 
         public PluginType Type { get; set; }
 

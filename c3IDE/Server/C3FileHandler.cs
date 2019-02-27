@@ -21,6 +21,7 @@ namespace c3IDE.Server
             DefaultMimeType = "application/json";
             MimeTypes = new Dictionary<string, string>
             {
+                {".html", "text/html"},
                 {".json", "application/json"},
                 {".js", "application/javascript"},
                 {".png", "image/png"},

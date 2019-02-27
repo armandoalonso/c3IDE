@@ -14,7 +14,7 @@
 		"effect.fx"
 	],
 	
-	"category": "color",
+	"category": "{{addon_category}}",
 	"blends-background": false,
 	"cross-sampling": false,
 	"preserves-opaqueness": true,

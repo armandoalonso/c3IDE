@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -172,6 +173,16 @@ namespace c3IDE.Windows
         private void OpenConstructSafeButton_Click(object sender, RoutedEventArgs e)
         {
             ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/?safe-mode");
+        }
+
+        /// <summary>
+        /// opens chrome to construct with dev tools (only in web)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenConstructDebug_OnClick(object sender, RoutedEventArgs e)
+        {
+            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/ --new-window --auto-open-devtools-for-tabs");
         }
 
         /// <summary>

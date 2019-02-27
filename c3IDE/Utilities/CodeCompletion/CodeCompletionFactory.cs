@@ -75,10 +75,10 @@ namespace c3IDE.Utilities.CodeCompletion
                     PopulateUserDefinedTokens($"{exp.Value.Id}_ace_json", exp.Value.Ace);
                 }
 
-                foreach (var value in addon.ThirdPartyFiles.Values)
-                {
-                    PopulateUserDefinedTokens(value.FileName, value.Content);
-                }
+                //foreach (var value in addon.ThirdPartyFiles.Values)
+                //{
+                //    PopulateUserDefinedTokens(value.FileName, value.Content);
+                //}
             }
             else
             {

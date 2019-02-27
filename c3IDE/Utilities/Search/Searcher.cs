@@ -169,22 +169,40 @@ namespace c3IDE.Utilities.Search
                     UpdateFileIndex("runtime_instance.js", addon.InstanceRunTime, ApplicationWindows.InstanceWindow);
                     break;
                 case "Actions":
-                    foreach (var act in addon.Actions)
+                    //foreach (var act in addon.Actions)
+                    //{
+                    //    addon.Actions[act.Key].Ace = string.Join("\n", FileIndex[$"act_{act.Key}_ace"].Select(x => x.Value.Line));
+                    //    addon.Actions[act.Key].Language = string.Join("\n", FileIndex[$"act_{act.Key}_lang"].Select(x => x.Value.Line));
+                    //    addon.Actions[act.Key].Code = string.Join("\n", FileIndex[$"act_{act.Key}_code"].Select(x => x.Value.Line));
+                    //}
+                    foreach (var action in addon.Actions)
                     {
-                        addon.Actions[act.Key].Ace = string.Join("\n", FileIndex[$"act_{act.Key}_ace"].Select(x => x.Value.Line));
-                        addon.Actions[act.Key].Language = string.Join("\n", FileIndex[$"act_{act.Key}_lang"].Select(x => x.Value.Line));
-                        addon.Actions[act.Key].Code = string.Join("\n", FileIndex[$"act_{act.Key}_code"].Select(x => x.Value.Line));
+                        UpdateFileIndex($"act_{action.Key}_ace", action.Value.Ace, ApplicationWindows.ActionWindow);
+                        UpdateFileIndex($"act_{action.Key}_lang", action.Value.Language, ApplicationWindows.ActionWindow);
+                        UpdateFileIndex($"act_{action.Key}_code", action.Value.Code, ApplicationWindows.ActionWindow);
                     }
                     break;
                 case "Conditions":
-                    foreach (var cnd in addon.Conditions)
+                    //foreach (var cnd in addon.Conditions)
+                    //{
+                    //    addon.Conditions[cnd.Key].Ace = string.Join("\n", FileIndex[$"cnd_{cnd.Key}_ace"].Select(x => x.Value.Line));
+                    //    addon.Conditions[cnd.Key].Language = string.Join("\n", FileIndex[$"cnd_{cnd.Key}_lang"].Select(x => x.Value.Line));
+                    //    addon.Conditions[cnd.Key].Code = string.Join("\n", FileIndex[$"cnd_{cnd.Key}_code"].Select(x => x.Value.Line));
+                    //}
+                    foreach (var conditions in addon.Conditions)
                     {
-                        addon.Conditions[cnd.Key].Ace = string.Join("\n", FileIndex[$"cnd_{cnd.Key}_ace"].Select(x => x.Value.Line));
-                        addon.Conditions[cnd.Key].Language = string.Join("\n", FileIndex[$"cnd_{cnd.Key}_lang"].Select(x => x.Value.Line));
-                        addon.Conditions[cnd.Key].Code = string.Join("\n", FileIndex[$"cnd_{cnd.Key}_code"].Select(x => x.Value.Line));
+                        UpdateFileIndex($"cnd_{conditions.Key}_ace", conditions.Value.Ace, ApplicationWindows.ConditionWindow);
+                        UpdateFileIndex($"cnd_{conditions.Key}_lang", conditions.Value.Language, ApplicationWindows.ConditionWindow);
+                        UpdateFileIndex($"cnd_{conditions.Key}_code", conditions.Value.Code, ApplicationWindows.ConditionWindow);
                     }
                     break;
                 case "Expressions":
+                    //foreach (var expression in addon.Expressions)
+                    //{
+                    //    UpdateFileIndex($"exp_{expression.Key}_ace", expression.Value.Ace, ApplicationWindows.ExpressionWindow);
+                    //    UpdateFileIndex($"exp_{expression.Key}_lang", expression.Value.Language, ApplicationWindows.ExpressionWindow);
+                    //    UpdateFileIndex($"exp_{expression.Key}_code", expression.Value.Code, ApplicationWindows.ExpressionWindow);
+                    //}
                     foreach (var expression in addon.Expressions)
                     {
                         UpdateFileIndex($"exp_{expression.Key}_ace", expression.Value.Ace, ApplicationWindows.ExpressionWindow);
