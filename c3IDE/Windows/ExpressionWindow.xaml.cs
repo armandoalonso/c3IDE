@@ -338,6 +338,7 @@ namespace c3IDE.Windows
             if (_selectedExpression != null)
             {
                 var newId = await WindowManager.ShowInputDialog("New Expression ID", "enter new expression id", string.Empty);
+                if(newId == null) return;
 
                 if (_expressions.ContainsKey(newId))
                 {

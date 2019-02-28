@@ -322,6 +322,7 @@ namespace c3IDE.Windows
             ActionCategoryText.Text = "custom";
             ActionListNameText.Text = "Execute Action";
             HighlightDropdown.Text = "false";
+            AsyncDropdown.Text = "no";
             DisplayText.Text = "this is the display text";
             DescriptionText.Text = "this is the description";
             NewActionWindow.IsOpen = true;
@@ -362,6 +363,7 @@ namespace c3IDE.Windows
             if (_selectedAction != null)
             {
                 var newId = await WindowManager.ShowInputDialog("New Action ID", "enter new action id", string.Empty);
+                if (newId == null) return;
 
                 if (_actions.ContainsKey(newId))
                 {
@@ -403,6 +405,7 @@ namespace c3IDE.Windows
             var category = ActionCategoryText.Text;
             var list = ActionListNameText.Text;
             var highlight = HighlightDropdown.Text;
+            var async = AsyncDropdown.Text == "yes" ? true : false;
             var displayText = DisplayText.Text;
             var desc = DescriptionText.Text;
 
@@ -425,6 +428,8 @@ namespace c3IDE.Windows
             action.Ace = TemplateCompiler.Insatnce.CompileTemplates(AddonManager.CurrentAddon.Template.ActionAces, action);
             action.Language = TemplateCompiler.Insatnce.CompileTemplates(AddonManager.CurrentAddon.Template.ActionLanguage, action);
             action.Code = TemplateCompiler.Insatnce.CompileTemplates(AddonManager.CurrentAddon.Template.ActionCode, action);
+
+            if (async) action.Code = $"async {action.Code}";
 
             _actions.Add(id, action);
             ActionListBox.Items.Refresh();
@@ -677,5 +682,14 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// lints the selected actions javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private  void LintJavascript_OnClick(object sender, RoutedEventArgs e)
+        {
+            LintingManager.Lint(_selectedAction.Code);
+        }
     }
 }

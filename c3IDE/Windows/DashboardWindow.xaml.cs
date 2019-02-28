@@ -204,10 +204,30 @@ namespace c3IDE.Windows
                NotificationManager.PublishErrorNotification("error duplicating c3addon, no c3addon selected");
                 return;
             }
+
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
             AddonManager.DuplicateAddon(currentAddon);
             AddonListBox.ItemsSource = AddonManager.AllAddons;
             NotificationManager.PublishNotification($"addon duplicated successfully");
+        }
+
+        /// <summary>
+        /// remove the selected addon
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RemoveAddon_Click(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                NotificationManager.PublishErrorNotification("error duremoving c3addon, no c3addon selected");
+                return;
+            }
+
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            AddonManager.DeleteAddon(currentAddon);
+            AddonListBox.ItemsSource = AddonManager.AllAddons;
+            NotificationManager.PublishNotification($"addon removed successfully");
         }
     }
 }

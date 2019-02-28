@@ -34,6 +34,11 @@
                     <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                     <ComboBoxItem>true</ComboBoxItem>
                 </ComboBox>
+                <TextBlock Text="Async Action:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
+                <ComboBox Name="AsyncDropdown" Margin="5">
+                    <ComboBoxItem IsSelected="True">no</ComboBoxItem>
+                    <ComboBoxItem>yes</ComboBoxItem>
+                </ComboBox>
                 <TextBlock Text="Display Text:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="DisplayText" Margin="5" Height="70" PreviewKeyDown="DisplayText_OnPreviewKeyDown" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
 
@@ -191,6 +196,7 @@
                             <ContextMenu>
                                 <MenuItem Header="Insert Action Parameter" Click="InsertNewParam_OnClick" />
                                 <MenuItem Header="Format Javascript" Click="FormatJavascript_OnClick" />
+                                <MenuItem Header="Lint Javascript" Click="LintJavascript_OnClick" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>

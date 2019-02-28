@@ -100,17 +100,8 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void StartWebServerButton_OnClick(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                AddonCompiler.Insatnce.WebServer = new WebServerClient();
-                AddonCompiler.Insatnce.WebServer.Start();
-            }
-            catch (Exception ex)
-            {
-                LogManager.AddErrorLog(ex);
-                NotificationManager.PublishErrorNotification($"failed to start web server => {ex.Message}");
-            }
-
+         
+            WebServerManager.StartWebServer();
             Update();
         }
 
@@ -121,7 +112,7 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         public void StopWebServerButton_Click(object sender, RoutedEventArgs e)
         {
-            AddonCompiler.Insatnce.WebServer.Stop();
+            WebServerManager.StopWebServer();
             Update();
         }
 

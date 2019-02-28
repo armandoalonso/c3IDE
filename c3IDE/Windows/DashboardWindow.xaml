@@ -44,6 +44,7 @@
                 </ListBox.ItemTemplate>
                 <ListBox.ContextMenu>
                     <ContextMenu>
+                        <MenuItem Header="Remove Addon" Click="RemoveAddon_Click" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>

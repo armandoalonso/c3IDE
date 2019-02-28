@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using c3IDE.Managers;
 using uhttpsharp;
+using uhttpsharp.Handlers;
 
 namespace c3IDE.Server
 {
@@ -21,11 +22,12 @@ namespace c3IDE.Server
             DefaultMimeType = "application/json";
             MimeTypes = new Dictionary<string, string>
             {
-                {".html", "text/html"},
+                {".html", "text/html; charset=utf-8"},
                 {".json", "application/json"},
                 {".js", "application/javascript"},
                 {".png", "image/png"},
-                {".svg", "image/svg+xml" }
+                {".svg", "image/svg+xml" },
+                {".css", "text/css" },
             };
         }
 
@@ -72,13 +74,28 @@ namespace c3IDE.Server
             //setup cors header / content type
             var responseHeader = new Dictionary<string, string>
             {
-                {"Content-type", GetContentType(path)},
+                //{"Content-Type", GetContentType(path)},
                 {"Access-Control-Allow-Origin", "*"},
                 {"Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"},
             };
             //create response
-            var response = new HttpResponse(HttpResponseCode.Ok, content, responseHeader, false);
-            context.Response = response;
+            var response = new HttpResponse(HttpResponseCode.Ok, GetContentType(path), GenerateStreamFromString(content), false, responseHeader);
+            context.Response = response;       
+        }
+
+        /// <summary>
+        /// generates a stream from a string
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public Stream GenerateStreamFromString(string s)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
         }
     }
 }

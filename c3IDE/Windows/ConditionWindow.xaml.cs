@@ -373,6 +373,8 @@ namespace c3IDE.Windows
             if (_selectedCondition != null)
             {
                 var newId = await WindowManager.ShowInputDialog("New Condition ID", "enter new condition id", string.Empty);
+                if (newId == null) return;
+
                 if (_conditions.ContainsKey(newId))
                 {
                     NotificationManager.PublishErrorNotification("failed to duplicate condition, condition id already exists");
