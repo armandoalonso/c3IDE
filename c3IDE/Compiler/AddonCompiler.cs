@@ -184,7 +184,21 @@ namespace c3IDE.Compiler
             LogManager.CompilerLog.Insert("generating 3rd party files");
             foreach (var files in addon.ThirdPartyFiles.Values)
             {
-                _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), files.Content);
+                switch (files.Extention)
+                {
+                    case ".js":
+                    case ".css":
+                    case ".html":
+                    case ".json":
+                    case ".xml":
+                    case ".txt":
+                        _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), files.Content);
+                        break;
+                    default:
+                        File.WriteAllBytes(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, files.FileName), files.Bytes);
+                        break;
+                }
+
                 LogManager.CompilerLog.Insert($"generating {files.FileName}");
             }
             LogManager.CompilerLog.Insert("generating 3rd party files => complete");

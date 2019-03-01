@@ -8,6 +8,8 @@ namespace c3IDE.Models
         private string _fileName;
         private string _content;
         private string _pluginTemplate;
+        private byte[] _bytes;
+        private string _extention;
 
         public string FileName
         {
@@ -33,6 +35,18 @@ namespace c3IDE.Models
         {
             get => _pluginTemplate;
             set { _pluginTemplate = value; OnPropertyChanged(); }
+        }
+
+        public byte[] Bytes
+        {
+            get => _bytes;
+            set { _bytes = value; OnPropertyChanged(); }
+        }
+
+        public string Extention
+        {
+            get => _extention;
+            set { _extention = value; OnPropertyChanged(); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

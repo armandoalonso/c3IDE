@@ -291,16 +291,29 @@ namespace c3IDE.Windows
                     var info = new FileInfo(file);
                     var filename = info.Name;
                     var content = File.ReadAllText(file);
+                    var bytes = File.ReadAllBytes(file);
 
                     _files.Add(filename, new ThirdPartyFile
                     {
                         Content = content,
                         FileName = filename,
-                        PluginTemplate = TemplateHelper.ThirdPartyFile(filename)
+                        PluginTemplate = TemplateHelper.ThirdPartyFile(filename),
+                        Bytes = bytes,
+                        Extention = info.Extension.ToLower()
                     });
 
-                    AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
+                    switch (info.Extension)
+                    {
+                        case ".js":
+                        case ".css":
+                        case ".html":
+                        case ".json":
+                        case ".xml":
+                        case ".txt":
+                            AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
         ""c3runtime/{filename}"","));
+                            break;
+                    }
 
                     CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(filename, content);
                     FileListBox.ItemsSource = _files;
@@ -359,6 +372,16 @@ namespace c3IDE.Windows
         private void FormatJavascriptMenu_OnClick(object sender, RoutedEventArgs e)
         {
             FileTextEditor.Text = FormatHelper.Insatnce.Json(FileTextEditor.Text);
+        }
+
+        /// <summary>
+        /// lints the selected 3rd party js javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LintJavascript_OnClick(object sender, RoutedEventArgs e)
+        {
+            LintingManager.Lint(FileTextEditor.Text);
         }
     }
 }

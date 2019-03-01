@@ -250,5 +250,25 @@ namespace c3IDE.Windows
         {
             RunTimeInstanceTextEditor.Text = FormatHelper.Insatnce.Javascript(RunTimeInstanceTextEditor.Text);
         }
+
+        /// <summary>
+        /// lints the selected edit time instance javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LintJavascriptEditTime_OnClick(object sender, RoutedEventArgs e)
+        {
+            LintingManager.Lint(EditTimeInstanceTextEditor.Text);
+        }
+
+        // <summary>
+        /// lints the selected run time instance javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LintJavascriptRunTime_OnClick(object sender, RoutedEventArgs e)
+        {
+            LintingManager.Lint(RunTimeInstanceTextEditor.Text);
+        }
     }
 }

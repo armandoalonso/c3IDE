@@ -689,7 +689,7 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private  void LintJavascript_OnClick(object sender, RoutedEventArgs e)
         {
-            LintingManager.Lint(_selectedAction.Code);
+            LintingManager.Lint(CodeTextEditor.Text);
         }
     }
 }

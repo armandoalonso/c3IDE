@@ -365,7 +365,7 @@ const rx_unsafe = /[\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u1
 // identifier
 const rx_identifier = /^([a-zA-Z_$][a-zA-Z0-9_$]*)$/;
 const rx_module = /^[a-zA-Z0-9_$:.@\-\/]+$/;
-const rx_bad_property = /^_|\$|Sync\$|_$/;
+const rx_bad_property = /^\$|Sync\$|_$/;
 // star slash
 const rx_star_slash = /\*\//;
 // slash star
@@ -440,6 +440,7 @@ let tenure;             // The predefined property registry.
 let tree;               // The abstract parse tree.
 let var_mode;           // "var" if using var; "let" if using let.
 let warnings;           // The array collecting all generated warnings.
+
 
 // Error reportage functions:
 
@@ -3087,7 +3088,8 @@ stmt(";", function () {
     return token;
 });
 stmt("{", function () {
-    warn("naked_block", token);
+    //remove naked block warnings
+    //warn("naked_block", token);
     return block("naked");
 });
 stmt("break", function () {
@@ -4243,8 +4245,9 @@ postaction("binary", "(", function (thing) {
     } else if (left.identifier) {
         if (the_new !== undefined) {
             if (
-                left.id[0] > "Z"
-                || left.id === "Boolean"
+                //left.id[0] > "Z"
+                //|| left.id === "Boolean"
+                left.id === "Boolean"
                 || left.id === "Number"
                 || left.id === "String"
                 || left.id === "Symbol"
@@ -4269,9 +4272,10 @@ postaction("binary", "(", function (thing) {
             }
         } else {
             if (
-                left.id[0] >= "A"
-                && left.id[0] <= "Z"
-                && left.id !== "Boolean"
+                //left.id[0] >= "A"
+                //&& left.id[0] <= "Z"
+                //&& left.id !== "Boolean"
+                left.id !== "Boolean"
                 && left.id !== "Number"
                 && left.id !== "String"
                 && left.id !== "Symbol"
@@ -4293,12 +4297,12 @@ postaction("binary", "(", function (thing) {
             if (the_new !== undefined) {
                 warn("unexpected_a", the_new);
             } else {
-                warn(
-                    "expected_a_before_b",
-                    left.expression,
-                    "new",
-                    left.name.id
-                );
+                //warn(
+                //    "expected_a_before_b",
+                //    left.expression,
+                //    "new",
+                //    left.name.id
+                //);
             }
         }
         if (left.name.id === "getTime") {

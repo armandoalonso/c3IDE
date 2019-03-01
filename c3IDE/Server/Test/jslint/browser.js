@@ -82,5 +82,6 @@ let option = {
 //allowed global variables
 let global_string = "C3,SDK,this,extends,lang,super,constructor";
 let source = `[@SOURCE@]`;
+
 call_jslint(source);
 

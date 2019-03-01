@@ -234,6 +234,7 @@
                             <ContextMenu>
                                 <MenuItem Header="Insert Condition Parameter" Click="InsertNewParam_OnClick" />
                                 <MenuItem Header="Format Javascript" Click="FormatJavascript_OnClick" />
+                                <MenuItem Header="Lint Javascript" Click="LintJavascript_OnClick" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>

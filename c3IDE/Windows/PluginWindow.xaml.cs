@@ -335,5 +335,25 @@ namespace c3IDE.Windows
         {
            RunTimePluginTextEditor.Text = FormatHelper.Insatnce.Javascript(RunTimePluginTextEditor.Text);
         }
+
+        /// <summary>
+        /// lints the selected edit time plugin javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LintJavascriptEditTime_OnClick(object sender, RoutedEventArgs e)
+        {
+            LintingManager.Lint(EditTimePluginTextEditor.Text);
+        }
+
+        // <summary>
+        /// lints the selected run time plugin javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LintJavascriptRunTime_OnClick(object sender, RoutedEventArgs e)
+        {
+            LintingManager.Lint(RunTimePluginTextEditor.Text);
+        }
     }
 }
