@@ -1921,37 +1921,37 @@
     "DescriptionText": "Specify an array of script paths to load in the main document context rather than the runtime context. For more information see the section DOM calls in the C3 runtime in Runtime scripts."
   },
   {
-    "Text": "this._info",
+    "Text": "_info",
     "Type": 5,
     "Container": "IPluginInfo IPluginBase",
     "DescriptionText": "Reference to the associated IPluginInfo class."
   },
   {
-    "Text": "this._info",
+    "Text": "_info",
     "Type": 5,
     "Container": "IBehaviorInfo IBehaviorBase",
     "DescriptionText": "Reference to the associated IPluginInfo class."
   },
   {
-    "Text": "this._sdkType",
+    "Text": "_sdkType",
     "Type": 5,
     "Container": "IInstanceBase",
     "DescriptionText": "Reference to the associated SDK type class."
   },
   {
-    "Text": "this._inst",
+    "Text": "_inst",
     "Type": 5,
     "Container": "IInstanceBase",
     "DescriptionText": "Reference to the IObjectInstance interface, or IWorldInstance interface for \"world\" type plugins, representing this instance in the editor. This allows access to Construct's built-in features for instances."
   },
   {
-    "Text": "this._sdkType",
+    "Text": "_sdkType",
     "Type": 5,
     "Container": "IWorldInstanceBase",
     "DescriptionText": "Reference to the associated SDK type class."
   },
   {
-    "Text": "this._inst",
+    "Text": "_inst",
     "Type": 5,
     "Container": "IWorldInstanceBase",
     "DescriptionText": "Reference to the IObjectInstance interface, or IWorldInstance interface for \"world\" type plugins, representing this instance in the editor. This allows access to Construct's built-in features for instances."

@@ -229,7 +229,7 @@ namespace c3IDE.Windows
         {
             if (e.Text.Length > 0 && completionWindow != null)
             {
-                if (!char.IsLetterOrDigit(e.Text[0]))
+                if (!char.IsLetterOrDigit(e.Text[0]) && !char.IsWhiteSpace(e.Text[0]))
                 {
                     // Whenever a non-letter is typed while the completion window is open,
                     // insert the currently selected element.
@@ -434,6 +434,8 @@ namespace c3IDE.Windows
             _actions.Add(id, action);
             ActionListBox.Items.Refresh();
             ActionListBox.SelectedIndex = _actions.Count - 1;
+
+            AddonManager.CurrentAddon.Actions = _actions;
             NewActionWindow.IsOpen = false;
         }
 
