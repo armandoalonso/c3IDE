@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using c3IDE.DataAccess;
 using c3IDE.Models;
 using c3IDE.Templates.c3IDE.Templates;
+using c3IDE.Utilities.Helpers;
+using Newtonsoft.Json;
 
 namespace c3IDE.Managers
 {
@@ -94,6 +97,21 @@ namespace c3IDE.Managers
                 return false;
             }
                 return true;
+        }
+
+        /// <summary>
+        /// creates a c3ide project file in the export folder based on the loaded addon
+        /// </summary>
+        public static void ExportAddonProject()
+        {
+            if (CurrentAddon == null) return;
+            var addonJson = JsonConvert.SerializeObject(CurrentAddon);
+            var timestamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            var name = OptionsManager.CurrentOptions.IncludeTimeStampOnExport
+                ? $"{CurrentAddon.Class}_{timestamp}.c3ide"
+                : $"{CurrentAddon.Class}.c3ide";
+
+            ProcessHelper.Insatnce.WriteFile(Path.Combine(OptionsManager.CurrentOptions.ExportPath, name), addonJson);
         }
 
         /// <summary>

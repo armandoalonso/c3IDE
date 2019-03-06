@@ -60,8 +60,6 @@ namespace c3IDE.Server
             var httpRoot = Path.GetFullPath(HttpRootDirectory ?? ".");
             var path = Path.GetFullPath(Path.Combine(httpRoot, requestPath));
 
-            LogManager.CompilerLog.Insert($"resolved request path = > {path}", "C3");
-
             if (!File.Exists(path))
             {
                 LogManager.CompilerLog.Insert($"file does not exists = > {path}", "ERROR");
@@ -80,6 +78,9 @@ namespace c3IDE.Server
             };
             //create response
             var response = new HttpResponse(HttpResponseCode.Ok, GetContentType(path), GenerateStreamFromString(content), false, responseHeader);
+
+            LogManager.CompilerLog.Insert($"resolved request path = > {response.ResponseCode} : {path}", "C3");
+
             context.Response = response;       
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -73,11 +74,9 @@ namespace c3IDE.Windows
         }
 
         /// <summary>
-        /// compile and test selected addon
+        /// initialize the compilation and test of the loaded addon
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void TestC3AddonButton_Click(object sender, RoutedEventArgs e)
+        public async Task<bool> Test()
         {
             LogText.Text = string.Empty;
             var isValid = await AddonCompiler.Insatnce.CompileAddon(AddonManager.CurrentAddon);
@@ -85,12 +84,23 @@ namespace c3IDE.Windows
             //there was an error detected in complication
             if (!isValid)
             {
-                return;
+                return false;
             }
 
             Update();
             UrlTextBox.Text = $"http://localhost:8080/{AddonManager.CurrentAddon.Class.ToLower()}/addon.json";
             Clipboard.SetText(UrlTextBox.Text);
+            return true;
+        }
+
+        /// <summary>
+        /// compile and test selected addon
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void TestC3AddonButton_Click(object sender, RoutedEventArgs e)
+        {
+            var valid = await Test();
         }
 
         /// <summary>
@@ -246,13 +256,7 @@ namespace c3IDE.Windows
                 return;
             }
 
-            var addonJson = JsonConvert.SerializeObject(AddonManager.CurrentAddon);
-            var timestamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-            var name = OptionsManager.CurrentOptions.IncludeTimeStampOnExport
-                ? $"{AddonManager.CurrentAddon.Class}_{timestamp}.c3ide"
-                : $"{AddonManager.CurrentAddon.Class}.c3ide";
-
-            ProcessHelper.Insatnce.WriteFile(Path.Combine(OptionsManager.CurrentOptions.ExportPath, name), addonJson);
+            AddonManager.ExportAddonProject();
             ProcessHelper.Insatnce.StartProcess(OptionsManager.CurrentOptions.ExportPath);
         }
 
@@ -278,6 +282,7 @@ namespace c3IDE.Windows
                 NotificationManager.PublishErrorNotification("error creating c3addon file, no c3addon selected");
                 return;
             }
+
             AddonExporter.Insatnce.ExportAddon(AddonManager.CurrentAddon);
             ProcessHelper.Insatnce.StartProcess(OptionsManager.CurrentOptions.C3AddonPath);
         }

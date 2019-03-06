@@ -44,7 +44,11 @@
                 </ListBox.ItemTemplate>
                 <ListBox.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Remove Addon" Click="RemoveAddon_Click" />
+                        <MenuItem Header="Compile &amp; Test" Click="CompileAndTest_Click" />
+                        <MenuItem Header="Export Project File" Click="ExportAddonProject_Click" />
+                        <MenuItem Header="Build C3Addon File" Click="BuildSelectedAddon_Click" />
+                        <MenuItem Header="Remove Addon" Click="DeleteSelectedAddon_Click" />
+                        <MenuItem Header="Duplicate Addon" Click="DuplicateSelectedAddon_Click" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>

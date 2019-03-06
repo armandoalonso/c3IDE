@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using c3IDE.Compiler;
 using c3IDE.Managers;
 using c3IDE.Models;
 using c3IDE.Templates;
@@ -212,22 +213,63 @@ namespace c3IDE.Windows
         }
 
         /// <summary>
-        /// remove the selected addon
+        /// exports the cuurently selected addon to c3ide project file
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RemoveAddon_Click(object sender, RoutedEventArgs e)
+        private void ExportAddonProject_Click(object sender, RoutedEventArgs e)
         {
             if (AddonListBox.SelectedIndex == -1)
             {
-                NotificationManager.PublishErrorNotification("error duremoving c3addon, no c3addon selected");
+                NotificationManager.PublishErrorNotification("error exporting c3addon, no c3addon selected");
                 return;
             }
 
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
-            AddonManager.DeleteAddon(currentAddon);
-            AddonListBox.ItemsSource = AddonManager.AllAddons;
-            NotificationManager.PublishNotification($"addon removed successfully");
+            AddonManager.LoadAddon(currentAddon);
+            AddonManager.ExportAddonProject();
+            ProcessHelper.Insatnce.StartProcess(OptionsManager.CurrentOptions.ExportPath);
+
+
+        }
+
+        /// <summary>
+        /// builds the c3addon zip file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BuildSelectedAddon_Click(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                NotificationManager.PublishErrorNotification("error building c3addon, no c3addon selected");
+                return;
+            }
+
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            AddonManager.LoadAddon(currentAddon);
+            AddonExporter.Insatnce.ExportAddon(AddonManager.CurrentAddon);
+            ProcessHelper.Insatnce.StartProcess(OptionsManager.CurrentOptions.C3AddonPath);
+        }
+
+        /// <summary>
+        /// loads compiles and test the selected addon
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CompileAndTest_Click(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                NotificationManager.PublishErrorNotification("error compiling c3addon, no c3addon selected");
+                return;
+            }
+
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            AddonManager.LoadAddon(currentAddon);
+
+            WindowManager.ChangeWindow(ApplicationWindows.TestWidnow);
+            ApplicationWindows.TestWidnow.Test();
         }
     }
 }
