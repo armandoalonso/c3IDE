@@ -257,7 +257,7 @@ namespace c3IDE.Windows
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CompileAndTest_Click(object sender, RoutedEventArgs e)
+        private async void CompileAndTest_Click(object sender, RoutedEventArgs e)
         {
             if (AddonListBox.SelectedIndex == -1)
             {
@@ -269,7 +269,7 @@ namespace c3IDE.Windows
             AddonManager.LoadAddon(currentAddon);
 
             WindowManager.ChangeWindow(ApplicationWindows.TestWidnow);
-            ApplicationWindows.TestWidnow.Test();
+            await ApplicationWindows.TestWidnow.Test();
         }
     }
 }
