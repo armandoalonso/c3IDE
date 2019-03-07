@@ -200,7 +200,9 @@ namespace c3IDE.Windows
                 AddonManager.SaveCurrentAddon();
                 AddonManager.LoadAllAddons();
             });
+
             AddonMetadataGrid.IsEnabled = true;
+            AddonManager.LoadAddon(AddonManager.CurrentAddon);
             NotificationManager.PublishNotification($"{AddonManager.CurrentAddon.Name} has been saved successfully");
             WindowManager.ChangeWindow(ApplicationWindows.DashboardWindow);
         }
