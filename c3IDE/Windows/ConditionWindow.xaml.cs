@@ -74,6 +74,11 @@ namespace c3IDE.Windows
                 if (_conditions.Any())
                 {
                     ConditionListBox.SelectedIndex = 0;
+                    _selectedCondition = _conditions.Values.First();
+                    AceTextEditor.Text = _selectedCondition.Ace;
+                    LanguageTextEditor.Text = _selectedCondition.Language;
+                    CodeTextEditor.Text = _selectedCondition.Code;
+                    Category.Text = _selectedCondition.Category;
                 }
 
             }

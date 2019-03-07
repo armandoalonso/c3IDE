@@ -241,6 +241,7 @@ namespace c3IDE.Windows
 
                     break;
             }
+            AddonCategoryDropdown.SelectedIndex = 0;
         }
     }
 }

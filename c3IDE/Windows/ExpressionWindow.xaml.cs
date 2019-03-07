@@ -72,6 +72,11 @@ namespace c3IDE.Windows
                 if (_expressions.Any())
                 {
                     ExpressionListBox.SelectedIndex = 0;
+                    _selectedExpression = _expressions.Values.First();
+                    AceTextEditor.Text = _selectedExpression.Ace;
+                    LanguageTextEditor.Text = _selectedExpression.Language;
+                    CodeTextEditor.Text = _selectedExpression.Code;
+                    Category.Text = _selectedExpression.Category;
                 }
             }
             else

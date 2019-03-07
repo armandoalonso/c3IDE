@@ -71,6 +71,11 @@ namespace c3IDE.Windows
                 if (_actions.Any())
                 {
                     ActionListBox.SelectedIndex = 0;
+                    _selectedAction = _actions.Values.First();
+                    AceTextEditor.Text = _selectedAction.Ace;
+                    LanguageTextEditor.Text = _selectedAction.Language;
+                    CodeTextEditor.Text = _selectedAction.Code;
+                    Category.Text = _selectedAction.Category;
                 }
             }
             else
