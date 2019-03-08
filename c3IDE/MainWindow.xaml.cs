@@ -11,6 +11,7 @@ using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Search;
 using c3IDE.Windows;
 using c3IDE.Windows.Interfaces;
+using ControlzEx.Standard;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
@@ -318,7 +319,8 @@ namespace c3IDE
         /// <param name="window"></param>
         public void NavigateToWindow(IWindow window)
         {
-            ActiveItem.Content = window;
+            var activeItem = AddonManager.CurrentAddon.Type == PluginType.Effect ? ActiveItemEffect : ActiveItem;
+            activeItem.Content = window;
             //window.OnEnter();
         }
 
