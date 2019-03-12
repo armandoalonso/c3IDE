@@ -6,12 +6,7 @@
 			"{{company | string.downcase}}_{{class | string.downcase}}": {
 				"name": "{{name}}",
 				"description": "{{description}}",
-				"parameters": {
-					"color": {
-						"name": "Color",
-						"desc": "Color to set over the image."
-					}
-				}
+				"parameters": {}
 			}
 		}
 	}

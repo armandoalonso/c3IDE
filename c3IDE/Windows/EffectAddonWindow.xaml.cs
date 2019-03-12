@@ -150,7 +150,7 @@ namespace c3IDE.Windows
                     break;
 
                 case "color":
-                    template = $@"{{""id"":""{id}"",""type"": ""{type}"",""initial-value"":@COLOR@,""uniform"": ""{uniform}""}}{comma}";
+                    template = $@"{{""id"":""{id}"",""type"": ""{type}"",""initial-value"":[1,0,0],""uniform"": ""{uniform}""}}{comma}";
                     break;
 
                 case "percent":
@@ -161,7 +161,11 @@ namespace c3IDE.Windows
                     throw new ArgumentException();
             }
 
-            AddonTextEditor.Text = FormatHelper.Insatnce.Json(compress.Replace("parameters\":[", $"parameters\":[{template}")).Replace("@COLOR@", "[1,0,0]");
+            AddonTextEditor.Text = FormatHelper.Insatnce.Json(compress.Replace("parameters\":[", $"parameters\":[{template}"));
+            AddonManager.CurrentAddon.EffectAddon = AddonTextEditor.Text;
+            
+            //todo: need to update effect language maybe redesign effect layouts
+
             NewPropertyWindow.IsOpen = false;
         }
 
