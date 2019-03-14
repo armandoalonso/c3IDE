@@ -319,6 +319,11 @@ namespace c3IDE
         /// <param name="window"></param>
         public void NavigateToWindow(IWindow window)
         {
+            if (AddonManager.CurrentAddon == null)
+            {
+                return;
+            }
+
             var activeItem = AddonManager.CurrentAddon.Type == PluginType.Effect ? ActiveItemEffect : ActiveItem;
             activeItem.Content = window;
             //window.OnEnter();
