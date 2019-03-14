@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="c3IDE.Windows.EffectParameter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:c3IDE.Windows"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
+    <Grid Margin="10" Name="EffectParameterGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Column="0" LastChildFill="True" Margin="10">
+            <Button Name="RemoveParameter" Content="Remove Parameter" Margin="2" Click="RemoveParameter_OnClick" DockPanel.Dock="Bottom"></Button>
+            <Button Name="AddParameter" Content="Add New Parameter" Margin="2" Click="AddParameter_OnClick" DockPanel.Dock="Bottom"></Button>
+            <TextBox Name="Category" DockPanel.Dock="Bottom" Margin="2" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" TextChanged="Category_OnTextChanged"></TextBox>
+            <TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource TextBlockStyle}">Category</TextBlock>
+            <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Actions</TextBlock>
+            <ListBox Name="ActionListBox" DockPanel.Dock="Top"  Margin="2" Background="{DynamicResource ListBoxBackColor}" 
+                      BorderThickness="1" BorderBrush="{DynamicResource ListBoxBorder}" ItemsSource="{Binding}"  SelectionChanged="ActionListBox_OnSelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2">
+                            <TextBlock Text="{Binding Key}" VerticalAlignment="Center"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add Action" Click="AddAction_OnClick" />
+                        <MenuItem Header="Insert Action Parameter" Click="InsertNewParam_OnClick" />
+                        <MenuItem Header="Remove Action" Click="RemoveAction_OnClick" />
+                        <MenuItem Header="Change Action Category" Click="ChangeCategory_OnClick" />
+                        <MenuItem Header="Duplicate Action" Click="DuplicateAce_OnClick" />
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+        </DockPanel>
+    </Grid>
+</UserControl>

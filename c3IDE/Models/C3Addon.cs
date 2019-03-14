@@ -67,10 +67,12 @@ namespace c3IDE.Models
         public string LanguageProperties { get; set; }
         public string LanguageCategories { get; set; }
 
-        //effect property
+        //effect files
         public string EffectAddon { get; set; }
         public string EffectLanguage { get; set; }
         public string EffectCode { get; set; }
+
+        public Effect Effect { get; set; }
 
         [BsonIgnore]
         public List<string> Categories  {

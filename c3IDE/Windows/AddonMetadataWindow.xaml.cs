@@ -165,6 +165,7 @@ namespace c3IDE.Windows
                 Description = string.Empty,
                 AddonCategory = string.Empty,
                 Type = PluginType.SingleGlobalPlugin,
+                Effect = new Effect(),
                 IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg"),
                 CreateDate = DateTime.Now
             };

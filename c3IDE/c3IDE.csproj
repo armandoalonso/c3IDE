@@ -168,6 +168,7 @@
     <Compile Include="Managers\ThemeManager.cs" />
     <Compile Include="Managers\WebServerManager.cs" />
     <Compile Include="Managers\WindowManager.cs" />
+    <Compile Include="Models\Effect.cs" />
     <Compile Include="Models\LogMessage.cs" />
     <Compile Include="Models\ThirdPartyFile.cs" />
     <Compile Include="Server\C3FileHandler.cs" />
@@ -250,6 +251,12 @@
     <Compile Include="Windows\EffectLanguageWindow.xaml.cs">
       <DependentUpon>EffectLanguageWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\EffectParameter.xaml.cs">
+      <DependentUpon>EffectParameter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EffectProperties.xaml.cs">
+      <DependentUpon>EffectProperties.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ExpressionWindow.xaml.cs">
       <DependentUpon>ExpressionWindow.xaml</DependentUpon>
     </Compile>
@@ -319,6 +326,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\EffectLanguageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EffectParameter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EffectProperties.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
