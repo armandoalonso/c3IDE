@@ -94,8 +94,14 @@ namespace c3IDE.Compiler
             }
             else
             {
-                isValid = TryAction(() => FormatHelper.Insatnce.Json(addon.EffectLanguage, false));
-                if (!isValid) { LogManager.CompilerLog.Insert($"failed validation on effect language json"); return false; } else { LogManager.CompilerLog.Insert($"effect language json is valid json"); }
+                foreach (var parameter in addon.Effect.Parameters.Values)
+                {
+                    isValid = TryAction(() => JObject.Parse(parameter.Json));
+                    if (!isValid) { LogManager.CompilerLog.Insert($"failed validation on effect param : {parameter.Key} addon.json"); return false; } else { LogManager.CompilerLog.Insert($"effect param : {parameter.Key}, addon.json is valid json"); }
+
+                    isValid = TryAction(() => FormatHelper.Insatnce.Json(parameter.Lang, true));
+                    if (!isValid) { LogManager.CompilerLog.Insert($"failed validation on effect param : {parameter.Key} lang.json"); return false; } else { LogManager.CompilerLog.Insert($"effect param : {parameter.Key} lang.json, is valid json"); }
+                }
             }
             return true;
         }

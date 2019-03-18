@@ -228,15 +228,15 @@ namespace c3IDE.Compiler
 
             //generate simple files
             LogManager.CompilerLog.Insert($"generating addon.json");
-            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "addon.json"), LogManager.CompilerLog.WrapLogger(() => FormatHelper.Insatnce.Json(addon.AddonJson)));
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "addon.json"), CompileEffectAddon(addon));
             LogManager.CompilerLog.Insert($"generating addon.json => complete");
 
             LogManager.CompilerLog.Insert($"generating effect.fx ");
-            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "effect.fx"), addon.EffectCode);
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "effect.fx"), addon.Effect.Code);
             LogManager.CompilerLog.Insert($"generating effect.fx  => complete");
 
             LogManager.CompilerLog.Insert($"generating en-US.json");
-            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "lang", "en-US.json"), LogManager.CompilerLog.WrapLogger(() => FormatHelper.Insatnce.Json(addon.EffectLanguage)));
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "lang", "en-US.json"), CompileEffectLang(addon));
             LogManager.CompilerLog.Insert($"generating en-US.json => complete");
 
             //write files to path
@@ -444,6 +444,65 @@ namespace c3IDE.Compiler
 
             return $@"{{
     {string.Join(",\n", categoryAce)}
+}}";
+        }
+
+        private string CompileEffectAddon(C3Addon addon)
+        {
+            var parameters = string.Join(",\n", addon.Effect.Parameters.Select(x => x.Value.Json));
+
+            return $@"{{
+	""is-c3-addon"": true,
+	""type"": ""effect"",
+	""name"": ""{addon.Name}"",
+	""id"": ""{addon.Company}_{addon.Class}"",
+	""version"": ""{addon.Version}"",
+	""author"": ""{addon.Version}"",
+	""website"": ""https://www.construct.net"",
+	""documentation"": ""https://www.construct.net"",
+	""description"": ""{addon.Description}"",
+	""file-list"": [
+		""lang/en-US.json"",
+		""addon.json"",
+		""effect.fx""
+	],
+	
+	""category"": ""{addon.AddonCategory}"",
+	""blends-background"": false,
+	""cross-sampling"": false,
+	""preserves-opaqueness"": true,
+	""animated"": false,
+	""must-predraw"" : ""false"",
+
+	""extend-box"": {{
+		""horizontal"": 0,
+		""vertical"": 0
+	}},
+	
+	""parameters"": [
+        {parameters}
+	]
+}}";
+        }
+
+        private string CompileEffectLang(C3Addon addon)
+        {
+            var parameters = string.Join(",\n", addon.Effect.Parameters.Select(x => x.Value.Lang));
+
+            return $@"{{
+	""languageTag"": ""en-US"",
+	""fileDescription"": ""Strings for the '{addon.Class}' effect."",
+	""text"": {{
+		""effects"": {{
+			""{addon.Company.ToLower()}_{addon.Class.ToLower()}"": {{
+				""name"": ""{addon.Name}"",
+				""description"": ""{addon.Description}"",
+				""parameters"": {{
+					{parameters}
+				}}
+			}}
+		}}
+	}}
 }}";
         }
     }

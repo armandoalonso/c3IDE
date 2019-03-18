@@ -27,8 +27,9 @@ namespace c3IDE.Managers
             ApplicationWindows.PluginWindow,
             ApplicationWindows.TypeWindow,
             ApplicationWindows.InstanceWindow,
-            ApplicationWindows.FxAddonWindow,
-            ApplicationWindows.FxCodeWindow,
+            ApplicationWindows.EffectPropertiesWindow,
+            ApplicationWindows.EffectParameterWindow,
+            ApplicationWindows.EffectCodeWindow,
             ApplicationWindows.LanguageWindow
         };
 

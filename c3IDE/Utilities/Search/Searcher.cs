@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using c3IDE.DataAccess;
@@ -82,9 +83,13 @@ namespace c3IDE.Utilities.Search
             }
             else
             {
-                UpdateFileIndex("addon.json", addon.AddonJson, ApplicationWindows.FxAddonWindow);
-                UpdateFileIndex("fxcode.js", addon.EffectCode, ApplicationWindows.FxCodeWindow);
-                UpdateFileIndex("fxlang.js", addon.EffectLanguage, ApplicationWindows.FxLanguageWindow);
+                UpdateFileIndex("fxcode.js", addon.Effect.Code, ApplicationWindows.EffectCodeWindow);
+
+                foreach (var param in addon.Effect.Parameters)
+                {
+                    UpdateFileIndex($"fxparam_{param.Key}_json", addon.Effect.Parameters[param.Key].Json, ApplicationWindows.EffectParameterWindow);
+                    UpdateFileIndex($"fxparam_{param.Key}_lang", addon.Effect.Parameters[param.Key].Lang, ApplicationWindows.EffectParameterWindow);
+                }
             }
         }
 
@@ -140,9 +145,12 @@ namespace c3IDE.Utilities.Search
             }
             else
             {
-                addon.AddonJson = string.Join("\n", FileIndex["addon.json"].Select(x => x.Value.Line));
-                addon.EffectCode = string.Join("\n", FileIndex["fxcode.js"].Select(x => x.Value.Line));
-                addon.EffectLanguage = string.Join("\n", FileIndex["fxlang.js"].Select(x => x.Value.Line));
+                addon.Effect.Code = string.Join("\n", FileIndex["fxcode.js"].Select(x => x.Value.Line));
+                foreach (var param in addon.Effect.Parameters)
+                {
+                    addon.Effect.Parameters[param.Key].Json = string.Join("\n", FileIndex[$"fxparam_{param.Key}_json"].Select(x => x.Value.Line));
+                    addon.Effect.Parameters[param.Key].Lang = string.Join("\n", FileIndex[$"fxparam_{param.Key}_lang"].Select(x => x.Value.Line));
+                }
             }
 
             AddonManager.CurrentAddon = addon;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -30,6 +31,15 @@ namespace c3IDE.Models
         {
             get => _lang;
             set { _lang = value; OnPropertyChanged(); }
+        }
+
+        public string Uniform
+        {
+            get
+            {
+                var ti = new CultureInfo("en-US", false).TextInfo;
+                return ti.ToTitleCase(_key.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

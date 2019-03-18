@@ -21,10 +21,10 @@ namespace c3IDE.Managers
         public static LanguageWindow LanguageWindow = new LanguageWindow();
         public static TestWindow TestWidnow = new TestWindow();
         public static OptionsWindow OptionsWindow = new OptionsWindow();
-        public static EffectAddonWindow FxAddonWindow = new EffectAddonWindow();
-        public static EffectCodeWindow FxCodeWindow = new EffectCodeWindow();
-        public static EffectLanguageWindow FxLanguageWindow = new EffectLanguageWindow();
         public static PopoutCompileWindow PopoutCompileWindow;
         public static SearchAndReplaceWindow FindAndReplaceWindow = new SearchAndReplaceWindow();
+        public static EffectPropertiesWindow EffectPropertiesWindow = new EffectPropertiesWindow();
+        public static EffectParameterWindow EffectParameterWindow = new EffectParameterWindow();
+        public static EffectCodeWindow EffectCodeWindow = new EffectCodeWindow();
     }
 }

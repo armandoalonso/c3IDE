@@ -67,6 +67,7 @@ namespace c3IDE.Managers
             CurrentAddon = null;
             DataAccessFacade.Insatnce.AddonData.Delete(addon);
             LoadAllAddons();
+            WindowManager.ChangeWindow(ApplicationWindows.DashboardWindow);
         }
 
         /// <summary>
@@ -135,9 +136,7 @@ namespace c3IDE.Managers
             CurrentAddon.LanguageCategories = CurrentAddon.Template.LanguageCategory;
 
             //compile effect template
-            CurrentAddon.EffectAddon = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.AddonJson, CurrentAddon);
-            CurrentAddon.EffectCode = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.EffectCode, CurrentAddon);
-            CurrentAddon.EffectLanguage = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.EffectLangauge, CurrentAddon);
+            CurrentAddon.Effect.Code = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.EffectCode, CurrentAddon);
         }
     }
 }

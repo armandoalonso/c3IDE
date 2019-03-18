@@ -68,9 +68,9 @@ namespace c3IDE.Models
         public string LanguageCategories { get; set; }
 
         //effect files
-        public string EffectAddon { get; set; }
-        public string EffectLanguage { get; set; }
-        public string EffectCode { get; set; }
+        //public string EffectAddon { get; set; }
+        //public string EffectLanguage { get; set; }
+        //public string EffectCode { get; set; }
 
         public Effect Effect { get; set; }
 

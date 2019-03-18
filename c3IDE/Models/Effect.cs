@@ -8,6 +8,11 @@ namespace c3IDE.Models
 {
     public class Effect
     {
+        public Effect()
+        {
+            Parameters = new Dictionary<string, EffectParameter>();
+        }
+
         public bool BlendsBackground { get; set; } = false;
         public bool CrossSampling { get; set; } = false;
         public bool PreservesOpaqueness { get; set; } = false;
@@ -16,6 +21,7 @@ namespace c3IDE.Models
         public int ExtendBoxHorizontal { get; set; } = 0;
         public int ExtendBoxVertical { get; set; } = 0;
 
-        public List<EffectParameter> Parameters { get; set; }
+        public Dictionary<string, EffectParameter> Parameters { get; set; }
+        public string Code { get; set; } = string.Empty;
     }
 }

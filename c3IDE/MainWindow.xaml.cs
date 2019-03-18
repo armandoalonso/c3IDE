@@ -150,14 +150,7 @@ namespace c3IDE
                 case "Addon":
                     if (CheckIfAddonLoaded())
                     {
-                        if (AddonManager.CurrentAddon.Type == PluginType.Effect)
-                        {
-                            WindowManager.ChangeWindow(ApplicationWindows.FxAddonWindow);
-                        }
-                        else
-                        {
-                            WindowManager.ChangeWindow(ApplicationWindows.AddonWindow);
-                        }
+                        WindowManager.ChangeWindow(ApplicationWindows.AddonWindow);  
                     }
                     break;
                 case "Plugin":
@@ -165,7 +158,6 @@ namespace c3IDE
                     {
                         WindowManager.ChangeWindow(ApplicationWindows.PluginWindow);
                     }
-                    
                     break;
                 case "Type":
                     if (CheckIfAddonLoaded())
@@ -197,23 +189,29 @@ namespace c3IDE
                         WindowManager.ChangeWindow(ApplicationWindows.ExpressionWindow);
                     }
                     break;
-                case "Effect":
-                    if (CheckIfAddonLoaded())
-                    {
-                        WindowManager.ChangeWindow(ApplicationWindows.FxCodeWindow);
-                    }
-                    break;
                 case "Language":
                     if (CheckIfAddonLoaded())
                     {
-                        if (AddonManager.CurrentAddon.Type == PluginType.Effect)
-                        {
-                            WindowManager.ChangeWindow(ApplicationWindows.FxLanguageWindow);
-                        }
-                        else
-                        {
-                            WindowManager.ChangeWindow(ApplicationWindows.LanguageWindow);
-                        }
+                         WindowManager.ChangeWindow(ApplicationWindows.LanguageWindow);
+                    }
+                    break;
+                    //effect
+                case "Properties":
+                    if (CheckIfAddonLoaded())
+                    {
+                        WindowManager.ChangeWindow(ApplicationWindows.EffectPropertiesWindow);
+                    }
+                    break;
+                case "Parameters":
+                    if (CheckIfAddonLoaded())
+                    {
+                        WindowManager.ChangeWindow(ApplicationWindows.EffectParameterWindow);
+                    }
+                    break;
+                case "Code":
+                    if (CheckIfAddonLoaded())
+                    {
+                        WindowManager.ChangeWindow(ApplicationWindows.EffectCodeWindow);
                     }
                     break;
                 case "Test":
@@ -296,20 +294,27 @@ namespace c3IDE
             WindowManager.ClearAllWindows();
             var addon = AddonManager.CurrentAddon;
 
-            if (addon.Type == PluginType.Effect)
+            if (addon == null )
+            {
+                DefaultMainMenu.Visibility = Visibility.Visible;
+                EffectMainMenu.Visibility = Visibility.Collapsed;
+                ActiveItem.Content = ApplicationWindows.DashboardWindow;
+            }
+
+            else if (addon.Type == PluginType.Effect)
             {
                 DefaultMainMenu.Visibility = Visibility.Collapsed;
                 EffectMainMenu.Visibility = Visibility.Visible;
                 ActiveItemEffect.Content = ApplicationWindows.DashboardWindow;
             }
+
             else
             {
                 DefaultMainMenu.Visibility = Visibility.Visible;
                 EffectMainMenu.Visibility = Visibility.Collapsed;
-                ActiveItemEffect.Content = ApplicationWindows.DashboardWindow;
-
                 CodeCompletionFactory.Insatnce.ParseAddon(addon);
                 Searcher.Insatnce.ParseAddon(addon);
+                ActiveItem.Content = ApplicationWindows.DashboardWindow;
             }
         }
 
@@ -319,14 +324,20 @@ namespace c3IDE
         /// <param name="window"></param>
         public void NavigateToWindow(IWindow window)
         {
-            if (AddonManager.CurrentAddon == null)
+            if (AddonManager.CurrentAddon == null || AddonManager.CurrentAddon.Type != PluginType.Effect)
             {
-                return;
+                DefaultMainMenu.Visibility = Visibility.Visible;
+                EffectMainMenu.Visibility = Visibility.Collapsed;
+                ActiveItem.Content = window;
+            }
+            else
+            {
+                DefaultMainMenu.Visibility = Visibility.Collapsed;
+                EffectMainMenu.Visibility = Visibility.Visible;
+                ActiveItemEffect.Content = window;
             }
 
-            var activeItem = AddonManager.CurrentAddon.Type == PluginType.Effect ? ActiveItemEffect : ActiveItem;
-            activeItem.Content = window;
-            //window.OnEnter();
+          //window.OnEnter();
         }
 
         /// <summary>
