@@ -161,9 +161,7 @@
     <Compile Include="Utilities\Extentions\DictionaryExtentions.cs" />
     <Compile Include="Utilities\Extentions\StringExtentions.cs" />
     <Compile Include="Utilities\Helpers\ControlHelper.cs" />
-    <Compile Include="Utilities\Search\FindAndReplaceHelper.cs" />
     <Compile Include="Utilities\Helpers\TextEditorHelper.cs" />
-    <Compile Include="Utilities\Logging\LogManager.cs" />
     <Compile Include="Utilities\Search\Searcher.cs" />
     <Compile Include="Utilities\Search\SearchResult.cs" />
     <Compile Include="Utilities\SyntaxHighlighting\AvaloneEditColorizer.cs" />
@@ -220,9 +218,6 @@
     </Compile>
     <Compile Include="Windows\DashboardWindow.xaml.cs">
       <DependentUpon>DashboardWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\EffectAddonWindow.xaml.cs">
-      <DependentUpon>EffectAddonWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\EffectCodeWindow.xaml.cs">
       <DependentUpon>EffectCodeWindow.xaml</DependentUpon>
@@ -304,10 +299,6 @@
     <Page Include="Windows\EffectPropertiesWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\EffectLanguageWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\ExpressionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -366,7 +357,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="c3IDE_1_TemporaryKey.pfx" />
     <EmbeddedResource Include="Examples\Example_Log.c3ide" />
     <EmbeddedResource Include="Examples\Example_FSM.c3ide" />
     <None Include="c3IDE_TemporaryKey.pfx" />
@@ -635,6 +625,12 @@
     <Content Include="c3ide_icon_AaX_icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Server\Test\jslint\browser.js" />
+    <Content Include="Server\Test\jslint\function.html" />
+    <Content Include="Server\Test\jslint\jslint.css" />
+    <Content Include="Server\Test\jslint\jslint.js" />
+    <Content Include="Server\Test\jslint\report.html" />
+    <Content Include="Server\Test\jslint\report.js" />
     <EmbeddedResource Include="Templates\Files\SingleGlobal\language_category.txt" />
   </ItemGroup>
   <ItemGroup>
