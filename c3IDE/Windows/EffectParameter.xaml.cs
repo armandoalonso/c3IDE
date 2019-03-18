@@ -12,17 +12,60 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using c3IDE.Windows.Interfaces;
 
 namespace c3IDE.Windows
 {
     /// <summary>
     /// Interaction logic for EffectParameter.xaml
     /// </summary>
-    public partial class EffectParameter : UserControl
+    public partial class EffectParameter : UserControl, IWindow
     {
+        public string DisplayName { get; set; }
+
         public EffectParameter()
         {
             InitializeComponent();
+        }
+
+        public void OnEnter()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnExit()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddParameter_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void RemoveParameter_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ParameterListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FormatJsonEffect_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

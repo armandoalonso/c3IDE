@@ -15,5 +15,7 @@ namespace c3IDE.Models
         public bool MustPredraw { get; set; } = false;
         public int ExtendBoxHorizontal { get; set; } = 0;
         public int ExtendBoxVertical { get; set; } = 0;
+
+        public List<EffectParameter> Parameters { get; set; }
     }
 }

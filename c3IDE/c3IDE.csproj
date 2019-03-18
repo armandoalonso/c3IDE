@@ -169,6 +169,7 @@
     <Compile Include="Managers\WebServerManager.cs" />
     <Compile Include="Managers\WindowManager.cs" />
     <Compile Include="Models\Effect.cs" />
+    <Compile Include="Models\EffectParameter.cs" />
     <Compile Include="Models\LogMessage.cs" />
     <Compile Include="Models\ThirdPartyFile.cs" />
     <Compile Include="Server\C3FileHandler.cs" />

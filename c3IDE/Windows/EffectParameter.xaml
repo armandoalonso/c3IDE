@@ -16,11 +16,9 @@
         <DockPanel Grid.Column="0" LastChildFill="True" Margin="10">
             <Button Name="RemoveParameter" Content="Remove Parameter" Margin="2" Click="RemoveParameter_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="AddParameter" Content="Add New Parameter" Margin="2" Click="AddParameter_OnClick" DockPanel.Dock="Bottom"></Button>
-            <TextBox Name="Category" DockPanel.Dock="Bottom" Margin="2" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" TextChanged="Category_OnTextChanged"></TextBox>
-            <TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource TextBlockStyle}">Category</TextBlock>
-            <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Actions</TextBlock>
-            <ListBox Name="ActionListBox" DockPanel.Dock="Top"  Margin="2" Background="{DynamicResource ListBoxBackColor}" 
-                      BorderThickness="1" BorderBrush="{DynamicResource ListBoxBorder}" ItemsSource="{Binding}"  SelectionChanged="ActionListBox_OnSelectionChanged">
+            <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Parameters</TextBlock>
+            <ListBox Name="ParameterListBox" DockPanel.Dock="Top"  Margin="2" Background="{DynamicResource ListBoxBackColor}" 
+                      BorderThickness="1" BorderBrush="{DynamicResource ListBoxBorder}" ItemsSource="{Binding}"  SelectionChanged="ParameterListBox_OnSelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="2">
@@ -31,14 +29,49 @@
 
                 <ListBox.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Add Action" Click="AddAction_OnClick" />
-                        <MenuItem Header="Insert Action Parameter" Click="InsertNewParam_OnClick" />
-                        <MenuItem Header="Remove Action" Click="RemoveAction_OnClick" />
-                        <MenuItem Header="Change Action Category" Click="ChangeCategory_OnClick" />
-                        <MenuItem Header="Duplicate Action" Click="DuplicateAce_OnClick" />
+                        <MenuItem Header="Add Parameter" Click="AddParameter_OnClick" />
+                        <MenuItem Header="Remove Parameter" Click="RemoveParameter_OnClick" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>
         </DockPanel>
+
+        <TabControl Grid.Column="1">
+            <TabItem Header="Json" Background="Transparent">
+                <avalonEdit:TextEditor
+                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                    Name="AddonTextEditor"
+                    FontFamily="Consolas"
+                    SyntaxHighlighting="JavaScript"
+                    FontSize="10pt"
+                    ShowLineNumbers="True"
+                    PreviewKeyDown="TextEditor_OnPreviewKeyDown">
+                    <avalonEdit:TextEditor.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Format Json" Click="FormatJsonEffect_OnClick" />
+                        </ContextMenu>
+                    </avalonEdit:TextEditor.ContextMenu>
+                </avalonEdit:TextEditor>
+            </TabItem>
+        </TabControl>
+
+        <TabControl Grid.Column="2">
+            <TabItem Header="Lang" Background="Transparent">
+                <avalonEdit:TextEditor
+                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                    Name="LangTextEditor"
+                    FontFamily="Consolas"
+                    SyntaxHighlighting="JavaScript"
+                    FontSize="10pt"
+                    ShowLineNumbers="True"
+                    PreviewKeyDown="TextEditor_OnPreviewKeyDown">
+                    <avalonEdit:TextEditor.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Format Json" Click="FormatJsonEffect_OnClick" />
+                        </ContextMenu>
+                    </avalonEdit:TextEditor.ContextMenu>
+                </avalonEdit:TextEditor>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>
