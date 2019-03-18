@@ -33,7 +33,7 @@
     <ProductName>c3IDE</ProductName>
     <PublisherName>Piranha305</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>28</ApplicationRevision>
+    <ApplicationRevision>30</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -135,6 +135,18 @@
     <Compile Include="DataAccess\DataAccessFacade.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
     <Compile Include="DataAccess\OptionReposiroty.cs" />
+    <Compile Include="Managers\AddonManager.cs" />
+    <Compile Include="Managers\ApplicationWindows.cs" />
+    <Compile Include="Managers\LintingManager.cs" />
+    <Compile Include="Managers\LogManager.cs" />
+    <Compile Include="Managers\NotificationManager.cs" />
+    <Compile Include="Managers\OptionsManager.cs" />
+    <Compile Include="Managers\ThemeManager.cs" />
+    <Compile Include="Managers\WebServerManager.cs" />
+    <Compile Include="Managers\WindowManager.cs" />
+    <Compile Include="Models\Effect.cs" />
+    <Compile Include="Models\EffectParameter.cs" />
+    <Compile Include="Models\LogMessage.cs" />
     <Compile Include="Models\ThirdPartyFile.cs" />
     <Compile Include="Server\C3FileHandler.cs" />
     <Compile Include="Server\WebServerClient.cs" />
@@ -149,9 +161,7 @@
     <Compile Include="Utilities\Extentions\DictionaryExtentions.cs" />
     <Compile Include="Utilities\Extentions\StringExtentions.cs" />
     <Compile Include="Utilities\Helpers\ControlHelper.cs" />
-    <Compile Include="Utilities\Search\FindAndReplaceHelper.cs" />
     <Compile Include="Utilities\Helpers\TextEditorHelper.cs" />
-    <Compile Include="Utilities\Logging\LogManager.cs" />
     <Compile Include="Utilities\Search\Searcher.cs" />
     <Compile Include="Utilities\Search\SearchResult.cs" />
     <Compile Include="Utilities\SyntaxHighlighting\AvaloneEditColorizer.cs" />
@@ -209,14 +219,14 @@
     <Compile Include="Windows\DashboardWindow.xaml.cs">
       <DependentUpon>DashboardWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\EffectAddonWindow.xaml.cs">
-      <DependentUpon>EffectAddonWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\EffectCodeWindow.xaml.cs">
       <DependentUpon>EffectCodeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\EffectLanguageWindow.xaml.cs">
-      <DependentUpon>EffectLanguageWindow.xaml</DependentUpon>
+    <Compile Include="Windows\EffectParameterWindow.xaml.cs">
+      <DependentUpon>EffectParameterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EffectPropertiesWindow.xaml.cs">
+      <DependentUpon>EffectPropertiesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ExpressionWindow.xaml.cs">
       <DependentUpon>ExpressionWindow.xaml</DependentUpon>
@@ -278,17 +288,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\EffectAddonWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\EffectCodeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\EffectLanguageWindow.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Windows\EffectParameterWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\EffectPropertiesWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\ExpressionWindow.xaml">
       <SubType>Designer</SubType>
@@ -348,9 +358,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="c3IDE_1_TemporaryKey.pfx" />
     <EmbeddedResource Include="Examples\Example_Log.c3ide" />
     <EmbeddedResource Include="Examples\Example_FSM.c3ide" />
+    <None Include="c3IDE_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

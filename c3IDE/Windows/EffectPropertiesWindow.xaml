@@ -31,15 +31,13 @@
                 <ComboBoxItem>true</ComboBoxItem>
             </ComboBox>
 
-            <TextBlock Style="{DynamicResource TextBlockStyle}">Extend Box :</TextBlock>
-
             <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Horizontal :</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Extend Box Horizontal:</TextBlock>
                 <TextBox Name="extendBoxH" DockPanel.Dock="Right" Text="0"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Vertical :</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Extend Box Vertical:</TextBlock>
                 <TextBox Name="extendBoxV" DockPanel.Dock="Right" Text="0"></TextBox>
             </DockPanel>
         </StackPanel>
