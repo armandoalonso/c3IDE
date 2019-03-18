@@ -24,7 +24,8 @@ namespace c3IDE.Utilities.CodeCompletion
         {
             this.Text = text;
             this.DescriptionText = description;
-            this.Type = type;
+            //todo: type was removed to make all completion items equtable by text
+            //this.Type = type;
             //todo : remove iconf or now until we get a better way to identify the types
             //this.Image = CompletionTypeFactory.Insatnce.GetIcon(this.Type);
             this.Container = string.Empty;
@@ -35,7 +36,8 @@ namespace c3IDE.Utilities.CodeCompletion
         public string Text { get; }
         [JsonIgnore]
         public object Content => $"{Text}";
-        public CompletionType Type { get; }
+
+        public CompletionType Type => CompletionType.Misc;
         public string Container { get; set; }
         public string DescriptionText { get; set; }
         [JsonIgnore]
@@ -47,7 +49,7 @@ namespace c3IDE.Utilities.CodeCompletion
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return string.Equals(Text, other.Text) && Type == other.Type && string.Equals(Container, other.Container);
+            return string.Equals(Text, other.Text);
         }
 
         public override bool Equals(object obj)
@@ -63,8 +65,6 @@ namespace c3IDE.Utilities.CodeCompletion
             unchecked
             {
                 var hashCode = (Text != null ? Text.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (int) Type;
-                hashCode = (hashCode * 397) ^ (Container != null ? Container.GetHashCode() : 0);
                 return hashCode;
             }
         }

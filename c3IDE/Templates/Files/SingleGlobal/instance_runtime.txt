@@ -6,6 +6,7 @@
 		{
 			super(inst);
 			
+			
 			if (properties)
 			{
 			}

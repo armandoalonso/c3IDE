@@ -2,23 +2,13 @@
 using c3IDE.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using c3IDE.Utilities;
+using c3IDE.Managers;
 using c3IDE.Utilities.Helpers;
-using c3IDE.Utilities.Logging;
-using c3IDE.Utilities.ThemeEngine;
 using c3IDE.Windows.Interfaces;
 
 
@@ -29,10 +19,11 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class OptionsWindow : UserControl, IWindow
     {
-        //properties
         public string DisplayName { get; set; } = "Options";
 
-        //ctor
+        /// <summary>
+        /// option window constructor
+        /// </summary>
         public OptionsWindow()
         {
             InitializeComponent();
@@ -45,40 +36,43 @@ namespace c3IDE.Windows
                 "Palatino Linotype, Book Antiqua, Palatino, serif", "Lucida Sans Unicode, Lucida Grande, sans-serif");
         }
 
-        //window states
+        /// <summary>
+        /// handles when the options windows get focus
+        /// </summary>
         public void OnEnter()
         {
-            CompilePathText.Text = AppData.Insatnce.Options.CompilePath;
-            ExportPathText.Text = AppData.Insatnce.Options.ExportPath;
-            DataPathText.Text = AppData.Insatnce.Options.DataPath;
-            DefaultAuthorTextBox.Text = AppData.Insatnce.Options.DefaultAuthor;
-            //DefaultCompanyTextBox.Text = AppData.Insatnce.Options.DefaultCompany;
-            C3AddonPathText.Text = AppData.Insatnce.Options.C3AddonPath;
-            FontSizeCombo.Text = AppData.Insatnce.Options.FontSize.ToString();
-            FontFamilyCombo.Text = AppData.Insatnce.Options.FontFamily;
-            ThemeCombo.Text = AppData.Insatnce.Options.ThemeKey;
-            IncludeTimeStamp.IsChecked = AppData.Insatnce.Options.IncludeTimeStampOnExport;
-            OpenC3InWeb.IsChecked = AppData.Insatnce.Options.OpenC3InWeb;
-            C3DesktopPathText.Text = AppData.Insatnce.Options.C3DesktopPath;
-            PinMainMenu.IsChecked = AppData.Insatnce.Options.PinMenu;
-            CompileOnSave.IsChecked = AppData.Insatnce.Options.CompileOnSave;
+            CompilePathText.Text = OptionsManager.CurrentOptions.CompilePath;
+            ExportPathText.Text = OptionsManager.CurrentOptions.ExportPath;
+            DataPathText.Text = OptionsManager.CurrentOptions.DataPath;
+            DefaultAuthorTextBox.Text = OptionsManager.CurrentOptions.DefaultAuthor;
+            C3AddonPathText.Text = OptionsManager.CurrentOptions.C3AddonPath;
+            FontSizeCombo.Text = OptionsManager.CurrentOptions.FontSize.ToString(CultureInfo.CurrentCulture);
+            FontFamilyCombo.Text = OptionsManager.CurrentOptions.FontFamily;
+            ThemeCombo.Text = OptionsManager.CurrentOptions.ThemeKey;
+            IncludeTimeStamp.IsChecked = OptionsManager.CurrentOptions.IncludeTimeStampOnExport;
+            OpenC3InWeb.IsChecked = OptionsManager.CurrentOptions.OpenC3InWeb;
+            C3DesktopPathText.Text = OptionsManager.CurrentOptions.C3DesktopPath;
+            PinMainMenu.IsChecked = OptionsManager.CurrentOptions.PinMenu;
+            CompileOnSave.IsChecked = OptionsManager.CurrentOptions.CompileOnSave;
         }
 
+        /// <summary>
+        /// handles whne the option window loses focus
+        /// </summary>
         public void OnExit()
         {
-            if (AppData.Insatnce.Options != null)
+            if (OptionsManager.CurrentOptions != null)
             {
-                AppData.Insatnce.Options = new Options
+                OptionsManager.CurrentOptions = new Options
                 {
-                    CompilePath = !string.IsNullOrWhiteSpace(CompilePathText.Text) ? CompilePathText.Text : App.DefaultOptions.CompilePath,
-                    ExportPath = !string.IsNullOrWhiteSpace(ExportPathText.Text) ? ExportPathText.Text : App.DefaultOptions.ExportPath ,
-                    DataPath = !string.IsNullOrWhiteSpace(DataPathText.Text) ? DataPathText.Text : App.DefaultOptions.DataPath,
-                    //DefaultCompany = !string.IsNullOrWhiteSpace(DefaultCompanyTextBox.Text) ? DefaultCompanyTextBox.Text : App.DefaultOptions.DefaultCompany, 
-                    DefaultAuthor = !string.IsNullOrWhiteSpace(DefaultAuthorTextBox.Text) ? DefaultAuthorTextBox.Text : App.DefaultOptions.DefaultAuthor,
-                    C3AddonPath = !string.IsNullOrWhiteSpace(C3AddonPathText.Text) ? C3AddonPathText.Text : App.DefaultOptions.C3AddonPath,
+                    CompilePath = !string.IsNullOrWhiteSpace(CompilePathText.Text) ? CompilePathText.Text : OptionsManager.DefaultOptions.CompilePath,
+                    ExportPath = !string.IsNullOrWhiteSpace(ExportPathText.Text) ? ExportPathText.Text : OptionsManager.DefaultOptions.ExportPath ,
+                    DataPath = !string.IsNullOrWhiteSpace(DataPathText.Text) ? DataPathText.Text : OptionsManager.DefaultOptions.DataPath,
+                    DefaultAuthor = !string.IsNullOrWhiteSpace(DefaultAuthorTextBox.Text) ? DefaultAuthorTextBox.Text : OptionsManager.DefaultOptions.DefaultAuthor,
+                    C3AddonPath = !string.IsNullOrWhiteSpace(C3AddonPathText.Text) ? C3AddonPathText.Text : OptionsManager.DefaultOptions.C3AddonPath,
                     FontSize = Convert.ToDouble(FontSizeCombo.Text),
-                    FontFamily = !string.IsNullOrWhiteSpace(FontFamilyCombo.Text) ? FontFamilyCombo.Text : App.DefaultOptions.FontFamily,
-                    ThemeKey = !string.IsNullOrWhiteSpace(ThemeCombo.Text) ? ThemeCombo.Text : App.DefaultOptions.ThemeKey,
+                    FontFamily = !string.IsNullOrWhiteSpace(FontFamilyCombo.Text) ? FontFamilyCombo.Text : OptionsManager.DefaultOptions.FontFamily,
+                    ThemeKey = !string.IsNullOrWhiteSpace(ThemeCombo.Text) ? ThemeCombo.Text : OptionsManager.DefaultOptions.ThemeKey,
                     IncludeTimeStampOnExport = IncludeTimeStamp.IsChecked != null && IncludeTimeStamp.IsChecked.Value,
                     OpenC3InWeb = OpenC3InWeb.IsChecked != null && OpenC3InWeb.IsChecked.Value,
                     C3DesktopPath = C3DesktopPathText.Text.Contains(".exe") ? C3DesktopPathText.Text : System.IO.Path.Combine(C3DesktopPathText.Text, "Construct3.exe"),
@@ -87,35 +81,47 @@ namespace c3IDE.Windows
                 };
 
                 //create exports folder if it does not exists
-                if (!System.IO.Directory.Exists(AppData.Insatnce.Options.DataPath)) Directory.CreateDirectory(AppData.Insatnce.Options.DataPath);
-                if (!System.IO.Directory.Exists(AppData.Insatnce.Options.ExportPath)) Directory.CreateDirectory(AppData.Insatnce.Options.ExportPath);
-                if (!System.IO.Directory.Exists(AppData.Insatnce.Options.CompilePath)) Directory.CreateDirectory(AppData.Insatnce.Options.CompilePath);
-                if (!System.IO.Directory.Exists(AppData.Insatnce.Options.C3AddonPath)) Directory.CreateDirectory(AppData.Insatnce.Options.C3AddonPath);
+                if (!System.IO.Directory.Exists(OptionsManager.CurrentOptions.DataPath)) Directory.CreateDirectory(OptionsManager.CurrentOptions.DataPath);
+                if (!System.IO.Directory.Exists(OptionsManager.CurrentOptions.ExportPath)) Directory.CreateDirectory(OptionsManager.CurrentOptions.ExportPath);
+                if (!System.IO.Directory.Exists(OptionsManager.CurrentOptions.CompilePath)) Directory.CreateDirectory(OptionsManager.CurrentOptions.CompilePath);
+                if (!System.IO.Directory.Exists(OptionsManager.CurrentOptions.C3AddonPath)) Directory.CreateDirectory(OptionsManager.CurrentOptions.C3AddonPath);
 
                 //persist options
-                DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
+                OptionsManager.SaveOptions();
             }
         }
 
+        /// <summary>
+        /// clears all options inputs
+        /// </summary>
         public void Clear()
         {
         }
 
-        //buttons
+        /// <summary>
+        /// wipes all data in local database (clears addon list, options...)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ClearDataButton_Click(object sender, RoutedEventArgs e)
         {
-            var result = await AppData.Insatnce.ShowDialog("Delete saved addon data", "All saved addon's will be deleted");
+            var result = await WindowManager.ShowDialog("Delete saved addon data", "All saved addon's will be deleted");
 
             if (result)
             {
                 DataAccessFacade.Insatnce.AddonData.ResetCollection();
-                DataAccessFacade.Insatnce.OptionData.Delete(AppData.Insatnce.Options);
-                AppData.Insatnce.CurrentAddon = null;
-                AppData.Insatnce.AddonList = new List<C3Addon>();
-                AppData.Insatnce.Options = App.DefaultOptions;
+                DataAccessFacade.Insatnce.OptionData.Delete(OptionsManager.CurrentOptions);
+                AddonManager.CurrentAddon = null;
+                AddonManager.AllAddons= new List<C3Addon>();
+                OptionsManager.CurrentOptions = OptionsManager.DefaultOptions;
             }
         }
 
+        /// <summary>
+        /// opens the compiled folder
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenCompiledButton_OnClick(object sender, RoutedEventArgs e)
         {
             try
@@ -124,11 +130,16 @@ namespace c3IDE.Windows
             }
             catch (Exception ex)
             {
-                LogManager.Insatnce.Exceptions.Add(ex);
-                AppData.Insatnce.ErrorMessage($"error opening compiled folder, {ex.Message}");
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"error opening compiled folder, {ex.Message}");
             }
         }
 
+        /// <summary>
+        /// opens export folder
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenExportButton_OnClick(object sender, RoutedEventArgs e)
         {
             try
@@ -137,11 +148,16 @@ namespace c3IDE.Windows
             }
             catch (Exception ex)
             {
-                LogManager.Insatnce.Exceptions.Add(ex);
-                AppData.Insatnce.ErrorMessage($"error opening export folder, {ex.Message}");
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"error opening export folder, {ex.Message}");
             }
         }
 
+        /// <summary>
+        /// opens data folder
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenDataButton_OnClick(object sender, RoutedEventArgs e)
         {
             try
@@ -150,23 +166,16 @@ namespace c3IDE.Windows
             }
             catch (Exception ex)
             {
-                LogManager.Insatnce.Exceptions.Add(ex);
-                AppData.Insatnce.ErrorMessage($"error opening data folder, {ex.Message}");
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"error opening data folder, {ex.Message}");
             }
         }
 
-        private void ResetOptionsButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            AppData.Insatnce.Options = App.DefaultOptions;
-            DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
-
-            //create exports folder if it does not exists
-            if (!System.IO.Directory.Exists(AppData.Insatnce.Options.DataPath)) Directory.CreateDirectory(AppData.Insatnce.Options.DataPath);
-            if (!System.IO.Directory.Exists(AppData.Insatnce.Options.ExportPath)) Directory.CreateDirectory(AppData.Insatnce.Options.ExportPath);
-            if (!System.IO.Directory.Exists(AppData.Insatnce.Options.CompilePath)) Directory.CreateDirectory(AppData.Insatnce.Options.CompilePath);
-            if (!System.IO.Directory.Exists(AppData.Insatnce.Options.C3AddonPath)) Directory.CreateDirectory(AppData.Insatnce.Options.C3AddonPath);
-        }
-
+        /// <summary>
+        /// opens c3addon folder
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenAddonButton_OnClick(object sender, RoutedEventArgs e)
         {
             try
@@ -175,52 +184,98 @@ namespace c3IDE.Windows
             }
             catch (Exception ex)
             {
-                LogManager.Insatnce.Exceptions.Add(ex);
-                AppData.Insatnce.ErrorMessage($"error opening c3addon folder, {ex.Message}");
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"error opening c3addon folder, {ex.Message}");
             }
         }
 
+        /// <summary>
+        /// resets current options to default values
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ResetOptionsButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            OptionsManager.CurrentOptions = OptionsManager.DefaultOptions;
+            OptionsManager.SaveOptions();
+
+            //create exports folder if it does not exists
+            if (!System.IO.Directory.Exists(OptionsManager.CurrentOptions.DataPath)) Directory.CreateDirectory(OptionsManager.CurrentOptions.DataPath);
+            if (!System.IO.Directory.Exists(OptionsManager.CurrentOptions.ExportPath)) Directory.CreateDirectory(OptionsManager.CurrentOptions.ExportPath);
+            if (!System.IO.Directory.Exists(OptionsManager.CurrentOptions.CompilePath)) Directory.CreateDirectory(OptionsManager.CurrentOptions.CompilePath);
+            if (!System.IO.Directory.Exists(OptionsManager.CurrentOptions.C3AddonPath)) Directory.CreateDirectory(OptionsManager.CurrentOptions.C3AddonPath);
+        }
+        
+        /// <summary>
+        /// handles when the font size combo box is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FontSizeCombo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var size = Convert.ToDouble(FontSizeCombo.Text);
-            AppData.Insatnce.Options.FontSize = size;
-            DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
+            OptionsManager.CurrentOptions.FontSize = size;
+            OptionsManager.SaveOptions();
         }
 
+        /// <summary>
+        /// handles when the font family combo box changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FontFamilyCombo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var font = FontFamilyCombo.Text;
-            AppData.Insatnce.Options.FontFamily = font;
+            OptionsManager.CurrentOptions.FontFamily = font;
             FontFamilyCombo.FontFamily = new FontFamily(font);
-            DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
+            OptionsManager.SaveOptions();
         }
 
+        /// <summary>
+        /// handles when the theme combo box changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ThemeCombo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selection = ((ComboBoxItem)ThemeCombo.SelectedItem).Content;
-            AppData.Insatnce.Options.ThemeKey = selection.ToString();
-            AppData.Insatnce.SetupTheme();
-            DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
-            //AppData.Insatnce.ThemeChangedEvent(ThemeResolver.Insatnce.Resolve(selection));
+            OptionsManager.CurrentOptions.ThemeKey = selection.ToString();
+            OptionsManager.SaveOptions();
+            ThemeManager.SetupTheme();
         }
 
+        /// <summary>
+        /// open change log page on github
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenChangeLog_OnClick(object sender, RoutedEventArgs e)
         {
             ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://github.com/armandoalonso/c3IDE/blob/master/CHANGELOG.md");
         }
 
+        /// <summary>
+        /// handles when the pin menu is checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PinMainMenu_OnChecked(object sender, RoutedEventArgs e)
         {
-            AppData.Insatnce.Options.PinMenu = PinMainMenu.IsChecked != null && PinMainMenu.IsChecked.Value;
-            AppData.Insatnce.OptionChanged(AppData.Insatnce.Options);
-            DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
+            OptionsManager.CurrentOptions.PinMenu = PinMainMenu.IsChecked != null && PinMainMenu.IsChecked.Value;
+            OptionsManager.OptionChangedCallback(OptionsManager.CurrentOptions);
+            OptionsManager.SaveOptions();
         }
 
+        /// <summary>
+        /// handles when the compile saved button is checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CompileOnSave_OnChecked(object sender, RoutedEventArgs e)
         {
-            AppData.Insatnce.Options.CompileOnSave = CompileOnSave.IsChecked != null && CompileOnSave.IsChecked.Value;
-            AppData.Insatnce.OptionChanged(AppData.Insatnce.Options);
-            DataAccessFacade.Insatnce.OptionData.Upsert(AppData.Insatnce.Options);
+            OptionsManager.CurrentOptions.CompileOnSave = CompileOnSave.IsChecked != null && CompileOnSave.IsChecked.Value;
+            OptionsManager.OptionChangedCallback(OptionsManager.CurrentOptions);
+            OptionsManager.SaveOptions();
         }
     }
 }

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using System.Windows.Media.Imaging;
 using c3IDE.Templates;
-using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
 using LiteDB;
 using Newtonsoft.Json;
@@ -24,6 +20,7 @@ namespace c3IDE.Models
         public string Version { get; set; }
         public string Description { get; set; }
         public string AddonFolder { get; set; }
+        public string AddonCategory { get; set; } = "other";
 
         public PluginType Type { get; set; }
 
@@ -70,9 +67,12 @@ namespace c3IDE.Models
         public string LanguageProperties { get; set; }
         public string LanguageCategories { get; set; }
 
-        //effect property
-        public string EffectLanguage { get; set; }
-        public string EffectCode { get; set; }
+        //effect files
+        //public string EffectAddon { get; set; }
+        //public string EffectLanguage { get; set; }
+        //public string EffectCode { get; set; }
+
+        public Effect Effect { get; set; }
 
         [BsonIgnore]
         public List<string> Categories  {

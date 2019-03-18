@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="c3IDE.exe" size="748544">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="c3IDE.exe" size="955392">
       <assemblyIdentity name="c3IDE" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>/QJrm/mfBjDnQgv1gK8rD+xtS18mU2wPDn0BtyrWJ60=</dsig:DigestValue>
+        <dsig:DigestValue>HYU/aFygheBF6fBF2+nfp+cWpfZkYHUd8MbzzG+HOMQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -207,6 +207,18 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>OlbalCD+SFvOVXwQ6M6146FR9cGir0Y3G9x17fh6UaM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WebSocket4Net.dll" size="90624">
+      <assemblyIdentity name="WebSocket4Net" version="0.14.1.0" publicKeyToken="EB4E154B696BF72A" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>LiUy8Aqhg0RVcGbTwqmpXbsOgQk+SJQVRwTeUIB5cNU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

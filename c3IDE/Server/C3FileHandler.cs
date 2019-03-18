@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using c3IDE.Compiler;
+using c3IDE.Managers;
 using uhttpsharp;
-using uhttpsharp.Headers;
+using uhttpsharp.Handlers;
 
 namespace c3IDE.Server
 {
@@ -13,43 +13,56 @@ namespace c3IDE.Server
         public static string DefaultMimeType { get; set; }
         public static string HttpRootDirectory { get; set; }
         public static IDictionary<string, string> MimeTypes { get; private set; }
-        public static CompilerLog Logger { get; set; }
 
+        /// <summary>
+        /// static constructor for c3 middleware
+        /// </summary>
         static C3FileHandler()
         {
             DefaultMimeType = "application/json";
             MimeTypes = new Dictionary<string, string>
             {
+                {".html", "text/html; charset=utf-8"},
                 {".json", "application/json"},
                 {".js", "application/javascript"},
                 {".png", "image/png"},
-                {".svg", "image/svg+xml" }
+                {".svg", "image/svg+xml" },
+                {".css", "text/css" },
             };
         }
 
+        /// <summary>
+        /// resolve mime type from path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         private string GetContentType(string path)
         {
             var extension = Path.GetExtension(path) ?? string.Empty;
             if (MimeTypes.ContainsKey(extension))
             {
-                Logger.Insert($"mime type for response => {MimeTypes[extension]}", "C3");
+                LogManager.CompilerLog.Insert($"mime type for response => {MimeTypes[extension]}", "C3");
                 return MimeTypes[extension];
             }
-            Logger.Insert($"default mime type for response => {DefaultMimeType}", "C3");
+            LogManager.CompilerLog.Insert($"default mime type for response => {DefaultMimeType}", "C3");
             return DefaultMimeType;
         }
 
+        /// <summary>
+        /// handles a request for c3 static file
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="next"></param>
+        /// <returns></returns>
         public async Task Handle(IHttpContext context, Func<Task> next)
         {
             var requestPath = context.Request.Uri.OriginalString.TrimStart('/');
             var httpRoot = Path.GetFullPath(HttpRootDirectory ?? ".");
             var path = Path.GetFullPath(Path.Combine(httpRoot, requestPath));
 
-            Logger.Insert($"resolved request path = > {path}", "C3");
-
             if (!File.Exists(path))
             {
-                Logger.Insert($"file does not exists = > {path}", "ERROR");
+                LogManager.CompilerLog.Insert($"file does not exists = > {path}", "ERROR");
                 await next().ConfigureAwait(false);
                 return;
             }
@@ -59,13 +72,31 @@ namespace c3IDE.Server
             //setup cors header / content type
             var responseHeader = new Dictionary<string, string>
             {
-                {"Content-type", GetContentType(path)},
+                //{"Content-Type", GetContentType(path)},
                 {"Access-Control-Allow-Origin", "*"},
                 {"Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"},
             };
             //create response
-            var response = new HttpResponse(HttpResponseCode.Ok, content, responseHeader, false);
-            context.Response = response;
+            var response = new HttpResponse(HttpResponseCode.Ok, GetContentType(path), GenerateStreamFromString(content), false, responseHeader);
+
+            LogManager.CompilerLog.Insert($"resolved request path = > {response.ResponseCode} : {path}", "C3");
+
+            context.Response = response;       
+        }
+
+        /// <summary>
+        /// generates a stream from a string
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public Stream GenerateStreamFromString(string s)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
         }
     }
 }

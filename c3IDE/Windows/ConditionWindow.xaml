@@ -130,7 +130,7 @@
 
         <DockPanel Grid.Column="0" LastChildFill="True" Margin="10">
             <UniformGrid Columns="4" DockPanel.Dock="Top">
-                <Button Content="Deafult" Click="DeafultView_OnClick"></Button>
+                <Button Content="Deafult" Click="DefaultView_OnClick"></Button>
                 <Button Content="Json" Click="AceView_OnClick"></Button>
                 <Button Content="Lang" Click="LangView_OnClick"></Button>
                 <Button Content="Code" Click="CodeView_OnClick"></Button>
@@ -234,6 +234,7 @@
                             <ContextMenu>
                                 <MenuItem Header="Insert Condition Parameter" Click="InsertNewParam_OnClick" />
                                 <MenuItem Header="Format Javascript" Click="FormatJavascript_OnClick" />
+                                <MenuItem Header="Lint Javascript" Click="LintJavascript_OnClick" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>

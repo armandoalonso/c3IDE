@@ -174,7 +174,7 @@
     "DescriptionText": "Set the tile at a given position in tiles. Use -1 to set a tile empty; otherwise use bit operations to combine the tile ID and flags."
   },
   {
-    "Text": "this._runtime",
+    "Text": "_runtime",
     "Type": 5,
     "Container": "SDKBehaviorBase",
     "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
@@ -204,31 +204,31 @@
     "DescriptionText": "Return a read-only array of Instance that use this kind of behavior. The order is undefined."
   },
   {
-    "Text": "this._behInst",
+    "Text": "_behInst",
     "Type": 5,
     "Container": "SDKBehaviorInstance",
     "DescriptionText": "Reference to the BehaviorInstance representing this behavior instance in the runtime. This allows access to Construct's built-in runtime features for behavior instances."
   },
   {
-    "Text": "this._inst",
+    "Text": "_inst",
     "Type": 5,
     "Container": "SDKBehaviorInstance",
     "DescriptionText": "Reference to the Instance representing the associated instance in the runtime. This is the object instance that the behavior can control."
   },
   {
-    "Text": "this._runtime",
+    "Text": "_runtime",
     "Type": 5,
     "Container": "SDKBehaviorInstance",
     "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
   },
   {
-    "Text": "this._behaviorType",
+    "Text": "_behaviorType",
     "Type": 5,
     "Container": "SDKBehaviorInstance",
     "DescriptionText": "Reference to the BehaviorType representing the behavior type that this instance belongs to."
   },
   {
-    "Text": "this._sdkType",
+    "Text": "_sdkType",
     "Type": 5,
     "Container": "SDKBehaviorInstance",
     "DescriptionText": "Reference to your addon's SDK behavior type class, which derives from SDKBehaviorTypeBase."
@@ -402,25 +402,25 @@
     "DescriptionText": "Convenience method to run an expression method with the given parameters. Returns the value returned by the expression. For example: const value = this.CallExpression(C3.Behaviors.MyAddon.Exps.MyExpression)"
   },
   {
-    "Text": "this._objectClass",
+    "Text": "_objectClass",
     "Type": 5,
     "Container": "SDKBehaviorTypeBase",
     "DescriptionText": "Reference to the ObjectClass representing the object type that this behavior type belongs to."
   },
   {
-    "Text": "this._behaviorType",
+    "Text": "_behaviorType",
     "Type": 5,
     "Container": "SDKBehaviorTypeBase",
     "DescriptionText": "Reference to the BehaviorType representing this behavior type in the runtime."
   },
   {
-    "Text": "this._runtime",
+    "Text": "_runtime",
     "Type": 5,
     "Container": "SDKBehaviorTypeBase",
     "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
   },
   {
-    "Text": "this._behavior",
+    "Text": "_behavior",
     "Type": 5,
     "Container": "SDKBehaviorTypeBase",
     "DescriptionText": "Reference to your addon's SDK behavior class, which derives from SDKBehaviorBase."
@@ -450,25 +450,25 @@
     "DescriptionText": "Returns this._behavior publicly."
   },
   {
-    "Text": "this._inst",
+    "Text": "_inst",
     "Type": 5,
     "Container": "SDKInstanceBase",
     "DescriptionText": "Reference to the Instance representing this instance in the runtime. This allows access to Construct's built-in runtime features for instances."
   },
   {
-    "Text": "this._runtime",
+    "Text": "_runtime",
     "Type": 5,
     "Container": "SDKInstanceBase",
     "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
   },
   {
-    "Text": "this._objectClass",
+    "Text": "_objectClass",
     "Type": 5,
     "Container": "SDKInstanceBase",
     "DescriptionText": "Reference to the ObjectClass representing the object type that this instance belongs to."
   },
   {
-    "Text": "this._sdkType",
+    "Text": "_sdkType",
     "Type": 5,
     "Container": "SDKInstanceBase",
     "DescriptionText": "Reference to your addon's SDK type class, which derives from SDKTypeBase."
@@ -612,7 +612,7 @@
     "DescriptionText": "Convenience method to run an expression method with the given parameters. Returns the value returned by the expression. For example: const value = this.CallExpression(C3.Plugins.MyAddon.Exps.MyExpression)"
   },
   {
-    "Text": "this._runtime",
+    "Text": "_runtime",
     "Type": 5,
     "Container": "SDKPluginBase",
     "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
@@ -660,19 +660,19 @@
     "DescriptionText": "Return a boolean indicating if the plugin specified it could have effects added to its instances."
   },
   {
-    "Text": "this._objectClass",
+    "Text": "_objectClass",
     "Type": 5,
     "Container": "SDKTypeBase",
     "DescriptionText": "Reference to the ObjectClass representing the object type that this instance belongs to."
   },
   {
-    "Text": "this._runtime",
+    "Text": "_runtime",
     "Type": 5,
     "Container": "SDKTypeBase",
     "DescriptionText": "Reference to the associated Runtime that controls execution of the project."
   },
   {
-    "Text": "this._plugin",
+    "Text": "_plugin",
     "Type": 5,
     "Container": "SDKTypeBase",
     "DescriptionText": "Reference to your addon's SDK plugin class, which derives from SDKPluginBase."
@@ -714,7 +714,7 @@
     "DescriptionText": "Optional override called by the runtime when a dynamic texture load has completed. If an object is created at runtime that does not already have its textures loaded, the runtime will call LoadTextures() but continue running the game while the textures are loaded asynchronously. When they finish loading, the runtime then calls this override so you have an opportunity to update any references to the newly loaded texture."
   },
   {
-    "Text": "this._worldInfo",
+    "Text": "_worldInfo",
     "Type": 5,
     "Container": "SDKWorldInstanceBase",
     "DescriptionText": "Return the WorldInfo object that represents this instance's state in the \"world\" (e.g. its size, position, angle etc). In the runtime this is held as a separate object."

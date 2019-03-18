@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace c3IDE.Templates
+﻿namespace c3IDE.Templates
 {
     public interface ITemplate
     {
@@ -19,6 +13,7 @@ namespace c3IDE.Templates
         string ActionLanguage { get; }
         string ActionCode { get; }
         string LanguageProperty { get; }
+        string LanguageCategory { get; }
         string ExpressionLanguage { get; }
 
         string EffectCode { get; }

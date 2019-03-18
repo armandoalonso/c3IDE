@@ -50,8 +50,8 @@
                             
                             <ListBox.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Add Javascript File" Click="AddFileMenu_OnClick" />
-                                    <MenuItem Header="Remove Javascript File" Click="RemoveFileMenu_OnClick" />
+                                    <MenuItem Header="Add Javascript File" Click="AddFile_OnClick" />
+                                    <MenuItem Header="Remove Javascript File" Click="RemoveFile_OnClick" />
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
@@ -69,6 +69,7 @@
 
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
+                                <MenuItem Header="Lint Javascript" Click="LintJavascript_OnClick" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>

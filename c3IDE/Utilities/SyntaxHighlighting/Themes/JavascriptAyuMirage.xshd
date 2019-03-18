@@ -21,6 +21,7 @@
 
   <RuleSet ignoreCase="false">
     <Keywords color="Keywords">
+      <Word>async</Word>
       <Word>abstract</Word>
       <Word>arguments</Word>
       <Word>await</Word>

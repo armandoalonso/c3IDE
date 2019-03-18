@@ -7,9 +7,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using c3IDE.DataAccess;
+using c3IDE.Managers;
 using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
-using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
@@ -18,7 +18,6 @@ using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
-using c3IDE.Utilities.ThemeEngine;
 using ICSharpCode.AvalonEdit;
 using Condition = c3IDE.Models.Condition;
 
@@ -29,34 +28,113 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class ConditionWindow : UserControl, IWindow
     {
-        //properties
         public string DisplayName { get; set; } = "Conditions";
         private Dictionary<string, Condition> _conditions;
         private Condition _selectedCondition;
         private CompletionWindow completionWindow;
 
-        //ctor
+        /// <summary>
+        /// condition window constructor 
+        /// </summary>
         public ConditionWindow()
         {
             InitializeComponent();
 
             CodeTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             CodeTextEditor.TextArea.TextEntered += CodeTextEditor_TextEntered;
-            CodeTextEditor.Options.EnableEmailHyperlinks = false;
-            CodeTextEditor.Options.EnableHyperlinks = false;
-
             AceTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             AceTextEditor.TextArea.TextEntered += AceTextEditor_TextEntered;
-            AceTextEditor.Options.EnableEmailHyperlinks = false;
-            AceTextEditor.Options.EnableHyperlinks = false;
-
             LanguageTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             LanguageTextEditor.TextArea.TextEntered += LanguageTextEditor_TextEntered;
+
+            AceTextEditor.Options.EnableEmailHyperlinks = false;
+            AceTextEditor.Options.EnableHyperlinks = false;
+            CodeTextEditor.Options.EnableEmailHyperlinks = false;
+            CodeTextEditor.Options.EnableHyperlinks = false;
             LanguageTextEditor.Options.EnableEmailHyperlinks = false;
             LanguageTextEditor.Options.EnableHyperlinks = false;
         }
 
-        //editor events
+
+        /// <summary>
+        /// handles the condition window getting focus
+        /// </summary>
+        public void OnEnter()
+        {
+            ThemeManager.SetupTextEditor(AceTextEditor, Syntax.Json);
+            ThemeManager.SetupTextEditor(LanguageTextEditor, Syntax.Json);
+            ThemeManager.SetupTextEditor(CodeTextEditor, Syntax.Javascript);
+
+            if (AddonManager.CurrentAddon != null)
+            {
+
+                _conditions = AddonManager.CurrentAddon.Conditions;
+                ConditionListBox.ItemsSource = _conditions;
+
+                if (_conditions.Any())
+                {
+                    ConditionListBox.SelectedIndex = 0;
+                    _selectedCondition = _conditions.Values.First();
+                    AceTextEditor.Text = _selectedCondition.Ace;
+                    LanguageTextEditor.Text = _selectedCondition.Language;
+                    CodeTextEditor.Text = _selectedCondition.Code;
+                    Category.Text = _selectedCondition.Category;
+                }
+
+            }
+            else
+            {
+                ConditionListBox.ItemsSource = null;
+                AceTextEditor.Text = string.Empty;
+                LanguageTextEditor.Text = string.Empty;
+                CodeTextEditor.Text = string.Empty;
+                Category.Text = string.Empty;
+            }
+
+        }
+
+        /// <summary>
+        /// handles when condition window loses focus
+        /// </summary>
+        public void OnExit()
+        {
+            if (AddonManager.CurrentAddon != null)
+            {
+                //save the current selected action
+                if (_selectedCondition != null)
+                {
+                    _selectedCondition.Ace = AceTextEditor.Text;
+                    _selectedCondition.Language = LanguageTextEditor.Text;
+                    _selectedCondition.Code = CodeTextEditor.Text;
+                    _selectedCondition.Category = Category.Text;
+                    _conditions[_selectedCondition.Id] = _selectedCondition;
+                }
+
+                AddonManager.CurrentAddon.Conditions = _conditions;
+                AddonManager.SaveCurrentAddon();
+            }
+
+        }
+
+        /// <summary>
+        /// clears all input in action window
+        /// </summary>
+        public void Clear()
+        {
+            _conditions = new Dictionary<string, Condition>();
+            _selectedCondition = null;
+            ConditionListBox.ItemsSource = null;
+            AceTextEditor.Text = string.Empty;
+            CodeTextEditor.Text = string.Empty;
+            LanguageTextEditor.Text = string.Empty;
+            Category.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// handles auto completion and parsing language
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LanguageTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -82,6 +160,11 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// handles auto completion and parsing language
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AceTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -107,6 +190,11 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// handles auto completion and parsing code
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CodeTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -143,11 +231,16 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// this handles when to insert the value being used by the auto completion window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextEditor_TextEntering(object sender, TextCompositionEventArgs e)
         {
             if (e.Text.Length > 0 && completionWindow != null)
             {
-                if (!char.IsLetterOrDigit(e.Text[0]))
+                if (!char.IsLetterOrDigit(e.Text[0]) && !char.IsWhiteSpace(e.Text[0]))
                 {
                     // Whenever a non-letter is typed while the completion window is open,
                     // insert the currently selected element.
@@ -158,6 +251,11 @@ namespace c3IDE.Windows
             // We still want to insert the character that was typed.
         }
 
+        /// <summary>
+        /// this handles keyboard shortcuts
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
@@ -169,16 +267,43 @@ namespace c3IDE.Windows
             else if (e.Key == Key.F1)
             {
                 //AppData.Insatnce.GlobalSave(false);
-                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_ace", AceTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
-                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_lang", LanguageTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
-                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_code", CodeTextEditor.Text, AppData.Insatnce.MainWindow._actionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_ace", AceTextEditor.Text, ApplicationWindows.ConditionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_lang", LanguageTextEditor.Text, ApplicationWindows.ConditionWindow);
+                Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_code", CodeTextEditor.Text, ApplicationWindows.ConditionWindow);
                 var editor = ((TextEditor)sender);
                 var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text, this);
             }
         }
 
-        //completion window
+        /// <summary>
+        /// handles auto completion in the display text textbox for bbc codes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DisplayText_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            var currentIndex = DisplayText.CaretIndex;
+            if (e.Key == Key.OemOpenBrackets && (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) != 0)
+            {
+                e.Handled = true;
+                DisplayText.Text = DisplayText.Text.Insert(DisplayText.CaretIndex, "{}");
+                DisplayText.CaretIndex = currentIndex + 1;
+
+            }
+            else if (e.Key == Key.OemOpenBrackets)
+            {
+                e.Handled = true;
+                DisplayText.Text = DisplayText.Text.Insert(DisplayText.CaretIndex, "[]");
+                DisplayText.CaretIndex = currentIndex + 1;
+            }
+        }
+
+        /// <summary>
+        /// this shows the suto completion window
+        /// </summary>
+        /// <param name="textArea"></param>
+        /// <param name="completionList"></param>
         private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
         {
             //if any data matches show completion list
@@ -196,7 +321,99 @@ namespace c3IDE.Windows
             completionWindow.Closed += delegate { completionWindow = null; };
         }
 
-        //button clicks
+        /// <summary>
+        /// shows the add condition child window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddCondition_OnClick(object sender, RoutedEventArgs e)
+        {
+            ConditionIdText.Text = "condition-id";
+            ConditionCategoryText.Text = "custom";
+            ConditionListNameText.Text = "On Condition";
+            HighlightDropdown.SelectedIndex = 0;
+            TriggerDropdown.SelectedIndex = 0;
+            FakeTriggerDropdown.SelectedIndex = 0;
+            LoopingDropdown.SelectedIndex = 0;
+            StaticDropdown.SelectedIndex = 0;
+            CompatibleWithTriggersDropdown.SelectedIndex = 0;
+            InvertibleDropdown.SelectedIndex = 0;
+            DisplayText.Text = "this is the display text";
+            DescriptionText.Text = "this is the description";
+            NewConditionWindow.IsOpen = true;
+        }
+
+        /// <summary>
+        /// removes the selected condition
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RemoveCondition_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_selectedCondition != null)
+            {
+                _conditions.Remove(_selectedCondition.Id);
+                ConditionListBox.ItemsSource = _conditions;
+                ConditionListBox.Items.Refresh();
+
+                //clear editors
+                AceTextEditor.Text = string.Empty;
+                LanguageTextEditor.Text = string.Empty;
+                CodeTextEditor.Text = string.Empty;
+                _selectedCondition = null;
+            }
+            else
+            {
+                NotificationManager.PublishErrorNotification("failed to remove condition, no condition selected");
+            }
+        }
+
+        /// <summary>
+        /// duplicates the selected condition
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void DuplicateAce_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_selectedCondition != null)
+            {
+                var newId = await WindowManager.ShowInputDialog("New Condition ID", "enter new condition id", string.Empty);
+                if (newId == null) return;
+
+                if (_conditions.ContainsKey(newId))
+                {
+                    NotificationManager.PublishErrorNotification("failed to duplicate condition, condition id already exists");
+                    return;
+                }
+
+                _selectedCondition.Ace = AceTextEditor.Text;
+                _selectedCondition.Language = LanguageTextEditor.Text;
+                _selectedCondition.Code = CodeTextEditor.Text;
+                _selectedCondition.Category = Category.Text;
+
+                if (!string.IsNullOrWhiteSpace(newId))
+                {
+                    var newCondition = _selectedCondition.Copy(newId.Replace(" ", "-"));
+                    _conditions.Add(newCondition.Id, newCondition);
+                    ConditionListBox.Items.Refresh();
+                    ConditionListBox.SelectedIndex = _conditions.Count - 1;
+                }
+                else
+                {
+                    NotificationManager.PublishErrorNotification("failed to duplicate condition, no condition id entered");
+                }
+            }
+            else
+            {
+                NotificationManager.PublishErrorNotification("failed to duplicate condition, no condition selected");
+            }
+        }
+
+        /// <summary>
+        /// handles the save button on the add condition child window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveConditionButton_Click(object sender, RoutedEventArgs e)
         {
             var id = ConditionIdText.Text.ToLower().Replace(" ", "-");
@@ -214,7 +431,7 @@ namespace c3IDE.Windows
 
             if (_conditions.ContainsKey(id))
             {
-                AppData.Insatnce.ErrorMessage("condition id already exists");
+                NotificationManager.PublishErrorNotification("condition id already exists");
                 return;
             }
 
@@ -234,166 +451,97 @@ namespace c3IDE.Windows
                 Description = desc
             };
 
-            //TODO: condition templates (using action templates)
             cnd.Ace = TemplateHelper.CndAce(cnd);
-            cnd.Language = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionLanguage, cnd);
-            cnd.Code = TemplateCompiler.Insatnce.CompileTemplates(AppData.Insatnce.CurrentAddon.Template.ActionCode, cnd);
+            cnd.Language = TemplateCompiler.Insatnce.CompileTemplates(AddonManager.CurrentAddon.Template.ActionLanguage, cnd);
+            cnd.Code = TemplateCompiler.Insatnce.CompileTemplates(AddonManager.CurrentAddon.Template.ActionCode, cnd);
 
             _conditions.Add(id, cnd);
             ConditionListBox.Items.Refresh();
             ConditionListBox.SelectedIndex = _conditions.Count - 1;
+            AddonManager.CurrentAddon.Conditions = _conditions;
             NewConditionWindow.IsOpen = false;
         }
 
-        private void RemoveCondition_OnClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// shows the add new parameter window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InsertNewParam_OnClick(object sender, RoutedEventArgs e)
         {
-            if (_selectedCondition != null)
-            {
-                _conditions.Remove(_selectedCondition.Id);
-                ConditionListBox.ItemsSource = _conditions;
-                ConditionListBox.Items.Refresh();
-
-                //clear editors
-                AceTextEditor.Text = string.Empty;
-                LanguageTextEditor.Text = string.Empty;
-                CodeTextEditor.Text = string.Empty;
-                _selectedCondition = null;
-            }
-            else
-            {
-                AppData.Insatnce.ErrorMessage("failed to remove condition, no condition selected");
-            }
+            if (_selectedCondition == null) return;
+            ParamIdText.Text = "param-id";
+            ParamTypeDropdown.Text = "number";
+            ParamValueText.Text = string.Empty;
+            ParamNameText.Text = "This is the parameters name";
+            ParamDescText.Text = "This is the parameters description";
+            NewParamWindow.IsOpen = true;
         }
 
+        /// <summary>
+        /// handles teh save button on the new parameter window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveParamButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = ParamIdText.Text.ToLower().Replace(" ", "-");
-            var type = ParamTypeDropdown.Text;
-            var value = ParamValueText.Text;
-            var name = ParamNameText.Text;
-            var desc = ParamDescText.Text;
-
-            //there is at least one param defined
-            if (AceTextEditor.Text.Contains("\"params\": ["))
+            try
             {
-                //ace param
-                var aceTemplate = TemplateHelper.AceParam(id, type, value);
-                AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("\"params\": [", aceTemplate));
+                var id = ParamIdText.Text.ToLower().Replace(" ", "-");
+                var type = ParamTypeDropdown.Text;
+                var value = ParamValueText.Text;
+                var name = ParamNameText.Text;
+                var desc = ParamDescText.Text;
 
-                //language param
-                var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
-                LanguageTextEditor.Text =LanguageTextEditor.Text.Replace(@"""params"": {", langTemplate);
+                //there is at least one param defined
+                if (AceTextEditor.Text.Contains("\"params\": ["))
+                {
+                    //ace param
+                    var aceTemplate = TemplateHelper.AceParam(id, type, value);
+                    AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("\"params\": [", aceTemplate));
 
-                //code param
-                var codeTemplate = TemplateHelper.AceCode(id, _selectedCondition.ScriptName);
-                CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedCondition.ScriptName}(", codeTemplate);
-            }
-            //this will be the first param
-            else
-            {
-                //ace param
-                var aceTemplate = TemplateHelper.AceParamFirst(id, type, value);
-                AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("}", aceTemplate));
+                    //language param
+                    var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
+                    LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""params"": {", langTemplate);
 
-                //language param
-                var langTemplate = TemplateHelper.AceLangFirst(id, type, name, desc);
-                LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""
+                    //code param
+                    var codeTemplate = TemplateHelper.AceCode(id, _selectedCondition.ScriptName);
+                    CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedCondition.ScriptName}(", codeTemplate);
+                }
+                //this will be the first param
+                else
+                {
+                    //ace param
+                    var aceTemplate = TemplateHelper.AceParamFirst(id, type, value);
+                    AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("}", aceTemplate));
+
+                    //language param
+                    var langTemplate = TemplateHelper.AceLangFirst(id, type, name, desc);
+                    LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""
 }", langTemplate);
 
-                //code param
-                var codeTemplate = TemplateHelper.AceCodeFirst(id, _selectedCondition.ScriptName);
-                CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedCondition.ScriptName}()", codeTemplate);
+                    //code param
+                    var codeTemplate = TemplateHelper.AceCodeFirst(id, _selectedCondition.ScriptName);
+                    CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedCondition.ScriptName}()", codeTemplate);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
             }
 
             NewParamWindow.IsOpen = false;
         }
 
-        private void AddCondition_OnClick(object sender, RoutedEventArgs e)
-        {
-            ConditionIdText.Text = "condition-id";
-            ConditionCategoryText.Text = "custom";
-            ConditionListNameText.Text = "On Condition";
-            HighlightDropdown.SelectedIndex = 0;
-            TriggerDropdown.SelectedIndex = 0;
-            FakeTriggerDropdown.SelectedIndex = 0;
-            LoopingDropdown.SelectedIndex = 0;
-            StaticDropdown.SelectedIndex = 0;
-            CompatibleWithTriggersDropdown.SelectedIndex = 0;
-            InvertibleDropdown.SelectedIndex = 0;
-            DisplayText.Text = "this is the display text";
-            DescriptionText.Text = "this is the description";
-            NewConditionWindow.IsOpen = true;
-        }
-
-        //window states
-        public void OnEnter()
-        {
-            AppData.Insatnce.SetupTextEditor(AceTextEditor, Syntax.Json);
-            AppData.Insatnce.SetupTextEditor(LanguageTextEditor, Syntax.Json);
-            AppData.Insatnce.SetupTextEditor(CodeTextEditor, Syntax.Javascript);
-
-            if (AppData.Insatnce.CurrentAddon != null)
-            {
-                
-                    _conditions = AppData.Insatnce.CurrentAddon.Conditions;
-                    ConditionListBox.ItemsSource = _conditions;
-
-                    if (_conditions.Any())
-                    {
-                        ConditionListBox.SelectedIndex = 0;
-                    }
-                
-            }
-            else
-            {
-                ConditionListBox.ItemsSource = null;
-                AceTextEditor.Text = string.Empty;
-                LanguageTextEditor.Text = string.Empty;
-                CodeTextEditor.Text = string.Empty;
-                Category.Text = string.Empty;
-            }
-
-        }
-
-        public void OnExit()
-        {
-            if (AppData.Insatnce.CurrentAddon != null)
-            {
-                //save the current selected action
-                if (_selectedCondition != null)
-                {
-                    _selectedCondition.Ace = AceTextEditor.Text;
-                    _selectedCondition.Language = LanguageTextEditor.Text;
-                    _selectedCondition.Code = CodeTextEditor.Text;
-                    _selectedCondition.Category = Category.Text;
-                    _conditions[_selectedCondition.Id] = _selectedCondition;
-                }
-
-                AppData.Insatnce.CurrentAddon.Conditions = _conditions;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
-                AppData.Insatnce.CurrentAddon =
-                    DataAccessFacade.Insatnce.AddonData.Get(x => x.Id.Equals(AppData.Insatnce.CurrentAddon.Id)).FirstOrDefault();
-            }
-
-        }
-
-        public void Clear()
-        {
-            _conditions = new Dictionary<string, Condition>();
-            _selectedCondition = null;
-            ConditionListBox.ItemsSource = null;
-            AceTextEditor.Text = string.Empty;
-            CodeTextEditor.Text = string.Empty;
-            LanguageTextEditor.Text = string.Empty;
-            Category.Text = string.Empty;
-        }
-
-        //list box events
+        /// <summary>
+        /// handles changing switching conditions
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ConditionListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ConditionListBox.SelectedIndex == -1)
             {
-                //ignore
                 return;
             }
 
@@ -405,8 +553,8 @@ namespace c3IDE.Windows
                 _selectedCondition.Code = CodeTextEditor.Text;
                 _selectedCondition.Category = Category.Text;
                 _conditions[_selectedCondition.Id] = _selectedCondition;
-                AppData.Insatnce.CurrentAddon.Conditions = _conditions;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
+                AddonManager.CurrentAddon.Conditions = _conditions;
+                AddonManager.SaveCurrentAddon();
             }
 
             //load new selection
@@ -419,40 +567,47 @@ namespace c3IDE.Windows
             CodeTextEditor.Text = _selectedCondition.Code;
         }
 
-        //context menu
-        private void InsertNewParam_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (_selectedCondition == null) return;
-            ParamIdText.Text = "param-id";
-            ParamTypeDropdown.Text = "number";
-            ParamValueText.Text = string.Empty;
-            ParamNameText.Text = "This is the parameters name";
-            ParamDescText.Text = "This is the parameters description";
-            NewParamWindow.IsOpen = true;
-            
-        }
-
+        /// <summary>
+        /// handles formatting the code as javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormatJavascript_OnClick(object sender, RoutedEventArgs e)
         {
             CodeTextEditor.Text = FormatHelper.Insatnce.Javascript(CodeTextEditor.Text);
         }
 
+        /// <summary>
+        /// handles formatting the language as json
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormatJsonLang_OnClick(object sender, RoutedEventArgs e)
         {
             LanguageTextEditor.Text = FormatHelper.Insatnce.Json(LanguageTextEditor.Text, true);
         }
 
+        /// <summary>
+        /// handles formatting the ace as json
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormatJsonAce_OnClick(object sender, RoutedEventArgs e)
         {
             AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text);
         }
 
+        /// <summary>
+        /// brings up the change category dialog 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ChangeCategory_OnClick(object sender, RoutedEventArgs e)
         {
             if (_selectedCondition != null)
             {
                 var cat = _selectedCondition.Category;
-                var newCategory = await AppData.Insatnce.ShowInputDialog("Change Condition Category", "enter new condition category", cat);
+                var newCategory = await WindowManager.ShowInputDialog("Change Condition Category", "enter new condition category", cat);
 
                 if (!string.IsNullOrWhiteSpace(newCategory))
                 {
@@ -461,11 +616,27 @@ namespace c3IDE.Windows
             }
             else
             {
-                AppData.Insatnce.ErrorMessage("failed to remove action, no action selected");
+                NotificationManager.PublishErrorNotification("failed to remove action, no action selected");
             }
         }
 
-        //view buttons
+        /// <summary>
+        /// resets view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DefaultView_OnClick(object sender, RoutedEventArgs e)
+        {
+            AcePanel.Width = new GridLength(3, GridUnitType.Star);
+            CodePanel.Width = new GridLength(3, GridUnitType.Star);
+            LangPanel.Width = new GridLength(3, GridUnitType.Star);
+        }
+
+        /// <summary>
+        /// handles expanding the ace json section
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AceView_OnClick(object sender, RoutedEventArgs e)
         {
             CodePanel.Width = new GridLength(0);
@@ -473,13 +644,11 @@ namespace c3IDE.Windows
             AcePanel.Width = new GridLength(3, GridUnitType.Star);
         }
 
-        private void DeafultView_OnClick(object sender, RoutedEventArgs e)
-        {
-            AcePanel.Width = new GridLength(3, GridUnitType.Star);
-            CodePanel.Width = new GridLength(3, GridUnitType.Star);
-            LangPanel.Width = new GridLength(3, GridUnitType.Star);
-        }
-
+        /// <summary>
+        /// handles expanding the code section
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CodeView_OnClick(object sender, RoutedEventArgs e)
         {
             AcePanel.Width = new GridLength(0);
@@ -487,6 +656,11 @@ namespace c3IDE.Windows
             CodePanel.Width = new GridLength(3, GridUnitType.Star);
         }
 
+        /// <summary>
+        /// handles expanding the language section
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LangView_OnClick(object sender, RoutedEventArgs e)
         {
             AcePanel.Width = new GridLength(0);
@@ -494,13 +668,22 @@ namespace c3IDE.Windows
             LangPanel.Width = new GridLength(3, GridUnitType.Star);
         }
 
-        //text box events
+        /// <summary>
+        /// handles selecting all text in text box when text box gets focus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectAllText(object sender, RoutedEventArgs e)
         {
             var tb = (sender as TextBox);
             tb?.SelectAll();
         }
 
+        /// <summary>
+        /// focus on the textbox when clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
         {
             if (sender is TextBox tb && !tb.IsKeyboardFocusWithin)
@@ -510,40 +693,11 @@ namespace c3IDE.Windows
             }
         }
 
-        private async void DuplicateAce_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (_selectedCondition != null)
-            {
-                var newId = await AppData.Insatnce.ShowInputDialog("New Condition ID", "enter new condition id", string.Empty);
-                if (_conditions.ContainsKey(newId))
-                {
-                    AppData.Insatnce.ErrorMessage("failed to duplicate condition, condition id already exists");
-                    return;
-                }
-
-                _selectedCondition.Ace = AceTextEditor.Text;
-                _selectedCondition.Language = LanguageTextEditor.Text;
-                _selectedCondition.Code = CodeTextEditor.Text;
-                _selectedCondition.Category = Category.Text;
-
-                if (!string.IsNullOrWhiteSpace(newId))
-                {
-                    var newCondition = _selectedCondition.Copy(newId.Replace(" ", "-"));
-                    _conditions.Add(newCondition.Id, newCondition);
-                    ConditionListBox.Items.Refresh();
-                    ConditionListBox.SelectedIndex = _conditions.Count - 1;
-                }
-                else
-                {
-                    AppData.Insatnce.ErrorMessage("failed to duplicate condition, no condition id entered");
-                }
-            }
-            else
-            {
-                AppData.Insatnce.ErrorMessage("failed to duplicate condition, no condition selected");
-            }
-        }
-
+        /// <summary>
+        /// handles changing the current actions category by changing the text in the category text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Category_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             if (_selectedCondition != null)
@@ -552,22 +706,14 @@ namespace c3IDE.Windows
             }
         }
 
-        private void DisplayText_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        /// <summary>
+        /// lints the selected condition javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LintJavascript_OnClick(object sender, RoutedEventArgs e)
         {
-            var currentIndex = DisplayText.CaretIndex;
-            if (e.Key == Key.OemOpenBrackets && (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) != 0)
-            {
-                e.Handled = true;
-                DisplayText.Text = DisplayText.Text.Insert(DisplayText.CaretIndex, "{}");
-                DisplayText.CaretIndex = currentIndex + 1;
-
-            }
-            else if (e.Key == Key.OemOpenBrackets)
-            {
-                e.Handled = true;
-                DisplayText.Text = DisplayText.Text.Insert(DisplayText.CaretIndex, "[]");
-                DisplayText.CaretIndex = currentIndex + 1;
-            }
+            LintingManager.Lint(CodeTextEditor.Text);
         }
     }
 }

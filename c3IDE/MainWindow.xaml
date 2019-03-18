@@ -7,7 +7,8 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="c3IDE" Height="820" Width="1200" WindowStartupLocation="CenterScreen">
+        Title="c3IDE" Height="820" Width="1200" WindowStartupLocation="CenterScreen"
+        Closing="MainWindow_OnClosing">
     
     <mah:MetroWindow.Resources>
         <!-- Hamburger Menu Button Template -->
@@ -110,13 +111,13 @@
         </mah:HamburgerMenu>
 
         <mah:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}"
-                           x:Name="EffectMainMenu" Visibility="Collapsed" ItemClick="HambugerMenuItemEffect_Click" OptionsItemClick="HambugerMenuItemEffect_Click">
+                           x:Name="EffectMainMenu" Visibility="Collapsed" ItemClick="HambugerMenuItem_Click" OptionsItemClick="HambugerMenuItem_Click">
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Dashboard" Tag="Dashboard"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=PlusBox}" Label="Addon" Tag="Addon"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=PowerPlug}" Label="Effect" Tag="Effect"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=GlobeAmericasSolid}" Label="Language" Tag="Language"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=BookSolid}" Label="Properties" Tag="Properties"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=FunctionVariant}" Label="Parameters" Tag="Parameter"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=CodeSolid}" Label="Code" Tag="Code"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Beaker}" Label="Test" Tag="Test"/>
                 </mah:HamburgerMenuItemCollection>
             </mah:HamburgerMenu.ItemsSource>

@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using c3IDE.Managers;
 
 namespace c3IDE.Utilities.Helpers
 {
@@ -6,17 +8,41 @@ namespace c3IDE.Utilities.Helpers
     {
         public void WriteFile(string path, string content)
         {
-            System.IO.File.WriteAllText(path, content);
+            try
+            {
+                System.IO.File.WriteAllText(path, content);
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification(ex.Message);
+            }
         }
 
         public void StartProcess(string process)
         {
-            Process.Start(process);
+            try
+            {
+                Process.Start(process);
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification(ex.Message);
+            }
         }
 
         public void StartProcess(string process, string args)
         {
-            Process.Start(process, args);
+            try
+            {
+                Process.Start(process, args);
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification(ex.Message);
+            }
         }
     }
 }

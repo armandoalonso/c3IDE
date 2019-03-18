@@ -2,19 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using c3IDE.DataAccess;
-using c3IDE.Utilities;
+using c3IDE.Managers;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Extentions;
 using c3IDE.Utilities.Helpers;
@@ -23,7 +15,6 @@ using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
-using c3IDE.Utilities.ThemeEngine;
 using ICSharpCode.AvalonEdit;
 
 namespace c3IDE.Windows
@@ -33,26 +24,69 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class InstanceWindow : UserControl,IWindow
     {
-        //properties
         public string DisplayName { get; set; } = "Instance";
         private CompletionWindow completionWindow;
 
-        //ctor
+        /// <summary>
+        /// instance window constructor
+        /// </summary>
         public InstanceWindow()
         {
             InitializeComponent();
+
             EditTimeInstanceTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             EditTimeInstanceTextEditor.TextArea.TextEntered += EditTimeInstanceTextEditor_TextEntered;
-            EditTimeInstanceTextEditor.Options.EnableHyperlinks = false;
-            EditTimeInstanceTextEditor.Options.EnableEmailHyperlinks = false;
-
             RunTimeInstanceTextEditor.TextArea.TextEntering += TextEditor_TextEntering;
             RunTimeInstanceTextEditor.TextArea.TextEntered += RunTimeInstanceTextEditor_TextEntered;
+
+            EditTimeInstanceTextEditor.Options.EnableHyperlinks = false;
+            EditTimeInstanceTextEditor.Options.EnableEmailHyperlinks = false;
             RunTimeInstanceTextEditor.Options.EnableHyperlinks = false;
             RunTimeInstanceTextEditor.Options.EnableEmailHyperlinks = false;
         }
 
-        //editor events
+        /// <summary>
+        /// handles when the instance window gets focus
+        /// </summary>
+        public void OnEnter()
+        {
+            ThemeManager.SetupTextEditor(EditTimeInstanceTextEditor, Syntax.Javascript);
+            ThemeManager.SetupTextEditor(RunTimeInstanceTextEditor, Syntax.Javascript);
+
+            if (AddonManager.CurrentAddon != null)
+            {
+                EditTimeInstanceTextEditor.Text = AddonManager.CurrentAddon.InstanceEditTime;
+                RunTimeInstanceTextEditor.Text = AddonManager.CurrentAddon.InstanceRunTime;
+            }
+        }
+
+        /// <summary>
+        /// handles when the instance window loses focus
+        /// </summary>
+        public void OnExit()
+        {
+            if (AddonManager.CurrentAddon != null)
+            {
+                AddonManager.CurrentAddon.InstanceEditTime = EditTimeInstanceTextEditor.Text;
+                AddonManager.CurrentAddon.InstanceRunTime = RunTimeInstanceTextEditor.Text;
+                AddonManager.SaveCurrentAddon();
+            }
+        }
+
+        /// <summary>
+        /// clears all inputs from instance window
+        /// </summary>
+        public void Clear()
+        {
+            EditTimeInstanceTextEditor.Text = string.Empty;
+            RunTimeInstanceTextEditor.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// handles auto completion and parsing edit time instance
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditTimeInstanceTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -89,6 +123,11 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// handles auto completion and parsing run time instance
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RunTimeInstanceTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;
@@ -125,11 +164,16 @@ namespace c3IDE.Windows
             }
         }
 
+        /// <summary>
+        /// this handles when to insert the value being used by the auto completion window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextEditor_TextEntering(object sender, TextCompositionEventArgs e)
         {
             if (e.Text.Length > 0 && completionWindow != null)
             {
-                if (!char.IsLetterOrDigit(e.Text[0]))
+                if (!char.IsLetterOrDigit(e.Text[0]) && !char.IsWhiteSpace(e.Text[0]))
                 {
                     // Whenever a non-letter is typed while the completion window is open,
                     // insert the currently selected element.
@@ -140,6 +184,11 @@ namespace c3IDE.Windows
             // We still want to insert the character that was typed.
         }
 
+        /// <summary>
+        /// this handles keyboard shortcuts
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Tab && completionWindow != null && completionWindow.CompletionList.SelectedItem == null)
@@ -151,15 +200,19 @@ namespace c3IDE.Windows
             else if (e.Key == Key.F1)
             {
                 //AppData.Insatnce.GlobalSave(false);
-                Searcher.Insatnce.UpdateFileIndex("edittime_instance.js", EditTimeInstanceTextEditor.Text, AppData.Insatnce.MainWindow._instanceWindow);
-                Searcher.Insatnce.UpdateFileIndex("runtime_instance.js", RunTimeInstanceTextEditor.Text, AppData.Insatnce.MainWindow._instanceWindow);
+                Searcher.Insatnce.UpdateFileIndex("edittime_instance.js", EditTimeInstanceTextEditor.Text, ApplicationWindows.InstanceWindow);
+                Searcher.Insatnce.UpdateFileIndex("runtime_instance.js", RunTimeInstanceTextEditor.Text, ApplicationWindows.InstanceWindow);
                 var editor = ((TextEditor)sender);
                 var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text, this);
             }
         }
 
-        //completion window
+        /// <summary>
+        /// this shows the suto completion window
+        /// </summary>
+        /// <param name="textArea"></param>
+        /// <param name="completionList"></param>
         private void ShowCompletion(TextArea textArea, List<GenericCompletionItem> completionList)
         {
             //if any data matches show completion list
@@ -178,41 +231,44 @@ namespace c3IDE.Windows
             completionWindow.Closed += delegate { completionWindow = null; };
         }
 
-        //window states
-        public void OnEnter()
-        {
-            AppData.Insatnce.SetupTextEditor(EditTimeInstanceTextEditor, Syntax.Javascript);
-            AppData.Insatnce.SetupTextEditor(RunTimeInstanceTextEditor, Syntax.Javascript);
-
-            EditTimeInstanceTextEditor.Text = AppData.Insatnce.CurrentAddon?.InstanceEditTime;
-            RunTimeInstanceTextEditor.Text = AppData.Insatnce.CurrentAddon?.InstanceRunTime;
-        }
-
-        public void OnExit()
-        {
-            if (AppData.Insatnce.CurrentAddon != null)
-            {
-                AppData.Insatnce.CurrentAddon.InstanceEditTime = EditTimeInstanceTextEditor.Text;
-                AppData.Insatnce.CurrentAddon.InstanceRunTime = RunTimeInstanceTextEditor.Text;
-                DataAccessFacade.Insatnce.AddonData.Upsert(AppData.Insatnce.CurrentAddon);
-            }
-        }
-
-        public void Clear()
-        {
-            EditTimeInstanceTextEditor.Text = string.Empty;
-             RunTimeInstanceTextEditor.Text = string.Empty;
-        }
-
-        //context menu
+        /// <summary>
+        /// this formats the edit time type as javascript 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormatJavascriptEdittime_OnClick(object sender, RoutedEventArgs e)
         {
             EditTimeInstanceTextEditor.Text = FormatHelper.Insatnce.Javascript(EditTimeInstanceTextEditor.Text);
         }
 
+        /// <summary>
+        /// this formats the run time type as javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormatJavascriptRuntime_OnClick(object sender, RoutedEventArgs e)
         {
             RunTimeInstanceTextEditor.Text = FormatHelper.Insatnce.Javascript(RunTimeInstanceTextEditor.Text);
+        }
+
+        /// <summary>
+        /// lints the selected edit time instance javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LintJavascriptEditTime_OnClick(object sender, RoutedEventArgs e)
+        {
+            LintingManager.Lint(EditTimeInstanceTextEditor.Text);
+        }
+
+        // <summary>
+        /// lints the selected run time instance javascript
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LintJavascriptRunTime_OnClick(object sender, RoutedEventArgs e)
+        {
+            LintingManager.Lint(RunTimeInstanceTextEditor.Text);
         }
     }
 }
