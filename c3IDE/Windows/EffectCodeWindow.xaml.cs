@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using c3IDE.DataAccess;
 using c3IDE.Managers;
@@ -84,6 +86,13 @@ namespace c3IDE.Windows
         private void TextEditor_TextEntering(object sender, TextCompositionEventArgs e)
         {
             //throw new System.NotImplementedException();
+        }
+
+        private void GenerateUniforms_OnClick(object sender, RoutedEventArgs e)
+        {
+            var uniformText = string.Join("\n", AddonManager.CurrentAddon.Effect.Parameters.Select(x => x.Value.VariableDeclaration));
+            EffectPluginTextEditor.Text =
+                EffectPluginTextEditor.Text.Replace("void main(void)", $"{uniformText}\n\nvoid main(void)");
         }
     }
 }

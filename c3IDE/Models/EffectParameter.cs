@@ -14,6 +14,7 @@ namespace c3IDE.Models
         private string _key;
         private string _json;
         private string _lang;
+        private string _uniform;
 
         public string Key
         {
@@ -33,12 +34,19 @@ namespace c3IDE.Models
             set { _lang = value; OnPropertyChanged(); }
         }
 
+        public string VariableDeclaration
+        {
+            get => _uniform;
+            set{  _uniform = value; OnPropertyChanged(); }
+        }
+
         public string Uniform
         {
             get
             {
                 var ti = new CultureInfo("en-US", false).TextInfo;
-                return ti.ToTitleCase(_key.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
+                var uni = ti.ToTitleCase(_key.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
+                return char.ToLowerInvariant(uni[0]) + uni.Substring(1);
             }
         }
 

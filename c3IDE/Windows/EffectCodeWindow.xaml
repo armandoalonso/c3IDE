@@ -19,6 +19,7 @@
                     PreviewKeyDown="TextEditor_OnPreviewKeyDown">
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
+                            <MenuItem Header="Generate Uniforms" Click="GenerateUniforms_OnClick" />
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>

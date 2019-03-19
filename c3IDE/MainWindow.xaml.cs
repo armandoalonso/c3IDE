@@ -30,7 +30,6 @@ namespace c3IDE
             InitializeComponent();
             WindowManager.MainWindow = this;
             ThemeManager.SetupTheme();
-            SetupMenus();
 
             //set application callbacks
             AddonManager.AddLoadedCallback((s) =>

@@ -121,6 +121,7 @@ namespace c3IDE.Windows
     ""name"": ""Float"",
     ""desc"": ""This is the float Description""
 }}";
+            param.VariableDeclaration = $"uniform lowp float {param.Uniform};";
 
             _params.Add(id, param);
             ParameterListBox.Items.Refresh();
@@ -152,6 +153,7 @@ namespace c3IDE.Windows
     ""name"": ""Color"",
     ""desc"": ""This is the color Description""
 }}";
+            param.VariableDeclaration = $"uniform lowp vec3 {param.Uniform};";
 
             _params.Add(id, param);
             ParameterListBox.Items.Refresh();
@@ -183,6 +185,7 @@ namespace c3IDE.Windows
     ""name"": ""Percent"",
     ""desc"": ""This is the percent Description""
 }}";
+            param.VariableDeclaration = $"uniform lowp float {param.Uniform};";
 
             _params.Add(id, param);
             ParameterListBox.Items.Refresh();
