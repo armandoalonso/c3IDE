@@ -626,12 +626,12 @@
     <Content Include="c3ide_icon_AaX_icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Server\Test\jslint\browser.js" />
-    <Content Include="Server\Test\jslint\function.html" />
-    <Content Include="Server\Test\jslint\jslint.css" />
-    <Content Include="Server\Test\jslint\jslint.js" />
-    <Content Include="Server\Test\jslint\report.html" />
-    <Content Include="Server\Test\jslint\report.js" />
+    <EmbeddedResource Include="Server\Test\jslint\browser.js" />
+    <EmbeddedResource Include="Server\Test\jslint\function.html" />
+    <EmbeddedResource Include="Server\Test\jslint\jslint.css" />
+    <EmbeddedResource Include="Server\Test\jslint\jslint.js" />
+    <EmbeddedResource Include="Server\Test\jslint\report.html" />
+    <EmbeddedResource Include="Server\Test\jslint\report.js" />
     <EmbeddedResource Include="Templates\Files\SingleGlobal\language_category.txt" />
   </ItemGroup>
   <ItemGroup>
