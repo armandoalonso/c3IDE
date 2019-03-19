@@ -139,6 +139,7 @@
     <Compile Include="Managers\ApplicationWindows.cs" />
     <Compile Include="Managers\LintingManager.cs" />
     <Compile Include="Managers\LogManager.cs" />
+    <Compile Include="Managers\MenuManager.cs" />
     <Compile Include="Managers\NotificationManager.cs" />
     <Compile Include="Managers\OptionsManager.cs" />
     <Compile Include="Managers\ThemeManager.cs" />

@@ -78,16 +78,19 @@
                            ItemClick="HambugerMenuItem_Click" OptionsItemClick="HambugerMenuItem_Click" x:Name="DefaultMainMenu" Visibility="Visible">
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Dashboard" Tag="Dashboard"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=PlusBox}" Label="Addon" Tag="Addon"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=PowerPlug}" Label="Plugin" Tag="Plugin"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=FileReplace}" Label="Type" Tag="Type"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=FileDocument}" Label="Instance" Tag="Instance"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=RunFast}" Label="Actions" Tag="Actions"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Equal}" Label="Conditions" Tag="Conditions"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:MaterialDesign Kind=Functions}" Label="Expressions" Tag="Expressions"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=GlobeAmericasSolid}" Label="Language" Tag="Language"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Beaker}" Label="Test" Tag="Test"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnDashboard" Icon="{iconPacks:Material Kind=Home}" Label="Dashboard" Tag="Dashboard"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnAddon" Icon="{iconPacks:Material Kind=PlusBox}" Label="Addon" Tag="Addon"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnPlugin" Icon="{iconPacks:Material Kind=PowerPlug}" Label="Plugin" Tag="Plugin"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnType" Icon="{iconPacks:Material Kind=FileReplace}" Label="Type" Tag="Type"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnInstance" Icon="{iconPacks:Material Kind=FileDocument}" Label="Instance" Tag="Instance"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnActions" Icon="{iconPacks:Material Kind=RunFast}" Label="Actions" Tag="Actions"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnConditions" Icon="{iconPacks:Material Kind=Equal}" Label="Conditions" Tag="Conditions"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnExpressions" Icon="{iconPacks:MaterialDesign Kind=Functions}" Label="Expressions" Tag="Expressions"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnLanguage" Icon="{iconPacks:FontAwesome Kind=GlobeAmericasSolid}" Label="Language" Tag="Language"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnFxProperties" Icon="{iconPacks:FontAwesome Kind=BookSolid}" Label="Properties" Tag="Properties"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnFxParameters" Icon="{iconPacks:Material Kind=FunctionVariant}" Label="Parameters" Tag="Parameter"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnFxCode" Icon="{iconPacks:FontAwesome Kind=CodeSolid}" Label="Code" Tag="Code"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnTest" Icon="{iconPacks:Octicons Kind=Beaker}" Label="Test" Tag="Test"/>
                 </mah:HamburgerMenuItemCollection>
             </mah:HamburgerMenu.ItemsSource>
             <mah:HamburgerMenu.OptionsItemsSource>
@@ -115,9 +118,7 @@
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Home}" Label="Dashboard" Tag="Dashboard"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=BookSolid}" Label="Properties" Tag="Properties"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=FunctionVariant}" Label="Parameters" Tag="Parameter"/>
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=CodeSolid}" Label="Code" Tag="Code"/>
+                   
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Beaker}" Label="Test" Tag="Test"/>
                 </mah:HamburgerMenuItemCollection>
             </mah:HamburgerMenu.ItemsSource>

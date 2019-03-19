@@ -30,6 +30,7 @@ namespace c3IDE
             InitializeComponent();
             WindowManager.MainWindow = this;
             ThemeManager.SetupTheme();
+            SetupMenus();
 
             //set application callbacks
             AddonManager.AddLoadedCallback((s) =>
@@ -316,6 +317,21 @@ namespace c3IDE
                 Searcher.Insatnce.ParseAddon(addon);
                 ActiveItem.Content = ApplicationWindows.DashboardWindow;
             }
+        }
+
+        //todo: fix issue with 2 menus and creating addons blank (use menu manager)
+        public void SetupMenus()
+        {
+           //do this guy at init
+           MenuManager.SetupMainMenu();
+           HamburgerMenuItemCollection itemCollection = DefaultMainMenu.ItemsSource as HamburgerMenuItemCollection;
+
+           itemCollection.Clear();
+           var menuItems = MenuManager.MainMenu;
+           foreach (var hamburgerMenuIconItem in menuItems)
+           {
+               itemCollection.Add(hamburgerMenuIconItem);
+           }
         }
 
         /// <summary>
