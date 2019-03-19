@@ -192,6 +192,7 @@ namespace c3IDE.Compiler
                     case ".json":
                     case ".xml":
                     case ".txt":
+                    case null:
                         _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), files.Content);
                         break;
                     default:

@@ -359,7 +359,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Examples\Example_Log.c3ide" />
     <EmbeddedResource Include="Examples\Example_FSM.c3ide" />
-    <None Include="c3IDE_TemporaryKey.pfx" />
+    <None Include="c3IDE_1_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
