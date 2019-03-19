@@ -84,11 +84,16 @@ namespace c3IDE.Templates
             }
             var items = type == "combo" ? ",\n            \"items\":[\"item1\",\"item2\",\"item3\"]" : string.Empty;
             var objects = type == "object" ? ",\n            \"allowedPluginIds\":[\"Sprite\"]" : string.Empty;
-            return $@"    ""params"": [
+        //    return $@"    ""params"": [
+        //{{
+        //    ""id"": ""{id}"",
+        //    ""type"": ""{type}""{value}{items}{objects}
+        //}},";
+            return $@"}},
         {{
             ""id"": ""{id}"",
             ""type"": ""{type}""{value}{items}{objects}
-        }},";
+        }}";
         }
 
         /// <summary>

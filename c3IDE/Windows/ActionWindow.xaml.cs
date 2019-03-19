@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -481,7 +482,10 @@ namespace c3IDE.Windows
                 {
                     //ace param
                     var aceTemplate = TemplateHelper.AceParam(id, type, value);
-                    AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("\"params\": [", aceTemplate));
+
+                    //AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("\"params\": [", aceTemplate));
+                    //AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("}\r\n ]", aceTemplate));
+                    AceTextEditor.Text = FormatHelper.Insatnce.Json(Regex.Replace(AceTextEditor.Text, @"}(\r\n?|\n|\s*)]", $"{aceTemplate}\r\n]"));
 
                     //language param
                     var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
