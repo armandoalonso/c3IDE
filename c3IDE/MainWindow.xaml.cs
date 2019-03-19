@@ -30,6 +30,8 @@ namespace c3IDE
             InitializeComponent();
             WindowManager.MainWindow = this;
             ThemeManager.SetupTheme();
+            MenuManager.SetupMainMenu();
+
 
             //set application callbacks
             AddonManager.AddLoadedCallback((s) =>
@@ -49,6 +51,7 @@ namespace c3IDE
             AddonManager.LoadAllAddons();
 
             //setup default view
+            SetupMenus(PluginType.SingleGlobalPlugin);
             ActiveItem.Content = ApplicationWindows.DashboardWindow;
             ApplicationWindows.DashboardWindow.OnEnter();
             WindowManager.CurrentWindow = ApplicationWindows.DashboardWindow;
@@ -83,11 +86,6 @@ namespace c3IDE
                 DefaultMainMenu.IsPaneOpen = true;
                 DefaultMainMenu.HamburgerVisibility = Visibility.Collapsed;
                 DefaultMainMenu.HamburgerHeight = 0;
-
-                EffectMainMenu.DisplayMode = SplitViewDisplayMode.Inline;
-                EffectMainMenu.IsPaneOpen = true;
-                EffectMainMenu.HamburgerVisibility = Visibility.Collapsed;
-                EffectMainMenu.HamburgerHeight = 0;
             }
             else
             {
@@ -95,11 +93,6 @@ namespace c3IDE
                 DefaultMainMenu.IsPaneOpen = false;
                 DefaultMainMenu.HamburgerVisibility = Visibility.Visible;
                 DefaultMainMenu.HamburgerHeight = 48;
-
-                EffectMainMenu.DisplayMode = SplitViewDisplayMode.CompactOverlay;
-                EffectMainMenu.IsPaneOpen = false;
-                EffectMainMenu.HamburgerVisibility = Visibility.Visible;
-                EffectMainMenu.HamburgerHeight = 48;
             }
         }
 
@@ -297,39 +290,39 @@ namespace c3IDE
             if (addon == null )
             {
                 DefaultMainMenu.Visibility = Visibility.Visible;
-                EffectMainMenu.Visibility = Visibility.Collapsed;
+                SetupMenus(PluginType.SingleGlobalPlugin);
                 ActiveItem.Content = ApplicationWindows.DashboardWindow;
-            }
-
-            else if (addon.Type == PluginType.Effect)
-            {
-                DefaultMainMenu.Visibility = Visibility.Collapsed;
-                EffectMainMenu.Visibility = Visibility.Visible;
-                ActiveItemEffect.Content = ApplicationWindows.DashboardWindow;
             }
 
             else
             {
                 DefaultMainMenu.Visibility = Visibility.Visible;
-                EffectMainMenu.Visibility = Visibility.Collapsed;
+                SetupMenus(addon.Type);
                 CodeCompletionFactory.Insatnce.ParseAddon(addon);
                 Searcher.Insatnce.ParseAddon(addon);
                 ActiveItem.Content = ApplicationWindows.DashboardWindow;
             }
         }
 
-        //todo: fix issue with 2 menus and creating addons blank (use menu manager)
-        public void SetupMenus()
+        /// <summary>
+        /// clears and setups up the menu based on plugin type
+        /// </summary>
+        /// <param name="type"></param>
+        public void SetupMenus(PluginType type)
         {
-           //do this guy at init
-           MenuManager.SetupMainMenu();
-           HamburgerMenuItemCollection itemCollection = DefaultMainMenu.ItemsSource as HamburgerMenuItemCollection;
+            var itemCollection = DefaultMainMenu.ItemsSource as HamburgerMenuItemCollection;
+            itemCollection?.Clear();
+            List<HamburgerMenuIconItem> items;
 
-           itemCollection.Clear();
-           var menuItems = MenuManager.MainMenu;
-           foreach (var hamburgerMenuIconItem in menuItems)
+            if (type == PluginType.Effect)
+                items = MenuManager.EffectMenu;
+            else
+                items = MenuManager.MainMenu;
+
+            //append the menu items
+           foreach (var hamburgerMenuIconItem in items)
            {
-               itemCollection.Add(hamburgerMenuIconItem);
+               itemCollection?.Add(hamburgerMenuIconItem);
            }
         }
 
@@ -339,20 +332,9 @@ namespace c3IDE
         /// <param name="window"></param>
         public void NavigateToWindow(IWindow window)
         {
-            if (AddonManager.CurrentAddon == null || AddonManager.CurrentAddon.Type != PluginType.Effect)
-            {
-                DefaultMainMenu.Visibility = Visibility.Visible;
-                EffectMainMenu.Visibility = Visibility.Collapsed;
-                ActiveItem.Content = window;
-            }
-            else
-            {
-                DefaultMainMenu.Visibility = Visibility.Collapsed;
-                EffectMainMenu.Visibility = Visibility.Visible;
-                ActiveItemEffect.Content = window;
-            }
-
-          //window.OnEnter();
+            DefaultMainMenu.Visibility = Visibility.Visible;
+            ActiveItem.Content = window;
+            //window.OnEnter();
         }
 
         /// <summary>

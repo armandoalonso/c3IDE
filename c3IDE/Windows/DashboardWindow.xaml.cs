@@ -53,7 +53,7 @@ namespace c3IDE.Windows
         /// </summary>
         public void OnEnter()
         {
-            AddonManager.LoadAllAddons();
+            //AddonManager.LoadAllAddons(); //removed for dashboard load performace ?? do we really need this call?
             AddonListBox.ItemsSource = AddonManager.AllAddons;
         }
 
