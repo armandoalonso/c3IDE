@@ -113,6 +113,10 @@ namespace c3IDE.Templates
             ""name"": ""{name}{variadic}"",
             ""desc"": ""{desc}""{items}
         }},";
+            //    return $@"""{id}"": {{
+            //    ""name"": ""{name}{variadic}"",
+            //    ""desc"": ""{desc}""{items}
+            //}}";
         }
 
         /// <summary>

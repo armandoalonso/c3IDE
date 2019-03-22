@@ -19,6 +19,8 @@ using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Action = c3IDE.Models.Action;
 
 namespace c3IDE.Windows
@@ -487,9 +489,13 @@ namespace c3IDE.Windows
                     //AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("}\r\n ]", aceTemplate));
                     AceTextEditor.Text = FormatHelper.Insatnce.Json(Regex.Replace(AceTextEditor.Text, @"}(\r\n?|\n|\s*)]", $"{aceTemplate}\r\n]"));
 
+                    //todo insert extra param usign jtoken.parse
                     //language param
-                    var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
-                    LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""params"": {", langTemplate);
+                    //var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
+                    //LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""params"": {", langTemplate);
+
+                    var langJson = JToken.Parse($"{{ {LanguageTextEditor.Text} }}");
+                    
 
                     //code param
                     var codeTemplate = TemplateHelper.AceCode(id, _selectedAction.ScriptName, isVariadic);
