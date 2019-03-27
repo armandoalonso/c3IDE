@@ -1,6 +1,15 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.5 (03/27/2019)
+* re-structure the addon creation process - now there are 2 seperate windows one for the dashboard and one for the creation of the addon.
+* fix bug with gloabl search and replace, not finding text in the current window.
+* change how 3rd party files are imported, so now non-text files are accepted and converted to base64.
+* add very simple js linting (not working as expected, it needs love) 
+* re implement effect pages to streamline the creation of effects
+* implement a menu manager, we no longer use to isolated menus (effect/main), menu is now controlled by the manager
+* fix issue with adding params being sorted in inverse ordder
+
 ### Build# 1.0.1.27 (02/17/2019)
 * fix issue with javascript arrow function and js beauitifer.
 * default template now dont contain any pre-defined properties 
