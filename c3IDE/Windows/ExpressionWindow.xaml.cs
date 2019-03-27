@@ -458,8 +458,8 @@ namespace c3IDE.Windows
                     LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""params"": {", langTemplate);
 
                     //code param
-                    var codeTemplate = TemplateHelper.AceCode(id, _selectedExpression.ScriptName);
-                    CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedExpression.ScriptName}(", codeTemplate);
+                    //var codeTemplate = TemplateHelper.AceCode(id, _selectedExpression.ScriptName);
+                    //CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedExpression.ScriptName}(", codeTemplate);
                 }
                 //this will be the first param
                 else

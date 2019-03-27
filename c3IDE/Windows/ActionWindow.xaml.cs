@@ -478,30 +478,33 @@ namespace c3IDE.Windows
                 var name = ParamNameText.Text;
                 var desc = ParamDescText.Text;
                 var isVariadic = type == "variadic";
+                var actionId = _selectedAction.Id;
 
                 //there is at least one param defined
                 if (AceTextEditor.Text.Contains("\"params\": ["))
                 {
                     //ace param
                     var aceTemplate = TemplateHelper.AceParam(id, type, value);
-
-                    //AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("\"params\": [", aceTemplate));
-                    //AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("}\r\n ]", aceTemplate));
-                    AceTextEditor.Text = FormatHelper.Insatnce.Json(Regex.Replace(AceTextEditor.Text, @"}(\r\n?|\n|\s*)]", $"{aceTemplate}\r\n]"));
-
-                    //todo insert extra param usign jtoken.parse
-                    //language param
+                   
+                    //lang param
                     var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
-                    //LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""params"": {", langTemplate);
-
-                    //todo: this throws exception
-                    var langJson = JObject.Parse($"{{ {LanguageTextEditor.Text} }}").Values()["params"].First().Parent;
-                    langJson.Add(langTemplate);
-
+                    var newProperty = JObject.Parse(langTemplate);
+                    var langJson = JObject.Parse($"{{ {LanguageTextEditor.Text} }}")[actionId];
+                    var langParams = langJson["params"];
+                    langParams.Last.AddAfterSelf(newProperty.Property(id));
+                    langJson["params"] = langParams;
+                    
 
                     //code param
-                    var codeTemplate = TemplateHelper.AceCode(id, _selectedAction.ScriptName, isVariadic);
-                    CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedAction.ScriptName}(", codeTemplate);
+                    var func = Regex.Match(CodeTextEditor.Text, @"(?:\()(?<param>.*)(?:\))");
+                    var declaration = Regex.Match(CodeTextEditor.Text, @".*(?:\()(?<param>.*)(?:\))").Value;
+                    var paramList = func.Groups["param"].Value.Split(',');
+                    var codeTemplate = TemplateHelper.AceCode(id, _selectedAction.ScriptName, isVariadic, paramList);
+
+                    //updates
+                    LanguageTextEditor.Text = langJson.ToString();
+                    AceTextEditor.Text = FormatHelper.Insatnce.Json(Regex.Replace(AceTextEditor.Text, @"}(\r\n?|\n|\s*)]", $"{aceTemplate}\r\n]"));
+                    CodeTextEditor.Text = CodeTextEditor.Text.Replace(declaration, codeTemplate);
                 }
                 //this will be the first param
                 else
@@ -523,6 +526,7 @@ namespace c3IDE.Windows
             catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"error adding parameter : {ex.Message}");
             }
 
             NewParamWindow.IsOpen = false;

@@ -1,4 +1,7 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
 using c3IDE.Models;
 
 namespace c3IDE.Templates
@@ -115,10 +118,10 @@ namespace c3IDE.Templates
             //    ""desc"": ""{desc}""{items}
             //}},";
 
-            return $@"""{id}"": {{
+            return $@"{{ ""{id}"": {{
                 ""name"": ""{name}{variadic}"",
                 ""desc"": ""{desc}""{items}
-            }}";
+            }} }}";
         }
 
         /// <summary>
@@ -127,15 +130,18 @@ namespace c3IDE.Templates
         /// <param name="id"></param>
         /// <param name="scriptName"></param>
         /// <param name="variadic"></param>
+        /// <param name="paramList"></param>
         /// <returns></returns>
-        public static string AceCode(string id, string scriptName, bool variadic = false)
+        public static string AceCode(string id, string scriptName, bool variadic, IEnumerable<string> paramList)
         {
             var ti = new CultureInfo("en-US", false).TextInfo;
             var param = ti.ToTitleCase(id.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
             param = char.ToLowerInvariant(param[0]) + param.Substring(1);
-
             var prefix = variadic ? "..." : string.Empty;
-            return $"{scriptName}({prefix}{param}, ";
+            var paramlist = paramList.ToList();
+            paramlist.Add($"{prefix}{param}");
+            var list = string.Join(",", paramlist);
+            return $"{scriptName}({list})";
         }
 
         /// <summary>
