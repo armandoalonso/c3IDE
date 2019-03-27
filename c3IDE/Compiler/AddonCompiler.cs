@@ -66,6 +66,7 @@ namespace c3IDE.Compiler
 
                 if (addon.Type == PluginType.Effect)
                 {
+                    //todo: effect validator http://shdr.bkcore.com/ 
                     CreateEffectFiles(addon, folderName);
                 }
                 else

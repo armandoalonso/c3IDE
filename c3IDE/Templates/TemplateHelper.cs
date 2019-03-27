@@ -124,6 +124,11 @@ namespace c3IDE.Templates
             }} }}";
         }
 
+        public static string AceCode(string id, string scriptName, IEnumerable<string> paramList)
+        {
+            return AceCode(id, scriptName, false, paramList);
+        }
+
         /// <summary>
         /// create ace code segment
         /// </summary>

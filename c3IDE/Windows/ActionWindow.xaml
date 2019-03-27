@@ -17,7 +17,7 @@
             <ColumnDefinition Width="3*" Name="CodePanel"/>
         </Grid.ColumnDefinitions>
 
-        <mah:ChildWindow Name="NewActionWindow" Grid.Column="0" Grid.ColumnSpan="6" Title="Add New Action" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True" >
+        <mah:ChildWindow Name="NewActionWindow" Grid.Column="0" Grid.ColumnSpan="6" Title="Add New Action" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
             <mah:ChildWindow.OverlayBrush>
                 <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
             </mah:ChildWindow.OverlayBrush>
@@ -44,7 +44,7 @@
 
                 <TextBlock Text="Description:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="DescriptionText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
-                <Button Content="Save Action" Margin="5" Click="SaveActionButton_Click"></Button>
+                <Button Content="Save Action" Margin="5" Click="SaveActionButton_Click" IsDefault="True"></Button>
 
                 <Separator Visibility="Hidden" Height="20"></Separator>
             </StackPanel>
@@ -84,7 +84,7 @@
                 <TextBox Name="ParamNameText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
                 <TextBlock Text="Parameter Description:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ParamDescText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"/>
-                <Button Content="Add Parameter" Margin="5" Click="SaveParamButton_Click"></Button>
+                <Button Content="Add Parameter" Margin="5" Click="SaveParamButton_Click" IsDefault="True"></Button>
                 <Separator Visibility="Hidden" Height="20"></Separator>
             </StackPanel>
         </mah:ChildWindow>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,6 +20,8 @@ using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Condition = c3IDE.Models.Condition;
 
 namespace c3IDE.Windows
@@ -492,21 +495,33 @@ namespace c3IDE.Windows
                 var value = ParamValueText.Text;
                 var name = ParamNameText.Text;
                 var desc = ParamDescText.Text;
+                var conditionId = _selectedCondition.Id;
 
                 //there is at least one param defined
                 if (AceTextEditor.Text.Contains("\"params\": ["))
                 {
                     //ace param
                     var aceTemplate = TemplateHelper.AceParam(id, type, value);
-                    AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("\"params\": [", aceTemplate));
 
-                    //language param
+                    //lang param
                     var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
-                    LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""params"": {", langTemplate);
+                    var newProperty = JObject.Parse(langTemplate);
+                    var langJson = JObject.Parse($"{{ {LanguageTextEditor.Text} }}")[conditionId];
+                    var langParams = langJson["params"];
+                    langParams.Last.AddAfterSelf(newProperty.Property(id));
+                    langJson["params"] = langParams;
+
 
                     //code param
-                    //var codeTemplate = TemplateHelper.AceCode(id, _selectedCondition.ScriptName);
-                    //CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedCondition.ScriptName}(", codeTemplate);
+                    var func = Regex.Match(CodeTextEditor.Text, @"(?:\()(?<param>.*)(?:\))");
+                    var declaration = Regex.Match(CodeTextEditor.Text, @".*(?:\()(?<param>.*)(?:\))").Value;
+                    var paramList = func.Groups["param"].Value.Split(',');
+                    var codeTemplate = TemplateHelper.AceCode(id, _selectedCondition.ScriptName, paramList);
+
+                    //updates
+                    LanguageTextEditor.Text = $"\"{conditionId}\": {langJson.ToString(formatting: Formatting.Indented)} ";
+                    AceTextEditor.Text = FormatHelper.Insatnce.Json(Regex.Replace(AceTextEditor.Text, @"}(\r\n?|\n|\s*)]", $"{aceTemplate}\r\n]"));
+                    CodeTextEditor.Text = CodeTextEditor.Text.Replace(declaration, codeTemplate);
                 }
                 //this will be the first param
                 else

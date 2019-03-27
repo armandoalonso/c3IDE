@@ -42,7 +42,7 @@
                 <TextBox Name="TranslatedName" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Description:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="DescriptionText" Margin="5" Height="70" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <Button Content="Save Expression" Margin="5" Click="SaveExpressionButton_Click"></Button>
+                <Button Content="Save Expression" Margin="5" Click="SaveExpressionButton_Click" IsDefault="True"></Button>
 
                 <Separator Visibility="Hidden" Height="20"></Separator>
             </StackPanel>
@@ -68,7 +68,7 @@
                 <TextBox Name="ParamNameText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Parameter Description:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ParamDescText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
-                <Button Content="Add Parameter" Margin="5" Click="SaveParamButton_Click"></Button>
+                <Button Content="Add Parameter" Margin="5" Click="SaveParamButton_Click" IsDefault="True"></Button>
                 <Separator Visibility="Hidden" Height="20"></Separator>
             </StackPanel>
         </mah:ChildWindow>

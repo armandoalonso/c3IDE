@@ -502,7 +502,7 @@ namespace c3IDE.Windows
                     var codeTemplate = TemplateHelper.AceCode(id, _selectedAction.ScriptName, isVariadic, paramList);
 
                     //updates
-                    LanguageTextEditor.Text = langJson.ToString();
+                    LanguageTextEditor.Text =  $"\"{actionId}\": {langJson.ToString(formatting: Formatting.Indented)} ";
                     AceTextEditor.Text = FormatHelper.Insatnce.Json(Regex.Replace(AceTextEditor.Text, @"}(\r\n?|\n|\s*)]", $"{aceTemplate}\r\n]"));
                     CodeTextEditor.Text = CodeTextEditor.Text.Replace(declaration, codeTemplate);
                 }
