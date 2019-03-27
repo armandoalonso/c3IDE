@@ -108,15 +108,17 @@ namespace c3IDE.Templates
         {
             var items = type == "combo" ? ",\n            \"items\":{\n                \"item1\": \"item_one\",\n                \"item2\": \"item_two\",\n                \"item3\": \"item_three\"\n            }" : string.Empty;
             var variadic = type == "variadic" ? " {n}" : string.Empty;
-            return $@"    ""params"": {{
-        ""{id}"": {{
-            ""name"": ""{name}{variadic}"",
-            ""desc"": ""{desc}""{items}
-        }},";
-            //    return $@"""{id}"": {{
+
+            //    return $@"    ""params"": {{
+            //""{id}"": {{
             //    ""name"": ""{name}{variadic}"",
             //    ""desc"": ""{desc}""{items}
-            //}}";
+            //}},";
+
+            return $@"""{id}"": {{
+                ""name"": ""{name}{variadic}"",
+                ""desc"": ""{desc}""{items}
+            }}";
         }
 
         /// <summary>

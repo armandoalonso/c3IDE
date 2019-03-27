@@ -458,7 +458,7 @@ namespace c3IDE.Compiler
 	""name"": ""{addon.Name}"",
 	""id"": ""{addon.Company}_{addon.Class}"",
 	""version"": ""{addon.Version}"",
-	""author"": ""{addon.Version}"",
+	""author"": ""{addon.Author}"",
 	""website"": ""https://www.construct.net"",
 	""documentation"": ""https://www.construct.net"",
 	""description"": ""{addon.Description}"",
@@ -469,15 +469,15 @@ namespace c3IDE.Compiler
 	],
 	
 	""category"": ""{addon.AddonCategory}"",
-	""blends-background"": false,
-	""cross-sampling"": false,
-	""preserves-opaqueness"": true,
-	""animated"": false,
-	""must-predraw"" : ""false"",
+	""blends-background"": {addon.Effect.BlendsBackground},
+	""cross-sampling"": {addon.Effect.CrossSampling},
+	""preserves-opaqueness"": {addon.Effect.PreservesOpaqueness},
+	""animated"": {addon.Effect.Animated},
+	""must-predraw"" : {addon.Effect.MustPredraw},
 
 	""extend-box"": {{
-		""horizontal"": 0,
-		""vertical"": 0
+		""horizontal"": {addon.Effect.ExtendBoxHorizontal},
+		""vertical"": {addon.Effect.ExtendBoxVertical}
 	}},
 	
 	""parameters"": [

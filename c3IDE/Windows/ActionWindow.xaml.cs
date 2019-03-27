@@ -491,11 +491,13 @@ namespace c3IDE.Windows
 
                     //todo insert extra param usign jtoken.parse
                     //language param
-                    //var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
+                    var langTemplate = TemplateHelper.AceLang(id, type, name, desc);
                     //LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""params"": {", langTemplate);
 
-                    var langJson = JToken.Parse($"{{ {LanguageTextEditor.Text} }}");
-                    
+                    //todo: this throws exception
+                    var langJson = JObject.Parse($"{{ {LanguageTextEditor.Text} }}").Values()["params"].First().Parent;
+                    langJson.Add(langTemplate);
+
 
                     //code param
                     var codeTemplate = TemplateHelper.AceCode(id, _selectedAction.ScriptName, isVariadic);
