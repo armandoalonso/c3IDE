@@ -288,5 +288,15 @@ namespace c3IDE.Windows
             WindowManager.ChangeWindow(ApplicationWindows.TestWidnow);
             await ApplicationWindows.TestWidnow.Test();
         }
+
+        /// <summary>
+        /// filters dashboard
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddonFilter_OnSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
