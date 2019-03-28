@@ -64,6 +64,7 @@ namespace c3IDE.Managers
         private static void WriteMetadataJson(C3Addon addon, string path)
         {
             var sb = new StringBuilder();
+            sb.AppendLine($"@@METADATA");
             sb.AppendLine($"Id|{addon.Id}");
             sb.AppendLine($"Name|{addon.Name}");
             sb.AppendLine($"Class|{addon.Class}");
@@ -84,21 +85,22 @@ namespace c3IDE.Managers
             try
             {
                 var text = File.ReadAllLines(fullpath);
-                addon.Id = Guid.Parse(text[0].Split('|')[1].Trim());
-                addon.Name = text[1].Split('|')[1].Trim();
-                addon.Class = text[2].Split('|')[1].Trim();
-                addon.Company = text[3].Split('|')[1].Trim();
-                addon.Author = text[4].Split('|')[1].Trim();
-                addon.Version = text[5].Split('|')[1].Trim();
-                addon.Description = text[6].Split('|')[1].Trim();
-                addon.AddonCategory = text[7].Split('|')[1].Trim();
-                addon.Type = (PluginType)Enum.Parse(typeof(PluginType), text[8].Split('|')[1].Trim());
-                addon.CreateDate = DateTime.Parse(text[9].Split('|')[1].Trim());
-                addon.LastModified = DateTime.Parse(text[10].Split('|')[1].Trim());
+                addon.Id = Guid.Parse(text[1].Split('|')[1].Trim());
+                addon.Name = text[2].Split('|')[1].Trim();
+                addon.Class = text[3].Split('|')[1].Trim();
+                addon.Company = text[4].Split('|')[1].Trim();
+                addon.Author = text[5].Split('|')[1].Trim();
+                addon.Version = text[6].Split('|')[1].Trim();
+                addon.Description = text[7].Split('|')[1].Trim();
+                addon.AddonCategory = text[8].Split('|')[1].Trim();
+                addon.Type = (PluginType)Enum.Parse(typeof(PluginType), text[9].Split('|')[1].Trim());
+                addon.CreateDate = DateTime.Parse(text[10].Split('|')[1].Trim());
+                addon.LastModified = DateTime.Parse(text[11].Split('|')[1].Trim());
             }
             catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
+                throw;
             }
         }
 
@@ -190,6 +192,7 @@ namespace c3IDE.Managers
             catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
+                throw;
             }
         }
 
@@ -277,6 +280,7 @@ namespace c3IDE.Managers
             catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
+                throw;
             }
         }
 
@@ -363,6 +367,7 @@ namespace c3IDE.Managers
             catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
+                throw;
             }
         }
 
@@ -449,6 +454,7 @@ namespace c3IDE.Managers
             catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
+                throw;
             }
         }
 
@@ -486,6 +492,7 @@ namespace c3IDE.Managers
             catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
+                throw;
             }         
         }
 
@@ -510,6 +517,7 @@ namespace c3IDE.Managers
             catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
+                throw;
             }
         }
 
@@ -591,6 +599,7 @@ namespace c3IDE.Managers
             catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
+                throw;
             }
         }
 
@@ -681,6 +690,7 @@ namespace c3IDE.Managers
             catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
+                throw;
             }
         }
 

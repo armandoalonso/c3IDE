@@ -36,7 +36,7 @@ namespace c3IDE
             //set application callbacks
             AddonManager.AddLoadedCallback((s) =>
             {
-                this.Title = $"C3IDE - {s.Name}";
+                this.Title = $"C3IDE - {s.Name} - {s.Id}";
                 AddonLoadDelegate();
             });
             OptionsManager.OptionChangedCallback = OptionChanged;

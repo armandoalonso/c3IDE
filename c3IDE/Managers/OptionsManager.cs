@@ -48,7 +48,9 @@ namespace c3IDE.Managers
                 OpenC3InWeb = true,
                 C3DesktopPath = string.Empty,
                 PinMenu = false,
-                CompileOnSave = false
+                CompileOnSave = false,
+                ExportSingleFileProject = true,
+                OverwriteGuidOnImport = true
             };
 
             DefaultOptions = defaultOptions;

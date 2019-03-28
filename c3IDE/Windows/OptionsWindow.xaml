@@ -64,6 +64,12 @@
                 <CheckBox Name="PinMainMenu" FontFamily="Century Gothic" FontSize="16" Checked="PinMainMenu_OnChecked" Unchecked="PinMainMenu_OnChecked">Pin Main Menu</CheckBox>
                 <CheckBox Name="CompileOnSave" FontFamily="Century Gothic" FontSize="16" Checked="CompileOnSave_OnChecked" Unchecked="CompileOnSave_OnChecked">Compile On Save (Ctrl-S)</CheckBox>
             </UniformGrid>
+            <Separator Visibility="Hidden" Height="5" />
+            
+            <UniformGrid Columns="2">
+                <CheckBox Name="ExportSingleProjectFile" FontFamily="Century Gothic" FontSize="16" Checked="ExportSingleProjectFile_OnChecked" Unchecked="ExportSingleProjectFile_OnChecked">Export Single File Project</CheckBox>
+                <CheckBox Name="OverwriteGuidOnImport" FontFamily="Century Gothic" FontSize="16" Checked="OverwriteGuidOnImport_OnChecked" Unchecked="OverwriteGuidOnImport_OnChecked">Overwrite Addon Id On Import</CheckBox>
+            </UniformGrid>
 
         </StackPanel>
 

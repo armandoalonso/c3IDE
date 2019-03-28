@@ -256,8 +256,7 @@ namespace c3IDE.Windows
                 return;
             }
 
-            AddonManager.ExportAddonProject();
-            ProcessHelper.Insatnce.StartProcess(OptionsManager.CurrentOptions.ExportPath);
+            ProcessHelper.Insatnce.StartProcess(AddonManager.ExportAddonProject());
         }
 
         /// <summary>

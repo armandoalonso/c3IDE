@@ -21,6 +21,8 @@ namespace c3IDE.Models
         public string C3DesktopPath { get; set; }
         public bool PinMenu { get; set; } = false;
         public bool CompileOnSave { get; set; }
+        public bool ExportSingleFileProject { get; set; } = true;
+        public bool OverwriteGuidOnImport { get; set; } = true;
 
         [BsonIgnore]
         public Theme ApplicationTheme => ThemeResolver.Insatnce.Resolve(ThemeKey);

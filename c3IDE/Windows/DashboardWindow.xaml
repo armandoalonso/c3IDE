@@ -33,9 +33,11 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="3*"/>
                                         <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock  Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontWeight="Bold"/>
-                                    <TextBlock  Text="{Binding CreateDate, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10"/>
+                                    <TextBlock Grid.Row="0" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="1" Text="{Binding CreateDate, Mode=OneWay}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Row="2" Text="{Binding Id, Mode=OneWay}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 </Grid>
                             </Grid >
                             <TextBlock Grid.Column="2" Text="{Binding TypeName}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12"></TextBlock>

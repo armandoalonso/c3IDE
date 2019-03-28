@@ -99,27 +99,36 @@ namespace c3IDE.Windows
             {
                 var file = ((string[])e.Data.GetData(DataFormats.FileDrop))?.FirstOrDefault();
                 var info = new FileInfo(file);
+                C3Addon c3addon;
 
                 if (info.Extension.Contains("c3ide"))
                 {
-                    //todo: fix importing project structure
-                    var addon = ProjectManager.ReadProject(info.FullName);
-
-                    //var data = File.ReadAllText(info.FullName);
-                    //var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
+                    var addonInfo = File.ReadAllLines(info.FullName)[0];
+                    if (addonInfo == "@@METADATA")
+                    {
+                        c3addon = ProjectManager.ReadProject(info.FullName);
+                    }
+                    else
+                    {
+                        var data = File.ReadAllText(info.FullName);
+                        c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
+                    }
 
                     //when you import the project, it should not overwrite any other project
-                    //c3addon.Id = Guid.NewGuid();
+                    if (OptionsManager.CurrentOptions.OverwriteGuidOnImport)
+                    {
+                        c3addon.Id = Guid.NewGuid();
+                    }
 
                     //get the plugin template
-                    //c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
+                    c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
 
-                    //var addonIndex = AddonManager.AllAddons.Count - 1;
-                    //AddonManager.CurrentAddon = c3addon;
-                    //AddonManager.SaveCurrentAddon();
-                    //AddonManager.LoadAllAddons();
-                    //AddonListBox.ItemsSource = AddonManager.AllAddons;
-                    //AddonListBox.SelectedIndex = addonIndex + 1;
+                    var addonIndex = AddonManager.AllAddons.Count - 1;
+                    AddonManager.CurrentAddon = c3addon;
+                    AddonManager.SaveCurrentAddon();
+                    AddonManager.LoadAllAddons();
+                    AddonListBox.ItemsSource = AddonManager.AllAddons;
+                    AddonManager.LoadAddon(c3addon);
                 }
                 else
                 {

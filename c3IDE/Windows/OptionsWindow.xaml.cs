@@ -54,6 +54,8 @@ namespace c3IDE.Windows
             C3DesktopPathText.Text = OptionsManager.CurrentOptions.C3DesktopPath;
             PinMainMenu.IsChecked = OptionsManager.CurrentOptions.PinMenu;
             CompileOnSave.IsChecked = OptionsManager.CurrentOptions.CompileOnSave;
+            ExportSingleProjectFile.IsChecked = OptionsManager.CurrentOptions.ExportSingleFileProject;
+            OverwriteGuidOnImport.IsChecked = OptionsManager.CurrentOptions.OverwriteGuidOnImport;
         }
 
         /// <summary>
@@ -77,7 +79,9 @@ namespace c3IDE.Windows
                     OpenC3InWeb = OpenC3InWeb.IsChecked != null && OpenC3InWeb.IsChecked.Value,
                     C3DesktopPath = C3DesktopPathText.Text.Contains(".exe") ? C3DesktopPathText.Text : System.IO.Path.Combine(C3DesktopPathText.Text, "Construct3.exe"),
                     PinMenu = PinMainMenu.IsChecked != null && PinMainMenu.IsChecked.Value,
-                    CompileOnSave = CompileOnSave.IsChecked != null && CompileOnSave.IsChecked.Value
+                    CompileOnSave = CompileOnSave.IsChecked != null && CompileOnSave.IsChecked.Value,
+                    ExportSingleFileProject = ExportSingleProjectFile.IsChecked != null && ExportSingleProjectFile.IsChecked.Value,
+                    OverwriteGuidOnImport = OverwriteGuidOnImport.IsChecked != null && OverwriteGuidOnImport.IsChecked.Value
                 };
 
                 //create exports folder if it does not exists
@@ -275,6 +279,18 @@ namespace c3IDE.Windows
         {
             OptionsManager.CurrentOptions.CompileOnSave = CompileOnSave.IsChecked != null && CompileOnSave.IsChecked.Value;
             OptionsManager.OptionChangedCallback(OptionsManager.CurrentOptions);
+            OptionsManager.SaveOptions();
+        }
+
+        private void ExportSingleProjectFile_OnChecked(object sender, RoutedEventArgs e)
+        {
+            OptionsManager.CurrentOptions.ExportSingleFileProject = ExportSingleProjectFile.IsChecked != null  && ExportSingleProjectFile.IsChecked.Value;
+            OptionsManager.SaveOptions();
+        }
+
+        private void OverwriteGuidOnImport_OnChecked(object sender, RoutedEventArgs e)
+        {
+            OptionsManager.CurrentOptions.OverwriteGuidOnImport = OverwriteGuidOnImport.IsChecked != null && OverwriteGuidOnImport.IsChecked.Value;
             OptionsManager.SaveOptions();
         }
     }
