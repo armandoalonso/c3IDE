@@ -63,6 +63,9 @@
             <Button Content="Load Selected Addon" Margin="5" Click="LoadSelectedAddon_Click"/>
             <Button Content="Delete Selected Addon" Margin="5" Click="DeleteSelectedAddon_Click"/>
             <Button Content="Duplicate Selected Addon" Margin="5" Click="DuplicateSelectedAddon_Click"/>
+            <Separator Height="10" Visibility="Hidden"></Separator>
+            <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Addon Search</TextBlock>
+            <TextBox Name="AddonFilter" Margin="5" SelectionChanged="AddonFilter_OnSelectionChanged"></TextBox>
         </StackPanel>
     </Grid>
 </UserControl>
