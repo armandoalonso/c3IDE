@@ -261,6 +261,12 @@ namespace c3IDE.Windows
             AddonManager.LoadAddon(currentAddon);
             AddonExporter.Insatnce.ExportAddon(AddonManager.CurrentAddon);
             ProcessHelper.Insatnce.StartProcess(OptionsManager.CurrentOptions.C3AddonPath);
+
+            AddonManager.CurrentAddon.BuildVersion++;
+            AddonManager.SaveCurrentAddon();
+
+            AddonManager.LoadAllAddons();
+            AddonListBox.ItemsSource = AddonManager.AllAddons;
         }
 
         /// <summary>

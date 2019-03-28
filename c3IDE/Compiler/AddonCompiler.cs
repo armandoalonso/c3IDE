@@ -120,8 +120,11 @@ namespace c3IDE.Compiler
             //generate file strings
             _addonFiles = new Dictionary<string, string>();
 
-            //generate simple files
+
             LogManager.CompilerLog.Insert($"generating addon.json");
+            //update addon.json version
+            addon.AddonJson = Regex.Replace(addon.AddonJson, @"\d+\.\d+\.\d+\.\d+", $"{addon.MajorVersion}.{addon.MinorVersion}.{addon.RevisionVersion}.{addon.BuildVersion}");
+            //generate addon json files
             _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "addon.json"), LogManager.CompilerLog.WrapLogger(() => FormatHelper.Insatnce.Json(addon.AddonJson)));
             LogManager.CompilerLog.Insert($"generating addon.json => complete");
 
@@ -458,7 +461,7 @@ namespace c3IDE.Compiler
 	""type"": ""effect"",
 	""name"": ""{addon.Name}"",
 	""id"": ""{addon.Company}_{addon.Class}"",
-	""version"": ""{addon.Version}"",
+	""version"": ""{addon.MajorVersion}.{addon.MinorVersion}.{addon.RevisionVersion}.{addon.RevisionVersion}"",
 	""author"": ""{addon.Author}"",
 	""website"": ""https://www.construct.net"",
 	""documentation"": ""https://www.construct.net"",

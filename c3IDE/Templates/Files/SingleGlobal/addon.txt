@@ -3,7 +3,7 @@
 	"type": "plugin",
 	"name": "{{name}}",
 	"id": "{{company}}_{{class}}",
-	"version": "{{version}}",
+	"version": "{{major_version}}.{{minor_version}}.{{revision_version}}.{{build_version}}",
 	"author": "{{author}}",
 	"website": "https://www.construct.net",
 	"documentation": "https://www.construct.net",

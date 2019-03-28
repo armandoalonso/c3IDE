@@ -35,7 +35,7 @@ namespace c3IDE.Compiler
         private void CreateC3AddonFile(C3Addon addon, string addonAddonFolder)
         {
             var outputPath = OptionsManager.CurrentOptions.C3AddonPath;
-            var c3addonFile = System.IO.Path.Combine(outputPath,$"{addon.Class.ToLower()}_{addon.Version.Replace(".", "_")}.c3addon");
+            var c3addonFile = System.IO.Path.Combine(outputPath,$"{addon.Class.ToLower()}_{addon.MajorVersion}_{addon.MinorVersion}_{addon.RevisionVersion}_{addon.BuildVersion}.c3addon");
             if(System.IO.File.Exists(c3addonFile)) File.Delete(c3addonFile);
             ZipFile.CreateFromDirectory(addonAddonFolder, c3addonFile);
         }

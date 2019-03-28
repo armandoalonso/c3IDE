@@ -70,7 +70,10 @@ namespace c3IDE.Managers
             sb.AppendLine($"Class|{addon.Class}");
             sb.AppendLine($"Company|{addon.Company}");
             sb.AppendLine($"Author|{addon.Author}");
-            sb.AppendLine($"Version|{addon.Version}");
+            sb.AppendLine($"MajorVersion|{addon.MajorVersion}");
+            sb.AppendLine($"MinorVersion|{addon.MinorVersion}");
+            sb.AppendLine($"RevisionVersion|{addon.RevisionVersion}");
+            sb.AppendLine($"BuildVersion|{addon.BuildVersion}");
             sb.AppendLine($"Description|{addon.Description}");
             sb.AppendLine($"Category|{addon.AddonCategory}");
             sb.AppendLine($"Type|{addon.Type}");
@@ -90,12 +93,17 @@ namespace c3IDE.Managers
                 addon.Class = text[3].Split('|')[1].Trim();
                 addon.Company = text[4].Split('|')[1].Trim();
                 addon.Author = text[5].Split('|')[1].Trim();
-                addon.Version = text[6].Split('|')[1].Trim();
-                addon.Description = text[7].Split('|')[1].Trim();
-                addon.AddonCategory = text[8].Split('|')[1].Trim();
-                addon.Type = (PluginType)Enum.Parse(typeof(PluginType), text[9].Split('|')[1].Trim());
-                addon.CreateDate = DateTime.Parse(text[10].Split('|')[1].Trim());
-                addon.LastModified = DateTime.Parse(text[11].Split('|')[1].Trim());
+
+                addon.MajorVersion = int.Parse(text[6].Split('|')[1].Trim());
+                addon.MinorVersion = int.Parse(text[7].Split('|')[1].Trim());
+                addon.RevisionVersion = int.Parse(text[8].Split('|')[1].Trim());
+                addon.BuildVersion = int.Parse(text[9].Split('|')[1].Trim());
+
+                addon.Description = text[10].Split('|')[1].Trim();
+                addon.AddonCategory = text[11].Split('|')[1].Trim();
+                addon.Type = (PluginType)Enum.Parse(typeof(PluginType), text[12].Split('|')[1].Trim());
+                addon.CreateDate = DateTime.Parse(text[13].Split('|')[1].Trim());
+                addon.LastModified = DateTime.Parse(text[14].Split('|')[1].Trim());
             }
             catch (Exception ex)
             {

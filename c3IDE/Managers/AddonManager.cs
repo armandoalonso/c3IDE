@@ -92,7 +92,6 @@ namespace c3IDE.Managers
                 string.IsNullOrWhiteSpace(CurrentAddon.Company) ||
                 string.IsNullOrWhiteSpace(CurrentAddon.Name) ||
                 string.IsNullOrWhiteSpace(CurrentAddon.Author) ||
-                string.IsNullOrWhiteSpace(CurrentAddon.Version) ||
                 string.IsNullOrWhiteSpace(CurrentAddon.Description))
             {
                 return false;

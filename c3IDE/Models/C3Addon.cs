@@ -17,10 +17,19 @@ namespace c3IDE.Models
         public string Class { get; set; }
         public string Company { get; set; }
         public string Author { get; set; }
-        public string Version { get; set; }
+
+        [BsonIgnore]
+        [JsonIgnore]
+        public string Version => $"{MajorVersion}.{MinorVersion}.{RevisionVersion}.{BuildVersion}";
+
         public string Description { get; set; }
         public string AddonFolder { get; set; }
         public string AddonCategory { get; set; } = "other";
+
+        public int MajorVersion { get; set; } = 1;
+        public int MinorVersion { get; set; } = 0;
+        public int RevisionVersion { get; set; } = 0;
+        public int BuildVersion { get; set; } = 0;
 
         public PluginType Type { get; set; }
 

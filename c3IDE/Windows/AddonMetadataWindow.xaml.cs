@@ -54,7 +54,6 @@ namespace c3IDE.Windows
                 AddonNameText.Text = AddonManager.CurrentAddon.Name;
                 AddonClassText.Text = AddonManager.CurrentAddon.Class;
                 AuthorText.Text = AddonManager.CurrentAddon.Author;
-                VersionText.Text = AddonManager.CurrentAddon.Version;
                 AddonTypeDropdown.Text = AddonManager.CurrentAddon.Type.ToString();
                 DescriptionText.Text = AddonManager.CurrentAddon.Description;
                 AddonIcon.Source = AddonManager.CurrentAddon.IconImage;
@@ -64,7 +63,6 @@ namespace c3IDE.Windows
                 AddonNameText.Text = "New Plugin";
                 AddonClassText.Text = "NewPlugin";
                 AuthorText.Text = OptionsManager.CurrentOptions.DefaultAuthor;
-                VersionText.Text = "1.0.0.0";
                 AddonTypeDropdown.Text = "SingleGlobalPlugin";
                 DescriptionText.Text = string.Empty;
                 AddonCategoryDropdown.Text = "general";
@@ -82,7 +80,6 @@ namespace c3IDE.Windows
                 AddonManager.CurrentAddon.Class = AddonClassText.Text;
                 AddonManager.CurrentAddon.Company= AuthorText.Text;
                 AddonManager.CurrentAddon.Author = AuthorText.Text;
-                AddonManager.CurrentAddon.Version = VersionText.Text;
                 AddonManager.CurrentAddon.AddonCategory = AddonTypeDropdown.Text;
             }
         }
@@ -169,7 +166,6 @@ namespace c3IDE.Windows
                 Class = string.Empty,
                 Company = string.Empty,
                 Author = string.Empty,
-                Version = string.Empty,
                 Description = string.Empty,
                 AddonCategory = string.Empty,
                 Type = PluginType.SingleGlobalPlugin,
@@ -186,13 +182,18 @@ namespace c3IDE.Windows
             AddonManager.CurrentAddon.Class = AddonClassText.Text.Replace(" ", string.Empty).Trim();
             AddonManager.CurrentAddon.Company = AuthorText.Text.Replace(" ", string.Empty).Trim();
             AddonManager.CurrentAddon.Author = AuthorText.Text;
-            AddonManager.CurrentAddon.Version = VersionText.Text;
             AddonManager.CurrentAddon.Description = DescriptionText.Text;
             AddonManager.CurrentAddon.Type = pluginType;
             AddonManager.CurrentAddon.AddonCategory = addonCategory;
             AddonManager.CurrentAddon.IconXml = IconXml;
             AddonManager.CurrentAddon.Template = TemplateFactory.Insatnce.CreateTemplate(pluginType);
             AddonManager.CurrentAddon.LastModified = DateTime.Now;
+
+            //add version
+            AddonManager.CurrentAddon.MajorVersion = 1;
+            AddonManager.CurrentAddon.MinorVersion = 0;
+            AddonManager.CurrentAddon.RevisionVersion = 0;
+            AddonManager.CurrentAddon.BuildVersion = 0;
 
             //validate addon
             if (!AddonManager.ValidateCurrentAddon())

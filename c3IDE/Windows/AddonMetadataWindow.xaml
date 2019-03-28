@@ -35,11 +35,6 @@
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">
-                <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Version :</TextBlock>
-                <TextBox Name="VersionText" DockPanel.Dock="Right" Text="1.0.0.0" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton"></TextBox>
-            </DockPanel>
-
-            <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Description :</TextBlock>
                 <TextBox Name="DescriptionText" DockPanel.Dock="Right" Text="" VerticalScrollBarVisibility="Auto" Height="80"></TextBox>
             </DockPanel>
