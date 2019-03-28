@@ -103,16 +103,20 @@ namespace c3IDE.Managers
         /// <summary>
         /// creates a c3ide project file in the export folder based on the loaded addon
         /// </summary>
-        public static void ExportAddonProject()
+        public static string ExportAddonProject()
         {
-            if (CurrentAddon == null) return;
-            var addonJson = JsonConvert.SerializeObject(CurrentAddon);
+            //if (CurrentAddon == null) return;
+            //var addonJson = JsonConvert.SerializeObject(CurrentAddon);
             var timestamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
             var name = OptionsManager.CurrentOptions.IncludeTimeStampOnExport
-                ? $"{CurrentAddon.Class}_{timestamp}.c3ide"
-                : $"{CurrentAddon.Class}.c3ide";
+                ? $"{CurrentAddon.Author}_{CurrentAddon.Class}_{timestamp}"
+                : $"{CurrentAddon.Author}_{CurrentAddon.Class}";
+            var path = Path.Combine(OptionsManager.CurrentOptions.ExportPath, name);
+            //ProcessHelper.Insatnce.WriteFile(Path.Combine(OptionsManager.CurrentOptions.ExportPath, name), addonJson);
 
-            ProcessHelper.Insatnce.WriteFile(Path.Combine(OptionsManager.CurrentOptions.ExportPath, name), addonJson);
+            //todo: use project structure
+            ProjectManager.WriteProject(CurrentAddon, path);
+            return path;
         }
 
         /// <summary>

@@ -102,19 +102,24 @@ namespace c3IDE.Windows
 
                 if (info.Extension.Contains("c3ide"))
                 {
-                    var data = File.ReadAllText(info.FullName);
-                    var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
-                    //when you import the project, it should not overwrite any other project 
-                    c3addon.Id = Guid.NewGuid();
-                    //get the plugin template
-                    c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
+                    //todo: fix importing project structure
+                    var addon = ProjectManager.ReadProject(info.FullName);
 
-                    var addonIndex = AddonManager.AllAddons.Count - 1;
-                    AddonManager.CurrentAddon = c3addon;
-                    AddonManager.SaveCurrentAddon();
-                    AddonManager.LoadAllAddons();
-                    AddonListBox.ItemsSource = AddonManager.AllAddons;
-                    AddonListBox.SelectedIndex = addonIndex + 1;
+                    //var data = File.ReadAllText(info.FullName);
+                    //var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
+
+                    //when you import the project, it should not overwrite any other project
+                    //c3addon.Id = Guid.NewGuid();
+
+                    //get the plugin template
+                    //c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
+
+                    //var addonIndex = AddonManager.AllAddons.Count - 1;
+                    //AddonManager.CurrentAddon = c3addon;
+                    //AddonManager.SaveCurrentAddon();
+                    //AddonManager.LoadAllAddons();
+                    //AddonListBox.ItemsSource = AddonManager.AllAddons;
+                    //AddonListBox.SelectedIndex = addonIndex + 1;
                 }
                 else
                 {
@@ -227,10 +232,7 @@ namespace c3IDE.Windows
 
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
             AddonManager.LoadAddon(currentAddon);
-            AddonManager.ExportAddonProject();
-            ProcessHelper.Insatnce.StartProcess(OptionsManager.CurrentOptions.ExportPath);
-
-
+            ProcessHelper.Insatnce.StartProcess(AddonManager.ExportAddonProject());
         }
 
         /// <summary>
