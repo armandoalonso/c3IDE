@@ -470,11 +470,11 @@ namespace c3IDE.Compiler
 	],
 	
 	""category"": ""{addon.AddonCategory}"",
-	""blends-background"": {addon.Effect.BlendsBackground},
-	""cross-sampling"": {addon.Effect.CrossSampling},
-	""preserves-opaqueness"": {addon.Effect.PreservesOpaqueness},
-	""animated"": {addon.Effect.Animated},
-	""must-predraw"" : {addon.Effect.MustPredraw},
+	""blends-background"": {addon.Effect.BlendsBackground.ToString().ToLower()},
+	""cross-sampling"": {addon.Effect.CrossSampling.ToString().ToLower()},
+	""preserves-opaqueness"": {addon.Effect.PreservesOpaqueness.ToString().ToLower()},
+	""animated"": {addon.Effect.Animated.ToString().ToLower()},
+	""must-predraw"" : {addon.Effect.MustPredraw.ToString().ToLower()},
 
 	""extend-box"": {{
 		""horizontal"": {addon.Effect.ExtendBoxHorizontal},
