@@ -50,7 +50,8 @@ namespace c3IDE.Managers
                 PinMenu = false,
                 CompileOnSave = false,
                 ExportSingleFileProject = true,
-                OverwriteGuidOnImport = true
+                OverwriteGuidOnImport = true,
+                RemoveConsoleLogsOnCompile = false
             };
 
             DefaultOptions = defaultOptions;

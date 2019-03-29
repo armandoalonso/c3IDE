@@ -70,6 +70,12 @@
                 <CheckBox Name="ExportSingleProjectFile" FontFamily="Century Gothic" FontSize="16" Checked="ExportSingleProjectFile_OnChecked" Unchecked="ExportSingleProjectFile_OnChecked">Export Single File Project</CheckBox>
                 <CheckBox Name="OverwriteGuidOnImport" FontFamily="Century Gothic" FontSize="16" Checked="OverwriteGuidOnImport_OnChecked" Unchecked="OverwriteGuidOnImport_OnChecked">Overwrite Addon Id On Import</CheckBox>
             </UniformGrid>
+            <Separator Visibility="Hidden" Height="5" />
+            
+            <UniformGrid Columns="2">
+                <CheckBox Name="RemoveConsoleLogsOnCompile" FontFamily="Century Gothic" FontSize="16" Checked="RemoveConsoleLogsOnCompile_OnChecked" Unchecked="RemoveConsoleLogsOnCompile_OnChecked">Remove Console Logs (Compile)</CheckBox>
+               
+            </UniformGrid>
 
         </StackPanel>
 

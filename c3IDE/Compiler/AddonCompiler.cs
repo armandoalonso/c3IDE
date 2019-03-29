@@ -125,36 +125,50 @@ namespace c3IDE.Compiler
             //update addon.json version
             addon.AddonJson = Regex.Replace(addon.AddonJson, @"\d+\.\d+\.\d+\.\d+", $"{addon.MajorVersion}.{addon.MinorVersion}.{addon.RevisionVersion}.{addon.BuildVersion}");
             //generate addon json files
-            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "addon.json"), LogManager.CompilerLog.WrapLogger(() => FormatHelper.Insatnce.Json(addon.AddonJson)));
+            _addonFiles.Add(Path.Combine(
+                OptionsManager.CurrentOptions.CompilePath, folderName, "addon.json"), 
+                LogManager.CompilerLog.WrapLogger(() => FormatHelper.Insatnce.Json(addon.AddonJson)));
             LogManager.CompilerLog.Insert($"generating addon.json => complete");
 
             if (addon.Type == PluginType.Behavior)
             {
                 LogManager.CompilerLog.Insert($"generating behavior.js (edittime)");
-                _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "behavior.js"), FormatHelper.Insatnce.Javascript(addon.PluginEditTime));
+                _addonFiles.Add(
+                    Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "behavior.js"), 
+                    ConsoleLogRemover.Insatnce.CommentOut(FormatHelper.Insatnce.Javascript(addon.PluginEditTime)));
                 LogManager.CompilerLog.Insert($"generating behavior.js (edittime) => complete");
 
                 LogManager.CompilerLog.Insert($"generating behavior.js (runtime)");
-                _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "behavior.js"), FormatHelper.Insatnce.Javascript(addon.PluginRunTime));
+                _addonFiles.Add(
+                    Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "behavior.js"),
+                    ConsoleLogRemover.Insatnce.CommentOut(FormatHelper.Insatnce.Javascript(addon.PluginRunTime)));
                 LogManager.CompilerLog.Insert($"generating behavior.js (runtime) => complete");
             }
             else
             {
                 LogManager.CompilerLog.Insert($"generating plugin.js (edittime)");
-                _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "plugin.js"), FormatHelper.Insatnce.Javascript(addon.PluginEditTime));
+                _addonFiles.Add(
+                    Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "plugin.js"),
+                    ConsoleLogRemover.Insatnce.CommentOut(FormatHelper.Insatnce.Javascript(addon.PluginEditTime)));
                 LogManager.CompilerLog.Insert($"generating plugin.js (edittime) => complete");
 
                 LogManager.CompilerLog.Insert($"generating plugin.js (runtime)");
-                _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "plugin.js"), FormatHelper.Insatnce.Javascript(addon.PluginRunTime));
+                _addonFiles.Add(
+                    Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "plugin.js"),
+                    ConsoleLogRemover.Insatnce.CommentOut(FormatHelper.Insatnce.Javascript(addon.PluginRunTime)));
                 LogManager.CompilerLog.Insert($"generating plugin.js (runtime) => complete");
             }
 
             LogManager.CompilerLog.Insert($"generating type.js (edittime)");
-            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "type.js"), FormatHelper.Insatnce.Javascript(addon.TypeEditTime));
+            _addonFiles.Add(
+                Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "type.js"),
+                ConsoleLogRemover.Insatnce.CommentOut(FormatHelper.Insatnce.Javascript(addon.TypeEditTime)));
             LogManager.CompilerLog.Insert($"generating type.js (edittime) => complete");
 
             LogManager.CompilerLog.Insert($"generating instance.js (edittime)");
-            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "instance.js"), FormatHelper.Insatnce.Javascript(addon.InstanceEditTime));
+            _addonFiles.Add(
+                Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "instance.js"),
+                ConsoleLogRemover.Insatnce.CommentOut(FormatHelper.Insatnce.Javascript(addon.InstanceEditTime)));
             LogManager.CompilerLog.Insert($"generating instance.js (edittime) => complete");
 
             LogManager.CompilerLog.Insert($"generating ace.json");
@@ -166,24 +180,34 @@ namespace c3IDE.Compiler
             LogManager.CompilerLog.Insert($"generating en-US.json => complete");
 
             LogManager.CompilerLog.Insert($"generating type.js (runtime)");
-            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "type.js"), FormatHelper.Insatnce.Javascript(addon.TypeRunTime));
+            _addonFiles.Add(Path.Combine(
+                OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "type.js"),
+                ConsoleLogRemover.Insatnce.CommentOut(FormatHelper.Insatnce.Javascript(addon.TypeRunTime)));
             LogManager.CompilerLog.Insert($"generating type.js (runtime) => complete");
 
             LogManager.CompilerLog.Insert($"generating instance.js (runtime)");
-            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "instance.js"), FormatHelper.Insatnce.Javascript(addon.InstanceRunTime));
+            _addonFiles.Add(
+                Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "instance.js"),
+                ConsoleLogRemover.Insatnce.CommentOut(FormatHelper.Insatnce.Javascript(addon.InstanceRunTime)));
             LogManager.CompilerLog.Insert($"generating instance.js (runtime) => complete");
 
-            LogManager.CompilerLog.Insert($"generating action.js.json");
-            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "actions.js"), FormatHelper.Insatnce.Javascript(CompileActions(addon)));
+            LogManager.CompilerLog.Insert($"generating action.js");
+            _addonFiles.Add(
+                Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "actions.js"),
+                ConsoleLogRemover.Insatnce.CommentOut(FormatHelper.Insatnce.Javascript(CompileActions(addon))));
             LogManager.CompilerLog.Insert($"generating action.js => complete");
 
-            LogManager.CompilerLog.Insert($"generating conditions.json");
-            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "conditions.js"), FormatHelper.Insatnce.Javascript(CompileConditions(addon)));
-            LogManager.CompilerLog.Insert($"generating conditions.json => complete");
+            LogManager.CompilerLog.Insert($"generating conditions.js");
+            _addonFiles.Add(
+                Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "conditions.js"),
+                ConsoleLogRemover.Insatnce.CommentOut(FormatHelper.Insatnce.Javascript(CompileConditions(addon))));
+            LogManager.CompilerLog.Insert($"generating conditions.js => complete");
 
-            LogManager.CompilerLog.Insert($"generating expressions.json");
-            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "expressions.js"), FormatHelper.Insatnce.Javascript(CompileExpressions(addon)));
-            LogManager.CompilerLog.Insert($"generating expressions.json => complete");
+            LogManager.CompilerLog.Insert($"generating expressions.js");
+            _addonFiles.Add(Path.Combine(
+                OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", "expressions.js"),
+                ConsoleLogRemover.Insatnce.CommentOut(FormatHelper.Insatnce.Javascript(CompileExpressions(addon))));
+            LogManager.CompilerLog.Insert($"generating expressions.js => complete");
 
             LogManager.CompilerLog.Insert("generating 3rd party files");
             foreach (var files in addon.ThirdPartyFiles.Values)

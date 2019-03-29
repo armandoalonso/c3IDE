@@ -56,6 +56,7 @@ namespace c3IDE.Windows
             CompileOnSave.IsChecked = OptionsManager.CurrentOptions.CompileOnSave;
             ExportSingleProjectFile.IsChecked = OptionsManager.CurrentOptions.ExportSingleFileProject;
             OverwriteGuidOnImport.IsChecked = OptionsManager.CurrentOptions.OverwriteGuidOnImport;
+            RemoveConsoleLogsOnCompile.IsChecked = OptionsManager.CurrentOptions.RemoveConsoleLogsOnCompile;
         }
 
         /// <summary>
@@ -81,7 +82,8 @@ namespace c3IDE.Windows
                     PinMenu = PinMainMenu.IsChecked != null && PinMainMenu.IsChecked.Value,
                     CompileOnSave = CompileOnSave.IsChecked != null && CompileOnSave.IsChecked.Value,
                     ExportSingleFileProject = ExportSingleProjectFile.IsChecked != null && ExportSingleProjectFile.IsChecked.Value,
-                    OverwriteGuidOnImport = OverwriteGuidOnImport.IsChecked != null && OverwriteGuidOnImport.IsChecked.Value
+                    OverwriteGuidOnImport = OverwriteGuidOnImport.IsChecked != null && OverwriteGuidOnImport.IsChecked.Value,
+                    RemoveConsoleLogsOnCompile = RemoveConsoleLogsOnCompile.IsChecked != null && RemoveConsoleLogsOnCompile.IsChecked.Value
                 };
 
                 //create exports folder if it does not exists
@@ -291,6 +293,13 @@ namespace c3IDE.Windows
         private void OverwriteGuidOnImport_OnChecked(object sender, RoutedEventArgs e)
         {
             OptionsManager.CurrentOptions.OverwriteGuidOnImport = OverwriteGuidOnImport.IsChecked != null && OverwriteGuidOnImport.IsChecked.Value;
+            OptionsManager.SaveOptions();
+        }
+
+
+        private void RemoveConsoleLogsOnCompile_OnChecked(object sender, RoutedEventArgs e)
+        {
+            OptionsManager.CurrentOptions.RemoveConsoleLogsOnCompile = RemoveConsoleLogsOnCompile.IsChecked != null && RemoveConsoleLogsOnCompile.IsChecked.Value;
             OptionsManager.SaveOptions();
         }
     }
