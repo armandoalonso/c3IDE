@@ -62,6 +62,7 @@ namespace c3IDE
                 SetupMenus(PluginType.SingleGlobalPlugin);
                 ActiveItem.Content = ApplicationWindows.DashboardWindow;
                 ApplicationWindows.DashboardWindow.OnEnter();
+                OptionChanged(OptionsManager.CurrentOptions);
             }
             catch (Exception ex)
             {
@@ -327,10 +328,7 @@ namespace c3IDE
             itemCollection?.Clear();
             List<HamburgerMenuIconItem> items;
 
-            if (type == PluginType.Effect)
-                items = MenuManager.EffectMenu;
-            else
-                items = MenuManager.MainMenu;
+            items = type == PluginType.Effect ? MenuManager.EffectMenu : MenuManager.MainMenu;
 
             //append the menu items
            foreach (var hamburgerMenuIconItem in items)
