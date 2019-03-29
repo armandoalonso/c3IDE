@@ -410,22 +410,22 @@ namespace c3IDE
 
         private void TwitterLink_OnClick(object sender, RoutedEventArgs e)
         {
-            //todo: open twitter
+            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://twitter.com/piranha_305");
         }
 
         private void GithubIssues_OnClick(object sender, RoutedEventArgs e)
         {
-            //todo: open github issues
+            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://github.com/armandoalonso/c3IDE/issues");
         }
 
         private void Itch_OnClick(object sender, RoutedEventArgs e)
         {
-            //todo: open itch.io
+            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://piranha305.itch.io/");
         }
 
         private void Discord_OnClick(object sender, RoutedEventArgs e)
         {
-            //todo: open discord
+            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://discordapp.com/channels/116497549237551109/158203895556866048");
         }
     }
 }

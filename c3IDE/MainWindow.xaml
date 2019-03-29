@@ -93,7 +93,7 @@
                 <Separator Visibility="Hidden" Height="5" DockPanel.Dock="Top" />
                 <TextBlock FontSize="18" TextAlignment="Center" DockPanel.Dock="Top">Report issues : <Hyperlink Click="GithubIssues_OnClick"> Github Issues</Hyperlink></TextBlock>
                 <Separator Visibility="Hidden" Height="5" DockPanel.Dock="Top" />
-                <TextBlock FontSize="18" TextAlignment="Center" DockPanel.Dock="Top">You can also contact me on discord <Hyperlink Click="Discord_OnClick"> Piranha305#8396</Hyperlink></TextBlock>
+                <TextBlock FontSize="18" TextAlignment="Center" DockPanel.Dock="Top">Contact me on Construct Community discord <Hyperlink Click="Discord_OnClick"> Piranha305#8396</Hyperlink></TextBlock>
                 <Separator Visibility="Hidden" Height="5" DockPanel.Dock="Top" />
                 <TextBlock FontSize="18" TextAlignment="Center" DockPanel.Dock="Top">Support me by playing my games on : <Hyperlink Click="Itch_OnClick"> Itch.io</Hyperlink></TextBlock>
                 <Separator Visibility="Hidden" Height="15" DockPanel.Dock="Top" />
