@@ -144,7 +144,16 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="2">
-                            <TextBlock Text="{Binding Key}" VerticalAlignment="Center"></TextBlock>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Key}" VerticalAlignment="Center" Grid.Column="0"></TextBlock>
+                            <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="11">
+                                <Run Text="("/>
+                                <Run Text="{Binding Value.Category}"></Run>
+                                <Run Text=")"/>
+                            </TextBlock>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
