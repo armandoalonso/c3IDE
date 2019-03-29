@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using c3IDE.Utilities.CodeCompletion;
-using c3IDE.Utilities.CodeCompletion.Bindings;
-using c3IDE.Utilities.Extentions;
+
 
 namespace c3IDE.Utilities.Helpers
 {

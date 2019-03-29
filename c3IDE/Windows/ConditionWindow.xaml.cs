@@ -720,16 +720,6 @@ namespace c3IDE.Windows
                 _selectedCondition.Category = Category.Text;
             }
         }
-
-        /// <summary>
-        /// lints the selected condition javascript
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LintJavascript_OnClick(object sender, RoutedEventArgs e)
-        {
-            LintingManager.Lint(CodeTextEditor.Text);
-        }
     }
 }
     

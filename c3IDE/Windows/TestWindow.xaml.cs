@@ -340,5 +340,12 @@ namespace c3IDE.Windows
             AddonManager.SaveCurrentAddon();
             Build.Text = AddonManager.CurrentAddon.BuildVersion.ToString();
         }
+
+        private void LintJavascript_OnClick(object sender, RoutedEventArgs e)
+        {
+            NotificationManager.PublishErrorNotification("Sorry, Linting is currently not available, This feature is being reworked to be more usbale in a later update");
+            return;
+            //LintingManager.Lint("");
+        }
     }
 }

@@ -704,15 +704,5 @@ namespace c3IDE.Windows
                 _selectedAction.Category = Category.Text;
             }
         }
-
-        /// <summary>
-        /// lints the selected actions javascript
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private  void LintJavascript_OnClick(object sender, RoutedEventArgs e)
-        {
-            LintingManager.Lint(CodeTextEditor.Text);
-        }
     }
 }

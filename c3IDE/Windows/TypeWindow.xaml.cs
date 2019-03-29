@@ -254,25 +254,5 @@ namespace c3IDE.Windows
         {
             RunTimeTypeTextEditor.Text = FormatHelper.Insatnce.Javascript(RunTimeTypeTextEditor.Text);
         }
-
-        /// <summary>
-        /// lints the selected edit time type javascript
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LintJavascriptEditTime_OnClick(object sender, RoutedEventArgs e)
-        {
-            LintingManager.Lint(EditTimeTypeTextEditor.Text);
-        }
-
-        // <summary>
-        /// lints the selected run time type javascript
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LintJavascriptRunTime_OnClick(object sender, RoutedEventArgs e)
-        {
-            LintingManager.Lint(RunTimeTypeTextEditor.Text);
-        }
     }
 }

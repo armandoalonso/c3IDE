@@ -373,15 +373,5 @@ namespace c3IDE.Windows
         {
             FileTextEditor.Text = FormatHelper.Insatnce.Json(FileTextEditor.Text);
         }
-
-        /// <summary>
-        /// lints the selected 3rd party js javascript
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LintJavascript_OnClick(object sender, RoutedEventArgs e)
-        {
-            LintingManager.Lint(FileTextEditor.Text);
-        }
     }
 }
