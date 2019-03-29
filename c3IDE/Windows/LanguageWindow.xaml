@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
 
         <DockPanel Grid.Column="0" LastChildFill="True">
-            <Button DockPanel.Dock="Top" Content="Generate Property Json" Margin="0,5" Width="250" Click="GeneratePropertyText"/>
+            <Button DockPanel.Dock="Bottom" Content="Generate Property Json" Margin="0,5" Width="250" Click="GeneratePropertyText"/>
             <TabControl DockPanel.Dock="Bottom">
                 <TabItem Header="Properties" Background="Transparent">
                     <avalonEdit:TextEditor
@@ -43,7 +43,7 @@
         </GridSplitter>
 
         <DockPanel Grid.Column="2" LastChildFill="True">
-            <Button DockPanel.Dock="Top" Content="Generate Category Json" Margin="0,5" Width="250" Click="GenerateCategoryText"/>
+            <Button DockPanel.Dock="Bottom" Content="Generate Category Json" Margin="0,5" Width="250" Click="GenerateCategoryText"/>
             <TabControl DockPanel.Dock="Bottom">
                 <TabItem Header="Categories" Background="Transparent">
                     <avalonEdit:TextEditor

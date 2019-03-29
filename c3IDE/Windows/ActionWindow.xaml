@@ -96,7 +96,10 @@
                 <Button Content="Lang" Click="LangView_OnClick"></Button>
                 <Button Content="Code" Click="CodeView_OnClick"></Button>
             </UniformGrid>
-            <Button Name="RemoveAction" Content="RemoveAction" Margin="2" Click="RemoveAction_OnClick" DockPanel.Dock="Bottom"></Button>
+
+            <Button Name="AddParameter" Content="Add Parameter" Margin="2" Click="InsertNewParam_OnClick" DockPanel.Dock="Bottom"></Button>
+            <Button Name="RemoveAction" Content="Remove Action" Margin="2" Click="RemoveAction_OnClick" DockPanel.Dock="Bottom"></Button>
+            <Button Name="DuplicateAce" Content="Deuplicate Action" Margin="2" Click="DuplicateAce_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="AddAction" Content="Add New Action" Margin="2" Click="AddAction_OnClick" DockPanel.Dock="Bottom"></Button>
             <TextBox Name="Category" DockPanel.Dock="Bottom" Margin="2" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" TextChanged="Category_OnTextChanged"></TextBox>
             <TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource TextBlockStyle}">Category</TextBlock>

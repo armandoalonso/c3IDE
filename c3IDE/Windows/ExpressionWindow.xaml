@@ -80,7 +80,9 @@
                 <Button Content="Lang" Click="LangView_OnClick"></Button>
                 <Button Content="Code" Click="CodeView_OnClick"></Button>
             </UniformGrid>
+            <Button Name="AddParameter" Content="Add Parameter" Margin="2" Click="InsertNewParam_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="RemoveExpression" Content="RemoveExpression" Margin="2" Click="RemoveExpression_OnClick" DockPanel.Dock="Bottom"></Button>
+            <Button Name="DuplicateAce" Content="Duplicate Condition" Margin="2" Click="DuplicateAce_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="AddExpression" Content="Add New Expression" Margin="2" Click="AddExpression_OnClick" DockPanel.Dock="Bottom"></Button>
             <TextBox Name="Category" DockPanel.Dock="Bottom" Margin="2" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" TextChanged="Category_OnTextChanged"></TextBox>
             <TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource TextBlockStyle}">Category</TextBlock>

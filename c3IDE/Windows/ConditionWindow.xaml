@@ -135,7 +135,9 @@
                 <Button Content="Lang" Click="LangView_OnClick"></Button>
                 <Button Content="Code" Click="CodeView_OnClick"></Button>
             </UniformGrid>
+            <Button Name="AddParameter" Content="Add Parameter" Margin="2" Click="InsertNewParam_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="RemoveCondition" Content="Remove Condition" Margin="2" Click="RemoveCondition_OnClick" DockPanel.Dock="Bottom"></Button>
+            <Button Name="DuplicateAce" Content="Duplicate Condition" Margin="2" Click="DuplicateAce_OnClick" DockPanel.Dock="Bottom"></Button>
             <Button Name="AddCondition" Content="Add New Condition" Margin="2" Click="AddCondition_OnClick" DockPanel.Dock="Bottom"></Button>
             <TextBox Name="Category" DockPanel.Dock="Bottom" Margin="2" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" TextChanged="Category_OnTextChanged"></TextBox>
             <TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource TextBlockStyle}">Category</TextBlock>

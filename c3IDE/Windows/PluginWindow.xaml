@@ -8,7 +8,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
     <Grid Margin="10" Name="PluginGrid">
-        <mah:ChildWindow Name="NewPropertyWindow" Title="Add New Property" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="250" CloseOnOverlay="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        
+        <mah:ChildWindow Name="NewPropertyWindow" Title="Add New Property" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="250" CloseOnOverlay="True" Grid.RowSpan="2">
             <mah:ChildWindow.OverlayBrush>
                 <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
             </mah:ChildWindow.OverlayBrush>
@@ -36,9 +41,9 @@
             </StackPanel>
         </mah:ChildWindow>
         
-        <TabControl>
+        <TabControl Grid.Row="0" Name="PluginTabControl">
             <TabItem Header="Plugin.js" IsEnabled="False" Name="TitleTab" Background="Transparent"/>
-            <TabItem Header="(Edit Time)" IsSelected="True" Background="Transparent">
+            <TabItem Header="(Edit Time)" IsSelected="True" Background="Transparent" Name="EditTimePluginTab">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="EditTimePluginTextEditor"
@@ -58,7 +63,7 @@
                 </avalonEdit:TextEditor>
             </TabItem>
 
-            <TabItem Header="(Run Time)" Background="Transparent">
+            <TabItem Header="(Run Time)" Background="Transparent" Name="RunTimePluginTab">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="RunTimePluginTextEditor"
@@ -76,5 +81,10 @@
                 </avalonEdit:TextEditor>
             </TabItem>
         </TabControl>
+
+        <UniformGrid Columns="5" Grid.Row="1" Margin="5">
+            <Button Content="New Plugin Property" Click="InsertNewProperty_OnClick"></Button>
+            <Button Content="Generate File Dependency" Click="GenerateFileDependency_OnClick" Margin="5,0,0,0"></Button>
+        </UniformGrid>
     </Grid>
 </UserControl>

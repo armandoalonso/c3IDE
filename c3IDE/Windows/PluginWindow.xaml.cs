@@ -245,6 +245,7 @@ namespace c3IDE.Windows
             NewPropertyWindow.IsOpen = true;
             PropertyIdText.Text = "test-property";
             PropertyTypeDropdown.Text = "text";
+            EditTimePluginTab.IsSelected = true;
         }
 
         /// <summary>
@@ -309,6 +310,8 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void GenerateFileDependency_OnClick(object sender, RoutedEventArgs e)
         {
+            EditTimePluginTab.IsSelected = true;
+
             var content = string.Join(",\n", AddonManager.CurrentAddon.ThirdPartyFiles.Values.Select(x => x.PluginTemplate));
             var template = $@"this._info.AddFileDependency({content});";
 

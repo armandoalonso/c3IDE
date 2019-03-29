@@ -7,7 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontFamily="Century Gothic" FontSize="16">
     <Grid Margin="10" Name="EffectCodeGrid">
-        <TabControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="0">
             <TabItem Header="Effect.fx" IsSelected="True" Background="Transparent">
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
@@ -24,6 +29,9 @@
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>
             </TabItem>
-            </TabControl>
+        </TabControl>
+        <UniformGrid Columns="5" Grid.Row="1" Margin="5">
+            <Button Content="Generate Uniforms" Click="GenerateUniforms_OnClick"></Button>
+        </UniformGrid>
     </Grid>
 </UserControl>
