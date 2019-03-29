@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,33 +29,41 @@ namespace c3IDE
         public MainWindow()
         {
             InitializeComponent();
-            WindowManager.MainWindow = this;
-            ThemeManager.SetupTheme();
-            MenuManager.SetupMainMenu();
-
-
-            //set application callbacks
-            AddonManager.AddLoadedCallback((s) =>
+            try
             {
-                this.Title = $"C3IDE - {s.Name} - {s.Id}";
-                AddonLoadDelegate();
-            });
-            OptionsManager.OptionChangedCallback = OptionChanged;
-            WindowManager.OpenFindAndReplace = OpenFindAndReplace;
-            WindowManager.SetWindowChangeCallback(NavigateToWindow);
-            WindowManager.ShowDialog = ShowDialogBox;
-            WindowManager.ShowInputDialog = ShowInputDialogBox;
-            NotificationManager.SetInfoCallback(OpenNotification);
-            NotificationManager.SetErrorCallback(OpenErrorNotification);
+                WindowManager.MainWindow = this;
+                ThemeManager.SetupTheme();
+                MenuManager.SetupMainMenu();
 
-            //load data
-            AddonManager.LoadAllAddons();
+                //set application callbacks
+                AddonManager.AddLoadedCallback((s) =>
+                {
+                    this.Title = $"C3IDE - {s.Name} - {s.Id}";
+                    AddonLoadDelegate();
+                });
 
-            //setup default view
-            SetupMenus(PluginType.SingleGlobalPlugin);
-            ActiveItem.Content = ApplicationWindows.DashboardWindow;
-            ApplicationWindows.DashboardWindow.OnEnter();
-            WindowManager.CurrentWindow = ApplicationWindows.DashboardWindow;
+                OptionsManager.OptionChangedCallback = OptionChanged;
+                WindowManager.OpenFindAndReplace = OpenFindAndReplace;
+                WindowManager.SetWindowChangeCallback(NavigateToWindow);
+                WindowManager.ShowDialog = ShowDialogBox;
+                WindowManager.ShowInputDialog = ShowInputDialogBox;
+                NotificationManager.SetInfoCallback(OpenNotification);
+                NotificationManager.SetErrorCallback(OpenErrorNotification);
+
+                //load data
+                AddonManager.LoadAllAddons();
+
+                //setup default view
+                SetupMenus(PluginType.SingleGlobalPlugin);
+                ActiveItem.Content = ApplicationWindows.DashboardWindow;
+                ApplicationWindows.DashboardWindow.OnEnter();
+                WindowManager.CurrentWindow = ApplicationWindows.DashboardWindow;
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                throw;
+            }   
         }
 
         /// <summary>
