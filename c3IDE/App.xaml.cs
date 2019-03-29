@@ -119,6 +119,11 @@ namespace c3IDE
                             return;
                         }
                     }
+                    else
+                    {
+                        c3addon.LastModified = DateTime.Now;
+                        DataAccessFacade.Insatnce.AddonData.Upsert(c3addon);
+                    }
 
                     //get the plugin template
                     c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
