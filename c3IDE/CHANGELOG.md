@@ -1,6 +1,11 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.7 (03/28/2019)
+* add option to export project as mutiple files for version control / diff
+* add option to overwrite addon id on import
+* added better version tracking, update test window to show major/minor/revision/build, increment on c3addon build
+ 
 ### Build# 1.1.0.6 (03/28/2019)
 * fix issue with effect bool casing
 
