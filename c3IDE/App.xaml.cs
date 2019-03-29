@@ -104,11 +104,13 @@ namespace c3IDE
 
                         if (results == MessageBoxResult.Yes)
                         {
+                            c3addon.LastModified = DateTime.Now;
                             DataAccessFacade.Insatnce.AddonData.Upsert(c3addon);
                         }
                         else if (results == MessageBoxResult.No)
                         {
                             c3addon.Id = Guid.NewGuid();
+                            c3addon.LastModified = DateTime.Now;
                             DataAccessFacade.Insatnce.AddonData.Upsert(c3addon);
                         }
                         else

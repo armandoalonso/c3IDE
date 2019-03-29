@@ -31,10 +31,6 @@ namespace c3IDE
             InitializeComponent();
             try
             {
-                WindowManager.MainWindow = this;
-                ThemeManager.SetupTheme();
-                MenuManager.SetupMainMenu();
-
                 //set application callbacks
                 AddonManager.AddLoadedCallback((s) =>
                 {
@@ -42,22 +38,30 @@ namespace c3IDE
                     AddonLoadDelegate();
                 });
 
+                //setup callback
+                NotificationManager.SetInfoCallback(OpenNotification);
+                NotificationManager.SetErrorCallback(OpenErrorNotification);
                 OptionsManager.OptionChangedCallback = OptionChanged;
+
+                //load data
+                AddonManager.LoadAllAddons();
+
+                //setup window manager
+                WindowManager.MainWindow = this;
                 WindowManager.OpenFindAndReplace = OpenFindAndReplace;
                 WindowManager.SetWindowChangeCallback(NavigateToWindow);
                 WindowManager.ShowDialog = ShowDialogBox;
                 WindowManager.ShowInputDialog = ShowInputDialogBox;
-                NotificationManager.SetInfoCallback(OpenNotification);
-                NotificationManager.SetErrorCallback(OpenErrorNotification);
+                WindowManager.CurrentWindow = ApplicationWindows.DashboardWindow;
 
-                //load data
-                AddonManager.LoadAllAddons();
+                //setup themes and menu
+                ThemeManager.SetupTheme();
+                MenuManager.SetupMainMenu();
 
                 //setup default view
                 SetupMenus(PluginType.SingleGlobalPlugin);
                 ActiveItem.Content = ApplicationWindows.DashboardWindow;
                 ApplicationWindows.DashboardWindow.OnEnter();
-                WindowManager.CurrentWindow = ApplicationWindows.DashboardWindow;
             }
             catch (Exception ex)
             {

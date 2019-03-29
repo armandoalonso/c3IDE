@@ -135,6 +135,8 @@ namespace c3IDE.Windows
                         c3addon.Id = Guid.NewGuid();
                     }
 
+                    c3addon.LastModified = DateTime.Now;
+
                     //get the plugin template
                     c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
 
