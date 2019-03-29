@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Deployment.Application;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +24,8 @@ namespace c3IDE
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private const string Version = "1.1.0.18";
+
         /// <summary>
         /// main window constructor
         /// </summary>
@@ -34,7 +37,7 @@ namespace c3IDE
                 //set application callbacks
                 AddonManager.AddLoadedCallback((s) =>
                 {
-                    this.Title = $"C3IDE - {s.Name} - {s.Id}";
+                    Title = $"C3IDE - {s.Name} - {s.Id}";
                     AddonLoadDelegate();
                 });
 
@@ -68,7 +71,7 @@ namespace c3IDE
             {
                 LogManager.AddErrorLog(ex);
                 throw;
-            }   
+            }
         }
 
         /// <summary>
@@ -138,6 +141,14 @@ namespace c3IDE
                 ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://www.construct.net/en/make-games/manuals/addon-sdk");
                 return;
             }
+
+            if (clickedLabel == "About c3IDE")
+            {
+                AboutVersion.Text = $"version. {Version}";
+                AboutWindow.IsOpen = true;
+                return;
+            }
+
 
             //call exit on current window
             WindowManager.CurrentWindow.OnExit();
@@ -395,6 +406,26 @@ namespace c3IDE
         {
             var value = await this.ShowInputAsync(title, message, new MetroDialogSettings { DefaultText = deafultText });
             return value;
+        }
+
+        private void TwitterLink_OnClick(object sender, RoutedEventArgs e)
+        {
+            //todo: open twitter
+        }
+
+        private void GithubIssues_OnClick(object sender, RoutedEventArgs e)
+        {
+            //todo: open github issues
+        }
+
+        private void Itch_OnClick(object sender, RoutedEventArgs e)
+        {
+            //todo: open itch.io
+        }
+
+        private void Discord_OnClick(object sender, RoutedEventArgs e)
+        {
+            //todo: open discord
         }
     }
 }

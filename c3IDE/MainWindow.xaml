@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:c3IDE"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:simpleChildWindow="http://metro.mahapps.com/winfx/xaml/simplechildwindow"
         mc:Ignorable="d"
-        Title="c3IDE" Height="820" Width="1200" WindowStartupLocation="CenterScreen"
+        Title="c3IDE" Height="820" Width="1200" WindowStartupLocation="CenterScreen" FontFamily="Century Gothic"
         Closing="MainWindow_OnClosing">
     
     <mah:MetroWindow.Resources>
@@ -74,6 +75,32 @@
     </mah:MetroWindow.Flyouts>
 
     <Grid Name="MainGrid">
+        <simpleChildWindow:ChildWindow Name="AboutWindow" Title="About c3IDE" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="600" CloseOnOverlay="True">
+            <simpleChildWindow:ChildWindow.OverlayBrush>
+                <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
+            </simpleChildWindow:ChildWindow.OverlayBrush>
+            
+            <DockPanel LastChildFill="False">
+                <TextBlock FontWeight="Bold" TextDecorations="Underline" FontFamily="Century Gothic" FontSize="25" DockPanel.Dock="Top" TextAlignment="Center" Text="c3IDE" />
+                <Separator Visibility="Hidden" Height="5" DockPanel.Dock="Top" />
+                <TextBlock Name="AboutVersion" FontSize="18" TextAlignment="Center" DockPanel.Dock="Top"/>
+                <Separator Visibility="Hidden" Height="5" DockPanel.Dock="Top" />
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
+                    <TextBlock Text="Made with   " FontSize="18" TextAlignment="Center"/>
+                    <iconPacks:PackIconFontAwesome Kind="HeartSolid" FontSize="25" />
+                    <TextBlock  xml:space="preserve" FontSize="18" TextAlignment="Center">  by <Hyperlink Click="TwitterLink_OnClick">@Piranha305</Hyperlink></TextBlock>
+                </StackPanel>
+                <Separator Visibility="Hidden" Height="5" DockPanel.Dock="Top" />
+                <TextBlock FontSize="18" TextAlignment="Center" DockPanel.Dock="Top">Report issues : <Hyperlink Click="GithubIssues_OnClick"> Github Issues</Hyperlink></TextBlock>
+                <Separator Visibility="Hidden" Height="5" DockPanel.Dock="Top" />
+                <TextBlock FontSize="18" TextAlignment="Center" DockPanel.Dock="Top">You can also contact me on discord <Hyperlink Click="Discord_OnClick"> Piranha305#8396</Hyperlink></TextBlock>
+                <Separator Visibility="Hidden" Height="5" DockPanel.Dock="Top" />
+                <TextBlock FontSize="18" TextAlignment="Center" DockPanel.Dock="Top">Support me by playing my games on : <Hyperlink Click="Itch_OnClick"> Itch.io</Hyperlink></TextBlock>
+                <Separator Visibility="Hidden" Height="15" DockPanel.Dock="Top" />
+            </DockPanel>
+
+        </simpleChildWindow:ChildWindow>
+        
         <mah:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}"
                            ItemClick="HambugerMenuItem_Click" OptionsItemClick="HambugerMenuItem_Click" x:Name="DefaultMainMenu" Visibility="Visible">
             <mah:HamburgerMenu.ItemsSource>
@@ -95,6 +122,7 @@
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Octicons Kind=Gear}" Label="Options" Tag="Options"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=SaveRegular}" Label="Save" Tag="Save"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=QuestionSolid}" Label="SDK Help" Tag="SDK Help"/>
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=InfoCircleSolid}" Label="About c3IDE" Tag="About"/>
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:FontAwesome Kind=PowerOffSolid}" Label="Exit" Tag="Exit"/>
                 </mah:HamburgerMenuItemCollection>
             </mah:HamburgerMenu.OptionsItemsSource>
@@ -111,4 +139,10 @@
         </mah:HamburgerMenu>
     </Grid>
 </mah:MetroWindow>
+
+
+
+
+
+
 
