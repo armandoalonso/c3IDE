@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using c3IDE.Compiler;
 using c3IDE.Managers;
@@ -23,6 +24,7 @@ namespace c3IDE.Windows
     {
         //properties
         public string DisplayName { get; set; } = "Dashboard";
+        private CollectionView View;
 
         /// <summary>
         /// window constructor, loads all addons from storage, setups up default values 
@@ -54,7 +56,20 @@ namespace c3IDE.Windows
         public void OnEnter()
         {
             //AddonManager.LoadAllAddons(); //removed for dashboard load performace ?? do we really need this call?
+            AddonFilter.Text = string.Empty;
             AddonListBox.ItemsSource = AddonManager.AllAddons;
+            View = CollectionViewSource.GetDefaultView(AddonListBox.ItemsSource) as CollectionView;
+            if (View != null) View.Filter = SearchFilter;
+        }
+
+        private bool SearchFilter(object obj)
+        {
+            if (string.IsNullOrEmpty(AddonFilter.Text))
+            {
+                return true;
+            }
+
+            return obj.ToString().IndexOf(AddonFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         /// <summary>
@@ -296,7 +311,7 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void AddonFilter_OnSelectionChanged(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            CollectionViewSource.GetDefaultView(AddonListBox.ItemsSource).Refresh();
         }
     }
 }

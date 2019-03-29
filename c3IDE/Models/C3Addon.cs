@@ -118,6 +118,15 @@ namespace c3IDE.Models
         {
             return Id.GetHashCode();
         }
+
+        /// <summary>
+        /// the toString override is used when filtering on teh dashboard
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return $"{Author}{Class}";
+        }
     }
 }
 
