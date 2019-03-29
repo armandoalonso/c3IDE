@@ -1,12 +1,15 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.0.17 (03/29/2019) 
+### Build# 1.1.0.18 (03/29/2019) 
 * (hotfix) fix issue with thrid party file being null, when it expected byte array
 * disable linting, while a new version is being developed (current version was not very usbale), going to be using esprima to create javascript AST and go from there
 * add commands for actions hidden in context menus
 * add fix to application start up, when opening directly from c3ide project file, now you should be get prompt  
 * change order of dashboadr, now last modified items will always be at the top 
+* fix bug with pinning not being respected when restarting the app
+* add about window to main menu, window has version information, and links 
+* add option to remove console.log statements on compile (only comments them out);
 
 ### Build# 1.1.0.8 (03/29/2019)
 * add search/filter to dashboard
