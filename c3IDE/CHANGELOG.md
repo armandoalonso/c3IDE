@@ -1,6 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.8 (03/29/2019) 
+(hotfix) fix issue with thrid party file being null, when it expected byte array
+
 ### Build# 1.1.0.8 (03/29/2019)
 * add search/filter to dashboard
 * display ace category next to ace id in listbox 

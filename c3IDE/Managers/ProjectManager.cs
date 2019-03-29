@@ -627,8 +627,11 @@ namespace c3IDE.Managers
                     sb.AppendLine(file.Value.Content);
 
                     sb.AppendLine("@@BYTES");
-                    sb.AppendLine(Convert.ToBase64String(file.Value.Bytes));
-
+                    if (file.Value.Bytes != null)
+                    {
+                        sb.AppendLine(Convert.ToBase64String(file.Value.Bytes));
+                    }
+                   
                     sb.AppendLine($"@@END {file.Key}");
                     sb.AppendLine();
                 }
