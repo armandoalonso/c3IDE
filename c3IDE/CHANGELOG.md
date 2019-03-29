@@ -1,6 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.8 (03/29/2019)
+* add search/filter to dashboard
+* display ace category next to ace id in listbox 
+
 ### Build# 1.1.0.7 (03/28/2019)
 * add option to export project as mutiple files for version control / diff
 * add option to overwrite addon id on import
