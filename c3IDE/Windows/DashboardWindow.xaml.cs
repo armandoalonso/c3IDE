@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -67,7 +68,11 @@ namespace c3IDE.Windows
             AddonFilter.Text = string.Empty;
             AddonListBox.ItemsSource = AddonManager.AllAddons;
             View = CollectionViewSource.GetDefaultView(AddonListBox.ItemsSource) as CollectionView;
-            if (View != null) View.Filter = SearchFilter;
+            if (View != null)
+            {
+                View.Filter = SearchFilter;
+                View.SortDescriptions.Add(new SortDescription("LastModified", ListSortDirection.Descending));
+            }
         }
 
         private bool SearchFilter(object obj)
