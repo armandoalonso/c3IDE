@@ -12,6 +12,7 @@ namespace c3IDE.Utilities.Helpers
     {
         private readonly Regex _regex = new Regex(@"(?<statement>console\.log\(.+\);)");
 
+        //todo: does not remove from 3rd party files
         public string CommentOut(string script)
         {
             if (!OptionsManager.CurrentOptions.RemoveConsoleLogsOnCompile) return script;
