@@ -83,7 +83,12 @@
             <DockPanel LastChildFill="False">
                 <TextBlock FontWeight="Bold" TextDecorations="Underline" FontFamily="Century Gothic" FontSize="25" DockPanel.Dock="Top" TextAlignment="Center" Text="c3IDE" />
                 <Separator Visibility="Hidden" Height="5" DockPanel.Dock="Top" />
-                <TextBlock Name="AboutVersion" FontSize="18" TextAlignment="Center" DockPanel.Dock="Top"/>
+                <TextBlock FontSize="18" TextAlignment="Center" DockPanel.Dock="Top">
+                    <Run Text="version. "></Run>
+                    <Hyperlink Click="ChangeLog_OnClick">
+                        <TextBlock Name="AboutVersion" />
+                    </Hyperlink>
+                </TextBlock>
                 <Separator Visibility="Hidden" Height="5" DockPanel.Dock="Top" />
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
                     <TextBlock Text="Made with   " FontSize="18" TextAlignment="Center"/>

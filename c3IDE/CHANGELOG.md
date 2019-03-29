@@ -1,6 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.19 (03/29/2019) 
+* add changelog to solution, fix about window to link to new changelog
+* remove old change log button on options window
+
 ### Build# 1.1.0.18 (03/29/2019) 
 * (hotfix) fix issue with thrid party file being null, when it expected byte array
 * disable linting, while a new version is being developed (current version was not very usbale), going to be using esprima to create javascript AST and go from there

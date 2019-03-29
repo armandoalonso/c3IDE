@@ -24,7 +24,7 @@ namespace c3IDE
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const string Version = "1.1.0.18";
+        private const string Version = "1.1.0.19";
 
         /// <summary>
         /// main window constructor
@@ -144,7 +144,7 @@ namespace c3IDE
 
             if (clickedLabel == "About c3IDE")
             {
-                AboutVersion.Text = $"version. {Version}";
+                AboutVersion.Text = Version;
                 AboutWindow.IsOpen = true;
                 return;
             }
@@ -426,6 +426,11 @@ namespace c3IDE
         private void Discord_OnClick(object sender, RoutedEventArgs e)
         {
             ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://discordapp.com/channels/116497549237551109/158203895556866048");
+        }
+
+        private void ChangeLog_OnClick(object sender, RoutedEventArgs e)
+        {
+            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://github.com/armandoalonso/c3IDE/blob/master/c3IDE/CHANGELOG.md");
         }
     }
 }

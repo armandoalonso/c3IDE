@@ -251,16 +251,6 @@ namespace c3IDE.Windows
         }
 
         /// <summary>
-        /// open change log page on github
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OpenChangeLog_OnClick(object sender, RoutedEventArgs e)
-        {
-            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://github.com/armandoalonso/c3IDE/blob/master/CHANGELOG.md");
-        }
-
-        /// <summary>
         /// handles when the pin menu is checked
         /// </summary>
         /// <param name="sender"></param>
