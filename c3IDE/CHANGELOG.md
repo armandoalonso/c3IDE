@@ -1,7 +1,7 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.0.11 (03/29/2019) 
+### Build# 1.1.0.16 (03/29/2019) 
 * (hotfix) fix issue with thrid party file being null, when it expected byte array
 * disable linting, while a new version is being developed (current version was not very usbale), going to be using esprima to create javascript AST and go from there
 * add commands for actions hidden in context menus

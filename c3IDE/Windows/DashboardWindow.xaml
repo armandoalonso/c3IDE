@@ -38,7 +38,7 @@
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
                                     <TextBlock Grid.Row="1" Text="{Binding Version, Mode=OneWay}" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <TextBlock Grid.Row="2" Text="{Binding CreateDate, Mode=OneWay}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Row="2" Text="{Binding LastModified, Mode=OneWay}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Row="3" Text="{Binding Id, Mode=OneWay}" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 </Grid>
                             </Grid >

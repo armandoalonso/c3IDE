@@ -99,7 +99,7 @@ namespace c3IDE
                     if (currAddon != null)
                     {
                         var results = MessageBox.Show(
-                            "addon cuurently exists do you want to overwrite addon? (YES) will overwrite, (NO) will assign new addon id.",
+                            "Addon currently exists do you want to overwrite addon? \n(YES) will overwrite, \n(NO) will assign new addon id.",
                             "Overwrite?", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
 
                         if (results == MessageBoxResult.Yes)
