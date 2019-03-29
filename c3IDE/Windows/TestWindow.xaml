@@ -36,16 +36,16 @@
 
             <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}" HorizontalAlignment="Center"> VERSION</TextBlock>
             <UniformGrid Columns="4" DockPanel.Dock="Top">
-                <TextBox Name="Major" Margin="10" />
-                <TextBox Name="Minor" Margin="10" />
-                <TextBox Name="Revision" Margin="10" />
-                <TextBox Name="Build" Margin="10" />
+                <TextBox Name="Major" Margin="10"  TextAlignment="Center"/>
+                <TextBox Name="Minor" Margin="10"  TextAlignment="Center"/>
+                <TextBox Name="Revision" Margin="10"  TextAlignment="Center"/>
+                <TextBox Name="Build" Margin="10"  TextAlignment="Center"/>
             </UniformGrid>
             <UniformGrid Columns="4" DockPanel.Dock="Top">
-                <Button Click="MajorVersionPlus_Click" Width="30" HorizontalContentAlignment="Center"> + </Button>
-                <Button Click="MinorVersionPlus_Click" Width="30" HorizontalContentAlignment="Center">+</Button>
-                <Button Click="RevisionVersionPlus_Click" Width="30" HorizontalContentAlignment="Center">+</Button>
-                <Button Click="BuildVersionPlus_Click" Width="30" HorizontalContentAlignment="Center">+</Button>
+                <Button Click="MajorVersionPlus_Click" Width="30">+</Button>
+                <Button Click="MinorVersionPlus_Click" Width="30">+</Button>
+                <Button Click="RevisionVersionPlus_Click" Width="30">+</Button>
+                <Button Click="BuildVersionPlus_Click" Width="30">+</Button>
             </UniformGrid>
 
             <UniformGrid Columns="2" DockPanel.Dock="Bottom">
