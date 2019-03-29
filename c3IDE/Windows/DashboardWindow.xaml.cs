@@ -32,21 +32,29 @@ namespace c3IDE.Windows
         public DashboardWindow()
         {
             InitializeComponent();
-        
-            //load addon if it was passed through cmd args
-            if (AddonManager.CurrentAddon != null && AddonManager.CurrentAddon.Id != Guid.Empty)
+
+            try
             {
-                for (int i = 0; i < AddonManager.AllAddons.Count; i++)
+                //load addon if it was passed through cmd args
+                if (AddonManager.CurrentAddon != null && AddonManager.CurrentAddon.Id != Guid.Empty)
                 {
-                    if (AddonManager.AllAddons[i].Equals(AddonManager.CurrentAddon))
+                    for (int i = 0; i < AddonManager.AllAddons.Count; i++)
                     {
-                        AddonListBox.SelectedIndex = i;
+                        if (AddonManager.AllAddons[i].Equals(AddonManager.CurrentAddon))
+                        {
+                            AddonListBox.SelectedIndex = i;
+                        }
                     }
                 }
+                else
+                {
+                    AddonManager.CurrentAddon = null;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                AddonManager.CurrentAddon = null;
+                LogManager.AddErrorLog(ex);
+                throw;
             }
         }
 
