@@ -77,19 +77,49 @@ namespace c3IDE
             {
                 //check for oneclick args
                 if (AppDomain.CurrentDomain?.SetupInformation?.ActivationArguments?.ActivationData != null)
-                {
-                    
+                {    
                     var path = new Uri(AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData[0]).LocalPath;
                     if(string.IsNullOrWhiteSpace(path)) return;
-                    var data = File.ReadAllText(path);
-                    var c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
+                    var info = new FileInfo(path);
+                    C3Addon c3addon;
 
-                    //todo: this will overwrite you addon
-                    DataAccessFacade.Insatnce.AddonData.Upsert(c3addon);
+                    //check if file is json or project
+                    var addonInfo = File.ReadAllLines(info.FullName)[0];
+                    if (addonInfo == "@@METADATA")
+                    {
+                        c3addon = ProjectManager.ReadProject(info.FullName);
+                    }
+                    else
+                    {
+                        var data = File.ReadAllText(info.FullName);
+                        c3addon = JsonConvert.DeserializeObject<C3Addon>(data);
+                    }
+
+                    var currAddon = DataAccessFacade.Insatnce.AddonData.Get(x => x.Id.Equals(c3addon.Id));
+                    if (currAddon != null)
+                    {
+                        var results = MessageBox.Show(
+                            "addon cuurently exists do you want to overwrite addon? (YES) will overwrite, (NO) will assign new addon id.",
+                            "Overwrite?", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+
+                        if (results == MessageBoxResult.Yes)
+                        {
+                            DataAccessFacade.Insatnce.AddonData.Upsert(c3addon);
+                        }
+                        else if (results == MessageBoxResult.No)
+                        {
+                            c3addon.Id = Guid.NewGuid();
+                            DataAccessFacade.Insatnce.AddonData.Upsert(c3addon);
+                        }
+                        else
+                        {
+                            //do not open new addon
+                            return;
+                        }
+                    }
 
                     //get the plugin template
                     c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
-
                     AddonManager.CurrentAddon = c3addon;
                 }
 
