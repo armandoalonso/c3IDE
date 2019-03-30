@@ -44,10 +44,10 @@ The addon window has 2 tabs, the **addon.json** tab and the **third party files*
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/5.png)
 
-###Addon.json
+### Addon.json
 The addon.json tab contains the **addon.json** file which contains mete data about your addon. There is not much to do in this tab as most of this information will be created for you.
 
-###Third Party Files
+### Third Party Files
 The third party files tab allows you at add 3rd party js libraries, css files, or any other files you need bundled with your addon. Files that can be viewed as plain text will be visible in the text editor. you can also add binary files those files will just be copied over as is, when your addon is compiled.
 
 - You can create a blank file by clicking the add new file button. this will allow you to text or copy over the contents.
@@ -62,7 +62,7 @@ Adding a new third party file will automatically update your addon.json to inclu
 ## Plugin/Behavior Window
 The plugin/behavior window controls **plugin.js** file or the **behavior.js** file. There are 2 tabs, the edit time tab and the run time tab. 
 
-###Edit time
+### Edit time
 The edit time tab has the plugin.js/behavior.js code on the root of your addon.
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/8.png)
@@ -77,7 +77,7 @@ After clicking on the new plugin property you will be prompted with the new prop
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/10.gif)
 
-###Run time
+### Run time
 The run time tab has the plugin.js/behavior.js code from the c3runtime folder.
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/11.png)
@@ -88,18 +88,18 @@ The type and instance windows provide a way to edit the edit time & run time ver
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/12.png)
 
-##Actions, Conditions, Expressions (ACES)
+## Actions, Conditions, Expressions (ACES)
 The action, condition, and expression windows let you manage **ace.json**, the **language files** and **java script** which contains the ace code. All 3 ace windows are the same, they just manage different parts of your addon.
 
 Each window will have a list which will display the ace id and the category in parenthesis. The window is broken into 3 section (**Ace.json**, **Langauge**, **Code**). 
 
-###Ace.json 
+### Ace.json 
 this section contains the snippet of json that will be used in the ace.json file
 
-###Lanaguge
+### Lanaguge
 this section contains the snippet of json that will be included in the en-US.json language file 
 
-###Code
+### Code
 this section contains the block of code that will be used in the corresponding run time java script file.
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/13.png)
@@ -163,62 +163,62 @@ When defining you ACEs you can easily add new parameters, clicking the add param
 ## Language
 The language window helps filling out the missing pieces of the language file. There are 2 sections one for Plugin Properties defined in the edit time plugin.js, and one for the Categories defined through the ACEs. If you update The plugin properties or the ACE categories, you need to come to this window and regenerate these jsons. 
 
-##Test
+## Test
 The Testing window lets you compile and host your addon with the built in web server. When you click "Test C3 Addon" button, it will compile your addon and display logs on the left section of the testing window. All addons are compiled to *AppData\Roaming\C3IDE_DATA\Server\Test\${addon class name}* by default. During compliation there are a few validation that take place to prevent a few of the error you could get when installing your addon, such as language placeholder not matching, duplicate id's and a few others.
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/19.png)
 
 The test window is broken into 4 section, **Test**, **Build**, **Project**, **Version**
 
-###Test
+### Test
 - Test C3 Addon : this button will compile you addon and start the web server to host you test addon. *AppData\Roaming\C3IDE_DATA\Server\Test\${addon class name}* is the default directory where the addon will be compiled to for test but this can be changed in the options.
 - Start Web Server : this will not compile any addons and just start the web server pointing to the default addon compile directory.
 - Stop Web Server : this button will stop the web server if it is running
 - Lint JavaScript - this feature is currently under development.
 - Validate Addon - this will perform basic validations which will catch some common errors 
 
-###Build
+### Build
 - Compile Only : this button compiles your addon without starting a web server.
 - Open Compile Folder : this button opens up the folder where all addons are compiled to in windows explorer
 - Create C3Addon File - this button packages up all your addon files into a .c3addon file which can be imported into construct 3. each time you package your addon the build version will increment by 1
 
-###Project
+### Project
 - Export Addon : the export addon button will export your project (as single file or multi file) .c3ide projects, these projects can then be imported back into c3IDE to create new addon entries
 - Open Export Folder : opens the folder where all addon projects will be exported to
 
-###Version
+### Version
 This section handles the version of your addon. you can change the major, minor, revision and build versions for your addon.
 
-###Addon URL
+### Addon URL
 This is the url of the currently loaded and compiled addon *http://localhost:8080/{addon class name}/addon.json*
  
 > When the web server is started all addons that have been compiled will be available to construct 3 
 
-###Open Construct
+### Open Construct
 Below the addon url are 2 button which will open construct 3 (in the web or the desktop version)
 
 
-##Import/Export
+## Import/Export
 You can export/import .c3ide project files. theer are currently 2 formats that can be used. 
 
 - Single-File Project : compress your entire addon into one json file that be be imported into the ide
 - Multi-File Project : saves your project in a folder consisting of multiple files (better with version control)   
 
-###Export
+### Export
 You can export your project from the Dashboard or from the Test Window
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/20.png)
 
-###Import
+### Import
 In order to import your project, you have to drag the c3ide project file into the dashboard. this will import your addon. there is an option that will always generate a new addon key every time you import to not overwrite your existing addons.
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/21.png)
 
-##Search & Replace
+## Search & Replace
 There is a search and replace window that will scan your projects for instances of text. and you can do a mass replace. in order to bring up the search and replace window select any text inside an editor and press **F1** 
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/22.gif)
 
-##Options
+## Options
 The Option window has some global options that affect how the application behaves.
  
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/23.png)
@@ -241,7 +241,7 @@ The Option window has some global options that affect how the application behave
 - **Compile On Save** : This option will compile the currently selected addon, when a save operation is performed using the save button or the save shortcut (ctrl-s). this will bring up a compile log dialog, which will show any compilation errors  
 - **Overwrite Addon Id On Import** : When this option is set if you import an addon with the same addon key, the addon will be overwritten, if it's not set it will create a duplicate addon (with a different addon key)  
 
-##Contact
+## Contact
 If you run into any issues (or feature request) report it [HERE](https://github.com/armandoalonso/c3IDE/issues)
 
 This project is open source, It is written using WPF & C# the Git hub repository can be found [HERE](https://github.com/armandoalonso/c3IDE) 
