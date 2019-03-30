@@ -734,6 +734,19 @@ namespace c3IDE.Windows
             var listName = ti.ToTitleCase(ConditionIdText.Text.Replace("-", " ").ToLower());
             ConditionListNameText.Text = listName;
         }
+
+        /// <summary>
+        /// updates param name when id changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Parameter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ParamIdText.Text)) return;
+            var ti = new CultureInfo("en-US", false).TextInfo;
+            var listName = ti.ToTitleCase(ParamIdText.Text.Replace("-", " ").ToLower());
+            ParamNameText.Text = listName;
+        }
     }
 }
     

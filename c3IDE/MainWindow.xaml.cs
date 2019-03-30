@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Deployment.Application;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using c3IDE.Compiler;
@@ -13,7 +11,6 @@ using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Search;
 using c3IDE.Windows;
 using c3IDE.Windows.Interfaces;
-using ControlzEx.Standard;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
@@ -24,7 +21,7 @@ namespace c3IDE
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const string Version = "1.1.0.21";
+        private const string Version = "1.1.0.22";
 
         /// <summary>
         /// main window constructor

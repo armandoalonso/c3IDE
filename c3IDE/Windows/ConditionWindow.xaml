@@ -97,7 +97,7 @@
 
             <StackPanel>
                 <TextBlock Text="Parameter ID:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ParamIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
+                <TextBox Name="ParamIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" TextChanged="Parameter_TextChanged"/>
                 <TextBlock Text="Parameter Type:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <ComboBox Name="ParamTypeDropdown" Margin="5">
                     <ComboBoxItem IsSelected="True">number</ComboBoxItem>
