@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -703,6 +704,19 @@ namespace c3IDE.Windows
             {
                 _selectedAction.Category = Category.Text;
             }
+        }
+
+        /// <summary>
+        /// when the id changes set the list name 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ActionId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ActionIdText.Text)) return;
+            var ti = new CultureInfo("en-US", false).TextInfo;
+            var listName = ti.ToTitleCase(ActionIdText.Text.Replace("-", " ").ToLower());
+            ActionListNameText.Text = listName;
         }
     }
 }

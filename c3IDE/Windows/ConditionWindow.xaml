@@ -24,7 +24,7 @@
 
             <StackPanel>
                 <TextBlock Text="Condition ID:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ConditionIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
+                <TextBox Name="ConditionIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" TextChanged="ConditionId_TextChanged"/>
                 <TextBlock Text="Condition Category:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ConditionCategoryText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Condition List Name:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>

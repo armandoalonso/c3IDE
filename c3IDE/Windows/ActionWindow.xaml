@@ -24,7 +24,7 @@
 
             <StackPanel>
                 <TextBlock Text="Action ID:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ActionIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
+                <TextBox Name="ActionIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" TextChanged="ActionId_TextChanged" />
                 <TextBlock Text="Action Category:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ActionCategoryText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Action List Name:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>

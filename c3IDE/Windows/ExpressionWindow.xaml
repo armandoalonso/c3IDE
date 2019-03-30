@@ -24,7 +24,7 @@
 
             <StackPanel>
                 <TextBlock Text="Expression ID:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
-                <TextBox Name="ExpressionIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
+                <TextBox Name="ExpressionIdText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" TextChanged="ExpressionId_TextChanged"/>
                 <TextBlock Text="Expression Category:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>
                 <TextBox Name="ExpressionCategoryText" Margin="5" MouseDoubleClick="SelectAllText" GotKeyboardFocus="SelectAllText" PreviewMouseLeftButtonDown="SelectivelyIgnoreMouseButton" />
                 <TextBlock Text="Return Type:" Margin="5" Style="{DynamicResource TextBlockStyle}"></TextBlock>

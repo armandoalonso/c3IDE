@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -673,6 +674,19 @@ namespace c3IDE.Windows
             {
                 _selectedExpression.Category = Category.Text;
             }
+        }
+
+        /// <summary>
+        /// when the id changes set the translated name 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ExpressionId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ExpressionIdText.Text)) return;
+            var ti = new CultureInfo("en-US", false).TextInfo;
+            var listName = ti.ToTitleCase(ExpressionIdText.Text.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
+            TranslatedName.Text = listName;
         }
     }
 }

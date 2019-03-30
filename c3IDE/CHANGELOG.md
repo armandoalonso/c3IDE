@@ -1,6 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.21 (03/30/2019) 
+* update documentation + release on itch.io
+* update aces dialogs now changing id should populate list name/ translated name automatically
+
 ### Build# 1.1.0.19 (03/29/2019) 
 * add changelog to solution, fix about window to link to new changelog
 * remove old change log button on options window
