@@ -31,7 +31,7 @@ When you create a new addon, you will be taken to the create new addon window. I
 - **Author** - This is the name of the author. This value will be combined with the class name to form the addon's ID *Author_Class*, and is the name of the author that will be placed in the Addon.json files
 - **Description** - This is a small description of your addon.
 - **Addon Type** - This will control what template will be used in creating the addon. You can choose from *SingleGlobal*, *Drawing*, *Behavior*, *Effect*
-- - **Addon Category** - This category will determine where which section in construct you addon will be. these value depend on the type of addon you have chosen.
+- **Addon Category** - This category will determine where which section in construct you addon will be. these value depend on the type of addon you have chosen.
 - **Addon Icon** - This is an svg file that will be used as the addon icon inside of construct 3. You can change the addon by dragging an svg file over the existing icon.
 
 
@@ -108,7 +108,7 @@ There are 4 buttons above the Ace list these buttons manage the view. you can al
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/14.png)
 
-##Creating a New ACE
+## Creating a New ACE
 
 When you craete anew ace you will be prompted with a new ACE dialog, here you will fill out basic information about your action/condition/expression.
 
