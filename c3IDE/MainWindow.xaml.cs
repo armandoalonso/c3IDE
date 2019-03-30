@@ -24,7 +24,7 @@ namespace c3IDE
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const string Version = "1.1.0.19";
+        private const string Version = "1.1.0.20";
 
         /// <summary>
         /// main window constructor
@@ -431,6 +431,11 @@ namespace c3IDE
         private void ChangeLog_OnClick(object sender, RoutedEventArgs e)
         {
             ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://github.com/armandoalonso/c3IDE/blob/master/c3IDE/CHANGELOG.md");
+        }
+
+        private void Documentation_OnClick(object sender, RoutedEventArgs e)
+        {
+            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://github.com/armandoalonso/c3IDE/blob/master/doc/index.md");
         }
     }
 }

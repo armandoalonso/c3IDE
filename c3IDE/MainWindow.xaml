@@ -90,6 +90,8 @@
                     </Hyperlink>
                 </TextBlock>
                 <Separator Visibility="Hidden" Height="5" DockPanel.Dock="Top" />
+                <TextBlock FontSize="18" TextAlignment="Center" DockPanel.Dock="Top">c3IDE Documentation : <Hyperlink Click="Documentation_OnClick"> HERE</Hyperlink></TextBlock>
+                <Separator Visibility="Hidden" Height="5" DockPanel.Dock="Top" />
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
                     <TextBlock Text="Made with   " FontSize="18" TextAlignment="Center"/>
                     <iconPacks:PackIconFontAwesome Kind="HeartSolid" FontSize="25" />
