@@ -10,17 +10,17 @@ c3IDE is an open source project developed using WPF and C#. you can find the lin
 ## Application Layout 
 c3IDE is composed of multiple windows, you can navigate the windows using the left side menu.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/1.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/1.png)
 
 ## Dashboard 
 
 The dashboard is the main window, from here you can create and manage all you addons. The dashboard will display basic information about all your addons. You will see a small thumbnail of the **addon's icon**. It will display the **name**, the **version**, the **last modified date**, the **addon key** which is used to uniquely identify a particular addon, and the addon **type**.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/2.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/2.png)
 
 On the right hand side of the dashboard there will be a few buttons that will allow you to create, load, delete, and duplicate selected addons.you can also right click an addon to bring up the context menu. from the context menu you will have several options on the dashboard. 
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/3.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/3.png)
 
 ## Creating a New Addon
 
@@ -35,14 +35,14 @@ When you create a new addon, you will be taken to the create new addon window. I
 - **Addon Icon** - This is an svg file that will be used as the addon icon inside of construct 3. You can change the addon by dragging an svg file over the existing icon.
 
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/4.gif)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/4.gif)
 
 After your addon has been created, you will be taken back to the dashboard. if you have created an effect, your menus will change to help streamline effect creation. 
 
 ## Addon Window
 The addon window has 2 tabs, the **addon.json** tab and the **third party files** tab
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/5.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/5.png)
 
 ###Addon.json
 The addon.json tab contains the **addon.json** file which contains mete data about your addon. There is not much to do in this tab as most of this information will be created for you.
@@ -53,11 +53,11 @@ The third party files tab allows you at add 3rd party js libraries, css files, o
 - You can create a blank file by clicking the add new file button. this will allow you to text or copy over the contents.
 - You can also drag files into the listbox to import them into the project.
 
- ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/6.gif)
+ ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/6.gif)
 
 Adding a new third party file will automatically update your addon.json to include the file.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/7.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/7.png)
 
 ## Plugin/Behavior Window
 The plugin/behavior window controls **plugin.js** file or the **behavior.js** file. There are 2 tabs, the edit time tab and the run time tab. 
@@ -65,28 +65,28 @@ The plugin/behavior window controls **plugin.js** file or the **behavior.js** fi
 ###Edit time
 The edit time tab has the plugin.js/behavior.js code on the root of your addon.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/8.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/8.png)
 
 From the Edit time tab you can add new addon properties. you can click on the *New Plugin Property Button* below the text editor section, or you can Right click to bring up the context menu and select new *New Plugin property* from there.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/9.gif)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/9.gif)
 
 After clicking on the new plugin property you will be prompted with the new property dialog box, where you can fill out basic property information.  
 
 **If you have any third party files** you can click on the *generate file dependency button* and this generate the code snippets for all you included files.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/10.gif)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/10.gif)
 
 ###Run time
 The run time tab has the plugin.js/behavior.js code from the c3runtime folder.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/11.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/11.png)
 
 ## Type & Instance
 
 The type and instance windows provide a way to edit the edit time & run time version of **type.js** and **instance.js**
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/12.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/12.png)
 
 ##Actions, Conditions, Expressions (ACES)
 The action, condition, and expression windows let you manage **ace.json**, the **language files** and **java script** which contains the ace code. All 3 ace windows are the same, they just manage different parts of your addon.
@@ -102,18 +102,18 @@ this section contains the snippet of json that will be included in the en-US.jso
 ###Code
 this section contains the block of code that will be used in the corresponding run time java script file.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/13.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/13.png)
 
 There are 4 buttons above the Ace list these buttons manage the view. you can also manipulate the size of the different sections by dragging the section borders to increase the size of the sections. clicking the default button will reset the layout size. clicking on the json, lang, code button will expand that section to take up the entire size available.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/14.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/14.png)
 
 ##Creating a New ACE
 
 When you craete anew ace you will be prompted with a new ACE dialog, here you will fill out basic information about your action/condition/expression.
 
 ### Action
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/15.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/15.png)
 
 - **Action ID** : This is a unique identifier for the action, it cannot have any spaces, all spaces will be converted into dashes automatically.
 - **Action Category** : This will be the category used to group your action. You can change the category by right clicking on the action in the action list and selecting "Change Category". In the language window you will be able to assign a description to this category.   
@@ -124,7 +124,7 @@ When you craete anew ace you will be prompted with a new ACE dialog, here you wi
 - **Description** : a description of the action or condition, which appears as a tip at the top of the condition/action picker dialog.
 
 ### Condition
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/16.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/16.png)
 
 - **Condition ID** : This is a unique identifier for the condition, it cannot have any spaces, all spaces will be converted into dashes automatically.
 - **Condition Category** : This will be the category used to group your condition. You can change the category by right clicking on the condition in the condition list and selecting "Change Category". In the language window you will be able to assign a description to this category.   
@@ -140,7 +140,7 @@ When you craete anew ace you will be prompted with a new ACE dialog, here you wi
 - **Description** : a description of the condition or condition, which appears as a tip at the top of the condition/action picker dialog.
 
 ### Expression 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/17.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/17.png)
 
 - **Expression ID** : This is a unique identifier for the expression, it cannot have any spaces, all spaces will be converted into dashes automatically.
 - **Expression Category** : This will be the category used to group your expression. You can change the category by right clicking on the expression in the expression list and selecting "Change Category". In the language window you will be able to assign a description to this category.   
@@ -152,7 +152,7 @@ When you craete anew ace you will be prompted with a new ACE dialog, here you wi
 ## ACE Parameters
 When defining you ACEs you can easily add new parameters, clicking the add parameter button or by right clicking in any of the ACE editors and selecting "Insert _ Parameter". This will bring up the ACE Parameter wizard and guide you through setting up a new parameter. Adding a parameter will modify the ACE.json, Language and Code section to include the new parameter.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/18.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/18.png)
 
 - **Parameter ID** : A string with a unique identifier for this parameter. This is used to refer to the parameter in the language file. No spaces are allowed, All spaces entered will be converted into dashes.
 - **Parameter Type** : This will determine the data type of the parameter.  
@@ -166,7 +166,7 @@ The language window helps filling out the missing pieces of the language file. T
 ##Test
 The Testing window lets you compile and host your addon with the built in web server. When you click "Test C3 Addon" button, it will compile your addon and display logs on the left section of the testing window. All addons are compiled to *AppData\Roaming\C3IDE_DATA\Server\Test\${addon class name}* by default. During compliation there are a few validation that take place to prevent a few of the error you could get when installing your addon, such as language placeholder not matching, duplicate id's and a few others.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/19.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/19.png)
 
 The test window is broken into 4 section, **Test**, **Build**, **Project**, **Version**
 
@@ -206,22 +206,22 @@ You can export/import .c3ide project files. theer are currently 2 formats that c
 
 ###Export
 You can export your project from the Dashboard or from the Test Window
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/20.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/20.png)
 
 ###Import
 In order to import your project, you have to drag the c3ide project file into the dashboard. this will import your addon. there is an option that will always generate a new addon key every time you import to not overwrite your existing addons.
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/21.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/21.png)
 
 ##Search & Replace
 There is a search and replace window that will scan your projects for instances of text. and you can do a mass replace. in order to bring up the search and replace window select any text inside an editor and press **F1** 
 
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/22.gif)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/22.gif)
 
 ##Options
 The Option window has some global options that affect how the application behaves.
  
-![](https://github.com/armandoalonso/c3IDE/blob/master/doc/23.png)
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/23.png)
 
 - **Compile Path** : The path that will be used when testing and compiling you addon
 - **Export Path** : The path where exported project from the dashboard will appear
