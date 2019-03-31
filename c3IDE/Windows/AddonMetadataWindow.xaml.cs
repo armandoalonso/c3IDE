@@ -66,6 +66,7 @@ namespace c3IDE.Windows
                 AddonTypeDropdown.Text = "SingleGlobalPlugin";
                 DescriptionText.Text = string.Empty;
                 AddonCategoryDropdown.Text = "general";
+                IdText.Text = $"{OptionsManager.CurrentOptions.DefaultAuthor.Trim()}_NewPlugin";
             }
         }
 
@@ -80,7 +81,8 @@ namespace c3IDE.Windows
                 AddonManager.CurrentAddon.Class = AddonClassText.Text;
                 AddonManager.CurrentAddon.Company= AuthorText.Text;
                 AddonManager.CurrentAddon.Author = AuthorText.Text;
-                AddonManager.CurrentAddon.AddonCategory = AddonTypeDropdown.Text;
+                AddonManager.CurrentAddon.AddonCategory = AddonCategoryDropdown.Text;
+                AddonManager.CurrentAddon.AddonId = IdText.Text;
             }
         }
 
@@ -182,6 +184,7 @@ namespace c3IDE.Windows
             AddonManager.CurrentAddon.Class = AddonClassText.Text.Replace(" ", string.Empty).Trim();
             AddonManager.CurrentAddon.Company = AuthorText.Text.Replace(" ", string.Empty).Trim();
             AddonManager.CurrentAddon.Author = AuthorText.Text;
+            AddonManager.CurrentAddon.AddonId = IdText.Text.Replace(" ", string.Empty).Trim();
             AddonManager.CurrentAddon.Description = DescriptionText.Text;
             AddonManager.CurrentAddon.Type = pluginType;
             AddonManager.CurrentAddon.AddonCategory = addonCategory;
@@ -254,6 +257,19 @@ namespace c3IDE.Windows
                     break;
             }
             AddonCategoryDropdown.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// updates addon id based on author and class
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateAddonID(object sender, TextChangedEventArgs e)
+        {
+            if (IdText != null)
+            {
+                IdText.Text = $"{AuthorText.Text}_{AddonClassText.Text}";
+            }
         }
     }
 }

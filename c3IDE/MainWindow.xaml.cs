@@ -21,7 +21,7 @@ namespace c3IDE
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const string Version = "1.1.0.23";
+        private const string Version = "1.1.0.24";
 
         /// <summary>
         /// main window constructor
@@ -34,7 +34,7 @@ namespace c3IDE
                 //set application callbacks
                 AddonManager.AddLoadedCallback((s) =>
                 {
-                    Title = $"C3IDE - {s.Name} - {s.Id}";
+                    Title = $"C3IDE - {s.AddonId} - {s.Id}";
                     AddonLoadDelegate();
                 });
 
@@ -76,11 +76,12 @@ namespace c3IDE
         /// </summary>
         /// <param name="records"></param>
         /// <param name="window"></param>
-        private void OpenFindAndReplace(IEnumerable<SearchResult> records, IWindow window)
+        private void OpenFindAndReplace(IEnumerable<SearchResult> records, IWindow window, string replaceText = "")
         {
             WindowManager.CurrentWindow.OnExit();
             ActiveItem.Content = ApplicationWindows.FindAndReplaceWindow;
             ApplicationWindows.FindAndReplaceWindow.PopulateSearchData(records);
+            ApplicationWindows.FindAndReplaceWindow.PopulateReplace(replaceText);
             ApplicationWindows.FindAndReplaceWindow.RestoreWindow = () =>
             {
                 ActiveItem.Content = window;

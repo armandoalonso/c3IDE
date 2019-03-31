@@ -308,7 +308,7 @@ namespace c3IDE.Windows
 
             AddonExporter.Insatnce.ExportAddon(AddonManager.CurrentAddon);
             ProcessHelper.Insatnce.StartProcess(OptionsManager.CurrentOptions.C3AddonPath);
-            AddonManager.CurrentAddon.BuildVersion++;
+            AddonManager.IncrementVersion();
             AddonManager.SaveCurrentAddon();
             Build.Text = AddonManager.CurrentAddon.BuildVersion.ToString();
         }
@@ -316,6 +316,7 @@ namespace c3IDE.Windows
         private void MajorVersionPlus_Click(object sender, RoutedEventArgs e)
         {
             AddonManager.CurrentAddon.MajorVersion++;
+            AddonManager.UpdateAddonJsonVersion();
             AddonManager.SaveCurrentAddon();
             Major.Text = AddonManager.CurrentAddon.MajorVersion.ToString();
         }
@@ -323,6 +324,7 @@ namespace c3IDE.Windows
         private void MinorVersionPlus_Click(object sender, RoutedEventArgs e)
         {
             AddonManager.CurrentAddon.MinorVersion++;
+            AddonManager.UpdateAddonJsonVersion();
             AddonManager.SaveCurrentAddon();
             Minor.Text = AddonManager.CurrentAddon.MinorVersion.ToString();
         }
@@ -330,6 +332,7 @@ namespace c3IDE.Windows
         private void RevisionVersionPlus_Click(object sender, RoutedEventArgs e)
         {
             AddonManager.CurrentAddon.RevisionVersion++;
+            AddonManager.UpdateAddonJsonVersion();
             AddonManager.SaveCurrentAddon();
             Revision.Text = AddonManager.CurrentAddon.RevisionVersion.ToString();
         }
@@ -337,6 +340,7 @@ namespace c3IDE.Windows
         private void BuildVersionPlus_Click(object sender, RoutedEventArgs e)
         {
             AddonManager.CurrentAddon.BuildVersion++;
+            AddonManager.UpdateAddonJsonVersion();
             AddonManager.SaveCurrentAddon();
             Build.Text = AddonManager.CurrentAddon.BuildVersion.ToString();
         }

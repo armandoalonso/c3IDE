@@ -17,6 +17,7 @@ namespace c3IDE.Models
         public string Class { get; set; }
         public string Company { get; set; }
         public string Author { get; set; }
+        public string AddonId { get; set; }
 
         [BsonIgnore]
         [JsonIgnore]

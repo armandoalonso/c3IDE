@@ -1,6 +1,6 @@
 "use strict";
 {
-	C3.Behaviors.{{company}}_{{class}}.Instance = class {{class}}Instance extends C3.SDKBehaviorInstanceBase
+	C3.Behaviors.{{addon_id}}.Instance = class {{class}}Instance extends C3.SDKBehaviorInstanceBase
 	{
 		constructor(behInst, properties)
 		{

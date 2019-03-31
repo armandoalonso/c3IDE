@@ -122,8 +122,6 @@ namespace c3IDE.Compiler
 
 
             LogManager.CompilerLog.Insert($"generating addon.json");
-            //update addon.json version
-            addon.AddonJson = Regex.Replace(addon.AddonJson, @"\d+\.\d+\.\d+\.\d+", $"{addon.MajorVersion}.{addon.MinorVersion}.{addon.RevisionVersion}.{addon.BuildVersion}");
             //generate addon json files
             _addonFiles.Add(Path.Combine(
                 OptionsManager.CurrentOptions.CompilePath, folderName, "addon.json"), 
@@ -244,7 +242,6 @@ namespace c3IDE.Compiler
             LogManager.CompilerLog.Insert($"compilation complete...");
         }
 
-        //todo:  change this to a more involved string interpolation to include properties for effects
         /// <summary>
         /// generate effect files
         /// </summary>
@@ -350,7 +347,7 @@ namespace c3IDE.Compiler
 
             return $@"""use strict"";
 {{
-    C3.{pluginType}.{addon.Company}_{addon.Class}.Acts = {{
+    C3.{pluginType}.{addon.AddonId}.Acts = {{
         {actionString}
     }};
 }}";
@@ -369,7 +366,7 @@ namespace c3IDE.Compiler
 
             return $@"""use strict"";
 {{
-    C3.{pluginType}.{addon.Company}_{addon.Class}.Cnds = {{
+    C3.{pluginType}.{addon.AddonId}.Cnds = {{
         {conditionString}
     }};
 }}";
@@ -388,7 +385,7 @@ namespace c3IDE.Compiler
 
             return $@"""use strict"";
 {{
-    C3.{pluginType}.{addon.Company}_{addon.Class}.Exps = {{
+    C3.{pluginType}.{addon.AddonId}.Exps = {{
         {expressionString}
     }};
 }}";
@@ -416,7 +413,7 @@ namespace c3IDE.Compiler
     ""fileDescription"": ""Strings for {addon.Name} Plugin"",
     ""text"": {{
         ""{pluginType}"": {{
-            ""{addon.Company.ToLower()}_{addon.Class.ToLower()}"": {{
+            ""{addon.AddonId.ToLower()}"": {{
                 ""name"": ""{addon.Name}"",
                 ""description"": ""{addon.Description}"",
                 ""help-url"": ""https://github.com/armandoalonso/c3IDE"",
@@ -484,7 +481,7 @@ namespace c3IDE.Compiler
 	""is-c3-addon"": true,
 	""type"": ""effect"",
 	""name"": ""{addon.Name}"",
-	""id"": ""{addon.Company}_{addon.Class}"",
+	""id"": ""{addon.AddonId}"",
 	""version"": ""{addon.MajorVersion}.{addon.MinorVersion}.{addon.RevisionVersion}.{addon.RevisionVersion}"",
 	""author"": ""{addon.Author}"",
 	""website"": ""https://www.construct.net"",
@@ -523,7 +520,7 @@ namespace c3IDE.Compiler
 	""fileDescription"": ""Strings for the '{addon.Class}' effect."",
 	""text"": {{
 		""effects"": {{
-			""{addon.Company.ToLower()}_{addon.Class.ToLower()}"": {{
+			""{addon.AddonId.ToLower()}"": {{
 				""name"": ""{addon.Name}"",
 				""description"": ""{addon.Description}"",
 				""parameters"": {{

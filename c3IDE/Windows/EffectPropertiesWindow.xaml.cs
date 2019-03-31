@@ -47,6 +47,7 @@ namespace c3IDE.Windows
                 mustPreDraw.Text = AddonManager.CurrentAddon.Effect.MustPredraw ? "true" : "false";
                 extendBoxH.Text = AddonManager.CurrentAddon.Effect.ExtendBoxHorizontal.ToString();
                 extendBoxV.Text = AddonManager.CurrentAddon.Effect.ExtendBoxVertical.ToString();
+                category.Text = AddonManager.CurrentAddon.AddonCategory;
             }
         }
 
@@ -71,6 +72,7 @@ namespace c3IDE.Windows
                 };
 
                 AddonManager.CurrentAddon.Effect = effect;
+                AddonManager.CurrentAddon.AddonCategory = category.Text;
                 AddonManager.SaveCurrentAddon();
             }
         }

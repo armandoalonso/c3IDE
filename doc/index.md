@@ -22,6 +22,12 @@ On the right hand side of the dashboard there will be a few buttons that will al
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/3.png)
 
+###Changing an Addons ID
+If by any chance you need to change your addon's id, there is an option in the context menu that allows you to change the addon's ID. you will be prompted to enter the new id. then you will be taken to the built in search and replace window, where you can verify all the instances where the addon id is and used when you have verified all the correct instances of the addon id have been identified you can hit replace to replace all those instances. this property also changes the internal state of the addon, so during compilation the correct id can be used. 
+
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/24.gif)
+
+
 ## Creating a New Addon
 
 When you create a new addon, you will be taken to the create new addon window. In this window you can input basic information about your addon.
@@ -29,6 +35,7 @@ When you create a new addon, you will be taken to the create new addon window. I
 - **Addon Name** : This is the name of the Addon. 
 - **Addon Class Name**: This is one part of the the Addon Identifier and is used to prefix a few of the javascript classes.  
 - **Author** - This is the name of the author. This value will be combined with the class name to form the addon's ID *Author_Class*, and is the name of the author that will be placed in the Addon.json files
+- **Addon ID** - this is going to be the ID that identifies your addon, this must be unique across every addon EVER. by default this will be set to the *Author*_*Class*
 - **Description** - This is a small description of your addon.
 - **Addon Type** - This will control what template will be used in creating the addon. You can choose from *SingleGlobal*, *Drawing*, *Behavior*, *Effect*
 - **Addon Category** - This category will determine where which section in construct you addon will be. these value depend on the type of addon you have chosen.

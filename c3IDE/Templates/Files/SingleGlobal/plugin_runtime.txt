@@ -1,6 +1,6 @@
 "use strict";
 {
-	C3.Plugins.{{company}}_{{class}} = class {{class}}Plugin extends C3.SDKPluginBase
+	C3.Plugins.{{addon_id}} = class {{class}}Plugin extends C3.SDKPluginBase
 	{
 		constructor(opts)
 		{

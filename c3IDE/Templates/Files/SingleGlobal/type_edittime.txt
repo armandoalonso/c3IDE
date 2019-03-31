@@ -1,6 +1,6 @@
 "use strict";
 {
-	const PLUGIN_CLASS = SDK.Plugins.{{company}}_{{class}};
+	const PLUGIN_CLASS = SDK.Plugins.{{addon_id}};
 	
 	PLUGIN_CLASS.Type = class {{class}}Type extends SDK.ITypeBase
 	{

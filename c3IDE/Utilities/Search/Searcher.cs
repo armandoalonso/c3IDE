@@ -16,7 +16,7 @@ namespace c3IDE.Utilities.Search
         public Dictionary<string, SortedList<int, SearchResult>> FileIndex = new Dictionary<string, SortedList<int, SearchResult>>();
         public string LastSearchedWord { get; set; }
 
-        public async void GlobalFind(string text, IWindow window)
+        public async void GlobalFind(string text, IWindow window, string replaceText = "")
         {
             LastSearchedWord = text;
             var results = await Task.Run(() =>
@@ -25,7 +25,7 @@ namespace c3IDE.Utilities.Search
             });
             var searchResults = results as SearchResult[] ?? results.ToArray();
             searchResults.ToList().ForEach(x => x.Selected = true);
-            WindowManager.OpenFindAndReplace(searchResults, window);
+            WindowManager.OpenFindAndReplace(searchResults, window, replaceText);
         }
 
         public void GlobalReplace(C3Addon addon, IEnumerable<SearchResult> replaceResults)

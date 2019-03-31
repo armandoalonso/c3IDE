@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,6 +13,7 @@ using c3IDE.Managers;
 using c3IDE.Models;
 using c3IDE.Templates;
 using c3IDE.Utilities.Helpers;
+using c3IDE.Utilities.Search;
 using c3IDE.Windows.Interfaces;
 using Newtonsoft.Json;
 
@@ -291,8 +293,7 @@ namespace c3IDE.Windows
             AddonManager.LoadAddon(currentAddon);
             AddonExporter.Insatnce.ExportAddon(AddonManager.CurrentAddon);
             ProcessHelper.Insatnce.StartProcess(OptionsManager.CurrentOptions.C3AddonPath);
-
-            AddonManager.CurrentAddon.BuildVersion++;
+            AddonManager.IncrementVersion();
             AddonManager.SaveCurrentAddon();
 
             AddonManager.LoadAllAddons();
@@ -327,6 +328,31 @@ namespace c3IDE.Windows
         private void AddonFilter_OnSelectionChanged(object sender, RoutedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(AddonListBox.ItemsSource).Refresh();
+        }
+
+        //changes the addon id
+        private async void ChangeAddonID_Click(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                NotificationManager.PublishErrorNotification("error changing addon id, no c3addon selected");
+                return;
+            }
+
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            AddonManager.LoadAddon(currentAddon);
+
+            var newID = await WindowManager.ShowInputDialog("Change Addon ID", "enter new addon id", currentAddon.AddonId);
+            var oldID = currentAddon.AddonId;
+
+            if (!string.IsNullOrWhiteSpace(newID))
+            {
+                AddonManager.CurrentAddon.AddonId = newID;
+                Searcher.Insatnce.GlobalFind(oldID, this, newID);
+
+            }
+
+
         }
     }
 }

@@ -16,7 +16,7 @@ namespace c3IDE.Managers
         public static Func<string, string, string, Task<string>> ShowInputDialog { get; set; }
         private static Action<IWindow> windowChangeCallback { get; set; }
         public static MainWindow MainWindow { get; set; }
-        public static Action<IEnumerable<SearchResult>, IWindow> OpenFindAndReplace { get; set; }
+        public static Action<IEnumerable<SearchResult>, IWindow, string> OpenFindAndReplace { get; set; }
 
         public static List<IWindow> WindowList = new List<IWindow>
         {

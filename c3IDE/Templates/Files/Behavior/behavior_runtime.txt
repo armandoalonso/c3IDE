@@ -1,6 +1,6 @@
 "use strict";
 {
-	C3.Behaviors.{{company}}_{{class}} = class {{class}}Behavior extends C3.SDKBehaviorBase
+	C3.Behaviors.{{addon_id}} = class {{class}}Behavior extends C3.SDKBehaviorBase
 	{
 		constructor(opts)
 		{

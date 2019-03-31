@@ -1,11 +1,11 @@
 "use strict";
 {
 
-	const PLUGIN_ID = "{{company}}_{{class}}";	
+	const PLUGIN_ID = "{{addon_id}}";	
 	const PLUGIN_VERSION = "{{version}}";
 	const PLUGIN_CATEGORY = "general";
 	
-	const PLUGIN_CLASS = SDK.Plugins.{{company}}_{{class}} = class {{class}}Plugin extends SDK.IPluginBase
+	const PLUGIN_CLASS = SDK.Plugins.{{addon_id}} = class {{class}}Plugin extends SDK.IPluginBase
 	{
 		constructor()
 		{

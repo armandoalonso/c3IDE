@@ -1,11 +1,11 @@
 "use strict";
 {
 
-	const BEHAVIOR_ID = "{{company}}_{{class}}";	
+	const BEHAVIOR_ID = "{{addon_id}}";	
 	const BEHAVIOR_VERSION = "{{version}}";
 	const BEHAVIOR_CATEGORY = "{{addon_category}}";
 	
-	const BEHAVIOR_CLASS = SDK.Behaviors.{{company}}_{{class}} = class {{class}}Behavior extends SDK.IBehaviorBase
+	const BEHAVIOR_CLASS = SDK.Behaviors.{{addon_id}} = class {{class}}Behavior extends SDK.IBehaviorBase
 	{
 		constructor()
 		{

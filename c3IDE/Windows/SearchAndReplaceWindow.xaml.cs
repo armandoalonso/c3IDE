@@ -39,6 +39,11 @@ namespace c3IDE.Windows
             FindText.IsReadOnly = true;
         }
 
+        public void PopulateReplace(string word)
+        {
+            ReplaceText.Text = word;
+        }
+
         private void SelectAllText(object sender, RoutedEventArgs e)
         {
             var tb = (sender as TextBox);

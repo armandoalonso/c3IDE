@@ -2,7 +2,7 @@
 	"is-c3-addon": true,
 	"type": "effect",
 	"name": "{{name}}",
-	"id": "{{company}}_{{class}}",
+	"id": "{{addon_id}}",
 	"version": "{{major_version}}.{{minor_version}}.{{revision_version}}.{{build_version}}",
 	"author": "{{author}}",
 	"website": "https://www.construct.net",

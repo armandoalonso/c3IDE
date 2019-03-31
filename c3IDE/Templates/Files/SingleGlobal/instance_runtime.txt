@@ -1,6 +1,6 @@
 "use strict";
 {
-	C3.Plugins.{{company}}_{{class}}.Instance = class {{class}}Instance extends C3.SDKInstanceBase
+	C3.Plugins.{{addon_id}}.Instance = class {{class}}Instance extends C3.SDKInstanceBase
 	{
 		constructor(inst, properties)
 		{

@@ -79,6 +79,7 @@ namespace c3IDE.Managers
             sb.AppendLine($"Type|{addon.Type}");
             sb.AppendLine($"CreateDate|{addon.CreateDate}");
             sb.AppendLine($"DateModified|{addon.LastModified}");
+            sb.AppendLine($"AddonId|{addon.AddonId}");
 
             File.WriteAllText(Path.Combine(path, $"{addon.Author}_{addon.Class}.c3ide"), sb.ToString());
         }
@@ -104,6 +105,7 @@ namespace c3IDE.Managers
                 addon.Type = (PluginType)Enum.Parse(typeof(PluginType), text[12].Split('|')[1].Trim());
                 addon.CreateDate = DateTime.Parse(text[13].Split('|')[1].Trim());
                 addon.LastModified = DateTime.Parse(text[14].Split('|')[1].Trim());
+                addon.AddonId = text[15].Split('|')[1].Trim();
             }
             catch (Exception ex)
             {

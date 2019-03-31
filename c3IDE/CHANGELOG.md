@@ -1,6 +1,13 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.24 (03/31/2019)
+* add exception handling to format json, stop crashes
+* fix bug with effect category not being displayed correctly
+* added new dropdown to change the effect category from the properties window, plugns has access to addon.json so its not needed there
+* added logic to sync up version data to addon.json, on version update addon.json now gets updated instantly
+* overhauled addon id, now addon id is a seperate property instead of a computed property from author_class,when an addon is created there is a new field for addon id. there is also a new context menu option on the dashboard that lets you change the addon id 
+
 ### Build# 1.1.0.23 (03/31/2019)
 * replace spaces in plugin proeprty id with hypen
 * fix order of plugin property, now properties will generate in the order they are added

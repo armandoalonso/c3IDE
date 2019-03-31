@@ -483,15 +483,17 @@ namespace c3IDE.Windows
                 {
                     //ace param
                     var aceTemplate = TemplateHelper.AceParamFirst(id, type, value);
-                    AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("}", aceTemplate));
-
+                  
                     //language param
                     var langTemplate = TemplateHelper.AceLangFirst(id, type, name, desc);
-                    LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""
-}", langTemplate);
 
                     //code param
                     var codeTemplate = TemplateHelper.AceCodeFirst(id, _selectedExpression.ScriptName);
+
+                    //updates
+                    LanguageTextEditor.Text = LanguageTextEditor.Text.Replace(@"""
+}", langTemplate);
+                    AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text.Replace("}", aceTemplate));
                     CodeTextEditor.Text = CodeTextEditor.Text.Replace($"{_selectedExpression.ScriptName}()", codeTemplate);
                 }
             }

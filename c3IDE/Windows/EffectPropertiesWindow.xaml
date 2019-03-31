@@ -14,13 +14,13 @@
 
         <StackPanel Grid.Column="0">
             <TextBlock Style="{DynamicResource TextBlockStyle}">Blends Background :</TextBlock>
-            <ComboBox Name="blendsBackground" Margin="5">
+            <ComboBox Name="blendsBackground" Margin="5" IsEditable="False">
                 <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                 <ComboBoxItem>true</ComboBoxItem>
             </ComboBox>
           
             <TextBlock Style="{DynamicResource TextBlockStyle}">Preserve Opaqueness :</TextBlock>
-            <ComboBox Name="preservesOpaqueness" Margin="5">
+            <ComboBox Name="preservesOpaqueness" Margin="5" IsEditable="False">
                 <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                 <ComboBoxItem>true</ComboBoxItem>
             </ComboBox>
@@ -44,15 +44,24 @@
 
         <StackPanel Grid.Column="1">
             <TextBlock Style="{DynamicResource TextBlockStyle}">Cross Sampling :</TextBlock>
-            <ComboBox Name="crossSampling" Margin="5">
+            <ComboBox Name="crossSampling" Margin="5" IsEditable="False">
                 <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                 <ComboBoxItem>true</ComboBoxItem>
             </ComboBox>
 
             <TextBlock Style="{DynamicResource TextBlockStyle}">Animated :</TextBlock>
-            <ComboBox Name="animated" Margin="5">
+            <ComboBox Name="animated" Margin="5" IsEditable="False">
                 <ComboBoxItem IsSelected="True">false</ComboBoxItem>
                 <ComboBoxItem>true</ComboBoxItem>
+            </ComboBox>
+
+            <TextBlock Style="{DynamicResource TextBlockStyle}">Effect Category :</TextBlock>
+            <ComboBox Name="category" Margin="5" IsEditable="False">
+                <ComboBoxItem IsSelected="True">blend</ComboBoxItem>
+                <ComboBoxItem>color</ComboBoxItem>
+                <ComboBoxItem>distortion</ComboBoxItem>
+                <ComboBoxItem>normal-mapping</ComboBoxItem>
+                <ComboBoxItem>other</ComboBoxItem>
             </ComboBox>
 
         </StackPanel>

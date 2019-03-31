@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using c3IDE.DataAccess;
 using c3IDE.Models;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities.Helpers;
+using Esprima.Ast;
 using Newtonsoft.Json;
+using Expression = c3IDE.Models.Expression;
 
 namespace c3IDE.Managers
 {
@@ -146,6 +149,17 @@ namespace c3IDE.Managers
 
             //compile effect template
             CurrentAddon.Effect.Code = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.EffectCode, CurrentAddon);
+        }
+
+        public static void IncrementVersion()
+        {
+            CurrentAddon.BuildVersion++;
+            UpdateAddonJsonVersion();
+        }
+
+        public static void UpdateAddonJsonVersion()
+        {
+            CurrentAddon.AddonJson = Regex.Replace(CurrentAddon.AddonJson, @"\d+\.\d+\.\d+\.\d+", CurrentAddon.Version);
         }
     }
 }

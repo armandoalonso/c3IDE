@@ -1,6 +1,6 @@
 "use strict";
 {
-	const BEHAVIOR_CLASS = SDK.Behaviors.{{company}}_{{class}};
+	const BEHAVIOR_CLASS = SDK.Behaviors.{{addon_id}};
 	
 	BEHAVIOR_CLASS.Type = class {{class}}Type extends SDK.IBehaviorTypeBase
 	{
