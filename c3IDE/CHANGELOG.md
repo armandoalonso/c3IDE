@@ -1,6 +1,14 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.23 (03/31/2019)
+* replace spaces in plugin proeprty id with hypen
+* fix order of plugin property, now properties will generate in the order they are added
+* make enter key, submit new plugin property on dialog window
+* replace spaces in param id with hypen
+* escape quotes in param description input
+* escape quotes in ace description input
+
 ### Build# 1.1.0.22 (03/30/2019) 
 * update documentation + release on itch.io
 * update aces dialogs now changing id should populate list name/ translated name automatically

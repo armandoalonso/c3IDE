@@ -416,7 +416,7 @@ namespace c3IDE.Windows
             var highlight = HighlightDropdown.Text;
             var async = AsyncDropdown.Text == "yes" ? true : false;
             var displayText = DisplayText.Text;
-            var desc = DescriptionText.Text;
+            var desc = DescriptionText.Text.Replace("\"", "\\\"");
 
             if (_actions.ContainsKey(id))
             {
@@ -477,7 +477,7 @@ namespace c3IDE.Windows
                 var type = ParamTypeDropdown.Text;
                 var value = ParamValueText.Text;
                 var name = ParamNameText.Text;
-                var desc = ParamDescText.Text;
+                var desc = ParamDescText.Text.Replace("\"", "\\\""); ;
                 var isVariadic = type == "variadic";
                 var actionId = _selectedAction.Id;
 

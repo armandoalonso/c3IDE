@@ -36,7 +36,7 @@
                     <ComboBoxItem>link</ComboBoxItem>
                     <ComboBoxItem>info</ComboBoxItem>
                 </ComboBox>
-                <Button Content="Add Property" Margin="5" Click="AddPropertyButton_Click"></Button>
+                <Button Content="Add Property" Margin="5" Click="AddPropertyButton_Click" IsDefault="True"></Button>
                 <Separator Visibility="Hidden" Height="20"></Separator>
             </StackPanel>
         </mah:ChildWindow>

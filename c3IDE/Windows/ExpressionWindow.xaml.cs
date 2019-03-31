@@ -391,7 +391,7 @@ namespace c3IDE.Windows
             var returntype = ReturnTypeDropdown.Text;
             var translatedname = TranslatedName.Text;
             var isvariadic = TranslatedName.Text;
-            var desc = DescriptionText.Text;
+            var desc = DescriptionText.Text.Replace("\"", "\\\"");
 
             if (_expressions.ContainsKey(id))
             {
@@ -449,7 +449,7 @@ namespace c3IDE.Windows
                 var type = ParamTypeDropdown.Text;
                 var value = ParamValueText.Text;
                 var name = ParamNameText.Text;
-                var desc = ParamDescText.Text;
+                var desc = ParamDescText.Text.Replace("\"", "\\\"");
                 var expressionId = _selectedExpression.Id;
 
                 //there is at least one param defined

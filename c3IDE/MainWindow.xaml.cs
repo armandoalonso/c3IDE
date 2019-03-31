@@ -21,7 +21,7 @@ namespace c3IDE
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const string Version = "1.1.0.22";
+        private const string Version = "1.1.0.23";
 
         /// <summary>
         /// main window constructor

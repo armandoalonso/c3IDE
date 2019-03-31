@@ -6,6 +6,7 @@ using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -255,14 +256,13 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void AddPropertyButton_Click(object sender, RoutedEventArgs e)
         {
-            var id = PropertyIdText.Text;
+            var id = PropertyIdText.Text.Replace(" ", "-");
             var type = PropertyTypeDropdown.Text;
             string template;
 
             //check for duplicate property id
-            var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+\""(?<id>\w+[-]?\w+)\""");
+            var propertyRegex = new Regex(@"\n?\t?\t?\t?\t?new SDK[.]PluginProperty\(\""(?<type>\w+)\"",(\s|\"")+(?<id>(\w|[-])+)\"",.*\)[,]?");
             var propertyMatches = propertyRegex.Matches(EditTimePluginTextEditor.Text);
-            var firstProperty = propertyMatches.Count == 0;
 
             foreach (Match propertyMatch in propertyMatches)
             {
@@ -273,33 +273,43 @@ namespace c3IDE.Windows
                 }
             }
 
-            var comma = firstProperty ? string.Empty : ",";
+            //removed existing properties
+            EditTimePluginTextEditor.Text = propertyRegex.Replace(EditTimePluginTextEditor.Text, string.Empty);
+
+            //get template
             switch (type)
             {
                 case "integer":
                 case "float":
                 case "percent":
-                    template = $"this._info.SetProperties([\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", 0){comma}";
+                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", 0)";
                     break;
 
                 case "check":
-                    template = $"this._info.SetProperties([\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", true){comma}";
+                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", true)";
                     break;
 
                 case "color":
-                    template = $"this._info.SetProperties([\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"initialValue\": [1,0,0]}} ){comma}";
+                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"initialValue\": [1,0,0]}} )";
                     break;
 
                 case "combo":
-                    template = $"this._info.SetProperties([\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"items\":[\"item1\", \"item2\", \"item3\"]}}, \"initialValue\": \"item1\"){comma}";
+                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"items\":[\"item1\", \"item2\", \"item3\"]}}, \"initialValue\": \"item1\")";
                     break;
 
                 default:
-                    template = $"this._info.SetProperties([\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", \"value\"){comma}";
+                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", \"value\")";
                     break;
             }
 
-            EditTimePluginTextEditor.Text = EditTimePluginTextEditor.Text.Replace("this._info.SetProperties([", template);
+            var propList = new List<string>();
+            foreach (Match propertyMatch in propertyMatches)
+            {
+                propList.Add($"{propertyMatch.Value.TrimEnd(',')}");
+            }
+            propList.Add(template);
+
+            EditTimePluginTextEditor.Text = EditTimePluginTextEditor.Text.Replace("this._info.SetProperties([", $"this._info.SetProperties([{string.Join(",", propList)}");
             NewPropertyWindow.IsOpen = false;
         }
 
