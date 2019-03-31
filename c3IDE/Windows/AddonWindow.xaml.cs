@@ -360,7 +360,16 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void FormatJsonMenu_OnClick(object sender, RoutedEventArgs e)
         {
+            try
+            {
             AddonTextEditor.Text = AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text);
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"failed to format json => {ex.Message}");
+            }
+
         }
 
         //todo: should we allow formatting thrid party files? if so we need to do it by extention and have different formatting strageties

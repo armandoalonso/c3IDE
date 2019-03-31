@@ -554,7 +554,16 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void FormatJsonLang_OnClick(object sender, RoutedEventArgs e)
         {
+            try
+            {
             LanguageTextEditor.Text = FormatHelper.Insatnce.Json(LanguageTextEditor.Text, true);
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"failed to format json => {ex.Message}");
+            }
+
         }
 
         /// <summary>
@@ -564,7 +573,16 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void FormatJsonAce_OnClick(object sender, RoutedEventArgs e)
         {
+            try
+            {
             AceTextEditor.Text = FormatHelper.Insatnce.Json(AceTextEditor.Text);
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"failed to format json => {ex.Message}");
+            }
+
         }
 
         /// <summary>
