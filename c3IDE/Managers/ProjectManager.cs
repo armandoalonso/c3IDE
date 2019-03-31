@@ -105,7 +105,16 @@ namespace c3IDE.Managers
                 addon.Type = (PluginType)Enum.Parse(typeof(PluginType), text[12].Split('|')[1].Trim());
                 addon.CreateDate = DateTime.Parse(text[13].Split('|')[1].Trim());
                 addon.LastModified = DateTime.Parse(text[14].Split('|')[1].Trim());
-                addon.AddonId = text[15].Split('|')[1].Trim();
+
+                if (text.Length == 16)
+                {
+                    addon.AddonId = text[15].Split('|')[1].Trim();
+                }
+                else
+                {
+                    addon.AddonId = $"{addon.Author}_{addon.Class}";
+                }
+
             }
             catch (Exception ex)
             {
