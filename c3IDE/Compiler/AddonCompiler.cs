@@ -42,6 +42,12 @@ namespace c3IDE.Compiler
                 var folderName = addon.Class.ToLower();
                 addon.AddonFolder = Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName);
 
+                //check for addon id
+                if (string.IsNullOrWhiteSpace(addon.AddonId))
+                {
+                    addon.AddonId = $"{addon.Author}_{addon.Class}";
+                }
+
                 //clear out compile path
                 if (Directory.Exists(addon.AddonFolder))
                 {

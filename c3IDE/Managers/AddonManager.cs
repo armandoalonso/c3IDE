@@ -37,7 +37,14 @@ namespace c3IDE.Managers
         /// <param name="addon"></param>
         public static void LoadAddon(C3Addon addon)
         {
+            //check for empty id
+            if (string.IsNullOrWhiteSpace(addon.AddonId))
+            {
+                addon.AddonId = $"{addon.Author}_{addon.Class}";
+            }
+            //load addon
             CurrentAddon = addon;
+
             NotificationManager.PublishNotification($"{addon.Name} loaded successfully");
             foreach (var callback in _addonLoadedCallback)
             {
