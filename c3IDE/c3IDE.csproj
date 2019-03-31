@@ -139,6 +139,7 @@
     <Compile Include="DataAccess\OptionReposiroty.cs" />
     <Compile Include="Managers\AddonManager.cs" />
     <Compile Include="Managers\ApplicationWindows.cs" />
+    <Compile Include="Managers\C3AddonImporter.cs" />
     <Compile Include="Managers\LintingManager.cs" />
     <Compile Include="Managers\LogManager.cs" />
     <Compile Include="Managers\MenuManager.cs" />
