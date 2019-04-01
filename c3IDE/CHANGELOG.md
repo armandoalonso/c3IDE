@@ -1,8 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.0.27 (04/01/2019)
+### Build# 1.1.0.28 (04/01/2019)
 * remove unsed files during export (ex, aces during effect export)
+* add new boolean parameter type for conditions/actions 
 
 ### Build# 1.1.0.26 (03/31/2019)
 * add exception handling to format json, stop crashes

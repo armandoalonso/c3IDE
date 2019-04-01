@@ -63,6 +63,7 @@
                     <ComboBoxItem IsSelected="True">number</ComboBoxItem>
                     <ComboBoxItem>string</ComboBoxItem>
                     <ComboBoxItem>any</ComboBoxItem>
+                    <ComboBoxItem>boolean</ComboBoxItem>
                     <ComboBoxItem>combo</ComboBoxItem>
                     <ComboBoxItem>cmp</ComboBoxItem>
                     <ComboBoxItem>object</ComboBoxItem>
