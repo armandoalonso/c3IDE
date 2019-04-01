@@ -1,6 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.27 (04/01/2019)
+* remove unsed files during export (ex, aces during effect export)
+
 ### Build# 1.1.0.26 (03/31/2019)
 * add exception handling to format json, stop crashes
 * fix bug with effect category not being displayed correctly

@@ -16,13 +16,28 @@ namespace c3IDE.Managers
             SetupProjectDirectoy(path);
             WriteMetadataJson(addon, path);
             WriteAddonFiles(addon, path);
-            WriteActions(addon, path);
-            WriteConditions(addon, path);
-            WriteExpressions(addon, path);
-            WriteEffectProperties(addon, path);
-            WriteEffectCode(addon, path);
-            WriteEffectParam(addon, path);
-            WriteThirdPartyFile(addon, path);
+
+            switch (addon.Type)
+            {
+                case PluginType.SingleGlobalPlugin:
+                case PluginType.DrawingPlugin:
+                case PluginType.Behavior:
+
+                    WriteActions(addon, path);
+                    WriteConditions(addon, path);
+                    WriteExpressions(addon, path);
+                    WriteThirdPartyFile(addon, path);
+                    break;
+                case PluginType.Effect:
+
+                    WriteEffectProperties(addon, path);
+                    WriteEffectCode(addon, path);
+                    WriteEffectParam(addon, path);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             WriteIcon(addon, path);
         }
 
@@ -33,13 +48,28 @@ namespace c3IDE.Managers
             var addon = new C3Addon();
             ReadMetadataJson(addon, fi.FullName);
             ReadAddonFiles(addon, fi.DirectoryName);
-            ReadActions(addon, fi.DirectoryName);
-            ReadConditions(addon, fi.DirectoryName);
-            ReadExpressions(addon, fi.DirectoryName);
-            ReadEffectProperties(addon, fi.DirectoryName);
-            ReadEffectCode(addon, fi.DirectoryName);
-            ReadEffectParam(addon, fi.DirectoryName); 
-            ReadThirdPartyFile(addon, fi.DirectoryName);
+
+            switch (addon.Type)
+            {
+                case PluginType.SingleGlobalPlugin:
+                case PluginType.DrawingPlugin:
+                case PluginType.Behavior:
+
+                    ReadActions(addon, fi.DirectoryName);
+                    ReadConditions(addon, fi.DirectoryName);
+                    ReadExpressions(addon, fi.DirectoryName);
+                    ReadThirdPartyFile(addon, fi.DirectoryName);
+                    break;
+                case PluginType.Effect:
+
+                    ReadEffectProperties(addon, fi.DirectoryName);
+                    ReadEffectCode(addon, fi.DirectoryName);
+                    ReadEffectParam(addon, fi.DirectoryName);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             ReadIcon(addon, fi.DirectoryName);
             return addon;
         }
