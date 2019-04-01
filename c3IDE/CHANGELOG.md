@@ -1,10 +1,11 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.0.29 (04/01/2019)
+### Build# 1.1.0.30 (04/01/2019)
 * remove unsed files during export (ex, aces during effect export)
 * add new boolean parameter type for conditions/actions 
 * add experimental c3addon import, to import .c3addon file drag into dashboard
+* add exception handling for importing c2runtime files (only c3runtime file is supported)
 
 ### Build# 1.1.0.26 (03/31/2019)
 * add exception handling to format json, stop crashes
