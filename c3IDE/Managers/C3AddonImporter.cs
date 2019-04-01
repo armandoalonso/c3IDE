@@ -78,94 +78,108 @@ namespace c3IDE.Managers
                     foreach (JProperty category in ace.Properties())
                     {
                         //parse actions
-                        var actions = JArray.Parse(ace[category.Name]["actions"].ToString());
-                        foreach (var action in actions.Children<JObject>())
+                        var ationJson = ace[category.Name]["actions"]?.ToString();
+                        var actions = ationJson != null ? JArray.Parse(ationJson) : null;
+                        if (actions != null)
                         {
-                            var actionId = action["id"].ToString();
-                            var actionAce = action.ToString();
-                            var actionLang = $"\"{actionId}\":" + lang["actions"][actionId];
-                            var actionScript = action["scriptName"].ToString();
-                            var actionParams = string.Empty;
-
-                            if (action["params"] != null && action["params"].Children<JObject>().Any())
+                            foreach (var action in actions.Children<JObject>())
                             {
-                                var ep = action["params"].Children<JObject>().Select(x => x["id"].ToString());
-                                actionParams = string.Join(",", ep);
+                                var actionId = action["id"].ToString();
+                                var actionAce = action.ToString();
+                                var actionLang = $"\"{actionId}\":" + lang["actions"][actionId];
+                                var actionScript = action["scriptName"].ToString();
+                                var actionParams = string.Empty;
+
+                                if (action["params"] != null && action["params"].Children<JObject>().Any())
+                                {
+                                    var ep = action["params"].Children<JObject>().Select(x => x["id"].ToString());
+                                    actionParams = string.Join(",", ep);
+                                }
+
+                                //todo: currently code is being stubbed out, find way to parse action.js
+                                var act = new Models.Action
+                                {
+                                    Id = actionId,
+                                    Category = category.Name,
+                                    Ace = actionAce,
+                                    Language = actionLang,
+                                    //Code = $"{actionScript}({string.Join(",", actionParams)}) {{ \n}}"
+                                    Code = FormatHelper.Insatnce.Javascript(actFuncs[actionScript.Trim()]) ?? string.Empty
+                                };
+
+                                actionList.Add(act);
                             }
-
-                            //todo: currently code is being stubbed out, find way to parse action.js
-                            var act = new Models.Action
-                            {
-                                Id = actionId,
-                                Category = category.Name,
-                                Ace = actionAce,
-                                Language = actionLang,
-                                //Code = $"{actionScript}({string.Join(",", actionParams)}) {{ \n}}"
-                                Code = FormatHelper.Insatnce.Javascript(actFuncs[actionScript.Trim()]) ?? string.Empty
-                            };
-
-                            actionList.Add(act);
                         }
+
 
                         //parse conditions
-                        var conditions = JArray.Parse(ace[category.Name]["conditions"].ToString());
-                        foreach (var condition in conditions.Children<JObject>())
+                        var conditionJson = ace[category.Name]["conditions"]?.ToString();
+                        var conditions = conditionJson != null ? JArray.Parse(conditionJson) : null;
+                        if (conditions != null)
                         {
-                            var conditionId = condition["id"].ToString();
-                            var conditionAce = condition.ToString();
-                            var conditionLang = $"\"{conditionId}\":" + lang["conditions"][conditionId];
-                            var conditionScript = condition["scriptName"].ToString();
-                            var conditionParams = string.Empty;
-
-                            if (condition["params"] != null && condition["params"].Children<JObject>().Any())
+                            foreach (var condition in conditions.Children<JObject>())
                             {
-                                var ep = condition["params"].Children<JObject>().Select(x => x["id"].ToString());
-                                conditionParams = string.Join(",", ep);
+                                var conditionId = condition["id"].ToString();
+                                var conditionAce = condition.ToString();
+                                var conditionLang = $"\"{conditionId}\":" + lang["conditions"][conditionId];
+                                var conditionScript = condition["scriptName"].ToString();
+                                var conditionParams = string.Empty;
+
+                                if (condition["params"] != null && condition["params"].Children<JObject>().Any())
+                                {
+                                    var ep = condition["params"].Children<JObject>().Select(x => x["id"].ToString());
+                                    conditionParams = string.Join(",", ep);
+                                }
+
+                                //todo: currently code is being stubbed out, find way to parse condition.js
+                                var cnd = new Models.Condition()
+                                {
+                                    Id = conditionId,
+                                    Category = category.Name,
+                                    Ace = conditionAce,
+                                    Language = conditionLang,
+                                    //Code = $"{conditionScript}({string.Join(",", conditionParams)}) {{ \n}}"
+                                    Code = FormatHelper.Insatnce.Javascript(cndFuncs[conditionScript.Trim()]) ?? string.Empty
+                                };
+
+                                conditionList.Add(cnd);
                             }
-
-                            //todo: currently code is being stubbed out, find way to parse condition.js
-                            var cnd = new Models.Condition()
-                            {
-                                Id = conditionId,
-                                Category = category.Name,
-                                Ace = conditionAce,
-                                Language = conditionLang,
-                                //Code = $"{conditionScript}({string.Join(",", conditionParams)}) {{ \n}}"
-                                Code = FormatHelper.Insatnce.Javascript(cndFuncs[conditionScript.Trim()]) ?? string.Empty
-                            };
-
-                            conditionList.Add(cnd);
                         }
-
+                       
                         //parse expression
-                        var expressions = JArray.Parse(ace[category.Name]["expressions"].ToString());
-                        foreach (var expression in expressions.Children<JObject>())
+                        var expressionJson = ace[category.Name]["expressions"]?.ToString();
+                        var expressions = expressionJson != null ? JArray.Parse(expressionJson) : null;
+                        if (expressions != null)
                         {
-                            var expressionId = expression["id"].ToString();
-                            var expressionAce = expression.ToString();
-                            var expressionLang = $"\"{expressionId}\":" + lang["expressions"][expressionId];
-                            var expressionScript = expression["expressionName"].ToString();
-                            var expressionParams = string.Empty;
-
-                            if (expression["params"] != null && expression["params"].Children<JObject>().Any())
+                            foreach (var expression in expressions.Children<JObject>())
                             {
-                                var ep = expression["params"].Children<JObject>().Select(x => x["id"].ToString());
-                                expressionParams = string.Join(",", ep);
+                                var expressionId = expression["id"].ToString();
+                                var expressionAce = expression.ToString();
+                                var expressionLang = $"\"{expressionId}\":" + lang["expressions"][expressionId];
+                                var expressionScript = expression["expressionName"].ToString();
+                                var expressionParams = string.Empty;
+
+                                if (expression["params"] != null && expression["params"].Children<JObject>().Any())
+                                {
+                                    var ep = expression["params"].Children<JObject>().Select(x => x["id"].ToString());
+                                    expressionParams = string.Join(",", ep);
+                                }
+
+                                //todo: currently code is being stubbed out, find way to parse expression.js
+                                var exp = new Models.Expression()
+                                {
+                                    Id = expressionId,
+                                    Category = category.Name,
+                                    Ace = expressionAce,
+                                    Language = expressionLang,
+                                    //Code = $"{expressionScript}({expressionParams}) {{ \n}}"
+                                    Code = FormatHelper.Insatnce.Javascript(expFuncs[expressionScript.Trim()]) ?? string.Empty
+                                };
+
+                                expressionList.Add(exp);
                             }
-
-                            //todo: currently code is being stubbed out, find way to parse expression.js
-                            var exp = new Models.Expression()
-                            {
-                                Id = expressionId,
-                                Category = category.Name,
-                                Ace = expressionAce,
-                                Language = expressionLang,
-                                //Code = $"{expressionScript}({expressionParams}) {{ \n}}"
-                                Code = FormatHelper.Insatnce.Javascript(expFuncs[expressionScript.Trim()]) ?? string.Empty
-                            };
-
-                            expressionList.Add(exp);
                         }
+
                     }
 
                     var files = Regex.Matches(pluginEdit, @"filename\s?:\s?(""|')(?<file>.*)(""|')");
