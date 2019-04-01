@@ -123,7 +123,7 @@ namespace c3IDE.Windows
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void AddonFile_OnDrop(object sender, DragEventArgs e)
+        private async void AddonFile_OnDrop(object sender, DragEventArgs e)
         {
             try
             {
@@ -161,6 +161,19 @@ namespace c3IDE.Windows
                     AddonManager.LoadAllAddons();
                     AddonListBox.ItemsSource = AddonManager.AllAddons;
                     AddonManager.LoadAddon(c3addon);
+                }
+                else if (info.Extension.Contains("c3addon"))
+                {
+                    var result =  await WindowManager.ShowDialog("(EXPERIMENTAL) Importing C3Addon File", "Importing a C3addon file is an experimental feature. Please verify your file was improted correctly. If you encounter an issue please open a Github Issue Ticket");
+                    if (result)
+                    {
+                        c3addon = C3AddonImporter.Import(info.FullName);
+                        AddonManager.LoadAddon(c3addon);
+                        AddonManager.SaveCurrentAddon();
+                        AddonManager.LoadAllAddons();
+                        AddonListBox.ItemsSource = AddonManager.AllAddons;
+                        AddonManager.LoadAddon(c3addon);
+                    }
                 }
                 else
                 {

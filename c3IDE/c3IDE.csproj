@@ -33,7 +33,7 @@
     <ProductName>c3IDE</ProductName>
     <PublisherName>Piranha305</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>29</ApplicationRevision>
+    <ApplicationRevision>30</ApplicationRevision>
     <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -140,6 +140,7 @@
     <Compile Include="Managers\AddonManager.cs" />
     <Compile Include="Managers\ApplicationWindows.cs" />
     <Compile Include="Managers\C3AddonImporter.cs" />
+    <Compile Include="Managers\JavascriptManager.cs" />
     <Compile Include="Managers\LintingManager.cs" />
     <Compile Include="Managers\LogManager.cs" />
     <Compile Include="Managers\MenuManager.cs" />

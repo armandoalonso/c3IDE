@@ -22,11 +22,15 @@ On the right hand side of the dashboard there will be a few buttons that will al
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/3.png)
 
-###Changing an Addons ID
+### Changing an Addons ID
 If by any chance you need to change your addon's id, there is an option in the context menu that allows you to change the addon's ID. you will be prompted to enter the new id. then you will be taken to the built in search and replace window, where you can verify all the instances where the addon id is and used when you have verified all the correct instances of the addon id have been identified you can hit replace to replace all those instances. this property also changes the internal state of the addon, so during compilation the correct id can be used. 
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/24.gif)
 
+### Importing C3Addon Files (EXPERIMENTAL)
+You can import c3addon zip files into c3IDE, in order to import drag the c3addon file inot the dashboard, you will be prompted with a disclaimer message. When you click okay, it will import the addon. I have done my best to take into account most of the possible configuration in which addons can be written, this might not work 100% of the time depending on the addon on how it was written. so additional work might have to be done to get it to work properly. but importing should help with all the boiler plate. see example below, where i import 2 addons from different developers.
+
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/25.gif)
 
 ## Creating a New Addon
 
