@@ -51,16 +51,23 @@ namespace c3IDE
             //create default options
             OptionsManager.CurrentOptions = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? OptionsManager.DefaultOptions;
 
-            //check each property
-            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.DataPath))  OptionsManager.CurrentOptions.DataPath = OptionsManager.DefaultOptions.DataPath;
-            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.DataPath))  OptionsManager.CurrentOptions.DataPath = OptionsManager.DefaultOptions.DataPath;
-            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.CompilePath))  OptionsManager.CurrentOptions.CompilePath = OptionsManager.DefaultOptions.CompilePath;
-            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.ExportPath))  OptionsManager.CurrentOptions.ExportPath = OptionsManager.DefaultOptions.ExportPath;
-            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.C3AddonPath))  OptionsManager.CurrentOptions.C3AddonPath = OptionsManager.DefaultOptions.C3AddonPath;
-            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.DefaultAuthor))  OptionsManager.CurrentOptions.DefaultAuthor = OptionsManager.DefaultOptions.DefaultAuthor;
-            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.FontFamily))  OptionsManager.CurrentOptions.FontFamily = OptionsManager.DefaultOptions.FontFamily;
-            if ( OptionsManager.CurrentOptions.FontSize < 5)  OptionsManager.CurrentOptions.FontSize = OptionsManager.DefaultOptions.FontSize;
-            if (string.IsNullOrWhiteSpace( OptionsManager.CurrentOptions.ThemeKey))  OptionsManager.CurrentOptions.ThemeKey = OptionsManager.DefaultOptions.ThemeKey;
+            try
+            {
+                //check each property
+                if (string.IsNullOrWhiteSpace(OptionsManager.CurrentOptions.DataPath)) OptionsManager.CurrentOptions.DataPath = OptionsManager.DefaultOptions.DataPath;
+                if (string.IsNullOrWhiteSpace(OptionsManager.CurrentOptions.DataPath)) OptionsManager.CurrentOptions.DataPath = OptionsManager.DefaultOptions.DataPath;
+                if (string.IsNullOrWhiteSpace(OptionsManager.CurrentOptions.CompilePath)) OptionsManager.CurrentOptions.CompilePath = OptionsManager.DefaultOptions.CompilePath;
+                if (string.IsNullOrWhiteSpace(OptionsManager.CurrentOptions.ExportPath)) OptionsManager.CurrentOptions.ExportPath = OptionsManager.DefaultOptions.ExportPath;
+                if (string.IsNullOrWhiteSpace(OptionsManager.CurrentOptions.C3AddonPath)) OptionsManager.CurrentOptions.C3AddonPath = OptionsManager.DefaultOptions.C3AddonPath;
+                if (string.IsNullOrWhiteSpace(OptionsManager.CurrentOptions.DefaultAuthor)) OptionsManager.CurrentOptions.DefaultAuthor = OptionsManager.DefaultOptions.DefaultAuthor;
+                if (string.IsNullOrWhiteSpace(OptionsManager.CurrentOptions.FontFamily)) OptionsManager.CurrentOptions.FontFamily = OptionsManager.DefaultOptions.FontFamily;
+                if (OptionsManager.CurrentOptions.FontSize < 5) OptionsManager.CurrentOptions.FontSize = OptionsManager.DefaultOptions.FontSize;
+                if (string.IsNullOrWhiteSpace(OptionsManager.CurrentOptions.ThemeKey)) OptionsManager.CurrentOptions.ThemeKey = OptionsManager.DefaultOptions.ThemeKey;
+            }
+            catch
+            {
+                OptionsManager.CurrentOptions = OptionsManager.DefaultOptions;
+            }
         }
 
         private void OnWindowKeyUp(object sender, KeyEventArgs e)

@@ -1,12 +1,13 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.0.33 (04/02/2019)
+### Build# 1.1.0.34 (04/02/2019)
 * import : fix issue where ace is only defined for c2runtime, but exists in both (need to add better logging aroudn these edge cases)
 * import : fix issue importing async function
 * import : dont crash when ace has same function signature defined twice (need better logging aroudn this)
 * import : fix issue when aces function where created using older version of javascript (ex. using function keyword)
 * performance: cache dashboard filter to stop performance slow down when lotsof addons are imported 
+* (hotfix) fix issue with bad startup on new installation
 
 ### Build# 1.1.0.32 (04/01/2019)
 * remove unsed files during export (ex, aces during effect export)

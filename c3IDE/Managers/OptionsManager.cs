@@ -13,18 +13,7 @@ namespace c3IDE.Managers
         public static Options DefaultOptions { get; set; }
         public static Action<Options> OptionChangedCallback { get; set; }
 
-        /// <summary>
-        /// saves the current options and calls the options changed callback
-        /// </summary>
-        public static void SaveOptions()
-        {
-            DataAccessFacade.Insatnce.OptionData.Upsert(CurrentOptions);
-        }
-
-        /// <summary>
-        /// tries to load options from storage, if there are no options a default object is loaded
-        /// </summary>
-        public static void LoadOptions()
+        static OptionsManager()
         {
             //todo: this should come from the application 
             var executingPath = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory?.FullName;
@@ -55,7 +44,23 @@ namespace c3IDE.Managers
             };
 
             DefaultOptions = defaultOptions;
-            CurrentOptions = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? defaultOptions;
+        }
+
+        /// <summary>
+        /// saves the current options and calls the options changed callback
+        /// </summary>
+        public static void SaveOptions()
+        {
+            DataAccessFacade.Insatnce.OptionData.Upsert(CurrentOptions);
+        }
+
+        /// <summary>
+        /// tries to load options from storage, if there are no options a default object is loaded
+        /// </summary>
+        public static void LoadOptions()
+        {
+            
+            CurrentOptions = DataAccessFacade.Insatnce.OptionData.GetAll().FirstOrDefault() ?? DefaultOptions;
         }
     }
 }
