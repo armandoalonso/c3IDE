@@ -34,9 +34,13 @@ namespace c3IDE.Managers
                 if (hasFunction && state == ParseState.Idle)
                 {
                     state = ParseState.InFunction;
-                    tmp.AppendLine(line);
+
                     name = Regex.Replace(line, @"\(.*\)", string.Empty).Trim();
                     name = Regex.Replace(name, @"(//.*|/[*].*)", string.Empty).Trim();
+                    name = Regex.Replace(name, @":\s?function", string.Empty).Trim();
+                    name = Regex.Replace(name, @"\s?async\s?", string.Empty).Trim();
+
+                    tmp.AppendLine(Regex.Replace(line, @":\s?function", string.Empty));
                     continue;
                 }
 
@@ -54,6 +58,13 @@ namespace c3IDE.Managers
                         {
                             var x = 1;
                         }
+
+                        while (funcList.ContainsKey(name))
+                        {
+                            //todo: add some logging or report about import
+                            continue;
+                        }
+
                         funcList.Add(name, tmp.ToString().Trim().TrimEnd(','));
                         tmp = new StringBuilder();
                     }

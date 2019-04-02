@@ -69,6 +69,76 @@ namespace c3IDE.Tests
         }
 
         [TestMethod]
+        public void TestActionParseDefinedFunction()
+        {
+            var code = @"C3.Plugins.aaXe_Log.Acts =
+	{
+		writeLog: function (log, type) /* test */
+		{
+
+			if (!this._loggingActive) return;
+			console.log("" % c"" + this.iconTypes[type] + "" "" + log, this.logTypes[type]);
+
+
+        }
+    };";
+
+            var funcs = JavascriptManager.GetAllFunction(code);
+            Assert.AreEqual(funcs.Count, 1);
+            Assert.AreEqual(funcs.FirstOrDefault().Key, "writeLog");
+        }
+
+        [TestMethod]
+        public void TestActionParseAsyncFunction()
+        {
+            var code = @"C3.Plugins.aaXe_Log.Acts =
+	{
+		async writeLog (log, type) /* test */
+		{
+
+			if (!this._loggingActive) return;
+			console.log("" % c"" + this.iconTypes[type] + "" "" + log, this.logTypes[type]);
+
+
+        }
+    };";
+
+            var funcs = JavascriptManager.GetAllFunction(code);
+            Assert.AreEqual(funcs.Count, 1);
+            Assert.AreEqual(funcs.FirstOrDefault().Key, "writeLog");
+        }
+
+        [TestMethod]
+        public void TestActionParseDuplicateFunction()
+        {
+            var code = @"C3.Plugins.aaXe_Log.Acts =
+	{
+		writeLog (log, type) /* test */
+		{
+
+			if (!this._loggingActive) return;
+			console.log("" % c"" + this.iconTypes[type] + "" "" + log, this.logTypes[type]);
+
+
+        },
+		writeLog (log, type) /* test */
+		{
+
+			if (!this._loggingActive) return;
+			console.log("" % c"" + this.iconTypes[type] + "" "" + log, this.logTypes[type]);
+
+
+        },
+    };";
+
+            var funcs = JavascriptManager.GetAllFunction(code);
+            Assert.AreEqual(funcs.Count, 2);
+            Assert.IsNotNull(funcs["writeLog"]);
+            Assert.IsNotNull(funcs["writeLog@"]);
+        }
+
+
+        [TestMethod]
         public void TestActionParseHappyPathComplex()
         {
             var code = @"C3.Plugins.aaXe_Log.Acts =

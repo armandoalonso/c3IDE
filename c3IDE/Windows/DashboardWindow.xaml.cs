@@ -35,7 +35,6 @@ namespace c3IDE.Windows
         public DashboardWindow()
         {
             InitializeComponent();
-
             try
             {
                 //load addon if it was passed through cmd args
@@ -69,12 +68,18 @@ namespace c3IDE.Windows
             //AddonManager.LoadAllAddons(); //removed for dashboard load performace ?? do we really need this call?
             AddonFilter.Text = string.Empty;
             AddonListBox.ItemsSource = AddonManager.AllAddons;
-            View = CollectionViewSource.GetDefaultView(AddonListBox.ItemsSource) as CollectionView;
-            if (View != null)
+
+            //setup view once
+            if(View == null)
             {
-                View.Filter = SearchFilter;
-                View.SortDescriptions.Add(new SortDescription("LastModified", ListSortDirection.Descending));
-            }
+                View = CollectionViewSource.GetDefaultView(AddonListBox.ItemsSource) as CollectionView;
+
+                if (View != null)
+                {
+                    View.Filter = SearchFilter;
+                    View.SortDescriptions.Add(new SortDescription("LastModified", ListSortDirection.Descending));
+                }
+            } 
         }
 
         private bool SearchFilter(object obj)

@@ -96,7 +96,8 @@ namespace c3IDE.Managers
                                     actionParams = string.Join(",", ep);
                                 }
 
-                                //todo: currently code is being stubbed out, find way to parse action.js
+                                actFuncs.TryGetValue(actionScript.Trim(), out var code);
+                                if(code == null) continue; //todo: need toad some feedback that function were skipped (warning)
                                 var act = new Models.Action
                                 {
                                     Id = actionId,
@@ -104,7 +105,7 @@ namespace c3IDE.Managers
                                     Ace = actionAce,
                                     Language = actionLang,
                                     //Code = $"{actionScript}({string.Join(",", actionParams)}) {{ \n}}"
-                                    Code = FormatHelper.Insatnce.Javascript(actFuncs[actionScript.Trim()]) ?? string.Empty
+                                    Code = FormatHelper.Insatnce.Javascript(code) ?? string.Empty
                                 };
 
                                 actionList.Add(act);
@@ -131,7 +132,8 @@ namespace c3IDE.Managers
                                     conditionParams = string.Join(",", ep);
                                 }
 
-                                //todo: currently code is being stubbed out, find way to parse condition.js
+                                cndFuncs.TryGetValue(conditionScript.Trim(), out var code);
+                                if (code == null) continue; //todo: need toad some feedback that function were skipped (warning)
                                 var cnd = new Models.Condition()
                                 {
                                     Id = conditionId,
@@ -139,7 +141,7 @@ namespace c3IDE.Managers
                                     Ace = conditionAce,
                                     Language = conditionLang,
                                     //Code = $"{conditionScript}({string.Join(",", conditionParams)}) {{ \n}}"
-                                    Code = FormatHelper.Insatnce.Javascript(cndFuncs[conditionScript.Trim()]) ?? string.Empty
+                                    Code = FormatHelper.Insatnce.Javascript(code) ?? string.Empty
                                 };
 
                                 conditionList.Add(cnd);
@@ -165,7 +167,8 @@ namespace c3IDE.Managers
                                     expressionParams = string.Join(",", ep);
                                 }
 
-                                //todo: currently code is being stubbed out, find way to parse expression.js
+                                expFuncs.TryGetValue(expressionScript.Trim(), out var code);
+                                if (code == null) continue; //todo: need toad some feedback that function were skipped (warning)
                                 var exp = new Models.Expression()
                                 {
                                     Id = expressionId,
