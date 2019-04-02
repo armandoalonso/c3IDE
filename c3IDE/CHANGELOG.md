@@ -1,6 +1,14 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.35 (04/02/2019)
+* add new window for C2RUNTIME.js, import projects with c2runtime now show up here and compile correctly
+* added path to thridparty files, this might make some files not show up correctly during compliation, please go back to your third party files and set the correct path of the files
+* fix bug when generating propertie/category json, and json was not valid
+* make ace list box resizable, now the list box can be resized, before it was tstaic at 300 px
+* added better logging during c3addon import, after every import there is a an import.log, this log should have better information about any error that happen during import
+* added error handling when logging during web server start/stop command, this had a chance of throwing uncaught exception. *more research is still needed*
+
 ### Build# 1.1.0.34 (04/02/2019)
 * import : fix issue where ace is only defined for c2runtime, but exists in both (need to add better logging aroudn these edge cases)
 * import : fix issue importing async function

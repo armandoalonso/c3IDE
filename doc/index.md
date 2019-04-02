@@ -70,6 +70,10 @@ Adding a new third party file will automatically update your addon.json to inclu
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/7.png)
 
+There are 3 check boxes assocaited with each third party file, they detemine where these files will end up during complication, (c3runtime folder, c2runtime folder, or the root of the addon)
+
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/26.png)
+
 ## Plugin/Behavior Window
 The plugin/behavior window controls **plugin.js** file or the **behavior.js** file. There are 2 tabs, the edit time tab and the run time tab. 
 
@@ -173,6 +177,13 @@ When defining you ACEs you can easily add new parameters, clicking the add param
 
 ## Language
 The language window helps filling out the missing pieces of the language file. There are 2 sections one for Plugin Properties defined in the edit time plugin.js, and one for the Categories defined through the ACEs. If you update The plugin properties or the ACE categories, you need to come to this window and regenerate these jsons. 
+
+## C2 Runtime
+There is a window, which include an editor for the c2runtime js file, when files are imported and have a c2 runtime, the runtime.js file will be displayed here. if there is any text in this editor dueing complication, it will create a c2runtime folder and put the runtime.js there. 
+
+**NOTE** : you need to manaully add the *c2runtime/runtime.js* file to the addon.js, this process is not currently automated.
+
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/27.png)
 
 ## Test
 The Testing window lets you compile and host your addon with the built in web server. When you click "Test C3 Addon" button, it will compile your addon and display logs on the left section of the testing window. All addons are compiled to *AppData\Roaming\C3IDE_DATA\Server\Test\${addon class name}* by default. During compliation there are a few validation that take place to prevent a few of the error you could get when installing your addon, such as language placeholder not matching, duplicate id's and a few others.
