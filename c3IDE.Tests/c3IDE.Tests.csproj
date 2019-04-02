@@ -45,6 +45,7 @@
     <Compile Include="C3ImporterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JavascriptManagerTest.cs" />
+    <Compile Include="NodeManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MSTest.TestAdapter">
