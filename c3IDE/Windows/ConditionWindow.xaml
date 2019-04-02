@@ -10,6 +10,7 @@
     <Grid Margin="10" Name="ConditionGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="3*" Name="AcePanel"/>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="3*" Name="LangPanel"/>
@@ -17,7 +18,7 @@
             <ColumnDefinition Width="3*" Name="CodePanel"/>
         </Grid.ColumnDefinitions>
 
-        <mah:ChildWindow Name="NewConditionWindow" Grid.Column="0" Grid.ColumnSpan="6" Title="Add New Condition" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
+        <mah:ChildWindow Name="NewConditionWindow" Grid.Column="0" Grid.ColumnSpan="7" Title="Add New Condition" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
             <mah:ChildWindow.OverlayBrush>
                 <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
             </mah:ChildWindow.OverlayBrush>
@@ -90,7 +91,7 @@
             </StackPanel>
         </mah:ChildWindow>
 
-        <mah:ChildWindow Name="NewParamWindow" Grid.Column="0" Grid.ColumnSpan="6" Title="Add New Parameter" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
+        <mah:ChildWindow Name="NewParamWindow" Grid.Column="0" Grid.ColumnSpan="7" Title="Add New Parameter" IsOpen="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ChildWindowWidth="300" CloseOnOverlay="True">
             <mah:ChildWindow.OverlayBrush>
                 <SolidColorBrush Opacity="0.7" Color="{StaticResource BlackColor}" />
             </mah:ChildWindow.OverlayBrush>
@@ -173,7 +174,14 @@
             </ListBox>
         </DockPanel>
 
-        <DockPanel Grid.Column="1" Margin="10">
+        <GridSplitter Grid.Column="1" BorderThickness="1.5" BorderBrush="#FF444444"
+                      VerticalAlignment="Stretch" HorizontalAlignment="Center">
+            <GridSplitter.Background>
+                <SolidColorBrush Color="#FF444444"></SolidColorBrush>
+            </GridSplitter.Background>
+        </GridSplitter>
+        
+        <DockPanel Grid.Column="2" Margin="10">
             <TabControl DockPanel.Dock="Top">
                 <TabItem Header="Ace.json" Name="Ace" Background="Transparent">
                     <avalonEdit:TextEditor
@@ -195,14 +203,14 @@
             </TabControl>
         </DockPanel>
 
-        <GridSplitter Grid.Column="2" BorderThickness="1.5" BorderBrush="#FF444444"
+        <GridSplitter Grid.Column="3" BorderThickness="1.5" BorderBrush="#FF444444"
                       VerticalAlignment="Stretch" HorizontalAlignment="Center">
             <GridSplitter.Background>
                 <SolidColorBrush Color="#FF444444"></SolidColorBrush>
             </GridSplitter.Background>
         </GridSplitter>
         
-        <DockPanel Grid.Column="3" LastChildFill="True" Margin="10">
+        <DockPanel Grid.Column="4" LastChildFill="True" Margin="10">
             <TabControl DockPanel.Dock="Bottom">
                 <TabItem Header="Language" Name="Language" Background="Transparent">
                     <avalonEdit:TextEditor
@@ -224,14 +232,14 @@
             </TabControl>
         </DockPanel>
 
-        <GridSplitter Grid.Column="4" BorderThickness="1.5" BorderBrush="#FF444444"
+        <GridSplitter Grid.Column="5" BorderThickness="1.5" BorderBrush="#FF444444"
                       VerticalAlignment="Stretch" HorizontalAlignment="Center">
             <GridSplitter.Background>
                 <SolidColorBrush Color="#FF444444"></SolidColorBrush>
             </GridSplitter.Background>
         </GridSplitter>
 
-        <DockPanel Grid.Column="5" Margin="10" LastChildFill="True">
+        <DockPanel Grid.Column="6" Margin="10" LastChildFill="True">
             <TabControl DockPanel.Dock="Top">
                 <TabItem Header="Code" Name="Code" Background="Transparent">
                     <avalonEdit:TextEditor

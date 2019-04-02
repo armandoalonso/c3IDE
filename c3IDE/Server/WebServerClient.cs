@@ -1,4 +1,5 @@
-﻿using c3IDE.Managers;
+﻿using System;
+using c3IDE.Managers;
 using uhttpsharp;
 using uhttpsharp.Listeners;
 using uhttpsharp.RequestProviders;
@@ -53,11 +54,19 @@ namespace c3IDE.Server
             _httpServer.Dispose();
             _httpServer = null;
             WebServerManager.TcpListener.Stop();
-            LogManager.CompilerLog.Insert("server stopped...");
             WebServerManager.WebServerUrl = string.Empty;
             WebServerManager.WebServiceUrlChanged?.Invoke(WebServerManager.WebServerUrl);
             WebServerManager.WebServerStarted = false;
             WebServerManager.WebServerStateChanged?.Invoke(false);
+
+            try
+            {
+                LogManager.CompilerLog.Insert("server stopped...");
+            }
+            catch(Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+            }
         }
     }
 }

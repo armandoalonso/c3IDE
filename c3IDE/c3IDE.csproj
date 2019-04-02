@@ -220,6 +220,9 @@
     <Compile Include="Windows\AddonWindow.xaml.cs">
       <DependentUpon>AddonWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\C2RuntimeWindow.xaml.cs">
+      <DependentUpon>C2RuntimeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ConditionWindow.xaml.cs">
       <DependentUpon>ConditionWindow.xaml</DependentUpon>
     </Compile>
@@ -284,6 +287,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AddonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\C2RuntimeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

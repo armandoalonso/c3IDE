@@ -56,12 +56,7 @@ namespace c3IDE.Managers
                         state = ParseState.Idle;
                         if (funcList.ContainsKey(name))
                         {
-                            var x = 1;
-                        }
-
-                        while (funcList.ContainsKey(name))
-                        {
-                            //todo: add some logging or report about import
+                            LogManager.AddImportLogMessage($"DUPLICATE FUNCTION SIGNATURE => {name}");
                             continue;
                         }
 

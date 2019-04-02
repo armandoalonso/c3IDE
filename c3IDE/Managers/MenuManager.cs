@@ -25,6 +25,7 @@ namespace c3IDE.Managers
             MainMenu.Add(new HamburgerMenuIconItem { Icon = new PackIconMaterial { Kind = PackIconMaterialKind.Equal }, Label = "Conditions", Tag = "Conditions" });
             MainMenu.Add(new HamburgerMenuIconItem { Icon = new PackIconMaterial { Kind = PackIconMaterialKind.Function }, Label = "Expressions", Tag = "Expressions" });
             MainMenu.Add(new HamburgerMenuIconItem { Icon = new PackIconFontAwesome { Kind = PackIconFontAwesomeKind.GlobeAmericasSolid}, Label = "Language", Tag = "Language" });
+            MainMenu.Add(new HamburgerMenuIconItem { Icon = new PackIconFontAwesome { Kind = PackIconFontAwesomeKind.CodeSolid }, Label = "C2Runtime", Tag = "C2Runtime" });
             MainMenu.Add(new HamburgerMenuIconItem { Icon = new PackIconOcticons { Kind = PackIconOcticonsKind.Beaker }, Label = "Test", Tag = "Test" });
 
             //effect menu

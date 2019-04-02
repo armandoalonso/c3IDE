@@ -10,6 +10,7 @@ namespace c3IDE.Managers
     {
         public static List<LogMessage> Logs = new List<LogMessage>();
         public static List<Exception> Exceptions = new List<Exception>();
+        public static List<LogMessage> ImportLog = new List<LogMessage>();
         public static CompilerLog CompilerLog = new CompilerLog();
         private static readonly List<Action<string>> _logCallbacks = new List<Action<string>>();
         private static readonly List<Action<string>> _errorCallbacks = new List<Action<string>>();
@@ -68,6 +69,17 @@ namespace c3IDE.Managers
             {
                 errorCallback?.Invoke(log.ToString());
             }
+        }
+
+        public static void AddImportLogMessage(string message, string source = "IMPORT")
+        {
+            var log = new LogMessage { Date = DateTime.Now, Message = message, Type = source };
+            ImportLog.Add(log);
+        }
+
+        public static void ClearImportLogMessage()
+        {
+            ImportLog.Clear();
         }
     }
 }

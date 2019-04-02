@@ -1,0 +1,226 @@
+@@START ADDON.JSON
+{
+  "is-c3-addon": true,
+  "type": "plugin",
+  "name": "Global FSM",
+  "id": "Piranha305_GFSM",
+  "version": "1.0.0.0",
+  "author": "Piranha305",
+  "website": "https://www.construct.net",
+  "documentation": "https://www.construct.net",
+  "description": "A global finite state machine",
+  "editor-scripts": [
+    "plugin.js",
+    "type.js",
+    "instance.js"
+  ],
+  "file-list": [
+    "c3runtime/plugin.js",
+    "c3runtime/type.js",
+    "c3runtime/instance.js",
+    "c3runtime/conditions.js",
+    "c3runtime/actions.js",
+    "c3runtime/expressions.js",
+    "lang/en-US.json",
+    "aces.json",
+    "addon.json",
+    "icon.svg",
+    "instance.js",
+    "plugin.js",
+    "type.js"
+  ]
+}
+@@END ADDON.JSON
+
+@@START PLUGIN_EDIT.JS
+"use strict";
+{
+
+	const PLUGIN_ID = "Piranha305_GFSM";	
+	const PLUGIN_VERSION = "1.0.0.0";
+	const PLUGIN_CATEGORY = "data-and-storage";
+	
+	const PLUGIN_CLASS = SDK.Plugins.Piranha305_GFSM = class GFSMPlugin extends SDK.IPluginBase
+	{
+		constructor()
+		{
+			super(PLUGIN_ID);
+			
+			SDK.Lang.PushContext("plugins." + PLUGIN_ID.toLowerCase());
+			
+			this._info.SetName(lang(".name"));
+			this._info.SetDescription(lang(".description"));
+			this._info.SetVersion(PLUGIN_VERSION);
+			this._info.SetCategory(PLUGIN_CATEGORY);
+			this._info.SetAuthor("Piranha305");
+			this._info.SetHelpUrl(lang(".help-url"));
+			this._info.SetIsSingleGlobal(false);
+
+			this._info.SetSupportedRuntimes(["c3"]);
+			
+			SDK.Lang.PushContext(".properties");
+	
+			this._info.SetProperties([
+				new SDK.PluginProperty("check", "active", true),
+				new SDK.PluginProperty("text", "start-state", "Off")
+			]);
+			
+            SDK.Lang.PopContext(); //.properties
+			SDK.Lang.PopContext();
+		}
+	};
+	
+	PLUGIN_CLASS.Register(PLUGIN_ID, PLUGIN_CLASS);
+}
+@@END PLUGIN_EDIT.JS
+
+@@START PLUGIN_RUN.JS
+"use strict";
+{
+	C3.Plugins.Piranha305_GFSM = class GFSMPlugin extends C3.SDKPluginBase
+	{
+		constructor(opts)
+		{
+			super(opts);
+		}
+		
+		Release()
+		{
+			super.Release();
+		}
+	};
+}
+@@END PLUGIN_RUN.JS
+
+@@START TYPE_EDIT.JS
+"use strict";
+{
+	const PLUGIN_CLASS = SDK.Plugins.Piranha305_GFSM;
+	
+	PLUGIN_CLASS.Type = class GFSMType extends SDK.ITypeBase
+	{
+		constructor(sdkPlugin, iObjectType)
+		{
+			super(sdkPlugin, iObjectType);
+		}
+	};
+}
+@@END TYPE_EDIT.JS
+
+@@START TYPE_RUN.JS
+"use strict";
+{
+	C3.Plugins.Piranha305_GFSM.Type = class GFSMType extends C3.SDKTypeBase
+	{
+		constructor(objectClass)
+		{
+			super(objectClass);
+		}
+		
+		Release()
+		{
+			super.Release();
+		}
+		
+		OnCreate()
+		{	
+		}
+	};
+}
+@@END TYPE_RUN.JS
+
+@@START INSTANCE_EDIT.JS
+"use strict";
+{
+	const PLUGIN_CLASS = SDK.Plugins.Piranha305_GFSM;
+	
+	PLUGIN_CLASS.Instance = class GFSMInstance extends SDK.IInstanceBase
+	{
+		constructor(sdkType, inst)
+		{
+			super(sdkType, inst);
+		}
+		
+		Release()
+		{
+		}
+		
+		OnCreate()
+		{
+		}
+		
+		OnPropertyChanged(id, value)
+		{
+		}
+		
+		LoadC2Property(name, valueString)
+		{
+			return false;		// not handled
+		}
+	};
+}
+@@END INSTANCE_EDIT.JS
+
+@@START INSTANCE_RUN.JS
+"use strict";
+{
+	C3.Plugins.Piranha305_GFSM.Instance = class GFSMInstance extends C3.SDKInstanceBase
+	{
+		constructor(inst, properties)
+		{
+			super(inst);
+			
+			this.activated = true;
+			this.startState = "Off";
+			
+			if (properties)
+			{
+				this.activated = properties[0];
+				this.startState = properties[1];
+				this.startState = (this.startState != "" || this.startState != null) ? this.startState : "Off";
+			}
+		}
+		
+		Release()
+		{
+			super.Release();
+		}
+		
+		SaveToJson()
+		{
+			return {
+				"activated" : this.activated,
+				"previousState" : this.previousState,
+				"currentState" : this.currentState
+			};
+		}
+		
+		LoadFromJson(o)
+		{
+			this.activated = o["activated"];
+			this.previousState = o["previousState"];
+			this.currentState = o["currentState"];
+		}
+	};
+}
+@@END INSTANCE_RUN.JS
+
+@@START LANG_PROP.JSON
+"properties": {
+    "active": {
+      "name": "Activated",
+      "desc": "Is the finite state machine enabled"
+    },
+    "start-state": {
+      "name": "Start state",
+      "desc": "the starting state of the finite state machine"
+    }
+  }
+@@END LANG_PROP.JSON
+
+@@START LANG_CAT.JSON
+"aceCategories": {
+    "fsm" : "FSM"
+}
+@@END LANG_CAT.JSON
+

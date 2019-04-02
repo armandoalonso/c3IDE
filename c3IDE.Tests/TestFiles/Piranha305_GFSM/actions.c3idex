@@ -1,0 +1,80 @@
+@@START goto-state|fsm
+@@ACE
+{
+  "id": "goto-state",
+  "scriptName": "GotoState",
+  "highlight": false,
+  "params": [
+    {
+      "id": "state",
+      "type": "string"
+    }
+  ]
+}
+@@LANG
+"goto-state": {
+	"list-name": "Go to state",
+	"display-text": "Go to state [b]{0}[/b]",
+	"description": "Assign the next state",
+	"params": {
+        "state": {
+            "name": "Name",
+            "desc": "State name"
+        }
+    }
+}
+@@CODE
+GotoState(state)
+{
+	if(!this.activated) return;
+	if(state == null) return;
+	
+	this.previousState = this.currentState;
+	this.currentState = state;
+	
+	this.Trigger(C3.Plugins.Piranha305_GFSM.Cnds.OnChanged);
+	this.Trigger(C3.Plugins.Piranha305_GFSM.Cnds.OnEnter);
+	this.Trigger(C3.Plugins.Piranha305_GFSM.Cnds.OnExit);
+}
+@@END goto-state
+
+@@START set-activated|fsm
+@@ACE
+{
+  "id": "set-activated",
+  "scriptName": "SetActivated",
+  "highlight": false,
+  "params": [
+    {
+      "id": "activated",
+      "type": "combo",
+      "items": [
+        "yes",
+        "no"
+      ]
+    }
+  ]
+}
+@@LANG
+"set-activated": {
+	"list-name": "Set activated",
+	"display-text": "Set activated to [b]{0}[/b]",
+	"description": "Enables the finite state machine",
+	"params": {
+        "activated": {
+            "name": "Activated",
+            "desc": "Enable the FSM",
+            "items":{
+                "yes": "Yes",
+                "no": "No"
+            }
+        }
+    }
+}
+@@CODE
+SetActivated(activated)
+{
+	this.activated = (value == 1);
+}
+@@END set-activated
+

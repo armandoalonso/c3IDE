@@ -56,6 +56,7 @@ namespace c3IDE.Utilities.Search
                 UpdateFileIndex("runtime_instance.js", addon.InstanceRunTime, ApplicationWindows.InstanceWindow);
                 UpdateFileIndex("edittime_type.js", addon.TypeEditTime, ApplicationWindows.TypeWindow);
                 UpdateFileIndex("runtime_type.js", addon.TypeRunTime, ApplicationWindows.TypeWindow);
+                UpdateFileIndex("c2runtime.js", addon.C2RunTime, ApplicationWindows.C2Runtime);
 
                 foreach (var action in addon.Actions)
                 {
@@ -117,6 +118,7 @@ namespace c3IDE.Utilities.Search
                 addon.InstanceRunTime = string.Join("\n", FileIndex[ "runtime_instance.js"].Select(x => x.Value.Line));
                 addon.TypeEditTime = string.Join("\n", FileIndex["edittime_type.js"].Select(x => x.Value.Line));
                 addon.TypeRunTime = string.Join("\n", FileIndex["runtime_type.js"].Select(x => x.Value.Line));
+                addon.C2RunTime = string.Join("\n", FileIndex["c2runtime.js"].Select(x => x.Value.Line));
 
                 foreach (var act in addon.Actions)
                 {
@@ -221,6 +223,9 @@ namespace c3IDE.Utilities.Search
                 case "Language":
                     UpdateFileIndex("lang_property.js", addon.LanguageProperties, ApplicationWindows.LanguageWindow);
                     UpdateFileIndex("lang_category.js", addon.LanguageCategories, ApplicationWindows.LanguageWindow);
+                    break;
+                case "C2Runtime":
+                    UpdateFileIndex("c2runtime.js", addon.C2RunTime, ApplicationWindows.C2Runtime);
                     break;
             }
         }

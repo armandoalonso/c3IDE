@@ -27,6 +27,8 @@ namespace c3IDE.Managers
                     WriteConditions(addon, path);
                     WriteExpressions(addon, path);
                     WriteThirdPartyFile(addon, path);
+                    WriteC2AddonFiles(addon, path);
+
                     break;
                 case PluginType.Effect:
 
@@ -59,6 +61,8 @@ namespace c3IDE.Managers
                     ReadConditions(addon, fi.DirectoryName);
                     ReadExpressions(addon, fi.DirectoryName);
                     ReadThirdPartyFile(addon, fi.DirectoryName);
+                    ReadC2Addon(addon, fi.DirectoryName);
+
                     break;
                 case PluginType.Effect:
 
@@ -756,6 +760,64 @@ namespace c3IDE.Managers
             addon.IconXml = File.ReadAllText(Path.Combine(path, "icon.svg"));
         }
 
+        private static void WriteC2AddonFiles(C3Addon addon, string path)
+        {
+            //break if no c2 data is defined
+            if(string.IsNullOrWhiteSpace(addon.C2RunTime)) return;
+
+            var sb = new StringBuilder();
+
+            sb.AppendLine("@@START C2RUNTIME.JS");
+            sb.AppendLine(addon.C2RunTime);
+            sb.AppendLine("@@END C2RUNTIME.JS");
+            sb.AppendLine();
+
+            File.WriteAllText(Path.Combine(path, "c2runtime.c3idex"), sb.ToString());
+        }
+
+        private static void ReadC2Addon(C3Addon addon, string path)
+        {
+            try
+            {
+                //break if there is no c2runtime file
+                if (!File.Exists(Path.Combine(path, "c2runtime.c3idex"))) return;
+
+                var text = File.ReadAllLines(Path.Combine(path, "c2runtime.c3idex"));
+                var state = ParserState.Idle;
+                var section = string.Empty;
+                StringBuilder temp = new StringBuilder();
+
+                foreach (var line in text)
+                {
+                    //check for end
+                    if (line.Contains("@@END"))
+                    {
+                        state = ParserState.End;
+                        PopulateFile(addon, section, temp.ToString());
+                    }
+
+                    //check for parsing
+                    if (state == ParserState.Start)
+                    {
+                        temp.AppendLine(line);
+                    }
+
+                    //check for start
+                    if (line.Contains("@@START"))
+                    {
+                        section = line.Replace("@@START", string.Empty).Trim();
+                        state = ParserState.Start;
+                        temp = new StringBuilder();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                throw;
+            }
+        }
+
         private static void PopulateThridPartyFile(C3Addon addon, string file, string extention, string template, string content, string bytes)
         {
             addon.ThirdPartyFiles.Add(file, new ThirdPartyFile
@@ -781,6 +843,7 @@ namespace c3IDE.Managers
                 case "INSTANCE_RUN.JS": addon.InstanceRunTime = content; break;
                 case "LANG_PROP.JSON": addon.LanguageProperties = content; break;
                 case "LANG_CAT.JSON": addon.LanguageCategories = content; break;
+                case "C2RUNTIME.JS": addon.C2RunTime = content; break;
             }
         }
 

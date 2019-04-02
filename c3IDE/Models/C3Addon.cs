@@ -100,6 +100,9 @@ namespace c3IDE.Models
         public Dictionary<string, Expression> Expressions { get; set; }
         public Dictionary<string, ThirdPartyFile> ThirdPartyFiles { get; set; }
 
+        //c2 specfic files
+        public string C2RunTime { get; set; }
+
         public bool Equals(C3Addon other)
         {
             if (ReferenceEquals(null, other)) return false;

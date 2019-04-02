@@ -1,0 +1,151 @@
+@@START compare-current|fsm
+@@ACE
+{
+  "id": "compare-current",
+  "scriptName": "CompareCurrent",
+  "highlight": false,
+  "params": [
+    {
+      "id": "state",
+      "type": "string"
+    }
+  ]
+}
+@@LANG
+"compare-current": {
+	"list-name": "Compare Current State",
+	"display-text": "Current state == [b]{0}[/b]",
+	"description": "Compares the current state",
+	"params": {
+        "state": {
+            "name": "Name",
+            "desc": "State name"
+        }
+    }
+}
+@@CODE
+CompareCurrent(state)
+{
+	return C3.compare(this.currentState, 0, state);
+}
+@@END compare-current
+
+@@START compare-previous|fsm
+@@ACE
+{
+  "id": "compare-previous",
+  "scriptName": "ComparePrevious",
+  "highlight": false,
+  "params": [
+    {
+      "id": "state",
+      "type": "string"
+    }
+  ]
+}
+@@LANG
+"compare-previous": {
+	"list-name": "Compare Previous State",
+	"display-text": "Previous state == [b]{0}[/b]",
+	"description": "Compares the previous state",
+	"params": {
+        "state": {
+            "name": "Name",
+            "desc": "State name"
+        }
+    }
+}
+@@CODE
+ComparePrevious(state)
+{
+	return C3.compare(this.previousState, 0, state);
+}
+@@END compare-previous
+
+@@START on-enter|fsm
+@@ACE
+{
+  "id": "on-enter",
+  "scriptName": "OnEnter",
+  "highlight": false,
+  "isTrigger": true,
+  "params": [
+    {
+      "id": "state",
+      "type": "string"
+    }
+  ]
+}
+@@LANG
+"on-enter": {
+	"list-name": "On State Enter",
+	"display-text": "On State Enter [b]{0}[/b]",
+	"description": "Triggered when the state is enetered",
+	"params": {
+        "state": {
+            "name": "Name",
+            "desc": "State name"
+        }
+    }
+}
+@@CODE
+OnEnter(state)
+{
+	return C3.compare(this.currentState, 0, state);
+}
+@@END on-enter
+
+@@START on-exit|fsm
+@@ACE
+{
+  "id": "on-exit",
+  "scriptName": "OnExit",
+  "highlight": false,
+  "isTrigger": true,
+  "params": [
+    {
+      "id": "state",
+      "type": "string"
+    }
+  ]
+}
+@@LANG
+"on-exit": {
+	"list-name": "On State Exit",
+	"display-text": "On State Exit [b]{0}[/b]",
+	"description": "Triggered when the state is exited",
+	"params": {
+        "state": {
+            "name": "Name",
+            "desc": "State name"
+        }
+    }
+}
+@@CODE
+OnExit(state)
+{
+	return C3.compare(this.previousState, 0, state);
+}
+@@END on-exit
+
+@@START on-changed|fsm
+@@ACE
+{
+  "id": "on-changed",
+  "scriptName": "OnChanged",
+  "highlight": false,
+  "isTrigger": true
+}
+@@LANG
+"on-changed": {
+	"list-name": "On Any State Changed",
+	"display-text": "On Any State Changed",
+	"description": "Triggered when any state is changed"
+}
+@@CODE
+OnChanged(state)
+{
+	return true;
+}
+@@END on-changed
+

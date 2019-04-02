@@ -1,0 +1,38 @@
+@@START get-current|fsm
+@@ACE
+{
+	"id": "get-current",
+	"expressionName": "GetCurrentState",
+	"returnType": "string"
+}
+@@LANG
+"get-current": { 
+	"translated-name": "GetCurrentState",
+	"description": "Returns the current state"
+}
+@@CODE
+GetCurrentState()
+{
+	return this.currentState;
+}
+@@END get-current
+
+@@START get-previous|fsm
+@@ACE
+{
+	"id": "get-previous",
+	"expressionName": "GetPreviousState",
+	"returnType": "string"
+}
+@@LANG
+"get-previous": { 
+	"translated-name": "GetPreviousState",
+	"description": "Returns the previous state"
+}
+@@CODE
+GetPreviousState()
+{
+	return this.previousState;
+}
+@@END get-previous
+

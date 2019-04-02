@@ -31,12 +31,18 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="5" />
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <DockPanel Grid.Column="0" LastChildFill="True" Margin="10">
                         <Button Name="RemoveFile" Content="Remove File" Margin="2" Click="RemoveFile_OnClick" DockPanel.Dock="Bottom"></Button>
                         <Button Name="AddFile" Content="Add New File" Margin="2" Click="AddFile_OnClick" DockPanel.Dock="Bottom"></Button>
+
+                        <CheckBox DockPanel.Dock="Bottom" Margin="2" Name="C3RuntimeFolder" Checked="PathCheckedChanged" Unchecked="PathCheckedChanged">C3 Runtime Folder</CheckBox>
+                        <CheckBox DockPanel.Dock="Bottom" Margin="2" Name="C2RuntimeFolder" Checked="PathCheckedChanged" Unchecked="PathCheckedChanged">C2 Runtime Folder</CheckBox>
+                        <CheckBox DockPanel.Dock="Bottom" Margin="2" Name="RootFolder" Checked="PathCheckedChanged" Unchecked="PathCheckedChanged">Root Folder</CheckBox>
+
                         <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Third Party Files</TextBlock>
                         <ListBox Name="FileListBox" DockPanel.Dock="Top"  Margin="2" Background="{DynamicResource ListBoxBackColor}" BorderThickness="1" BorderBrush="{DynamicResource ListBoxBorder}" ItemsSource="{Binding}"  SelectionChanged="FileListBox_OnSelectionChanged" AllowDrop="True"
                                  DragEnter="FileListBox_OnDragEnter" Drop="FileListBox_OnDrop">
@@ -57,6 +63,13 @@
                         </ListBox>
                     </DockPanel>
 
+                    <GridSplitter Grid.Column="1" BorderThickness="1.5" BorderBrush="#FF444444"
+                                  VerticalAlignment="Stretch" HorizontalAlignment="Center">
+                        <GridSplitter.Background>
+                            <SolidColorBrush Color="#FF444444"></SolidColorBrush>
+                        </GridSplitter.Background>
+                    </GridSplitter>
+
                     <avalonEdit:TextEditor
                             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                             Name="FileTextEditor"
@@ -65,7 +78,7 @@
                             FontSize="10pt"
                             ShowLineNumbers="True"
                             Margin="10"
-                            Grid.Column="1">
+                            Grid.Column="2">
 
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>

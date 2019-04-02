@@ -1,0 +1,15 @@
+@@METADATA
+Id|788a04b6-1d20-40ec-b04e-3abc58dae76a
+Name|Global FSM
+Class|GFSM
+Company|Piranha305
+Author|Piranha305
+MajorVersion|1
+MinorVersion|0
+RevisionVersion|0
+BuildVersion|0
+Description|A global finite state machine
+Category|other
+Type|SingleGlobalPlugin
+CreateDate|2/1/2019 2:40:34 PM
+DateModified|3/29/2019 12:04:59 PM

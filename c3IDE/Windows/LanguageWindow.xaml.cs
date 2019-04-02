@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -98,49 +99,59 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void GeneratePropertyText(object sender, RoutedEventArgs e)
         {
-            //generate new property json
-            var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+\""(?<id>(\w+|-)+)\""");
-            var propertyMatches = propertyRegex.Matches(AddonManager.CurrentAddon.PluginEditTime);
-
-            //get current dynamic properties
-            var dynamicProps = JToken.Parse($"{{{PropertyLanguageTextEditor.Text}}}")["properties"];
-
-            var propList = new List<string>();
-            foreach (Match m in propertyMatches)
+            try
             {
-                var type = m.Groups["type"].ToString();
-                var id = m.Groups["id"].ToString();
+                //generate new property json
+                var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+\""(?<id>(\w+|-)+)\""");
+                var propertyMatches = propertyRegex.Matches(AddonManager.CurrentAddon.PluginEditTime);
 
-                string template;
-                if (dynamicProps?[id] != null)
+                //get current dynamic properties
+                var dynamicProps = JToken.Parse($"{{{PropertyLanguageTextEditor.Text}}}")["properties"];
+
+                var propList = new List<string>();
+                foreach (Match m in propertyMatches)
                 {
-                    //prop already exists
-                    var value = dynamicProps[id].ToString();
-                    template = $"\"{id}\": {value}";
-                }
-                else
-                {
-                    //this prop is new
-                    switch (type)
+                    var type = m.Groups["type"].ToString();
+                    var id = m.Groups["id"].ToString();
+
+                    string template;
+                    if (dynamicProps?[id] != null)
                     {
-                        case "combo":
-                            template = TemplateHelper.LanguagePropertyCombo(id);
-                            break;
-                        case "link":
-                            template = TemplateHelper.LanguagePropertyLink(id);
-                            break;
-                        default:
-                            template = TemplateHelper.LanguagePropertyDefault(id);
-                            break;
+                        //prop already exists
+                        var value = dynamicProps[id].ToString();
+                        template = $"\"{id}\": {value}";
                     }
+                    else
+                    {
+                        //this prop is new
+                        switch (type)
+                        {
+                            case "combo":
+                                template = TemplateHelper.LanguagePropertyCombo(id);
+                                break;
+                            case "link":
+                                template = TemplateHelper.LanguagePropertyLink(id);
+                                break;
+                            default:
+                                template = TemplateHelper.LanguagePropertyDefault(id);
+                                break;
+                        }
+                    }
+
+                    //create new property
+                    propList.Add(template);
                 }
 
-                //create new property
-                propList.Add(template);
+                //set the editor to the new property json
+                PropertyLanguageTextEditor.Text =
+                    FormatHelper.Insatnce.Json(TemplateHelper.LanguageProperty(string.Join(",\n", propList)), true);
             }
-
-            //set the editor to the new property json
-            PropertyLanguageTextEditor.Text = FormatHelper.Insatnce.Json(TemplateHelper.LanguageProperty(string.Join(",\n", propList)), true);
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"failed to generate properties => {ex.Message}");
+            }
+           
         }
 
         /// <summary>
@@ -150,26 +161,34 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void GenerateCategoryText(object sender, RoutedEventArgs e)
         {
-            var catList = new List<string>();
-            var dynamicCats = JToken.Parse($"{{{CategoryLanguageTextEditor.Text}}}")["aceCategories"];
-
-            foreach (var category in AddonManager.CurrentAddon.Categories)
+            try
             {
-                if (dynamicCats?[category] != null)
+                var catList = new List<string>();
+                var dynamicCats = JToken.Parse($"{{{CategoryLanguageTextEditor.Text}}}")["aceCategories"];
+
+                foreach (var category in AddonManager.CurrentAddon.Categories)
                 {
-                    var value = dynamicCats[category];
-                    catList.Add($"    \"{category}\" : \"{value}\"");
+                    if (dynamicCats?[category] != null)
+                    {
+                        var value = dynamicCats[category];
+                        catList.Add($"    \"{category}\" : \"{value}\"");
+                    }
+
+                    else
+                    {
+                        catList.Add($"    \"{category}\" : \"value\"");
+                    }
                 }
 
-                else
-                {
-                    catList.Add($"    \"{category}\" : \"value\"");
-                }
-            }
-
-            CategoryLanguageTextEditor.Text = $@"""aceCategories"": {{
+                CategoryLanguageTextEditor.Text = $@"""aceCategories"": {{
 {string.Join(",\n", catList)}
 }}";
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"failed to generate category => {ex.Message}");
+            }
         }
     }
 }

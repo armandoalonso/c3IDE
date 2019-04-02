@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using c3IDE.Windows;
+using c3IDE.Windows.Interfaces;
 
 namespace c3IDE.Managers
 {
@@ -26,6 +27,7 @@ namespace c3IDE.Managers
         public static EffectPropertiesWindow EffectPropertiesWindow;
         public static EffectParameterWindow EffectParameterWindow;
         public static EffectCodeWindow EffectCodeWindow;
+        public static C2RuntimeWindow C2Runtime;
 
         static ApplicationWindows()
         {
@@ -47,6 +49,7 @@ namespace c3IDE.Managers
                 EffectPropertiesWindow = new EffectPropertiesWindow();
                 EffectParameterWindow = new EffectParameterWindow();
                 EffectCodeWindow = new EffectCodeWindow();
+                C2Runtime = new C2RuntimeWindow();
             }
             catch (Exception ex)
             {
@@ -55,5 +58,7 @@ namespace c3IDE.Managers
             }
 
         }
+
+
     }
 }

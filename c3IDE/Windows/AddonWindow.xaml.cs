@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -20,6 +21,8 @@ using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 
 namespace c3IDE.Windows
@@ -213,16 +216,36 @@ namespace c3IDE.Windows
             var filename = await WindowManager.ShowInputDialog("New File Name?", "please enter the name for the new javascript file", "javascriptFile.js");
             if (string.IsNullOrWhiteSpace(filename)) return;
 
-            _files.Add(filename, new ThirdPartyFile
+            var tpf = new ThirdPartyFile
             {
                 Content = string.Empty,
                 FileName = filename,
-                PluginTemplate = TemplateHelper.ThirdPartyFile(filename)
-            });
+                PluginTemplate = TemplateHelper.ThirdPartyFile(filename),
+                C3Folder = true,
+                C2Folder = false,
+                Rootfolder = false
+            };
 
-            AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
-        ""c3runtime/{filename}"","));
+            _files.Add(tpf.FileName, tpf);
 
+            try
+            {
+                var addon = JObject.Parse(AddonTextEditor.Text);
+                var fileList = JArray.Parse(addon["file-list"].ToString());
+
+                if (tpf.C3Folder) fileList.Add("c3runtime/" + tpf.FileName);
+                if (tpf.C2Folder) fileList.Add("c2runtime/" + tpf.FileName);
+                if (tpf.Rootfolder) fileList.Add(tpf.FileName);
+
+                addon["file-list"] = fileList;
+                AddonTextEditor.Text = addon.ToString(Formatting.Indented);
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"error parseing json, addon.json not updated => {ex.Message}");
+            }
+           
             AddonManager.CurrentAddon.ThirdPartyFiles = _files;
             FileListBox.ItemsSource = _files;
             FileListBox.Items.Refresh();
@@ -254,8 +277,36 @@ namespace c3IDE.Windows
 
                 //clear editors
                 FileTextEditor.Text = string.Empty;
-                AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace($@"""c3runtime/{_selectedFile.FileName}"",", string.Empty));
+
+                try
+                {
+                    var addon = JObject.Parse(AddonTextEditor.Text);
+                    var fileList = JArray.Parse(addon["file-list"].ToString());
+
+                    //remove all checks
+                    foreach (var item in fileList.Children().ToList())
+                    {
+                        if (item.ToString().Equals("c3runtime/" + _selectedFile.FileName) ||
+                            item.ToString().Equals("c2runtime/" + _selectedFile.FileName) ||
+                            item.ToString().Equals(_selectedFile.FileName))
+                        {
+                            fileList.Remove(item);
+                        }
+                    }
+
+                    addon["file-list"] = fileList;
+                    AddonTextEditor.Text = addon.ToString(Formatting.Indented);
+                }
+                catch (Exception ex)
+                {
+                    LogManager.AddErrorLog(ex);
+                    NotificationManager.PublishErrorNotification($"error parseing json, addon.json not updated => {ex.Message}");
+                }
+
                 _selectedFile = null;
+                C3RuntimeFolder.IsChecked = false;
+                C2RuntimeFolder.IsChecked = false;
+                RootFolder.IsChecked = false;
             }
             else
             {
@@ -350,6 +401,9 @@ namespace c3IDE.Windows
 
             //load new selection
             _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
+            C2RuntimeFolder.IsChecked = _selectedFile.C2Folder;
+            C3RuntimeFolder.IsChecked = _selectedFile.C3Folder;
+            RootFolder.IsChecked = _selectedFile.Rootfolder;
             FileTextEditor.Text = _selectedFile.Content;
         }
 
@@ -381,6 +435,52 @@ namespace c3IDE.Windows
         private void FormatJavascriptMenu_OnClick(object sender, RoutedEventArgs e)
         {
             FileTextEditor.Text = FormatHelper.Insatnce.Json(FileTextEditor.Text);
+        }
+
+        private void PathCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (FileListBox.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
+            if (_selectedFile != null)
+            {
+                _selectedFile.C3Folder = C3RuntimeFolder.IsChecked != null && C3RuntimeFolder.IsChecked.Value;
+                _selectedFile.C2Folder = C2RuntimeFolder.IsChecked != null && C2RuntimeFolder.IsChecked.Value;
+                _selectedFile.Rootfolder = RootFolder.IsChecked != null && RootFolder.IsChecked.Value;
+
+                //update addon.json
+                try
+                {
+                    var addon = JObject.Parse(AddonTextEditor.Text);
+                    var fileList = JArray.Parse(addon["file-list"].ToString());
+
+                    //remove all checks
+                    foreach (var item in fileList.Children().ToList())
+                    {
+                        if (item.ToString().Equals("c3runtime/" + _selectedFile.FileName) ||
+                            item.ToString().Equals("c2runtime/" + _selectedFile.FileName) ||
+                            item.ToString().Equals(_selectedFile.FileName))
+                        {
+                            fileList.Remove(item);
+                        }
+                    }
+
+                    if (_selectedFile.C3Folder) fileList.Add("c3runtime/" + _selectedFile.FileName);
+                    if (_selectedFile.C2Folder) fileList.Add("c2runtime/" + _selectedFile.FileName);
+                    if (_selectedFile.Rootfolder) fileList.Add(_selectedFile.FileName);
+
+                    addon["file-list"] = fileList;
+                    AddonTextEditor.Text = addon.ToString(Formatting.Indented);
+                }
+                catch (Exception ex)
+                {
+                    LogManager.AddErrorLog(ex);
+                    NotificationManager.PublishErrorNotification($"error parseing json, addon.json not updated => {ex.Message}");
+                }
+            }
         }
     }
 }

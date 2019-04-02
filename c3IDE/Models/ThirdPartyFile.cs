@@ -11,9 +11,11 @@ namespace c3IDE.Models
         private byte[] _bytes;
         private string _extention;
 
+        private bool _c3folder, _c2folder, _rootfolder;
+
         public string FileName
         {
-            get => _fileName;
+            get => $"{_fileName}";
             set
             {
                 _fileName = value;
@@ -47,6 +49,24 @@ namespace c3IDE.Models
         {
             get => _extention;
             set { _extention = value; OnPropertyChanged(); }
+        }
+
+        public bool C3Folder
+        {
+            get => _c3folder;
+            set { _c3folder = value; OnPropertyChanged(); }
+        }
+
+        public bool C2Folder
+        {
+            get => _c2folder;
+            set { _c2folder = value; OnPropertyChanged();}
+        }
+
+        public bool Rootfolder
+        {
+            get => _rootfolder;
+            set { _rootfolder = value; OnPropertyChanged();}
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

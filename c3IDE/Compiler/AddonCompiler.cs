@@ -67,6 +67,10 @@ namespace c3IDE.Compiler
                 System.IO.Directory.CreateDirectory(addon.AddonFolder);
                 System.IO.Directory.CreateDirectory(Path.Combine(addon.AddonFolder, "lang"));
                 System.IO.Directory.CreateDirectory(Path.Combine(addon.AddonFolder, "c3runtime"));
+                if (!string.IsNullOrWhiteSpace(addon.C2RunTime) || addon.ThirdPartyFiles.Any(x => x.Value.C2Folder))
+                {
+                    System.IO.Directory.CreateDirectory(Path.Combine(addon.AddonFolder, "c2runtime"));
+                }
                 LogManager.CompilerLog.Insert($"compile directory created successfully => { addon.AddonFolder}");
 
 
@@ -225,10 +229,14 @@ namespace c3IDE.Compiler
                     case ".xml":
                     case ".txt":
                     case null:
-                        _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), files.Content);
+                        if(files.Rootfolder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, files.FileName), files.Content);
+                        if (files.C3Folder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), files.Content);
+                        if (files.C2Folder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c2runtime", files.FileName), files.Content);
                         break;
                     default:
-                        File.WriteAllBytes(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, files.FileName), files.Bytes);
+                        if (files.Rootfolder)  File.WriteAllBytes(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, files.FileName), files.Bytes);
+                        if (files.C3Folder) File.WriteAllBytes(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), files.Bytes);
+                        if (files.C2Folder) File.WriteAllBytes(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c2runtime", files.FileName), files.Bytes);
                         break;
                 }
 
@@ -236,9 +244,20 @@ namespace c3IDE.Compiler
             }
             LogManager.CompilerLog.Insert("generating 3rd party files => complete");
 
+            if (!string.IsNullOrWhiteSpace(addon.C2RunTime))
+            {
+                LogManager.CompilerLog.Insert("generating c2runtime file");
+                _addonFiles.Add(
+                    Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c2runtime", "runtime.js"),
+                    ConsoleLogRemover.Insatnce.CommentOut(FormatHelper.Insatnce.Javascript(addon.C2RunTime)));
+                LogManager.CompilerLog.Insert("generating c2runtime file => complete");
+            }
+
             //write files to path
             foreach (var file in _addonFiles)
             {
+                var fi = new FileInfo(file.Key);
+                if(fi.Directory != null && !fi.Directory.Exists) fi.Directory.Create(); 
                 System.IO.File.WriteAllText(file.Key, file.Value);
                 LogManager.CompilerLog.Insert($"writing file => {file.Key}");
             }

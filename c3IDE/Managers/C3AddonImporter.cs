@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using c3IDE.Models;
 using c3IDE.Templates;
+using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
 using Esprima.Ast;
 using Newtonsoft.Json;
@@ -37,39 +38,53 @@ namespace c3IDE.Managers
                 if (type != "effect")
                 {
                     string pluginEdit, pluginRun;
+
                     pluginEdit = File.ReadAllText(Path.Combine(tmpPath, $"{type}.js"));
                     pluginRun = File.ReadAllText(Path.Combine(tmpPath, "c3runtime", $"{type}.js"));
                     string typeEdit = File.ReadAllText(Path.Combine(tmpPath, $"type.js"));
                     string typeRun = File.ReadAllText(Path.Combine(tmpPath, "c3runtime", $"type.js"));
                     string instanceEdit = File.ReadAllText(Path.Combine(tmpPath, $"instance.js"));
                     string instanceRun = File.ReadAllText(Path.Combine(tmpPath, "c3runtime", $"instance.js"));
+                    string c2runtime = null;
+
+                    if (Directory.Exists(Path.Combine(tmpPath, "c2runtime")))
+                    {
+                        c2runtime = File.ReadAllText(Path.Combine(tmpPath, "c2runtime", "runtime.js"));
+                    }
 
                     PluginType pluginType = PluginType.SingleGlobalPlugin;
                     string pluginCat = "other";
                     switch (type)
                     {
                         case "plugin":
-                            pluginType = pluginEdit.Contains("SetPluginType(\"world\")") ? PluginType.DrawingPlugin : PluginType.SingleGlobalPlugin;
-                            pluginCat = Regex.Match(pluginEdit, @"PLUGIN_CATEGORY = ""(?<cat>).*""").Groups["cat"].Value;
+                            pluginType = pluginEdit.Contains("SetPluginType(\"world\")")
+                                ? PluginType.DrawingPlugin
+                                : PluginType.SingleGlobalPlugin;
+                            pluginCat = Regex.Match(pluginEdit, @"PLUGIN_CATEGORY = ""(?<cat>).*""").Groups["cat"]
+                                .Value;
                             break;
                         case "behavior":
                             pluginType = PluginType.Behavior;
-                            pluginCat = Regex.Match(pluginEdit, @"BEHAVIOR_CATEGORY = ""(?<cat>.*)""").Groups["cat"].Value;
+                            pluginCat = Regex.Match(pluginEdit, @"BEHAVIOR_CATEGORY = ""(?<cat>.*)""").Groups["cat"]
+                                .Value;
                             break;
                     }
 
                     if (string.IsNullOrWhiteSpace(pluginCat)) pluginCat = "other";
 
                     var ace = JObject.Parse(File.ReadAllText(Path.Combine(tmpPath, "aces.json")));
-                    var lang = JObject.Parse(File.ReadAllText(Path.Combine(tmpPath, "lang", "en-US.json")))["text"][type + "s"][id.ToLower()];
+                    var lang =JObject.Parse(File.ReadAllText(Path.Combine(tmpPath, "lang", "en-US.json")))["text"][type + "s"] [id.ToLower()];
 
-                    var prop = "\"properties\": " + lang["properties"];
-                    var cats = "\"aceCategories\": " + lang["aceCategories"];
+                    var prop = "\"properties\": " + (string.IsNullOrWhiteSpace(lang["properties"]?.ToString()) ? "{ }" : lang["properties"]);
+                    var cats = "\"aceCategories\": " + (string.IsNullOrWhiteSpace(lang["aceCategories"]?.ToString()) ? "{ }" : lang["aceCategories"]);
 
                     //pasre ace implementations
-                    var actFuncs = JavascriptManager.GetAllFunction(File.ReadAllText(Path.Combine(tmpPath, "c3runtime", "actions.js")));
+                    LogManager.AddImportLogMessage("EXTRACTING C3RUNTIME / ACTIONS");
+                    var actFuncs =JavascriptManager.GetAllFunction(File.ReadAllText(Path.Combine(tmpPath, "c3runtime", "actions.js")));
+                    LogManager.AddImportLogMessage("EXTRACTING C3RUNTIME / CONDITION");
                     var cndFuncs = JavascriptManager.GetAllFunction(File.ReadAllText(Path.Combine(tmpPath, "c3runtime", "conditions.js")));
-                    var expFuncs = JavascriptManager.GetAllFunction(File.ReadAllText(Path.Combine(tmpPath, "c3runtime", "expressions.js")));
+                    LogManager.AddImportLogMessage("EXTRACTING C3RUNTIME / EXPRESSIONS");
+                    var expFuncs =JavascriptManager.GetAllFunction( File.ReadAllText(Path.Combine(tmpPath, "c3runtime", "expressions.js")));
 
                     var actionList = new List<Models.Action>();
                     var conditionList = new List<Models.Condition>();
@@ -90,14 +105,20 @@ namespace c3IDE.Managers
                                 var actionScript = action["scriptName"].ToString();
                                 var actionParams = string.Empty;
 
-                                if (action["params"] != null && action["params"].Children<JObject>().Any())
-                                {
-                                    var ep = action["params"].Children<JObject>().Select(x => x["id"].ToString());
-                                    actionParams = string.Join(",", ep);
-                                }
+                                //only needed for stub methods
+                                //if (action["params"] != null && action["params"].Children<JObject>().Any())
+                                //{
+                                //    var ep = action["params"].Children<JObject>().Select(x => x["id"].ToString());
+                                //    actionParams = string.Join(",", ep);
+                                //}
 
                                 actFuncs.TryGetValue(actionScript.Trim(), out var code);
-                                if(code == null) continue; //todo: need toad some feedback that function were skipped (warning)
+                                if (code == null)
+                                {
+                                    LogManager.AddImportLogMessage($"ACTION FUNCTION DEFINITION DOES NOT EXISTS => {actionScript.Trim()}");
+                                    continue; 
+                                }
+                                 
                                 var act = new Models.Action
                                 {
                                     Id = actionId,
@@ -112,7 +133,6 @@ namespace c3IDE.Managers
                             }
                         }
 
-
                         //parse conditions
                         var conditionJson = ace[category.Name]["conditions"]?.ToString();
                         var conditions = conditionJson != null ? JArray.Parse(conditionJson) : null;
@@ -126,14 +146,19 @@ namespace c3IDE.Managers
                                 var conditionScript = condition["scriptName"].ToString();
                                 var conditionParams = string.Empty;
 
-                                if (condition["params"] != null && condition["params"].Children<JObject>().Any())
-                                {
-                                    var ep = condition["params"].Children<JObject>().Select(x => x["id"].ToString());
-                                    conditionParams = string.Join(",", ep);
-                                }
+                                //only needed for stub methods
+                                //if (condition["params"] != null && condition["params"].Children<JObject>().Any())
+                                //{
+                                //    var ep = condition["params"].Children<JObject>().Select(x => x["id"].ToString());
+                                //    conditionParams = string.Join(",", ep);
+                                //}
 
                                 cndFuncs.TryGetValue(conditionScript.Trim(), out var code);
-                                if (code == null) continue; //todo: need toad some feedback that function were skipped (warning)
+                                if (code == null)
+                                {
+                                    LogManager.AddImportLogMessage($"CONDITION FUNCTION DEFINITION DOES NOT EXISTS => {conditionScript.Trim()}");
+                                    continue;
+                                }
                                 var cnd = new Models.Condition()
                                 {
                                     Id = conditionId,
@@ -147,7 +172,7 @@ namespace c3IDE.Managers
                                 conditionList.Add(cnd);
                             }
                         }
-                       
+
                         //parse expression
                         var expressionJson = ace[category.Name]["expressions"]?.ToString();
                         var expressions = expressionJson != null ? JArray.Parse(expressionJson) : null;
@@ -161,14 +186,19 @@ namespace c3IDE.Managers
                                 var expressionScript = expression["expressionName"].ToString();
                                 var expressionParams = string.Empty;
 
-                                if (expression["params"] != null && expression["params"].Children<JObject>().Any())
-                                {
-                                    var ep = expression["params"].Children<JObject>().Select(x => x["id"].ToString());
-                                    expressionParams = string.Join(",", ep);
-                                }
+                                //only needed for stub methods
+                                //if (expression["params"] != null && expression["params"].Children<JObject>().Any())
+                                //{
+                                //    var ep = expression["params"].Children<JObject>().Select(x => x["id"].ToString());
+                                //    expressionParams = string.Join(",", ep);
+                                //}
 
                                 expFuncs.TryGetValue(expressionScript.Trim(), out var code);
-                                if (code == null) continue; //todo: need toad some feedback that function were skipped (warning)
+                                if (code == null)
+                                {
+                                    LogManager.AddImportLogMessage($"EXPRESSION FUNCTION DEFINITION DOES NOT EXISTS => {expressionScript.Trim()}");
+                                    continue;
+                                }
                                 var exp = new Models.Expression()
                                 {
                                     Id = expressionId,
@@ -176,7 +206,8 @@ namespace c3IDE.Managers
                                     Ace = expressionAce,
                                     Language = expressionLang,
                                     //Code = $"{expressionScript}({expressionParams}) {{ \n}}"
-                                    Code = FormatHelper.Insatnce.Javascript(expFuncs[expressionScript.Trim()]) ?? string.Empty
+                                    Code = FormatHelper.Insatnce.Javascript(expFuncs[expressionScript.Trim()]) ??
+                                           string.Empty
                                 };
 
                                 expressionList.Add(exp);
@@ -191,17 +222,33 @@ namespace c3IDE.Managers
                     {
                         var fn = match.Groups["file"].ToString();
                         var info = new FileInfo(Path.Combine(Path.Combine(tmpPath, fn)));
+
                         var f = new ThirdPartyFile
                         {
                             Bytes = null,
                             Content = File.ReadAllText(info.FullName),
                             Extention = info.Extension,
-                            FileName = fn.Replace("c3runtime/", string.Empty),
                             PluginTemplate = TemplateHelper.ThirdPartyFile(fn.Replace("c3runtime/", string.Empty))
                         };
+
+                        if (fn.Contains("c3runtime"))
+                        {
+                            f.C3Folder = true;
+                            f.FileName = fn.Replace("c3runtime/", string.Empty).Trim();
+                        }
+                        else if (fn.Contains("c2runtime"))
+                        {
+                            f.C2Folder = true;
+                            f.FileName = fn.Replace("c2runtime/", string.Empty).Trim();
+                        }
+                        else
+                        {
+                            f.Rootfolder = true;
+                            f.FileName = fn.Replace("/", "\\").Trim();
+                        }
+
                         thirdPartyFiles.Add(f);
                     }
-
 
                     //todo: create c3addon, and map parsed data to c3addon 
                     var c3addon = new C3Addon
@@ -247,23 +294,22 @@ namespace c3IDE.Managers
                         c3addon.Expressions.Add(expression.Id, expression);
                     }
 
-                    if (File.Exists(Path.Combine(tmpPath, "icon.svg")))
-                    {
-                        c3addon.IconXml = File.ReadAllText(Path.Combine(tmpPath, "icon.svg"));
-                    }
-                    else
-                    {
-                        c3addon.IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
-                    }
+                    c3addon.IconXml = File.Exists(Path.Combine(tmpPath, "icon.svg")) ?
+                        File.ReadAllText(Path.Combine(tmpPath, "icon.svg")) : 
+                        ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
+
                     c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
 
-                    //todo: add support for third part files
                     c3addon.ThirdPartyFiles = new Dictionary<string, ThirdPartyFile>();
                     foreach (var thirdPartyFile in thirdPartyFiles)
                     {
                         c3addon.ThirdPartyFiles.Add(thirdPartyFile.FileName, thirdPartyFile);
                     }
 
+                    if (!string.IsNullOrWhiteSpace(c2runtime))
+                    {
+                        c3addon.C2RunTime = c2runtime;
+                    }
 
                     return c3addon;
                 }
@@ -272,10 +318,19 @@ namespace c3IDE.Managers
                     throw new NotImplementedException("effect importing not implemented yet");
                 }
             }
-            catch (Exception ex)
+             catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
+                LogManager.AddImportLogMessage("ERROR ->");
+                LogManager.AddImportLogMessage(ex.Message);
+                LogManager.AddImportLogMessage("TRACE ->");
+                LogManager.AddImportLogMessage(ex.StackTrace);
                 throw;
+            }
+            finally
+            {
+                var logData = string.Join(Environment.NewLine, LogManager.ImportLog);
+                File.WriteAllText(Path.Combine(OptionsManager.CurrentOptions.DataPath, "import.log"), logData);
             }
 
         }

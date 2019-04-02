@@ -192,7 +192,7 @@ namespace c3IDE.Windows
             catch (Exception exception)
             {
                 LogManager.AddErrorLog(exception);
-                NotificationManager.PublishErrorNotification($"error importing c3ide file, {exception.Message}");
+                NotificationManager.PublishErrorNotification($"error importing file, check import.log => {Path.Combine(OptionsManager.CurrentOptions.DataPath, "import.log")}");
             }
         }
 
