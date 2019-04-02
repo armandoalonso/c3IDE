@@ -36,6 +36,7 @@ namespace c3IDE.Managers
                     state = ParseState.InFunction;
                     tmp.AppendLine(line);
                     name = Regex.Replace(line, @"\(.*\)", string.Empty).Trim();
+                    name = Regex.Replace(name, @"(//.*|/[*].*)", string.Empty).Trim();
                     continue;
                 }
 

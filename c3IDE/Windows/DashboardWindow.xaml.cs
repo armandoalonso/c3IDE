@@ -175,6 +175,10 @@ namespace c3IDE.Windows
                         AddonManager.LoadAddon(c3addon);
                     }
                 }
+                //else if (info.Extension.Contains("svg"))
+                //{
+                //    //todo: need to find a way to drag items into list box item
+                //}
                 else
                 {
                     throw new InvalidOperationException("invalid file type, for import");

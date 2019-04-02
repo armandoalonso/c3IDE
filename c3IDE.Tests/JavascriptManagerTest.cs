@@ -13,7 +13,7 @@ namespace c3IDE.Tests
         {
             var code = @"C3.Plugins.aaXe_Log.Acts =
 	{
-		writeLog (log, type)
+		writeLog (log, type) 
 		{
 
 			if (!this._loggingActive) return;
@@ -29,7 +29,47 @@ namespace c3IDE.Tests
         }
 
         [TestMethod]
-        public void TestActionParseHappyPath2()
+        public void TestActionParseComment()
+        {
+            var code = @"C3.Plugins.aaXe_Log.Acts =
+	{
+		writeLog (log, type) //test
+		{
+
+			if (!this._loggingActive) return;
+			console.log("" % c"" + this.iconTypes[type] + "" "" + log, this.logTypes[type]);
+
+
+        }
+    };";
+
+            var funcs = JavascriptManager.GetAllFunction(code);
+            Assert.AreEqual(funcs.Count, 1);
+            Assert.AreEqual(funcs.FirstOrDefault().Key, "writeLog");
+        }
+
+        [TestMethod]
+        public void TestActionParseLongComment()
+        {
+            var code = @"C3.Plugins.aaXe_Log.Acts =
+	{
+		writeLog (log, type) /* test */
+		{
+
+			if (!this._loggingActive) return;
+			console.log("" % c"" + this.iconTypes[type] + "" "" + log, this.logTypes[type]);
+
+
+        }
+    };";
+
+            var funcs = JavascriptManager.GetAllFunction(code);
+            Assert.AreEqual(funcs.Count, 1);
+            Assert.AreEqual(funcs.FirstOrDefault().Key, "writeLog");
+        }
+
+        [TestMethod]
+        public void TestActionParseHappyPathComplex()
         {
             var code = @"C3.Plugins.aaXe_Log.Acts =
 	{
@@ -67,10 +107,11 @@ namespace c3IDE.Tests
         }
 
         [TestMethod]
-        public void TestCondition()
+        public void TestCompleteFile()
         {
             var code = System.IO.File.ReadAllText("TestFiles\\rotjs_conditions.js");
             var funcs = JavascriptManager.GetAllFunction(code);
+            Assert.AreEqual(funcs.Count, 26);
         }
 
         [TestMethod]
@@ -106,6 +147,7 @@ namespace c3IDE.Tests
     },";
 
             var funcs = JavascriptManager.GetAllFunction(code);
+            Assert.AreEqual(funcs.Count, 1);
         }
 
         [TestMethod]
@@ -169,10 +211,11 @@ IterateRooms2() {
     },";
 
             var funcs = JavascriptManager.GetAllFunction(code);
+            Assert.AreEqual(funcs.Count, 2);
         }
 
         [TestMethod]
-        public void QuickFUnctionTest()
+        public void QuickFunctionTest()
         {
             var code = @"""use strict"";
 {
@@ -192,6 +235,7 @@ IterateRooms2() {
   }
 }";
             var funcs = JavascriptManager.GetAllFunction(code);
+            Assert.AreEqual(funcs.Count, 3);
         }
     }
 
