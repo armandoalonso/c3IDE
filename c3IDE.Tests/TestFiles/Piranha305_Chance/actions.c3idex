@@ -1,0 +1,113 @@
+@@START set-seed|seed
+@@ACE
+{
+  "id": "set-seed",
+  "scriptName": "SetSeed",
+  "highlight": false,
+  "params": [
+    {
+      "id": "seed",
+      "type": "number"
+    }
+  ]
+}
+@@LANG
+"set-seed": {
+	"list-name": "Set Seed",
+	"display-text": "Set the seed to [b]{0}[/b]",
+	"description": "Sets the seed for chance js",
+	"params": {
+        "seed": {
+            "name": "Seed",
+            "desc": "Seed"
+        }
+    }
+}
+@@CODE
+SetSeed(seed)
+{
+	if(this.useSeed){
+		this.seed = seed;
+		this.chance = new Chance(this.seed);
+	}
+}
+@@END set-seed
+
+@@START roll-dice|dice
+@@ACE
+{
+  "id": "roll-dice",
+  "scriptName": "RollDice",
+  "highlight": false,
+  "params": [
+    {
+      "id": "dice",
+      "type": "number",
+      "initialValue": "1"
+    },
+    {
+      "id": "sides",
+      "type": "number",
+      "initialValue": "6"
+    },
+    {
+      "id": "tag",
+      "type": "string"
+    }
+  ]
+}
+@@LANG
+"roll-dice": {
+	"list-name": "Roll Dice",
+	"display-text": "Roll [b]{0}[/b] Dice with [b]{1}[/b] Sides with tag ([b]{2}[/b])",
+	"description": "Rolls dice, values can be accessed through get dice expressions",
+	        "params": {
+        "tag": {
+            "name": "Tag",
+            "desc": "Tag used to identify the dice roll"
+        },
+        "sides": {
+            "name": "Sides",
+            "desc": "How many sides each dice has"
+        },
+        "dice": {
+            "name": "Dice",
+            "desc": "How many dice"
+        }
+    }
+}
+@@CODE
+RollDice(dice, sides, tag)
+{
+	//assign deafult tag
+	if(tag === '') {
+		tag = 'default';
+	}
+	
+	//assign submit and roll properties
+	if(this.diceRoll.hasOwnProperty(tag)){
+		this.diceRoll[tag].sum = 0;
+		this.diceRoll[tag].roll = this.chance.rpg(dice+'d'+sides);
+	} else {
+		this.diceRoll[tag] = {
+			sum : 0,
+			roll : this.chance.rpg(dice+'d'+sides)
+		};
+	}
+	
+	//cache dice roll
+	this.diceRoll[tag].roll.forEach((value) => {
+		this.diceRoll[tag].sum += value;
+	});
+	
+	//set the last dice roll
+	this.lastDiceRoll = this.diceRoll[tag].roll;
+	this.lastDiceSum = this.diceRoll[tag].sum;
+	this.lastDiceTag = tag;
+	
+	//triggers
+	this.Trigger(C3.Plugins.Piranha305_Chance.Cnds.OnRoll);
+	this.Trigger(C3.Plugins.Piranha305_Chance.Cnds.OnRollContains);
+}
+@@END roll-dice
+

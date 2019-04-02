@@ -1,0 +1,243 @@
+@@START ADDON.JSON
+{
+  "is-c3-addon": true,
+  "type": "plugin",
+  "name": "Chance",
+  "id": "Piranha305_Chance",
+  "version": "1.0.0.0",
+  "author": "Piranha305",
+  "website": "https://www.construct.net",
+  "documentation": "https://www.construct.net",
+  "description": "Uses chance.js to help generate random stuff (strings, int, etc...)",
+  "editor-scripts": [
+    "plugin.js",
+    "type.js",
+    "instance.js"
+  ],
+  "file-list": [
+    "c3runtime/chance.js",
+    "c3runtime/plugin.js",
+    "c3runtime/type.js",
+    "c3runtime/instance.js",
+    "c3runtime/conditions.js",
+    "c3runtime/actions.js",
+    "c3runtime/expressions.js",
+    "lang/en-US.json",
+    "aces.json",
+    "addon.json",
+    "icon.svg",
+    "instance.js",
+    "plugin.js",
+    "type.js"
+  ]
+}
+@@END ADDON.JSON
+
+@@START PLUGIN_EDIT.JS
+"use strict";
+{
+
+    const PLUGIN_ID = "Piranha305_Chance";
+    const PLUGIN_VERSION = "1.0.0.0";
+    const PLUGIN_CATEGORY = "general";
+
+    const PLUGIN_CLASS = SDK.Plugins.Piranha305_Chance = class ChancePlugin extends SDK.IPluginBase
+    {
+        constructor()
+        {
+            super(PLUGIN_ID);
+
+            SDK.Lang.PushContext("plugins." + PLUGIN_ID.toLowerCase());
+
+            this._info.SetName(lang(".name"));
+            this._info.SetDescription(lang(".description"));
+            this._info.SetVersion(PLUGIN_VERSION);
+            this._info.SetCategory(PLUGIN_CATEGORY);
+            this._info.SetAuthor("Piranha305");
+            this._info.SetHelpUrl(lang(".help-url"));
+            this._info.SetIsSingleGlobal(true);
+
+            this._info.SetSupportedRuntimes(["c3"]);
+
+            SDK.Lang.PushContext(".properties");
+
+            this._info.SetProperties([
+                new SDK.PluginProperty("check", "use-seed", false),
+                new SDK.PluginProperty("integer", "seed", 0)
+            ]);
+
+            this._info.AddFileDependency(
+            {
+                filename: "c3runtime/chance.js",
+                type: "inline-script"
+            });
+
+            SDK.Lang.PopContext(); //.properties
+            SDK.Lang.PopContext();
+        }
+    };
+
+    PLUGIN_CLASS.Register(PLUGIN_ID, PLUGIN_CLASS);
+}
+@@END PLUGIN_EDIT.JS
+
+@@START PLUGIN_RUN.JS
+"use strict";
+{
+	C3.Plugins.Piranha305_Chance = class ChancePlugin extends C3.SDKPluginBase
+	{
+		constructor(opts)
+		{
+			super(opts);
+		}
+		
+		Release()
+		{
+			super.Release();
+		}
+	};
+}
+@@END PLUGIN_RUN.JS
+
+@@START TYPE_EDIT.JS
+"use strict";
+{
+	const PLUGIN_CLASS = SDK.Plugins.Piranha305_Chance;
+	
+	PLUGIN_CLASS.Type = class ChanceType extends SDK.ITypeBase
+	{
+		constructor(sdkPlugin, iObjectType)
+		{
+			super(sdkPlugin, iObjectType);
+		}
+	};
+}
+@@END TYPE_EDIT.JS
+
+@@START TYPE_RUN.JS
+"use strict";
+{
+	C3.Plugins.Piranha305_Chance.Type = class ChanceType extends C3.SDKTypeBase
+	{
+		constructor(objectClass)
+		{
+			super(objectClass);
+		}
+		
+		Release()
+		{
+			super.Release();
+		}
+		
+		OnCreate()
+		{	
+		}
+	};
+}
+@@END TYPE_RUN.JS
+
+@@START INSTANCE_EDIT.JS
+"use strict";
+{
+	const PLUGIN_CLASS = SDK.Plugins.Piranha305_Chance;
+	
+	PLUGIN_CLASS.Instance = class ChanceInstance extends SDK.IInstanceBase
+	{
+		constructor(sdkType, inst)
+		{
+			super(sdkType, inst);
+		}
+		
+		Release()
+		{
+		}
+		
+		OnCreate()
+		{
+		}
+		
+		OnPropertyChanged(id, value)
+		{
+		}
+		
+		LoadC2Property(name, valueString)
+		{
+			return false;		// not handled
+		}
+	};
+}
+@@END INSTANCE_EDIT.JS
+
+@@START INSTANCE_RUN.JS
+"use strict";
+{
+	C3.Plugins.Piranha305_Chance.Instance = class ChanceInstance extends C3.SDKInstanceBase
+	{
+		constructor(inst, properties)
+		{
+			super(inst);
+			
+			this.seed = 0;
+			this.useSeed = false;		
+			this.lastDiceRoll = [];
+			this.lastDiceSum = 0;
+			this.lastDiceTag = null;
+			this.diceRoll = {}
+			
+			if (properties)
+			{
+				this.seed = properties[0];
+				this.useSeed = properties[1];
+			}
+			
+			//create new instance of chance js
+			if(this.useSeed){
+				this.chance = new Chance(this._seed);
+			} else{
+				this.chance = new Chance();
+			}
+		}
+		
+		Release()
+		{
+			super.Release();
+		}
+		
+		SaveToJson()
+		{
+			return {
+				// data to be saved for savegames
+			};
+		}
+		
+		LoadFromJson(o)
+		{
+			// load state for savegames
+		}
+	};
+}
+@@END INSTANCE_RUN.JS
+
+@@START LANG_PROP.JSON
+"properties": {
+    "use-seed": {
+      "name": "Use Seed",
+      "desc": "Chance js will use given seed property"
+    },
+    "seed": {
+      "name": "Seed",
+      "desc": "The seed value that will be used by chance"
+    }
+  }
+@@END LANG_PROP.JSON
+
+@@START LANG_CAT.JSON
+"aceCategories": {
+    "seed" : "Seed",
+    "dice" : "Dice Rolls",
+    "custom" : "value",
+    "rng" : "Random",
+    "string" : "Strings"
+}
+@@END LANG_CAT.JSON
+

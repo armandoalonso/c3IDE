@@ -1,0 +1,339 @@
+@@START get-seed|seed
+@@ACE
+{
+	"id": "get-seed",
+	"expressionName": "GetSeed",
+	"returnType": "number"
+}
+@@LANG
+"get-seed": { 
+	"translated-name": "GetSeed",
+	"description": "Gets the current seed"
+}
+@@CODE
+GetSeed()
+{
+	return this.chance.mt.seed;
+}
+@@END get-seed
+
+@@START get-char|string
+@@ACE
+{
+	"id": "get-char",
+	"expressionName": "GetCharacter",
+	"returnType": "string"
+}
+@@LANG
+"get-char": { 
+	"translated-name": "GetCharacter",
+	"description": "Gets random character"
+}
+@@CODE
+GetCharacter()
+{
+	return this.chance.character();
+}
+@@END get-char
+
+@@START get-char-lower|string
+@@ACE
+{
+	"id": "get-char-lower",
+	"expressionName": "GetCharacterLower",
+	"returnType": "string"
+}
+@@LANG
+"get-char-lower": { 
+	"translated-name": "GetCharacterLower",
+	"description": "Gets random character (lower)"
+}
+@@CODE
+GetCharacterLower()
+{
+	return this.chance.character({pool:'abcdefghijklmnopqrstuvwxyz'});
+}
+@@END get-char-lower
+
+@@START get-char-upper|string
+@@ACE
+{
+	"id": "get-char-upper",
+	"expressionName": "GetCharacterUpper",
+	"returnType": "string"
+}
+@@LANG
+"get-char-upper": { 
+	"translated-name": "GetCharacterUpper",
+	"description": "Gets random character (upper)"
+}
+@@CODE
+GetCharacterUpper()
+{
+	return this.chance.character({pool:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'});
+}
+@@END get-char-upper
+
+@@START get-char-set|string
+@@ACE
+{
+  "id": "get-char-set",
+  "expressionName": "GetCharacterFromSet",
+  "returnType": "string",
+  "params": [
+    {
+      "id": "set",
+      "type": "string"
+    }
+  ]
+}
+@@LANG
+"get-char-set": { 
+	"translated-name": "GetCharacterFromSet",
+	"description": "Gets random character (set)",
+	"params": {
+        "set": {
+            "name": "Set",
+            "desc": "List of characters to will be included in the set"
+        }
+    }
+}
+@@CODE
+GetCharacterFromSet(set)
+{
+	if(set === '') return this.chance.character();
+	return this.chance.character({pool:set});
+}
+@@END get-char-set
+
+@@START get-dice-sum|dice
+@@ACE
+{
+	"id": "get-dice-sum",
+	"expressionName": "GetLastDiceSum",
+	"returnType": "number"
+}
+@@LANG
+"get-dice-sum": { 
+	"translated-name": "GetLastDiceSum",
+	"description": "Gets the sum of the last dice roll"
+}
+@@CODE
+GetLastDiceSum()
+{
+	return this.lastDiceSum;
+}
+@@END get-dice-sum
+
+@@START get-dice-at|dice
+@@ACE
+{
+  "id": "get-dice-at",
+  "expressionName": "GetLastDiceAt",
+  "returnType": "number",
+  "params": [
+    {
+      "id": "index",
+      "type": "number"
+    }
+  ]
+}
+@@LANG
+"get-dice-at": { 
+	"translated-name": "GetLastDiceAt",
+	"description": "Get the value of the last dice roll at index",
+	"params": {
+        "index": {
+            "name": "Dice Index",
+            "desc": "The index of the dice to get the value"
+        }
+    }
+}
+@@CODE
+GetLastDiceAt(index)
+{
+	if(index < 0 || index > this.lastDiceRoll.length-1){
+		return -1;
+	}
+
+	return this.lastDiceRoll[index];
+}
+@@END get-dice-at
+
+@@START get-dice-sum-tag|dice
+@@ACE
+{
+  "id": "get-dice-sum-tag",
+  "expressionName": "GetDiceSum",
+  "returnType": "number",
+  "params": [
+    {
+      "id": "tag",
+      "type": "string"
+    }
+  ]
+}
+@@LANG
+"get-dice-sum-tag": { 
+	"translated-name": "GetDiceSum",
+	"description": "Gets the sum of the dice roll with given tag",
+	"params": {
+        "tag": {
+            "name": "Tag",
+            "desc": "The tag of the dice roll to get sum"
+        }
+    }
+}
+@@CODE
+GetDiceSum(tag)
+{
+	if(tag === '') tag = 'deafult';
+	return this.diceRoll[tag].sum;
+}
+@@END get-dice-sum-tag
+
+@@START get-dice-at-tag|dice
+@@ACE
+{
+  "id": "get-dice-at-tag",
+  "expressionName": "GetDiceAt",
+  "returnType": "number",
+  "params": [
+    {
+      "id": "tag",
+      "type": "string"
+    },
+    {
+      "id": "index",
+      "type": "number"
+    }
+  ]
+}
+@@LANG
+"get-dice-at-tag": { 
+	"translated-name": "GetDiceAt",
+	"description": "Get the value of the last dice roll at index",
+	    "params": {
+        "tag": {
+            "name": "tag",
+            "desc": "Get the value of a dice with tag and index"
+        },
+        "index": {
+            "name": "Dice Index",
+            "desc": "The index of the dice to get the value"
+        }
+    }
+}
+@@CODE
+GetDiceAt(tag, index)
+{
+	if(tag === '') tag = 'deafult';
+	if(index < 0 || index > this.lastDiceRoll.length-1){
+		return -1;
+	}
+
+	return this.lastDiceRoll[index];
+}
+@@END get-dice-at-tag
+
+@@START get-string-upper|string
+@@ACE
+{
+  "id": "get-string-upper",
+  "expressionName": "GetStringUpper",
+  "returnType": "string",
+  "params": [
+    {
+      "id": "length",
+      "type": "number"
+    }
+  ]
+}
+@@LANG
+"get-string-upper": { 
+	"translated-name": "GetStringUpper",
+	"description": "Gets a random string (upper)",
+	"params": {
+        "length": {
+            "name": "length",
+            "desc": "Length of string"
+        }
+    }
+}
+@@CODE
+GetStringUpper(length)
+{
+	//implementation
+}
+@@END get-string-upper
+
+@@START get-string-lower|string
+@@ACE
+{
+  "id": "get-string-lower",
+  "expressionName": "GetStringLower",
+  "returnType": "string",
+  "params": [
+    {
+      "id": "length",
+      "type": "number"
+    }
+  ]
+}
+@@LANG
+"get-string-lower": { 
+	"translated-name": "GetStringLower",
+	"description": "Gets a random string (lower)",
+	"params": {
+        "length": {
+            "name": "length",
+            "desc": "Length of string"
+        }
+    }
+}
+@@CODE
+GetStringLower(length)
+{
+	//implementation
+}
+@@END get-string-lower
+
+@@START get-string-set|string
+@@ACE
+{
+  "id": "get-string-set",
+  "expressionName": "GetStringSet",
+  "returnType": "string",
+  "params": [
+    {
+      "id": "length",
+      "type": "number"
+    },
+    {
+      "id": "set",
+      "type": "string"
+    }
+  ]
+}
+@@LANG
+"get-string-set": {
+  "translated-name": "GetStringSet",
+  "description": "Gets a random string (set)",
+  "params": {
+    "length": {
+      "name": "length",
+      "desc": "Length of string"
+    },
+    "set": {
+      "name": "set",
+      "desc": "Set of charcters to use in string"
+    }
+  }
+} 
+@@CODE
+GetStringSet(length,set)
+{
+	//implementation
+}
+@@END get-string-set
+

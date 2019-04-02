@@ -1,0 +1,112 @@
+@@START chance|rng
+@@ACE
+{
+  "id": "chance",
+  "scriptName": "Chance",
+  "highlight": false,
+  "params": [
+    {
+      "id": "likelihood",
+      "type": "number",
+      "initialValue": "50"
+    }
+  ]
+}
+@@LANG
+"chance": {
+	"list-name": "On Chance",
+	"display-text": "[b]{0}%[/b] Chance",
+	"description": "Percent chance to trigger condition",
+	"params": {
+        "likelihood": {
+            "name": "Likelihood",
+            "desc": "The likelihood percent the condition will trigger "
+        }
+    }
+}
+@@CODE
+Chance(percent)
+{
+	return this.chance.bool({likelihood: percent});
+}
+@@END chance
+
+@@START on-roll|dice
+@@ACE
+{
+  "id": "on-roll",
+  "scriptName": "OnRoll",
+  "highlight": false,
+  "isTrigger": true,
+  "params": [
+    {
+      "id": "tag",
+      "type": "string"
+    }
+  ]
+}
+@@LANG
+"on-roll": {
+	"list-name": "On Roll",
+	"display-text": "On Roll ([b]{0}[/b])",
+	"description": "Triggers when dice are rolled with tag",
+	"params": {
+        "tag": {
+            "name": "Tag",
+            "desc": "Tag of Dice Roll"
+        }
+    }
+}
+@@CODE
+OnRoll(tag)
+{
+	if(tag === '') tag = 'default';
+	return C3.compare(this.lastDiceTag, 0, tag);
+}
+@@END on-roll
+
+@@START on-roll-contains|dice
+@@ACE
+{
+  "id": "on-roll-contains",
+  "scriptName": "OnRollContains",
+  "highlight": false,
+  "isTrigger": true,
+  "params": [
+    {
+      "id": "tag",
+      "type": "string"
+    },
+    {
+      "id": "value",
+      "type": "number"
+    }
+  ]
+}
+@@LANG
+"on-roll-contains": {
+	"list-name": "On Roll Contains",
+	"display-text": "On Roll ([b]{0}[/b]) Contains [b]{1}[/b]",
+	"description": "Triggers when the roll contains a specific value",
+	    "params": {
+        "tag": {
+            "name": "Tag",
+            "desc": "Tag of dice roll"
+        },
+        "value": {
+            "name": "Value",
+            "desc": "Trigger conditionw hen this value is rolled"
+        }
+    }
+}
+@@CODE
+OnRollContains(tag, value)
+{
+	if(tag === '') tag = 'default';
+	if(C3.compare(this.lastDiceTag, 0, tag)){
+		return this.diceRoll[tag].roll.includes(value);
+	}
+	return false;
+}
+@@END on-roll-contains
+
