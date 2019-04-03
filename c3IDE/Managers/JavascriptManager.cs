@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using c3IDE.Utilities.Helpers;
+using Esprima;
+using Esprima.Ast;
+using Esprima.Utils;
 using Newtonsoft.Json;
 
 namespace c3IDE.Managers

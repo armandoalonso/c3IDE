@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using c3IDE.Managers;
 
 namespace c3IDE.Utilities.Helpers
@@ -43,6 +44,26 @@ namespace c3IDE.Utilities.Helpers
                 LogManager.AddErrorLog(ex);
                 NotificationManager.PublishErrorNotification(ex.Message);
             }
+        }
+
+        public string ExecuteProcess(string batchCommand)
+        {
+            File.WriteAllText(Path.Combine(OptionsManager.CurrentOptions.DataPath, "execute.bat"), batchCommand);
+
+            var p = new Process
+            {
+                StartInfo =
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    FileName = Path.Combine(OptionsManager.CurrentOptions.DataPath, "execute.bat")
+                }
+            };
+            p.Start();
+
+            var output = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            return output;
         }
     }
 }
