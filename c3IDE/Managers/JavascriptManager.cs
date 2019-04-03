@@ -40,7 +40,7 @@ namespace c3IDE.Managers
 
                     name = Regex.Replace(line, @"\(.*\)", string.Empty).Trim();
                     name = Regex.Replace(name, @"(//.*|/[*].*)", string.Empty).Trim();
-                    name = Regex.Replace(name, @":\s?function", string.Empty).Trim();
+                    name = Regex.Replace(name, @":?\s?function", string.Empty).Trim();
                     name = Regex.Replace(name, @"\s?async\s?", string.Empty).Trim();
 
                     tmp.AppendLine(Regex.Replace(line, @":\s?function", string.Empty));

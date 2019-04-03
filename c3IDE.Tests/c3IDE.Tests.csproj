@@ -77,6 +77,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestFiles\yannjson_edittime.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestFiles\rotjs_conditions.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

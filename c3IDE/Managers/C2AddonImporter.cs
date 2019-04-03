@@ -19,6 +19,7 @@ namespace c3IDE.Managers
     public class C2AddonImporter : Singleton<C2AddonImporter>
     {
         private C2Addon c2addon;
+        private Dictionary<string, string> AllFunctions;
 
         public void ReadEdittimeJs(string source)
         {
@@ -27,7 +28,6 @@ namespace c3IDE.Managers
             var program = parser.ParseProgram();
             var json = program.ToJsonString();
             dynamic ast = JObject.Parse(json);
-
 
             TraverseJavascriptTree(ast);
         }
@@ -59,14 +59,23 @@ namespace c3IDE.Managers
                 foreach (dynamic prop in props)
                 {
                     var key = prop.key.value.ToString();
-                    var value = prop.value.value.ToString();
+                    //var value = prop.value.value.ToString();
+                    var value = TryGet(
+                        () => throw new Exception(),
+                        () => prop.value.value.ToString(),
+                        () =>
+                        {
+                            if (prop.value.type.ToString() == "BinaryExpression")
+                                return GetBinaryExpression(prop.value.left, prop.value.right);
+                            throw new RuntimeBinderException();
+                        });
+
                     c2addon.Properties.Add(key, value);
                 }
             }
 
             //get actions
             var body = p.body;
-            //var needToStartNewArray = true;
             var ace = new C2Ace(); 
             var comboOptions = new List<string>();
 
@@ -77,8 +86,8 @@ namespace c3IDE.Managers
                 {
                     var expression = value.expression;
                     string caller = TryGet(
-                        () => expression.callee.name.ToString(),
-                        () => "none"
+                        () => string.Empty,
+                        () => expression.callee.name.ToString()
                     );
 
                     if (caller == "ACESDone")
@@ -96,25 +105,46 @@ namespace c3IDE.Managers
                             {
                                 case 0:
 
-                                    ace.Id = TryGet(() => arg.value.ToString().ToString(), () => "");
+                                    ace.Id = TryGet(
+                                        () => string.Empty,
+                                        () => arg.value.ToString());
                                     break;
                                 case 1:
-                                    ace.Flags = TryGet(() => arg.value.ToString().ToString(), () => arg.name.ToString());
+                                    ace.Flags = TryGet(
+                                        () => throw new Exception(),
+                                        () => arg.value.ToString(), 
+                                        () => arg.name.ToString(),
+                                        () =>
+                                        {
+                                            if (arg.type.ToString() == "BinaryExpression")
+                                                return GetBinaryExpression(arg.left, arg.right);
+                                            throw new RuntimeBinderException();
+                                        });
                                     break;
                                 case 2:
-                                    ace.ListName = TryGet(() => arg.value.ToString().ToString(), () => "");
+                                    ace.ListName = TryGet(
+                                        () => string.Empty,
+                                        () => arg.value.ToString());
                                     break;
                                 case 3:
-                                    ace.Category = TryGet(() => arg.value.ToString().ToString(), () => "");
+                                    ace.Category = TryGet(
+                                        () => string.Empty,
+                                        () => arg.value.ToString());
                                     break;
                                 case 4:
-                                    ace.DisplayString = TryGet(() => arg.value.ToString().ToString(), () => "");
+                                    ace.DisplayString = TryGet(
+                                        () => string.Empty,
+                                        () => arg.value.ToString());
                                     break;
                                 case 5:
-                                    ace.Description = TryGet(() => arg.value.ToString().ToString(), () => "");
+                                    ace.Description = TryGet(
+                                        () => string.Empty,
+                                        () => arg.value.ToString());
                                     break;
                                 case 6:
-                                    ace.ScriptName = TryGet(() => arg.value.ToString().ToString(), () => "");
+                                    ace.ScriptName = TryGet(
+                                        () => string.Empty,
+                                        () => arg.value.ToString());
                                     break;
                             }
                             index++;
@@ -137,19 +167,21 @@ namespace c3IDE.Managers
                         }
 
                         ace = new C2Ace();
-                        //needToStartNewArray = true;
                     }
                     else
                     {
-                        //needToStartNewArray = false;
+                        var paramOptions = TryGet(
+                            () => string.Empty,
+                            () => value.expression.callee.name.ToString());
+                        var param = new C2AceParam {Script = paramOptions};
 
-                        var paramOptions = TryGet(() => value.expression.callee.name.ToString(), () => string.Empty);
+                        //todo: if script is not one of the param functions => resolve function;
+
                         if (paramOptions == "AddComboParamOption")
                         {
-                            comboOptions.Add(value.expressions.arguments[0].value.ToString());
+                            comboOptions.Add(value.expression.arguments[0].value.ToString());
                         }
 
-                        var param = new C2AceParam();
                         param.CopmboItems = comboOptions;
                         comboOptions = new List<string>();
 
@@ -162,36 +194,56 @@ namespace c3IDE.Managers
                                 switch (index)
                                 {
                                     case 0:
-                                        param.Text = TryGet(() => arg.value.ToString().ToString(), () => "");
+                                        param.Text = TryGet(
+                                            () => string.Empty,
+                                            () => arg.value.ToString());
                                         break;
                                     case 1:
-                                        param.Description = TryGet(() => arg.value.ToString().ToString(), () => arg.name.ToString());
+                                        param.Description = TryGet(
+                                            () => string.Empty,
+                                            () => arg.value.ToString());
                                         break;
                                     case 2: //check else
-                                        param.DefaultValue = TryGet(() => arg.value.ToString().ToString(), () => "");
+                                        param.DefaultValue = TryGet(
+                                            () => string.Empty,
+                                            () => arg.value.ToString());
                                         break;
                                 }
                                 index++;
                             }
-                            param.Script = paramOptions;
                             ace.Params.Add(param);
                         }
                     }
                 }
             }
-
         }
 
-        public string TryGet(Func<string> act, Func<string> err)
+        public string TryGet(Func<string> err, params Func<string>[] acts)
         {
-            try
+            foreach (var func in acts)
             {
-                return act();
+                try
+                {
+                    return func();
+                }
+                catch (RuntimeBinderException)
+                {
+                    continue;
+                }
             }
-            catch (RuntimeBinderException)
-            {
-                return err();
-            }
+
+            return err();
+        }
+
+        public string GetBinaryExpression(dynamic left, dynamic right)
+        {
+            var lStr = string.Empty;
+            var rStr = string.Empty;
+
+            lStr = left.type.ToString() == "BinaryExpression" ? GetBinaryExpression(left.left, left.right) : TryGet(() => string.Empty, () => left.name.ToString()) ;
+            rStr = right.type.ToString() == "BinaryExpression" ? GetBinaryExpression(right.left, right.right) : TryGet(() => string.Empty, () => right.name.ToString());
+
+            return $"{lStr} {rStr}";
         }
     }
 }

@@ -20,6 +20,14 @@ namespace c3IDE.Tests
             C2AddonImporter.Insatnce.ReadEdittimeJs(text);
         }
 
+
+        [TestMethod]
+        public void TestActionParseNestedFunction()
+        {
+            var text = File.ReadAllText("TestFiles\\yannjson_edittime.js");
+            C2AddonImporter.Insatnce.ReadEdittimeJs(text);
+        }
+
     }
 }
     
