@@ -38,16 +38,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Esprima, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2e92ba9c8d81157f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Esprima.1.0.0-beta-1186\lib\net45\Esprima.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="C3ImporterTest.cs" />
+    <Compile Include="JavascriptParsingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JavascriptManagerTest.cs" />
-    <Compile Include="NodeManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Esprima">
+      <Version>1.0.0-beta-1186</Version>
+    </PackageReference>
     <PackageReference Include="MSTest.TestAdapter">
       <Version>1.3.2</Version>
     </PackageReference>
@@ -65,9 +72,15 @@
     <None Include="TestFiles\rex_moveto.c3addon">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\SkymenClassLink.c3ide">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestFiles\rotjs_conditions.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\stack_edittime.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
