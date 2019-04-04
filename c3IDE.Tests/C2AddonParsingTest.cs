@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace c3IDE.Tests
 {
     [TestClass]
-    public class JavascriptParsingTest
+    public class C2AddonParsingTest
     {
 
         [TestMethod]

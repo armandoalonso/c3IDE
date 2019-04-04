@@ -169,6 +169,7 @@
     <Compile Include="Utilities\Eventing\EventQueue.cs" />
     <Compile Include="Utilities\Extentions\DictionaryExtentions.cs" />
     <Compile Include="Utilities\Extentions\StringExtentions.cs" />
+    <Compile Include="Utilities\Helpers\AceParameterHelper.cs" />
     <Compile Include="Utilities\Helpers\ConsoleLogRemover.cs" />
     <Compile Include="Utilities\Helpers\ControlHelper.cs" />
     <Compile Include="Utilities\Helpers\TextEditorHelper.cs" />

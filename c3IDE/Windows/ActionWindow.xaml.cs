@@ -481,6 +481,7 @@ namespace c3IDE.Windows
                 var isVariadic = type == "variadic";
                 var actionId = _selectedAction.Id;
 
+                //todo: duplicated across all aces and AceParameterHelper, need to find better way to consolidate those
                 //there is at least one param defined
                 if (AceTextEditor.Text.Contains("\"params\": ["))
                 {

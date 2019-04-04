@@ -4,7 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using c3IDE.Models;
+using c3IDE.Templates;
+using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities;
+using c3IDE.Utilities.Extentions;
+using c3IDE.Utilities.Helpers;
+using Action = c3IDE.Models.Action;
 
 namespace c3IDE.Managers
 {
@@ -34,6 +39,10 @@ namespace c3IDE.Managers
                 case "Behavior": pluginType = PluginType.Behavior; break;
                 case "Effect": pluginType = PluginType.Effect; break;
             }
+            c3addon.Type = pluginType;
+
+            //get templates based on type
+            c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
 
             //add actions
             c3addon.Actions = new Dictionary<string, Models.Action>();
@@ -56,9 +65,54 @@ namespace c3IDE.Managers
 
             }
 
-            c3addon.Type = pluginType;
+            //third party files
+            if (c2addon.Properties.ContainsKey("dependency"))
+            {
+                //todo: handle third party files
+            }
+
+
 
             return c3addon;
+        }
+
+        public Action C2AcesToAction(C3Addon addon, C2Ace ace)
+        {
+            var action = new Action();
+
+            action.Category = ace.Category.ToLower();
+            action.Id = ace.ScriptName.SplitCamelCase("-");
+            action.DisplayText = ace.DisplayString;
+            action.ListName = ace.ListName;
+            action.Description = ace.Description;
+            action.Highlight = "false";
+
+            var depercated = ace.Flags.Contains("af_deprecated");
+
+            //action.Ace
+            //action.Lang
+            //action.Code
+
+            if (ace.Params.Any())
+            {
+                action.Ace = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionAces, action);
+                action.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, action);
+                action.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, action);
+
+                //action params
+                foreach (var param in ace.Params)
+                {
+                    //action = AceParameterHelper.Insatnce.GenerateParam(action, param.id)
+                }
+            }
+            else
+            {
+                action.Ace = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionAces, action);
+                action.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, action);
+                action.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, action);
+            }
+
+            return action;
         }
     }
 }
