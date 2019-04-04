@@ -160,6 +160,7 @@
     <Compile Include="Server\C3FileHandler.cs" />
     <Compile Include="Server\WebServerClient.cs" />
     <Compile Include="Templates\BehaviorTemplate.cs" />
+    <Compile Include="Templates\C2ImportTemplates.cs" />
     <Compile Include="Templates\DrawingPluginTemplate.cs" />
     <Compile Include="Templates\EffectTemplate.cs" />
     <Compile Include="Templates\MultiInstancePluginTemplate.cs" />

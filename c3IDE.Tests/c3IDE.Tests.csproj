@@ -77,7 +77,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="TestFiles\example_parsed_json.json" />
+    <None Include="TestFiles\example_parsed.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\rex_moveto.c3addon">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

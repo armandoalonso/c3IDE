@@ -139,23 +139,28 @@ namespace c3IDE.Managers
         /// </summary>
         public static void CompileTemplates()
         {
+          CompileTemplates(CurrentAddon);
+        }
+
+        public static void CompileTemplates(C3Addon addon)
+        {
             //compile standard templates
-            CurrentAddon.AddonJson = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.AddonJson, CurrentAddon);
-            CurrentAddon.PluginEditTime = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.PluginEditTime, CurrentAddon);
-            CurrentAddon.PluginRunTime = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.PluginRunTime, CurrentAddon);
-            CurrentAddon.TypeEditTime = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.TypeEditTime, CurrentAddon);
-            CurrentAddon.TypeRunTime = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.TypeRunTime, CurrentAddon);
-            CurrentAddon.InstanceEditTime = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.InstanceEditTime, CurrentAddon);
-            CurrentAddon.InstanceRunTime = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.InstanceRunTime, CurrentAddon);
-            CurrentAddon.Actions = new Dictionary<string, Models.Action>();
-            CurrentAddon.Conditions = new Dictionary<string, Condition>();
-            CurrentAddon.Expressions = new Dictionary<string, Expression>();
-            CurrentAddon.ThirdPartyFiles = new Dictionary<string, ThirdPartyFile>();
-            CurrentAddon.LanguageProperties = CurrentAddon.Template.LanguageProperty;
-            CurrentAddon.LanguageCategories = CurrentAddon.Template.LanguageCategory;
+            addon.AddonJson = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.AddonJson, addon);
+            addon.PluginEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.PluginEditTime, addon);
+            addon.PluginRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.PluginRunTime, addon);
+            addon.TypeEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.TypeEditTime, addon);
+            addon.TypeRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.TypeRunTime, addon);
+            addon.InstanceEditTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.InstanceEditTime, addon);
+            addon.InstanceRunTime = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.InstanceRunTime, addon);
+            addon.Actions = new Dictionary<string, Models.Action>();
+            addon.Conditions = new Dictionary<string, Condition>();
+            addon.Expressions = new Dictionary<string, Expression>();
+            addon.ThirdPartyFiles = new Dictionary<string, ThirdPartyFile>();
+            addon.LanguageProperties = addon.Template.LanguageProperty;
+            addon.LanguageCategories = addon.Template.LanguageCategory;
 
             //compile effect template
-            CurrentAddon.Effect.Code = TemplateCompiler.Insatnce.CompileTemplates(CurrentAddon.Template.EffectCode, CurrentAddon);
+            addon.Effect.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.EffectCode, addon);
         }
 
         public static void IncrementVersion()

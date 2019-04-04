@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using c3IDE.Models;
 
@@ -87,15 +88,37 @@ namespace c3IDE.Templates
             }
             var items = type == "combo" ? ",\n            \"items\":[\"item1\",\"item2\",\"item3\"]" : string.Empty;
             var objects = type == "object" ? ",\n            \"allowedPluginIds\":[\"Sprite\"]" : string.Empty;
-        //    return $@"    ""params"": [
-        //{{
-        //    ""id"": ""{id}"",
-        //    ""type"": ""{type}""{value}{items}{objects}
-        //}},";
+
             return $@"}},
         {{
             ""id"": ""{id}"",
             ""type"": ""{type}""{value}{items}{objects}
+        }}";
+        }
+
+        public static string AceParam(string id, string type, string initValue, List<string> comboItems)
+        {
+            string value;
+            if (!string.IsNullOrWhiteSpace(initValue))
+            {
+                initValue = initValue.Trim();
+                initValue = initValue.Trim('"');
+                value = $",\n            \"initialValue\":\"{initValue}\"";
+            }
+            else
+            {
+                value = string.Empty;
+            }
+
+            var sb = new StringBuilder();
+            sb.Append(",\n            \"items\":[");
+            sb.Append(string.Join(",", comboItems.Select(x => $"\"{x}\"")));
+            sb.Append("]");
+
+            return $@"}},
+        {{
+            ""id"": ""{id}"",
+            ""type"": ""{type}""{value}{sb}
         }}";
         }
 
@@ -121,6 +144,28 @@ namespace c3IDE.Templates
             return $@"{{ ""{id}"": {{
                 ""name"": ""{name}{variadic}"",
                 ""desc"": ""{desc}""{items}
+            }} }}";
+        }
+
+        /// <summary>
+        /// create ace lang temnplate when combo ietsm are passed in
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        /// <param name="name"></param>
+        /// <param name="desc"></param>
+        /// <param name="comboItems"></param>
+        /// <returns></returns>
+        public static string AceLang(string id, string type, string name, string desc, List<string> comboItems)
+        {
+            var sb = new StringBuilder();
+            sb.Append(",\n            \"items\":{\n                ");
+            sb.Append(string.Join(",\n                ", comboItems.Select(x => $"\"{x}\": \"{x}\"")));
+            sb.Append("\n            }");
+
+            return $@"{{ ""{id}"": {{
+                ""name"": ""{name}"",
+                ""desc"": ""{desc}""{sb}
             }} }}";
         }
 
@@ -181,6 +226,34 @@ namespace c3IDE.Templates
 }}";
         }
 
+        public static string AceParamFirst(string id, string type, string initValue, List<string> comboItems)
+        {
+            string value;
+            if (!string.IsNullOrWhiteSpace(initValue))
+            {
+                initValue = initValue.Trim();
+                initValue = initValue.Trim('"');
+                value = $",\n            \"initialValue\":\"{initValue}\"";
+            }
+            else
+            {
+                value = string.Empty;
+            }
+
+            var sb = new StringBuilder();
+            sb.Append(",\n            \"items\":[");
+            sb.Append(string.Join(",", comboItems.Select(x => $"\"{x}\"")));
+            sb.Append("]");
+
+            return $@",    ""params"": [
+        {{
+            ""id"": ""{id}"",
+            ""type"": ""{type}""{value}{sb}
+        }}
+    ]
+}}";
+        }
+
         /// <summary>
         /// create ace language counterpart when its the first
         /// </summary>
@@ -198,6 +271,23 @@ namespace c3IDE.Templates
         ""{id}"": {{
             ""name"": ""{name}{variadic}"",
             ""desc"": ""{desc}""{items}
+        }}
+    }}
+}}";
+        }
+
+        public static string AceLangFirst(string id, string type, string name, string desc, List<string> comboItems)
+        {
+            var sb = new StringBuilder();
+            sb.Append(",\n            \"items\":{\n                ");
+            sb.Append(string.Join(",\n                ", comboItems.Select(x => $"\"{x}\": \"{x}\"")));
+            sb.Append("\n            }");
+
+            return $@""",
+	""params"": {{
+        ""{id}"": {{
+            ""name"": ""{name}"",
+            ""desc"": ""{desc}""{sb}
         }}
     }}
 }}";

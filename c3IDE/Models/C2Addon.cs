@@ -33,7 +33,7 @@ namespace c3IDE.Models
         public string Text { get; set; }
         public string Description { get; set; }
         public string DefaultValue { get; set; }
-        public List<string> CopmboItems { get; set; }
+        public List<string> ComboItems { get; set; }
     }
 
 

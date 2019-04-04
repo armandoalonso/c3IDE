@@ -24,6 +24,16 @@ namespace c3IDE.Managers
             c3addon.AddonId = c2addon.Properties["id"];
             c3addon.Description = c2addon.Properties["description"];
             c3addon.AddonCategory = c2addon.Properties["category"];
+            c3addon.Effect = new Effect();
+            c3addon.IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
+            c3addon.CreateDate = DateTime.Now;
+            c3addon.LastModified = DateTime.Now;
+
+            //add version
+           c3addon.MajorVersion = 1;
+           c3addon.MinorVersion = 0;
+           c3addon.RevisionVersion = 0;
+           c3addon.BuildVersion = 0;
 
             PluginType pluginType = PluginType.SingleGlobalPlugin;
             switch (c2addon.Type)
@@ -48,21 +58,21 @@ namespace c3IDE.Managers
             c3addon.Actions = new Dictionary<string, Models.Action>();
             foreach (var c2Action in c2addon.Actions)
             {
-
+                C2AcesToAction(c3addon, c2Action);
             }
 
             //conditions
             c3addon.Conditions = new Dictionary<string, Models.Condition>();
             foreach (var c2Condition in c2addon.Conditions)
             {
-
+                C2AcesToCondition(c3addon, c2Condition);
             }
 
             //expression
             c3addon.Expressions = new Dictionary<string, Models.Expression>();
             foreach (var c2Expression in c2addon.Expressions)
             {
-
+                C2AceToExpression(c3addon, c2Expression);
             }
 
             //third party files
@@ -70,49 +80,191 @@ namespace c3IDE.Managers
             {
                 //todo: handle third party files
             }
-
-
+            
+            //compile other files
+            AddonManager.CompileTemplates(c3addon);
 
             return c3addon;
         }
 
-        public Action C2AcesToAction(C3Addon addon, C2Ace ace)
+        public void C2AcesToAction(C3Addon addon, C2Ace ace)
         {
-            var action = new Action();
-
-            action.Category = ace.Category.ToLower();
-            action.Id = ace.ScriptName.SplitCamelCase("-");
-            action.DisplayText = ace.DisplayString;
-            action.ListName = ace.ListName;
-            action.Description = ace.Description;
-            action.Highlight = "false";
-
-            var depercated = ace.Flags.Contains("af_deprecated");
-
-            //action.Ace
-            //action.Lang
-            //action.Code
-
-            if (ace.Params.Any())
+            try
             {
-                action.Ace = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionAces, action);
-                action.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, action);
-                action.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, action);
-
-                //action params
-                foreach (var param in ace.Params)
+                var action = new Action
                 {
-                    //action = AceParameterHelper.Insatnce.GenerateParam(action, param.id)
-                }
-            }
-            else
-            {
-                action.Ace = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionAces, action);
-                action.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, action);
-                action.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, action);
-            }
+                    Category = ace.Category.ToLower(),
+                    Id = ace.ScriptName.SplitCamelCase("-"),
+                    DisplayText = ace.DisplayString,
+                    ListName = ace.ListName,
+                    Description = ace.Description,
+                    Highlight = "false",
+                    C2Id = ace.Id,
+                    Deprecated = ace.Flags.Contains("af_deprecated").ToString().ToLower()
+                };
 
-            return action;
+                if (ace.Params.Any())
+                {
+                    action.Ace = TemplateCompiler.Insatnce.CompileTemplates(C2ImportTemplates.ActionAceImport, action);
+                    action.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, action);
+                    action.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, action);
+
+                    var paramId = 0;
+                    //action params
+                    foreach (var param in ace.Params)
+                    {
+                        var paramType = ResolveParamType(param);
+                        action = paramType == "combo"
+                            ? AceParameterHelper.Insatnce.GenerateParam(action, $"param{paramId}", paramType, param.DefaultValue, $"param{paramId}", param.Description, param.ComboItems)
+                            : AceParameterHelper.Insatnce.GenerateParam(action, $"param{paramId}", paramType, param.DefaultValue, $"param{paramId}", param.Description);
+                        paramId++;
+                    }
+                }
+                else
+                {
+                    action.Ace = TemplateCompiler.Insatnce.CompileTemplates(C2ImportTemplates.ActionAceImport, action);
+                    action.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, action);
+                    action.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, action);
+                }
+
+                addon.Actions.Add(action.Id, action);
+            }
+            catch (Exception ex)
+            {
+                //todo: do something here, add to log
+                return;
+            }
+        }
+
+        public void C2AcesToCondition(C3Addon addon, C2Ace ace)
+        {
+            try
+            {
+                var condition = new Condition
+                {
+                    Category = ace.Category.ToLower(),
+                    Id = ace.ScriptName.SplitCamelCase("-"),
+                    DisplayText = ace.DisplayString,
+                    ListName = ace.ListName,
+                    Description = ace.Description,
+                    Highlight = "false",
+                    C2Id = ace.Id,
+                    Deprecated = ace.Flags.Contains("cf_deprecated").ToString().ToLower(),
+                    Trigger = ace.Flags.Contains("cf_trigger").ToString().ToLower(),
+                    FakeTrigger = ace.Flags.Contains("cf_fake_trigger").ToString().ToLower(),
+                    Static = ace.Flags.Contains("cf_static").ToString().ToLower(),
+                    Looping = ace.Flags.Contains("cf_looping").ToString().ToLower(),
+                    Invertible = (!ace.Flags.Contains("cf_not_invertible")).ToString().ToLower(),
+                    TriggerCompatible = (!ace.Flags.Contains("cf_incompatible_with_triggers")).ToString().ToLower(),
+                };
+
+                if (ace.Params.Any())
+                {
+                    condition.Ace = C2ImportTemplates.ConditionAceImport(condition);
+                    condition.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, condition);
+                    condition.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, condition);
+
+                    var paramId = 0;
+                    //action params
+                    foreach (var param in ace.Params)
+                    {
+                        var paramType = ResolveParamType(param);
+                        condition = paramType == "combo"
+                            ? AceParameterHelper.Insatnce.GenerateParam(condition, $"param{paramId}", paramType, param.DefaultValue, $"param{paramId}", param.Description, param.ComboItems)
+                            : AceParameterHelper.Insatnce.GenerateParam(condition, $"param{paramId}", paramType, param.DefaultValue, $"param{paramId}", param.Description);
+                        paramId++;
+                    }
+                }
+                else
+                {
+                    condition.Ace = C2ImportTemplates.ConditionAceImport(condition);
+                    condition.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, condition);
+                    condition.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, condition);
+                }
+
+                addon.Conditions.Add(condition.Id, condition);
+            }
+            catch (Exception ex)
+            {
+                //todo: do something here, add to log
+                return;
+            }
+        }
+
+        public void C2AceToExpression(C3Addon addon, C2Ace ace)
+        {
+            try
+            {
+                var exp = new Expression
+                {
+                    Category = ace.Category.ToLower(),
+                    Id = ace.ScriptName.SplitCamelCase("-"),
+                    TranslatedName = ace.DisplayString,
+                    ReturnType = ResolveRetrunType(ace.Flags),
+                    Description = ace.Description,
+                    C2Id = ace.Id,
+                    Deprecated = ace.Flags.Contains("ef_deprecated").ToString().ToLower(),
+                    IsVariadicParameters = ace.Flags.Contains("ef_variadic_parameters").ToString().ToLower()
+                };
+
+                if (ace.Params.Any())
+                {
+                    exp.Ace = C2ImportTemplates.ExpressionAceImport(exp);
+                    exp.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, exp);
+                    exp.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, exp);
+
+                    var paramId = 0;
+                    foreach (var param in ace.Params)
+                    {
+                        var paramType = ResolveParamType(param);
+                        AceParameterHelper.Insatnce.GenerateParam(exp, $"param{paramId}", paramType, param.DefaultValue, $"param{paramId}", param.Description);
+                        paramId++;
+                    }
+                }
+                else
+                {
+                    exp.Ace = C2ImportTemplates.ExpressionAceImport(exp);
+                    exp.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, exp);
+                    exp.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, exp);
+                }
+
+                addon.Expressions.Add(exp.Id, exp);
+            }
+            catch (Exception ex)
+            {
+                //todo: do something here, add to log
+                return;
+            }
+        }
+
+        private string ResolveRetrunType(string aceFlags)
+        {
+            if (aceFlags.Contains("ef_return_number")) return "number";
+            if (aceFlags.Contains("ef_return_string")) return "string";
+            if (aceFlags.Contains("ef_return_any")) return "any";
+
+            throw new Exception("no value return type specificed");
+        }
+
+        public string ResolveParamType(C2AceParam param)
+        {
+            switch (param.Script)
+            {
+                case "AddNumberParam": return "number";
+                case "AddStringParam": return "string";
+                case "AddAnyTypeParam": return "any";
+                case "AddCmpParam": return "cmp";
+                case "AddComboParam": return "combo";
+                case "AddObjectParam": return "object";
+                case "AddLayerParam": return "layer";
+                case "AddLayoutParam": return "layout";
+                case "AddKeybParam": return "keyb";
+                case "AddAnimationParam": return "animation";
+                case "AddAudioFileParam": return string.Empty; //todo: figure out what equivalent is in c3
+                case "AddVariadicParams": return string.Empty; //todo: figure out what to dof or varadic params 
+                case "AddFunctionNameParam": throw new Exception("AddFunctionNameParam not supported by C3SDK");
+                default: return string.Empty;
+            }
         }
     }
 }

@@ -182,7 +182,7 @@ namespace c3IDE.Managers
                             comboOptions.Add(value.expression.arguments[0].value.ToString());
                         }
 
-                        param.CopmboItems = comboOptions;
+                        param.ComboItems = comboOptions;
                         comboOptions = new List<string>();
 
                         var args = value.expression.arguments;

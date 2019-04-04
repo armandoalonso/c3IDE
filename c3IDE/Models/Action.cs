@@ -80,6 +80,11 @@ namespace c3IDE.Models
             set { _listname = value; OnPropertyChanged(); }
         }
 
+        //only used during import of c2addon
+        public string C2Id { get; set; } = string.Empty;
+
+        public string Deprecated { get; set; } = string.Empty;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
