@@ -16,7 +16,7 @@ using Action = System.Action;
 
 namespace c3IDE.Managers
 {
-    public class C2AddonImporter : Singleton<C2AddonImporter>
+    public class C2AddonParser : Singleton<C2AddonParser>
     {
         private C2Addon c2addon;
         private Dictionary<string, string> AllFunctions;

@@ -139,7 +139,8 @@
     <Compile Include="DataAccess\OptionReposiroty.cs" />
     <Compile Include="Managers\AddonManager.cs" />
     <Compile Include="Managers\ApplicationWindows.cs" />
-    <Compile Include="Managers\C2AddonImporter.cs" />
+    <Compile Include="Managers\C2AddonConverter.cs" />
+    <Compile Include="Managers\C2AddonParser.cs" />
     <Compile Include="Managers\C3AddonImporter.cs" />
     <Compile Include="Managers\JavascriptManager.cs" />
     <Compile Include="Managers\LintingManager.cs" />
