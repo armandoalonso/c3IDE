@@ -86,6 +86,9 @@ namespace c3IDE.Managers
                 //todo: handle third party files
             }
 
+            //handle plugin properties
+
+
             return c3addon;
         }
 
