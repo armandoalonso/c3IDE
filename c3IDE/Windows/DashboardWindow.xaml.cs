@@ -180,6 +180,19 @@ namespace c3IDE.Windows
                         AddonManager.LoadAddon(c3addon);
                     }
                 }
+                else if (info.Extension.Contains("c2addon"))
+                {
+                    var result = await WindowManager.ShowDialog("(VERY EXPERIMENTAL) Importing C32ddon File", "Importing a C2addon file is an very experimental feature. THIS DOES NOT FULLY CONVERT YOUR ADDON, it will attempt to generate stubs for teh ACES. if you run into any issue importing please file Github Issue Ticket, with teh addon you tried to import, and I will do my best to try and fix any roadblocks");
+                    if (result)
+                    {
+                        c3addon = C2AddonImporter.Insatnce.Import2Addon(info.FullName);
+                        AddonManager.LoadAddon(c3addon);
+                        AddonManager.SaveCurrentAddon();
+                        AddonManager.LoadAllAddons();
+                        AddonListBox.ItemsSource = AddonManager.AllAddons;
+                        AddonManager.LoadAddon(c3addon);
+                    }
+                }
                 //else if (info.Extension.Contains("svg"))
                 //{
                 //    //todo: need to find a way to drag items into list box item

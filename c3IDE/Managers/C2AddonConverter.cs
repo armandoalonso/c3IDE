@@ -17,23 +17,25 @@ namespace c3IDE.Managers
     {
         public C3Addon ConvertToC3(C2Addon c2addon)
         {
-            var c3addon = new C3Addon();
-            c3addon.Name = c2addon.Properties["name"];
-            c3addon.Class = c2addon.Properties["name"];
-            c3addon.Author = c2addon.Properties["author"];
-            c3addon.AddonId = c2addon.Properties["id"];
-            c3addon.Description = c2addon.Properties["description"];
-            c3addon.AddonCategory = c2addon.Properties["category"];
-            c3addon.Effect = new Effect();
-            c3addon.IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
-            c3addon.CreateDate = DateTime.Now;
-            c3addon.LastModified = DateTime.Now;
+            var c3addon = new C3Addon
+            {
+                Name = c2addon.Properties["name"],
+                Class = c2addon.Properties["name"],
+                Author = c2addon.Properties["author"],
+                AddonId = c2addon.Properties["id"],
+                Description = c2addon.Properties["description"],
+                AddonCategory = c2addon.Properties["category"],
+                Effect = new Effect(),
+                IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg"),
+                CreateDate = DateTime.Now,
+                LastModified = DateTime.Now,
+                MajorVersion = 1,
+                MinorVersion = 0,
+                RevisionVersion = 0,
+                BuildVersion = 0
+            };
 
             //add version
-           c3addon.MajorVersion = 1;
-           c3addon.MinorVersion = 0;
-           c3addon.RevisionVersion = 0;
-           c3addon.BuildVersion = 0;
 
             PluginType pluginType = PluginType.SingleGlobalPlugin;
             switch (c2addon.Type)
@@ -53,6 +55,9 @@ namespace c3IDE.Managers
 
             //get templates based on type
             c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
+
+            //compile other files
+            AddonManager.CompileTemplates(c3addon);
 
             //add actions
             c3addon.Actions = new Dictionary<string, Models.Action>();
@@ -80,9 +85,6 @@ namespace c3IDE.Managers
             {
                 //todo: handle third party files
             }
-            
-            //compile other files
-            AddonManager.CompileTemplates(c3addon);
 
             return c3addon;
         }
@@ -91,6 +93,11 @@ namespace c3IDE.Managers
         {
             try
             {
+                if (ace.ScriptName == null)
+                {
+                    var x = 5l;
+                }
+
                 var action = new Action
                 {
                     Category = ace.Category.ToLower(),
@@ -131,7 +138,8 @@ namespace c3IDE.Managers
             }
             catch (Exception ex)
             {
-                //todo: do something here, add to log
+                LogManager.AddImportLogMessage($"ERROR => \n{ex.Message}");
+                LogManager.AddImportLogMessage($"STACK TRACE => \n{ex.StackTrace}");
                 return;
             }
         }
@@ -140,6 +148,11 @@ namespace c3IDE.Managers
         {
             try
             {
+                if (ace.ScriptName == null)
+                {
+                    var x = 5l;
+                }
+
                 var condition = new Condition
                 {
                     Category = ace.Category.ToLower(),
@@ -186,7 +199,8 @@ namespace c3IDE.Managers
             }
             catch (Exception ex)
             {
-                //todo: do something here, add to log
+                LogManager.AddImportLogMessage($"ERROR => \n{ex.Message}");
+                LogManager.AddImportLogMessage($"STACK TRACE => \n{ex.StackTrace}");
                 return;
             }
         }
@@ -195,6 +209,11 @@ namespace c3IDE.Managers
         {
             try
             {
+                if (ace.ScriptName == null)
+                {
+                    var x = 5l;
+                }
+
                 var exp = new Expression
                 {
                     Category = ace.Category.ToLower(),
@@ -232,7 +251,8 @@ namespace c3IDE.Managers
             }
             catch (Exception ex)
             {
-                //todo: do something here, add to log
+                LogManager.AddImportLogMessage($"ERROR => \n{ex.Message}");
+                LogManager.AddImportLogMessage($"STACK TRACE => \n{ex.StackTrace}");
                 return;
             }
         }
@@ -243,6 +263,7 @@ namespace c3IDE.Managers
             if (aceFlags.Contains("ef_return_string")) return "string";
             if (aceFlags.Contains("ef_return_any")) return "any";
 
+            LogManager.AddImportLogMessage($"ERROR => invalid expression return type => {aceFlags}");
             throw new Exception("no value return type specificed");
         }
 

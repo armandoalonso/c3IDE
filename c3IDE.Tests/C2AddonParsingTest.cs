@@ -17,7 +17,7 @@ namespace c3IDE.Tests
         public void TestActionParseHappyPath()
         {
             var text = File.ReadAllText("TestFiles\\stack_edittime.js");
-            C2AddonParser.Insatnce.ReadEdittimeJs(text);
+            var c2 = C2AddonParser.Insatnce.ReadEdittimeJs(text);
         }
 
 
@@ -25,7 +25,14 @@ namespace c3IDE.Tests
         public void TestActionParseNestedFunction()
         {
             var text = File.ReadAllText("TestFiles\\yannjson_edittime.js");
-            C2AddonParser.Insatnce.ReadEdittimeJs(text);
+            var c2 = C2AddonParser.Insatnce.ReadEdittimeJs(text);
+        }
+
+        [TestMethod]
+        public void TestActionParseRexAddon()
+        {
+            var text = File.ReadAllText("TestFiles\\rex_gfsm_edittime.js");
+            var c2 = C2AddonParser.Insatnce.ReadEdittimeJs(text);
         }
 
     }

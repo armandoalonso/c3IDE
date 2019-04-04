@@ -21,7 +21,7 @@ namespace c3IDE.Managers
         private C2Addon c2addon;
         private Dictionary<string, string> AllFunctions;
 
-        public void ReadEdittimeJs(string source)
+        public C2Addon ReadEdittimeJs(string source)
         {
             c2addon = new C2Addon();
             var parser = new JavaScriptParser(source);
@@ -29,10 +29,10 @@ namespace c3IDE.Managers
             var json = program.ToJsonString();
             dynamic ast = JObject.Parse(json);
 
-            TraverseJavascriptTree(ast);
+            return TraverseJavascriptTree(ast);
         }
 
-        public void TraverseJavascriptTree(dynamic p)
+        public C2Addon TraverseJavascriptTree(dynamic p)
         {
             // get addon type
             var config = p.body[0];
@@ -94,7 +94,7 @@ namespace c3IDE.Managers
                     {
                         continue;
                     }
-                    else if (caller == "AddCondition" || caller == "AddAction" || caller == "AddExpression")
+                    else if (caller == "AddCondition" || caller == "AddAction")
                     {
                         var args = expression.arguments;
 
@@ -158,11 +158,70 @@ namespace c3IDE.Managers
                             case "AddAction":
                                 c2addon.Actions.Add(ace);
                                 break;
+                            default:
+                                LogManager.AddImportLogMessage($"Unknown function beign called => {caller}");
+                                break;
+                        }
+
+                        ace = new C2Ace();
+                    }
+                    else if (caller == "AddExpression")
+                    {
+                        var args = expression.arguments;
+
+                        var index = 0;
+                        foreach (var arg in args)
+                        {
+                            switch (index)
+                            {
+                                case 0:
+                                    ace.Id = TryGet(
+                                        () => string.Empty,
+                                        () => arg.value.ToString());
+                                    break;
+                                case 1:
+                                    ace.Flags = TryGet(
+                                        () => throw new Exception(),
+                                        () => arg.value.ToString(),
+                                        () => arg.name.ToString(),
+                                        () =>
+                                        {
+                                            if (arg.type.ToString() == "BinaryExpression")
+                                                return GetBinaryExpression(arg.left, arg.right);
+                                            throw new RuntimeBinderException();
+                                        });
+                                    break;
+                                case 2:
+                                    ace.ListName = TryGet(
+                                        () => string.Empty,
+                                        () => arg.value.ToString());
+                                    break;
+                                case 3:
+                                    ace.Category = TryGet(
+                                        () => string.Empty,
+                                        () => arg.value.ToString());
+                                    break;
+                                case 4:
+                                    ace.ScriptName = TryGet(
+                                        () => string.Empty,
+                                        () => arg.value.ToString());
+                                    break;
+                                case 5:
+                                    ace.Description = TryGet(
+                                        () => string.Empty,
+                                        () => arg.value.ToString());
+                                    break;
+                            }
+                            index++;
+                        }
+
+                        switch (caller)
+                        {
                             case "AddExpression":
                                 c2addon.Expressions.Add(ace);
                                 break;
                             default:
-                                Console.WriteLine(@"unknown add");
+                                LogManager.AddImportLogMessage($"Unknown function beign called => {caller}");
                                 break;
                         }
 
@@ -216,6 +275,8 @@ namespace c3IDE.Managers
                     }
                 }
             }
+
+            return c2addon;
         }
 
         public string TryGet(Func<string> err, params Func<string>[] acts)

@@ -23,6 +23,7 @@ namespace c3IDE.Utilities.Extentions
 
         public static string SplitCamelCase(this string str, string rep = " ")
         {
+            if (str == null) return string.Empty;
             return Regex.Replace(
                 Regex.Replace(
                     str,

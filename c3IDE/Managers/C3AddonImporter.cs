@@ -25,7 +25,7 @@ namespace c3IDE.Managers
             try
             {
                 var fi = new FileInfo(path);
-                var tmpPath = OptionsManager.CurrentOptions.DataPath + "\\tmp";
+                var tmpPath = OptionsManager.CurrentOptions.DataPath + "\\tmp_c3";
                 if (Directory.Exists(tmpPath)) Directory.Delete(tmpPath, true);
 
                 //unzip c3addon to temp location
@@ -321,16 +321,15 @@ namespace c3IDE.Managers
              catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
-                LogManager.AddImportLogMessage("ERROR ->");
-                LogManager.AddImportLogMessage(ex.Message);
-                LogManager.AddImportLogMessage("TRACE ->");
-                LogManager.AddImportLogMessage(ex.StackTrace);
+                LogManager.AddImportLogMessage($"ERROR -> \n{ex.Message}");
+                LogManager.AddImportLogMessage($"TRACE -> \n{ex.StackTrace}");
                 throw;
             }
             finally
             {
                 var logData = string.Join(Environment.NewLine, LogManager.ImportLog);
                 File.WriteAllText(Path.Combine(OptionsManager.CurrentOptions.DataPath, "import.log"), logData);
+                LogManager.ImportLog.Clear();
             }
 
         }

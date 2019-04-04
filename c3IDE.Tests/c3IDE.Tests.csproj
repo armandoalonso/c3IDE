@@ -88,6 +88,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestFiles\rex_gfsm_edittime.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestFiles\yannjson_edittime.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
