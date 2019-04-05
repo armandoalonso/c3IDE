@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using c3IDE.Models;
+using c3IDE.Utilities.Helpers;
 
 namespace c3IDE.Templates
 {
@@ -67,7 +69,8 @@ namespace c3IDE.Templates
             var effectAllowed = addon.Properties["flags"].Contains("pf_effects").ToString().ToLower();
             var predraw = addon.Properties["flags"].Contains("pf_predraw").ToString().ToLower();
             var nosize = (!addon.Properties["flags"].Contains("pf_nosize")).ToString().ToLower();
-            
+
+            var propList = string.Join(",\n                        ", addon.PluginProperties.Select(GeneratePluginProperty));
 
             var rotate = addon.Properties["rotatable"];
 
@@ -75,7 +78,7 @@ namespace c3IDE.Templates
 {{
             const PLUGIN_ID = ""{id}"";	
             const PLUGIN_VERSION = ""1.0.0.0"";
-            const PLUGIN_CATEGORY = ""{addon.Properties["category"]}"";
+            const PLUGIN_CATEGORY = ""other"";
 	
             const PLUGIN_CLASS = SDK.Plugins.{id} = class {name}Plugin extends SDK.IPluginBase
             {{
@@ -105,7 +108,7 @@ namespace c3IDE.Templates
                     SDK.Lang.PushContext("".properties"");
 	
                     this._info.SetProperties([
-
+                        {propList}
                     ]);
 			
                     SDK.Lang.PopContext(); //.properties
@@ -127,12 +130,13 @@ namespace c3IDE.Templates
             var author = addon.Properties["author"];
             var onlyOne = addon.Properties["flags"].Contains("bf_onlyone").ToString().ToLower();
 
+            var propList = string.Join(",\n                        ", addon.PluginProperties.Select(GeneratePluginProperty));
 
             var template = $@"""use strict"";
 {{
             const BEHAVIOR_ID = ""{id}"";	
 	        const BEHAVIOR_VERSION = ""1.0.0.0"";
-	        const BEHAVIOR_CATEGORY = ""{addon.Properties["category"]}"";
+	        const BEHAVIOR_CATEGORY = ""other"";
 	        
 	        const BEHAVIOR_CLASS = SDK.Behaviors.{id} = class {name}Behavior extends SDK.IBehaviorBase
 	        {{
@@ -155,7 +159,7 @@ namespace c3IDE.Templates
                     SDK.Lang.PushContext("".properties"");
 	
                     this._info.SetProperties([
-
+                        {propList}
                     ]);
 			
                     SDK.Lang.PopContext(); //.properties
@@ -166,6 +170,44 @@ namespace c3IDE.Templates
             PLUGIN_CLASS.Register(PLUGIN_ID, PLUGIN_CLASS);
  }}";
 
+            return template;
+        }
+
+        public static string GeneratePluginProperty(C2Property prop)
+        {
+            //todo: if prop.Readonly create info instead
+
+            var type = string.Empty;
+            switch (prop.Type)
+            {
+                case "ept_integer": type = "integer"; break;
+                case "ept_float": type = "float";break;
+                case "ept_text": type = "text";break;
+                case "ept_color": type = "color";break;
+                case "ept_font": type = "font"; break;
+                case "ept_combo": type = "combo";break;
+                case "ept_link": type = "link";break;
+                case "ept_section": type = "group";break;
+            }
+
+            var id = prop.Name.Replace(" ", "-").ToLower().Trim();
+            var value = string.Empty;
+            switch (type)
+            {
+                case "combo":
+                    var values = string.Join(",", prop.Params.Split('|').Select(x => $"\"{x}\""));
+                    value = $"{{\"items\":[{values}]}}, \"initialValue\": \"{prop.Value}\"";
+                    break;
+                case "color":
+                    var color = prop.Value.Replace("rgb(", "[").Replace(")", "]");
+                    value = $"\"initialValue\": \"{color}\"";
+                    break;
+                default:
+                    value = $"\"initialValue\": \"{prop.Value}\"";
+                    break;
+            }
+
+            var template = $@"new SDK.PluginProperty(""{type}"", ""{id}"", {value})";
             return template;
         }
     }

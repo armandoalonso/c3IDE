@@ -88,6 +88,21 @@ namespace c3IDE.Managers
 
             //handle plugin properties
 
+            //update edit time plugin 
+            switch (c3addon.Type)
+            {
+                case PluginType.SingleGlobalPlugin:
+                case PluginType.DrawingPlugin:
+                    c3addon.PluginEditTime = C2ImportTemplates.GeneratePluginJs(c2addon);
+                    break;
+                case PluginType.Behavior:
+                    c3addon.PluginEditTime = C2ImportTemplates.GenerateBehaviorJs(c2addon);
+                    break;
+                case PluginType.Effect:
+                    throw new NotImplementedException("effects are not implement yet");
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             return c3addon;
         }

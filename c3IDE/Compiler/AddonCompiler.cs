@@ -9,6 +9,7 @@ using c3IDE.Models;
 using c3IDE.Server;
 using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
+using Yahoo.Yui.Compressor;
 
 namespace c3IDE.Compiler
 {
@@ -223,6 +224,12 @@ namespace c3IDE.Compiler
                 switch (files.Extention)
                 {
                     case ".js":
+                        //todo: add js file compressor remove multiple spaces and line breaks
+                        var content = files.Content;
+                        if (files.Rootfolder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, files.FileName), content);
+                        if (files.C3Folder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), content);
+                        if (files.C2Folder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c2runtime", files.FileName), content);
+                        break;
                     case ".css":
                     case ".html":
                     case ".json":

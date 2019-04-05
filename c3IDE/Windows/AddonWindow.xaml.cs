@@ -344,6 +344,13 @@ namespace c3IDE.Windows
                     var content = File.ReadAllText(file);
                     var bytes = File.ReadAllBytes(file);
 
+                    switch (info.Extension)
+                    {
+                        case ".js":
+                            content = FormatHelper.Insatnce.Javascript(content);
+                            break;
+                    }
+
                     _files.Add(filename, new ThirdPartyFile
                     {
                         Content = content,
@@ -352,19 +359,6 @@ namespace c3IDE.Windows
                         Bytes = bytes,
                         Extention = info.Extension.ToLower()
                     });
-
-                    switch (info.Extension)
-                    {
-                        case ".js":
-                        case ".css":
-                        case ".html":
-                        case ".json":
-                        case ".xml":
-                        case ".txt":
-                            AddonTextEditor.Text = FormatHelper.Insatnce.Json(AddonTextEditor.Text.Replace(@"file-list"": [", $@"file-list"": [
-        ""c3runtime/{filename}"","));
-                            break;
-                    }
 
                     CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(filename, content);
                     FileListBox.ItemsSource = _files;
@@ -394,7 +388,7 @@ namespace c3IDE.Windows
             //save current selection
             if (_selectedFile != null)
             {
-                _selectedFile.Content = FileTextEditor.Text;
+                _selectedFile.Content = _selectedFile.Content;
                 _files[_selectedFile.FileName] = _selectedFile;
                 AddonManager.CurrentAddon.ThirdPartyFiles = _files;
             }
@@ -404,7 +398,7 @@ namespace c3IDE.Windows
             C2RuntimeFolder.IsChecked = _selectedFile.C2Folder;
             C3RuntimeFolder.IsChecked = _selectedFile.C3Folder;
             RootFolder.IsChecked = _selectedFile.Rootfolder;
-            FileTextEditor.Text = _selectedFile.Content;
+            FileTextEditor.Text = FormatHelper.Insatnce.Javascript(_selectedFile.Content);
         }
 
         /// <summary>

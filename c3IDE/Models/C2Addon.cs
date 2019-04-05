@@ -13,6 +13,7 @@ namespace c3IDE.Models
         public List<C2Ace> Conditions = new List<C2Ace>();
         public List<C2Ace> Actions = new List<C2Ace>();
         public List<C2Ace> Expressions = new List<C2Ace>();
+        public List<C2Property> PluginProperties = new List<C2Property>();
     }
 
     public class C2Ace
@@ -36,5 +37,14 @@ namespace c3IDE.Models
         public List<string> ComboItems { get; set; }
     }
 
+    public class C2Property
+    {
+        public string Type { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
+        public string Description { get; set; }
+        public string Params { get; set; }
+        public string Readonly { get; set; }
+    }
 
 }

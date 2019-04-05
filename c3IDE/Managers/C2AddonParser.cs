@@ -85,6 +85,7 @@ namespace c3IDE.Managers
                 if (value.type == "ExpressionStatement")
                 {
                     var expression = value.expression;
+
                     string caller = TryGet(
                         () => string.Empty,
                         () => expression.callee.name.ToString()
@@ -271,6 +272,68 @@ namespace c3IDE.Managers
                                 index++;
                             }
                             ace.Params.Add(param);
+                        }
+                    }
+                }
+                else if (value.type == "VariableDeclaration")
+                {
+                    var declaration = value.declarations[0];
+                    if (declaration.id.name.ToString() == "property_list")
+                    {
+                        if (declaration.init.type == "ArrayExpression")
+                        {
+                            var arrElements = declaration.init.elements;
+
+                            //not property array
+                            if (arrElements == null) continue;
+
+                            foreach (var element in arrElements)
+                            {
+                                var args = element.arguments;
+                                var prop = new C2Property();
+
+                                var index = 0;
+                                foreach (var arg in args)
+                                {
+                                    switch (index)
+                                    {
+                                        case 0:
+
+                                            prop.Type = TryGet(
+                                                () => string.Empty,
+                                                () => arg.name.ToString());
+                                            break;
+                                        case 1:
+                                            prop.Name = TryGet(
+                                                () => throw new Exception(),
+                                                () => arg.value.ToString());
+                                            break;
+                                        case 2:
+                                            prop.Value = TryGet(
+                                                () => string.Empty,
+                                                () => arg.value.ToString());
+                                            break;
+                                        case 3:
+                                            prop.Description = TryGet(
+                                                () => string.Empty,
+                                                () => arg.value.ToString());
+                                            break;
+                                        case 4:
+                                            prop.Params = TryGet(
+                                                () => string.Empty,
+                                                () => arg.value.ToString());
+                                            break;
+                                        case 5:
+                                            prop.Readonly = TryGet(
+                                                () => string.Empty,
+                                                () => arg.value.ToString());
+                                            break;
+                                    }
+                                    index++;
+                                }
+
+                                c2addon.PluginProperties.Add(prop);
+                            }
                         }
                     }
                 }
