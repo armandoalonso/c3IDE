@@ -842,14 +842,14 @@ namespace c3IDE.Managers
             addon.ThirdPartyFiles.Add(file, new ThirdPartyFile
             {
                 FileName = file,
-                Extention = extention,
+                Extention = string.IsNullOrWhiteSpace(extention) ? Path.GetExtension(file) : extention,
                 PluginTemplate = template,
                 Content = content,
                 Bytes = Convert.FromBase64String(bytes),
                 Rootfolder = root == "true",
                 C3Folder = c3 == "true",
                 C2Folder = c2 == "true",
-                FileType = filetype
+                FileType = string.IsNullOrWhiteSpace(filetype) ? "inline-script" : filetype
             });
         }
 

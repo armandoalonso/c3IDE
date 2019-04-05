@@ -78,9 +78,8 @@ namespace c3IDE.Utilities.Helpers
                 },
                 RegexOptions.Singleline);
 
-            string result = Regex.Replace(noComments, @"\r\n?|\n|[ ]{2,}", " ");
-
-            return result;
+            var result = Regex.Replace(noComments, @"\r\n?|\n", string.Empty);
+            return Regex.Replace(result, @"\s{2,}", " ");
         }
     }
 }
