@@ -1,7 +1,7 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.036 (04/05/2019)
+### Build# 1.1.037 (04/05/2019)
 * basic c2addon import, still buggy, but works some of the time, please reports bugs 
 * fixed bugs with third party file and unstable check box for path
 * added dropdown for 3rd party file output type
@@ -11,6 +11,7 @@
 * changed the way binary files are handled on import
 * changed the way large files are handled on import, now large js files will be formatted on import to help the dumb text edit i am using lazy load the text better, on compile all js script will be compressed, this will become a  configurable setting in future update
 * added better mime type resolution for erd party files => this also needs to get changed on web server in future update
+* effect name & desc now get populated from the uniform name for quicker effect creation
 
 ### Build# 1.1.0.35 (04/02/2019)
 * add new window for C2RUNTIME.js, import projects with c2runtime now show up here and compile correctly

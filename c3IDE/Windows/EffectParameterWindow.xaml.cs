@@ -114,12 +114,12 @@ namespace c3IDE.Windows
             param.Json = $@"{{
     ""id"":""{id}"",
     ""type"": ""float"",
-    ""initial-value"":1,
+    ""initial-value"":0,
     ""uniform"": ""{param.Uniform}""
 }}";
             param.Lang = $@"""{id}"": {{
-    ""name"": ""Float"",
-    ""desc"": ""This is the float Description""
+    ""name"": ""{param.Uniform}"",
+    ""desc"": ""{param.Uniform}""
 }}";
             param.VariableDeclaration = $"uniform lowp float {param.Uniform};";
 
@@ -146,12 +146,12 @@ namespace c3IDE.Windows
             param.Json =$@"{{
     ""id"":""{id}"",
     ""type"": ""color"",
-    ""initial-value"":[1,0,0],
+    ""initial-value"":[0,0,0],
     ""uniform"": ""{param.Uniform}""
 }}";
             param.Lang = $@"""{id}"": {{
-    ""name"": ""Color"",
-    ""desc"": ""This is the color Description""
+    ""name"": ""{param.Uniform}"",
+    ""desc"": ""{param.Uniform}""
 }}";
             param.VariableDeclaration = $"uniform lowp vec3 {param.Uniform};";
 
@@ -178,12 +178,12 @@ namespace c3IDE.Windows
             param.Json = $@"{{
     ""id"":""{id}"",
     ""type"": ""percent"",
-    ""initial-value"":100,
+    ""initial-value"":0,
     ""uniform"": ""{param.Uniform}""
 }}";
             param.Lang = $@"""{id}"": {{
-    ""name"": ""Percent"",
-    ""desc"": ""This is the percent Description""
+    ""name"": ""{param.Uniform}"",
+    ""desc"": ""{param.Uniform}""
 }}";
             param.VariableDeclaration = $"uniform lowp float {param.Uniform};";
 
