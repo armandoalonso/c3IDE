@@ -49,6 +49,13 @@ namespace c3IDE.Compiler
 
             if (addon.Type != PluginType.Effect)
             {
+                //validate plugin.js edittime
+                if (addon.PluginEditTime.Contains("this._info.AddFileDependency()"))
+                {
+                    LogManager.CompilerLog.Insert("file dependency in plugin.js cannot have empty params");
+                    return false;
+                }
+
                 //aces.json
                 foreach (var action in addon.Actions.Values)
                 {

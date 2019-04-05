@@ -322,11 +322,16 @@ namespace c3IDE.Windows
         {
             EditTimePluginTab.IsSelected = true;
 
-            var content = string.Join(",\n", AddonManager.CurrentAddon.ThirdPartyFiles.Values.Select(x => x.PluginTemplate));
-            var template = $@"this._info.AddFileDependency({content});";
+            var content = string.Join("\n", AddonManager.CurrentAddon.ThirdPartyFiles.Values.Select(x => x.PluginTemplate));
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                NotificationManager.PublishErrorNotification("no file dependecies found");
+                return;
+            }
+            //var template = $@"this._info.AddFileDependency({content});";
 
             EditTimePluginTextEditor.Text =
-                FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PopContext(); //.properties", $"{template}\n\nSDK.Lang.PopContext(); //.properties"));
+                FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PopContext(); //.properties", $"{content}\n\nSDK.Lang.PopContext(); //.properties"));
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Text.RegularExpressions;
 using c3IDE.Utilities.JsBeautifier;
 
@@ -58,6 +59,28 @@ namespace c3IDE.Utilities.Helpers
         public string Javascript(string js)
         {
             return jsBeautifier.Beautify(js).Trim();
+        }
+
+        public string JavascriptCompress(string js)
+        {
+            var blockComments = @"/\*(.*?)\*/";
+            var lineComments = @"//(.*?)\r?\n";
+            var strings = @"""((\\[^\n]|[^""\n])*)""";
+            var verbatimStrings = @"@(""[^""]*"")+";
+
+            string noComments = Regex.Replace(js,
+                blockComments + "|" + lineComments + "|" + strings + "|" + verbatimStrings,
+                me => {
+                    if (me.Value.StartsWith("/*") || me.Value.StartsWith("//"))
+                        return me.Value.StartsWith("//") ? Environment.NewLine : "";
+                    // Keep the literal strings
+                    return me.Value;
+                },
+                RegexOptions.Singleline);
+
+            string result = Regex.Replace(noComments, @"\r\n?|\n|[ ]{2,}", " ");
+
+            return result;
         }
     }
 }

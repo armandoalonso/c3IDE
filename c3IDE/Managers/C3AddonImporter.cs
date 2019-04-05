@@ -228,8 +228,9 @@ namespace c3IDE.Managers
                             Bytes = null,
                             Content = File.ReadAllText(info.FullName),
                             Extention = info.Extension,
-                            PluginTemplate = TemplateHelper.ThirdPartyFile(fn.Replace("c3runtime/", string.Empty))
                         };
+
+                        f.PluginTemplate = TemplateHelper.ThirdPartyFile(f);
 
                         if (fn.Contains("c3runtime"))
                         {

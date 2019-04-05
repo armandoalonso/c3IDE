@@ -663,7 +663,7 @@ namespace c3IDE.Managers
             {
                 foreach (var file in addon.ThirdPartyFiles)
                 {
-                    sb.AppendLine($"@@START {file.Key}|{file.Value.Extention}");
+                    sb.AppendLine($"@@START {file.Key}|{file.Value.Extention}|{file.Value.Rootfolder.ToString().ToLower()}|{file.Value.C3Folder.ToString().ToLower()}|{file.Value.C2Folder.ToString().ToLower()}|{file.Value.FileType}");
 
                     sb.AppendLine("@@TEMPLATE");
                     sb.AppendLine(file.Value.PluginTemplate);
@@ -676,7 +676,7 @@ namespace c3IDE.Managers
                     {
                         sb.AppendLine(Convert.ToBase64String(file.Value.Bytes));
                     }
-                   
+
                     sb.AppendLine($"@@END {file.Key}");
                     sb.AppendLine();
                 }
@@ -695,6 +695,10 @@ namespace c3IDE.Managers
                 var file = string.Empty;
                 var extention = string.Empty;
                 var section = string.Empty;
+                var root = string.Empty;
+                var c3 = string.Empty;
+                var c2 = string.Empty;
+                var fileType = string.Empty;
                 var temp = new Dictionary<string, StringBuilder>();
 
                 foreach (var line in text)
@@ -703,7 +707,7 @@ namespace c3IDE.Managers
                     if (line.Contains("@@END"))
                     {
                         state = ParserState.End;
-                        PopulateThridPartyFile(addon, file, extention, temp["TEMPLATE"].ToString(), temp["CONTENT"].ToString(), temp["BYTES"].ToString());
+                        PopulateThridPartyFile(addon, file, extention, temp["TEMPLATE"].ToString(), temp["CONTENT"].ToString(), temp["BYTES"].ToString(), root, c3, c2, fileType);
                     }
 
                     //check for parsing
@@ -730,8 +734,23 @@ namespace c3IDE.Managers
                     //check for start
                     if (line.Contains("@@START"))
                     {
-                        file = line.Replace("@@START", string.Empty).Trim().Split('|')[0];
-                        extention = line.Replace("@@START", string.Empty).Trim().Split('|')[1];
+                        try
+                        {
+                            var properties = line.Replace("@@START", string.Empty).Trim().Split('|');
+
+                            file = properties[0];
+                            extention = properties[1];
+                            root = properties.Length > 2 ? properties[2] : " ";
+                            c3 = properties.Length > 3 ? properties[3] : " ";
+                            c2 = properties.Length > 4 ? properties[4] : " ";
+                            fileType = properties.Length > 5 ? properties[5] : " ";
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.AddImportLogMessage(ex.Message);
+                            //ignore handle properties not being there 
+                        }
+
 
                         state = ParserState.Start;
                         temp = new Dictionary<string, StringBuilder>
@@ -818,7 +837,7 @@ namespace c3IDE.Managers
             }
         }
 
-        private static void PopulateThridPartyFile(C3Addon addon, string file, string extention, string template, string content, string bytes)
+        private static void PopulateThridPartyFile(C3Addon addon, string file, string extention, string template, string content, string bytes, string root, string c3, string c2, string filetype)
         {
             addon.ThirdPartyFiles.Add(file, new ThirdPartyFile
             {
@@ -826,7 +845,11 @@ namespace c3IDE.Managers
                 Extention = extention,
                 PluginTemplate = template,
                 Content = content,
-                Bytes = Convert.FromBase64String(bytes)
+                Bytes = Convert.FromBase64String(bytes),
+                Rootfolder = root == "true",
+                C3Folder = c3 == "true",
+                C2Folder = c2 == "true",
+                FileType = filetype
             });
         }
 

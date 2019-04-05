@@ -19,7 +19,7 @@ namespace c3IDE.Server
         /// </summary>
         static C3FileHandler()
         {
-            DefaultMimeType = "application/json";
+            DefaultMimeType = "application/octet-stream";
             MimeTypes = new Dictionary<string, string>
             {
                 {".html", "text/html; charset=utf-8"},

@@ -5,10 +5,13 @@ using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -34,8 +37,9 @@ namespace c3IDE.Windows
     {
         public string DisplayName { get; set; } = "Addon";
         private CompletionWindow completionWindow;
-        private Dictionary<string, ThirdPartyFile> _files;
-        private ThirdPartyFile _selectedFile;
+        //private Dictionary<string, ThirdPartyFile> _files;
+        public ThirdPartyFile _selectedFile { get; set; }
+        private ObservableCollection<ThirdPartyFile> _files;
  
         /// <summary>
         /// addon widnow constructor, setup event handeling for auto completion, and setup properties for the editors 
@@ -64,14 +68,16 @@ namespace c3IDE.Windows
             if (AddonManager.CurrentAddon != null)
             {
                 AddonTextEditor.Text = AddonManager.CurrentAddon.AddonJson;
-                _files = AddonManager.CurrentAddon.ThirdPartyFiles;
+                _files = new ObservableCollection<ThirdPartyFile>(AddonManager.CurrentAddon.ThirdPartyFiles.Values);
                 FileListBox.ItemsSource = _files;
 
                 if (_files.Any())
                 {
-                    FileListBox.SelectedIndex = 0;
-                    _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-                    FileTextEditor.Text = _selectedFile.Content;
+                    _selectedFile = FileListBox.SelectedItem as ThirdPartyFile;
+                    if (_selectedFile != null)
+                    {
+                        FileTextEditor.Text = _selectedFile.Content;
+                    }
                 }
             }
             else
@@ -79,7 +85,7 @@ namespace c3IDE.Windows
                 AddonTextEditor.Text = string.Empty;
                 FileListBox.ItemsSource = null;
                 FileTextEditor.Text = string.Empty;
-            }
+            }     
         }
 
         /// <summary>
@@ -91,11 +97,31 @@ namespace c3IDE.Windows
             {
                 if (_selectedFile != null)
                 {
-                    _selectedFile.Content = FileTextEditor.Text;
-                    _files[_selectedFile.FileName] = _selectedFile;
+                    //only update content for readable text files
+                    switch (_selectedFile.Extention.ToLower())
+                    {
+                        case ".js":
+                        case ".html":
+                        case ".css":
+                        case ".txt":
+                        case ".json":
+                        case ".xml":
+                            _selectedFile.Content = FileTextEditor.Text;
+                            break;
+                    }
+                    _selectedFile.C2Folder = C2RuntimeFolder.IsChecked != null && C2RuntimeFolder.IsChecked.Value;
+                    _selectedFile.C3Folder = C3RuntimeFolder.IsChecked != null && C3RuntimeFolder.IsChecked.Value;
+                    _selectedFile.Rootfolder = RootFolder.IsChecked != null && RootFolder.IsChecked.Value;
+                    _selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
+                    _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);
                 }
 
-                AddonManager.CurrentAddon.ThirdPartyFiles = _files;
+                AddonManager.CurrentAddon.ThirdPartyFiles = new Dictionary<string, ThirdPartyFile>();
+                foreach (var thirdPartyFile in _files)
+                {
+                    AddonManager.CurrentAddon.ThirdPartyFiles.Add(thirdPartyFile.FileName, thirdPartyFile);
+                }
+                
                 AddonManager.CurrentAddon.AddonJson = AddonTextEditor.Text;
                 AddonManager.SaveCurrentAddon();
             }
@@ -106,7 +132,7 @@ namespace c3IDE.Windows
         /// </summary>
         public void Clear()
         {
-            _files = new Dictionary<string, ThirdPartyFile>();
+            _files = new ObservableCollection<ThirdPartyFile>();
             _selectedFile = null;
             FileListBox.ItemsSource = null;
             FileTextEditor.Text = string.Empty;
@@ -220,13 +246,22 @@ namespace c3IDE.Windows
             {
                 Content = string.Empty,
                 FileName = filename,
-                PluginTemplate = TemplateHelper.ThirdPartyFile(filename),
                 C3Folder = true,
                 C2Folder = false,
-                Rootfolder = false
+                Rootfolder = false,
+                FileType = "inline-script"
             };
 
-            _files.Add(tpf.FileName, tpf);
+            tpf.PluginTemplate = TemplateHelper.ThirdPartyFile(tpf);
+
+            tpf.Extention = Path.GetExtension(tpf.FileName);
+            if (string.IsNullOrWhiteSpace(tpf.Extention))
+            {
+                tpf.Extention = ".txt";
+                tpf.FileName = tpf.FileName + tpf.Extention;
+            }
+
+            _files.Add(tpf);
 
             try
             {
@@ -246,9 +281,9 @@ namespace c3IDE.Windows
                 NotificationManager.PublishErrorNotification($"error parseing json, addon.json not updated => {ex.Message}");
             }
            
-            AddonManager.CurrentAddon.ThirdPartyFiles = _files;
-            FileListBox.ItemsSource = _files;
-            FileListBox.Items.Refresh();
+            //AddonManager.CurrentAddon.ThirdPartyFiles = _files;
+            //FileListBox.ItemsSource = _files;
+            //FileListBox.Items.Refresh();
         }
 
         /// <summary>
@@ -264,16 +299,17 @@ namespace c3IDE.Windows
                 return;
             }
 
-            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
+            _selectedFile = FileListBox.SelectedItem as ThirdPartyFile;
             if (_selectedFile != null)
             {
-                _files.Remove(_selectedFile.FileName);
+                var file = _selectedFile;
+                _files.Remove(_selectedFile);
                 FileListBox.ItemsSource = _files;
                 FileListBox.Items.Refresh();
 
-                AddonManager.CurrentAddon.ThirdPartyFiles = _files;
-                AddonManager.SaveCurrentAddon();
-                AddonManager.LoadAllAddons();
+                //AddonManager.CurrentAddon.ThirdPartyFiles = _files;
+                //AddonManager.SaveCurrentAddon();
+                //AddonManager.LoadAllAddons();
 
                 //clear editors
                 FileTextEditor.Text = string.Empty;
@@ -286,9 +322,9 @@ namespace c3IDE.Windows
                     //remove all checks
                     foreach (var item in fileList.Children().ToList())
                     {
-                        if (item.ToString().Equals("c3runtime/" + _selectedFile.FileName) ||
-                            item.ToString().Equals("c2runtime/" + _selectedFile.FileName) ||
-                            item.ToString().Equals(_selectedFile.FileName))
+                        if (item.ToString().Equals("c3runtime/" + file.FileName) ||
+                            item.ToString().Equals("c2runtime/" + file.FileName) ||
+                            item.ToString().Equals(file.FileName))
                         {
                             fileList.Remove(item);
                         }
@@ -351,14 +387,17 @@ namespace c3IDE.Windows
                             break;
                     }
 
-                    _files.Add(filename, new ThirdPartyFile
+                    var tpf = new ThirdPartyFile
                     {
                         Content = content,
                         FileName = filename,
-                        PluginTemplate = TemplateHelper.ThirdPartyFile(filename),
                         Bytes = bytes,
-                        Extention = info.Extension.ToLower()
-                    });
+                        Extention = info.Extension.ToLower(),
+                        FileType = "inline-script"
+                    };
+
+                    tpf.PluginTemplate = TemplateHelper.ThirdPartyFile(tpf);
+                    _files.Add(tpf);
 
                     CodeCompletionFactory.Insatnce.PopulateUserDefinedTokens(filename, content);
                     FileListBox.ItemsSource = _files;
@@ -379,26 +418,41 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void FileListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (FileListBox.SelectedIndex == -1)
-            {
-                //ignore
-                return;
-            }
-
-            //save current selection
+            ////save current selection
             if (_selectedFile != null)
             {
-                _selectedFile.Content = _selectedFile.Content;
-                _files[_selectedFile.FileName] = _selectedFile;
-                AddonManager.CurrentAddon.ThirdPartyFiles = _files;
+                _selectedFile.Content = FileTextEditor.Text;
+                _selectedFile.C2Folder = C2RuntimeFolder.IsChecked != null && C2RuntimeFolder.IsChecked.Value;
+                _selectedFile.C3Folder = C3RuntimeFolder.IsChecked != null && C3RuntimeFolder.IsChecked.Value;
+                _selectedFile.Rootfolder = RootFolder.IsChecked != null && RootFolder.IsChecked.Value;
+                _selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
+                _selectedFile.FileType = FileTypeDropDown.Text;
+                _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);
             }
 
             //load new selection
-            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
+            _selectedFile = FileListBox.SelectedItem as ThirdPartyFile;
+            if (_selectedFile == null) return;
             C2RuntimeFolder.IsChecked = _selectedFile.C2Folder;
             C3RuntimeFolder.IsChecked = _selectedFile.C3Folder;
             RootFolder.IsChecked = _selectedFile.Rootfolder;
-            FileTextEditor.Text = FormatHelper.Insatnce.Javascript(_selectedFile.Content);
+            FileTypeDropDown.Text = _selectedFile.FileType;
+
+            switch (_selectedFile.Extention?.ToLower() ?? ".txt")
+            {
+                case ".js":
+                case ".html":
+                case ".css":
+                case ".txt":
+                case ".json":
+                case ".xml":
+                    FileTextEditor.Text = FormatHelper.Insatnce.Javascript(_selectedFile.Content);
+                    break;   
+                default:
+                    FileTextEditor.Text = $"BINARY FILE => {_selectedFile.FileName}";
+                    break;
+            }
+            
         }
 
         /// <summary>
@@ -417,7 +471,6 @@ namespace c3IDE.Windows
                 LogManager.AddErrorLog(ex);
                 NotificationManager.PublishErrorNotification($"failed to format json => {ex.Message}");
             }
-
         }
 
         //todo: should we allow formatting thrid party files? if so we need to do it by extention and have different formatting strageties
@@ -431,19 +484,32 @@ namespace c3IDE.Windows
             FileTextEditor.Text = FormatHelper.Insatnce.Json(FileTextEditor.Text);
         }
 
-        private void PathCheckedChanged(object sender, RoutedEventArgs e)
+        private void Tab_ChangedEvent(object sender, SelectionChangedEventArgs e)
         {
-            if (FileListBox.SelectedIndex == -1)
+            if (AddonJsTab.IsSelected)
             {
-                return;
-            }
-
-            _selectedFile = ((KeyValuePair<string, ThirdPartyFile>)FileListBox.SelectedItem).Value;
-            if (_selectedFile != null)
-            {
-                _selectedFile.C3Folder = C3RuntimeFolder.IsChecked != null && C3RuntimeFolder.IsChecked.Value;
-                _selectedFile.C2Folder = C2RuntimeFolder.IsChecked != null && C2RuntimeFolder.IsChecked.Value;
-                _selectedFile.Rootfolder = RootFolder.IsChecked != null && RootFolder.IsChecked.Value;
+                ////save current selection
+                if (_selectedFile != null)
+                {
+                    //only update content for readable text files
+                    switch (_selectedFile.Extention?.ToLower() ?? ".txt")
+                    {
+                        case ".js":
+                        case ".html":
+                        case ".css":
+                        case ".txt":
+                        case ".json":
+                        case ".xml":
+                            _selectedFile.Content = FileTextEditor.Text;
+                            break;
+                    }
+                    _selectedFile.C2Folder = C2RuntimeFolder.IsChecked != null && C2RuntimeFolder.IsChecked.Value;
+                    _selectedFile.C3Folder = C3RuntimeFolder.IsChecked != null && C3RuntimeFolder.IsChecked.Value;
+                    _selectedFile.Rootfolder = RootFolder.IsChecked != null && RootFolder.IsChecked.Value;
+                    _selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
+                    _selectedFile.FileType = FileTypeDropDown.Text;
+                    _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);
+                }
 
                 //update addon.json
                 try
@@ -451,22 +517,26 @@ namespace c3IDE.Windows
                     var addon = JObject.Parse(AddonTextEditor.Text);
                     var fileList = JArray.Parse(addon["file-list"].ToString());
 
-                    //remove all checks
-                    foreach (var item in fileList.Children().ToList())
+                    foreach (var thirdPartyFile in _files)
                     {
-                        if (item.ToString().Equals("c3runtime/" + _selectedFile.FileName) ||
-                            item.ToString().Equals("c2runtime/" + _selectedFile.FileName) ||
-                            item.ToString().Equals(_selectedFile.FileName))
+                        //remove all checks
+                        foreach (var item in fileList.Children().ToList())
                         {
-                            fileList.Remove(item);
+                            if (item.ToString().Equals("c3runtime/" + thirdPartyFile.FileName) ||
+                                item.ToString().Equals("c2runtime/" + thirdPartyFile.FileName) ||
+                                item.ToString().Equals(thirdPartyFile.FileName))
+                            {
+                                fileList.Remove(item);
+                            }
                         }
+
+                        if (thirdPartyFile.C3Folder) fileList.Add("c3runtime/" + thirdPartyFile.FileName);
+                        if (thirdPartyFile.C2Folder) fileList.Add("c2runtime/" + thirdPartyFile.FileName);
+                        if (thirdPartyFile.Rootfolder) fileList.Add(thirdPartyFile.FileName);
+
+                        addon["file-list"] = fileList;
                     }
-
-                    if (_selectedFile.C3Folder) fileList.Add("c3runtime/" + _selectedFile.FileName);
-                    if (_selectedFile.C2Folder) fileList.Add("c2runtime/" + _selectedFile.FileName);
-                    if (_selectedFile.Rootfolder) fileList.Add(_selectedFile.FileName);
-
-                    addon["file-list"] = fileList;
+ 
                     AddonTextEditor.Text = addon.ToString(Formatting.Indented);
                 }
                 catch (Exception ex)

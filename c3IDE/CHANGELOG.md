@@ -1,6 +1,17 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.036 (04/05/2019)
+* basic c2addon import, still buggy, but works some of the time, please reports bugs 
+* fixed bugs with third party file and unstable check box for path
+* added dropdown for 3rd party file output type
+* changed 3rd party file template so now there is better templating when generating files
+* BREAKING CHANGE => added newest 3rd party file properties to export, this was not added before, this might break some older exported project, the project might import but not set all the correct settings, if an unexpected error happen file an issue and include the project and i will fix it.
+* added validation with passing empty param to file depenency
+* changed the way binary files are handled on import
+* changed the way large files are handled on import, now large js files will be formatted on import to help the dumb text edit i am using lazy load the text better, on compile all js script will be compressed, this will become a  configurable setting in future update
+* added better mime type resolution for erd party files => this also needs to get changed on web server in future update
+
 ### Build# 1.1.0.35 (04/02/2019)
 * add new window for C2RUNTIME.js, import projects with c2runtime now show up here and compile correctly
 * added path to thridparty files, this might make some files not show up correctly during compliation, please go back to your third party files and set the correct path of the files

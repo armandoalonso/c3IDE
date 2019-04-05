@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using c3IDE.Models;
+using c3IDE.Utilities.Helpers;
 
 namespace c3IDE.Templates
 {
@@ -352,12 +354,41 @@ namespace c3IDE.Templates
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public static string ThirdPartyFile(string filename)
+        public static string ThirdPartyFile(ThirdPartyFile file)
         {
-            return $@"{{
-	filename: ""c3runtime/{filename}"",
-	type: ""inline-script""
-}}";
+            var sb = new StringBuilder();
+            var type = string.Empty;
+
+            if (file.FileType == "copy-to-output")
+            {
+                type = $",\n                        fileType: \"{file.MimeType}\"";
+            }
+
+            if (file.Rootfolder)
+            {
+                sb.AppendLine($@"this._info.AddFileDependency({{
+                        filename: ""{file.FileName}"",
+                        type: ""{file.FileType}""{type}
+                     }});");
+            }
+
+            if (file.C3Folder)
+            {
+                sb.AppendLine($@"this._info.AddFileDependency({{
+                        filename: ""c3runtime/{file.FileName}"",
+                        type: ""{file.FileType}""{type}
+                     }});");
+            }
+
+            if (file.C2Folder)
+            {
+                sb.AppendLine($@"this._info.AddFileDependency({{
+                        filename: ""c2runtime/{file.FileName}"",
+                        type: ""{file.FileType}""{type}
+                     }});");
+            }
+
+            return FormatHelper.Insatnce.Javascript(sb.ToString());
         }
     }
 }

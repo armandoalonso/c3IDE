@@ -227,16 +227,11 @@ namespace c3IDE.Managers
         {
             try
             {
-                if (ace.ScriptName == null)
-                {
-                    var x = 5l;
-                }
-
                 var exp = new Expression
                 {
                     Category = ace.Category.ToLower(),
                     Id = ace.ScriptName.SplitCamelCase("-"),
-                    TranslatedName = ace.DisplayString,
+                    TranslatedName = ace.ScriptName,
                     ReturnType = ResolveRetrunType(ace.Flags),
                     Description = ace.Description,
                     C2Id = ace.Id,

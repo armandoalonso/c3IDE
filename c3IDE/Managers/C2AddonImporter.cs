@@ -23,16 +23,20 @@ namespace c3IDE.Managers
                 //unzip c3addon to temp location
                 ZipFile.ExtractToDirectory(path, tmpPath);
 
-                var file = Directory.GetFiles(tmpPath, "edittime.js", SearchOption.AllDirectories).FirstOrDefault();
-                LogManager.AddImportLogMessage($"edittime.js => {file}");
+                var edittimefile = Directory.GetFiles(tmpPath, "edittime.js", SearchOption.AllDirectories).FirstOrDefault();
+                var runtimefile = Directory.GetFiles(tmpPath, "runtime.js", SearchOption.AllDirectories).FirstOrDefault();
+                LogManager.AddImportLogMessage($"edittime.js => {edittimefile}");
 
 
-                if (file != null)
+                if (edittimefile != null)
                 {
-                    var source = File.ReadAllText(file);
+                    var source = File.ReadAllText(edittimefile);
                     var c2addon = C2AddonParser.Insatnce.ReadEdittimeJs(source);
                     LogManager.AddImportLogMessage($"C2 Parsed Model => \n\n\n {JsonConvert.SerializeObject(c2addon, Formatting.Indented)}");
                     var c3addon = C2AddonConverter.Insatnce.ConvertToC3(c2addon);
+
+                    var runtime = !string.IsNullOrWhiteSpace(runtimefile) ? File.ReadAllText(runtimefile) : string.Empty;
+                    c3addon.C2RunTime = runtime;
                     return c3addon;
                 }
 
