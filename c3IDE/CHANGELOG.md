@@ -1,7 +1,7 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.038 (04/05/2019)
+### Build# 1.1.039 (04/05/2019)
 * basic c2addon import, still buggy, but works some of the time, please reports bugs 
 * fixed bugs with third party file and unstable check box for path
 * added dropdown for 3rd party file output type
@@ -13,6 +13,7 @@
 * added better mime type resolution for erd party files => this also needs to get changed on web server in future update
 * effect name & desc now get populated from the uniform name for quicker effect creation
 * (hotfix) fix bug with old import that did not have valid extention, crashing app
+* fix bug with c2 import and only oneflag defined <> 0
 
 ### Build# 1.1.0.35 (04/02/2019)
 * add new window for C2RUNTIME.js, import projects with c2runtime now show up here and compile correctly

@@ -63,6 +63,7 @@ namespace c3IDE.Managers
                     var value = TryGet(
                         () => throw new Exception(),
                         () => prop.value.value.ToString(),
+                        () => prop.value.name.ToString(),
                         () =>
                         {
                             if (prop.value.type.ToString() == "BinaryExpression")
