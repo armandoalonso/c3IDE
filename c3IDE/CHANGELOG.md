@@ -1,7 +1,7 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.039 (04/05/2019)
+### Build# 1.1.0.40 (04/05/2019)
 * basic c2addon import, still buggy, but works some of the time, please reports bugs 
 * fixed bugs with third party file and unstable check box for path
 * added dropdown for 3rd party file output type
