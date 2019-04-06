@@ -32,6 +32,12 @@ You can import c3addon zip files into c3IDE, in order to import drag the c3addon
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/25.gif)
 
+### Importing C2Addon Files (VERY EXPERIMENTAL)
+When you import a c2addon, c3ide trys to generate allthe boilerplate around the addon, some work will still be needed to implement the core logic of the plugin, but all the boilerplate work should be taken of. this feature is still very early, and will most likely contain bugs and some addons will not import correct. if you run into any issue importing an add, there is an import log created in the Data Path of the adodn. please attach that log to a github issue with a copy of the c2addon your trying to convert. and ill do my best to try and get the import working.
+
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/c2import.gif)
+
+
 ## Creating a New Addon
 
 When you create a new addon, you will be taken to the create new addon window. In this window you can input basic information about your addon.
