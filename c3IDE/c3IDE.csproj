@@ -98,6 +98,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=106.6.9.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.6.9\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Svg, Version=2.4.0.42491, Culture=neutral, PublicKeyToken=12a0bac221edeae2, processorArchitecture=MSIL">
       <HintPath>..\packages\Svg.2.4.0\lib\Svg.dll</HintPath>
     </Reference>
@@ -148,6 +151,7 @@
     <Compile Include="Managers\C2AddonConverter.cs" />
     <Compile Include="Managers\C2AddonImporter.cs" />
     <Compile Include="Managers\C2AddonParser.cs" />
+    <Compile Include="Managers\C2ParsingService.cs" />
     <Compile Include="Managers\C3AddonImporter.cs" />
     <Compile Include="Managers\JavascriptManager.cs" />
     <Compile Include="Managers\LintingManager.cs" />

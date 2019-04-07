@@ -1,0 +1,175 @@
+{
+  "settings": {
+    "name": "Stack",
+    "id": "skymen_stack",
+    "version": "1.2",
+    "description": "Implementation of a stack data structure",
+    "author": "skymen",
+    "help url": " ",
+    "category": "Data & Storage",
+    "type": "object",
+    "rotatable": false,
+    "flags": [
+      "pf_singleglobal",
+      "pf_texture"
+    ]
+  },
+  "properties": [],
+  "expressions": [
+    {
+      "id": 0,
+      "flags": [
+        "ef_return_any"
+      ],
+      "list_name": "Peek",
+      "category": "General",
+      "description": "Returns the top element of the stack.",
+      "expression_name": "Peek",
+      "params": []
+    },
+    {
+      "id": 1,
+      "flags": [
+        "ef_return_any"
+      ],
+      "list_name": "Pop",
+      "category": "General",
+      "description": "Returns the top element of the stack and deletes it.",
+      "expression_name": "Pop",
+      "params": []
+    },
+    {
+      "id": 2,
+      "flags": [
+        "ef_return_any"
+      ],
+      "list_name": "ToJSON",
+      "category": "General",
+      "description": "Returns the stack in a JSON format",
+      "expression_name": "ToJSON",
+      "params": []
+    },
+    {
+      "id": 3,
+      "flags": [
+        "ef_return_any"
+      ],
+      "list_name": "Length",
+      "category": "General",
+      "description": "Returns the length of the stack.",
+      "expression_name": "Length",
+      "params": []
+    }
+  ],
+  "conditions": [
+    {
+      "id": 0,
+      "flags": [
+        "cf_none"
+      ],
+      "list_name": "Is empty",
+      "category": "General",
+      "display_string": "Is empty",
+      "description": "Check if the stack is empty",
+      "script_name": "IsEmpty",
+      "params": []
+    },
+    {
+      "id": 1,
+      "flags": [
+        "cf_none"
+      ],
+      "list_name": "Compare count",
+      "category": "General",
+      "display_string": "Compare count",
+      "description": "Compare a number with the count of the stack",
+      "script_name": "CompareCount",
+      "params": [
+        {
+          "name": "Comaprison",
+          "description": "How to compare the count to"
+        },
+        {
+          "name": "Number",
+          "description": "Number to compare the count to"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "flags": [
+        "cf_none"
+      ],
+      "list_name": "Compare top",
+      "category": "General",
+      "display_string": "Compare top",
+      "description": "Compare a number with the top of the stack",
+      "script_name": "CompareTop",
+      "params": [
+        {
+          "name": "Comaprison",
+          "description": "How to compare the top to"
+        },
+        {
+          "name": "Element",
+          "description": "Number to compare the top to"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": 0,
+      "flags": [
+        "af_none"
+      ],
+      "list_name": "Push",
+      "category": "General",
+      "display_string": "Push {0}",
+      "description": "Push an element to the top of the stack",
+      "script_name": "Push",
+      "params": [
+        {
+          "name": "Element",
+          "description": "Element to push"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "flags": [
+        "af_none"
+      ],
+      "list_name": "Pop",
+      "category": "General",
+      "display_string": "Pop",
+      "description": "Pop the top element from the stack",
+      "script_name": "Pop",
+      "params": []
+    },
+    {
+      "id": 2,
+      "flags": [
+        "af_none"
+      ],
+      "list_name": "Clear",
+      "category": "General",
+      "display_string": "Clear",
+      "description": "Clears the stack",
+      "script_name": "Clear",
+      "params": []
+    },
+    {
+      "id": 3,
+      "flags": [
+        "af_none"
+      ],
+      "list_name": "Load",
+      "category": "General",
+      "display_string": "Load",
+      "description": "Load the stack from JSON",
+      "script_name": "Load",
+      "params": []
+    }
+  ]
+}

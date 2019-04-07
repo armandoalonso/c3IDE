@@ -50,6 +50,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="C2ServiceRequestTest.cs" />
     <Compile Include="C3ImporterTest.cs" />
     <Compile Include="C2AddonParsingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +81,7 @@
     <None Include="TestFiles\example_parsed.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\example_parse_service.json" />
     <None Include="TestFiles\rex_moveto.c3addon">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
