@@ -17,7 +17,7 @@ namespace c3IDE.Managers
 {
     public class C2ParsingService : Singleton<C2ParsingService>
     {
-        public C2Addon Execute(string edittime, string name)
+        public C2Addon Execute(string edittime)
         {
             try
             {
