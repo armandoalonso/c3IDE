@@ -74,7 +74,7 @@
             
             <UniformGrid Columns="2">
                 <CheckBox Name="RemoveConsoleLogsOnCompile" FontFamily="Century Gothic" FontSize="16" Checked="RemoveConsoleLogsOnCompile_OnChecked" Unchecked="RemoveConsoleLogsOnCompile_OnChecked">Remove Console Logs (Compile)</CheckBox>
-               
+                <CheckBox Name="UseC2ParsingService" FontFamily="Century Gothic" FontSize="16" Checked="UseC2ParsingService_OnChecked" Unchecked="UseC2ParsingService_OnChecked">Use (Online) C2 Parsing Serive</CheckBox>
             </UniformGrid>
 
         </StackPanel>

@@ -40,7 +40,8 @@ namespace c3IDE.Managers
                 CompileOnSave = false,
                 ExportSingleFileProject = true,
                 OverwriteGuidOnImport = true,
-                RemoveConsoleLogsOnCompile = false
+                RemoveConsoleLogsOnCompile = false,
+                UseC2ParserService = true
             };
 
             DefaultOptions = defaultOptions;

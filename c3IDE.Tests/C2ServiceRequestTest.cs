@@ -13,11 +13,17 @@ namespace c3IDE.Tests
     public class C2ServiceRequestTest
     {
         [TestMethod]
-        public void TestActionParseHappyPath()
+        public void C2ServiceRequestHappyPath()
         {
-            var text = File.ReadAllText("TestFiles\\stack_edittime.js");
-            
-            C2ParsingService.Insatnce.Execute(text, "stack");
+            var text = File.ReadAllText("TestFiles\\rex_gfsm_edittime.js"); 
+            var json = C2ParsingService.Insatnce.Execute(text);
+        }
+
+        [TestMethod]
+        public void C2ServiceParseHappyPath()
+        {
+            var text = File.ReadAllText("TestFiles\\yannjson_parsed.json");
+            var c2 = C2ParsingService.Insatnce.Parse(text);
         }
     }
 }

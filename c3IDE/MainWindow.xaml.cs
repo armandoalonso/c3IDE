@@ -52,6 +52,7 @@ namespace c3IDE
                 WindowManager.SetWindowChangeCallback(NavigateToWindow);
                 WindowManager.ShowDialog = ShowDialogBox;
                 WindowManager.ShowInputDialog = ShowInputDialogBox;
+                WindowManager.ShowLoadingOverlay = ShowLoadingOverlay;
                 WindowManager.CurrentWindow = ApplicationWindows.DashboardWindow;
 
                 //setup themes and menu
@@ -410,6 +411,11 @@ namespace c3IDE
         {
             var value = await this.ShowInputAsync(title, message, new MetroDialogSettings { DefaultText = deafultText });
             return value;
+        }
+
+        public void ShowLoadingOverlay(bool show)
+        {
+            LoadingOverlay.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void TwitterLink_OnClick(object sender, RoutedEventArgs e)

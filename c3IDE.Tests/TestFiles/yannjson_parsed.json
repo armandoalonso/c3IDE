@@ -1,0 +1,974 @@
+{
+  "settings": {
+    "name": "JSON",
+    "id": "JSON",
+    "version": "1.2.2",
+    "description": "Bring javascript's Objects and Array to Construct2",
+    "author": "Yann Granjon",
+    "help url": "",
+    "category": "Data & Storage",
+    "type": "object",
+    "rotatable": false,
+    "flags": []
+  },
+  "properties": [],
+  "expressions": [
+    {
+      "id": 0,
+      "flags": [
+        "ef_return_number",
+        "ef_variadic_parameters",
+        "ef_deprecated"
+      ],
+      "list_name": "Length",
+      "category": "Getter",
+      "description": "Return the length of the array at the property (0 if empty or not array).",
+      "expression_name": "Length",
+      "params": [
+        {
+          "name": "Root",
+          "description": "0 for Root or 1 for Current position",
+          "caller": "AddNumberParam"
+        }
+      ],
+      "caller": "AddExpression"
+    },
+    {
+      "id": 1,
+      "flags": [
+        "ef_return_number",
+        "ef_variadic_parameters"
+      ],
+      "list_name": "Size",
+      "category": "Getter",
+      "description": "Return the size of the array/object at the property (-1 if not an array/object).",
+      "expression_name": "Size",
+      "params": [
+        {
+          "name": "Root",
+          "description": "0 for Root or 1 for Current position",
+          "caller": "AddNumberParam"
+        }
+      ],
+      "caller": "AddExpression"
+    },
+    {
+      "id": 10,
+      "flags": [
+        "ef_return_any",
+        "ef_variadic_parameters"
+      ],
+      "list_name": "Value",
+      "category": "Getter",
+      "description": "Return the value at the property (Construct2 only supports strings and numbers, so false -> 0, true -> 1, object -> \"object\", array -> \"array\". the last two will trigger a warning in the console).",
+      "expression_name": "Value",
+      "params": [
+        {
+          "name": "Root",
+          "description": "0 for Root or 1 for Current position",
+          "caller": "AddNumberParam"
+        }
+      ],
+      "caller": "AddExpression"
+    },
+    {
+      "id": 20,
+      "flags": [
+        "ef_return_string",
+        "ef_variadic_parameters",
+        "ef_deprecated"
+      ],
+      "list_name": "ToJson",
+      "category": "JSON",
+      "description": "Return the content of the property as a JSON string.",
+      "expression_name": "ToJson",
+      "params": [
+        {
+          "name": "Root",
+          "description": "0 for Root or 1 for Current position",
+          "caller": "AddNumberParam"
+        }
+      ],
+      "caller": "AddExpression"
+    },
+    {
+      "id": 21,
+      "flags": [
+        "ef_return_string",
+        "ef_variadic_parameters"
+      ],
+      "list_name": "AsJson",
+      "category": "JSON",
+      "description": "Return the content of the property as a JSON string.",
+      "expression_name": "AsJson",
+      "params": [
+        {
+          "name": "Root",
+          "description": "0 for Root or 1 for Current position",
+          "caller": "AddNumberParam"
+        }
+      ],
+      "caller": "AddExpression"
+    },
+    {
+      "id": 30,
+      "flags": [
+        "ef_return_string",
+        "ef_variadic_parameters"
+      ],
+      "list_name": "TypeOf",
+      "category": "Getter",
+      "description": "Return the type of the property.",
+      "expression_name": "TypeOf",
+      "params": [
+        {
+          "name": "Root",
+          "description": "0 for Root or 1 for Current position",
+          "caller": "AddNumberParam"
+        }
+      ],
+      "caller": "AddExpression"
+    },
+    {
+      "id": 100,
+      "flags": [
+        "ef_return_any"
+      ],
+      "list_name": "Current Key",
+      "category": "Loop",
+      "description": "Get the current property of an object in a for each property loop.",
+      "expression_name": "CurrentKey",
+      "params": [],
+      "caller": "AddExpression"
+    },
+    {
+      "id": 110,
+      "flags": [
+        "ef_return_any"
+      ],
+      "list_name": "Current Value",
+      "category": "Loop",
+      "description": "Get the current value of an object's property in a for each property loop. (Construct2 only supports strings and numbers, so false -> 0, true -> 1, object -> \"object\", array -> \"array\". the last two will trigger a warning in the console).",
+      "expression_name": "CurrentValue",
+      "params": [],
+      "caller": "AddExpression"
+    }
+  ],
+  "conditions": [
+    {
+      "id": 0,
+      "flags": [
+        "cf_none"
+      ],
+      "list_name": "Is object",
+      "category": "Type",
+      "display_string": "<b>{0}</b>@<i>{...}</i> is an object",
+      "description": "Is the value an object",
+      "script_name": "IsObject",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddCondition"
+    },
+    {
+      "id": 10,
+      "flags": [
+        "cf_none"
+      ],
+      "list_name": "Is array",
+      "category": "Type",
+      "display_string": "<b>{0}</b>@<i>{...}</i> is an array",
+      "description": "Is the value an array",
+      "script_name": "IsArray",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddCondition"
+    },
+    {
+      "id": 20,
+      "flags": [
+        "cf_none"
+      ],
+      "list_name": "Is boolean",
+      "category": "Type",
+      "display_string": "<b>{0}</b>@<i>{...}</i> is a boolean",
+      "description": "Is the value a boolean",
+      "script_name": "IsBoolean",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddCondition"
+    },
+    {
+      "id": 30,
+      "flags": [
+        "cf_none"
+      ],
+      "list_name": "Is number",
+      "category": "Type",
+      "display_string": "<b>{0}</b>@<i>{...}</i> is a number",
+      "description": "Is the value a number",
+      "script_name": "IsNumber",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddCondition"
+    },
+    {
+      "id": 40,
+      "flags": [
+        "cf_none"
+      ],
+      "list_name": "Is string",
+      "category": "Type",
+      "display_string": "<b>{0}</b>@<i>{...}</i> is a string",
+      "description": "Is the value a string",
+      "script_name": "IsString",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddCondition"
+    },
+    {
+      "id": 50,
+      "flags": [
+        "cf_none"
+      ],
+      "list_name": "Is null",
+      "category": "Type",
+      "display_string": "<b>{0}</b>@<i>{...}</i> is null",
+      "description": "Is the value null",
+      "script_name": "IsNull",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddCondition"
+    },
+    {
+      "id": 60,
+      "flags": [
+        "cf_none"
+      ],
+      "list_name": "Is undefined",
+      "category": "Type",
+      "display_string": "<b>{0}</b>@<i>{...}</i> is undefined",
+      "description": "Is the value undefined",
+      "script_name": "IsUndefined",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddCondition"
+    },
+    {
+      "id": 70,
+      "flags": [
+        "cf_none"
+      ],
+      "list_name": "Is Empty",
+      "category": "Arrays & Objects",
+      "display_string": "<b>{0}</b>@<i>{...}</i> is empty",
+      "description": "Is the object/array empty (Size = 0)",
+      "script_name": "IsEmpty",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddCondition"
+    },
+    {
+      "id": 100,
+      "flags": [
+        "cf_looping"
+      ],
+      "list_name": "For each property",
+      "category": "Object",
+      "display_string": "For each property at <b>{0}</b>@<i>{...}</i>",
+      "description": "Repeat the event for each property of the object.",
+      "script_name": "ForEachProperty",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddCondition"
+    },
+    {
+      "id": 200,
+      "flags": [
+        "cf_trigger"
+      ],
+      "list_name": "On JSON Parse Error",
+      "category": "JSON",
+      "display_string": "On JSON Parse Error",
+      "description": "Is triggered if a LoadJSON failed (usually due to ill formed JSON).",
+      "script_name": "OnJSONParseError",
+      "params": [],
+      "caller": "AddCondition"
+    },
+    {
+      "id": 300,
+      "flags": [
+        "cf_none"
+      ],
+      "list_name": "Reference Exists",
+      "category": "Shared Reference",
+      "display_string": "Reference {0} exists",
+      "description": "Return true if the reference exists",
+      "script_name": "ReferenceExists",
+      "params": [
+        {
+          "name": "Reference name",
+          "description": "Name you used when you save the reference",
+          "caller": "AddStringParam"
+        }
+      ],
+      "caller": "AddCondition"
+    }
+  ],
+  "actions": [
+    {
+      "id": 0,
+      "flags": [],
+      "list_name": "Set New Object",
+      "category": "Constructors",
+      "display_string": "new Object at <b>{0}</b>@<i>{...}</i>",
+      "description": "Create a new object at the given property",
+      "script_name": "NewObject",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 10,
+      "flags": [],
+      "list_name": "Set New Array",
+      "category": "Constructors",
+      "display_string": "new Array at <b>{0}</b>@<i>{...}</i>",
+      "description": "Create a new array at the given property",
+      "script_name": "NewArray",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 20,
+      "flags": [],
+      "list_name": "Set Value",
+      "category": "Values",
+      "display_string": "set <b>{0}</b> at <b>{1}</b>@<i>{...}</i>",
+      "description": "Set a number or a string at the given property",
+      "script_name": "SetValue",
+      "params": [
+        {
+          "name": "Value",
+          "description": "Set a Number or a String at the given property",
+          "caller": "AddAnyTypeParam"
+        },
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 30,
+      "flags": [],
+      "list_name": "Set Boolean",
+      "category": "Values",
+      "display_string": "set <b>{0}</b> at <b>{1}</b>@<i>{...}</i>",
+      "description": "Set a boolean at the given property",
+      "script_name": "SetBoolean",
+      "params": [
+        {
+          "name": "value",
+          "description": "Set a boolean.",
+          "initial": 0,
+          "options": [
+            {
+              "text": "True",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "False",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 40,
+      "flags": [],
+      "list_name": "Set null",
+      "category": "Values",
+      "display_string": "set null at <b>{0}</b>@<i>{...}</i>",
+      "description": "Set null at the given property",
+      "script_name": "SetNull",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 50,
+      "flags": [],
+      "list_name": "Delete",
+      "category": "Values",
+      "display_string": "delete <b>{0}</b>@<i>{...}</i>",
+      "description": "Delete the given property (Caution: you need to provide keys as you can't delete the root)",
+      "script_name": "Delete",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 55,
+      "flags": [],
+      "list_name": "Clear",
+      "category": "Values",
+      "display_string": "clear <b>{0}</b>@<i>{...}</i>",
+      "description": "Clear the given object/array (if a non object/array is provided, it is deleted)",
+      "script_name": "Clear",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 60,
+      "flags": [],
+      "list_name": "LoadJSON",
+      "category": "Load",
+      "display_string": "Load JSON {0} at <b>{1}</b>@<i>{...}</i>",
+      "description": "Load a JSON at the given property",
+      "script_name": "LoadJSON",
+      "params": [
+        {
+          "name": "JSON",
+          "description": "Load any JSON string",
+          "caller": "AddStringParam"
+        },
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 100,
+      "flags": [],
+      "list_name": "LogData",
+      "category": "Log",
+      "display_string": "LogData",
+      "description": "Log the whole JSON object",
+      "script_name": "LogData",
+      "params": [],
+      "caller": "AddAction"
+    },
+    {
+      "id": 200,
+      "flags": [],
+      "list_name": "Set Current Path",
+      "category": "Path",
+      "display_string": "Set Current Path to <b>{0}</b>@<i>{...}</i>",
+      "description": "Set the object's current relative path",
+      "script_name": "SetCurrentPath",
+      "params": [
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 210,
+      "flags": [],
+      "list_name": "Push Path Node",
+      "category": "Path",
+      "display_string": "Push {0} to the path",
+      "description": "Push a new node to the object's current relative path",
+      "script_name": "PushPathNode",
+      "params": [
+        {
+          "name": "Node",
+          "description": "Node to push",
+          "caller": "AddStringParam"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 220,
+      "flags": [],
+      "list_name": "Pop Path Node",
+      "category": "Path",
+      "display_string": "Pop a node from the path",
+      "description": "Pop the last node from the object's current relative path (do nothing if the path is empty)",
+      "script_name": "PopPathNode",
+      "params": [],
+      "caller": "AddAction"
+    },
+    {
+      "id": 300,
+      "flags": [],
+      "list_name": "Save Reference",
+      "category": "Shared Reference",
+      "display_string": "Save at {0} reference to <b>{1}</b>@<i>{...}</i>",
+      "description": "Save the reference using a key",
+      "script_name": "SaveReference",
+      "params": [
+        {
+          "name": "Reference name",
+          "description": "Name under which you save the reference",
+          "caller": "AddStringParam"
+        },
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 310,
+      "flags": [],
+      "list_name": "Load Reference",
+      "category": "Shared Reference",
+      "display_string": "Load reference {0} in <b>{1}</b>@<i>{...}</i>",
+      "description": "Load a previously save reference at the given path",
+      "script_name": "LoadReference",
+      "params": [
+        {
+          "name": "Reference name",
+          "description": "Name you used when you savec the reference",
+          "caller": "AddStringParam"
+        },
+        {
+          "name": "Reference point",
+          "description": "Use current the root or the current value withing foreach property loop",
+          "initial": 0,
+          "options": [
+            {
+              "text": "root",
+              "caller": "AddComboParamOption"
+            },
+            {
+              "text": "current",
+              "caller": "AddComboParamOption"
+            }
+          ],
+          "caller": "AddComboParam"
+        },
+        {
+          "name": "Key {n}",
+          "description": "Key or index to get the value. If no key is provided, the root will be used. Key({n}).",
+          "caller": "AddVariadicParams"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 320,
+      "flags": [],
+      "list_name": "Delete Reference",
+      "category": "Shared Reference",
+      "display_string": "Delete reference {0}",
+      "description": "Delete a previously save reference",
+      "script_name": "DeleteReference",
+      "params": [
+        {
+          "name": "Reference name",
+          "description": "Name you used when you save the reference",
+          "caller": "AddStringParam"
+        }
+      ],
+      "caller": "AddAction"
+    },
+    {
+      "id": 330,
+      "flags": [],
+      "list_name": "Delete all references",
+      "category": "Shared Reference",
+      "display_string": "Delete all references",
+      "description": "Delete all save references",
+      "script_name": "DeleteAllReferences",
+      "params": [],
+      "caller": "AddAction"
+    }
+  ]
+}

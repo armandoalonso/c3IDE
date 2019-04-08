@@ -1,0 +1,18 @@
+﻿<mah:MetroWindow x:Class="c3IDE.Windows.AddonIconWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:c3IDE.Windows"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Title="Change Addon Icon" Height="400" Width="400" FontFamily="Century Gothic" FontSize="16" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <DockPanel LastChildFill="True" Margin="2" Grid.Column="0">
+            <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}">Addon Icon (drag and drop new SVG file) : </TextBlock>
+            <Button DockPanel.Dock="Bottom" Content="Save Addon Icon" Margin="2" Click="SaveIcon_Click"></Button>
+            <Image Name="AddonIcon" DockPanel.Dock="Top" MaxHeight="250" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop" VerticalAlignment="Top"></Image>
+        </DockPanel>
+    </Grid>
+</mah:MetroWindow>
+

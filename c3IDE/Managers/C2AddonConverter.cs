@@ -17,6 +17,8 @@ namespace c3IDE.Managers
     {
         public C3Addon ConvertToC3(C2Addon c2addon)
         {
+            if(c2addon == null) throw new NullReferenceException("C2ADDON file is null");
+
             var c3addon = new C3Addon
             {
                 Name = c2addon.Properties["name"],

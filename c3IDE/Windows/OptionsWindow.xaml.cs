@@ -57,6 +57,7 @@ namespace c3IDE.Windows
             ExportSingleProjectFile.IsChecked = OptionsManager.CurrentOptions.ExportSingleFileProject;
             OverwriteGuidOnImport.IsChecked = OptionsManager.CurrentOptions.OverwriteGuidOnImport;
             RemoveConsoleLogsOnCompile.IsChecked = OptionsManager.CurrentOptions.RemoveConsoleLogsOnCompile;
+            UseC2ParsingService.IsChecked = OptionsManager.CurrentOptions.UseC2ParserService;
         }
 
         /// <summary>
@@ -83,8 +84,9 @@ namespace c3IDE.Windows
                     CompileOnSave = CompileOnSave.IsChecked != null && CompileOnSave.IsChecked.Value,
                     ExportSingleFileProject = ExportSingleProjectFile.IsChecked != null && ExportSingleProjectFile.IsChecked.Value,
                     OverwriteGuidOnImport = OverwriteGuidOnImport.IsChecked != null && OverwriteGuidOnImport.IsChecked.Value,
-                    RemoveConsoleLogsOnCompile = RemoveConsoleLogsOnCompile.IsChecked != null && RemoveConsoleLogsOnCompile.IsChecked.Value
-                };
+                    RemoveConsoleLogsOnCompile = RemoveConsoleLogsOnCompile.IsChecked != null && RemoveConsoleLogsOnCompile.IsChecked.Value,
+                    UseC2ParserService = UseC2ParsingService.IsChecked != null && UseC2ParsingService.IsChecked.Value
+            };
 
                 //create exports folder if it does not exists
                 if (!System.IO.Directory.Exists(OptionsManager.CurrentOptions.DataPath)) Directory.CreateDirectory(OptionsManager.CurrentOptions.DataPath);
@@ -292,5 +294,11 @@ namespace c3IDE.Windows
             OptionsManager.CurrentOptions.RemoveConsoleLogsOnCompile = RemoveConsoleLogsOnCompile.IsChecked != null && RemoveConsoleLogsOnCompile.IsChecked.Value;
             OptionsManager.SaveOptions();
         }
-    }
+
+        private void UseC2ParsingService_OnChecked(object sender, RoutedEventArgs e)
+        {
+            OptionsManager.CurrentOptions.UseC2ParserService = UseC2ParsingService.IsChecked != null && UseC2ParsingService.IsChecked.Value;
+            OptionsManager.SaveOptions();
+        }
+    }   
 }

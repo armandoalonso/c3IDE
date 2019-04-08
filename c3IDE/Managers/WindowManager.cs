@@ -17,6 +17,7 @@ namespace c3IDE.Managers
         private static Action<IWindow> windowChangeCallback { get; set; }
         public static MainWindow MainWindow { get; set; }
         public static Action<IEnumerable<SearchResult>, IWindow, string> OpenFindAndReplace { get; set; }
+        public static Action<bool> ShowLoadingOverlay { get; set; }
 
         public static List<IWindow> WindowList = new List<IWindow>
         {

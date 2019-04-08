@@ -24,6 +24,7 @@ namespace c3IDE.Models
         public bool ExportSingleFileProject { get; set; } = true;
         public bool OverwriteGuidOnImport { get; set; } = true;
         public bool RemoveConsoleLogsOnCompile { get; set; } = false;
+        public bool UseC2ParserService { get; set; } = true;
 
         [BsonIgnore]
         public Theme ApplicationTheme => ThemeResolver.Insatnce.Resolve(ThemeKey);

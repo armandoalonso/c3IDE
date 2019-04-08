@@ -108,6 +108,15 @@
 
         </simpleChildWindow:ChildWindow>
         
+        <DockPanel Name="LoadingOverlay" Panel.ZIndex="1000" Visibility="Collapsed">
+            <DockPanel.Background>
+                <SolidColorBrush Color="Black" Opacity="0.2" />
+            </DockPanel.Background>
+            <Viewbox>
+                <iconPacks:FontAwesome Kind="SpinnerSolid" Spin="True" Height="32" Width="7" SpinDuration="3" />
+            </Viewbox>
+        </DockPanel>
+        
         <mah:HamburgerMenu Foreground="White" PaneBackground="#FF444444" IsPaneOpen="False" DisplayMode="CompactOverlay" OptionsItemTemplate="{StaticResource MenuItemTemplate}" ItemTemplate="{StaticResource MenuItemTemplate}"
                            ItemClick="HambugerMenuItem_Click" OptionsItemClick="HambugerMenuItem_Click" x:Name="DefaultMainMenu" Visibility="Visible">
             <mah:HamburgerMenu.ItemsSource>
@@ -147,6 +156,14 @@
         </mah:HamburgerMenu>
     </Grid>
 </mah:MetroWindow>
+
+
+
+
+
+
+
+
 
 
 
