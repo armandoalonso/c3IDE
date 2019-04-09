@@ -326,14 +326,18 @@ namespace c3IDE.Managers
                         var lang = JObject.Parse(File.ReadAllText(Path.Combine(tmpPath, "lang", "en-US.json")))["text"][type + "s"][id.ToLower()];
 
                         var effect = new Effect();
-                        effect.BlendsBackground = addon["blends-background"].ToString().ToLower().Contains("true");
-                        effect.CrossSampling = addon["cross-sampling"].ToString().ToLower().Contains("true");
-                        effect.PreservesOpaqueness = addon["preserves-opaqueness"].ToString().ToLower().Contains("true");
-                        effect.Animated = addon["animated"].ToString().ToLower().Contains("true");
-                        effect.MustPredraw = addon["must-predraw"].ToString().ToLower().Contains("true");
-                        effect.ExtendBoxVertical = int.Parse(addon["extend-box"]["vertical"].ToString());
-                        effect.ExtendBoxHorizontal = int.Parse(addon["extend-box"]["horizontal"].ToString());
+                        effect.BlendsBackground = addon["blends-background"] != null && addon["blends-background"].ToString().ToLower().Contains("true");
+                        effect.CrossSampling = addon["cross-sampling"] != null && addon["cross-sampling"].ToString().ToLower().Contains("true");
+                        effect.PreservesOpaqueness = addon["preserves-opaqueness"] != null && addon["preserves-opaqueness"].ToString().ToLower().Contains("true");
+                        effect.Animated = addon["animated"] != null && addon["animated"].ToString().ToLower().Contains("true");
+                        effect.MustPredraw = addon["must-predraw"] != null && addon["must-predraw"].ToString().ToLower().Contains("true");
 
+                        if (addon["extend-box"] != null)
+                        {
+                            effect.ExtendBoxVertical = int.Parse(addon["extend-box"]["vertical"].ToString());
+                            effect.ExtendBoxHorizontal = int.Parse(addon["extend-box"]["horizontal"].ToString());
+                        }
+                        
                         //add code fx
                         effect.Code = effectCode;
 

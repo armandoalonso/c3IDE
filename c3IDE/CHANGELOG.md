@@ -1,6 +1,14 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.41 (04/08/2019)
+* added new option to parse c2 addons using *armaldio's* construct parsing service => https://github.com/WebCreationClub/construct-addon-parser 
+* added fall back in cases where the service mgiht fail (no connection) to use edittime ast 
+* added import for c3addon (effects) c2 is still a work in progress
+* added new option in dashboard context menu ot change addon icon
+* added loading overlay to async pasring calls, this loading overlay needs to be reused in sections of the application that migh take time to perform actions
+
+
 ### Build# 1.1.0.40 (04/05/2019)
 * basic c2addon import, still buggy, but works some of the time, please reports bugs 
 * fixed bugs with third party file and unstable check box for path

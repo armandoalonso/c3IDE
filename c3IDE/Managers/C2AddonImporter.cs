@@ -57,6 +57,7 @@ namespace c3IDE.Managers
 
                         LogManager.AddImportLogMessage($"C2 Parsed Model => \n\n\n {JsonConvert.SerializeObject(c2addon, Formatting.Indented)}");
                         c3addon = C2AddonConverter.Insatnce.ConvertToC3(c2addon);
+                        //todo generate properties/category
                         var runtime = !string.IsNullOrWhiteSpace(runtimefile) ? File.ReadAllText(runtimefile) : string.Empty;
                         c3addon.C2RunTime = runtime;
                     }
