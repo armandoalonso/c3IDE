@@ -130,7 +130,7 @@
                     <mah:HamburgerMenuIconItem x:Name="btnConditions" Icon="{iconPacks:Material Kind=Equal}" Label="Conditions" Tag="Conditions"/>
                     <mah:HamburgerMenuIconItem x:Name="btnExpressions" Icon="{iconPacks:MaterialDesign Kind=Functions}" Label="Expressions" Tag="Expressions"/>
                     <mah:HamburgerMenuIconItem x:Name="btnLanguage" Icon="{iconPacks:FontAwesome Kind=GlobeAmericasSolid}" Label="Language" Tag="Language"/>
-                    <mah:HamburgerMenuIconItem x:Name="btnC2runtime" Icon="{iconPacks:FontAwesome Kind=CodeSolid}" Label="C2Runtime" Tag="C2Runtime"/>
+                    <mah:HamburgerMenuIconItem x:Name="btnC2runtime" Icon="{iconPacks:FontAwesome Kind=CodeSolid}" Label="C2 Runtime" Tag="C2Runtime"/>
                     <mah:HamburgerMenuIconItem x:Name="btnTest" Icon="{iconPacks:Octicons Kind=Beaker}" Label="Test" Tag="Test"/>
                 </mah:HamburgerMenuItemCollection>
             </mah:HamburgerMenu.ItemsSource>

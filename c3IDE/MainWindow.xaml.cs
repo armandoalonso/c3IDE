@@ -21,7 +21,7 @@ namespace c3IDE
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const string Version = "1.1.0.41";
+        private const string Version = "1.1.0.43";
 
         /// <summary>
         /// main window constructor
@@ -206,7 +206,7 @@ namespace c3IDE
                         WindowManager.ChangeWindow(ApplicationWindows.ExpressionWindow);
                     }
                     break;
-                case "C2Runtime":
+                case "C2 Runtime":
                     if (CheckIfAddonLoaded())
                     {
                         WindowManager.ChangeWindow(ApplicationWindows.C2Runtime);

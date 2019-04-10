@@ -1,7 +1,7 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.0.42 (04/10/2019)
+### Build# 1.1.0.43 (04/10/2019)
 * fix version bug where plugin.js was not being updated
 * fix c2 import property of readonly property
 * extract full version on import (c3addon)
