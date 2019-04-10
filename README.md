@@ -18,7 +18,7 @@ You can find the current version of the documentation [HERE](https://github.com/
 Report any issues or features request [HERE](https://github.com/armandoalonso/c3IDE/issues) 
 
 ## Thanks
-Special shout out to  [@Armaldio](https://twitter.com/armaldio), helping out with the C2Addon parsing, we ported his [Parser](https://github.com/Armaldio/c2-addon-parser) to DotNet using DotNetPort of Esprima. 
+Special shout out to  [@Armaldio](https://twitter.com/armaldio), helping out with the C2Addon parsing, c3IDE called the [construct-parser web service](https://github.com/WebCreationClub/construct-addon-parser) and falls back to a ported version of his orginal [Parser](https://github.com/Armaldio/c2-addon-parser) using DotNetPort of Esprima. 
 
 ## Contact
 You can reach me on twitter [@Piranha_305](https://twitter.com/piranha_305)
