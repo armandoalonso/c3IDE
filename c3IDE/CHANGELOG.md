@@ -1,13 +1,22 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.42 (04/10/2019)
+* fix version bug where plugin.js was not being updated
+* fix c2 import property of readonly property
+* extract full version on import (c3addon)
+* add option button to open import log
+* fix bug with importing and rotatable flag not exists
+* fix file depenceny on import, so they show up correctly on addon.json
+* fix import of behaviors with blank category
+* ensure only svg icons are used, if png is imported it will be replaced with default svg icon
+
 ### Build# 1.1.0.41 (04/08/2019)
 * added new option to parse c2 addons using *armaldio's* construct parsing service => https://github.com/WebCreationClub/construct-addon-parser 
 * added fall back in cases where the service mgiht fail (no connection) to use edittime ast 
 * added import for c3addon (effects) c2 is still a work in progress
 * added new option in dashboard context menu ot change addon icon
 * added loading overlay to async pasring calls, this loading overlay needs to be reused in sections of the application that migh take time to perform actions
-
 
 ### Build# 1.1.0.40 (04/05/2019)
 * basic c2addon import, still buggy, but works some of the time, please reports bugs 
