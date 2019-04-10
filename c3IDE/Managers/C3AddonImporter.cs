@@ -39,6 +39,8 @@ namespace c3IDE.Managers
                     string type = addon["type"].ToString();
                     string id = addon["id"].ToString();
 
+                    //todo: handle mixed c3addon with only c2runtime
+
                     if (type != "effect")
                     {
                         string pluginEdit, pluginRun;

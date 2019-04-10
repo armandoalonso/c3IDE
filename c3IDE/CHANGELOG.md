@@ -1,7 +1,7 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.0.43 (04/10/2019)
+### Build# 1.1.0.44 (04/10/2019)
 * fix version bug where plugin.js was not being updated
 * fix c2 import property of readonly property
 * extract full version on import (c3addon)
@@ -10,6 +10,7 @@
 * fix file depenceny on import, so they show up correctly on addon.json
 * fix import of behaviors with blank category
 * ensure only svg icons are used, if png is imported it will be replaced with default svg icon
+* fix bug with change addon_id not having c2runtime file indexed caused crash
 
 ### Build# 1.1.0.41 (04/08/2019)
 * added new option to parse c2 addons using *armaldio's* construct parsing service => https://github.com/WebCreationClub/construct-addon-parser 

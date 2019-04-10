@@ -118,8 +118,12 @@ namespace c3IDE.Utilities.Search
                 addon.InstanceRunTime = string.Join("\n", FileIndex[ "runtime_instance.js"].Select(x => x.Value.Line));
                 addon.TypeEditTime = string.Join("\n", FileIndex["edittime_type.js"].Select(x => x.Value.Line));
                 addon.TypeRunTime = string.Join("\n", FileIndex["runtime_type.js"].Select(x => x.Value.Line));
-                addon.C2RunTime = string.Join("\n", FileIndex["c2runtime.js"].Select(x => x.Value.Line));
 
+                if (FileIndex.ContainsKey("c2runtime.js"))
+                {
+                    addon.C2RunTime = string.Join("\n", FileIndex["c2runtime.js"].Select(x => x.Value.Line));
+                }
+               
                 foreach (var act in addon.Actions)
                 {
                     addon.Actions[act.Key].Ace = string.Join("\n", FileIndex[$"act_{act.Key}_ace"].Select(x => x.Value.Line));
