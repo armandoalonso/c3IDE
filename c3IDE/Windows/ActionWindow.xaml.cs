@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using c3IDE.Managers;
+using c3IDE.Models;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Windows.Interfaces;
 using c3IDE.Templates;

@@ -48,8 +48,7 @@ namespace c3IDE.Windows
             {
                 PropertyLanguageTextEditor.Text = AddonManager.CurrentAddon.LanguageProperties;
                 CategoryLanguageTextEditor.Text = AddonManager.CurrentAddon.LanguageCategories;
-            }
-                
+            }         
         }
 
         /// <summary>

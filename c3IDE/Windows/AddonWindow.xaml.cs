@@ -522,17 +522,17 @@ namespace c3IDE.Windows
                         //remove all checks
                         foreach (var item in fileList.Children().ToList())
                         {
-                            if (item.ToString().Equals("c3runtime/" + thirdPartyFile.FileName) ||
-                                item.ToString().Equals("c2runtime/" + thirdPartyFile.FileName) ||
-                                item.ToString().Equals(thirdPartyFile.FileName))
+                            if (item.ToString().Equals("c3runtime/" + thirdPartyFile.FileName.Replace("\\", "/")) ||
+                                item.ToString().Equals("c2runtime/" + thirdPartyFile.FileName.Replace("\\", "/")) ||
+                                item.ToString().Equals(thirdPartyFile.FileName.Replace("\\", "/")))
                             {
                                 fileList.Remove(item);
                             }
                         }
 
-                        if (thirdPartyFile.C3Folder) fileList.Add("c3runtime/" + thirdPartyFile.FileName);
-                        if (thirdPartyFile.C2Folder) fileList.Add("c2runtime/" + thirdPartyFile.FileName);
-                        if (thirdPartyFile.Rootfolder) fileList.Add(thirdPartyFile.FileName);
+                        if (thirdPartyFile.C3Folder) fileList.Add("c3runtime/" + thirdPartyFile.FileName.Replace("\\", "/"));
+                        if (thirdPartyFile.C2Folder) fileList.Add("c2runtime/" + thirdPartyFile.FileName.Replace("\\", "/"));
+                        if (thirdPartyFile.Rootfolder) fileList.Add(thirdPartyFile.FileName.Replace("\\", "/"));
 
                         addon["file-list"] = fileList;
                     }

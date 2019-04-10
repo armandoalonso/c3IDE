@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using c3IDE.Models;
 using c3IDE.Templates;
+using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities;
 using c3IDE.Utilities.Helpers;
 using Esprima.Ast;
@@ -315,6 +316,12 @@ namespace c3IDE.Managers
                             c3addon.C2RunTime = c2runtime;
                         }
 
+                        //regenerate addon file
+                        c3addon.AddonJson = TemplateCompiler.Insatnce.CompileTemplates(c3addon.Template.AddonJson, c3addon);
+
+                        //fixup pluginedit time (replace png iconw ith svg)
+                        c3addon.PluginEditTime = Regex.Replace(c3addon.PluginEditTime, @"this._info.SetIcon\(.*\);", "this._info.SetIcon(\"icon.svg\", \"image/svg+sml\");");
+
                         return c3addon;
                     }
                     else
@@ -384,9 +391,11 @@ namespace c3IDE.Managers
                             Effect = effect
                         };
 
+                        //c3 icon
                         c3addon.IconXml = File.Exists(Path.Combine(tmpPath, "icon.svg")) ?
                             File.ReadAllText(Path.Combine(tmpPath, "icon.svg")) :
                             ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
+                        
 
                         c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
 

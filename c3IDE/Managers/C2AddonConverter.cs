@@ -16,6 +16,8 @@ namespace c3IDE.Managers
         public C3Addon ConvertToC3(C2Addon c2addon)
         {
             if(c2addon == null) throw new NullReferenceException("C2ADDON file is null");
+            if(c2addon.Type == "Effect") throw new Exception("C2 Effect Currently not supported for import"); //todo: need to develop this
+
 
             var c3addon = new C3Addon
             {

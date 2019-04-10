@@ -446,6 +446,8 @@ namespace c3IDE.Templates
 
             foreach (var category in categories)
             {
+                if(string.IsNullOrWhiteSpace(category)) continue; 
+
                 if (dynamicCats?[category] != null)
                 {
                     var value = dynamicCats[category];
