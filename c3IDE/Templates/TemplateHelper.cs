@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using c3IDE.Models;
 using c3IDE.Utilities.Helpers;
+using Newtonsoft.Json.Linq;
 
 namespace c3IDE.Templates
 {
@@ -389,6 +390,77 @@ namespace c3IDE.Templates
             }
 
             return FormatHelper.Insatnce.Javascript(sb.ToString());
+        }
+
+        public static string GeneratePropertyLang(string editTime, string propLang)
+        {
+            //generate new property json
+            var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+\""(?<id>(\w+|-)+)\""");
+            var propertyMatches = propertyRegex.Matches(editTime);
+
+            //get current dynamic properties
+            var dynamicProps = JToken.Parse($"{{{propLang}}}")["properties"];
+
+            var propList = new List<string>();
+            foreach (Match m in propertyMatches)
+            {
+                var type = m.Groups["type"].ToString();
+                var id = m.Groups["id"].ToString();
+
+                string template;
+                if (dynamicProps?[id] != null)
+                {
+                    //prop already exists
+                    var value = dynamicProps[id].ToString();
+                    template = $"\"{id}\": {value}";
+                }
+                else
+                {
+                    //this prop is new
+                    switch (type)
+                    {
+                        case "combo":
+                            template = TemplateHelper.LanguagePropertyCombo(id);
+                            break;
+                        case "link":
+                            template = TemplateHelper.LanguagePropertyLink(id);
+                            break;
+                        default:
+                            template = TemplateHelper.LanguagePropertyDefault(id);
+                            break;
+                    }
+                }
+
+                //create new property
+                propList.Add(template);
+            }
+
+            //set the editor to the new property json
+            return FormatHelper.Insatnce.Json(TemplateHelper.LanguageProperty(string.Join(",\n", propList)), true);
+        }
+
+        public static string GenerateCategoryLang(List<string> categories, string categoryLang)
+        {
+            var catList = new List<string>();
+            var dynamicCats = JToken.Parse($"{{{categoryLang}}}")["aceCategories"];
+
+            foreach (var category in categories)
+            {
+                if (dynamicCats?[category] != null)
+                {
+                    var value = dynamicCats[category];
+                    catList.Add($"    \"{category}\" : \"{value}\"");
+                }
+
+                else
+                {
+                    catList.Add($"    \"{category}\" : \"value\"");
+                }
+            }
+
+            return $@"""aceCategories"": {{
+{string.Join(",\n", catList)}
+}}";
         }
     }
 }

@@ -171,7 +171,9 @@ namespace c3IDE.Managers
 
         public static void UpdateAddonJsonVersion()
         {
-            CurrentAddon.AddonJson = Regex.Replace(CurrentAddon.AddonJson, @"\d+\.\d+\.\d+\.\d+", CurrentAddon.Version);
+            var versionRegex = @"\d+\.\d+\.\d+\.\d+";
+            CurrentAddon.AddonJson = Regex.Replace(CurrentAddon.AddonJson, versionRegex, CurrentAddon.Version);
+            CurrentAddon.PluginEditTime = Regex.Replace(CurrentAddon.PluginEditTime, versionRegex, CurrentAddon.Version);
         }
     }
 }

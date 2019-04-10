@@ -300,5 +300,18 @@ namespace c3IDE.Windows
             OptionsManager.CurrentOptions.UseC2ParserService = UseC2ParsingService.IsChecked != null && UseC2ParsingService.IsChecked.Value;
             OptionsManager.SaveOptions();
         }
+
+        private void OpenImportLogButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ProcessHelper.Insatnce.StartProcess("notepad.exe", Path.Combine(DataPathText.Text, "import.log"));
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"error opening import log, {ex.Message}");
+            }
+        }
     }   
 }

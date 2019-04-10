@@ -101,50 +101,9 @@ namespace c3IDE.Windows
         {
             try
             {
-                //generate new property json
-                var propertyRegex = new Regex(@"new SDK[.]PluginProperty\(\""(?<type>\w+)\""\W+\""(?<id>(\w+|-)+)\""");
-                var propertyMatches = propertyRegex.Matches(AddonManager.CurrentAddon.PluginEditTime);
-
-                //get current dynamic properties
-                var dynamicProps = JToken.Parse($"{{{PropertyLanguageTextEditor.Text}}}")["properties"];
-
-                var propList = new List<string>();
-                foreach (Match m in propertyMatches)
-                {
-                    var type = m.Groups["type"].ToString();
-                    var id = m.Groups["id"].ToString();
-
-                    string template;
-                    if (dynamicProps?[id] != null)
-                    {
-                        //prop already exists
-                        var value = dynamicProps[id].ToString();
-                        template = $"\"{id}\": {value}";
-                    }
-                    else
-                    {
-                        //this prop is new
-                        switch (type)
-                        {
-                            case "combo":
-                                template = TemplateHelper.LanguagePropertyCombo(id);
-                                break;
-                            case "link":
-                                template = TemplateHelper.LanguagePropertyLink(id);
-                                break;
-                            default:
-                                template = TemplateHelper.LanguagePropertyDefault(id);
-                                break;
-                        }
-                    }
-
-                    //create new property
-                    propList.Add(template);
-                }
-
-                //set the editor to the new property json
-                PropertyLanguageTextEditor.Text =
-                    FormatHelper.Insatnce.Json(TemplateHelper.LanguageProperty(string.Join(",\n", propList)), true);
+                var propLang = TemplateHelper.GeneratePropertyLang(AddonManager.CurrentAddon.PluginEditTime,
+                    PropertyLanguageTextEditor.Text);
+                PropertyLanguageTextEditor.Text = propLang;
             }
             catch (Exception ex)
             {
@@ -163,26 +122,9 @@ namespace c3IDE.Windows
         {
             try
             {
-                var catList = new List<string>();
-                var dynamicCats = JToken.Parse($"{{{CategoryLanguageTextEditor.Text}}}")["aceCategories"];
-
-                foreach (var category in AddonManager.CurrentAddon.Categories)
-                {
-                    if (dynamicCats?[category] != null)
-                    {
-                        var value = dynamicCats[category];
-                        catList.Add($"    \"{category}\" : \"{value}\"");
-                    }
-
-                    else
-                    {
-                        catList.Add($"    \"{category}\" : \"value\"");
-                    }
-                }
-
-                CategoryLanguageTextEditor.Text = $@"""aceCategories"": {{
-{string.Join(",\n", catList)}
-}}";
+                var category = TemplateHelper.GenerateCategoryLang(AddonManager.CurrentAddon.Categories,
+                        CategoryLanguageTextEditor.Text);
+                CategoryLanguageTextEditor.Text = category;
             }
             catch (Exception ex)
             {

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using c3IDE.Models;
 using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
@@ -38,7 +36,6 @@ namespace c3IDE.Managers
             };
 
             //add version
-
             PluginType pluginType = PluginType.SingleGlobalPlugin;
             switch (c2addon.Type)
             {
@@ -105,6 +102,8 @@ namespace c3IDE.Managers
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            //use c2addon to generate text for properties
 
             return c3addon;
         }

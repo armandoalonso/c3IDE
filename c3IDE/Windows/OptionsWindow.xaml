@@ -80,6 +80,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
+            <Button Name="OpenImportLogButton" Content="Show Import Log" Margin="10" Click="OpenImportLogButton_OnClick" ></Button>
             <Button Name="OpenCompiledButton" Content="Open Compiled Folder" Margin="10" Click="OpenCompiledButton_OnClick" ></Button>
             <Button Name="OpenExportButton" Content="Open Export Folder" Margin="10" Click="OpenExportButton_OnClick"></Button>
             <Button Name="OpenDataButton" Content="Open Data Folder" Margin="10" Click="OpenDataButton_OnClick" ></Button>

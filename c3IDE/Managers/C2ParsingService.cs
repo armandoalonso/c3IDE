@@ -21,7 +21,8 @@ namespace c3IDE.Managers
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("content-type", "multipart/form-data");
                 request.AddFile("file", Encoding.ASCII.GetBytes(edittime), "edittime.js", "application/javascript");
-                IRestResponse response = client.Execute(request); 
+                IRestResponse response = client.Execute(request);
+                LogManager.AddImportLogMessage($"RESPONSE => {response.Content}");
                 return Parse(response.Content);
             }
             catch (Exception ex)
@@ -73,7 +74,7 @@ namespace c3IDE.Managers
                     fList.Add(flag);
                 }
                 property.Params = string.Join("|", fList);
-                property.Readonly = p["read_only"] != null && p["read_only"].ToString().ToLower().Contains("true");
+                property.Readonly = p["read_only"] != null ? p["read_only"].ToString().ToLower() : "false";
             }
 
             //actions
