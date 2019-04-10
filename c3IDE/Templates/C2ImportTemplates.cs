@@ -72,7 +72,7 @@ namespace c3IDE.Templates
 
             var propList = string.Join(",\n                        ", addon.PluginProperties.Select(GeneratePluginProperty));
 
-            var rotate = addon.Properties["rotatable"];
+            var rotate = addon.Properties.ContainsKey("rotatable") ? addon.Properties["rotatable"] : "false";
 
             var template = $@"""use strict"";
 {{
