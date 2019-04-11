@@ -8,5 +8,7 @@ namespace c3IDE.Windows.Interfaces
         void OnEnter();
         void OnExit();
         void Clear();
+        void ChangeTab(string tab, int lineNum);
+
     }
 }

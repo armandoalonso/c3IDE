@@ -5,6 +5,11 @@
 * add option to launch beta when construct is launched from the application
 * added two readonly options with the url for bothe construct versions
 * added button on the option window to go an update the construct version
+* fix bug with auto completion requestin insetion when a symbol when typed
+* added option to set auto increment of version when publish c3addon
+* hide linting button until implementation is complete 
+* start work on navigation pipeline, this will allow the search to navigate to any instance found (still needs work, changes are internal)
+* add change author context action to dashboard
 
 ### Build# 1.1.0.44 (04/10/2019)
 * fix version bug where plugin.js was not being updated

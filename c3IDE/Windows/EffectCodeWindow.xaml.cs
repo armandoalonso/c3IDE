@@ -66,6 +66,11 @@ namespace c3IDE.Windows
             EffectPluginTextEditor.Text = string.Empty;
         }
 
+        public void ChangeTab(string tab, int lineNum)
+        {
+
+        }
+
         /// <summary>
         /// handles keyboard shortcuts
         /// </summary>

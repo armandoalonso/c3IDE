@@ -26,7 +26,6 @@
 
                 </avalonEdit:TextEditor>
             </TabItem>
-
             <TabItem Header="Third Party Files" Name="ThirdPartyFileTab">
                 <Grid>
                     <Grid.ColumnDefinitions>

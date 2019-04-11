@@ -88,6 +88,11 @@ namespace c3IDE.Windows
             RunTimePluginTextEditor.Text = string.Empty;
         }
 
+        public void ChangeTab(string tab, int lineNum)
+        {
+
+        }
+
         /// <summary>
         /// handles auto completion and parsing of edit time plugin
         /// </summary>
@@ -179,7 +184,7 @@ namespace c3IDE.Windows
         {
             if (e.Text.Length > 0 && completionWindow != null)
             {
-                if (!char.IsLetterOrDigit(e.Text[0]) && !char.IsWhiteSpace(e.Text[0]))
+                if (!char.IsLetterOrDigit(e.Text[0]) && !char.IsWhiteSpace(e.Text[0]) && !char.IsSymbol(e.Text[0]))
                 {
                     // Whenever a non-letter is typed while the completion window is open,
                     // insert the currently selected element.

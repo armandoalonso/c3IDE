@@ -40,6 +40,7 @@ namespace c3IDE.Windows
         //private Dictionary<string, ThirdPartyFile> _files;
         public ThirdPartyFile _selectedFile { get; set; }
         private ObservableCollection<ThirdPartyFile> _files;
+        private Dictionary<string, TabItem> tabDictionary;
  
         /// <summary>
         /// addon widnow constructor, setup event handeling for auto completion, and setup properties for the editors 
@@ -55,6 +56,9 @@ namespace c3IDE.Windows
             AddonTextEditor.Options.EnableHyperlinks = false;
             FileTextEditor.Options.EnableEmailHyperlinks = false;
             FileTextEditor.Options.EnableHyperlinks = false;
+
+            //setup tabs
+            tabDictionary = new Dictionary<string, TabItem> {{"addon.json", AddonJsTab}};
         }
 
         /// <summary>
@@ -139,6 +143,11 @@ namespace c3IDE.Windows
             AddonTextEditor.Text = string.Empty;
         }
 
+        public void ChangeTab(string tab, int lineNum)
+        {
+
+        }
+
         /// <summary>
         /// handles the text entered event for addon.json window, 
         /// </summary>
@@ -177,7 +186,7 @@ namespace c3IDE.Windows
         {
             if (e.Text.Length > 0 && completionWindow != null)
             {
-                if (!char.IsLetterOrDigit(e.Text[0]))
+                if (!char.IsLetterOrDigit(e.Text[0]) && !char.IsWhiteSpace(e.Text[0]) && !char.IsSymbol(e.Text[0]))
                 {
                     // Whenever a non-letter is typed while the completion window is open,
                     // insert the currently selected element.

@@ -75,10 +75,7 @@ namespace c3IDE.Windows
 
         private void SearchGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //if (SearchGrid.SelectedItem is SearchResult item)
-            //{
-            //    AppData.Insatnce.NavigateToWindow(item.Window);
-            //}
+
         }
     }
 }

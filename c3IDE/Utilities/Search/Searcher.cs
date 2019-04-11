@@ -94,14 +94,14 @@ namespace c3IDE.Utilities.Search
             }
         }
 
-        public void UpdateFileIndex(string filename, string content, IWindow window)
+        public void UpdateFileIndex(string filename, string content, IWindow window, string tab = "")
         {
             var sList = new SortedList<int, SearchResult>();
             if (content == null) return;
             var result = Regex.Split(content, "\r\n|\r|\n");
             for (int index = 0; index < result.Length; index++)
             {
-                sList.Add(index, new SearchResult(filename, result[index], index, window));
+                sList.Add(index, new SearchResult(filename, result[index], index, window, tab));
             }
 
             FileIndex.AddOrUpdate(filename, sList);

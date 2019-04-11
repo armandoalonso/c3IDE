@@ -42,7 +42,8 @@ namespace c3IDE.Managers
                 OverwriteGuidOnImport = true,
                 RemoveConsoleLogsOnCompile = false,
                 UseC2ParserService = true,
-                OpenConstructInBeta = true
+                OpenConstructInBeta = true,
+                AutoIncrementVersionOnPublish = false
             };
 
             DefaultOptions = defaultOptions;

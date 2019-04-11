@@ -165,8 +165,12 @@ namespace c3IDE.Managers
 
         public static void IncrementVersion()
         {
-            CurrentAddon.BuildVersion++;
-            UpdateAddonJsonVersion();
+            if (OptionsManager.CurrentOptions.AutoIncrementVersionOnPublish)
+            {
+                CurrentAddon.BuildVersion++;
+                UpdateAddonJsonVersion();
+                SaveCurrentAddon();
+            }
         }
 
         public static void UpdateAddonJsonVersion()

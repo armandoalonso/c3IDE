@@ -73,6 +73,11 @@ namespace c3IDE.Windows
             CategoryLanguageTextEditor.Text = string.Empty;
         }
 
+        public void ChangeTab(string tab, int lineNum)
+        {
+
+        }
+
         /// <summary>
         /// handles keyboard shortcuts
         /// </summary>

@@ -16,24 +16,25 @@ namespace c3IDE.Utilities.Search
         private string _document;
         private string _line;
         private int _lineNumber;
+        private string _tab;
 
         private const string RegexExperession = @"[ ]{2,}|\t";
 
         public bool Selected
         {
-            get { return _selected; }
+            get => _selected;
             set { _selected = value; OnPropertyChanged(); }
         }
 
         public string Document
         {
-            get { return _document; }
+            get => _document;
             set { _document = value; OnPropertyChanged();}
         }
 
         public string Line
         {
-            get { return _line; }
+            get => _line;
             set { _line = value; OnPropertyChanged();}
         }
 
@@ -41,19 +42,26 @@ namespace c3IDE.Utilities.Search
 
         public int LineNumber
         {
-            get { return _lineNumber; }
+            get => _lineNumber;
             set { _lineNumber = value; OnPropertyChanged();}
+        }
+
+        public string Tab
+        {
+            get => _tab;
+            set { _tab = value; OnPropertyChanged(); }
         }
 
         public IWindow Window { get; }
 
-        public SearchResult(string doc, string text, int line, IWindow window)
+        public SearchResult(string doc, string text, int line, IWindow window, string tab = "")
         {
             Document = doc;
             Line = text;
             LineNumber = line;
             StrippedText = Regex.Replace(Line, RegexExperession, string.Empty);
             Window = window;
+            Tab = tab;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

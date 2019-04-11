@@ -106,6 +106,11 @@ namespace c3IDE.Windows
         {
         }
 
+        public void ChangeTab(string tab, int lineNum)
+        {
+
+        }
+
         /// <summary>
         /// display copy cursor when hovering a file over the listbox
         /// </summary>
@@ -329,7 +334,6 @@ namespace c3IDE.Windows
             AddonExporter.Insatnce.ExportAddon(AddonManager.CurrentAddon);
             ProcessHelper.Insatnce.StartProcess(OptionsManager.CurrentOptions.C3AddonPath);
             AddonManager.IncrementVersion();
-            AddonManager.SaveCurrentAddon();
 
             AddonManager.LoadAllAddons();
             AddonListBox.ItemsSource = AddonManager.AllAddons;
@@ -390,8 +394,6 @@ namespace c3IDE.Windows
                 Searcher.Insatnce.GlobalFind(oldID, this, newID);
 
             }
-
-
         }
 
         /// <summary>
@@ -413,6 +415,28 @@ namespace c3IDE.Windows
             var changeIconWindow = new AddonIconWindow();
             changeIconWindow.Init(currentAddon.IconXml);
             changeIconWindow.ShowDialog();
+        }
+
+        private async void ChangeAddonAuthor_Click(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                NotificationManager.PublishErrorNotification("error changing addon author, no c3addon selected");
+                return;
+            }
+
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            AddonManager.LoadAddon(currentAddon);
+
+            var newAuth = await WindowManager.ShowInputDialog("Change Addon Author", "enter new addon author", currentAddon.Author);
+            var oldAuth = currentAddon.Author;
+
+            if (!string.IsNullOrWhiteSpace(newAuth))
+            {
+                AddonManager.CurrentAddon.Author = newAuth;
+                Searcher.Insatnce.GlobalFind(oldAuth, this, newAuth);
+
+            }
         }
     }
 }

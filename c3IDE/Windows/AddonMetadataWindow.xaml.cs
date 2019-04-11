@@ -94,6 +94,11 @@ namespace c3IDE.Windows
            
         }
 
+        public void ChangeTab(string tab, int lineNum)
+        {
+
+        }
+
         /// <summary>
         /// hover effect to copy when icon is dragged over icon
         /// </summary>

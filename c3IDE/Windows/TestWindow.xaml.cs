@@ -87,6 +87,11 @@ namespace c3IDE.Windows
         {
         }
 
+        public void ChangeTab(string tab, int lineNum)
+        {
+
+        }
+
         /// <summary>
         /// updates all button states
         /// </summary>
@@ -309,7 +314,6 @@ namespace c3IDE.Windows
             AddonExporter.Insatnce.ExportAddon(AddonManager.CurrentAddon);
             ProcessHelper.Insatnce.StartProcess(OptionsManager.CurrentOptions.C3AddonPath);
             AddonManager.IncrementVersion();
-            AddonManager.SaveCurrentAddon();
             Build.Text = AddonManager.CurrentAddon.BuildVersion.ToString();
         }
 

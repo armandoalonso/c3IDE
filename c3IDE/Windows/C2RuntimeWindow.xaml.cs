@@ -64,6 +64,11 @@ namespace c3IDE.Windows
             C2RuntimeTextEditor.Text = string.Empty;
         }
 
+        public void ChangeTab(string tab, int lineNum)
+        {
+          
+        }
+
         private void C2RuntimeTextEditor_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Text)) return;

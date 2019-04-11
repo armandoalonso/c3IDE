@@ -32,8 +32,10 @@ namespace c3IDE.Managers
 
                     var edittimefile = Directory.GetFiles(tmpPath, "edittime.js", SearchOption.AllDirectories).FirstOrDefault();
                     var runtimefile = Directory.GetFiles(tmpPath, "runtime.js", SearchOption.AllDirectories).FirstOrDefault();
-                    LogManager.AddImportLogMessage($"edittime.js => {edittimefile}");
+                    var effectXml = Directory.GetFiles(tmpPath, "*.xml", SearchOption.AllDirectories).FirstOrDefault();
+                    var effectCode = Directory.GetFiles(tmpPath, "*.fx", SearchOption.AllDirectories).FirstOrDefault();
 
+                    LogManager.AddImportLogMessage($"edittime.js => {edittimefile}");
 
                     if (edittimefile != null)
                     {
@@ -43,23 +45,48 @@ namespace c3IDE.Managers
                         //try to parse file using https://github.com/WebCreationClub/construct-addon-parser
                         try
                         {
-                            if (!OptionsManager.CurrentOptions.UseC2ParserService) throw new Exception("C2 parsing service is no enabled");
+                            if (!OptionsManager.CurrentOptions.UseC2ParserService)
+                                throw new Exception("C2 parsing service is no enabled");
                             c2addon = C2ParsingService.Insatnce.Execute(source);
                         }
                         //if online parse fails fallback to walkign ast tree
                         catch (Exception ex)
                         {
                             LogManager.AddErrorLog(ex);
-                            LogManager.AddImportLogMessage($"C2 Pasring Service Failed => {ex.Message} \nFalling back to Walking Edittime.js AST");
+                            LogManager.AddImportLogMessage(
+                                $"C2 Pasring Service Failed => {ex.Message} \nFalling back to Walking Edittime.js AST");
 
                             c2addon = C2AddonParser.Insatnce.ReadEdittimeJs(source);
                         }
 
-                        LogManager.AddImportLogMessage($"C2 Parsed Model => \n\n\n {JsonConvert.SerializeObject(c2addon, Formatting.Indented)}");
+                        LogManager.AddImportLogMessage(
+                            $"C2 Parsed Model => \n\n\n {JsonConvert.SerializeObject(c2addon, Formatting.Indented)}");
                         c3addon = C2AddonConverter.Insatnce.ConvertToC3(c2addon);
                         //todo generate properties/category
-                        var runtime = !string.IsNullOrWhiteSpace(runtimefile) ? File.ReadAllText(runtimefile) : string.Empty;
+                        var runtime = !string.IsNullOrWhiteSpace(runtimefile)
+                            ? File.ReadAllText(runtimefile)
+                            : string.Empty;
                         c3addon.C2RunTime = runtime;
+                    }
+                    else
+                    {
+                        //check for effect
+                        LogManager.AddImportLogMessage($"effect xml => {effectXml}");
+                        if (!string.IsNullOrWhiteSpace(effectXml) && !string.IsNullOrWhiteSpace(effectCode))
+                        {
+                            try
+                            {
+                                var xml = File.ReadAllText(effectXml);
+                                var code = File.ReadAllText(effectCode);
+
+                                c3addon = C2EffectConverter.Insatnce.ConvertEffect(xml, code);
+                            }
+                            catch (Exception ex)
+                            {
+                                LogManager.AddErrorLog(ex);
+                                throw;
+                            }
+                        }
                     }
                 });
 

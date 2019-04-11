@@ -61,6 +61,7 @@ namespace c3IDE.Windows
             C3BetaUrl.Text = OptionsManager.CurrentOptions.BetaUrl;
             C3StableUrl.Text = OptionsManager.CurrentOptions.StableUrl;
             OpenConstructInBeta.IsChecked = OptionsManager.CurrentOptions.OpenConstructInBeta;
+            AutoIncrementVersionOnPublish.IsChecked = OptionsManager.CurrentOptions.AutoIncrementVersionOnPublish;
         }
 
         /// <summary>
@@ -91,7 +92,8 @@ namespace c3IDE.Windows
                     UseC2ParserService = UseC2ParsingService.IsChecked != null && UseC2ParsingService.IsChecked.Value,
                     BetaUrl = C3BetaUrl.Text,
                     StableUrl = C3StableUrl.Text,
-                    OpenConstructInBeta = OpenConstructInBeta.IsChecked != null && OpenConstructInBeta.IsChecked.Value
+                    OpenConstructInBeta = OpenConstructInBeta.IsChecked != null && OpenConstructInBeta.IsChecked.Value,
+                    AutoIncrementVersionOnPublish = AutoIncrementVersionOnPublish.IsChecked != null && AutoIncrementVersionOnPublish.IsChecked.Value
             };
 
                 //create exports folder if it does not exists
@@ -110,6 +112,11 @@ namespace c3IDE.Windows
         /// </summary>
         public void Clear()
         {
+        }
+
+        public void ChangeTab(string tab, int lineNum)
+        {
+
         }
 
         /// <summary>
@@ -313,6 +320,13 @@ namespace c3IDE.Windows
             OptionsManager.SaveOptions();
         }
 
+
+        private void AutoIncrementVersionOnPublish_OnChecked(object sender, RoutedEventArgs e)
+        {
+            OptionsManager.CurrentOptions.AutoIncrementVersionOnPublish = AutoIncrementVersionOnPublish.IsChecked != null && AutoIncrementVersionOnPublish.IsChecked.Value;
+            OptionsManager.SaveOptions();
+        }
+
         private void OpenImportLogButton_OnClick(object sender, RoutedEventArgs e)
         {
             try
@@ -328,9 +342,18 @@ namespace c3IDE.Windows
 
         private void UpdateConstructVersionButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ConstructLauncher.Insatnce.UpdateVersions();
-            C3StableUrl.Text = OptionsManager.CurrentOptions.StableUrl;
-            C3BetaUrl.Text = OptionsManager.CurrentOptions.BetaUrl;
+            try
+            {
+                ConstructLauncher.Insatnce.UpdateVersions();
+                C3StableUrl.Text = OptionsManager.CurrentOptions.StableUrl;
+                C3BetaUrl.Text = OptionsManager.CurrentOptions.BetaUrl;
+                NotificationManager.PublishNotification("construct version links updated successfully");
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                NotificationManager.PublishErrorNotification($"failed to update construct 3 version => {ex.Message}");
+            }  
         }
 
 

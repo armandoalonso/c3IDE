@@ -22,13 +22,13 @@
             <Button Name="StartAndTestButton" Content="Test C3 Addon" Margin="10" Click="TestC3AddonButton_Click" DockPanel.Dock="Top"></Button>
             <Button Name="StartWebServerButton" Content="Start Web Server" Margin="10" DockPanel.Dock="Top" Click="StartWebServerButton_OnClick"></Button>
             <Button Name="StopWebServerButton" Content="Stop Web Server" Margin="10" Click="StopWebServerButton_Click" IsEnabled="False" DockPanel.Dock="Top"></Button>
-            <Button Name="LintJavascript" Content="Lint Javascript" Margin="10" DockPanel.Dock="Top" Click="LintJavascript_OnClick"></Button>
+            <Button Name="LintJavascript" Content="Lint Javascript" Margin="10" DockPanel.Dock="Top" Click="LintJavascript_OnClick" Visibility="Collapsed"></Button>
             <Button Name="ValidateAllFiles" Content="Validate Addon" Margin="10" DockPanel.Dock="Top" Click="ValidateAllFiles_OnClick"></Button>
 
             <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}" HorizontalAlignment="Center"> BUILD</TextBlock>
             <Button Name="CompileOnly" Content="Compile Only" Margin="10" DockPanel.Dock="Top" Click="CompileOnly_OnClick"></Button>
             <Button Name="OpenCompiledFOlder" Content="Open Compile Folder" Margin="10" Click="OpenCompiledFolderButton_Click" DockPanel.Dock="Top" ></Button>
-            <Button Name="CreateC3AddonButton" Content="Create C3Addon File"  Margin="10" DockPanel.Dock="Top" Click="CreateC3AddonButton_OnClick"></Button>
+            <Button Name="CreateC3AddonButton" Content="Publish C3Addon File"  Margin="10" DockPanel.Dock="Top" Click="CreateC3AddonButton_OnClick"></Button>
 
             <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}" HorizontalAlignment="Center"> PROJECT</TextBlock>
             <Button Name="ExportAddonButton" Content="Export Addon" Margin="10" DockPanel.Dock="Top" Click="ExportAddonButton_OnClick" ></Button>

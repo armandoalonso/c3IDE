@@ -99,6 +99,11 @@ namespace c3IDE.Windows
             LangTextEditor.Text = string.Empty;
         }
 
+        public void ChangeTab(string tab, int lineNum)
+        {
+
+        }
+
         private async void AddFloatParameter_OnClick(object sender, RoutedEventArgs e)
         {
             var id = await WindowManager.ShowInputDialog("New Float Effect Parameter", "float parameter id", "float-id");

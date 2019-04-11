@@ -39,12 +39,11 @@ namespace c3IDE.Managers
                 }
 
                 OptionsManager.SaveOptions();
-                NotificationManager.PublishNotification("construct version links updated successfully");
             }
             catch (Exception ex)
             {
                 LogManager.AddErrorLog(ex);
-                NotificationManager.PublishErrorNotification($"failed to update construct 3 version => {ex.Message}");
+                throw;
             }
         }
 

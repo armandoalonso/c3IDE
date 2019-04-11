@@ -68,6 +68,16 @@ namespace c3IDE
             {
                 OptionsManager.CurrentOptions = OptionsManager.DefaultOptions;
             }
+
+            //TODO : check for new construct version and update version
+            //try
+            //{
+            //    ConstructLauncher.Insatnce.UpdateVersions();
+            //}
+            //catch (Exception ex)
+            //{
+            //    LogManager.AddErrorLog(ex);
+            //}
         }
 
         private void OnWindowKeyUp(object sender, KeyEventArgs e)

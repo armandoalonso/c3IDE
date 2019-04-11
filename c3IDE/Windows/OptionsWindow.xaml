@@ -86,7 +86,7 @@
 
             <UniformGrid Columns="2">
                 <CheckBox Name="OpenConstructInBeta" FontFamily="Century Gothic" FontSize="16" Checked="OpenConstructInBeta_OnChecked" Unchecked="OpenConstructInBeta_OnChecked">Open Construct In Beta</CheckBox>
-                
+                <CheckBox Name="AutoIncrementVersionOnPublish" FontFamily="Century Gothic" FontSize="16" Checked="AutoIncrementVersionOnPublish_OnChecked" Unchecked="AutoIncrementVersionOnPublish_OnChecked">Increment Version On Publish</CheckBox>
             </UniformGrid>
 
         </StackPanel>

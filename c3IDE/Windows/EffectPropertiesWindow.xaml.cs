@@ -87,5 +87,10 @@ namespace c3IDE.Windows
             extendBoxH.Text = "0";
             extendBoxV.Text = "0";
         }
+
+        public void ChangeTab(string tab, int lineNum)
+        {
+
+        }
     }
 }

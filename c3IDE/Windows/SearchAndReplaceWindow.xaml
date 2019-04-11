@@ -19,7 +19,14 @@
 
         <DataGrid Margin="10" Name="SearchGrid" ItemsSource="{Binding}" AutoGenerateColumns="False"  DockPanel.Dock="Bottom" MouseDoubleClick="SearchGrid_OnMouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}" Width="100" EditingElementStyle="{DynamicResource MetroDataGridCheckBox}" Header="Is Selected" Binding="{Binding Selected}" />
+                <DataGridTemplateColumn Header="Is Selected" Width="100" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Path=Selected, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource MetroDataGridCheckBox}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--<DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}" Width="100" EditingElementStyle="{DynamicResource MetroDataGridCheckBox}" Header="Is Selected" Binding="{Binding Selected}" />-->
                 <DataGridTextColumn Header="Text" Binding="{Binding StrippedText, Mode=OneWay}" MinWidth="600" IsReadOnly="True"/>
                 <DataGridTextColumn Header="File" Binding="{Binding Document}" MinWidth="150" IsReadOnly="True" />
                 <DataGridTextColumn Header="Line Number" Binding="{Binding LineNumber}" Width="150" IsReadOnly="True"/>
