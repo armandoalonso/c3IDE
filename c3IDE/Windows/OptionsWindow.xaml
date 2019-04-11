@@ -36,8 +36,14 @@
                 <TextBox Name="DefaultAuthorTextBox" Text=""></TextBox>
                 <Separator Visibility="Hidden" Height="5" />
                 <Separator Visibility="Hidden" Height="5" />
-            </UniformGrid>
 
+                <TextBlock  Style="{DynamicResource TextBlockStyle}">Construct 3 Stable URL :</TextBlock>
+                <TextBlock  Style="{DynamicResource TextBlockStyle}">Construct 3 Beta URL :</TextBlock>
+                <TextBox Name="C3StableUrl" Text=""  Margin="0,0,10,0" IsReadOnly="True"></TextBox>
+                <TextBox Name="C3BetaUrl" Text="" IsReadOnly="True"></TextBox>
+                <Separator Visibility="Hidden" Height="5" />
+                <Separator Visibility="Hidden" Height="5" />
+            </UniformGrid>
 
             <UniformGrid Columns="3">
                 <TextBlock  Style="{DynamicResource TextBlockStyle}">Editor Font Size :</TextBlock>
@@ -76,11 +82,18 @@
                 <CheckBox Name="RemoveConsoleLogsOnCompile" FontFamily="Century Gothic" FontSize="16" Checked="RemoveConsoleLogsOnCompile_OnChecked" Unchecked="RemoveConsoleLogsOnCompile_OnChecked">Remove Console Logs (Compile)</CheckBox>
                 <CheckBox Name="UseC2ParsingService" FontFamily="Century Gothic" FontSize="16" Checked="UseC2ParsingService_OnChecked" Unchecked="UseC2ParsingService_OnChecked">Use (Online) C2 Parsing Serive</CheckBox>
             </UniformGrid>
+            <Separator Visibility="Hidden" Height="5" />
+
+            <UniformGrid Columns="2">
+                <CheckBox Name="OpenConstructInBeta" FontFamily="Century Gothic" FontSize="16" Checked="OpenConstructInBeta_OnChecked" Unchecked="OpenConstructInBeta_OnChecked">Open Construct In Beta</CheckBox>
+                
+            </UniformGrid>
 
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
             <Button Name="OpenImportLogButton" Content="Show Import Log" Margin="10" Click="OpenImportLogButton_OnClick" ></Button>
+            <Button Name="UpdateConstructVersionButton" Content="Update Construct Link Versions" Margin="10" Click="UpdateConstructVersionButton_OnClick" ></Button>
             <Button Name="OpenCompiledButton" Content="Open Compiled Folder" Margin="10" Click="OpenCompiledButton_OnClick" ></Button>
             <Button Name="OpenExportButton" Content="Open Export Folder" Margin="10" Click="OpenExportButton_OnClick"></Button>
             <Button Name="OpenDataButton" Content="Open Data Folder" Margin="10" Click="OpenDataButton_OnClick" ></Button>

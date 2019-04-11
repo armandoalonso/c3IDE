@@ -121,7 +121,7 @@ namespace c3IDE.Windows
         {
             if (OptionsManager.CurrentOptions.OpenC3InWeb)
             {
-                ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/");
+                ConstructLauncher.Insatnce.LaunchConstruct(false);
             }
             else
             {

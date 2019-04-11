@@ -1,6 +1,11 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.45 (04/11/2019)
+* add option to launch beta when construct is launched from the application
+* added two readonly options with the url for bothe construct versions
+* added button on the option window to go an update the construct version
+
 ### Build# 1.1.0.44 (04/10/2019)
 * fix version bug where plugin.js was not being updated
 * fix c2 import property of readonly property

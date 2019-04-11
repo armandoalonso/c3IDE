@@ -169,7 +169,7 @@ namespace c3IDE.Windows
         {
             if (OptionsManager.CurrentOptions.OpenC3InWeb)
             {
-                ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/");
+                ConstructLauncher.Insatnce.LaunchConstruct(false);
             }
             else
             {
@@ -197,7 +197,7 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void OpenConstructSafeButton_Click(object sender, RoutedEventArgs e)
         {
-            ProcessHelper.Insatnce.StartProcess("chrome.exe", "https://editor.construct.net/?safe-mode");
+            ConstructLauncher.Insatnce.LaunchConstruct(false);
         }
 
         /// <summary>

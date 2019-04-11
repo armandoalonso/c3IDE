@@ -41,7 +41,8 @@ namespace c3IDE.Managers
                 ExportSingleFileProject = true,
                 OverwriteGuidOnImport = true,
                 RemoveConsoleLogsOnCompile = false,
-                UseC2ParserService = true
+                UseC2ParserService = true,
+                OpenConstructInBeta = true
             };
 
             DefaultOptions = defaultOptions;

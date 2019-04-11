@@ -25,6 +25,9 @@ namespace c3IDE.Models
         public bool OverwriteGuidOnImport { get; set; } = true;
         public bool RemoveConsoleLogsOnCompile { get; set; } = false;
         public bool UseC2ParserService { get; set; } = true;
+        public bool OpenConstructInBeta { get; set; } = true;
+        public string BetaUrl { get; set; } = "https://editor.construct.net";
+        public string StableUrl { get; set; } = "https://editor.construct.net";
 
         [BsonIgnore]
         public Theme ApplicationTheme => ThemeResolver.Insatnce.Resolve(ThemeKey);

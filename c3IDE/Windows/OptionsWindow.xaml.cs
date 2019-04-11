@@ -58,6 +58,9 @@ namespace c3IDE.Windows
             OverwriteGuidOnImport.IsChecked = OptionsManager.CurrentOptions.OverwriteGuidOnImport;
             RemoveConsoleLogsOnCompile.IsChecked = OptionsManager.CurrentOptions.RemoveConsoleLogsOnCompile;
             UseC2ParsingService.IsChecked = OptionsManager.CurrentOptions.UseC2ParserService;
+            C3BetaUrl.Text = OptionsManager.CurrentOptions.BetaUrl;
+            C3StableUrl.Text = OptionsManager.CurrentOptions.StableUrl;
+            OpenConstructInBeta.IsChecked = OptionsManager.CurrentOptions.OpenConstructInBeta;
         }
 
         /// <summary>
@@ -85,7 +88,10 @@ namespace c3IDE.Windows
                     ExportSingleFileProject = ExportSingleProjectFile.IsChecked != null && ExportSingleProjectFile.IsChecked.Value,
                     OverwriteGuidOnImport = OverwriteGuidOnImport.IsChecked != null && OverwriteGuidOnImport.IsChecked.Value,
                     RemoveConsoleLogsOnCompile = RemoveConsoleLogsOnCompile.IsChecked != null && RemoveConsoleLogsOnCompile.IsChecked.Value,
-                    UseC2ParserService = UseC2ParsingService.IsChecked != null && UseC2ParsingService.IsChecked.Value
+                    UseC2ParserService = UseC2ParsingService.IsChecked != null && UseC2ParsingService.IsChecked.Value,
+                    BetaUrl = C3BetaUrl.Text,
+                    StableUrl = C3StableUrl.Text,
+                    OpenConstructInBeta = OpenConstructInBeta.IsChecked != null && OpenConstructInBeta.IsChecked.Value
             };
 
                 //create exports folder if it does not exists
@@ -301,6 +307,12 @@ namespace c3IDE.Windows
             OptionsManager.SaveOptions();
         }
 
+        private void OpenConstructInBeta_OnChecked(object sender, RoutedEventArgs e)
+        {
+            OptionsManager.CurrentOptions.OpenConstructInBeta = OpenConstructInBeta.IsChecked != null && OpenConstructInBeta.IsChecked.Value;
+            OptionsManager.SaveOptions();
+        }
+
         private void OpenImportLogButton_OnClick(object sender, RoutedEventArgs e)
         {
             try
@@ -313,5 +325,14 @@ namespace c3IDE.Windows
                 NotificationManager.PublishErrorNotification($"error opening import log, {ex.Message}");
             }
         }
+
+        private void UpdateConstructVersionButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ConstructLauncher.Insatnce.UpdateVersions();
+            C3StableUrl.Text = OptionsManager.CurrentOptions.StableUrl;
+            C3BetaUrl.Text = OptionsManager.CurrentOptions.BetaUrl;
+        }
+
+
     }   
 }
