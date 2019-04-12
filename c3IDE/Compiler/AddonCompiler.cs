@@ -67,7 +67,10 @@ namespace c3IDE.Compiler
                 //create addon compile directory and addon specific paths
                 System.IO.Directory.CreateDirectory(addon.AddonFolder);
                 System.IO.Directory.CreateDirectory(Path.Combine(addon.AddonFolder, "lang"));
-                System.IO.Directory.CreateDirectory(Path.Combine(addon.AddonFolder, "c3runtime"));
+                if (addon.Type != PluginType.Effect)
+                {
+                    System.IO.Directory.CreateDirectory(Path.Combine(addon.AddonFolder, "c3runtime"));
+                }
                 if (!string.IsNullOrWhiteSpace(addon.C2RunTime) ||(addon.ThirdPartyFiles != null && addon.ThirdPartyFiles.Any(x => x.Value.C2Folder)))
                 {
                     System.IO.Directory.CreateDirectory(Path.Combine(addon.AddonFolder, "c2runtime"));

@@ -32,7 +32,7 @@ namespace c3IDE.Managers
 
                     var edittimefile = Directory.GetFiles(tmpPath, "edittime.js", SearchOption.AllDirectories).FirstOrDefault();
                     var runtimefile = Directory.GetFiles(tmpPath, "runtime.js", SearchOption.AllDirectories).FirstOrDefault();
-                    var effectXml = Directory.GetFiles(tmpPath, "*.xml", SearchOption.AllDirectories).FirstOrDefault();
+                    var effectXml = Directory.GetFiles(tmpPath, "*.xml", SearchOption.AllDirectories).FirstOrDefault(x => !x.Contains("info.xml"));
                     var effectCode = Directory.GetFiles(tmpPath, "*.fx", SearchOption.AllDirectories).FirstOrDefault();
 
                     LogManager.AddImportLogMessage($"edittime.js => {edittimefile}");

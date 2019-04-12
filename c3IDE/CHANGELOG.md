@@ -1,6 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.46 (04/12/2019)
+* add c2 effect import
+* fix minor bug with effect compile, where empty c3runtime folder would be created 
+
 ### Build# 1.1.0.45 (04/11/2019)
 * add option to launch beta when construct is launched from the application
 * added two readonly options with the url for bothe construct versions

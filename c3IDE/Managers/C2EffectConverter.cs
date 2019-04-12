@@ -8,6 +8,7 @@ using System.Xml;
 using c3IDE.Models;
 using c3IDE.Templates;
 using c3IDE.Utilities;
+using c3IDE.Utilities.Helpers;
 
 namespace c3IDE.Managers
 {
@@ -20,8 +21,17 @@ namespace c3IDE.Managers
             c3addon = new C3Addon();
             ParseXml(effextXml);
 
+            c3addon.Effect.Code = effectCode;
+            c3addon.CreateDate = DateTime.Now;
+            c3addon.LastModified = DateTime.Now;
+            c3addon.MajorVersion = 1;
+            c3addon.MinorVersion = 0;
+            c3addon.RevisionVersion = 0;
+            c3addon.BuildVersion = 0;
+
             c3addon.Type = PluginType.Effect;
             c3addon.Template = TemplateFactory.Insatnce.CreateTemplate(c3addon.Type);
+            c3addon.IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
 
             return c3addon;
         }
@@ -81,8 +91,8 @@ namespace c3IDE.Managers
             c3addon.Effect.Animated = animated == "true";
 
             c3addon.Effect.Parameters = new Dictionary<string, EffectParameter>();
-            var parameters = xmlDoc.SelectNodes("param");
-            if (parameters != null)
+            var parameters = xmlDoc.GetElementsByTagName("param");
+            if (parameters.Count > 0)
             {
                 foreach (XmlNode param in parameters)
                 {
@@ -100,7 +110,7 @@ namespace c3IDE.Managers
 
                     switch (ptype)
                     {
-                        case "float": 
+                        case "float":
                         case "percent":
                             initValue = $"{pinit}";
                             varDec = $"uniform lowp float {puniform};";
@@ -111,7 +121,7 @@ namespace c3IDE.Managers
                     }
 
                     parameter.Json = $@"{{
-    ""id"":""""{pid}"",
+    ""id"":""{pid}"",
     ""type"": ""{ptype}"",
     ""initial-value"":{initValue},
     ""uniform"": ""{puniform}""
@@ -125,7 +135,7 @@ namespace c3IDE.Managers
                     parameter.Key = id;
                     parameter.VariableDeclaration = varDec;
                     c3addon.Effect.Parameters.Add(pid, parameter);
-                }
+                }     
             }
           
         }
