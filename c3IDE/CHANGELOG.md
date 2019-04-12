@@ -1,9 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.0.46 (04/12/2019)
+### Build# 1.1.0.47 (04/12/2019)
 * add c2 effect import
 * fix minor bug with effect compile, where empty c3runtime folder would be created 
+* fix bug with syntax highlighting regex it, only on monokai theme, need to verify other themes works fine
 
 ### Build# 1.1.0.45 (04/11/2019)
 * add option to launch beta when construct is launched from the application
