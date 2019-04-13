@@ -1,6 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.48 (04/16/2019)
+* fix typos in ace
+* remove regex highlighting, and fix string highlighting
+
 ### Build# 1.1.0.47 (04/12/2019)
 * add c2 effect import
 * fix minor bug with effect compile, where empty c3runtime folder would be created 

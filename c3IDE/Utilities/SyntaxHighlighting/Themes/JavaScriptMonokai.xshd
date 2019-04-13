@@ -476,16 +476,7 @@
       <Word>gl_FogCoord</Word>
     </Keywords>
 
-    <Span color="Regex">
-      <Begin>/</Begin>
-      <End>/</End>
-      <RuleSet>
-        <Span begin="\\/" end="." />
-      </RuleSet>
-    </Span>
-  
-
-    <Span color="Strings" multiline="true">
+    <Span color="Strings" multiline="false">
       <Begin>"</Begin>
       <End>"</End>
       <RuleSet>
@@ -526,6 +517,7 @@
     <Rule color="Punctuation">
       [{}[\];(),.:]
     </Rule>
-
   </RuleSet>
+
+
 </SyntaxDefinition>
