@@ -476,13 +476,14 @@
       <Word>gl_FogCoord</Word>
     </Keywords>
 
-    <!--<Span color="Regex">
+    <Span color="Regex">
       <Begin>/</Begin>
       <End>/</End>
       <RuleSet>
         <Span begin="\\/" end="." />
       </RuleSet>
-    </Span>-->
+    </Span>
+  
 
     <Span color="Strings" multiline="true">
       <Begin>"</Begin>
