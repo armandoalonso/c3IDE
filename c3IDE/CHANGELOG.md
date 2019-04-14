@@ -1,9 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.0.48 (04/16/2019)
+### Build# 1.1.0.49 (04/14/2019)
 * fix typos in ace
 * remove regex highlighting, and fix string highlighting
+* fix typo with svg import 
 
 ### Build# 1.1.0.47 (04/12/2019)
 * add c2 effect import

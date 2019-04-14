@@ -322,7 +322,7 @@ namespace c3IDE.Managers
                         c3addon.AddonJson = TemplateCompiler.Insatnce.CompileTemplates(c3addon.Template.AddonJson, c3addon);
 
                         //fixup pluginedit time (replace png iconw ith svg)
-                        c3addon.PluginEditTime = Regex.Replace(c3addon.PluginEditTime, @"this._info.SetIcon\(.*\);", "this._info.SetIcon(\"icon.svg\", \"image/svg+sml\");");
+                        c3addon.PluginEditTime = Regex.Replace(c3addon.PluginEditTime, @"this._info.SetIcon\(.*\);", "this._info.SetIcon(\"icon.svg\", \"image/svg+xml\");");
 
                         return c3addon;
                     }
