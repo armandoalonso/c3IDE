@@ -30,7 +30,7 @@ namespace c3IDE.Windows
         public string DisplayName { get; set; } = "Parameters";
         private Dictionary<string, EffectParameter> _params;
         private EffectParameter _selectedParam;
-        private CompletionWindow completionWindow;
+        //private CompletionWindow completionWindow;
 
         public EffectParameterWindow()
         {

@@ -19,7 +19,6 @@ namespace c3IDE.Managers
     public class C2AddonParser : Singleton<C2AddonParser>
     {
         private C2Addon c2addon;
-        private Dictionary<string, string> AllFunctions;
 
         public C2Addon ReadEdittimeJs(string source)
         {

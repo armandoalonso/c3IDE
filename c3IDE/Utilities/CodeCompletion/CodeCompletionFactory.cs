@@ -15,7 +15,6 @@ namespace c3IDE.Utilities.CodeCompletion
     public class CodeCompletionFactory : Singleton<CodeCompletionFactory>
     {
         private readonly Dictionary<string, HashSet<GenericCompletionItem>> _globalTokens = new Dictionary<string, HashSet<GenericCompletionItem>>();
-        private int _changeHash;
 
         public IList<GenericCompletionItem> GetCompletionData(IEnumerable<string> tokenList, string key)
         {

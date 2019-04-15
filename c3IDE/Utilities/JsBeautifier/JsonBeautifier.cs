@@ -9,7 +9,6 @@ namespace c3IDE.Utilities.JsBeautifier
 {
     public class JsonBeautifier
     {
-        private string json;
         private const string INDENT_STRING = "    ";
         private const int INDENT_SIZE = 4;
 

@@ -33,7 +33,7 @@
     <ProductName>c3IDE</ProductName>
     <PublisherName>Piranha305</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>50</ApplicationRevision>
+    <ApplicationRevision>51</ApplicationRevision>
     <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -183,6 +183,7 @@
     <Compile Include="Utilities\Eventing\EventQueue.cs" />
     <Compile Include="Utilities\Extentions\DictionaryExtentions.cs" />
     <Compile Include="Utilities\Extentions\StringExtentions.cs" />
+    <Compile Include="Utilities\Folding\BraceFoldingStrategy.cs" />
     <Compile Include="Utilities\Helpers\AceParameterHelper.cs" />
     <Compile Include="Utilities\Helpers\ConsoleLogRemover.cs" />
     <Compile Include="Utilities\Helpers\ControlHelper.cs" />

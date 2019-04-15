@@ -12,6 +12,7 @@ using c3IDE.Models;
 using c3IDE.Utilities;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Extentions;
+using c3IDE.Utilities.Folding;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
@@ -20,6 +21,7 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
 using c3IDE.Utilities.ThemeEngine;
 using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Folding;
 
 namespace c3IDE.Windows
 {
@@ -30,6 +32,8 @@ namespace c3IDE.Windows
     {
         public string DisplayName { get; set; } = "Type";
         private CompletionWindow completionWindow;
+        private FoldingManager edittimeFoldingManager, runtimeFoldingManager;
+        private BraceFoldingStrategy folding;
 
         /// <summary>
         /// constructor for type window
@@ -47,6 +51,12 @@ namespace c3IDE.Windows
             EditTimeTypeTextEditor.Options.EnableEmailHyperlinks = false;
             RunTimeTypeTextEditor.Options.EnableHyperlinks = false;
             RunTimeTypeTextEditor.Options.EnableEmailHyperlinks = false;
+
+            folding = new BraceFoldingStrategy();
+            edittimeFoldingManager = FoldingManager.Install(EditTimeTypeTextEditor.TextArea);
+            runtimeFoldingManager = FoldingManager.Install(RunTimeTypeTextEditor.TextArea);
+            folding.UpdateFoldings(edittimeFoldingManager, EditTimeTypeTextEditor.Document);
+            folding.UpdateFoldings(runtimeFoldingManager, RunTimeTypeTextEditor.Document);
         }
 
         /// <summary>
@@ -62,6 +72,9 @@ namespace c3IDE.Windows
                 EditTimeTypeTextEditor.Text = AddonManager.CurrentAddon.TypeEditTime;
                 RunTimeTypeTextEditor.Text = AddonManager.CurrentAddon.TypeRunTime;
             }
+
+            folding.UpdateFoldings(edittimeFoldingManager, EditTimeTypeTextEditor.Document);
+            folding.UpdateFoldings(runtimeFoldingManager, RunTimeTypeTextEditor.Document);
         }
 
         /// <summary>
@@ -75,6 +88,9 @@ namespace c3IDE.Windows
                 AddonManager.CurrentAddon.TypeRunTime = RunTimeTypeTextEditor.Text;
                 AddonManager.SaveCurrentAddon();
             }
+
+            folding.UpdateFoldings(edittimeFoldingManager, EditTimeTypeTextEditor.Document);
+            folding.UpdateFoldings(runtimeFoldingManager, RunTimeTypeTextEditor.Document);
         }
 
         /// <summary>
@@ -130,6 +146,8 @@ namespace c3IDE.Windows
                     }
                 }
             }
+
+            folding.UpdateFoldings(edittimeFoldingManager, EditTimeTypeTextEditor.Document);
         }
 
         /// <summary>
@@ -171,6 +189,8 @@ namespace c3IDE.Windows
                     }
                 }
             }
+
+            folding.UpdateFoldings(runtimeFoldingManager, RunTimeTypeTextEditor.Document);
         }
 
         /// <summary>
@@ -248,6 +268,7 @@ namespace c3IDE.Windows
         private void FormatJavascriptRuntime_OnClick(object sender, RoutedEventArgs e)
         {
             EditTimeTypeTextEditor.Text = FormatHelper.Insatnce.Javascript(EditTimeTypeTextEditor.Text);
+            folding.UpdateFoldings(edittimeFoldingManager, EditTimeTypeTextEditor.Document);
         }
 
         /// <summary>
@@ -258,6 +279,39 @@ namespace c3IDE.Windows
         private void FormatJavascriptEdittime_OnClick(object sender, RoutedEventArgs e)
         {
             RunTimeTypeTextEditor.Text = FormatHelper.Insatnce.Javascript(RunTimeTypeTextEditor.Text);
+            folding.UpdateFoldings(runtimeFoldingManager, RunTimeTypeTextEditor.Document);
+        }
+
+        private void EditTimeFoldAll_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (var fold in edittimeFoldingManager.AllFoldings)
+            {
+                fold.IsFolded = true;
+            }
+        }
+
+        private void EditTimeUnFoldAll_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (var fold in edittimeFoldingManager.AllFoldings)
+            {
+                fold.IsFolded = false;
+            }
+        }
+
+        private void RunTimeFoldAll_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (var fold in runtimeFoldingManager.AllFoldings)
+            {
+                fold.IsFolded = true;
+            }
+        }
+
+        private void RunTimeUnFoldAll_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (var fold in runtimeFoldingManager.AllFoldings)
+            {
+                fold.IsFolded = false;
+            }
         }
     }
 }

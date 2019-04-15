@@ -1,6 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.50 (04/15/2019)
+* implemented code folding for all the javascript editors, code folding is ussing a brace stragety  
+
 ### Build# 1.1.0.49 (04/14/2019)
 * fix typos in ace
 * remove regex highlighting, and fix string highlighting

@@ -15,6 +15,7 @@ using c3IDE.Templates;
 using c3IDE.Templates.c3IDE.Templates;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Extentions;
+using c3IDE.Utilities.Folding;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
@@ -22,6 +23,7 @@ using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Folding;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Expression = c3IDE.Models.Expression;
@@ -37,6 +39,8 @@ namespace c3IDE.Windows
         private Dictionary<string, Expression> _expressions;
         private Expression _selectedExpression;
         private CompletionWindow completionWindow;
+        private FoldingManager aceFoldingManager;
+        private BraceFoldingStrategy folding;
 
         /// <summary>
         /// expression window constructor
@@ -58,6 +62,10 @@ namespace c3IDE.Windows
             CodeTextEditor.Options.EnableHyperlinks = false;
             LanguageTextEditor.Options.EnableEmailHyperlinks = false;
             LanguageTextEditor.Options.EnableHyperlinks = false;
+
+            folding = new BraceFoldingStrategy();
+            aceFoldingManager = FoldingManager.Install(CodeTextEditor.TextArea);
+            folding.UpdateFoldings(aceFoldingManager, CodeTextEditor.Document);
         }
 
         /// <summary>
@@ -91,6 +99,8 @@ namespace c3IDE.Windows
                 LanguageTextEditor.Text = string.Empty;
                 CodeTextEditor.Text = string.Empty;
             }
+
+            folding.UpdateFoldings(aceFoldingManager, CodeTextEditor.Document);
         }
 
         /// <summary>
@@ -113,6 +123,8 @@ namespace c3IDE.Windows
                 AddonManager.CurrentAddon.Expressions = _expressions;
                 AddonManager.SaveCurrentAddon();
             }
+
+            folding.UpdateFoldings(aceFoldingManager, CodeTextEditor.Document);
         }
 
         /// <summary>
@@ -234,6 +246,8 @@ namespace c3IDE.Windows
                     }
                 }
             }
+
+            folding.UpdateFoldings(aceFoldingManager, CodeTextEditor.Document);
         }
 
         /// <summary>
@@ -542,6 +556,8 @@ namespace c3IDE.Windows
            AceTextEditor.Text = _selectedExpression.Ace;
            LanguageTextEditor.Text = _selectedExpression.Language;
            CodeTextEditor.Text = _selectedExpression.Code;
+
+            folding.UpdateFoldings(aceFoldingManager, CodeTextEditor.Document);
         }
 
         /// <summary>
@@ -552,6 +568,7 @@ namespace c3IDE.Windows
         private void FormatJavascript_OnClick(object sender, RoutedEventArgs e)
         {
             CodeTextEditor.Text = FormatHelper.Insatnce.Javascript(CodeTextEditor.Text);
+            folding.UpdateFoldings(aceFoldingManager, CodeTextEditor.Document);
         }
 
         /// <summary>
@@ -725,6 +742,22 @@ namespace c3IDE.Windows
             var ti = new CultureInfo("en-US", false).TextInfo;
             var listName = ti.ToTitleCase(ParamIdText.Text.Replace("-", " ").ToLower());
             ParamNameText.Text = listName;
+        }
+
+        private void AceFoldAll_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (var fold in aceFoldingManager.AllFoldings)
+            {
+                fold.IsFolded = true;
+            }
+        }
+
+        private void AceUnFoldAll_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (var fold in aceFoldingManager.AllFoldings)
+            {
+                fold.IsFolded = false;
+            }
         }
     }
 }

@@ -114,11 +114,6 @@ namespace c3IDE.Managers
         {
             try
             {
-                if (ace.ScriptName == null)
-                {
-                    var x = 5l;
-                }
-
                 var action = new Action
                 {
                     Category = ace.Category.ToLower(),
@@ -169,11 +164,6 @@ namespace c3IDE.Managers
         {
             try
             {
-                if (ace.ScriptName == null)
-                {
-                    var x = 5l;
-                }
-
                 var condition = new Condition
                 {
                     Category = ace.Category.ToLower(),

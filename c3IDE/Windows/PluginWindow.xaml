@@ -57,6 +57,8 @@
                             <MenuItem Header="Format Javascript" Click="FormatJavascriptEdittime_OnClick" />
                             <MenuItem Header="Insert New Plugin Property" Click="InsertNewProperty_OnClick" />
                             <MenuItem Header="Generate File Dependency" Click="GenerateFileDependency_OnClick" />
+                            <MenuItem Header="Collapse All Code" Click="EditTimeFoldAll_OnClick" />
+                            <MenuItem Header="Expand All Code" Click="EditTimeUnFoldAll_OnClick" />
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>
@@ -74,6 +76,8 @@
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Format Javascript" Click="FormatJavascriptRuntime_OnClick" />
+                            <MenuItem Header="Collapse All Code" Click="RuntimeFoldAll_OnClick" />
+                            <MenuItem Header="Expand All Code" Click="RunttimeUnFoldAll_OnClick" />
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>

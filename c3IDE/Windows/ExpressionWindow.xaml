@@ -198,6 +198,8 @@
                             <ContextMenu>
                                 <MenuItem Header="Insert Expression Parameter" Click="InsertNewParam_OnClick" />
                                 <MenuItem Header="Format Javascript" Click="FormatJavascript_OnClick" />
+                                <MenuItem Header="Collapse All Code" Click="AceFoldAll_OnClick" />
+                                <MenuItem Header="Expand All Code" Click="AceUnFoldAll_OnClick" />
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>
