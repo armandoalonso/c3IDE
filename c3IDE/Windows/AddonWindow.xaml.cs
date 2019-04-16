@@ -172,6 +172,7 @@ namespace c3IDE.Windows
                 var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, "addon_json").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList(); ;
                 if (data.Any())
                 {
+                    data.Sort((x, y) => string.Compare(x.Text, y.Text, StringComparison.Ordinal));
                     ShowCompletion(AddonTextEditor.TextArea, data);
                 }
             }

@@ -1,6 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
+### Next Build
+* sort all auto completion data before being displayed, this should mimic visual studio auto completion abit a more
+
 ### Build# 1.1.0.50 (04/15/2019)
 * implemented code folding for all the javascript editors, code folding is ussing a brace stragety  
 

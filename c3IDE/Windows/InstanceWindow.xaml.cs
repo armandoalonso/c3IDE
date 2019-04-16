@@ -121,6 +121,7 @@ namespace c3IDE.Windows
                     var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"edittime_instance_script").ToList();
                     if (data.Any())
                     {
+                        data.Sort((x, y) => string.Compare(x.Text, y.Text, StringComparison.Ordinal));
                         ShowCompletion(EditTimeInstanceTextEditor.TextArea, data);
                     }
                 }
@@ -138,6 +139,7 @@ namespace c3IDE.Windows
                     var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"edittime_instance_script").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
+                        data.Sort((x, y) => string.Compare(x.Text, y.Text, StringComparison.Ordinal));
                         ShowCompletion(EditTimeInstanceTextEditor.TextArea, data);
                     }
                 }
@@ -164,6 +166,7 @@ namespace c3IDE.Windows
                     var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"runtime_instance_script").ToList();
                     if (data.Any())
                     {
+                        data.Sort((x, y) => string.Compare(x.Text, y.Text, StringComparison.Ordinal));
                         ShowCompletion(RunTimeInstanceTextEditor.TextArea, data);
                     }
                 }
@@ -181,6 +184,7 @@ namespace c3IDE.Windows
                     var data = CodeCompletionFactory.Insatnce.GetCompletionData(allTokens, $"runtime_instance_script").Where(x => x.Text.ToLower().StartsWith(text.ToLower())).ToList();
                     if (data.Any())
                     {
+                        data.Sort((x, y) => string.Compare(x.Text, y.Text, StringComparison.Ordinal));
                         ShowCompletion(RunTimeInstanceTextEditor.TextArea, data);
                     }
                 }
