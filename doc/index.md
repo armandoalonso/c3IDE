@@ -27,6 +27,11 @@ If by any chance you need to change your addon's id, there is an option in the c
 
 ![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/24.gif)
 
+### Changing Addon Icon
+You can change an existings addons icon (only svg images are supported) by opening up on the context menu on the dashboard and selecting *Change Addon Icon*. this will bring up popup dialog with the icon. You can change the icon by draging and dropping an svg and clicking teh save button. The old icon will be lost when saving.
+
+![](https://github.com/armandoalonso/c3IDE/blob/master/doc/images/28.gif)
+
 ### Importing C3Addon Files (EXPERIMENTAL)
 You can import c3addon zip files into c3IDE, in order to import drag the c3addon file inot the dashboard, you will be prompted with a disclaimer message. When you click okay, it will import the addon. I have done my best to take into account most of the possible configuration in which addons can be written, this might not work 100% of the time depending on the addon on how it was written. so additional work might have to be done to get it to work properly. but importing should help with all the boiler plate. see example below, where i import 2 addons from different developers.
 
@@ -256,6 +261,8 @@ The Option window has some global options that affect how the application behave
 - **Data Path** : (READONLY) The data path points to the root where the application will store all it's data
 - **C3Addon Path** : The C3Addon Path is the path where .c3addon files will be created 
 - **Construct Desktop Path** : This is the path used to open the desktop version construct with the open construct buttons 
+- **Construct 3 Stable Url** : This is the url that will be used when opening construct from the web and *Open Construct in Beta* option is not enabled
+- **Construct 3 Beta Url** : This is the url that will be used when opening construct from the web and *Open Construct in Beta* option is enabled, inorder to update these links there is an *Update Construct Link Version* button. this will go fetch the most recent consrtuct releases
 - **Default Author** : This is the author that will be used when starting a new addon
 - **Editor Font Size** : This value effect the font size of all the code editors
 - **Editor Font Family** : This value effects the font that will be used in all editors
@@ -268,6 +275,9 @@ The Option window has some global options that affect how the application behave
 - **Include Timestamp On Export** : This option will append a time stamp to an exported project file or folder
 - **Compile On Save** : This option will compile the currently selected addon, when a save operation is performed using the save button or the save shortcut (ctrl-s). this will bring up a compile log dialog, which will show any compilation errors  
 - **Overwrite Addon Id On Import** : When this option is set if you import an addon with the same addon key, the addon will be overwritten, if it's not set it will create a duplicate addon (with a different addon key)  
+- **Use (Online) C2 Parsing Service** : When this option is set if you import a c2addon file. the parsing of the addon will use [@Armaldio](https://twitter.com/armaldio) parsing service [construct-parser web service](https://github.com/WebCreationClub/construct-addon-parser). When this option is not check the addon will be parsed by c3IDE. (you will get better results using armaldio parser)  
+- **Open Construct In Beta** : When this option is set when you open construct from c3IDE it will open the beta version.
+- **Increment Version On Publish** : When this option is set if you publish and addon from the dashboard or test window, it will increment the build version of that addon. 
 
 ## Contact
 If you run into any issues (or feature request) report it [HERE](https://github.com/armandoalonso/c3IDE/issues)
