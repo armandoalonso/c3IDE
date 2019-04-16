@@ -9,7 +9,7 @@ You can download and install the application from this link [https://github.com/
 You can also Install the application from my [Itch.io](https://piranha305.itch.io/c3ide) page
 
 ## Change Log
-You can see detailed change log here : [https://github.com/armandoalonso/c3IDE/blob/master/CHANGELOG.md](https://github.com/armandoalonso/c3IDE/blob/master/CHANGELOG.md "Change Log").
+You can see detailed change log here : [https://github.com/armandoalonso/c3IDE/blob/master/c3IDE/CHANGELOG.md](https://github.com/armandoalonso/c3IDE/blob/master/CHANGELOG.md "Change Log").
 
 ## Documentation
 You can find the current version of the documentation [HERE](https://github.com/armandoalonso/c3IDE/blob/master/doc/index.md)
