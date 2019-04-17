@@ -32,7 +32,7 @@ namespace c3IDE.Utilities.CodeCompletion
             }
 
             //get user completion
-            var hashSets = _globalTokens.Where(x => x.Key != key).SelectMany(x => x.Value);
+            var hashSets = _globalTokens.SelectMany(x => x.Value);
             completionList.AddRange(hashSets.Select(x => x));
 
             //merge in custom completion info
