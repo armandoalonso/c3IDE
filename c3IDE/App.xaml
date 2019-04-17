@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:c3IDE"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:CodeCompletion="clr-namespace:ICSharpCode.AvalonEdit.CodeCompletion;assembly=ICSharpCode.AvalonEdit"
+             xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              StartupUri="MainWindow.xaml" Startup="App_Startup">
     <Application.Resources>
         <ResourceDictionary>
@@ -44,15 +46,72 @@
                 <Setter Property="BorderThickness" Value="0"></Setter>
             </Style>
 
-            
+
             <SolidColorBrush x:Key="ListBoxBorder" Color="Black" />
-            
+
             <SolidColorBrush x:Key="ListBoxBackColor" Color="White" />
-            
+
             <!--<Style TargetType="{x:Type CodeCompletion:CompletionListBox}">
                 <Setter Property="Background" Value="#505050" />
             </Style>-->
+
+            <Style TargetType="avalonedit:SearchPanel">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type avalonedit:SearchPanel}">
+                            <Border Background="{DynamicResource WindowBackgroundBrush}" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1" HorizontalAlignment="Right"  VerticalAlignment="Top" Cursor="Arrow">
+                                <DockPanel LastChildFill="False" Width="450">
+                                    
+                                    <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                                        <Button Margin="1" Height="32" Width="32" Command="avalonedit:SearchCommands.FindNext" ToolTip="{Binding Localization.FindNextText, RelativeSource={RelativeSource TemplatedParent}}"
+                                                Padding="1" Style="{DynamicResource AccentedSquareButtonStyle}" BorderThickness="1" BorderBrush="Transparent" DockPanel.Dock="Right">
+                                            <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" Height="30" Width="30" />
+                                        </Button>
+                                        
+                                        <Button Margin="1" Height="32" Width="32" Command="avalonedit:SearchCommands.FindPrevious" ToolTip="{Binding Localization.FindPreviousText, RelativeSource={RelativeSource TemplatedParent}}"  
+                                                Padding="1" Style="{DynamicResource AccentedSquareButtonStyle}"  BorderThickness="1" BorderBrush="Transparent" DockPanel.Dock="Right">
+                                            <iconPacks:PackIconFontAwesome Kind="ArrowLeftSolid" Height="30" Width="30" />
+                                        </Button>
+
+                                        <TextBox Name="PART_searchTextBox" Focusable="True"  BorderBrush="{DynamicResource AccentColorBrush}"  Height="Auto" Margin="3,3,0,3" DockPanel.Dock="Left">
+                                            <TextBox.Text>
+                                                <Binding Path="SearchPattern" RelativeSource="{RelativeSource TemplatedParent}"  UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </DockPanel>
+
+                                    <UniformGrid Columns="4" DockPanel.Dock="Top" Height="34">
+                                        <!--Style="{DynamicResource MetroCircleToggleButtonStyle}"-->
+                                        <ToggleButton  Height="32" Margin="0" Cursor="Hand" ToolTip="{Binding Localization.MatchCaseText, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                      IsChecked="{Binding MatchCase, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                      Content="Case (aA)" FontWeight="Bold" FontFamily="Century Gothic">
+                                        </ToggleButton>
+
+                                        <ToggleButton Height="32" Margin="0" Cursor="Hand"  ToolTip="{Binding Localization.MatchWholeWordsText, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                      IsChecked="{Binding WholeWords, RelativeSource={RelativeSource TemplatedParent}}" Content="Whole Word (Ab)" FontWeight="Bold" FontFamily="Century Gothic">
+                                        </ToggleButton>
+
+                                        <ToggleButton  Height="32" Margin="0" Cursor="Hand"  ToolTip="{Binding Localization.UseRegexText, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                      IsChecked="{Binding UseRegex, RelativeSource={RelativeSource TemplatedParent}}" Content="Regex (a*)" FontWeight="Bold" FontFamily="Century Gothic">
+                                        </ToggleButton>
+
+                                        <Button Height="32" HorizontalAlignment="Right" Padding="0" Background="Transparent" Cursor="Hand" VerticalAlignment="Top" Command="avalonedit:SearchCommands.CloseSearchPanel"
+                                                VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{DynamicResource AccentColorBrush2}" BorderThickness="1">
+                                            <iconPacks:PackIconFontAwesome Kind="TimesSolid" Height="32" Width="32" Foreground="Red"/>
+                                        </Button>
+                                    </UniformGrid>
+                                </DockPanel>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
-        
+
     </Application.Resources>
 </Application>

@@ -23,6 +23,7 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Search;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Condition = c3IDE.Models.Condition;
@@ -65,6 +66,11 @@ namespace c3IDE.Windows
             folding = new BraceFoldingStrategy();
             aceFoldingManager = FoldingManager.Install(CodeTextEditor.TextArea);
             folding.UpdateFoldings(aceFoldingManager, CodeTextEditor.Document);
+
+            //setip ctrl-f to single page code find
+            SearchPanel.Install(CodeTextEditor);
+            SearchPanel.Install(LanguageTextEditor);
+            SearchPanel.Install(AceTextEditor);
         }
 
         /// <summary>

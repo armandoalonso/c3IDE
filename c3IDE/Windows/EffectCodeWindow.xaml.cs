@@ -6,6 +6,7 @@ using c3IDE.DataAccess;
 using c3IDE.Managers;
 using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
+using ICSharpCode.AvalonEdit.Search;
 
 namespace c3IDE.Windows
 {
@@ -25,6 +26,8 @@ namespace c3IDE.Windows
 
             EffectPluginTextEditor.Options.EnableEmailHyperlinks = false;
             EffectPluginTextEditor.Options.EnableHyperlinks = false;
+
+            SearchPanel.Install(EffectPluginTextEditor);
         }
 
 

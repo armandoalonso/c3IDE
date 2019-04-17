@@ -228,7 +228,8 @@ namespace c3IDE.Compiler
                 {
                     case ".js":
                         //todo: add an option to compress js strings for third party files
-                        var content = FormatHelper.Insatnce.JavascriptCompress(files.Content);
+                        //var content = FormatHelper.Insatnce.JavascriptCompress(files.Content);
+                        var content = files.Content;
                         if (files.Rootfolder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, files.FileName), content);
                         if (files.C3Folder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), content);
                         if (files.C2Folder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c2runtime", files.FileName), content);

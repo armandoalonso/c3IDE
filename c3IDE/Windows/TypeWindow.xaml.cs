@@ -22,6 +22,7 @@ using ICSharpCode.AvalonEdit.Editing;
 using c3IDE.Utilities.ThemeEngine;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Search;
 
 namespace c3IDE.Windows
 {
@@ -57,6 +58,10 @@ namespace c3IDE.Windows
             runtimeFoldingManager = FoldingManager.Install(RunTimeTypeTextEditor.TextArea);
             folding.UpdateFoldings(edittimeFoldingManager, EditTimeTypeTextEditor.Document);
             folding.UpdateFoldings(runtimeFoldingManager, RunTimeTypeTextEditor.Document);
+
+            //setip ctrl-f to single page code find
+            SearchPanel.Install(EditTimeTypeTextEditor);
+            SearchPanel.Install(EditTimeTypeTextEditor);
         }
 
         /// <summary>

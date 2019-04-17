@@ -41,7 +41,7 @@
 
             <DockPanel LastChildFill="True" Margin="2">
                 <TextBlock DockPanel.Dock="Left" Width="170" Style="{DynamicResource TextBlockStyle}">Description :</TextBlock>
-                <TextBox Name="DescriptionText" DockPanel.Dock="Right" Text="" VerticalScrollBarVisibility="Auto" Height="80"></TextBox>
+                <TextBox Name="DescriptionText" DockPanel.Dock="Right" Text="" VerticalScrollBarVisibility="Auto" Height="80" TextWrapping="Wrap"></TextBox>
             </DockPanel>
 
             <DockPanel LastChildFill="True" Margin="2">

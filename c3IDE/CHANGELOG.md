@@ -1,8 +1,13 @@
 
 # c3IDE - CHANGE LOG
 
-### Next Build
+### Build # 1.1.0.51
 * sort all auto completion data before being displayed, this should mimic visual studio auto completion abit a more
+* implement single window search with word highlighting (ctrl-f) in text editor
+* remove javascript compression of 3rd part files, will add this as an option in upcoming release (after issues are fixed)
+* add scroll bar to test window to account for scaling
+* add wrapping to description textbox when creating addons
+* fix plugin property template for group type
 
 ### Build# 1.1.0.50 (04/15/2019)
 * implemented code folding for all the javascript editors, code folding is ussing a brace stragety  

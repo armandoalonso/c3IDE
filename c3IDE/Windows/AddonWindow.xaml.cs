@@ -24,6 +24,7 @@ using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
+using ICSharpCode.AvalonEdit.Search;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -59,6 +60,10 @@ namespace c3IDE.Windows
 
             //setup tabs
             tabDictionary = new Dictionary<string, TabItem> {{"addon.json", AddonJsTab}};
+
+            //setip ctrl-f to single page code find
+            SearchPanel.Install(AddonTextEditor);
+            SearchPanel.Install(FileTextEditor);
         }
 
         /// <summary>

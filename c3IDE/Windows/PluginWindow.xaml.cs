@@ -22,6 +22,7 @@ using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Search;
 
 namespace c3IDE.Windows
 {
@@ -58,6 +59,10 @@ namespace c3IDE.Windows
             runtimeFoldingManager = FoldingManager.Install(RunTimePluginTextEditor.TextArea);
             folding.UpdateFoldings(edittimeFoldingManager, EditTimePluginTextEditor.Document);
             folding.UpdateFoldings(runtimeFoldingManager, RunTimePluginTextEditor.Document);
+
+            //setip ctrl-f to single page code find
+            SearchPanel.Install(EditTimePluginTextEditor);
+            SearchPanel.Install(RunTimePluginTextEditor);
         }
 
         /// <summary>
@@ -324,6 +329,10 @@ namespace c3IDE.Windows
 
                 case "combo":
                     template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"items\":[\"item1\", \"item2\", \"item3\"]}}, \"initialValue\": \"item1\")";
+                    break;
+
+                case "group":
+                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"value\")";
                     break;
 
                 default:

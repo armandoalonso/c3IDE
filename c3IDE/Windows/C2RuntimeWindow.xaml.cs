@@ -21,6 +21,7 @@ using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Search;
 
 namespace c3IDE.Windows
 {
@@ -38,6 +39,9 @@ namespace c3IDE.Windows
             C2RuntimeTextEditor.TextArea.TextEntered += C2RuntimeTextEditor_TextEntered;
             C2RuntimeTextEditor.Options.EnableHyperlinks = false;
             C2RuntimeTextEditor.Options.EnableEmailHyperlinks = false;
+
+            //setip ctrl-f to single page code find
+            SearchPanel.Install(C2RuntimeTextEditor);
         }
 
         public void OnEnter()

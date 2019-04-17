@@ -219,7 +219,6 @@ namespace c3IDE.Managers
                                     expressionList.Add(exp);
                                 }
                             }
-
                         }
 
                         var files = Regex.Matches(pluginEdit, @"filename\s?:\s?(""|')(?<file>.*)(""|')");
