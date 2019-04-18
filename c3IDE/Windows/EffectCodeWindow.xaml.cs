@@ -16,6 +16,7 @@ namespace c3IDE.Windows
     public partial class EffectCodeWindow : UserControl, IWindow
     {
         public string DisplayName { get; set; } = "Code";
+        private SearchPanel effectPanel;
 
         public EffectCodeWindow()
         {
@@ -27,7 +28,7 @@ namespace c3IDE.Windows
             EffectPluginTextEditor.Options.EnableEmailHyperlinks = false;
             EffectPluginTextEditor.Options.EnableHyperlinks = false;
 
-            SearchPanel.Install(EffectPluginTextEditor);
+            effectPanel = SearchPanel.Install(EffectPluginTextEditor);
         }
 
 
@@ -38,6 +39,7 @@ namespace c3IDE.Windows
         public void OnEnter()
         {
             ThemeManager.SetupTextEditor(EffectPluginTextEditor, Syntax.Javascript);
+            ThemeManager.SetupSearchPanel(effectPanel);
 
             if (AddonManager.CurrentAddon != null)
             {

@@ -42,6 +42,7 @@ namespace c3IDE.Windows
         private CompletionWindow completionWindow;
         private FoldingManager aceFoldingManager;
         private BraceFoldingStrategy folding;
+        private SearchPanel acePanel, langPanel, codePanel;
 
         /// <summary>
         /// expression window constructor
@@ -69,9 +70,9 @@ namespace c3IDE.Windows
             folding.UpdateFoldings(aceFoldingManager, CodeTextEditor.Document);
 
             //setip ctrl-f to single page code find
-            SearchPanel.Install(CodeTextEditor);
-            SearchPanel.Install(LanguageTextEditor);
-            SearchPanel.Install(AceTextEditor);
+            codePanel = SearchPanel.Install(CodeTextEditor);
+            langPanel = SearchPanel.Install(LanguageTextEditor);
+            acePanel = SearchPanel.Install(AceTextEditor);
         }
 
         /// <summary>
@@ -82,6 +83,7 @@ namespace c3IDE.Windows
             ThemeManager.SetupTextEditor(AceTextEditor, Syntax.Json);
             ThemeManager.SetupTextEditor(LanguageTextEditor, Syntax.Json);
             ThemeManager.SetupTextEditor(CodeTextEditor, Syntax.Javascript);
+            ThemeManager.SetupSearchPanel(acePanel, langPanel, codePanel);
 
             if (AddonManager.CurrentAddon != null)
             {

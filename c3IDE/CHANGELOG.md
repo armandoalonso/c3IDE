@@ -1,6 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
+### Next Build
+* updated search panel highlight color based on theme
+
 ### Build # 1.1.0.52
 * sort all auto completion data before being displayed, this should mimic visual studio auto completion abit a more
 * implement single window search with word highlighting (ctrl-f) in text editor

@@ -31,6 +31,7 @@ namespace c3IDE.Windows
     public partial class C2RuntimeWindow : UserControl, IWindow
     {
         public string DisplayName { get; set; } = "C2Runtime";
+        private SearchPanel runtimePanel;
 
         public C2RuntimeWindow()
         {
@@ -41,12 +42,13 @@ namespace c3IDE.Windows
             C2RuntimeTextEditor.Options.EnableEmailHyperlinks = false;
 
             //setip ctrl-f to single page code find
-            SearchPanel.Install(C2RuntimeTextEditor);
+            runtimePanel = SearchPanel.Install(C2RuntimeTextEditor);
         }
 
         public void OnEnter()
         {
             ThemeManager.SetupTextEditor(C2RuntimeTextEditor, Syntax.Javascript);
+            ThemeManager.SetupSearchPanel(runtimePanel);
 
             if (AddonManager.CurrentAddon != null)
             {

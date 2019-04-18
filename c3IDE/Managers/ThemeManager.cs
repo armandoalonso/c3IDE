@@ -4,6 +4,7 @@ using System.Windows.Media;
 using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Search;
 
 namespace c3IDE.Managers
 {
@@ -24,6 +25,18 @@ namespace c3IDE.Managers
             editor.SyntaxHighlighting = syntaxDefinition;
             editor.Background = OptionsManager.CurrentOptions.ApplicationTheme.SyntaxBackgroundColor;
             editor.Foreground = OptionsManager.CurrentOptions.ApplicationTheme.SyntaxForegroundColor;
+        }
+
+        /// <summary>
+        /// sets up the color of the highlighted word in each search panel
+        /// </summary>
+        /// <param name="panels"></param>
+        public static void SetupSearchPanel(params SearchPanel[] panels)
+        {
+            foreach (var searchPanel in panels)
+            {
+                searchPanel.MarkerBrush = OptionsManager.CurrentOptions.ApplicationTheme.HighlightColor;
+            }
         }
 
         /// <summary>

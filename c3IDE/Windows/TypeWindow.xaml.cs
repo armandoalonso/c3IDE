@@ -35,6 +35,7 @@ namespace c3IDE.Windows
         private CompletionWindow completionWindow;
         private FoldingManager edittimeFoldingManager, runtimeFoldingManager;
         private BraceFoldingStrategy folding;
+        private SearchPanel edittimePanel, runtimePanel;
 
         /// <summary>
         /// constructor for type window
@@ -60,8 +61,8 @@ namespace c3IDE.Windows
             folding.UpdateFoldings(runtimeFoldingManager, RunTimeTypeTextEditor.Document);
 
             //setip ctrl-f to single page code find
-            SearchPanel.Install(EditTimeTypeTextEditor);
-            SearchPanel.Install(EditTimeTypeTextEditor);
+            edittimePanel = SearchPanel.Install(EditTimeTypeTextEditor);
+            runtimePanel = SearchPanel.Install(EditTimeTypeTextEditor);
         }
 
         /// <summary>
@@ -71,6 +72,7 @@ namespace c3IDE.Windows
         {
             ThemeManager.SetupTextEditor(EditTimeTypeTextEditor, Syntax.Javascript);
             ThemeManager.SetupTextEditor(RunTimeTypeTextEditor, Syntax.Javascript);
+            ThemeManager.SetupSearchPanel(edittimePanel, runtimePanel);
 
             if (AddonManager.CurrentAddon != null)
             {
