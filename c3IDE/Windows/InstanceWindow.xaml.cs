@@ -56,8 +56,9 @@ namespace c3IDE.Windows
             folding.UpdateFoldings(runtimeFoldingManager, RunTimeInstanceTextEditor.Document);
 
             //setip ctrl-f to single page code find
-            SearchPanel.Install(RunTimeInstanceTextEditor);
-            SearchPanel.Install(EditTimeInstanceTextEditor);
+            SearchPanel.Install(RunTimeInstanceTextEditor).MarkerBrush = Brushes.DarkGray;
+            SearchPanel.Install(EditTimeInstanceTextEditor).MarkerBrush = Brushes.DarkGray; ;
+            
         }
 
         /// <summary>
