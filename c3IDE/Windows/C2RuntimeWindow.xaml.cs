@@ -99,5 +99,21 @@ namespace c3IDE.Windows
         {
             C2RuntimeTextEditor.Text = FormatHelper.Insatnce.Javascript(C2RuntimeTextEditor.Text);
         }
+
+        private void FindGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            //AppData.Insatnce.GlobalSave(false);
+            Searcher.Insatnce.UpdateFileIndex("c2runtime.js", C2RuntimeTextEditor.Text, ApplicationWindows.C2Runtime);
+
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                var text = editor.SelectedText;
+                Searcher.Insatnce.GlobalFind(text, this);
+            }
+        }
     }
 }

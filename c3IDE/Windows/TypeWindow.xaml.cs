@@ -324,5 +324,22 @@ namespace c3IDE.Windows
                 fold.IsFolded = false;
             }
         }
+
+        private void FindGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            //AppData.Insatnce.GlobalSave(false);
+            Searcher.Insatnce.UpdateFileIndex("edittime_type.js", EditTimeTypeTextEditor.Text, ApplicationWindows.InstanceWindow);
+            Searcher.Insatnce.UpdateFileIndex("runtime_type.js", RunTimeTypeTextEditor.Text, ApplicationWindows.InstanceWindow);
+
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                var text = editor.SelectedText;
+                Searcher.Insatnce.GlobalFind(text, this);
+            }
+        }
     }
 }

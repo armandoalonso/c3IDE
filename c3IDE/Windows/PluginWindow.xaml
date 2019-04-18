@@ -62,6 +62,9 @@
                             <MenuItem Header="Copy" Command="Copy"/>
                             <MenuItem Header="Paste" Command="Paste"/>
                             <Separator></Separator>
+                            <MenuItem Header="Find" Command="Find"/>
+                            <MenuItem Header="Find All" Click="FindGlobal_Click"/>
+                            <Separator></Separator>
                             <MenuItem Header="Collapse All Code" Click="EditTimeFoldAll_OnClick" />
                             <MenuItem Header="Expand All Code" Click="EditTimeUnFoldAll_OnClick" />
                         </ContextMenu>
@@ -85,6 +88,9 @@
                             <MenuItem Header="Cut" Command="Cut"/>
                             <MenuItem Header="Copy" Command="Copy"/>
                             <MenuItem Header="Paste" Command="Paste"/>
+                            <Separator></Separator>
+                            <MenuItem Header="Find" Command="Find"/>
+                            <MenuItem Header="Find All" Click="FindGlobal_Click"/>
                             <Separator></Separator>
                             <MenuItem Header="Collapse All Code" Click="RuntimeFoldAll_OnClick" />
                             <MenuItem Header="Expand All Code" Click="RunttimeUnFoldAll_OnClick" />

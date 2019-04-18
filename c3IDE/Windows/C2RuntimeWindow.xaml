@@ -24,6 +24,9 @@
                             <MenuItem Header="Cut" Command="Cut"/>
                             <MenuItem Header="Copy" Command="Copy"/>
                             <MenuItem Header="Paste" Command="Paste"/>
+                            <Separator></Separator>
+                            <MenuItem Header="Find" Command="Find"/>
+                            <MenuItem Header="Find All" Click="FindGlobal_Click"/>
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>

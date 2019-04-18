@@ -771,5 +771,23 @@ namespace c3IDE.Windows
                 fold.IsFolded = false;
             }
         }
+
+        private void FindGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            //AppData.Insatnce.GlobalSave(false);
+            Searcher.Insatnce.UpdateFileIndex($"exp_{_selectedExpression.Id}_ace", AceTextEditor.Text, ApplicationWindows.ExpressionWindow);
+            Searcher.Insatnce.UpdateFileIndex($"exp_{_selectedExpression.Id}_lang", LanguageTextEditor.Text, ApplicationWindows.ExpressionWindow);
+            Searcher.Insatnce.UpdateFileIndex($"exp_{_selectedExpression.Id}_code", CodeTextEditor.Text, ApplicationWindows.ExpressionWindow);
+
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                var text = editor.SelectedText;
+                Searcher.Insatnce.GlobalFind(text, this);
+            }
+        }
     }
 }

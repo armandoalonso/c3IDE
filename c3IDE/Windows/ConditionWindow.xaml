@@ -200,6 +200,9 @@
                                 <MenuItem Header="Cut" Command="Cut"/>
                                 <MenuItem Header="Copy" Command="Copy"/>
                                 <MenuItem Header="Paste" Command="Paste"/>
+                                <Separator></Separator>
+                                <MenuItem Header="Find" Command="Find"/>
+                                <MenuItem Header="Find All" Click="FindGlobal_Click"/>
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>
@@ -233,6 +236,9 @@
                                 <MenuItem Header="Cut" Command="Cut"/>
                                 <MenuItem Header="Copy" Command="Copy"/>
                                 <MenuItem Header="Paste" Command="Paste"/>
+                                <Separator></Separator>
+                                <MenuItem Header="Find" Command="Find"/>
+                                <MenuItem Header="Find All" Click="FindGlobal_Click"/>
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>
@@ -266,6 +272,9 @@
                                 <MenuItem Header="Cut" Command="Cut"/>
                                 <MenuItem Header="Copy" Command="Copy"/>
                                 <MenuItem Header="Paste" Command="Paste"/>
+                                <Separator></Separator>
+                                <MenuItem Header="Find" Command="Find"/>
+                                <MenuItem Header="Find All" Click="FindGlobal_Click"/>
                                 <Separator></Separator>
                                 <MenuItem Header="Collapse All Code" Click="AceFoldAll_OnClick" />
                                 <MenuItem Header="Expand All Code" Click="AceUnFoldAll_OnClick" />
