@@ -819,10 +819,27 @@ namespace c3IDE.Windows
             {
                 for (DocumentLine line = start; line != end; line = line.NextLine)
                 {
+                    var x = line.ToString();
                     document.Insert(line.Offset, "// ");
                 }
             }
         }
+
+        private void UnCommentSelection(object sender, RoutedEventArgs e)
+        {
+            TextDocument document = CodeTextEditor.Document;
+            DocumentLine start = document.GetLineByOffset(CodeTextEditor.SelectionStart);
+            DocumentLine end = document.GetLineByOffset(CodeTextEditor.SelectionStart + CodeTextEditor.SelectionLength);
+            using (document.RunUpdate())
+            {
+                for (DocumentLine line = start; line != end; line = line.NextLine)
+                {
+                    document.Insert(line.Offset, "// ");
+                }
+            }
+        }
+
+
 
         private void FindGlobal_Click(object sender, RoutedEventArgs e)
         {

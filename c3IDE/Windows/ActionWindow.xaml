@@ -239,6 +239,9 @@
                                 <Separator></Separator>
                                 <MenuItem Header="Find" Command="Find"/>
                                 <MenuItem Header="Find All" Click="FindGlobal_Click"/>
+                                <!--<Separator></Separator>
+                                <MenuItem Header="Comment Block" Click="CommentSelection" />
+                                <MenuItem Header="Uncomment Block" Click="UnCommentSelection"/>-->
                                 <Separator></Separator>
                                 <MenuItem Header="Collapse All Code" Click="AceFoldAll_OnClick" />
                                 <MenuItem Header="Expand All Code" Click="AceUnFoldAll_OnClick" />
