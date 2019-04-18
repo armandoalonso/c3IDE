@@ -27,6 +27,10 @@
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Generate Property JSON" Click="GeneratePropertyText" />
+                                <Separator></Separator>
+                                <MenuItem Header="Cut" Command="Cut"/>
+                                <MenuItem Header="Copy" Command="Copy"/>
+                                <MenuItem Header="Paste" Command="Paste"/>
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>
@@ -56,6 +60,10 @@
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Generate Category JSON" Click="GenerateCategoryText" />
+                                <Separator></Separator>
+                                <MenuItem Header="Cut" Command="Cut"/>
+                                <MenuItem Header="Copy" Command="Copy"/>
+                                <MenuItem Header="Paste" Command="Paste"/>
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>

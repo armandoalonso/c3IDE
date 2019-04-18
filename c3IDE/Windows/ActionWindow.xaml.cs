@@ -22,6 +22,7 @@ using c3IDE.Utilities.SyntaxHighlighting;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Search;
 using Newtonsoft.Json;
@@ -801,6 +802,38 @@ namespace c3IDE.Windows
             foreach (var fold in aceFoldingManager.AllFoldings)
             {
                 fold.IsFolded = false;
+            }
+        }
+
+        private void CommentSelection(object sender, RoutedEventArgs e)
+        {
+            TextDocument document = CodeTextEditor.Document;
+            DocumentLine start = document.GetLineByOffset(CodeTextEditor.SelectionStart);
+            DocumentLine end = document.GetLineByOffset(CodeTextEditor.SelectionStart + CodeTextEditor.SelectionLength);
+            using (document.RunUpdate())
+            {
+                for (DocumentLine line = start; line != end; line = line.NextLine)
+                {
+                    document.Insert(line.Offset, "// ");
+                }
+            }
+        }
+
+        private void FindGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            //AppData.Insatnce.GlobalSave(false);
+            Searcher.Insatnce.UpdateFileIndex($"act_{_selectedAction.Id}_ace", AceTextEditor.Text, ApplicationWindows.ActionWindow);
+            Searcher.Insatnce.UpdateFileIndex($"act_{_selectedAction.Id}_lang", LanguageTextEditor.Text, ApplicationWindows.ActionWindow);
+            Searcher.Insatnce.UpdateFileIndex($"act_{_selectedAction.Id}_code", CodeTextEditor.Text, ApplicationWindows.ActionWindow);
+
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                var text = editor.SelectedText;
+                Searcher.Insatnce.GlobalFind(text, this);
             }
         }
     }

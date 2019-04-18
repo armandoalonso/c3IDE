@@ -20,6 +20,10 @@
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Format Javascript" Click="FormatJavascriptRuntime_OnClick" />
+                            <Separator></Separator>
+                            <MenuItem Header="Cut" Command="Cut"/>
+                            <MenuItem Header="Copy" Command="Copy"/>
+                            <MenuItem Header="Paste" Command="Paste"/>
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>

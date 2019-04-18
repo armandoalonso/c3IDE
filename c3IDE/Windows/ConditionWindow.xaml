@@ -196,6 +196,10 @@
                             <ContextMenu>
                                 <MenuItem Header="Insert Condition Parameter" Click="InsertNewParam_OnClick" />
                                 <MenuItem Header="Format Json" Click="FormatJsonAce_OnClick" />
+                                <Separator></Separator>
+                                <MenuItem Header="Cut" Command="Cut"/>
+                                <MenuItem Header="Copy" Command="Copy"/>
+                                <MenuItem Header="Paste" Command="Paste"/>
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>
@@ -225,6 +229,10 @@
                             <ContextMenu>
                                 <MenuItem Header="Insert Condition Parameter"  Click="InsertNewParam_OnClick" />
                                 <MenuItem Header="Format Json" Click="FormatJsonLang_OnClick" />
+                                <Separator></Separator>
+                                <MenuItem Header="Cut" Command="Cut"/>
+                                <MenuItem Header="Copy" Command="Copy"/>
+                                <MenuItem Header="Paste" Command="Paste"/>
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>
@@ -254,6 +262,11 @@
                             <ContextMenu>
                                 <MenuItem Header="Insert Condition Parameter" Click="InsertNewParam_OnClick" />
                                 <MenuItem Header="Format Javascript" Click="FormatJavascript_OnClick" />
+                                <Separator></Separator>
+                                <MenuItem Header="Cut" Command="Cut"/>
+                                <MenuItem Header="Copy" Command="Copy"/>
+                                <MenuItem Header="Paste" Command="Paste"/>
+                                <Separator></Separator>
                                 <MenuItem Header="Collapse All Code" Click="AceFoldAll_OnClick" />
                                 <MenuItem Header="Expand All Code" Click="AceUnFoldAll_OnClick" />
                             </ContextMenu>

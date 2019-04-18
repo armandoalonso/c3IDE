@@ -21,6 +21,11 @@
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Format Javascript" Click="FormatJavascriptEdittime_OnClick" />
+                            <Separator></Separator>
+                            <MenuItem Header="Cut" Command="Cut"/>
+                            <MenuItem Header="Copy" Command="Copy"/>
+                            <MenuItem Header="Paste" Command="Paste"/>
+                            <Separator></Separator>
                             <MenuItem Header="Collapse All Code" Click="EditTimeFoldAll_OnClick" />
                             <MenuItem Header="Expand All Code" Click="EditTimeUnFoldAll_OnClick" />
                         </ContextMenu>
@@ -40,6 +45,11 @@
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Format Javascript" Click="FormatJavascriptRuntime_OnClick" />
+                            <Separator></Separator>
+                            <MenuItem Header="Cut" Command="Cut"/>
+                            <MenuItem Header="Copy" Command="Copy"/>
+                            <MenuItem Header="Paste" Command="Paste"/>
+                            <Separator></Separator>
                             <MenuItem Header="Collapse All Code" Click="RunTimeFoldAll_OnClick" />
                             <MenuItem Header="Expand All Code" Click="RunTimeUnFoldAll_OnClick" />
                         </ContextMenu>
