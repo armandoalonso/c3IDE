@@ -73,6 +73,11 @@ namespace c3IDE.Windows
             codePanel = SearchPanel.Install(CodeTextEditor);
             langPanel = SearchPanel.Install(LanguageTextEditor);
             acePanel = SearchPanel.Install(AceTextEditor);
+
+            //setup ace view when find local
+            acePanel.GotFocus += AceView_OnClick;
+            langPanel.GotFocus += LangView_OnClick;
+            codePanel.GotFocus += CodeView_OnClick;
         }
 
         /// <summary>
