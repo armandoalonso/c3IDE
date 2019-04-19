@@ -276,6 +276,9 @@
                                 <MenuItem Header="Find" Command="Find"/>
                                 <MenuItem Header="Find All" Click="FindGlobal_Click"/>
                                 <Separator></Separator>
+                                <MenuItem Header="Comment Lines" Click="CommentSelection" />
+                                <MenuItem Header="Uncomment Lines" Click="UncommentSelection"/>
+                                <Separator></Separator>
                                 <MenuItem Header="Collapse All Code" Click="AceFoldAll_OnClick" />
                                 <MenuItem Header="Expand All Code" Click="AceUnFoldAll_OnClick" />
                             </ContextMenu>

@@ -812,34 +812,27 @@ namespace c3IDE.Windows
 
         private void CommentSelection(object sender, RoutedEventArgs e)
         {
-            TextDocument document = CodeTextEditor.Document;
-            DocumentLine start = document.GetLineByOffset(CodeTextEditor.SelectionStart);
-            DocumentLine end = document.GetLineByOffset(CodeTextEditor.SelectionStart + CodeTextEditor.SelectionLength);
-            using (document.RunUpdate())
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
             {
-                for (DocumentLine line = start; line != end; line = line.NextLine)
-                {
-                    var x = line.ToString();
-                    document.Insert(line.Offset, "// ");
-                }
-            }
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                editor.CommentSelectedLines();
+            }      
         }
 
-        private void UnCommentSelection(object sender, RoutedEventArgs e)
+        private void UncommentSelection(object sender, RoutedEventArgs e)
         {
-            TextDocument document = CodeTextEditor.Document;
-            DocumentLine start = document.GetLineByOffset(CodeTextEditor.SelectionStart);
-            DocumentLine end = document.GetLineByOffset(CodeTextEditor.SelectionStart + CodeTextEditor.SelectionLength);
-            using (document.RunUpdate())
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
             {
-                for (DocumentLine line = start; line != end; line = line.NextLine)
-                {
-                    document.Insert(line.Offset, "// ");
-                }
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                editor.UncommentSelectedLines();
             }
         }
-
-
 
         private void FindGlobal_Click(object sender, RoutedEventArgs e)
         {

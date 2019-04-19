@@ -27,6 +27,9 @@
                             <Separator></Separator>
                             <MenuItem Header="Find" Command="Find"/>
                             <MenuItem Header="Find All" Click="FindGlobal_Click"/>
+                            <Separator></Separator>
+                            <MenuItem Header="Comment Lines" Click="CommentSelection" />
+                            <MenuItem Header="Uncomment Lines" Click="UncommentSelection"/>
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>

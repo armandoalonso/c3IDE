@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 
@@ -56,6 +57,45 @@ namespace c3IDE.Utilities.Extentions
             }
 
             return null;
+        }
+
+        public static void CommentSelectedLines(this TextEditor editor)
+        {
+            TextDocument document = editor.Document;
+            DocumentLine start = document.GetLineByOffset(editor.SelectionStart);
+            DocumentLine end = document.GetLineByOffset(editor.SelectionStart + editor.SelectionLength);
+
+            using (document.RunUpdate())
+            {
+                var line = start;
+                while (line.LineNumber <= end.LineNumber)
+                {
+                    document.Insert(line.Offset, "//");
+                    if (line.NextLine == null) break;
+                    line = line.NextLine;
+                }
+            }
+        }
+
+        public static void UncommentSelectedLines(this TextEditor editor)
+        {
+            TextDocument document = editor.Document;
+            DocumentLine start = document.GetLineByOffset(editor.SelectionStart);
+            DocumentLine end = document.GetLineByOffset(editor.SelectionStart + editor.SelectionLength);
+
+            using (document.RunUpdate())
+            {
+                var line = start;
+                while (line.LineNumber <= end.LineNumber)
+                {
+                    if (document.GetText(line.Offset, 2) == "//")
+                    {
+                        document.Remove(line.Offset, 2);
+                    }
+                    if (line.NextLine == null) break;
+                    line = line.NextLine;
+                }
+            }
         }
     }
 }
