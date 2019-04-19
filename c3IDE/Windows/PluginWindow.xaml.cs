@@ -35,6 +35,7 @@ namespace c3IDE.Windows
         private CompletionWindow completionWindow;
         private FoldingManager edittimeFoldingManager, runtimeFoldingManager;
         private BraceFoldingStrategy folding;
+        private SearchPanel edittimePanel, runtimePanel;
 
         /// <summary>
         /// plugin window constuctor
@@ -61,8 +62,8 @@ namespace c3IDE.Windows
             folding.UpdateFoldings(runtimeFoldingManager, RunTimePluginTextEditor.Document);
 
             //setip ctrl-f to single page code find
-            SearchPanel.Install(EditTimePluginTextEditor);
-            SearchPanel.Install(RunTimePluginTextEditor);
+            edittimePanel = SearchPanel.Install(EditTimePluginTextEditor);
+            runtimePanel = SearchPanel.Install(RunTimePluginTextEditor);
         }
 
         /// <summary>
@@ -72,6 +73,7 @@ namespace c3IDE.Windows
         {
             ThemeManager.SetupTextEditor(EditTimePluginTextEditor, Syntax.Javascript);
             ThemeManager.SetupTextEditor(RunTimePluginTextEditor, Syntax.Javascript);
+            ThemeManager.SetupSearchPanel(edittimePanel, runtimePanel);
 
             if (AddonManager.CurrentAddon != null)
             {
@@ -423,6 +425,47 @@ namespace c3IDE.Windows
             foreach (var fold in runtimeFoldingManager.AllFoldings)
             {
                 fold.IsFolded = false;
+            }
+        }
+
+        private void FindGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            //AppData.Insatnce.GlobalSave(false);
+            Searcher.Insatnce.UpdateFileIndex("edittime_plugin.js", EditTimePluginTextEditor.Text, ApplicationWindows.PluginWindow);
+            Searcher.Insatnce.UpdateFileIndex("runtime_plugin.js", RunTimePluginTextEditor.Text, ApplicationWindows.PluginWindow);
+
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                var text = editor.SelectedText;
+                Searcher.Insatnce.GlobalFind(text, this);
+            }
+        }
+
+        private void CommentSelection(object sender, RoutedEventArgs e)
+        {
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                editor.CommentSelectedLines();
+            }
+        }
+
+        private void UncommentSelection(object sender, RoutedEventArgs e)
+        {
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                editor.UncommentSelectedLines();
             }
         }
     }

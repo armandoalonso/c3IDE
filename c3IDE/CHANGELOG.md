@@ -1,7 +1,13 @@
 
 # c3IDE - CHANGE LOG
 
-### Build # 1.1.0.52
+### Build# 1.1.0.53
+* updated search panel highlight color based on theme
+* add cut/copy/paste context menus
+* add find / find all context menu
+* add comment / uncomment lines context menu
+
+### Build# 1.1.0.52
 * sort all auto completion data before being displayed, this should mimic visual studio auto completion abit a more
 * implement single window search with word highlighting (ctrl-f) in text editor
 * remove javascript compression of 3rd part files, will add this as an option in upcoming release (after issues are fixed)

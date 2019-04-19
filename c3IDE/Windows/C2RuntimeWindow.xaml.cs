@@ -31,6 +31,7 @@ namespace c3IDE.Windows
     public partial class C2RuntimeWindow : UserControl, IWindow
     {
         public string DisplayName { get; set; } = "C2Runtime";
+        private SearchPanel runtimePanel;
 
         public C2RuntimeWindow()
         {
@@ -41,12 +42,13 @@ namespace c3IDE.Windows
             C2RuntimeTextEditor.Options.EnableEmailHyperlinks = false;
 
             //setip ctrl-f to single page code find
-            SearchPanel.Install(C2RuntimeTextEditor);
+            runtimePanel = SearchPanel.Install(C2RuntimeTextEditor);
         }
 
         public void OnEnter()
         {
             ThemeManager.SetupTextEditor(C2RuntimeTextEditor, Syntax.Javascript);
+            ThemeManager.SetupSearchPanel(runtimePanel);
 
             if (AddonManager.CurrentAddon != null)
             {
@@ -96,6 +98,46 @@ namespace c3IDE.Windows
         private void FormatJavascriptRuntime_OnClick(object sender, RoutedEventArgs e)
         {
             C2RuntimeTextEditor.Text = FormatHelper.Insatnce.Javascript(C2RuntimeTextEditor.Text);
+        }
+
+        private void FindGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            //AppData.Insatnce.GlobalSave(false);
+            Searcher.Insatnce.UpdateFileIndex("c2runtime.js", C2RuntimeTextEditor.Text, ApplicationWindows.C2Runtime);
+
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                var text = editor.SelectedText;
+                Searcher.Insatnce.GlobalFind(text, this);
+            }
+        }
+
+        private void CommentSelection(object sender, RoutedEventArgs e)
+        {
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                editor.CommentSelectedLines();
+            }
+        }
+
+        private void UncommentSelection(object sender, RoutedEventArgs e)
+        {
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                editor.UncommentSelectedLines();
+            }
         }
     }
 }

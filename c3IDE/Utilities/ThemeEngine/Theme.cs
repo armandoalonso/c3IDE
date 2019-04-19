@@ -24,6 +24,7 @@ namespace c3IDE.Utilities.ThemeEngine
         public SolidColorBrush TextBoxForground { get; set; } = new SolidColorBrush(Colors.Black);
         public SolidColorBrush AutoCompleteBackground { get; set; } = new SolidColorBrush(Color.FromRgb(240,240,240));
         public SolidColorBrush ListBoxBorderColor { get; set; } = new SolidColorBrush(Colors.Black);
+        public SolidColorBrush HighlightColor { get; set; } = new SolidColorBrush(Color.FromRgb(73,72,62));
     }
 }
     

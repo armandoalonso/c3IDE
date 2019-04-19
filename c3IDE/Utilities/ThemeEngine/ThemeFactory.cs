@@ -26,7 +26,8 @@ namespace c3IDE.Utilities.ThemeEngine
                         ApplicationTheme = ThemeManager.GetTheme("Light.Blue"),
                         TextBoxForground = new SolidColorBrush(Colors.Black),
                         AutoCompleteBackground = new SolidColorBrush(Color.FromRgb(200,200,200)),
-                        ListBoxBorderColor = new SolidColorBrush(Colors.Black)
+                        ListBoxBorderColor = new SolidColorBrush(Colors.Black),
+                        HighlightColor = new SolidColorBrush(Color.FromRgb(180, 180, 180))
                     };
                 case ThemeTypes.Monokai:
                     return new Theme
@@ -39,8 +40,9 @@ namespace c3IDE.Utilities.ThemeEngine
                         ApplicationTheme = ThemeManager.GetTheme("Dark.Blue"),
                         TextBoxForground = new SolidColorBrush(Colors.White),
                         AutoCompleteBackground = new SolidColorBrush(Color.FromRgb(50, 50, 50)),
-                        ListBoxBorderColor = new SolidColorBrush(Colors.White)
-                    };
+                        ListBoxBorderColor = new SolidColorBrush(Colors.White),
+                        HighlightColor = new SolidColorBrush(Color.FromRgb(73, 72, 62))
+            };
                 case ThemeTypes.AyuLight:
                     return new Theme
                     {
@@ -52,7 +54,8 @@ namespace c3IDE.Utilities.ThemeEngine
                         ApplicationTheme = ThemeManager.GetTheme("Light.Blue"),
                         TextBoxForground = new SolidColorBrush(Colors.Black),
                         AutoCompleteBackground = new SolidColorBrush(Color.FromRgb(210, 210, 210)),
-                        ListBoxBorderColor = new SolidColorBrush(Color.FromRgb(108, 118, 128))
+                        ListBoxBorderColor = new SolidColorBrush(Color.FromRgb(108, 118, 128)),
+                        HighlightColor = new SolidColorBrush(Color.FromRgb(73, 72, 62))
                     };
                 case ThemeTypes.AyuMirage:
                     return new Theme
@@ -65,8 +68,9 @@ namespace c3IDE.Utilities.ThemeEngine
                         ApplicationTheme = ThemeManager.GetTheme("Light.Blue"),
                         TextBoxForground = new SolidColorBrush(Color.FromRgb(50, 50, 50)),
                         AutoCompleteBackground = new SolidColorBrush(Color.FromRgb(190, 190, 190)),
-                        ListBoxBorderColor = new SolidColorBrush(Color.FromRgb(108, 118, 128))
-                    };
+                        ListBoxBorderColor = new SolidColorBrush(Color.FromRgb(108, 118, 128)),
+                        HighlightColor= new SolidColorBrush(Color.FromRgb(73, 72, 62))
+            };
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

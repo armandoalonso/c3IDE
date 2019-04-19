@@ -41,6 +41,7 @@ namespace c3IDE.Windows
         private CompletionWindow completionWindow;
         private FoldingManager aceFoldingManager;
         private BraceFoldingStrategy folding;
+        private SearchPanel acePanel, langPanel, codePanel;
 
         /// <summary>
         /// condition window constructor 
@@ -68,9 +69,14 @@ namespace c3IDE.Windows
             folding.UpdateFoldings(aceFoldingManager, CodeTextEditor.Document);
 
             //setip ctrl-f to single page code find
-            SearchPanel.Install(CodeTextEditor);
-            SearchPanel.Install(LanguageTextEditor);
-            SearchPanel.Install(AceTextEditor);
+            codePanel = SearchPanel.Install(CodeTextEditor);
+            langPanel = SearchPanel.Install(LanguageTextEditor);
+            acePanel = SearchPanel.Install(AceTextEditor);
+
+            //setup ace view when find local
+            acePanel.GotFocus += AceView_OnClick;
+            langPanel.GotFocus += LangView_OnClick;
+            codePanel.GotFocus += CodeView_OnClick;
         }
 
         /// <summary>
@@ -81,6 +87,7 @@ namespace c3IDE.Windows
             ThemeManager.SetupTextEditor(AceTextEditor, Syntax.Json);
             ThemeManager.SetupTextEditor(LanguageTextEditor, Syntax.Json);
             ThemeManager.SetupTextEditor(CodeTextEditor, Syntax.Javascript);
+            ThemeManager.SetupSearchPanel(acePanel, langPanel, codePanel);
 
             if (AddonManager.CurrentAddon != null)
             {
@@ -812,6 +819,48 @@ namespace c3IDE.Windows
             foreach (var fold in aceFoldingManager.AllFoldings)
             {
                 fold.IsFolded = false;
+            }
+        }
+
+        private void FindGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            //AppData.Insatnce.GlobalSave(false);
+            Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_ace", AceTextEditor.Text, ApplicationWindows.ConditionWindow);
+            Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_lang", LanguageTextEditor.Text, ApplicationWindows.ConditionWindow);
+            Searcher.Insatnce.UpdateFileIndex($"cnd_{_selectedCondition.Id}_code", CodeTextEditor.Text, ApplicationWindows.ConditionWindow);
+
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                var text = editor.SelectedText;
+                Searcher.Insatnce.GlobalFind(text, this);
+            }
+        }
+
+        private void CommentSelection(object sender, RoutedEventArgs e)
+        {
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                editor.CommentSelectedLines();
+            }
+        }
+
+        private void UncommentSelection(object sender, RoutedEventArgs e)
+        {
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                editor.UncommentSelectedLines();
             }
         }
     }

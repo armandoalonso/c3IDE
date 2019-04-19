@@ -42,7 +42,8 @@ namespace c3IDE.Windows
         public ThirdPartyFile _selectedFile { get; set; }
         private ObservableCollection<ThirdPartyFile> _files;
         private Dictionary<string, TabItem> tabDictionary;
- 
+        private SearchPanel addonPanel, filePanel;
+
         /// <summary>
         /// addon widnow constructor, setup event handeling for auto completion, and setup properties for the editors 
         /// </summary>
@@ -62,8 +63,8 @@ namespace c3IDE.Windows
             tabDictionary = new Dictionary<string, TabItem> {{"addon.json", AddonJsTab}};
 
             //setip ctrl-f to single page code find
-            SearchPanel.Install(AddonTextEditor);
-            SearchPanel.Install(FileTextEditor);
+            addonPanel = SearchPanel.Install(AddonTextEditor);
+            filePanel = SearchPanel.Install(FileTextEditor);
         }
 
         /// <summary>
@@ -73,6 +74,7 @@ namespace c3IDE.Windows
         {
             ThemeManager.SetupTextEditor(AddonTextEditor, Syntax.Json);
             ThemeManager.SetupTextEditor(FileTextEditor, Syntax.Javascript);
+            ThemeManager.SetupSearchPanel(addonPanel, filePanel);
 
             if (AddonManager.CurrentAddon != null)
             {
@@ -559,6 +561,46 @@ namespace c3IDE.Windows
                     LogManager.AddErrorLog(ex);
                     NotificationManager.PublishErrorNotification($"error parseing json, addon.json not updated => {ex.Message}");
                 }
+            }
+        }
+
+        private void FindGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            //AppData.Insatnce.GlobalSave(false);
+            Searcher.Insatnce.UpdateFileIndex("addon.json", AddonTextEditor.Text, ApplicationWindows.AddonWindow);
+
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                var text = editor.SelectedText;
+                Searcher.Insatnce.GlobalFind(text, this);
+            }
+        }
+
+        private void CommentSelection(object sender, RoutedEventArgs e)
+        {
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                editor.CommentSelectedLines();
+            }
+        }
+
+        private void UncommentSelection(object sender, RoutedEventArgs e)
+        {
+            MenuItem mnu = sender as MenuItem;
+            TextEditor editor = null;
+
+            if (mnu != null)
+            {
+                editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
+                editor.UncommentSelectedLines();
             }
         }
     }

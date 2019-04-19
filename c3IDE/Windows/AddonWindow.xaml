@@ -21,6 +21,13 @@
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Format JSON" Click="FormatJsonMenu_OnClick" />
+                            <Separator></Separator>
+                            <MenuItem Header="Cut" Command="Cut"/>
+                            <MenuItem Header="Copy" Command="Copy"/>
+                            <MenuItem Header="Paste" Command="Paste"/>
+                            <Separator></Separator>
+                            <MenuItem Header="Find" Command="Find"/>
+                            <MenuItem Header="Find All" Click="FindGlobal_Click"/>
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
 
@@ -88,6 +95,12 @@
 
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
+                                <MenuItem Header="Cut" Command="Cut"/>
+                                <MenuItem Header="Copy" Command="Copy"/>
+                                <MenuItem Header="Paste" Command="Paste"/>
+                                <Separator></Separator>
+                                <MenuItem Header="Comment Lines" Click="CommentSelection" />
+                                <MenuItem Header="Uncomment Lines" Click="UncommentSelection"/>
                             </ContextMenu>
                         </avalonEdit:TextEditor.ContextMenu>
                     </avalonEdit:TextEditor>
