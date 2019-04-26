@@ -26,6 +26,8 @@
                         <ContextMenu>
                             <MenuItem Header="Generate Uniforms" Click="GenerateUniforms_OnClick" />
                             <Separator></Separator>
+                            <MenuItem Header="Compile" Click="Compile_OnClick"  InputGestureText="F5"/>
+                            <Separator></Separator>
                             <MenuItem Header="Cut" Command="Cut"/>
                             <MenuItem Header="Copy" Command="Copy"/>
                             <MenuItem Header="Paste" Command="Paste"/>

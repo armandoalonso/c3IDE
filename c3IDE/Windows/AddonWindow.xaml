@@ -22,12 +22,14 @@
                         <ContextMenu>
                             <MenuItem Header="Format JSON" Click="FormatJsonMenu_OnClick" />
                             <Separator></Separator>
+                            <MenuItem Header="Compile" Click="Compile_OnClick" InputGestureText="F5"/>
+                            <Separator></Separator>
                             <MenuItem Header="Cut" Command="Cut"/>
                             <MenuItem Header="Copy" Command="Copy"/>
                             <MenuItem Header="Paste" Command="Paste"/>
                             <Separator></Separator>
                             <MenuItem Header="Find" Command="Find"/>
-                            <MenuItem Header="Find All" Click="FindGlobal_Click"/>
+                            <MenuItem Header="Find All" Click="FindGlobal_Click" InputGestureText="F1"/>
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
 
@@ -95,6 +97,8 @@
 
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
+                                <MenuItem Header="Compile" Click="Compile_OnClick"  InputGestureText="F5"/>
+                                <Separator></Separator>
                                 <MenuItem Header="Cut" Command="Cut"/>
                                 <MenuItem Header="Copy" Command="Copy"/>
                                 <MenuItem Header="Paste" Command="Paste"/>

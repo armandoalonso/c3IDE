@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using c3IDE.Managers;
 using c3IDE.Models;
 using c3IDE.Utilities.Helpers;
@@ -261,7 +253,10 @@ namespace c3IDE.Windows
         //todo - add find and replace
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            //throw new NotImplementedException();
+            if (e.Key == Key.F5)
+            {
+                WindowManager.MainWindow.Save(true, true);
+            }
         }
 
         private void FormatJsonEffect_OnClick(object sender, RoutedEventArgs e)
@@ -272,6 +267,11 @@ namespace c3IDE.Windows
         private void FormatLangEffect_OnClick(object sender, RoutedEventArgs e)
         {
             LangTextEditor.Text = FormatHelper.Insatnce.Json(LangTextEditor.Text, true);
+        }
+
+        private void Compile_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowManager.MainWindow.Save(true, true);
         }
     }
 }

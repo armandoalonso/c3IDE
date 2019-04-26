@@ -259,7 +259,7 @@ namespace c3IDE
         /// global save
         /// </summary>
         /// <param name="compile"></param>
-        public void Save(bool compile = true)
+        public void Save(bool compile = true, bool force = false)
         {
             WindowManager.CurrentWindow.OnExit();
 
@@ -272,7 +272,7 @@ namespace c3IDE
                 //parse all addons for new code completions
                 CodeCompletionFactory.Insatnce.ParseAddon(AddonManager.CurrentAddon);
 
-                if (OptionsManager.CurrentOptions.CompileOnSave && compile)
+                if ((OptionsManager.CurrentOptions.CompileOnSave && compile) || force)
                 {
                     if (!ControlHelper.Insatnce.IsWindowOpen<PopoutCompileWindow>())
                     {

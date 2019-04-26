@@ -243,6 +243,10 @@ namespace c3IDE.Windows
                 var text = editor.SelectedText;
                 Searcher.Insatnce.GlobalFind(text, this);
             }
+            else if (e.Key == Key.F5)
+            {
+                WindowManager.MainWindow.Save(true, true);
+            }
         }
 
         /// <summary>
@@ -361,6 +365,11 @@ namespace c3IDE.Windows
                 editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
                 editor.UncommentSelectedLines();
             }
+        }
+
+        private void Compile_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowManager.MainWindow.Save(true, true);
         }
     }
 }
