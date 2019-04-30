@@ -187,7 +187,7 @@ namespace c3IDE.Windows
                 }
                 else if (info.Extension.Contains("c2addon"))
                 {
-                    var result = await WindowManager.ShowDialog("(VERY EXPERIMENTAL) Importing C32ddon File", "Importing a C2addon file is an very experimental feature and expected to have BUGS. THIS DOES NOT FULLY CONVERT YOUR ADDON, it will attempt to generate stubs for teh ACES. if you run into any issue importing please file Github Issue Ticket, please include the c2addon your trying to convert to help identify the issues, NOT ALL ISSUE WILL BE RESOLVED but i will do my best!!!");
+                    var result = await WindowManager.ShowDialog("(VERY EXPERIMENTAL) Importing C32ddon File", "Importing a C2addon file is an very experimental feature and expected to have BUGS. THIS DOES NOT FULLY CONVERT YOUR ADDON, it will attempt to generate stubs for the ACES. if you run into any issue importing please file Github Issue Ticket, please include the c2addon your trying to convert to help identify the issues, NOT ALL ISSUE WILL BE RESOLVED but i will do my best!!!");
                     if (result)
                     {
                         c3addon =  await C2AddonImporter.Insatnce.Import2Addon(info.FullName);
