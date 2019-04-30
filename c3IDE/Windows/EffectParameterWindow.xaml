@@ -54,6 +54,8 @@
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Format Json" Click="FormatJsonEffect_OnClick" />
+                            <Separator></Separator>
+                            <MenuItem Header="Compile" Click="Compile_OnClick" InputGestureText="F5"/>
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>
@@ -73,6 +75,8 @@
                     <avalonEdit:TextEditor.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Format Json" Click="FormatLangEffect_OnClick" />
+                            <Separator></Separator>
+                            <MenuItem Header="Compile" Click="Compile_OnClick" InputGestureText="F5"/>
                         </ContextMenu>
                     </avalonEdit:TextEditor.ContextMenu>
                 </avalonEdit:TextEditor>

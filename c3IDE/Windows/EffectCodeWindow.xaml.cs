@@ -83,7 +83,10 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-
+            if (e.Key == Key.F5)
+            {
+                WindowManager.MainWindow.Save(true, true);
+            }
         }
 
         //todo - add code completion
@@ -95,7 +98,7 @@ namespace c3IDE.Windows
         //todo - add code completion
         private void TextEditor_TextEntering(object sender, TextCompositionEventArgs e)
         {
-            //throw new System.NotImplementedException();
+
         }
 
         private void GenerateUniforms_OnClick(object sender, RoutedEventArgs e)
@@ -103,6 +106,11 @@ namespace c3IDE.Windows
             var uniformText = string.Join("\n", AddonManager.CurrentAddon.Effect.Parameters.Select(x => x.Value.VariableDeclaration));
             EffectPluginTextEditor.Text =
                 EffectPluginTextEditor.Text.Replace("void main(void)", $"{uniformText}\n\nvoid main(void)");
+        }
+
+        private void Compile_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowManager.MainWindow.Save(true, true);
         }
     }
 }

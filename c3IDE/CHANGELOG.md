@@ -1,6 +1,11 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.54
+* added extra shortcuts and context menu options [Issue #25](https://github.com/armandoalonso/c3IDE/issues/25)
+* fixed typo durinign addon import [Issue #27](https://github.com/armandoalonso/c3IDE/issues/27)
+* fixed issue with impoting c3addon when only c2addon is defined [Issue #26](https://github.com/armandoalonso/c3IDE/issues/26)
+
 ### Build# 1.1.0.53
 * updated search panel highlight color based on theme
 * add cut/copy/paste context menus
