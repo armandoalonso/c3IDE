@@ -1,6 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.55
+* generate uniforms at the top of the file, not on top of main
+* add bool keyword to glsh syntax highlighting 
+
 ### Build# 1.1.0.54
 * added extra shortcuts and context menu options [Issue #25](https://github.com/armandoalonso/c3IDE/issues/25)
 * fixed typo durinign addon import [Issue #27](https://github.com/armandoalonso/c3IDE/issues/27)

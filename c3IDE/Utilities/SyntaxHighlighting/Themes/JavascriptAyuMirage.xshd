@@ -219,6 +219,7 @@
 
     <!-- shader keywords for glsl -->
     <Keywords color="Keywords">
+      <Word>bool</Word>
       <Word>attribute</Word>
       <Word>uniform</Word>
       <Word>varying</Word>

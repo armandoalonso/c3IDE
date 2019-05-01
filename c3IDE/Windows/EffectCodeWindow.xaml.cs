@@ -104,8 +104,10 @@ namespace c3IDE.Windows
         private void GenerateUniforms_OnClick(object sender, RoutedEventArgs e)
         {
             var uniformText = string.Join("\n", AddonManager.CurrentAddon.Effect.Parameters.Select(x => x.Value.VariableDeclaration));
-            EffectPluginTextEditor.Text =
-                EffectPluginTextEditor.Text.Replace("void main(void)", $"{uniformText}\n\nvoid main(void)");
+            //EffectPluginTextEditor.Text =
+            //    EffectPluginTextEditor.Text.Replace("void main(void)", $"{uniformText}\n\nvoid main(void)");
+
+            EffectPluginTextEditor.Text = $"{uniformText}\n\n{EffectPluginTextEditor.Text}";
         }
 
         private void Compile_OnClick(object sender, RoutedEventArgs e)
