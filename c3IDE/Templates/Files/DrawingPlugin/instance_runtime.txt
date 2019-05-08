@@ -58,5 +58,15 @@
 		{
 			// load state for savegames
 		}
+
+	    GetDebuggerProperties()
+		{
+			return [{
+				title: "{{class}}",
+				properties: [
+					//{name: ".current-animation",	value: this._currentAnimation.GetName(),	onedit: v => this.CallAction(Acts.SetAnim, v, 0) },
+				]
+			}];
+		}
 	};
 }
