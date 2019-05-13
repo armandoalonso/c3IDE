@@ -86,6 +86,9 @@ namespace c3IDE.Models
 
         public Effect Effect { get; set; }
 
+        public string ThemeCss { get; set; }
+        public string ThemeLangauge { get; set; }
+
         [BsonIgnore]
         public List<string> Categories  {
             get

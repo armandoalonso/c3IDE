@@ -178,10 +178,11 @@ namespace c3IDE.Windows
                 AddonCategory = string.Empty,
                 Type = PluginType.SingleGlobalPlugin,
                 Effect = new Effect(),
+                ThemeCss = string.Empty,
+                ThemeLangauge = string.Empty,
                 IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg"),
                 CreateDate = DateTime.Now
             };
-
 
             Enum.TryParse<PluginType>(AddonTypeDropdown.SelectedValue.ToString(), out var pluginType);
             var addonCategory = string.IsNullOrWhiteSpace(AddonCategoryDropdown.Text)? "other": AddonCategoryDropdown.Text;

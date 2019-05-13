@@ -12,7 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using c3IDE.Managers;
+using c3IDE.Utilities.Search;
+using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
+using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Search;
 
 namespace c3IDE.Windows
 {
@@ -21,35 +26,51 @@ namespace c3IDE.Windows
     /// </summary>
     public partial class CssWindow : UserControl, IWindow
     {
+        public string DisplayName { get; set; } = "Css Style Sheet";
+        public SearchPanel runtimePanel;
+
         public CssWindow()
         {
             InitializeComponent();
+
+            CssTextEditor.Options.EnableHyperlinks = false;
+            CssTextEditor.Options.EnableEmailHyperlinks = false;
+
+            //setip ctrl-f to single page code find
+            runtimePanel = SearchPanel.Install(CssTextEditor);
         }
 
-        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            //throw new NotImplementedException();
-        }
-
-        public string DisplayName { get; set; }
         public void OnEnter()
         {
-            //throw new NotImplementedException();
+            ThemeManager.SetupTextEditor(CssTextEditor, Syntax.Javascript);
+            ThemeManager.SetupSearchPanel(runtimePanel);
+
+            if (AddonManager.CurrentAddon != null)
+            {
+                CssTextEditor.Text = AddonManager.CurrentAddon.ThemeCss;
+            }
         }
 
         public void OnExit()
         {
-            //throw new NotImplementedException();
+            if (AddonManager.CurrentAddon != null)
+            {
+                AddonManager.CurrentAddon.ThemeCss = CssTextEditor.Text;
+                AddonManager.SaveCurrentAddon();
+            }
         }
 
         public void Clear()
         {
-            //throw new NotImplementedException();
+            CssTextEditor.Text = string.Empty;
         }
 
         public void ChangeTab(string tab, int lineNum)
         {
-            //throw new NotImplementedException();
+        }
+
+        private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {    
         }
     }
 }

@@ -161,6 +161,10 @@ namespace c3IDE.Managers
 
             //compile effect template
             addon.Effect.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.EffectCode, addon);
+
+            //compile theme
+            addon.ThemeCss = TemplateCompiler.Insatnce.CompileTemplates(addon.ThemeCss, addon);
+            addon.ThemeLangauge = TemplateCompiler.Insatnce.CompileTemplates(addon.ThemeLangauge, addon);
         }
 
         public static void IncrementVersion()

@@ -67,7 +67,7 @@ namespace c3IDE.Compiler
                 //create addon compile directory and addon specific paths
                 System.IO.Directory.CreateDirectory(addon.AddonFolder);
                 System.IO.Directory.CreateDirectory(Path.Combine(addon.AddonFolder, "lang"));
-                if (addon.Type != PluginType.Effect)
+                if (addon.Type != PluginType.Effect && addon.Type != PluginType.Theme)
                 {
                     System.IO.Directory.CreateDirectory(Path.Combine(addon.AddonFolder, "c3runtime"));
                 }
@@ -82,6 +82,10 @@ namespace c3IDE.Compiler
                 {
                     //todo: effect validator http://shdr.bkcore.com/ 
                     CreateEffectFiles(addon, folderName);
+                }
+                else if (addon.Type == PluginType.Theme)
+                {
+                    CreateThemeFiles(addon, folderName);
                 }
                 else
                 {
@@ -310,6 +314,36 @@ namespace c3IDE.Compiler
 
             LogManager.CompilerLog.Insert($"compilation complete...");
         }
+
+
+        private void CreateThemeFiles(C3Addon addon, string folderName)
+        {
+            //generate file strings
+            _addonFiles = new Dictionary<string, string>();
+
+            //generate simple files
+            LogManager.CompilerLog.Insert($"generating addon.json");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "addon.json"), CompileEffectAddon(addon));
+            LogManager.CompilerLog.Insert($"generating addon.json => complete");
+
+            LogManager.CompilerLog.Insert($"generating css ");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "theme.css"), addon.ThemeCss);
+            LogManager.CompilerLog.Insert($"generating css  => complete");
+
+            LogManager.CompilerLog.Insert($"generating en-US.json");
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "lang", "en-US.json"), addon.ThemeLangauge);
+            LogManager.CompilerLog.Insert($"generating en-US.json => complete");
+
+            //write files to path
+            foreach (var file in _addonFiles)
+            {
+                System.IO.File.WriteAllText(file.Key, file.Value);
+                LogManager.CompilerLog.Insert($"writing file => {file.Key}");
+            }
+
+            LogManager.CompilerLog.Insert($"compilation complete...");
+        }
+
 
         //todo: add effect validation here
         //todo: move this into the validate addons helper
