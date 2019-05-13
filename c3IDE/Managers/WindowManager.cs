@@ -31,6 +31,7 @@ namespace c3IDE.Managers
             ApplicationWindows.EffectPropertiesWindow,
             ApplicationWindows.EffectParameterWindow,
             ApplicationWindows.EffectCodeWindow,
+            ApplicationWindows.CssWindow,
             ApplicationWindows.LanguageWindow
         };
 

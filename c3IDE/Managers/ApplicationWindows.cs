@@ -27,6 +27,7 @@ namespace c3IDE.Managers
         public static EffectPropertiesWindow EffectPropertiesWindow;
         public static EffectParameterWindow EffectParameterWindow;
         public static EffectCodeWindow EffectCodeWindow;
+        public static CssWindow CssWindow;
         public static C2RuntimeWindow C2Runtime;
 
         static ApplicationWindows()
@@ -50,6 +51,7 @@ namespace c3IDE.Managers
                 EffectParameterWindow = new EffectParameterWindow();
                 EffectCodeWindow = new EffectCodeWindow();
                 C2Runtime = new C2RuntimeWindow();
+                CssWindow = new CssWindow();
             }
             catch (Exception ex)
             {

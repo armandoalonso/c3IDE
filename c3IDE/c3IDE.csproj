@@ -173,10 +173,11 @@
     <Compile Include="Server\C3FileHandler.cs" />
     <Compile Include="Server\WebServerClient.cs" />
     <Compile Include="Templates\BehaviorTemplate.cs" />
-    <Compile Include="Templates\C2ImportTemplates.cs" />
+    <Compile Include="Templates\C2TemplateHelper.cs" />
     <Compile Include="Templates\DrawingPluginTemplate.cs" />
     <Compile Include="Templates\EffectTemplate.cs" />
     <Compile Include="Templates\MultiInstancePluginTemplate.cs" />
+    <Compile Include="Templates\ThemeTemplate.cs" />
     <Compile Include="Utilities\CodeCompletion\Bindings\JavascriptBinding.cs" />
     <Compile Include="Utilities\CodeCompletion\CodeCompletionPipeline.cs" />
     <Compile Include="Utilities\Eventing\Events.cs" />
@@ -247,6 +248,9 @@
     </Compile>
     <Compile Include="Windows\ConditionWindow.xaml.cs">
       <DependentUpon>ConditionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CssWindow.xaml.cs">
+      <DependentUpon>CssWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\DashboardWindow.xaml.cs">
       <DependentUpon>DashboardWindow.xaml</DependentUpon>
@@ -321,6 +325,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ConditionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CssWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -424,6 +432,8 @@
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonAyuMirage.xshd" />
     <EmbeddedResource Include="Templates\Files\Effect\lang.txt" />
     <EmbeddedResource Include="Templates\Files\Effect\addon.txt" />
+    <EmbeddedResource Include="Templates\Files\Theme\lang.txt" />
+    <EmbeddedResource Include="Templates\Files\Theme\addon.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -666,6 +676,7 @@
     <Content Include="c3ide_icon_AaX_icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Templates\Files\Theme\theme_css.txt" />
     <EmbeddedResource Include="Server\Test\jslint\browser.js" />
     <EmbeddedResource Include="Server\Test\jslint\function.html" />
     <EmbeddedResource Include="Server\Test\jslint\jslint.css" />

@@ -18,5 +18,8 @@
 
         string EffectCode { get; }
         string EffectLangauge { get; }
+
+        string ThemeCode { get; }
+        string ThemeLanguage { get; }
     }
 }

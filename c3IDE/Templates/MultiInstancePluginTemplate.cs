@@ -37,5 +37,7 @@ namespace c3IDE.Templates
         public string ActionCode { get; }
         public string EffectCode => string.Empty;
         public string EffectLangauge => string.Empty;
+        public string ThemeCode => string.Empty;
+        public string ThemeLanguage => string.Empty;
     }
 }

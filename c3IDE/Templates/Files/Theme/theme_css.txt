@@ -1,0 +1,64 @@
+﻿
+/*
+	Note that when specifying colors in CSS variables, the color MUST be specified
+	in six-digit hex format (e.g. #FF0000). For any other CSS properties any kind of
+	syntax may be used, but CSS variables are read from JavaScript and require a
+	specific format to be used. Layout View colors can also use rgba() syntax.
+*/
+
+body {
+	/* Adjust the window active and inactive caption colors to be green */
+	--window-caption-inactive-color: #008000;
+	--window-caption-active-color: #00A000;
+	
+	/* Other CSS variables available:
+	
+	--window-border-size				Width of resizable window/dialog borders - MUST be in 'px'
+	--window-thin-border-size			Width of non-resizable window/dialog borders - MUST be in 'px'
+	
+	--default-icon-color				Default color of icons in the UI
+	--project-item-icon-color			Color of project items, e.g. layout icon, event sheet icon
+	--effect-icon-color					Color of the 'fx' icon for effects
+	--family-overlay-icon-color			Color of overlay used on family icons
+	
+	--invert-icon-color					Event sheet invert cross icon color
+	
+	--default-layer-color				Initial color of a layer
+	
+	--c3logo-type: light;				Set to 'dark' to enable dark-background Construct 3 logos
+	*/
+}
+
+.eventSheetView {
+	/*
+	--event-sheet-background-color		Background color of the event sheet
+	*/
+}
+
+canvas.layoutView {
+	/*
+	Note: LayoutView CSS variables can also use rgba() syntax, rather than hex.
+	This is important for selection fill colors, which use the alpha component.
+	
+	--layoutview-border-color			Layout border color
+	--layoutview-margin-color			Background color of area outside layout
+	--layoutview-margin-edges-color		Color of edge of margin markers
+	
+	Colors of various select boxes outline and fill in the Layout View:
+	
+	--layoutview-select-box-fill-color
+	--layoutview-select-box-outline-color
+	--layoutview-container-box-fill-color
+	--layoutview-container-box-outline-color
+	--layoutview-wrap-fill-color
+	--layoutview-wrap-outline-color
+	--layoutview-resize-handle-fill-color
+	--layoutview-resize-handle-outline-color
+	
+	Other miscellaneous variables:
+	
+	--layoutview-viewport-dash-size		(in px)
+	--layoutview-collisionpoly-color
+	--layoutview-collisionpoly-width	(in px)
+	*/
+}

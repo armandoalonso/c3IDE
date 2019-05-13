@@ -43,7 +43,7 @@ namespace c3IDE.Utilities.CodeCompletion
 
         public void ParseAddon(C3Addon addon)
         {
-            if (addon.Type != PluginType.Effect)
+            if (addon.Type != PluginType.Effect && addon.Type != PluginType.Theme)
             {
                 PopulateUserDefinedTokens("addon_json", addon.AddonJson);
                 PopulateUserDefinedTokens("runtime_plugin_script", addon.PluginRunTime);

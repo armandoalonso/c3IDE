@@ -94,10 +94,10 @@ namespace c3IDE.Managers
             {
                 case PluginType.SingleGlobalPlugin:
                 case PluginType.DrawingPlugin:
-                    c3addon.PluginEditTime = C2ImportTemplates.GeneratePluginJs(c2addon);
+                    c3addon.PluginEditTime = C2TemplateHelper.GeneratePluginJs(c2addon);
                     break;
                 case PluginType.Behavior:
-                    c3addon.PluginEditTime = C2ImportTemplates.GenerateBehaviorJs(c2addon);
+                    c3addon.PluginEditTime = C2TemplateHelper.GenerateBehaviorJs(c2addon);
                     break;
                 case PluginType.Effect:
                     throw new NotImplementedException("effects are not implement yet");
@@ -128,7 +128,7 @@ namespace c3IDE.Managers
 
                 if (ace.Params.Any())
                 {
-                    action.Ace = TemplateCompiler.Insatnce.CompileTemplates(C2ImportTemplates.ActionAceImport, action);
+                    action.Ace = TemplateCompiler.Insatnce.CompileTemplates(C2TemplateHelper.ActionAceImport, action);
                     action.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, action);
                     action.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, action);
 
@@ -145,7 +145,7 @@ namespace c3IDE.Managers
                 }
                 else
                 {
-                    action.Ace = TemplateCompiler.Insatnce.CompileTemplates(C2ImportTemplates.ActionAceImport, action);
+                    action.Ace = TemplateCompiler.Insatnce.CompileTemplates(C2TemplateHelper.ActionAceImport, action);
                     action.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, action);
                     action.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, action);
                 }
@@ -184,7 +184,7 @@ namespace c3IDE.Managers
 
                 if (ace.Params.Any())
                 {
-                    condition.Ace = C2ImportTemplates.ConditionAceImport(condition);
+                    condition.Ace = C2TemplateHelper.ConditionAceImport(condition);
                     condition.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, condition);
                     condition.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, condition);
 
@@ -201,7 +201,7 @@ namespace c3IDE.Managers
                 }
                 else
                 {
-                    condition.Ace = C2ImportTemplates.ConditionAceImport(condition);
+                    condition.Ace = C2TemplateHelper.ConditionAceImport(condition);
                     condition.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, condition);
                     condition.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, condition);
                 }
@@ -234,7 +234,7 @@ namespace c3IDE.Managers
 
                 if (ace.Params.Any())
                 {
-                    exp.Ace = C2ImportTemplates.ExpressionAceImport(exp);
+                    exp.Ace = C2TemplateHelper.ExpressionAceImport(exp);
                     exp.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, exp);
                     exp.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, exp);
 
@@ -248,7 +248,7 @@ namespace c3IDE.Managers
                 }
                 else
                 {
-                    exp.Ace = C2ImportTemplates.ExpressionAceImport(exp);
+                    exp.Ace = C2TemplateHelper.ExpressionAceImport(exp);
                     exp.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, exp);
                     exp.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, exp);
                 }

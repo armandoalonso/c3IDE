@@ -48,6 +48,8 @@ namespace c3IDE.Models
                         return "(Behavior)";
                     case PluginType.Effect:
                         return "(Effect)";
+                    case PluginType.Theme:
+                        return "(Theme)";
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

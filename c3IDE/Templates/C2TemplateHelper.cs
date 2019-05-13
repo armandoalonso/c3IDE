@@ -9,7 +9,7 @@ using c3IDE.Utilities.Helpers;
 
 namespace c3IDE.Templates
 {
-    public class C2ImportTemplates
+    public class C2TemplateHelper
     {
         public static string ActionAceImport = @"{
 	""id"": ""{{id}}"",

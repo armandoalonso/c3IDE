@@ -237,6 +237,12 @@ namespace c3IDE
                         WindowManager.ChangeWindow(ApplicationWindows.EffectCodeWindow);
                     }
                     break;
+                case "CSS":
+                    if (CheckIfAddonLoaded())
+                    {
+                        WindowManager.ChangeWindow(ApplicationWindows.CssWindow);
+                    }
+                    break;
                 case "Test":
                     if (CheckIfAddonLoaded())
                     {
@@ -344,7 +350,18 @@ namespace c3IDE
             itemCollection?.Clear();
             List<HamburgerMenuIconItem> items;
 
-            items = type == PluginType.Effect ? MenuManager.EffectMenu : MenuManager.MainMenu;
+            switch (type)
+            {
+                    case PluginType.Effect:
+                        items = MenuManager.EffectMenu;
+                        break;
+                    case PluginType.Theme:
+                        items = MenuManager.ThemeMenu;
+                        break;
+                    default:
+                        items = MenuManager.MainMenu;
+                        break;
+            }
 
             //append the menu items
            foreach (var hamburgerMenuIconItem in items)
