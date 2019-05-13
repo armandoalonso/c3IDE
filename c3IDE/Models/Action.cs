@@ -16,6 +16,7 @@ namespace c3IDE.Models
         private string _displaytext;
         private string _desc;
         private string _listname;
+        private string _async;
 
         public string Id
         {
@@ -78,6 +79,12 @@ namespace c3IDE.Models
         {
             get => _listname;
             set { _listname = value; OnPropertyChanged(); }
+        }
+
+        public string Async
+        {
+            get => _async;
+            set { _async = value; OnPropertyChanged(); }
         }
 
         //only used during import of c2addon

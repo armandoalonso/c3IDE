@@ -473,7 +473,8 @@ namespace c3IDE.Windows
                 Highlight = highlight,
                 DisplayText = displayText,
                 Description = desc,
-                ListName = list
+                ListName = list,
+                Async = async ? ",\n\t\"isAsync\": true" : string.Empty
             };
 
             action.Ace = TemplateCompiler.Insatnce.CompileTemplates(AddonManager.CurrentAddon.Template.ActionAces, action);
