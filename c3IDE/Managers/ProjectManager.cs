@@ -36,6 +36,10 @@ namespace c3IDE.Managers
                     WriteEffectCode(addon, path);
                     WriteEffectParam(addon, path);
                     break;
+                case PluginType.Theme:
+                    WriteThemeCss(addon, path);
+                    WriteThemeLanguage(addon, path);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -69,6 +73,11 @@ namespace c3IDE.Managers
                     ReadEffectProperties(addon, fi.DirectoryName);
                     ReadEffectCode(addon, fi.DirectoryName);
                     ReadEffectParam(addon, fi.DirectoryName);
+                    break;
+
+                case PluginType.Theme:
+                    ReadThemeCss(addon, fi.DirectoryName);
+                    ReadThemeLanguage(addon, fi.DirectoryName);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -761,6 +770,56 @@ namespace c3IDE.Managers
                         };
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                throw;
+            }
+        }
+
+        private static void WriteThemeLanguage(C3Addon addon, string path)
+        {
+            var lang = string.Empty;
+            if (addon.ThemeLangauge != null)
+            {
+                lang = addon.ThemeLangauge;
+            }
+            File.WriteAllText(Path.Combine(path, $"theme_lang.c3idex"), lang);
+        }
+
+        private static void ReadThemeLanguage(C3Addon addon, string path)
+        {
+            try
+            {
+                var text = File.ReadAllText(Path.Combine(path, "theme_lang.c3idex"));
+                if (!text.Any()) return;
+                addon.ThemeLangauge = text;
+            }
+            catch (Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+                throw;
+            }
+        }
+
+        private static void WriteThemeCss(C3Addon addon, string path)
+        {
+            var css = string.Empty;
+            if (addon.ThemeCss != null)
+            {
+                css = addon.ThemeCss;
+            }
+            File.WriteAllText(Path.Combine(path, $"theme_css.c3idex"), css);
+        }
+
+        private static void ReadThemeCss(C3Addon addon, string path)
+        {
+            try
+            {
+                var text = File.ReadAllText(Path.Combine(path, "theme_css.c3idex"));
+                if (!text.Any()) return;
+                addon.ThemeCss = text;
             }
             catch (Exception ex)
             {

@@ -323,7 +323,7 @@ namespace c3IDE.Compiler
 
             //generate simple files
             LogManager.CompilerLog.Insert($"generating addon.json");
-            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "addon.json"), CompileEffectAddon(addon));
+            _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "addon.json"), addon.AddonJson);
             LogManager.CompilerLog.Insert($"generating addon.json => complete");
 
             LogManager.CompilerLog.Insert($"generating css ");
@@ -360,6 +360,10 @@ namespace c3IDE.Compiler
                 {
                     return false;
                 }
+            }
+            else if (addon.Type == PluginType.Theme)
+            {
+                //todo: validate css
             }
             else
             {

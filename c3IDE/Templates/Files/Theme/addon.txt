@@ -15,7 +15,6 @@
 	"file-list": [
 		"lang/en-US.json",
 		"addon.json",
-		"icon.svg",
 		"theme.css"
 	]
 }

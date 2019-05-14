@@ -163,8 +163,8 @@ namespace c3IDE.Managers
             addon.Effect.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.EffectCode, addon);
 
             //compile theme
-            addon.ThemeCss = TemplateCompiler.Insatnce.CompileTemplates(addon.ThemeCss, addon);
-            addon.ThemeLangauge = TemplateCompiler.Insatnce.CompileTemplates(addon.ThemeLangauge, addon);
+            addon.ThemeCss = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ThemeCode, addon);
+            addon.ThemeLangauge = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ThemeLanguage, addon);
         }
 
         public static void IncrementVersion()
