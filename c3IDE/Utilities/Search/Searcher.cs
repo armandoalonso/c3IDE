@@ -44,6 +44,17 @@ namespace c3IDE.Utilities.Search
              ReconstructAdoon(addon);
         }
 
+        public async void GlobalFindAndReplaceAll(C3Addon addon, string text, string replaceText = "")
+        {
+            var results = await Task.Run(() =>
+            {
+                return FileIndex.Values.SelectMany(x => x.Values.Where(rec => rec.Line.Contains(text)));
+            });
+            var searchResults = results as SearchResult[] ?? results.ToArray();
+
+            GlobalReplace(addon, searchResults);
+        }
+
         public void ParseAddon(C3Addon addon)
         {
             FileIndex = new Dictionary<string, SortedList<int, SearchResult>>();

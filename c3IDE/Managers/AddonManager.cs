@@ -84,10 +84,11 @@ namespace c3IDE.Managers
         /// changes the id of the passe din addon, and upsert it back to duplicate it
         /// </summary>
         /// <param name="addon"></param>
-        public static void DuplicateAddon(C3Addon addon)
+        public static void DuplicateAddon(C3Addon addon, string name = null)
         {
             addon.Id = Guid.NewGuid();
             addon.CreateDate = DateTime.Now;
+
             DataAccessFacade.Insatnce.AddonData.Upsert(addon);
             LoadAllAddons();
         }

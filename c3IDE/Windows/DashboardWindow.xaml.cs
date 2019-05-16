@@ -292,9 +292,16 @@ namespace c3IDE.Windows
                 return;
             }
 
+            //todo: have error duplicateing and selecting addons
+
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
             AddonManager.DuplicateAddon(currentAddon);
-            AddonListBox.ItemsSource = AddonManager.AllAddons;
+            AddonManager.LoadAllAddons();
+
+            View = null;
+            OnExit();
+            OnEnter();
+
             NotificationManager.PublishNotification($"addon duplicated successfully");
         }
 
