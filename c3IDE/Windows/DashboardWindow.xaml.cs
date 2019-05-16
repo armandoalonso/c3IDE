@@ -438,5 +438,31 @@ namespace c3IDE.Windows
 
             }
         }
+
+        private async void ChangeAddonName_Click(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                NotificationManager.PublishErrorNotification("error changing addon name, no c3addon selected");
+                return;
+            }
+
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            AddonManager.LoadAddon(currentAddon);
+
+            var newName = await WindowManager.ShowInputDialog("Change Addon Name", "enter new addon name", currentAddon.Name);
+            var oldName = currentAddon.Name;
+
+            if (!string.IsNullOrWhiteSpace(newName))
+            {
+                AddonManager.CurrentAddon.Name = newName;
+                Searcher.Insatnce.GlobalFind(oldName, this, newName);
+
+                AddonManager.SaveCurrentAddon();
+                AddonManager.LoadAllAddons();
+                ApplicationWindows.DashboardWindow.OnExit();
+                ApplicationWindows.DashboardWindow.OnEnter();
+            }
+        }
     }
 }

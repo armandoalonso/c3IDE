@@ -73,9 +73,16 @@ namespace c3IDE.Windows
             RestoreWindow();
         }
 
-        private void SearchGrid_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void SearchGrid_OnGotFocus(object sender, RoutedEventArgs e)
         {
-
+            if (e.OriginalSource is DataGridCell cell && cell.Column is DataGridCheckBoxColumn)
+            {
+                SearchGrid.BeginEdit();
+                if (cell.Content is CheckBox chkBox)
+                {
+                    chkBox.IsChecked = !chkBox.IsChecked;
+                }
+            }
         }
     }
 }
