@@ -19,10 +19,23 @@ namespace c3IDE.Managers
         {
             editor.FontSize = OptionsManager.CurrentOptions.FontSize;
             editor.FontFamily = new FontFamily(OptionsManager.CurrentOptions.FontFamily);
-            var syntaxDefinition = syntax == Syntax.Javascript
-                ? OptionsManager.CurrentOptions.ApplicationTheme.JavascriptSyntaxTheme
-                : OptionsManager.CurrentOptions.ApplicationTheme.JsonSyntaxTheme;
-            editor.SyntaxHighlighting = syntaxDefinition;
+
+            switch (syntax)
+            {
+                case Syntax.Javascript:
+                    editor.SyntaxHighlighting = OptionsManager.CurrentOptions.ApplicationTheme.JavascriptSyntaxTheme;
+                    break;
+                case Syntax.Json:
+                    editor.SyntaxHighlighting = OptionsManager.CurrentOptions.ApplicationTheme.JsonSyntaxTheme;
+                    break;
+                case Syntax.Css:
+                    editor.SyntaxHighlighting = OptionsManager.CurrentOptions.ApplicationTheme.CssSyntaxTheme;
+                    break;
+                default:
+                    editor.SyntaxHighlighting = OptionsManager.CurrentOptions.ApplicationTheme.JavascriptSyntaxTheme;
+                    break;
+            }
+
             editor.Background = OptionsManager.CurrentOptions.ApplicationTheme.SyntaxBackgroundColor;
             editor.Foreground = OptionsManager.CurrentOptions.ApplicationTheme.SyntaxForegroundColor;
         }

@@ -42,7 +42,7 @@ namespace c3IDE.Windows
 
         public void OnEnter()
         {
-            ThemeManager.SetupTextEditor(CssTextEditor, Syntax.Javascript);
+            ThemeManager.SetupTextEditor(CssTextEditor, Syntax.Css);
             ThemeManager.SetupSearchPanel(runtimePanel);
 
             if (AddonManager.CurrentAddon != null)

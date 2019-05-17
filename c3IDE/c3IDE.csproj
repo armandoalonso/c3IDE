@@ -454,7 +454,7 @@
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\editor_return_type.json" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_runtime_javascript.json" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavascriptMonokai.xshd" />
-    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavascriptDefault.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\CSSDefault.xshd" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonDefault.xshd" />
     <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JsonMonokai.xshd" />
     <EmbeddedResource Include="Utilities\CodeCompletion\Bindings\code_javascript.json" />
@@ -465,6 +465,10 @@
     <EmbeddedResource Include="Templates\Files\Effect\addon.txt" />
     <EmbeddedResource Include="Templates\Files\Theme\lang.txt" />
     <EmbeddedResource Include="Templates\Files\Theme\addon.txt" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\JavascriptDefault.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\CSSMonokai.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\CSSAyuLight.xshd" />
+    <EmbeddedResource Include="Utilities\SyntaxHighlighting\Themes\CSSAyuMirage.xshd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
