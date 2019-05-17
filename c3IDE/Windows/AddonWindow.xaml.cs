@@ -271,7 +271,8 @@ namespace c3IDE.Windows
                 C3Folder = true,
                 C2Folder = false,
                 Rootfolder = false,
-                FileType = "inline-script"
+                FileType = "inline-script",
+                Compress = false
             };
 
             tpf.PluginTemplate = TemplateHelper.ThirdPartyFile(tpf);
@@ -401,11 +402,13 @@ namespace c3IDE.Windows
                     var filename = info.Name;
                     var content = File.ReadAllText(file);
                     var bytes = File.ReadAllBytes(file);
+                    var compress = false;
 
                     switch (info.Extension)
                     {
                         case ".js":
-                            content = FormatHelper.Insatnce.Javascript(content);
+                            content = FormatHelper.Insatnce.FixMinifiedFiles(content);
+                            compress = true;
                             break;
                     }
 
@@ -415,7 +418,8 @@ namespace c3IDE.Windows
                         FileName = filename,
                         Bytes = bytes,
                         Extention = info.Extension.ToLower(),
-                        FileType = "inline-script"
+                        FileType = "inline-script",
+                        Compress = compress
                     };
 
                     tpf.PluginTemplate = TemplateHelper.ThirdPartyFile(tpf);
@@ -450,6 +454,7 @@ namespace c3IDE.Windows
                 _selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
                 _selectedFile.FileType = FileTypeDropDown.Text;
                 _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);
+                _selectedFile.Compress = CompressFile.IsChecked != null && CompressFile.IsChecked.Value;
             }
 
             //load new selection
@@ -459,6 +464,7 @@ namespace c3IDE.Windows
             C3RuntimeFolder.IsChecked = _selectedFile.C3Folder;
             RootFolder.IsChecked = _selectedFile.Rootfolder;
             FileTypeDropDown.Text = _selectedFile.FileType;
+            CompressFile.IsChecked = _selectedFile.Compress;
 
             switch (_selectedFile.Extention?.ToLower() ?? ".txt")
             {
@@ -468,7 +474,8 @@ namespace c3IDE.Windows
                 case ".txt":
                 case ".json":
                 case ".xml":
-                    FileTextEditor.Text = FormatHelper.Insatnce.Javascript(_selectedFile.Content);
+                    //TODO: revisit issue with large files
+                    FileTextEditor.Text = _selectedFile.Content;
                     break;   
                 default:
                     FileTextEditor.Text = $"BINARY FILE => {_selectedFile.FileName}";
@@ -531,6 +538,7 @@ namespace c3IDE.Windows
                     _selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
                     _selectedFile.FileType = FileTypeDropDown.Text;
                     _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);
+                    _selectedFile.Compress = CompressFile.IsChecked != null && CompressFile.IsChecked.Value;
                 }
 
                 //update addon.json

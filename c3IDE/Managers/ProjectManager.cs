@@ -672,7 +672,7 @@ namespace c3IDE.Managers
             {
                 foreach (var file in addon.ThirdPartyFiles)
                 {
-                    sb.AppendLine($"@@START {file.Key}|{file.Value.Extention}|{file.Value.Rootfolder.ToString().ToLower()}|{file.Value.C3Folder.ToString().ToLower()}|{file.Value.C2Folder.ToString().ToLower()}|{file.Value.FileType}");
+                    sb.AppendLine($"@@START {file.Key}|{file.Value.Extention}|{file.Value.Rootfolder.ToString().ToLower()}|{file.Value.C3Folder.ToString().ToLower()}|{file.Value.C2Folder.ToString().ToLower()}|{file.Value.FileType}|{file.Value.Compress.ToString()}");
 
                     sb.AppendLine("@@TEMPLATE");
                     sb.AppendLine(file.Value.PluginTemplate);
@@ -708,7 +708,9 @@ namespace c3IDE.Managers
                 var c3 = string.Empty;
                 var c2 = string.Empty;
                 var fileType = string.Empty;
+                var compress = string.Empty;
                 var temp = new Dictionary<string, StringBuilder>();
+
 
                 foreach (var line in text)
                 {
@@ -716,7 +718,7 @@ namespace c3IDE.Managers
                     if (line.Contains("@@END"))
                     {
                         state = ParserState.End;
-                        PopulateThridPartyFile(addon, file, extention, temp["TEMPLATE"].ToString(), temp["CONTENT"].ToString(), temp["BYTES"].ToString(), root, c3, c2, fileType);
+                        PopulateThridPartyFile(addon, file, extention, temp["TEMPLATE"].ToString(), temp["CONTENT"].ToString(), temp["BYTES"].ToString(), root, c3, c2, fileType, compress);
                     }
 
                     //check for parsing
@@ -753,6 +755,7 @@ namespace c3IDE.Managers
                             c3 = properties.Length > 3 ? properties[3] : " ";
                             c2 = properties.Length > 4 ? properties[4] : " ";
                             fileType = properties.Length > 5 ? properties[5] : " ";
+                            compress = properties.Length > 6 ? properties[6] : " ";
                         }
                         catch (Exception ex)
                         {
@@ -896,7 +899,7 @@ namespace c3IDE.Managers
             }
         }
 
-        private static void PopulateThridPartyFile(C3Addon addon, string file, string extention, string template, string content, string bytes, string root, string c3, string c2, string filetype)
+        private static void PopulateThridPartyFile(C3Addon addon, string file, string extention, string template, string content, string bytes, string root, string c3, string c2, string filetype, string compress)
         {
             addon.ThirdPartyFiles.Add(file, new ThirdPartyFile
             {
@@ -908,7 +911,8 @@ namespace c3IDE.Managers
                 Rootfolder = root == "true",
                 C3Folder = c3 == "true",
                 C2Folder = c2 == "true",
-                FileType = string.IsNullOrWhiteSpace(filetype) ? "inline-script" : filetype
+                FileType = string.IsNullOrWhiteSpace(filetype) ? "inline-script" : filetype,
+                Compress = compress == "true"
             });
         }
 

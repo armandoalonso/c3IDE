@@ -61,25 +61,14 @@ namespace c3IDE.Utilities.Helpers
             return jsBeautifier.Beautify(js).Trim();
         }
 
-        public string JavascriptCompress(string js)
+        public string FixMinifiedFiles(string js)
         {
-            var blockComments = @"/\*(.*?)\*/";
-            var lineComments = @"//(.*?)\r?\n";
-            var strings = @"""((\\[^\n]|[^""\n])*)""";
-            var verbatimStrings = @"@(""[^""]*"")+";
+            return Regex.Replace(js, @"[;]", ";\n", RegexOptions.None);
+        }
 
-            string noComments = Regex.Replace(js,
-                blockComments + "|" + lineComments + "|" + strings + "|" + verbatimStrings,
-                me => {
-                    if (me.Value.StartsWith("/*") || me.Value.StartsWith("//"))
-                        return me.Value.StartsWith("//") ? Environment.NewLine : "";
-                    // Keep the literal strings
-                    return me.Value;
-                },
-                RegexOptions.Singleline);
-
-            var result = Regex.Replace(noComments, @"\r\n?|\n", string.Empty);
-            return Regex.Replace(result, @"\s{2,}", " ");
+        public string CompressMinifiedFiles(string js)
+        {
+            return Regex.Replace(js, @";\n", ";", RegexOptions.None);
         }
     }
 }

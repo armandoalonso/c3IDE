@@ -50,6 +50,8 @@
                         <CheckBox DockPanel.Dock="Bottom" Margin="2" Name="C3RuntimeFolder">C3 Runtime Folder</CheckBox>
                         <CheckBox DockPanel.Dock="Bottom" Margin="2" Name="C2RuntimeFolder">C2 Runtime Folder</CheckBox>
                         <CheckBox DockPanel.Dock="Bottom" Margin="2" Name="RootFolder">Root Folder</CheckBox>
+                        <Separator Height="3" DockPanel.Dock="Bottom"></Separator>
+                        <CheckBox DockPanel.Dock="Bottom" Margin="2" Name="CompressFile">CompressFileOnExport</CheckBox>
 
                         <ComboBox DockPanel.Dock="Bottom" Margin="2" Name="FileTypeDropDown" IsEditable="False">
                             <ComboBoxItem IsSelected="True">inline-script</ComboBoxItem>
@@ -93,7 +95,8 @@
                             FontSize="10pt"
                             ShowLineNumbers="True"
                             Margin="10"
-                            Grid.Column="2">
+                            Grid.Column="2"
+                            WordWrap="True">
 
                         <avalonEdit:TextEditor.ContextMenu>
                             <ContextMenu>
