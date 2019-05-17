@@ -1,8 +1,10 @@
-﻿using System.Web.UI;
+﻿using System;
+using System.Web.UI;
 using c3IDE.Utilities.Helpers;
 
 namespace c3IDE.Templates
 {
+    [Serializable]
     public class EffectTemplate : ITemplate
     {
         public EffectTemplate()

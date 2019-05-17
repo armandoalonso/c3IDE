@@ -86,10 +86,10 @@ namespace c3IDE.Managers
         /// <param name="addon"></param>
         public static void DuplicateAddon(C3Addon addon, string name = null)
         {
-            addon.Id = Guid.NewGuid();
+            var clone = (C3Addon)addon.Clone();
             addon.CreateDate = DateTime.Now;
 
-            DataAccessFacade.Insatnce.AddonData.Upsert(addon);
+            DataAccessFacade.Insatnce.AddonData.Upsert(clone);
             LoadAllAddons();
         }
 

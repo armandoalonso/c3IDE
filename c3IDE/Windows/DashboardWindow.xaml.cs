@@ -68,7 +68,7 @@ namespace c3IDE.Windows
             //AddonManager.LoadAllAddons(); //removed for dashboard load performace ?? do we really need this call?
             AddonFilter.Text = string.Empty;
             AddonListBox.ItemsSource = AddonManager.AllAddons;
-
+            
             //setup view once
             if(View == null)
             {
@@ -276,6 +276,7 @@ namespace c3IDE.Windows
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
             AddonManager.DeleteAddon(currentAddon);
             AddonListBox.ItemsSource = AddonManager.AllAddons;
+            AddonListBox.Items.Refresh();
             NotificationManager.PublishNotification($"addon removed successfully");
         }
 
@@ -292,15 +293,10 @@ namespace c3IDE.Windows
                 return;
             }
 
-            //todo: have error duplicateing and selecting addons
-
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
             AddonManager.DuplicateAddon(currentAddon);
-            AddonManager.LoadAllAddons();
-
-            View = null;
-            OnExit();
-            OnEnter();
+            AddonListBox.ItemsSource = AddonManager.AllAddons;
+            AddonListBox.Items.Refresh();
 
             NotificationManager.PublishNotification($"addon duplicated successfully");
         }

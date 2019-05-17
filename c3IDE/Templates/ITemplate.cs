@@ -1,4 +1,6 @@
-﻿namespace c3IDE.Templates
+﻿using System;
+
+namespace c3IDE.Templates
 {
     public interface ITemplate
     {

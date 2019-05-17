@@ -1,7 +1,9 @@
 ﻿using c3IDE.Utilities.Helpers;
+using System;
 
 namespace c3IDE.Templates
 {
+    [Serializable]
     public class DrawingPluginTemplate : ITemplate
     {
         public DrawingPluginTemplate()
