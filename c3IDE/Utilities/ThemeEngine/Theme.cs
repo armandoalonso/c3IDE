@@ -18,6 +18,7 @@ namespace c3IDE.Utilities.ThemeEngine
         //syntax editor themes
         public IHighlightingDefinition JavascriptSyntaxTheme { get; set; } = SyntaxHighlighting.SyntaxHighligtResolver.Insatnce.Resolve("Default Theme", Syntax.Javascript);
         public IHighlightingDefinition JsonSyntaxTheme { get; set; } = SyntaxHighlighting.SyntaxHighligtResolver.Insatnce.Resolve("Default Theme", Syntax.Json);
+        public IHighlightingDefinition CssSyntaxTheme { get; set; } = SyntaxHighlighting.SyntaxHighligtResolver.Insatnce.Resolve("Default Theme", Syntax.Css);
         public SolidColorBrush SyntaxForegroundColor { get; set; } = new SolidColorBrush(Colors.Black);
         public SolidColorBrush SyntaxBackgroundColor { get; set; } = new SolidColorBrush(Colors.White);
         public MahApps.Metro.Theme ApplicationTheme { get; set; } = ThemeManager.GetTheme("Light.Blue");

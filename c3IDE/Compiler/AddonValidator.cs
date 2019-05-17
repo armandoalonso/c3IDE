@@ -47,7 +47,7 @@ namespace c3IDE.Compiler
             if(!isValid) { LogManager.CompilerLog.Insert("failed validation on addon.json"); return false; } else { LogManager.CompilerLog.Insert("addon.json is valid json");}
 
 
-            if (addon.Type != PluginType.Effect)
+            if (addon.Type != PluginType.Effect && addon.Type != PluginType.Theme)
             {
                 //validate plugin.js edittime
                 if (addon.PluginEditTime.Contains("this._info.AddFileDependency()"))

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace c3IDE.Models
 {
+    [Serializable]
     public class Effect
     {
         public Effect()

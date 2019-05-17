@@ -43,5 +43,15 @@
 			// ... code to run every tick for this behavior ...
 		}
 		*/
+
+		GetDebuggerProperties()
+		{
+			return [{
+				title: "{{class}}",
+				properties: [
+					//{name: ".current-animation",	value: this._currentAnimation.GetName(),	onedit: v => this.CallAction(Acts.SetAnim, v, 0) },
+				]
+			}];
+		}
 	};
 }

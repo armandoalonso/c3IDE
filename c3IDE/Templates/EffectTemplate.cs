@@ -1,8 +1,10 @@
-﻿using System.Web.UI;
+﻿using System;
+using System.Web.UI;
 using c3IDE.Utilities.Helpers;
 
 namespace c3IDE.Templates
 {
+    [Serializable]
     public class EffectTemplate : ITemplate
     {
         public EffectTemplate()
@@ -28,5 +30,7 @@ namespace c3IDE.Templates
         public string ExpressionLanguage => string.Empty;
         public string EffectCode { get; }
         public string EffectLangauge { get; }
+        public string ThemeCode => string.Empty;
+        public string ThemeLanguage => string.Empty;
     }
 }

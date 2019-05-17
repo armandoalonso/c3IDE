@@ -1,0 +1,13 @@
+﻿{
+	"languageTag": "en-US",
+	"fileDescription": "Strings for {{addon_class}} theme.",
+	"text": {
+		"themes": {
+			"{{addon_id | string.downcase}}": {
+				"name": "{{name}}",
+				"description": "{{description}}",
+				"help-url": "https://www.scirra.com"
+			}
+		}
+	}
+}

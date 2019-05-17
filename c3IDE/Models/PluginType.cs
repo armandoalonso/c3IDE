@@ -6,6 +6,7 @@
         //MultiInstance,
         DrawingPlugin = 2,
         Behavior = 3,
-        Effect = 4
+        Effect = 4,
+        Theme = 5
     }
 }

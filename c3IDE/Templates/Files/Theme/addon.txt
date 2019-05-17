@@ -1,0 +1,20 @@
+﻿{
+	"is-c3-addon": true,
+	"type": "theme",
+	"name": "{{name}}",
+	"id": "{{addon_id}}",
+	"version": "{{major_version}}.{{minor_version}}.{{revision_version}}.{{build_version}}",
+	"author": "{{author}}",
+	"icon-type": "image/svg+xml",
+	"website": "https://www.construct.net",
+	"documentation": "https://www.construct.net",
+	"description": "{{description}}",
+	"stylesheets": [
+		"theme.css"
+	],
+	"file-list": [
+		"lang/en-US.json",
+		"addon.json",
+		"theme.css"
+	]
+}

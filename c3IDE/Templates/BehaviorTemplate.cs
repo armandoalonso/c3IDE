@@ -1,7 +1,9 @@
 ﻿using c3IDE.Utilities.Helpers;
+using System;
 
 namespace c3IDE.Templates
 {
+    [Serializable]
     public class BehaviorTemplate : ITemplate
     {
         public BehaviorTemplate()
@@ -37,5 +39,7 @@ namespace c3IDE.Templates
         public string ExpressionLanguage { get; }
         public string EffectCode => string.Empty;
         public string EffectLangauge => string.Empty;
+        public string ThemeCode => string.Empty;
+        public string ThemeLanguage => string.Empty;
     }
 }

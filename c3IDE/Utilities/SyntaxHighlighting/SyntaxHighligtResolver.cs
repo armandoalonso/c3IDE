@@ -16,11 +16,20 @@ namespace c3IDE.Utilities.SyntaxHighlighting
 
         public IHighlightingDefinition Resolve(string key, Syntax syntax)
         {
-            var syntaxKey = syntax == Syntax.Javascript ? "JS" : "JSON";
-            key = key + " " + syntaxKey;
-            if (Cache.ContainsKey(key))
+            var syntaxKey = "Javascript";
+            switch (syntax)
             {
-                return Cache[key];
+                case Syntax.Javascript: syntaxKey = "Javascript"; break;
+                case Syntax.Json: syntaxKey = "Json"; break;
+                case Syntax.Css: syntaxKey = "CSS"; break;
+            }
+
+
+            var themeKey = key + " " + syntaxKey;
+
+            if (Cache.ContainsKey(themeKey))
+            {
+                return Cache[themeKey];
             }
 
             //TODO: add ayu theme https://github.com/ayu-theme/ayu-colors
@@ -28,35 +37,23 @@ namespace c3IDE.Utilities.SyntaxHighlighting
             IHighlightingDefinition def;
             switch (key)
             {
-                case "Default Theme JS":
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavascriptDefault.xshd");
+                case "Default Theme":
+                    def = ResolveDefinition($"c3IDE.Utilities.SyntaxHighlighting.Themes.{syntaxKey}Default.xshd");
                     break;
-                case "Default Theme JSON":
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JsonDefault.xshd");
+                case "Monokai Theme":
+                    def = ResolveDefinition($"c3IDE.Utilities.SyntaxHighlighting.Themes.{syntaxKey}Monokai.xshd");
                     break;
-                case "Monokai Theme JS":
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavascriptMonokai.xshd");
+                case "Ayu Light Theme":
+                    def = ResolveDefinition($"c3IDE.Utilities.SyntaxHighlighting.Themes.{syntaxKey}AyuLight.xshd");
                     break;
-                case "Monokai Theme JSON":
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JsonMonokai.xshd");
-                    break;
-                case "Ayu Light Theme JS":
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavascriptAyuLight.xshd");
-                    break;
-                case "Ayu Light Theme JSON":
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JsonAyuLight.xshd");
-                    break;
-                case "Ayu Mirage Theme JS":
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JavascriptAyuMirage.xshd");
-                    break;
-                case "Ayu Mirage Theme JSON":
-                    def = ResolveDefinition("c3IDE.Utilities.SyntaxHighlighting.Themes.JsonAyuMirage.xshd");
+                case "Ayu Mirage Theme":
+                    def = ResolveDefinition($"c3IDE.Utilities.SyntaxHighlighting.Themes.{syntaxKey}AyuMirage.xshd");
                     break;
                 default:
                     throw new InvalidOperationException("Invaild Syntax Highlighting Key");
             }
 
-            Cache.Add(key, def);
+            Cache.Add(themeKey, def);
             return def;
         }
 

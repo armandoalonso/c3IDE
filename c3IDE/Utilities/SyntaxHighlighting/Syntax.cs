@@ -9,6 +9,7 @@ namespace c3IDE.Utilities.SyntaxHighlighting
     public enum Syntax
     {
         Javascript,
-        Json
+        Json,
+        Css
     }
 }

@@ -12,6 +12,7 @@ namespace c3IDE.Managers
     {
         public static List<HamburgerMenuIconItem> MainMenu { get; set; } = new List<HamburgerMenuIconItem>();
         public static List<HamburgerMenuIconItem> EffectMenu { get; set; } = new List<HamburgerMenuIconItem>();
+        public static List<HamburgerMenuIconItem> ThemeMenu { get; set; } = new List<HamburgerMenuIconItem>();
 
         public static void SetupMainMenu()
         {
@@ -34,6 +35,11 @@ namespace c3IDE.Managers
             EffectMenu.Add(new HamburgerMenuIconItem { Icon = new PackIconMaterial { Kind = PackIconMaterialKind.FunctionVariant }, Label = "Parameters", Tag = "Parameters" });
             EffectMenu.Add(new HamburgerMenuIconItem { Icon = new PackIconFontAwesome { Kind = PackIconFontAwesomeKind.CodeSolid }, Label = "Code", Tag = "Code" });
             EffectMenu.Add(new HamburgerMenuIconItem { Icon = new PackIconOcticons { Kind = PackIconOcticonsKind.Beaker }, Label = "Test", Tag = "Test" });
+
+            //theme menu
+            ThemeMenu.Add(new HamburgerMenuIconItem { Icon = new PackIconMaterial { Kind = PackIconMaterialKind.Home }, Label = "Dashboard", Tag = "Dashboard" });
+            ThemeMenu.Add(new HamburgerMenuIconItem { Icon = new PackIconFontAwesome { Kind = PackIconFontAwesomeKind.Css3Brands }, Label = "CSS", Tag = "CSS" });
+            ThemeMenu.Add(new HamburgerMenuIconItem { Icon = new PackIconOcticons { Kind = PackIconOcticonsKind.Beaker }, Label = "Test", Tag = "Test" });
         }
     }
 }

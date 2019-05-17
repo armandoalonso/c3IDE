@@ -84,11 +84,12 @@ namespace c3IDE.Managers
         /// changes the id of the passe din addon, and upsert it back to duplicate it
         /// </summary>
         /// <param name="addon"></param>
-        public static void DuplicateAddon(C3Addon addon)
+        public static void DuplicateAddon(C3Addon addon, string name = null)
         {
-            addon.Id = Guid.NewGuid();
+            var clone = (C3Addon)addon.Clone();
             addon.CreateDate = DateTime.Now;
-            DataAccessFacade.Insatnce.AddonData.Upsert(addon);
+
+            DataAccessFacade.Insatnce.AddonData.Upsert(clone);
             LoadAllAddons();
         }
 
@@ -161,6 +162,10 @@ namespace c3IDE.Managers
 
             //compile effect template
             addon.Effect.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.EffectCode, addon);
+
+            //compile theme
+            addon.ThemeCss = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ThemeCode, addon);
+            addon.ThemeLangauge = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ThemeLanguage, addon);
         }
 
         public static void IncrementVersion()

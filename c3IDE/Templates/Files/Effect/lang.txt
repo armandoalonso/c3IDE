@@ -3,7 +3,7 @@
 	"fileDescription": "Strings for the '{{addon_class}}Effect' effect.",
 	"text": {
 		"effects": {
-			"{{company | string.downcase}}_{{class | string.downcase}}": {
+			""{{addon_id | string.downcase}}"": {
 				"name": "{{name}}",
 				"description": "{{description}}",
 				"parameters": {}

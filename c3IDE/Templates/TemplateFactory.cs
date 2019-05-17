@@ -20,6 +20,8 @@ namespace c3IDE.Templates
                     return new BehaviorTemplate();
                 case PluginType.Effect:
                     return new EffectTemplate();
+                case PluginType.Theme:
+                    return new ThemeTemplate();
             }
 
             throw new InvalidOperationException("Not Valid Plugin Type");

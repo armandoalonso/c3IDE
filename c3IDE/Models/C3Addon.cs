@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Media.Imaging;
 using c3IDE.Templates;
 using c3IDE.Utilities.Helpers;
@@ -9,7 +11,8 @@ using Newtonsoft.Json;
 
 namespace c3IDE.Models
 {
-    public class C3Addon : IEquatable<C3Addon>
+    [Serializable]
+    public class C3Addon : IEquatable<C3Addon>, ICloneable
     {
         [BsonId]
         public Guid Id { get; set; }
@@ -48,6 +51,8 @@ namespace c3IDE.Models
                         return "(Behavior)";
                     case PluginType.Effect:
                         return "(Effect)";
+                    case PluginType.Theme:
+                        return "(Theme)";
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -84,12 +89,16 @@ namespace c3IDE.Models
 
         public Effect Effect { get; set; }
 
+        public string ThemeCss { get; set; }
+        public string ThemeLangauge { get; set; }
+
         [BsonIgnore]
-        public List<string> Categories  {
+        public List<string> Categories
+        {
             get
             {
                 var set = new HashSet<string>();
-                set.UnionWith(Actions?.Select(x =>   x.Value.Category) ?? new List<string>());
+                set.UnionWith(Actions?.Select(x => x.Value.Category) ?? new List<string>());
                 set.UnionWith(Conditions?.Select(x => x.Value.Category) ?? new List<string>());
                 set.UnionWith(Expressions?.Select(x => x.Value.Category) ?? new List<string>());
                 return set.ToList();
@@ -102,6 +111,29 @@ namespace c3IDE.Models
 
         //c2 specfic files
         public string C2RunTime { get; set; }
+
+        /// <summary>
+        /// deep clone object
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            object clone = null;
+            using(var stream = new MemoryStream())
+            {
+                if (this.GetType().IsSerializable)
+                {
+                    var oldGuid = this.Id;
+                    this.Id = Guid.NewGuid();
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    formatter.Serialize(stream, this);
+                    stream.Position = 0;
+                    clone = formatter.Deserialize(stream);
+                    this.Id = oldGuid;
+                }
+            }
+            return clone;
+        }
 
         public bool Equals(C3Addon other)
         {
@@ -131,6 +163,7 @@ namespace c3IDE.Models
         {
             return $"{Author}{Class}";
         }
+
     }
 }
 

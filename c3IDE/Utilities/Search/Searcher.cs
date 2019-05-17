@@ -44,10 +44,21 @@ namespace c3IDE.Utilities.Search
              ReconstructAdoon(addon);
         }
 
+        public async void GlobalFindAndReplaceAll(C3Addon addon, string text, string replaceText = "")
+        {
+            var results = await Task.Run(() =>
+            {
+                return FileIndex.Values.SelectMany(x => x.Values.Where(rec => rec.Line.Contains(text)));
+            });
+            var searchResults = results as SearchResult[] ?? results.ToArray();
+
+            GlobalReplace(addon, searchResults);
+        }
+
         public void ParseAddon(C3Addon addon)
         {
             FileIndex = new Dictionary<string, SortedList<int, SearchResult>>();
-            if (addon.Type != PluginType.Effect)
+            if (addon.Type != PluginType.Effect && addon.Type != PluginType.Theme)
             {
                 UpdateFileIndex("addon.json", addon.AddonJson, ApplicationWindows.AddonWindow);
                 UpdateFileIndex("edittime_plugin.js", addon.PluginEditTime, ApplicationWindows.PluginWindow);
@@ -82,7 +93,7 @@ namespace c3IDE.Utilities.Search
                 UpdateFileIndex("lang_property.js", addon.LanguageProperties, ApplicationWindows.LanguageWindow);
                 UpdateFileIndex("lang_category.js", addon.LanguageCategories, ApplicationWindows.LanguageWindow);
             }
-            else
+            else if(addon.Type != PluginType.Theme)
             {
                 UpdateFileIndex("fxcode.js", addon.Effect.Code, ApplicationWindows.EffectCodeWindow);
 
@@ -109,7 +120,7 @@ namespace c3IDE.Utilities.Search
 
         public void ReconstructAdoon(C3Addon addon)
         {
-            if (addon.Type != PluginType.Effect)
+            if (addon.Type != PluginType.Effect && addon.Type != PluginType.Theme)
             {
                 addon.AddonJson = string.Join("\n", FileIndex["addon.json"].Select(x => x.Value.Line));
                 addon.PluginEditTime = string.Join("\n", FileIndex["edittime_plugin.js"].Select(x => x.Value.Line));
@@ -149,7 +160,7 @@ namespace c3IDE.Utilities.Search
                 addon.LanguageProperties = string.Join("\n", FileIndex["lang_property.js"].Select(x => x.Value.Line));
                 addon.LanguageCategories = string.Join("\n", FileIndex["lang_category.js"].Select(x => x.Value.Line));
             }
-            else
+            else if(addon.Type != PluginType.Theme)
             {
                 addon.Effect.Code = string.Join("\n", FileIndex["fxcode.js"].Select(x => x.Value.Line));
                 foreach (var param in addon.Effect.Parameters)

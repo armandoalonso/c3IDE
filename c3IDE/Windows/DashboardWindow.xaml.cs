@@ -68,7 +68,7 @@ namespace c3IDE.Windows
             //AddonManager.LoadAllAddons(); //removed for dashboard load performace ?? do we really need this call?
             AddonFilter.Text = string.Empty;
             AddonListBox.ItemsSource = AddonManager.AllAddons;
-
+            
             //setup view once
             if(View == null)
             {
@@ -276,6 +276,7 @@ namespace c3IDE.Windows
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
             AddonManager.DeleteAddon(currentAddon);
             AddonListBox.ItemsSource = AddonManager.AllAddons;
+            AddonListBox.Items.Refresh();
             NotificationManager.PublishNotification($"addon removed successfully");
         }
 
@@ -295,6 +296,8 @@ namespace c3IDE.Windows
             var currentAddon = (C3Addon)AddonListBox.SelectedItem;
             AddonManager.DuplicateAddon(currentAddon);
             AddonListBox.ItemsSource = AddonManager.AllAddons;
+            AddonListBox.Items.Refresh();
+
             NotificationManager.PublishNotification($"addon duplicated successfully");
         }
 
@@ -436,6 +439,32 @@ namespace c3IDE.Windows
                 AddonManager.CurrentAddon.Author = newAuth;
                 Searcher.Insatnce.GlobalFind(oldAuth, this, newAuth);
 
+            }
+        }
+
+        private async void ChangeAddonName_Click(object sender, RoutedEventArgs e)
+        {
+            if (AddonListBox.SelectedIndex == -1)
+            {
+                NotificationManager.PublishErrorNotification("error changing addon name, no c3addon selected");
+                return;
+            }
+
+            var currentAddon = (C3Addon)AddonListBox.SelectedItem;
+            AddonManager.LoadAddon(currentAddon);
+
+            var newName = await WindowManager.ShowInputDialog("Change Addon Name", "enter new addon name", currentAddon.Name);
+            var oldName = currentAddon.Name;
+
+            if (!string.IsNullOrWhiteSpace(newName))
+            {
+                AddonManager.CurrentAddon.Name = newName;
+                Searcher.Insatnce.GlobalFind(oldName, this, newName);
+
+                AddonManager.SaveCurrentAddon();
+                AddonManager.LoadAllAddons();
+                ApplicationWindows.DashboardWindow.OnExit();
+                ApplicationWindows.DashboardWindow.OnEnter();
             }
         }
     }
