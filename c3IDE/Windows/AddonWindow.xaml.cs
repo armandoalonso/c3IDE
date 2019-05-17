@@ -124,6 +124,7 @@ namespace c3IDE.Windows
                     _selectedFile.C3Folder = C3RuntimeFolder.IsChecked != null && C3RuntimeFolder.IsChecked.Value;
                     _selectedFile.Rootfolder = RootFolder.IsChecked != null && RootFolder.IsChecked.Value;
                     _selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
+                    _selectedFile.FileType = FileTypeDropDown.Text;
                     _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);
                 }
 
