@@ -5,8 +5,9 @@
 * update templates to include debugger function on instance
 * add support for new async action with is-async flag (actions)
 * add construct theme template, (add new css window) [Issue 33](https://github.com/armandoalonso/c3IDE/issues/33)
-TODO: new to create css syntax highlighting def
-TODO: add way to change name (context menu) [Issue 32](https://github.com/armandoalonso/c3IDE/issues/32)
+* create css syntax highlighting def
+* add way to change name (context menu) [Issue 32](https://github.com/armandoalonso/c3IDE/issues/32)
+* update interaction between global search checkbox, change from double clcik to single click to select  
 
 ### Build# 1.1.0.55
 * generate uniforms at the top of the file, not on top of main
