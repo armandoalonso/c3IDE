@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using c3IDE.Utilities.JsBeautifier;
@@ -68,7 +70,38 @@ namespace c3IDE.Utilities.Helpers
 
         public string CompressMinifiedFiles(string js)
         {
-            return Regex.Replace(js, @";\n", ";", RegexOptions.None);
+            var blockComments = @"/\*(.*?)\*/";
+            var lineComments = @"//(.*?)\r?\n";
+            var strings = @"""((\\[^\n]|[^""\n])*)""";
+            var verbatimStrings = @"@(""[^""]*"")+";
+
+            //remove comments
+            string noComments = Regex.Replace(js,
+                blockComments + "|" + lineComments + "|" + strings + "|" + verbatimStrings,
+                me => {
+                    if (me.Value.StartsWith("/*") || me.Value.StartsWith("//"))
+                        return me.Value.StartsWith("//") ? Environment.NewLine : "";
+                    // Keep the literal strings
+                    return me.Value;
+                },
+                RegexOptions.Singleline);
+
+            //split out by newline to compress
+            var lines = noComments.Split('\n').ToList();
+            var code = new List<string>();
+
+            foreach (var line in lines)
+            {
+                var str = line.Trim();
+                //str = Regex.Replace(str, @"(\s+)?", " ");
+
+                if (!string.IsNullOrWhiteSpace(str))
+                {
+                    code.Add(str);
+                }
+            }
+
+            return string.Join(" ", code);
         }
     }
 }
