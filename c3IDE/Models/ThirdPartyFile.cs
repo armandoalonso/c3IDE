@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Web;
+using c3IDE.Managers;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Document;
 using LiteDB;
@@ -100,7 +101,7 @@ namespace c3IDE.Models
             }
         }
 
-        public string MimeType => MimeMapping.GetMimeMapping(FileName);
+        public string MimeType => MimeManager.GetMimeType(this.Extention);
 
         public string FileType
         {
