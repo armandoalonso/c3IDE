@@ -16,7 +16,8 @@ namespace c3IDE.Models
         private byte[] _bytes;
         private string _extention;
         private string _fileType;
-
+        private bool _compress;
+        private bool _plainText;
         private bool _c3folder, _c2folder, _rootfolder;
 
         public string FileName
@@ -106,6 +107,11 @@ namespace c3IDE.Models
             get => _fileType;
             set { _fileType = value; OnPropertyChanged(); }
         }
+
+        public bool Compress { get => _compress; set { _compress = value; OnPropertyChanged(); } }
+
+        public bool PlainText
+        { get => _plainText; set { _plainText = value; OnPropertyChanged(); } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

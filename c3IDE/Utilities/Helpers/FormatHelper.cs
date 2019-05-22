@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using c3IDE.Utilities.JsBeautifier;
@@ -61,13 +63,19 @@ namespace c3IDE.Utilities.Helpers
             return jsBeautifier.Beautify(js).Trim();
         }
 
-        public string JavascriptCompress(string js)
+        public string FixMinifiedFiles(string js)
+        {
+            return Regex.Replace(js, @"[;]", ";\n", RegexOptions.None);
+        }
+
+        public string CompressMinifiedFiles(string js)
         {
             var blockComments = @"/\*(.*?)\*/";
             var lineComments = @"//(.*?)\r?\n";
             var strings = @"""((\\[^\n]|[^""\n])*)""";
             var verbatimStrings = @"@(""[^""]*"")+";
 
+            //remove comments
             string noComments = Regex.Replace(js,
                 blockComments + "|" + lineComments + "|" + strings + "|" + verbatimStrings,
                 me => {
@@ -78,8 +86,22 @@ namespace c3IDE.Utilities.Helpers
                 },
                 RegexOptions.Singleline);
 
-            var result = Regex.Replace(noComments, @"\r\n?|\n", string.Empty);
-            return Regex.Replace(result, @"\s{2,}", " ");
+            //split out by newline to compress
+            var lines = noComments.Split('\n').ToList();
+            var code = new List<string>();
+
+            foreach (var line in lines)
+            {
+                var str = line.Trim();
+                //str = Regex.Replace(str, @"(\s+)?", " ");
+
+                if (!string.IsNullOrWhiteSpace(str))
+                {
+                    code.Add(str);
+                }
+            }
+
+            return string.Join(" ", code);
         }
     }
 }

@@ -87,7 +87,7 @@ namespace c3IDE.Windows
                     _selectedFile = FileListBox.SelectedItem as ThirdPartyFile;
                     if (_selectedFile != null)
                     {
-                        FileTextEditor.Text = _selectedFile.Content;
+                        FileTextEditor.Text = _selectedFile.Content;    
                     }
                 }
             }
@@ -123,7 +123,8 @@ namespace c3IDE.Windows
                     _selectedFile.C2Folder = C2RuntimeFolder.IsChecked != null && C2RuntimeFolder.IsChecked.Value;
                     _selectedFile.C3Folder = C3RuntimeFolder.IsChecked != null && C3RuntimeFolder.IsChecked.Value;
                     _selectedFile.Rootfolder = RootFolder.IsChecked != null && RootFolder.IsChecked.Value;
-                    _selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
+                    //_selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
+                    _selectedFile.FileType = FileTypeDropDown.Text;
                     _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);
                 }
 
@@ -270,7 +271,9 @@ namespace c3IDE.Windows
                 C3Folder = true,
                 C2Folder = false,
                 Rootfolder = false,
-                FileType = "inline-script"
+                FileType = "inline-script",
+                Compress = false,
+                PlainText = true
             };
 
             tpf.PluginTemplate = TemplateHelper.ThirdPartyFile(tpf);
@@ -301,10 +304,6 @@ namespace c3IDE.Windows
                 LogManager.AddErrorLog(ex);
                 NotificationManager.PublishErrorNotification($"error parseing json, addon.json not updated => {ex.Message}");
             }
-           
-            //AddonManager.CurrentAddon.ThirdPartyFiles = _files;
-            //FileListBox.ItemsSource = _files;
-            //FileListBox.Items.Refresh();
         }
 
         /// <summary>
@@ -327,10 +326,6 @@ namespace c3IDE.Windows
                 _files.Remove(_selectedFile);
                 FileListBox.ItemsSource = _files;
                 FileListBox.Items.Refresh();
-
-                //AddonManager.CurrentAddon.ThirdPartyFiles = _files;
-                //AddonManager.SaveCurrentAddon();
-                //AddonManager.LoadAllAddons();
 
                 //clear editors
                 FileTextEditor.Text = string.Empty;
@@ -364,6 +359,8 @@ namespace c3IDE.Windows
                 C3RuntimeFolder.IsChecked = false;
                 C2RuntimeFolder.IsChecked = false;
                 RootFolder.IsChecked = false;
+                PlainText.IsChecked = false;
+                CompressFile.IsChecked = false;
             }
             else
             {
@@ -400,11 +397,28 @@ namespace c3IDE.Windows
                     var filename = info.Name;
                     var content = File.ReadAllText(file);
                     var bytes = File.ReadAllBytes(file);
+                    var compress = false;
+                    var plainText = true;
 
                     switch (info.Extension)
                     {
                         case ".js":
-                            content = FormatHelper.Insatnce.Javascript(content);
+                            content = FormatHelper.Insatnce.FixMinifiedFiles(content);
+                            compress = true;
+                            plainText = true;
+                            break;
+                        case ".html":
+                        case ".css":
+                        case ".txt":
+                        case ".json":
+                        case ".xml":
+                            plainText = true;
+                            compress = false;
+                            break;
+                        default:
+                            content = $"BINARY FILE => {filename}\nBYTE LENGTH : ({bytes.Length})";
+                            plainText = false;
+                            compress = false;
                             break;
                     }
 
@@ -414,7 +428,9 @@ namespace c3IDE.Windows
                         FileName = filename,
                         Bytes = bytes,
                         Extention = info.Extension.ToLower(),
-                        FileType = "inline-script"
+                        FileType = "inline-script",
+                        Compress = compress,
+                        PlainText = plainText
                     };
 
                     tpf.PluginTemplate = TemplateHelper.ThirdPartyFile(tpf);
@@ -446,9 +462,11 @@ namespace c3IDE.Windows
                 _selectedFile.C2Folder = C2RuntimeFolder.IsChecked != null && C2RuntimeFolder.IsChecked.Value;
                 _selectedFile.C3Folder = C3RuntimeFolder.IsChecked != null && C3RuntimeFolder.IsChecked.Value;
                 _selectedFile.Rootfolder = RootFolder.IsChecked != null && RootFolder.IsChecked.Value;
-                _selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
+                //_selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
                 _selectedFile.FileType = FileTypeDropDown.Text;
                 _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);
+                _selectedFile.Compress = CompressFile.IsChecked != null && CompressFile.IsChecked.Value;
+                _selectedFile.PlainText = PlainText.IsChecked != null && PlainText.IsChecked.Value;
             }
 
             //load new selection
@@ -458,6 +476,8 @@ namespace c3IDE.Windows
             C3RuntimeFolder.IsChecked = _selectedFile.C3Folder;
             RootFolder.IsChecked = _selectedFile.Rootfolder;
             FileTypeDropDown.Text = _selectedFile.FileType;
+            CompressFile.IsChecked = _selectedFile.Compress;
+            PlainText.IsChecked = _selectedFile.PlainText;
 
             switch (_selectedFile.Extention?.ToLower() ?? ".txt")
             {
@@ -467,10 +487,11 @@ namespace c3IDE.Windows
                 case ".txt":
                 case ".json":
                 case ".xml":
-                    FileTextEditor.Text = FormatHelper.Insatnce.Javascript(_selectedFile.Content);
+                    //TODO: revisit issue with large files
+                    FileTextEditor.Text = _selectedFile.Content;
                     break;   
                 default:
-                    FileTextEditor.Text = $"BINARY FILE => {_selectedFile.FileName}";
+                    FileTextEditor.Text = $"BINARY FILE => {_selectedFile.FileName}\nBYTE LENGTH : ({_selectedFile.Bytes.Length})";
                     break;
             }
             
@@ -523,13 +544,18 @@ namespace c3IDE.Windows
                         case ".xml":
                             _selectedFile.Content = FileTextEditor.Text;
                             break;
+                        default:
+                            _selectedFile.Content = $"BINARY FILE => {_selectedFile.FileName}\nBYTE LENGTH : ({_selectedFile.Bytes.Length})";
+                            break;
                     }
                     _selectedFile.C2Folder = C2RuntimeFolder.IsChecked != null && C2RuntimeFolder.IsChecked.Value;
                     _selectedFile.C3Folder = C3RuntimeFolder.IsChecked != null && C3RuntimeFolder.IsChecked.Value;
                     _selectedFile.Rootfolder = RootFolder.IsChecked != null && RootFolder.IsChecked.Value;
-                    _selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
+                    //_selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
                     _selectedFile.FileType = FileTypeDropDown.Text;
                     _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);
+                    _selectedFile.Compress = CompressFile.IsChecked != null && CompressFile.IsChecked.Value;
+                    _selectedFile.PlainText = PlainText.IsChecked != null && PlainText.IsChecked.Value;
                 }
 
                 //update addon.json

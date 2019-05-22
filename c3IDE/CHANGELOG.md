@@ -1,6 +1,13 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.58
+* fix bugs with thrid party import, not handling binary files correctly.
+* fix performace issue with text editor and large files with no newlines, on import newlines will ge generated on semi-colons, this can be fixed by a new compress flag on export
+* added 2 new options to third party import (compress file on export, and plain text)
+	- Compress file on export, will remove all comments and white spaces and newlines from the exported file (good for large js files)
+	- Plain text - should be populated for most files types, due to the way c3ide is encoding the data, it might generate garbage. this flags allows binary files to treated a stream fo bytes instead of ascii to ensure no data is lost in the final export     
+
 ### Build# 1.1.0.56
 * update templates to include debugger function on instance
 * add support for new async action with is-async flag (actions)

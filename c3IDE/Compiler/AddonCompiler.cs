@@ -228,31 +228,26 @@ namespace c3IDE.Compiler
             LogManager.CompilerLog.Insert("generating 3rd party files");
             foreach (var files in addon.ThirdPartyFiles.Values)
             {
-                switch (files.Extention)
+                string content = string.Empty;
+                if (files.PlainText)
                 {
-                    case ".js":
-                        //todo: add an option to compress js strings for third party files
-                        //var content = FormatHelper.Insatnce.JavascriptCompress(files.Content);
-                        var content = files.Content;
-                        if (files.Rootfolder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, files.FileName), content);
-                        if (files.C3Folder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), content);
-                        if (files.C2Folder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c2runtime", files.FileName), content);
-                        break;
-                    case ".css":
-                    case ".html":
-                    case ".json":
-                    case ".xml":
-                    case ".txt":
-                    case null:
-                        if(files.Rootfolder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, files.FileName), files.Content);
-                        if (files.C3Folder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), files.Content);
-                        if (files.C2Folder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c2runtime", files.FileName), files.Content);
-                        break;
-                    default:
-                        if (files.Rootfolder)  File.WriteAllBytes(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, files.FileName), files.Bytes);
-                        if (files.C3Folder) File.WriteAllBytes(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), files.Bytes);
-                        if (files.C2Folder) File.WriteAllBytes(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c2runtime", files.FileName), files.Bytes);
-                        break;
+                    if (files.Compress)
+                    {
+                        content = FormatHelper.Insatnce.CompressMinifiedFiles(files.Content);
+                    }
+                    else
+                    {
+                        content = files.Content;
+                    }
+                    if (files.Rootfolder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, files.FileName), content);
+                    if (files.C3Folder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), content);
+                    if (files.C2Folder) _addonFiles.Add(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c2runtime", files.FileName), content);
+                }
+                else
+                {
+                    if (files.Rootfolder) File.WriteAllBytes(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, files.FileName), files.Bytes);
+                    if (files.C3Folder) File.WriteAllBytes(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c3runtime", files.FileName), files.Bytes);
+                    if (files.C2Folder) File.WriteAllBytes(Path.Combine(OptionsManager.CurrentOptions.CompilePath, folderName, "c2runtime", files.FileName), files.Bytes);
                 }
 
                 LogManager.CompilerLog.Insert($"generating {files.FileName}");
