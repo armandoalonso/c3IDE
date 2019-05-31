@@ -1,6 +1,11 @@
 
 # c3IDE - CHANGE LOG
 
+
+### Build# 1.1.0.59
+* Fix the mime type resolver during file import to refelect the correct mime type (almost everything was being treated as octet stream)
+* fix issue with c2 effect import, assign duplicate id to parameters causing unstability 
+
 ### Build# 1.1.0.58
 * fix bugs with thrid party import, not handling binary files correctly.
 * fix performace issue with text editor and large files with no newlines, on import newlines will ge generated on semi-colons, this can be fixed by a new compress flag on export
