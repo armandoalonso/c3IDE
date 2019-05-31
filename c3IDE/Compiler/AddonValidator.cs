@@ -42,13 +42,12 @@ namespace c3IDE.Compiler
         {
             var isValid = true;
 
-            //addon.json
-            isValid = TryAction(() => JObject.Parse(addon.AddonJson));
-            if(!isValid) { LogManager.CompilerLog.Insert("failed validation on addon.json"); return false; } else { LogManager.CompilerLog.Insert("addon.json is valid json");}
-
-
             if (addon.Type != PluginType.Effect && addon.Type != PluginType.Theme)
             {
+                //addon.json
+                isValid = TryAction(() => JObject.Parse(addon.AddonJson));
+                if (!isValid) { LogManager.CompilerLog.Insert("failed validation on addon.json"); return false; } else { LogManager.CompilerLog.Insert("addon.json is valid json"); }
+
                 //validate plugin.js edittime
                 if (addon.PluginEditTime.Contains("this._info.AddFileDependency()"))
                 {

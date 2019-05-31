@@ -132,7 +132,7 @@ namespace c3IDE.Managers
     ""desc"": ""{pdesc}""
 }}";
 
-                    parameter.Key = id;
+                    parameter.Key = pid;
                     parameter.VariableDeclaration = varDec;
                     c3addon.Effect.Parameters.Add(pid, parameter);
                 }     
