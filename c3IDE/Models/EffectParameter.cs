@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace c3IDE.Models
 {
+    [Serializable]
     public class EffectParameter : INotifyPropertyChanged
     {
         private string _key;
