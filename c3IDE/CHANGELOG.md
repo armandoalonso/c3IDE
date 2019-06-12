@@ -1,6 +1,8 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.60
+* fix bug with effect parameters not being marked as serializble, causing crash on duplication 
 
 ### Build# 1.1.0.59
 * Fix the mime type resolver during file import to refelect the correct mime type (almost everything was being treated as octet stream)
