@@ -1,6 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.61
+* fix bug with c3addon import not flagging files correctly, causing null references 
+
 ### Build# 1.1.0.60
 * fix bug with effect parameters not being marked as serializble, causing crash on duplication 
 

@@ -232,12 +232,34 @@ namespace c3IDE.Managers
 
                             var f = new ThirdPartyFile
                             {
-                                Bytes = null,
+                                Bytes = File.ReadAllBytes(info.FullName),
                                 Content = File.ReadAllText(info.FullName),
                                 Extention = info.Extension,
                             };
 
                             f.PluginTemplate = TemplateHelper.ThirdPartyFile(f);
+
+                            switch (info.Extension)
+                            {
+                                case ".js":
+                                    f.Content = FormatHelper.Insatnce.FixMinifiedFiles(f.Content);
+                                    f.Compress = true;
+                                    f.PlainText = true;
+                                    break;
+                                case ".html":
+                                case ".css":
+                                case ".txt":
+                                case ".json":
+                                case ".xml":
+                                    f.PlainText = true;
+                                    f.Compress= false;
+                                    break;
+                                default:
+                                    f.Content = $"BINARY FILE => {f.FileName}\nBYTE LENGTH : ({f.Bytes.Length})";
+                                    f.PlainText = false;
+                                    f.Compress = false;
+                                    break;
+                            }
 
                             if (fn.Contains("c3runtime"))
                             {
