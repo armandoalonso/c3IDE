@@ -1,10 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
 
 namespace c3IDE.Models
 {
+    [Serializable]
     public class Expression : INotifyPropertyChanged
     {
         private string _id;

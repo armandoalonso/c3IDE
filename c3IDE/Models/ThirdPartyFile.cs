@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Web;
 using c3IDE.Managers;
@@ -9,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace c3IDE.Models
 {
+    [Serializable]
     public class ThirdPartyFile : INotifyPropertyChanged
     {
         private string _fileName;
