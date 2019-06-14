@@ -65,7 +65,7 @@ namespace c3IDE.Windows
                 AddonClassText.Text = "NewPlugin";
                 AuthorText.Text = OptionsManager.CurrentOptions.DefaultAuthor;
                 AddonTypeDropdown.Text = "SingleGlobalPlugin";
-                DescriptionText.Text = string.Empty;
+                DescriptionText.Text = "Add addon descirption here";
                 AddonCategoryDropdown.Text = "general";
                 IdText.Text = $"{OptionsManager.CurrentOptions.DefaultAuthor.Trim()}_NewPlugin";
             }

@@ -21,7 +21,7 @@ namespace c3IDE
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const string Version = "1.1.0.61";
+        private const string Version = "1.1.0.62";
 
         /// <summary>
         /// main window constructor
@@ -152,7 +152,7 @@ namespace c3IDE
             //call exit on current window
             WindowManager.CurrentWindow.OnExit();
 
-            if (AddonManager.CurrentAddon != null)
+            if (AddonManager.CurrentAddon != null && AddonManager.CurrentAddon.Id != Guid.Empty)
             {
                 //update file index for search
                 Searcher.Insatnce.UpdateFileIndex(AddonManager.CurrentAddon, WindowManager.CurrentWindow);
@@ -323,7 +323,7 @@ namespace c3IDE
             WindowManager.ClearAllWindows();
             var addon = AddonManager.CurrentAddon;
 
-            if (addon == null )
+            if (addon == null || addon.Id == Guid.Empty)
             {
                 DefaultMainMenu.Visibility = Visibility.Visible;
                 SetupMenus(PluginType.SingleGlobalPlugin);

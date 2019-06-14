@@ -1,8 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.0.61
+### Build# 1.1.0.62
 * fix bug with c3addon import not flagging files correctly, causing null references 
+* fix error when leaving desciption blank and creating new addon, then navigating to different tab
 
 ### Build# 1.1.0.60
 * fix bug with effect parameters not being marked as serializble, causing crash on duplication 
