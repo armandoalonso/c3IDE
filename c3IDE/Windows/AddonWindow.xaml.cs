@@ -126,6 +126,8 @@ namespace c3IDE.Windows
                     //_selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
                     _selectedFile.FileType = FileTypeDropDown.Text;
                     _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);
+                    _selectedFile.Compress = CompressFile.IsChecked != null && CompressFile.IsChecked.Value;
+                    _selectedFile.PlainText = PlainText.IsChecked != null && PlainText.IsChecked.Value;
                 }
 
                 AddonManager.CurrentAddon.ThirdPartyFiles = new Dictionary<string, ThirdPartyFile>();

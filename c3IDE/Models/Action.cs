@@ -62,7 +62,7 @@ namespace c3IDE.Models
         public string Highlight
         {
             get => _highlight;
-            set { _highlight = value.ToLower(); OnPropertyChanged(); }
+            set { _highlight = value?.ToLower(); OnPropertyChanged(); }
         }
 
         public string Language
