@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -412,7 +413,14 @@ namespace c3IDE.Managers
                                     //only needed for stub methods
                                     if (action["params"] != null && action["params"].Children<JObject>().Any())
                                     {
-                                        var ep = action["params"].Children<JObject>().Select(x => x["id"].ToString());
+                                        var ep = action["params"].Children<JObject>().Select(x =>
+                                        {
+                                            var p = x["id"].ToString();
+                                            var ti = new CultureInfo("en-US", false).TextInfo;
+                                            var param = ti.ToTitleCase(p.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
+                                            param = char.ToLowerInvariant(param[0]) + param.Substring(1);
+                                            return param;
+                                        });
                                         actionParams = string.Join(",", ep);
                                     }
 
@@ -445,7 +453,14 @@ namespace c3IDE.Managers
                                     //only needed for stub methods
                                     if (condition["params"] != null && condition["params"].Children<JObject>().Any())
                                     {
-                                        var ep = condition["params"].Children<JObject>().Select(x => x["id"].ToString());
+                                        var ep = condition["params"].Children<JObject>().Select(x =>
+                                        {
+                                            var p = x["id"].ToString();
+                                            var ti = new CultureInfo("en-US", false).TextInfo;
+                                            var param = ti.ToTitleCase(p.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
+                                            param = char.ToLowerInvariant(param[0]) + param.Substring(1);
+                                            return param;
+                                        });
                                         conditionParams = string.Join(",", ep);
                                     }
 
@@ -479,7 +494,14 @@ namespace c3IDE.Managers
                                     //only needed for stub methods
                                     if (expression["params"] != null && expression["params"].Children<JObject>().Any())
                                     {
-                                        var ep = expression["params"].Children<JObject>().Select(x => x["id"].ToString());
+                                        var ep = expression["params"].Children<JObject>().Select(x =>
+                                        {
+                                            var p = x["id"].ToString();
+                                            var ti = new CultureInfo("en-US", false).TextInfo;
+                                            var param = ti.ToTitleCase(p.Replace("-", " ").ToLower()).Replace(" ", string.Empty);
+                                            param = char.ToLowerInvariant(param[0]) + param.Substring(1);
+                                            return param;
+                                        });
                                         expressionParams = string.Join(",", ep);
                                     }
 
@@ -495,8 +517,6 @@ namespace c3IDE.Managers
                                     expressionList.Add(exp);
                                 }
                             }
-
-
                         }
 
                         var files = Regex.Matches(pluginEdit, @"filename\s?:\s?(""|')(?<file>.*)(""|')");
@@ -514,6 +534,28 @@ namespace c3IDE.Managers
                             };
 
                             f.PluginTemplate = TemplateHelper.ThirdPartyFile(f);
+
+                            switch (info.Extension)
+                            {
+                                case ".js":
+                                    f.Content = FormatHelper.Insatnce.FixMinifiedFiles(f.Content);
+                                    f.Compress = true;
+                                    f.PlainText = true;
+                                    break;
+                                case ".html":
+                                case ".css":
+                                case ".txt":
+                                case ".json":
+                                case ".xml":
+                                    f.PlainText = true;
+                                    f.Compress = false;
+                                    break;
+                                default:
+                                    f.Content = $"BINARY FILE => {f.FileName}\nBYTE LENGTH : ({f.Bytes.Length})";
+                                    f.PlainText = false;
+                                    f.Compress = false;
+                                    break;
+                            }
 
                             if (fn.Contains("c3runtime"))
                             {

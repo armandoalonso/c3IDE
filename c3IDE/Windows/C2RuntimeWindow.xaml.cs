@@ -16,11 +16,13 @@ using c3IDE.Managers;
 using c3IDE.Models;
 using c3IDE.Utilities.CodeCompletion;
 using c3IDE.Utilities.Extentions;
+using c3IDE.Utilities.Folding;
 using c3IDE.Utilities.Helpers;
 using c3IDE.Utilities.Search;
 using c3IDE.Utilities.SyntaxHighlighting;
 using c3IDE.Windows.Interfaces;
 using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Search;
 
 namespace c3IDE.Windows
@@ -32,6 +34,8 @@ namespace c3IDE.Windows
     {
         public string DisplayName { get; set; } = "C2Runtime";
         private SearchPanel runtimePanel;
+        private FoldingManager c2FoldingManager;
+        private BraceFoldingStrategy folding;
 
         public C2RuntimeWindow()
         {
@@ -40,6 +44,10 @@ namespace c3IDE.Windows
             C2RuntimeTextEditor.TextArea.TextEntered += C2RuntimeTextEditor_TextEntered;
             C2RuntimeTextEditor.Options.EnableHyperlinks = false;
             C2RuntimeTextEditor.Options.EnableEmailHyperlinks = false;
+
+            folding = new BraceFoldingStrategy();
+            c2FoldingManager = FoldingManager.Install(C2RuntimeTextEditor.TextArea);
+            folding.UpdateFoldings(c2FoldingManager, C2RuntimeTextEditor.Document);
 
             //setip ctrl-f to single page code find
             runtimePanel = SearchPanel.Install(C2RuntimeTextEditor);
@@ -54,6 +62,8 @@ namespace c3IDE.Windows
             {
                 C2RuntimeTextEditor.Text = AddonManager.CurrentAddon.C2RunTime;
             }
+
+            folding.UpdateFoldings(c2FoldingManager, C2RuntimeTextEditor.Document);
         }
 
         public void OnExit()
@@ -63,6 +73,8 @@ namespace c3IDE.Windows
                 AddonManager.CurrentAddon.C2RunTime = C2RuntimeTextEditor.Text;
                 AddonManager.SaveCurrentAddon();
             }
+
+            folding.UpdateFoldings(c2FoldingManager, C2RuntimeTextEditor.Document);
         }
 
         public void Clear()
@@ -81,6 +93,8 @@ namespace c3IDE.Windows
 
             //limited code completion
             TextEditorHelper.Insatnce.MatchSymbol(C2RuntimeTextEditor, e.Text);
+
+            folding.UpdateFoldings(c2FoldingManager, C2RuntimeTextEditor.Document);
         }
 
         private void TextEditor_OnPreviewKeyDown(object sender, KeyEventArgs e)
@@ -137,6 +151,22 @@ namespace c3IDE.Windows
             {
                 editor = ((ContextMenu)mnu.Parent).PlacementTarget as TextEditor;
                 editor.UncommentSelectedLines();
+            }
+        }
+
+        private void FoldAll_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (var fold in c2FoldingManager.AllFoldings)
+            {
+                fold.IsFolded = true;
+            }
+        }
+
+        private void UnFoldAll_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (var fold in c2FoldingManager.AllFoldings)
+            {
+                fold.IsFolded = false;
             }
         }
     }

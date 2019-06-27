@@ -374,11 +374,14 @@ namespace c3IDE.Compiler
                 }
 
                 var placeholder = new Regex("{(\\d+)}|{\\.\\.\\.}");
+                var dpPlaceholder = new Regex("\"display-text\":.*");
 
                 foreach (var action in addon.Actions)
                 {
                     var paramCount = action.Value.Ace.Count(x => x == '{') - 1;
-                    var displayCount = placeholder.Matches(action.Value.Language).Count;
+                    var displayText = dpPlaceholder.Matches(action.Value.Language)[0].Value;
+
+                    var displayCount = placeholder.Matches(string.IsNullOrWhiteSpace(displayText) ? action.Value.Language : displayText).Count;
 
                     if (paramCount != displayCount)
                     {

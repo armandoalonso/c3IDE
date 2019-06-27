@@ -58,8 +58,7 @@ namespace c3IDE.Windows
 
             //setip ctrl-f to single page code find
             runtimePanel = SearchPanel.Install(RunTimeInstanceTextEditor);
-            edittimePanel = SearchPanel.Install(EditTimeInstanceTextEditor);
-            
+            edittimePanel = SearchPanel.Install(EditTimeInstanceTextEditor);       
         }
 
         /// <summary>
