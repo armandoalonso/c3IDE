@@ -1,6 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.66
+* fix bug with combo plugin property and initial value
+
 ### Build# 1.1.0.65
 * fix param naming convention with c3import, with only c2 runtime. param name was being left with hypen, applied camelCase filter adn remove hypens.
 * fix regression with 3rd part files on import. when adding changes for bytes, i missed a section of code for c2only runtime, and no 3rd party files were being populated correctly 

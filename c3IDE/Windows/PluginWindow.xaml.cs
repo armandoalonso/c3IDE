@@ -334,7 +334,7 @@ namespace c3IDE.Windows
                     break;
 
                 case "combo":
-                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"items\":[\"item1\", \"item2\", \"item3\"]}}, \"initialValue\": \"item1\")";
+                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"items\":[\"item1\", \"item2\", \"item3\"], \"initialValue\": \"item1\"}})";
                     break;
 
                 case "group":
