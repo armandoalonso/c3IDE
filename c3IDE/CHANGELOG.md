@@ -1,6 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.67
+* fix bug with effect and incrementing version number
+
 ### Build# 1.1.0.66
 * fix bug with combo plugin property and initial value
 

@@ -182,7 +182,11 @@ namespace c3IDE.Managers
         {
             var versionRegex = @"\d+\.\d+\.\d+\.\d+";
             CurrentAddon.AddonJson = Regex.Replace(CurrentAddon.AddonJson, versionRegex, CurrentAddon.Version);
-            CurrentAddon.PluginEditTime = Regex.Replace(CurrentAddon.PluginEditTime, versionRegex, CurrentAddon.Version);
+
+            if(!string.IsNullOrWhiteSpace(CurrentAddon.PluginEditTime))
+            {
+                CurrentAddon.PluginEditTime = Regex.Replace(CurrentAddon.PluginEditTime, versionRegex, CurrentAddon.Version);
+            }
         }
     }
 }
