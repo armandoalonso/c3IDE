@@ -18,6 +18,25 @@ namespace c3IDE.Managers
             if(c2addon == null) throw new NullReferenceException("C2ADDON file is null");
             if(c2addon.Type == "Effect") throw new Exception("C2 Effect Currently not supported for import"); //todo: need to develop this
 
+            //add fall back for not being able to parse type
+            if (c2addon.Type == null){
+                c2addon.Properties.TryGetValue("type", out var type);
+
+                switch(type)
+                {
+                    case "plugin":
+                        c2addon.Type = "Plugin";
+                        break;
+                    case "behavior":
+                        c2addon.Type = "Behavior";
+                        break;
+                    case "effect":
+                        throw new Exception("C2 Effect Currently not supported for import");
+                    default:
+                        c2addon.Type = "Plugin";
+                        break;
+                }
+            }
 
             var c3addon = new C3Addon
             {

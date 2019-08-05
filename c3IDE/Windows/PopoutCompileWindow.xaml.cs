@@ -94,8 +94,15 @@ namespace c3IDE.Windows
             {
                 if (!WebServerManager.WebServerStarted)
                 {
-                    AddonCompiler.Insatnce.WebServer = new WebServerClient();
-                    AddonCompiler.Insatnce.WebServer.Start();
+                    int.TryParse(OptionsManager.CurrentOptions.Port, out var port);
+                    if (port == 0)
+                    {
+                        port = 8080;
+                        LogManager.AddLogMessage("invalid port, fallback to port 8080");
+                    }
+                    WebServerManager.StartWebServer(port);
+                    //AddonCompiler.Insatnce.WebServer = new WebServerClient();
+                    //AddonCompiler.Insatnce.WebServer.Start();
                 }
                 else
                 {

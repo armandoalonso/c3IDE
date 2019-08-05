@@ -15,7 +15,7 @@ namespace c3IDE.Server
         /// <summary>
         /// starts the web server
         /// </summary>
-        public void Start()
+        public void Start(int port)
         {
             _httpServer = new HttpServer(new HttpRequestProvider());
 
@@ -38,7 +38,7 @@ namespace c3IDE.Server
             //handle static files (only suport js, json, png and svg)
             _httpServer.Use(new C3FileHandler());
 
-            WebServerManager.WebServerUrl = $"http://localhost:8080/{AddonManager.CurrentAddon.Class}/addon.json";
+            WebServerManager.WebServerUrl = $"http://localhost:{port}/{AddonManager.CurrentAddon.Class}/addon.json";
             WebServerManager.WebServiceUrlChanged?.Invoke(WebServerManager.WebServerUrl);
             LogManager.CompilerLog.Insert($"starting server => {WebServerManager.WebServerUrl}");
             _httpServer.Start();

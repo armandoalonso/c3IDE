@@ -117,7 +117,7 @@ namespace c3IDE.Windows
             }
 
             Update();
-            UrlTextBox.Text = $"http://localhost:8080/{AddonManager.CurrentAddon.Class.ToLower()}/addon.json";
+            UrlTextBox.Text = $"http://localhost:{OptionsManager.CurrentOptions.Port}/{AddonManager.CurrentAddon.Class.ToLower()}/addon.json";
             Clipboard.SetText(UrlTextBox.Text);
             return true;
         }
@@ -139,8 +139,14 @@ namespace c3IDE.Windows
         /// <param name="e"></param>
         private void StartWebServerButton_OnClick(object sender, RoutedEventArgs e)
         {
-         
-            WebServerManager.StartWebServer();
+            int.TryParse(OptionsManager.CurrentOptions.Port, out var port);
+            if (port == 0)
+            {
+                port = 8080;
+                LogManager.AddLogMessage("invalid port, failling back to port 8080");
+            }
+
+            WebServerManager.StartWebServer(port);
             Update();
         }
 

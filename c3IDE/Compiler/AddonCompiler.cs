@@ -110,8 +110,15 @@ namespace c3IDE.Compiler
                     //start web server installation
                     await Task.Run(() =>
                     {
-                        WebServer = new WebServerClient();
-                        WebServer.Start();
+                        int.TryParse(OptionsManager.CurrentOptions.Port,out var port);
+                        if(port == 0)
+                        {
+                            port = 8080;
+                            LogManager.AddLogMessage("invalid port, fallback to port 8080");
+                        }
+                        WebServerManager.StartWebServer(port);
+                        //WebServer = new WebServerClient();
+                        //WebServer.Start();
                     });
                 }           
             }

@@ -63,6 +63,7 @@ namespace c3IDE
                 if (string.IsNullOrWhiteSpace(OptionsManager.CurrentOptions.FontFamily)) OptionsManager.CurrentOptions.FontFamily = OptionsManager.DefaultOptions.FontFamily;
                 if (OptionsManager.CurrentOptions.FontSize < 5) OptionsManager.CurrentOptions.FontSize = OptionsManager.DefaultOptions.FontSize;
                 if (string.IsNullOrWhiteSpace(OptionsManager.CurrentOptions.ThemeKey)) OptionsManager.CurrentOptions.ThemeKey = OptionsManager.DefaultOptions.ThemeKey;
+                if (string.IsNullOrWhiteSpace(OptionsManager.CurrentOptions.Port)) OptionsManager.CurrentOptions.Port = OptionsManager.DefaultOptions.Port;
             }
             catch
             {

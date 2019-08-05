@@ -62,6 +62,7 @@ namespace c3IDE.Windows
             C3StableUrl.Text = OptionsManager.CurrentOptions.StableUrl;
             OpenConstructInBeta.IsChecked = OptionsManager.CurrentOptions.OpenConstructInBeta;
             AutoIncrementVersionOnPublish.IsChecked = OptionsManager.CurrentOptions.AutoIncrementVersionOnPublish;
+            DefaultPort.Text = OptionsManager.CurrentOptions.Port;
         }
 
         /// <summary>
@@ -93,7 +94,8 @@ namespace c3IDE.Windows
                     BetaUrl = C3BetaUrl.Text,
                     StableUrl = C3StableUrl.Text,
                     OpenConstructInBeta = OpenConstructInBeta.IsChecked != null && OpenConstructInBeta.IsChecked.Value,
-                    AutoIncrementVersionOnPublish = AutoIncrementVersionOnPublish.IsChecked != null && AutoIncrementVersionOnPublish.IsChecked.Value
+                    AutoIncrementVersionOnPublish = AutoIncrementVersionOnPublish.IsChecked != null && AutoIncrementVersionOnPublish.IsChecked.Value,
+                    Port = !string.IsNullOrWhiteSpace(DefaultPort.Text) ? DefaultPort.Text : OptionsManager.DefaultOptions.Port
             };
 
                 //create exports folder if it does not exists

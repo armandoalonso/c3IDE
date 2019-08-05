@@ -29,10 +29,10 @@ namespace c3IDE.Models
         public bool AutoIncrementVersionOnPublish { get; set; } = false;
         public string BetaUrl { get; set; } = "https://editor.construct.net";
         public string StableUrl { get; set; } = "https://editor.construct.net";
+        public string Port { get; set; } = "8080";
 
         [BsonIgnore]
         public Theme ApplicationTheme => ThemeResolver.Insatnce.Resolve(ThemeKey);
-
 
 
         //public string HighlightKey { get; set; }

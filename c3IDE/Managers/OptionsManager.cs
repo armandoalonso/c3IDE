@@ -43,7 +43,8 @@ namespace c3IDE.Managers
                 RemoveConsoleLogsOnCompile = false,
                 UseC2ParserService = true,
                 OpenConstructInBeta = true,
-                AutoIncrementVersionOnPublish = false
+                AutoIncrementVersionOnPublish = false,
+                Port = "8080"
             };
 
             DefaultOptions = defaultOptions;
