@@ -64,8 +64,15 @@ namespace c3IDE.Windows
             var url = UrlTextBox.Text;
             if (string.IsNullOrWhiteSpace(url))
             {
-                Clipboard.SetText(url);
-                NotificationManager.PublishNotification($"{url} copied to clipboard.");
+                try
+                {
+                    Clipboard.SetText(url);
+                    NotificationManager.PublishNotification($"{url} copied to clipboard.");
+                }
+                catch(Exception ex)
+                {
+                    LogManager.AddErrorLog(ex);
+                }
             }
         }
 

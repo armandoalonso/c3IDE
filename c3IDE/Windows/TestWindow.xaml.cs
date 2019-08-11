@@ -118,7 +118,16 @@ namespace c3IDE.Windows
 
             Update();
             UrlTextBox.Text = $"http://localhost:{OptionsManager.CurrentOptions.Port}/{AddonManager.CurrentAddon.Class.ToLower()}/addon.json";
-            Clipboard.SetText(UrlTextBox.Text);
+
+            try
+            {
+                Clipboard.SetText(UrlTextBox.Text);
+            }
+            catch(Exception ex)
+            {
+                LogManager.AddErrorLog(ex);
+            }
+
             return true;
         }
 
@@ -233,8 +242,15 @@ namespace c3IDE.Windows
             var url = UrlTextBox.Text;
             if (string.IsNullOrWhiteSpace(url))
             {
-                Clipboard.SetText(url);
-                NotificationManager.PublishNotification($"{url} copied to clipboard.");
+                try
+                {
+                    Clipboard.SetText(url);
+                    NotificationManager.PublishNotification($"{url} copied to clipboard.");
+                }
+                catch (Exception ex)
+                {
+                    LogManager.AddErrorLog(ex);
+                }
             }
         }
 
