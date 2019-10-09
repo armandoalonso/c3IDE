@@ -224,8 +224,43 @@ namespace c3IDE.Managers
                             }
                         }
 
-                        var files = Regex.Matches(pluginEdit, @"filename\s?:\s?(""|')(?<file>.*)(""|')");
                         var thirdPartyFiles = new List<ThirdPartyFile>();
+                        var files = Regex.Matches(pluginEdit, @"filename\s?:\s?(""|')(?<file>.*)(""|')");
+                        var domFiles = Regex.Matches(pluginEdit, @"SetDOMSideScripts\(\[(?<file>.*)\]\)");
+
+                        foreach(Match match in domFiles)
+                        {
+                            var domScripts = match.Groups["file"].ToString().Split(',');
+                            foreach(var domScript in domScripts)
+                            {
+                                var fn = domScript.Trim('"');
+
+                                var info = new FileInfo(Path.Combine(Path.Combine(tmpPath, fn)));
+
+                                var f = new ThirdPartyFile
+                                {
+                                    Bytes = File.ReadAllBytes(info.FullName),
+                                    Content = File.ReadAllText(info.FullName),
+                                    Extention = info.Extension,
+                                    FileType = "dom-side-script",
+                                    FileName = fn
+                                };
+
+                                f.Compress = false;
+                                f.PlainText = true;
+
+                                if (fn.Contains("c3runtime"))
+                                {
+                                    f.C3Folder = true;
+                                    f.FileName = fn.Replace("c3runtime/", string.Empty).Trim();
+                                }
+
+                                f.PluginTemplate = TemplateHelper.ThirdPartyFile(f);
+
+                                thirdPartyFiles.Add(f);
+                            }
+                        }
+
                         foreach (Match match in files)
                         {
                             var fn = match.Groups["file"].ToString();
@@ -237,8 +272,6 @@ namespace c3IDE.Managers
                                 Content = File.ReadAllText(info.FullName),
                                 Extention = info.Extension,
                             };
-
-                            f.PluginTemplate = TemplateHelper.ThirdPartyFile(f);
 
                             switch (info.Extension)
                             {
@@ -277,6 +310,8 @@ namespace c3IDE.Managers
                                 f.Rootfolder = true;
                                 f.FileName = fn.Replace("/", "\\").Trim();
                             }
+
+                            f.PluginTemplate = TemplateHelper.ThirdPartyFile(f);
 
                             thirdPartyFiles.Add(f);
                         }

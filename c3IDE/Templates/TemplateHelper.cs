@@ -360,6 +360,13 @@ namespace c3IDE.Templates
             var sb = new StringBuilder();
             var type = string.Empty;
 
+            if(file.FileType == "dom-side-script")
+            {
+                var fileName = file.C3Folder ? $"c3runtime/{file.FileName}" : file.FileName;
+                sb.Append($"this._info.SetDOMSideScripts([\"{fileName}\"]);");
+                return FormatHelper.Insatnce.Javascript(sb.ToString());
+            }
+
             if (file.FileType == "copy-to-output")
             {
                 type = $",\n                        fileType: \"{file.MimeType}\"";

@@ -59,6 +59,7 @@
                             <ComboBoxItem>external-script</ComboBoxItem>
                             <ComboBoxItem>external-css</ComboBoxItem>
                             <ComboBoxItem>copy-to-output</ComboBoxItem>
+                            <ComboBoxItem>dom-side-script</ComboBoxItem>
                         </ComboBox>
 
                             <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Third Party Files</TextBlock>

@@ -366,16 +366,29 @@ namespace c3IDE.Windows
         {
             EditTimePluginTab.IsSelected = true;
 
-            var content = string.Join("\n", AddonManager.CurrentAddon.ThirdPartyFiles.Values.Select(x => x.PluginTemplate));
+            var content = string.Join("\n", AddonManager.CurrentAddon.ThirdPartyFiles.Values.Where(x => x.FileType != "dom-side-script").Select(x => x.PluginTemplate));
             if (string.IsNullOrWhiteSpace(content))
             {
-                NotificationManager.PublishErrorNotification("no file dependecies found");
-                return;
+                //NotificationManager.PublishErrorNotification("no file dependecies found");
             }
-            //var template = $@"this._info.AddFileDependency({content});";
+            else
+            {
+                //var template = $@"this._info.AddFileDependency({content});";
+                EditTimePluginTextEditor.Text =
+                    FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PopContext(); //.properties", $"{content}\n\nSDK.Lang.PopContext(); //.properties"));
+            }
 
-            EditTimePluginTextEditor.Text =
-                FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PopContext(); //.properties", $"{content}\n\nSDK.Lang.PopContext(); //.properties"));
+            //add dom side scripts
+            var domSideScripts = string.Join("\n", AddonManager.CurrentAddon.ThirdPartyFiles.Values.Where(x => x.FileType == "dom-side-script").Select(x => x.PluginTemplate));
+            if(string.IsNullOrWhiteSpace(domSideScripts))
+            {
+               //NotificationManager.PublishErrorNotification("no dom side scripts found");
+            }
+            else
+            {
+                EditTimePluginTextEditor.Text =
+                    FormatHelper.Insatnce.Javascript(EditTimePluginTextEditor.Text.Replace("SDK.Lang.PushContext(\".properties\");", $"{domSideScripts}\n\nSDK.Lang.PushContext(\".properties\");"));
+            }
         }
 
         /// <summary>
