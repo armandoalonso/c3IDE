@@ -1,6 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
+### Build# 1.1.0.69
+* Fix compiled effect addon showing wrong version build version [Issue 45](https://github.com/armandoalonso/c3IDE/issues/48)
+
 ### Build# 1.1.0.68
 * add option to specify web server fault, deafult port is 8080, if there is any kind of exception, the port will default to 8080. [Issue 45](https://github.com/armandoalonso/c3IDE/issues/45)
 * fix bug with c2 behavior import, coming in as a plugin [Issue 47](https://github.com/armandoalonso/c3IDE/issues/47)

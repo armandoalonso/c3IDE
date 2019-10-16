@@ -561,7 +561,7 @@ namespace c3IDE.Compiler
 	""type"": ""effect"",
 	""name"": ""{addon.Name}"",
 	""id"": ""{addon.AddonId}"",
-	""version"": ""{addon.MajorVersion}.{addon.MinorVersion}.{addon.RevisionVersion}.{addon.RevisionVersion}"",
+	""version"": ""{addon.MajorVersion}.{addon.MinorVersion}.{addon.RevisionVersion}.{addon.BuildVersion}"",
 	""author"": ""{addon.Author}"",
 	""website"": ""https://www.construct.net"",
 	""documentation"": ""https://www.construct.net"",
