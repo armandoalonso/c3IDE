@@ -1,7 +1,7 @@
 
 # c3IDE - CHANGE LOG
 
-### Build# 1.1.0.71/72
+### Build# 1.1.0.71/72/73
 * fix issue with duplicate filename when dom script/filedep shared same file [Issue 51](https://github.com/armandoalonso/c3IDE/issues/51)
 
 ### Build# 1.1.0.69
