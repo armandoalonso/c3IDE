@@ -226,38 +226,16 @@ namespace c3IDE.Managers
 
                         var thirdPartyFiles = new List<ThirdPartyFile>();
                         var files = Regex.Matches(pluginEdit, @"filename\s?:\s?(""|')(?<file>.*)(""|')");
-                        var domFiles = Regex.Matches(pluginEdit, @"SetDOMSideScripts\(\[(?<file>.*)\]\)");
+                        var domFilesMatches = Regex.Matches(pluginEdit, @"SetDOMSideScripts\(\[(?<file>.*)\]\)");
+                        var domFileList = new List<string>();
 
-                        foreach(Match match in domFiles)
+                        foreach(Match match in domFilesMatches)
                         {
                             var domScripts = match.Groups["file"].ToString().Split(',');
                             foreach(var domScript in domScripts)
                             {
                                 var fn = domScript.Trim('"');
-
-                                var info = new FileInfo(Path.Combine(Path.Combine(tmpPath, fn)));
-
-                                var f = new ThirdPartyFile
-                                {
-                                    Bytes = File.ReadAllBytes(info.FullName),
-                                    Content = File.ReadAllText(info.FullName),
-                                    Extention = info.Extension,
-                                    FileType = "dom-side-script",
-                                    FileName = fn
-                                };
-
-                                f.Compress = false;
-                                f.PlainText = true;
-
-                                if (fn.Contains("c3runtime"))
-                                {
-                                    f.C3Folder = true;
-                                    f.FileName = fn.Replace("c3runtime/", string.Empty).Trim();
-                                }
-
-                                f.PluginTemplate = TemplateHelper.ThirdPartyFile(f);
-
-                                thirdPartyFiles.Add(f);
+                                domFileList.Add(fn);  
                             }
                         }
 
@@ -295,6 +273,7 @@ namespace c3IDE.Managers
                                     break;
                             }
 
+
                             if (fn.Contains("c3runtime"))
                             {
                                 f.C3Folder = true;
@@ -309,6 +288,14 @@ namespace c3IDE.Managers
                             {
                                 f.Rootfolder = true;
                                 f.FileName = fn.Replace("/", "\\").Trim();
+                            }
+
+                            foreach(var df in domFileList)
+                            {
+                                if(df.Contains(f.FileName))
+                                {
+                                    f.Domfolder = true;
+                                }
                             }
 
                             f.PluginTemplate = TemplateHelper.ThirdPartyFile(f);
@@ -369,7 +356,7 @@ namespace c3IDE.Managers
                         c3addon.ThirdPartyFiles = new Dictionary<string, ThirdPartyFile>();
                         foreach (var thirdPartyFile in thirdPartyFiles)
                         {
-                            c3addon.ThirdPartyFiles.Add(thirdPartyFile.FileName, thirdPartyFile);
+                            c3addon.ThirdPartyFiles.Add($"{thirdPartyFile.ID}", thirdPartyFile);
                         }
 
                         if (!string.IsNullOrWhiteSpace(c2runtime))
@@ -664,7 +651,7 @@ namespace c3IDE.Managers
                         c3addon.ThirdPartyFiles = new Dictionary<string, ThirdPartyFile>();
                         foreach (var thirdPartyFile in thirdPartyFiles)
                         {
-                            c3addon.ThirdPartyFiles.Add(thirdPartyFile.FileName, thirdPartyFile);
+                            c3addon.ThirdPartyFiles.Add($"{thirdPartyFile.ID}", thirdPartyFile);
                         }
 
                         if (!string.IsNullOrWhiteSpace(c2runtime))

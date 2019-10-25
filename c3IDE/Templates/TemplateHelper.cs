@@ -360,7 +360,7 @@ namespace c3IDE.Templates
             var sb = new StringBuilder();
             var type = string.Empty;
 
-            if(file.FileType == "dom-side-script")
+            if(file.FileType == "dom-side-script" && !file.Domfolder)
             {
                 var fileName = file.C3Folder ? $"c3runtime/{file.FileName}" : file.FileName;
                 sb.Append($"this._info.SetDOMSideScripts([\"{fileName}\"]);");
@@ -394,6 +394,12 @@ namespace c3IDE.Templates
                         filename: ""c2runtime/{file.FileName}"",
                         type: ""{file.FileType}""{type}
                      }});");
+            }
+
+            if (file.Domfolder)
+            {
+                var fileName = file.C3Folder ? $"c3runtime/{file.FileName}" : file.FileName;
+                sb.Append($"this._info.SetDOMSideScripts([\"{fileName}\"]);");
             }
 
             return FormatHelper.Insatnce.Javascript(sb.ToString());

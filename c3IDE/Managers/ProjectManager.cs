@@ -705,6 +705,7 @@ namespace c3IDE.Managers
                 var extention = string.Empty;
                 var section = string.Empty;
                 var root = string.Empty;
+                var dom = string.Empty;
                 var c3 = string.Empty;
                 var c2 = string.Empty;
                 var fileType = string.Empty;
@@ -719,7 +720,7 @@ namespace c3IDE.Managers
                     if (line.Contains("@@END"))
                     {
                         state = ParserState.End;
-                        PopulateThridPartyFile(addon, file, extention, temp["TEMPLATE"].ToString(), temp["CONTENT"].ToString(), temp["BYTES"].ToString(), root, c3, c2, fileType, compress, plainText);
+                        PopulateThridPartyFile(addon, file, extention, temp["TEMPLATE"].ToString(), temp["CONTENT"].ToString(), temp["BYTES"].ToString(), root, dom, c3, c2, fileType, compress, plainText);
                     }
 
                     //check for parsing
@@ -757,6 +758,7 @@ namespace c3IDE.Managers
                             c2 = properties.Length > 4 ? properties[4] : " ";
                             fileType = properties.Length > 5 ? properties[5] : " ";
                             compress = properties.Length > 6 ? properties[6] : " ";
+                            dom = properties.Length > 7 ? properties[7] : " ";
                         }
                         catch (Exception ex)
                         {
@@ -900,9 +902,9 @@ namespace c3IDE.Managers
             }
         }
 
-        private static void PopulateThridPartyFile(C3Addon addon, string file, string extention, string template, string content, string bytes, string root, string c3, string c2, string filetype, string compress, string plainText)
+        private static void PopulateThridPartyFile(C3Addon addon, string file, string extention, string template, string content, string bytes, string root, string dom, string c3, string c2, string filetype, string compress, string plainText)
         {
-            addon.ThirdPartyFiles.Add(file, new ThirdPartyFile
+            addon.ThirdPartyFiles.Add($"{filetype}{file}", new ThirdPartyFile
             {
                 FileName = file,
                 Extention = string.IsNullOrWhiteSpace(extention) ? Path.GetExtension(file) : extention,
@@ -910,6 +912,7 @@ namespace c3IDE.Managers
                 Content = content,
                 Bytes = Convert.FromBase64String(bytes),
                 Rootfolder = root == "true",
+                Domfolder = dom == "true",
                 C3Folder = c3 == "true",
                 C2Folder = c2 == "true",
                 FileType = string.IsNullOrWhiteSpace(filetype) ? "inline-script" : filetype,

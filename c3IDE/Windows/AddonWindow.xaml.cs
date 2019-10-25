@@ -123,6 +123,7 @@ namespace c3IDE.Windows
                     _selectedFile.C2Folder = C2RuntimeFolder.IsChecked != null && C2RuntimeFolder.IsChecked.Value;
                     _selectedFile.C3Folder = C3RuntimeFolder.IsChecked != null && C3RuntimeFolder.IsChecked.Value;
                     _selectedFile.Rootfolder = RootFolder.IsChecked != null && RootFolder.IsChecked.Value;
+                    _selectedFile.Domfolder = DomScript.IsChecked != null && DomScript.IsChecked.Value;
                     //_selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
                     _selectedFile.FileType = FileTypeDropDown.Text;
                     _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);
@@ -133,7 +134,7 @@ namespace c3IDE.Windows
                 AddonManager.CurrentAddon.ThirdPartyFiles = new Dictionary<string, ThirdPartyFile>();
                 foreach (var thirdPartyFile in _files)
                 {
-                    AddonManager.CurrentAddon.ThirdPartyFiles.Add(thirdPartyFile.FileName, thirdPartyFile);
+                    AddonManager.CurrentAddon.ThirdPartyFiles.Add(thirdPartyFile.ID, thirdPartyFile);
                 }
                 
                 AddonManager.CurrentAddon.AddonJson = AddonTextEditor.Text;
@@ -275,7 +276,8 @@ namespace c3IDE.Windows
                 Rootfolder = false,
                 FileType = "inline-script",
                 Compress = false,
-                PlainText = true
+                PlainText = true,
+                Domfolder = false
             };
 
             tpf.PluginTemplate = TemplateHelper.ThirdPartyFile(tpf);
@@ -363,6 +365,7 @@ namespace c3IDE.Windows
                 RootFolder.IsChecked = false;
                 PlainText.IsChecked = false;
                 CompressFile.IsChecked = false;
+                DomScript.IsChecked = false;
             }
             else
             {
@@ -464,6 +467,8 @@ namespace c3IDE.Windows
                 _selectedFile.C2Folder = C2RuntimeFolder.IsChecked != null && C2RuntimeFolder.IsChecked.Value;
                 _selectedFile.C3Folder = C3RuntimeFolder.IsChecked != null && C3RuntimeFolder.IsChecked.Value;
                 _selectedFile.Rootfolder = RootFolder.IsChecked != null && RootFolder.IsChecked.Value;
+                _selectedFile.Domfolder = DomScript.IsChecked != null && DomScript.IsChecked.Value;
+
                 //_selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
                 _selectedFile.FileType = FileTypeDropDown.Text;
                 _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);
@@ -477,6 +482,7 @@ namespace c3IDE.Windows
             C2RuntimeFolder.IsChecked = _selectedFile.C2Folder;
             C3RuntimeFolder.IsChecked = _selectedFile.C3Folder;
             RootFolder.IsChecked = _selectedFile.Rootfolder;
+            DomScript.IsChecked = _selectedFile.Domfolder;
             FileTypeDropDown.Text = _selectedFile.FileType;
             CompressFile.IsChecked = _selectedFile.Compress;
             PlainText.IsChecked = _selectedFile.PlainText;
@@ -553,6 +559,7 @@ namespace c3IDE.Windows
                     _selectedFile.C2Folder = C2RuntimeFolder.IsChecked != null && C2RuntimeFolder.IsChecked.Value;
                     _selectedFile.C3Folder = C3RuntimeFolder.IsChecked != null && C3RuntimeFolder.IsChecked.Value;
                     _selectedFile.Rootfolder = RootFolder.IsChecked != null && RootFolder.IsChecked.Value;
+                    _selectedFile.Domfolder = DomScript.IsChecked != null && DomScript.IsChecked.Value;
                     //_selectedFile.Bytes = Encoding.ASCII.GetBytes(FileTextEditor.Text);
                     _selectedFile.FileType = FileTypeDropDown.Text;
                     _selectedFile.PluginTemplate = TemplateHelper.ThirdPartyFile(_selectedFile);

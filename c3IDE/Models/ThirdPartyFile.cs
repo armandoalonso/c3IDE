@@ -21,7 +21,9 @@ namespace c3IDE.Models
         private string _fileType;
         private bool _compress;
         private bool _plainText;
-        private bool _c3folder, _c2folder, _rootfolder;
+        private bool _c3folder, _c2folder, _rootfolder, _domFile;
+
+        public string ID => $"{_fileType}-{_fileName}";
 
         public string FileName
         {
@@ -99,6 +101,16 @@ namespace c3IDE.Models
             set
             {
                 _rootfolder = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool Domfolder
+        {
+            get => _domFile;
+            set
+            {
+                _domFile = value;
                 OnPropertyChanged();
             }
         }
