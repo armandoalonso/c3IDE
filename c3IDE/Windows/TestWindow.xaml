@@ -37,10 +37,10 @@
 
                 <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}" HorizontalAlignment="Center"> VERSION</TextBlock>
                 <UniformGrid Columns="4" DockPanel.Dock="Top">
-                    <TextBox Name="Major" Margin="10"  TextAlignment="Center"/>
-                    <TextBox Name="Minor" Margin="10"  TextAlignment="Center"/>
-                    <TextBox Name="Revision" Margin="10"  TextAlignment="Center"/>
-                    <TextBox Name="Build" Margin="10"  TextAlignment="Center"/>
+                    <TextBox Name="Major" Margin="10"  TextAlignment="Center" TextChanged="ChangedVersion"/>
+                    <TextBox Name="Minor" Margin="10"  TextAlignment="Center" TextChanged="ChangedVersion"/>
+                    <TextBox Name="Revision" Margin="10"  TextAlignment="Center" TextChanged="ChangedVersion"/>
+                    <TextBox Name="Build" Margin="10"  TextAlignment="Center" TextChanged="ChangedVersion"/>
                 </UniformGrid>
                 <UniformGrid Columns="4" DockPanel.Dock="Top">
                     <Button Click="MajorVersionPlus_Click" Width="30">+</Button>
