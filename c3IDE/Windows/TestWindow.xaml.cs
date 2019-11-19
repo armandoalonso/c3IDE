@@ -108,6 +108,7 @@ namespace c3IDE.Windows
         public async Task<bool> Test()
         {
             LogText.Text = string.Empty;
+
             var isValid = await AddonCompiler.Insatnce.CompileAddon(AddonManager.CurrentAddon);
 
             //there was an error detected in complication
@@ -369,6 +370,28 @@ namespace c3IDE.Windows
             AddonManager.UpdateAddonJsonVersion();
             AddonManager.SaveCurrentAddon();
             Build.Text = AddonManager.CurrentAddon.BuildVersion.ToString();
+        }
+
+        private void ChangedVersion(object sender, TextChangedEventArgs e)
+        {
+            if(Major != null && Minor != null && Revision !=null && Build != null )
+            {
+                if (AddonManager.CurrentAddon != null)
+                {
+                    try
+                    {
+                        AddonManager.CurrentAddon.MajorVersion = int.Parse(Major.Text.Trim());
+                        AddonManager.CurrentAddon.MinorVersion = int.Parse(Minor.Text.Trim());
+                        AddonManager.CurrentAddon.RevisionVersion = int.Parse(Revision.Text.Trim());
+                        AddonManager.CurrentAddon.BuildVersion = int.Parse(Build.Text.Trim());
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.AddErrorLog(ex); 
+                    }
+
+                }
+            }      
         }
 
         private void LintJavascript_OnClick(object sender, RoutedEventArgs e)
