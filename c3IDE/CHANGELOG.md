@@ -1,6 +1,9 @@
 
 # c3IDE - CHANGE LOG
 
+### Build 1.1.0.75
+* fix bug with importing domside scripts [Issue 55](https://github.com/armandoalonso/c3IDE/issues/55)
+
 ### Build# 1.1.0.74
 * fix issue with version override not persisting value when entering version manually 
 

@@ -228,6 +228,7 @@ namespace c3IDE.Managers
                         var files = Regex.Matches(pluginEdit, @"filename\s?:\s?(""|')(?<file>.*)(""|')");
                         var domFilesMatches = Regex.Matches(pluginEdit, @"SetDOMSideScripts\(\[(?<file>.*)\]\)");
                         var domFileList = new List<string>();
+                        var completeFileList = new HashSet<string>();
 
                         foreach(Match match in domFilesMatches)
                         {
@@ -235,13 +236,19 @@ namespace c3IDE.Managers
                             foreach(var domScript in domScripts)
                             {
                                 var fn = domScript.Trim('"');
-                                domFileList.Add(fn);  
+                                domFileList.Add(fn);
+                                completeFileList.Add(fn);
                             }
                         }
 
-                        foreach (Match match in files)
+                        foreach(Match match in files)
                         {
                             var fn = match.Groups["file"].ToString();
+                            completeFileList.Add(fn);
+                        }
+
+                        foreach (var fn in completeFileList)
+                        {
                             var info = new FileInfo(Path.Combine(Path.Combine(tmpPath, fn)));
 
                             var f = new ThirdPartyFile
