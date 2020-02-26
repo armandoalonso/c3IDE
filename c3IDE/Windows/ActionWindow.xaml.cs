@@ -679,6 +679,7 @@ namespace c3IDE.Windows
                 if (!string.IsNullOrWhiteSpace(newCategory))
                 {
                     _selectedAction.Category = newCategory;
+                    Category.Text = newCategory;
                 }
             }
             else

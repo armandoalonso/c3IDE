@@ -32,8 +32,16 @@ namespace c3IDE.Windows
 
         public void Init(string iconXml)
         {
-            IconXml = iconXml;
-            AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
+            try
+            {
+                IconXml = iconXml;
+                AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
+            }
+            catch(Exception ex)
+            {
+                LogManager.AddLogMessage($"IconXml: {iconXml}");
+                throw ex;
+            }
         }
 
         /// <summary>

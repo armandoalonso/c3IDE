@@ -1,6 +1,11 @@
 
 # c3IDE - CHANGE LOG
 
+### Build 1.1.0.76
+* add option to disale code formatting on export/save [Issue 61](https://github.com/armandoalonso/c3IDE/issues/61)
+* add extra logging around changing icons to help debug issue [Issue 60] (https://github.com/armandoalonso/c3IDE/issues/60)
+* fix bug with change category context menu not saving properly [Issue 58](https://github.com/armandoalonso/c3IDE/issues/58)
+
 ### Build 1.1.0.75
 * fix bug with importing domside scripts [Issue 55](https://github.com/armandoalonso/c3IDE/issues/55)
 

@@ -63,6 +63,7 @@ namespace c3IDE.Windows
             OpenConstructInBeta.IsChecked = OptionsManager.CurrentOptions.OpenConstructInBeta;
             AutoIncrementVersionOnPublish.IsChecked = OptionsManager.CurrentOptions.AutoIncrementVersionOnPublish;
             DefaultPort.Text = OptionsManager.CurrentOptions.Port;
+            DisableCodeFormatting.IsChecked = OptionsManager.CurrentOptions.DisableCodeFormatting;
         }
 
         /// <summary>
@@ -95,7 +96,8 @@ namespace c3IDE.Windows
                     StableUrl = C3StableUrl.Text,
                     OpenConstructInBeta = OpenConstructInBeta.IsChecked != null && OpenConstructInBeta.IsChecked.Value,
                     AutoIncrementVersionOnPublish = AutoIncrementVersionOnPublish.IsChecked != null && AutoIncrementVersionOnPublish.IsChecked.Value,
-                    Port = !string.IsNullOrWhiteSpace(DefaultPort.Text) ? DefaultPort.Text : OptionsManager.DefaultOptions.Port
+                    Port = !string.IsNullOrWhiteSpace(DefaultPort.Text) ? DefaultPort.Text : OptionsManager.DefaultOptions.Port,
+                    DisableCodeFormatting = DisableCodeFormatting.IsChecked != null && DisableCodeFormatting.IsChecked.Value
             };
 
                 //create exports folder if it does not exists
@@ -322,6 +324,11 @@ namespace c3IDE.Windows
             OptionsManager.SaveOptions();
         }
 
+        private void DisableCodeFormatting_OnChecked(object sender, RoutedEventArgs e)
+        {
+            OptionsManager.CurrentOptions.DisableCodeFormatting = DisableCodeFormatting.IsChecked != null && DisableCodeFormatting.IsChecked.Value;
+            OptionsManager.SaveOptions();
+        }
 
         private void AutoIncrementVersionOnPublish_OnChecked(object sender, RoutedEventArgs e)
         {

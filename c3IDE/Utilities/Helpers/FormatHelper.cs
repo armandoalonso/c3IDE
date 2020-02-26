@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using c3IDE.Managers;
 using c3IDE.Utilities.JsBeautifier;
 
 namespace c3IDE.Utilities.Helpers
@@ -60,6 +61,11 @@ namespace c3IDE.Utilities.Helpers
 
         public string Javascript(string js)
         {
+            if (OptionsManager.CurrentOptions.DisableCodeFormatting)
+            {
+                return js;
+            }
+
             return jsBeautifier.Beautify(js).Trim();
         }
 

@@ -30,6 +30,7 @@ namespace c3IDE.Models
         public string BetaUrl { get; set; } = "https://editor.construct.net";
         public string StableUrl { get; set; } = "https://editor.construct.net";
         public string Port { get; set; } = "8080";
+        public bool DisableCodeFormatting { get; set; } = false;
 
         [BsonIgnore]
         public Theme ApplicationTheme => ThemeResolver.Insatnce.Resolve(ThemeKey);

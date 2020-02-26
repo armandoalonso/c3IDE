@@ -96,6 +96,10 @@
                 <CheckBox Name="AutoIncrementVersionOnPublish" FontFamily="Century Gothic" FontSize="16" Checked="AutoIncrementVersionOnPublish_OnChecked" Unchecked="AutoIncrementVersionOnPublish_OnChecked">Increment Version On Publish</CheckBox>
             </UniformGrid>
 
+            <UniformGrid Columns="2">
+                <CheckBox Name="DisableCodeFormatting" FontFamily="Century Gothic" FontSize="16" Checked="DisableCodeFormatting_OnChecked" Unchecked="DisableCodeFormatting_OnChecked">Disable Code Formatting</CheckBox>
+            </UniformGrid>
+
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
