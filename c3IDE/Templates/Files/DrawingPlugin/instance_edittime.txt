@@ -1,5 +1,6 @@
 "use strict";
 {
+	const SDK = self.SDK;
 	const PLUGIN_CLASS = SDK.Plugins.{{addon_id}};
 	
 	PLUGIN_CLASS.Instance = class {{class}}Instance extends SDK.IWorldInstanceBase

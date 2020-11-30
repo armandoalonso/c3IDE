@@ -1,5 +1,7 @@
 "use strict";
 {
+	const C3 = self.C3;
+
 	C3.Plugins.{{addon_id}}.Instance = class {{class}}Instance extends C3.SDKWorldInstanceBase
 	{
 		constructor(inst, properties)

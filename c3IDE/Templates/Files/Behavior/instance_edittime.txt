@@ -1,5 +1,6 @@
 "use strict";
 {
+	const SDK = self.SDK;
 	const BEHAVIOR_CLASS = SDK.Behaviors.{{addon_id}};
 	
 	BEHAVIOR_CLASS.Instance = class {{class}}Instance extends SDK.IBehaviorInstanceBase

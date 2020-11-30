@@ -426,7 +426,7 @@ namespace c3IDE.Compiler
 
             return $@"""use strict"";
 {{
-    C3.{pluginType}.{addon.AddonId}.Acts = {{
+    self.C3.{pluginType}.{addon.AddonId}.Acts = {{
         {actionString}
     }};
 }}";
@@ -445,7 +445,7 @@ namespace c3IDE.Compiler
 
             return $@"""use strict"";
 {{
-    C3.{pluginType}.{addon.AddonId}.Cnds = {{
+    self.C3.{pluginType}.{addon.AddonId}.Cnds = {{
         {conditionString}
     }};
 }}";
@@ -464,7 +464,7 @@ namespace c3IDE.Compiler
 
             return $@"""use strict"";
 {{
-    C3.{pluginType}.{addon.AddonId}.Exps = {{
+    self.C3.{pluginType}.{addon.AddonId}.Exps = {{
         {expressionString}
     }};
 }}";

@@ -1,5 +1,6 @@
 "use strict";
 {
+	const SDK = self.SDK;
 
 	const BEHAVIOR_ID = "{{addon_id}}";	
 	const BEHAVIOR_VERSION = "{{version}}";

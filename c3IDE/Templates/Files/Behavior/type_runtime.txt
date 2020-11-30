@@ -1,5 +1,7 @@
 "use strict";
 {
+	const C3 = self.C3;
+
 	C3.Behaviors.{{addon_id}}.Type = class {{class}}Type extends C3.SDKBehaviorTypeBase
 	{
 		constructor(objectClass)

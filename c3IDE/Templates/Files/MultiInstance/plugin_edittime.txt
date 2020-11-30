@@ -1,5 +1,6 @@
 "use strict";
 {
+	const SDK = self.SDK;
 
 	const PLUGIN_ID = "{{addon_id}}";	
 	const PLUGIN_VERSION = "{{version}}";

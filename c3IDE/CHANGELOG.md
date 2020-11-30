@@ -1,6 +1,10 @@
 
 # c3IDE - CHANGE LOG
 
+### Build 1.1.0.78
+* fix issue with dom side script, add new options for other file types
+* update templates to work with C3 minifier
+
 ### Build 1.1.0.76
 * add option to disale code formatting on export/save [Issue 61](https://github.com/armandoalonso/c3IDE/issues/61)
 * add extra logging around changing icons to help debug issue [Issue 60] (https://github.com/armandoalonso/c3IDE/issues/60)

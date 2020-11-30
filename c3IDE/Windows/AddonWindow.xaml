@@ -57,10 +57,10 @@
 
                         <ComboBox DockPanel.Dock="Bottom" Margin="2" Name="FileTypeDropDown" IsEditable="False">
                             <ComboBoxItem IsSelected="True">inline-script</ComboBoxItem>
-                            <ComboBoxItem>external-script</ComboBoxItem>
+                            <ComboBoxItem>external-runtime-script</ComboBoxItem>
                             <ComboBoxItem>external-css</ComboBoxItem>
                             <ComboBoxItem>copy-to-output</ComboBoxItem>
-                            <ComboBoxItem>dom-side-script</ComboBoxItem>
+                            <ComboBoxItem>external-dom-script</ComboBoxItem>
                         </ComboBox>
 
                             <TextBlock TextDecorations="Underline" Margin="2" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}"> Third Party Files</TextBlock>
