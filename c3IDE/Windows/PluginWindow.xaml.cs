@@ -298,6 +298,7 @@ namespace c3IDE.Windows
         {
             var id = PropertyIdText.Text.Replace(" ", "-");
             var type = PropertyTypeDropdown.Text;
+            var timelineCheck = PropertyTimeLineSupport.IsChecked.HasValue && PropertyTimeLineSupport.IsChecked.Value;
             string template;
 
             //check for duplicate property id
@@ -316,25 +317,32 @@ namespace c3IDE.Windows
             //removed existing properties
             EditTimePluginTextEditor.Text = propertyRegex.Replace(EditTimePluginTextEditor.Text, string.Empty);
 
+
+            var timelineSupport = timelineCheck ? "true" : "false";
             //get template
             switch (type)
             {
                 case "integer":
                 case "float":
                 case "percent":
-                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", 0)";
+                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", 0, {{\"interpolatable\":{timelineSupport}}})";
+                    break;
+
+                case "text":
+                case "longtext":
+                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", \"value\", {{\"interpolatable\":{timelineSupport}}})";
                     break;
 
                 case "check":
-                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", true)";
+                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", true, {{\"interpolatable\":{timelineSupport}}})";
                     break;
 
                 case "color":
-                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"initialValue\": [1,0,0]}} )";
+                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"initialValue\": [1,0,0], \"interpolatable\":{timelineSupport}}} )";
                     break;
 
                 case "combo":
-                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"items\":[\"item1\", \"item2\", \"item3\"], \"initialValue\": \"item1\"}})";
+                    template = $"\n\t\t\t\tnew SDK.PluginProperty(\"{type}\", \"{id}\", {{\"items\":[\"item1\", \"item2\", \"item3\"], \"initialValue\": \"item1\", \"interpolatable\":{timelineSupport}}})";
                     break;
 
                 case "group":

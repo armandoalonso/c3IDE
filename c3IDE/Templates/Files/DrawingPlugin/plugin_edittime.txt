@@ -26,6 +26,7 @@
 			this._info.SetHasImage(true);
 			this._info.SetSupportsEffects(true);		// allow effects
 			this._info.SetMustPreDraw(true);
+			this._info.SetCanBeBundled(true);
 
 			this._info.SetSupportedRuntimes(["c3"]);
 			

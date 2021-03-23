@@ -1,6 +1,11 @@
 
 # c3IDE - CHANGE LOG
 
+## Build 1.1.079
+* increment web server port, when port is being used by another process [Issue 66](https://github.com/armandoalonso/c3IDE/issues/66)
+* update all addon templates to include this._info.SetCanBeBundled(true); [Issue 64](https://github.com/armandoalonso/c3IDE/issues/64)
+* added basic support for timeline integration, added interpolatable property, and get/set function to instance runtime, might improve in future [Issue 65](https://github.com/armandoalonso/c3IDE/issues/65)
+
 ### Build 1.1.0.78
 * fix issue with dom side script, add new options for other file types
 * update templates to work with C3 minifier

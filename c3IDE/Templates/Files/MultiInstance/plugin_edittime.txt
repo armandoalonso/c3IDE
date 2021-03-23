@@ -21,6 +21,7 @@
 			this._info.SetAuthor("{{author}}");
 			this._info.SetHelpUrl(lang(".help-url"));
 			this._info.SetIsSingleGlobal(false);
+			this._info.SetCanBeBundled(true);
 
 			this._info.SetSupportedRuntimes(["c3"]);
 			

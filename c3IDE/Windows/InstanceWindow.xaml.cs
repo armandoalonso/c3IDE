@@ -19,6 +19,7 @@ using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Search;
+using System.Text.RegularExpressions;
 
 namespace c3IDE.Windows
 {
@@ -281,6 +282,27 @@ namespace c3IDE.Windows
             EditTimeInstanceTextEditor.Text = FormatHelper.Insatnce.Javascript(EditTimeInstanceTextEditor.Text);
             folding.UpdateFoldings(edittimeFoldingManager, EditTimeInstanceTextEditor.Document);
         }
+
+        //dont need to do this for timeline support, but leaving code here, this might be useful later on, for generation weakmap scripting interface
+        //for speciic Get/Set PropertyValueByIndex function those will be added to template
+        /*private void GenerateTimelineFunctions_OnClick(object sender, RoutedEventArgs e)
+        {
+            //generate timeline properties based on plugin info
+            var pluginInfo = AddonManager.CurrentAddon.PluginEditTime;
+            //EditTimeInstanceTextEditor.Text
+
+            //parse edittime to pull out interpolatable plugin properties
+            var propertyRegex = new Regex(@"\n?\t?\t?\t?\t?new SDK[.]PluginProperty\(\""(?<type>\w+)\"",(\s|\"")+(?<id>(\w|[-])+)\"",.*\""interpolatable\"":(?<timeline>true|false).*\)[,]?");
+            var propertyMatches = propertyRegex.Matches(pluginInfo);
+
+            foreach(Match match in propertyMatches)
+            {
+                var name = match.Groups["id"].Value;
+                var type = match.Groups["type"].Value;
+                var timeline = match.Groups["timeline"].Value;
+            }
+        }*/
+
 
         /// <summary>
         /// this formats the run time type as javascript

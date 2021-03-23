@@ -55,5 +55,16 @@
 				]
 			}];
 		}
+
+		// timeline support
+		GetPropertyValueByIndex(index)
+		{
+			return 0;
+		}
+
+		SetPropertyValueByIndex(index, value)
+		{
+			//set property value here
+		}
 	};
 }

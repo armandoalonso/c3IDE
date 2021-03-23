@@ -12,7 +12,8 @@ namespace c3IDE.Managers
         public static Action<string> WebServiceUrlChanged { get; set; }
         public static Action<bool> WebServerStateChanged { get; set; }
         public static string WebServerUrl { get; set; }
-        public static int WebServerPort { get; set; } 
+        public static int WebServerPort { get; set; }
+        private static int attempt { get; set; } = 0;
 
         public static TcpListener TcpListener = new TcpListener(IPAddress.Any, 8080);
 
@@ -24,13 +25,35 @@ namespace c3IDE.Managers
                 TcpListener = new TcpListener(IPAddress.Any, WebServerPort);
                 AddonCompiler.Insatnce.WebServer = new WebServerClient();
                 AddonCompiler.Insatnce.WebServer.Start(WebServerPort);
-
                 LogManager.CompilerLog.Insert($"starting server => {WebServerUrl}");
+
+                //reset attempts if server starts normally
+                attempt = 0;
+            }
+            catch(SocketException ex)
+            {
+                //add threshold, to not run into infinite loop if for some reason can't cannot open to any port. 
+                if(attempt > 10)
+                {
+                    throw new InvalidOperationException("tried to many times to connect to port, and failed");
+                }
+                //increment attempt when failed to connect
+                attempt++;
+
+                //port is already being used, increment port by attempt and try agian
+                WebServerPort = port + attempt;
+                TcpListener = new TcpListener(IPAddress.Any, WebServerPort);
+                AddonCompiler.Insatnce.WebServer = new WebServerClient();
+                AddonCompiler.Insatnce.WebServer.Start(WebServerPort);
+
+                //reset attempts if server starts normally
+                attempt = 0;
             }
             catch (Exception ex)
-            {
+            {           
                 LogManager.AddErrorLog(ex);
                 NotificationManager.PublishErrorNotification($"failed to start web server => {ex.Message}");
+                throw;
             }
         }
 

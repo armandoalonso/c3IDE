@@ -118,7 +118,7 @@ namespace c3IDE.Windows
             }
 
             Update();
-            UrlTextBox.Text = $"http://localhost:{OptionsManager.CurrentOptions.Port}/{AddonManager.CurrentAddon.Class.ToLower()}/addon.json";
+            UrlTextBox.Text = $"http://localhost:{WebServerManager.WebServerPort}/{AddonManager.CurrentAddon.Class.ToLower()}/addon.json";
 
             try
             {

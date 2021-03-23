@@ -36,6 +36,7 @@
                     <ComboBoxItem>link</ComboBoxItem>
                     <ComboBoxItem>info</ComboBoxItem>
                 </ComboBox>
+                <CheckBox x:Name="PropertyTimeLineSupport" Margin="5" Content="Timeline Support" IsChecked="False"></CheckBox>
                 <Button Content="Add Property" Margin="5" Click="AddPropertyButton_Click" IsDefault="True"></Button>
                 <Separator Visibility="Hidden" Height="20"></Separator>
             </StackPanel>
