@@ -235,7 +235,7 @@ namespace c3IDE.Managers
                             var domScripts = match.Groups["file"].ToString().Split(',');
                             foreach(var domScript in domScripts)
                             {
-                                var fn = domScript.Trim('"');
+                                var fn = domScript.Trim('"').Trim('\'');
                                 domFileList.Add(fn);
                                 completeFileList.Add(fn);
                             }
