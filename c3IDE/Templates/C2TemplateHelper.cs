@@ -16,7 +16,7 @@ namespace c3IDE.Templates
 	""scriptName"": ""{{script_name}}"",
 	""highlight"": {{highlight}},
     ""c2id"" : {{c2_id}},
-    ""deprecated"" : {{deprecated}}
+    ""isDeprecated"" : {{deprecated}}
 }";
 
         public static string ExpressionAceImport(Expression exp)
@@ -26,7 +26,7 @@ namespace c3IDE.Templates
             return $@"{{
 	""id"": ""{exp.Id}"",
     ""c2id"" : {exp.C2Id},
-    ""deprecated"" : {exp.Deprecated},
+    ""isDeprecated"" : {exp.Deprecated},
 	""expressionName"": ""{exp.ScriptName}"",
 	""returnType"": ""{exp.ReturnType}""{isvariadic}
 }}";
@@ -47,7 +47,7 @@ namespace c3IDE.Templates
 	""id"": ""{cnd.Id}"",
 	""scriptName"": ""{cnd.ScriptName}"",
     ""c2id"" : {cnd.C2Id},
-    ""deprecated"" : {cnd.Deprecated},
+    ""isDeprecated"" : {cnd.Deprecated},
 	""highlight"": {cnd.Highlight}{trigger}{faketrigger}{isstatic}{looping}{invertible}{triggercompatible}
 }}";
         }
