@@ -278,6 +278,11 @@ namespace c3IDE.Windows
                 IdText.Text = $"{AuthorText.Text}_{AddonClassText.Text}";
             }
         }
+
+        private void AddonNameText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
 

@@ -89,5 +89,15 @@ namespace c3IDE.Windows
             ApplicationWindows.DashboardWindow.OnEnter();
             this.Close();
         }
+
+        private void ResetIcon_Click(object sender, RoutedEventArgs e)
+        {
+            AddonManager.CurrentAddon.IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
+            AddonManager.SaveCurrentAddon();
+            AddonManager.LoadAllAddons();
+            ApplicationWindows.DashboardWindow.OnExit();
+            ApplicationWindows.DashboardWindow.OnEnter();
+            this.Close();
+        }
     }
 }

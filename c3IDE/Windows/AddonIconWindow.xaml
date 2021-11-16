@@ -8,10 +8,14 @@
         mc:Ignorable="d"
         Title="Change Addon Icon" Height="400" Width="400" FontFamily="Century Gothic" FontSize="16" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DockPanel LastChildFill="True" Margin="2" Grid.Column="0">
-            <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}">Addon Icon (drag and drop new SVG file) : </TextBlock>
-            <Button DockPanel.Dock="Bottom" Content="Save Addon Icon" Margin="2" Click="SaveIcon_Click"></Button>
-            <Image Name="AddonIcon" DockPanel.Dock="Top" MaxHeight="250" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop" VerticalAlignment="Top"></Image>
+        <DockPanel LastChildFill="True" Margin="2" Grid.Column="0" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop">
+            <TextBlock TextDecorations="Underline" FontWeight="Bold" DockPanel.Dock="Top" Style="{DynamicResource TextBlockStyle}">Addon Icon (drag and drop new SVG file) :</TextBlock>
+            <DockPanel DockPanel.Dock="Bottom">
+
+                <Button DockPanel.Dock="Left" Content="Reset Addon Icon" Margin="2" Click="ResetIcon_Click" Width="190"></Button>
+                <Button DockPanel.Dock="Bottom" Content="Save Addon Icon" Margin="2" Click="SaveIcon_Click" Width="190"></Button>
+            </DockPanel>
+            <Image Name="AddonIcon" DockPanel.Dock="Top" Height="250" Width="380" VerticalAlignment="Top" AllowDrop="True" DragEnter="Addon_OnDragEnter" Drop="AddonIcon_OnDrop"/>
         </DockPanel>
     </Grid>
 </mah:MetroWindow>
