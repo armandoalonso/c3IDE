@@ -68,9 +68,13 @@ namespace c3IDE.Windows
             //AddonManager.LoadAllAddons(); //removed for dashboard load performace ?? do we really need this call?
             AddonFilter.Text = string.Empty;
             AddonListBox.ItemsSource = AddonManager.AllAddons;
-            
+            AddonListBox.Items.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            //AddonListBox.Items.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Descending));
+            //AddonListBox.Items.SortDescriptions.Add(new SortDescription("LastModified", ListSortDirection.Ascending));
+            //AddonListBox.Items.SortDescriptions.Add(new SortDescription("LastModified", ListSortDirection.Descending));
+
             //setup view once
-            if(View == null)
+            if (View == null)
             {
                 View = CollectionViewSource.GetDefaultView(AddonListBox.ItemsSource) as CollectionView;
 

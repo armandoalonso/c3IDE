@@ -62,7 +62,7 @@ namespace c3IDE.Models
         public string IconXml { get; set; }
 
         [BsonIgnore]
-        public BitmapImage IconImage => ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
+        public BitmapImage IconImage => ImageHelper.Insatnce.XmlToBitmapImage(IconXml);
         //public BitmapImage IconImage => ImageHelper.Insatnce.Base64ToBitmap(IconBase64);
 
         [JsonIgnore]

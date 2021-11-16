@@ -39,7 +39,7 @@ namespace c3IDE.Windows
         {
             InitializeComponent();
             IconXml = ResourceReader.Insatnce.GetResourceText("c3IDE.Templates.Files.icon.svg");
-            AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml)); //ImageHelper.Insatnce.Base64ToBitmap(defaultIcon);
+            AddonIcon.Source = ImageHelper.Insatnce.XmlToBitmapImage(IconXml); //ImageHelper.Insatnce.Base64ToBitmap(defaultIcon);
             AddonTypeDropdown.ItemsSource = Enum.GetValues(typeof(PluginType));
             AddonTypeDropdown.SelectedIndex = -1;
         }
@@ -126,7 +126,7 @@ namespace c3IDE.Windows
                 if (!string.IsNullOrWhiteSpace(file))
                 {
                     IconXml = File.ReadAllText(file);
-                    AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
+                    AddonIcon.Source = ImageHelper.Insatnce.XmlToBitmapImage(IconXml);
                 }
             }
             catch (Exception exception)

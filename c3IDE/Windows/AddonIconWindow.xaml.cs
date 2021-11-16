@@ -35,7 +35,7 @@ namespace c3IDE.Windows
             try
             {
                 IconXml = iconXml;
-                AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
+                AddonIcon.Source = ImageHelper.Insatnce.XmlToBitmapImage(IconXml);
             }
             catch(Exception ex)
             {
@@ -70,7 +70,7 @@ namespace c3IDE.Windows
                 if (!string.IsNullOrWhiteSpace(file))
                 {
                     IconXml = File.ReadAllText(file);
-                    AddonIcon.Source = ImageHelper.Insatnce.SvgToBitmapImage(ImageHelper.Insatnce.SvgFromXml(IconXml));
+                    AddonIcon.Source = ImageHelper.Insatnce.XmlToBitmapImage(IconXml);
                 }
             }
             catch (Exception exception)
