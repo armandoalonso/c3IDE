@@ -52,12 +52,23 @@ namespace c3IDE.Managers
             }
         }
 
+        private static bool hasLoadedIconsYet = false;
+
         /// <summary>
         /// loads all addons from storage
         /// </summary>
         public static void LoadAllAddons()
         {
             AllAddons = DataAccessFacade.Insatnce.AddonData.GetAll().ToList();
+            if (!hasLoadedIconsYet)
+            {
+                hasLoadedIconsYet = true;
+                AllAddons.ForEach(delegate (C3Addon addon)
+                {
+                    //Force load every addon icon into memory
+                    var image = addon.IconImage;
+                });
+            }
         }
 
         /// <summary>

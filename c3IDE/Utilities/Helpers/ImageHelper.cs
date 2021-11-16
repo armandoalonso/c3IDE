@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Xml;
 using Svg;
+using Image = System.Drawing.Image;
 
 namespace c3IDE.Utilities.Helpers
 {
     public class ImageHelper : Singleton<ImageHelper>
     {
+        public Dictionary<string, BitmapImage> iconCache = new Dictionary<string, BitmapImage>();
         public string ImageToBase64(Image img)
         {
             using (var ms = new MemoryStream())
@@ -35,21 +39,29 @@ namespace c3IDE.Utilities.Helpers
 
         public BitmapImage Base64ToBitmap(string base64)
         {
-            var img = Base64ToImage(base64);
-            var bmp = new Bitmap(img);
-
-            using (var ms = new MemoryStream())
+            try
             {
-                bmp.Save(ms, ImageFormat.Png);
-                ms.Position = 0;
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = ms;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                bitmapImage.Freeze();
+                var img = Base64ToImage(base64);
+                var bmp = new Bitmap(img);
 
-                return bitmapImage;
+                using (var ms = new MemoryStream())
+                {
+                    bmp.Save(ms, ImageFormat.Png);
+                    ms.Position = 0;
+                    var bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = ms;
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze();
+
+                    return bitmapImage;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new BitmapImage();
             }
         }
 
@@ -91,10 +103,18 @@ namespace c3IDE.Utilities.Helpers
 
         public SvgDocument SvgFromXml(string xml)
         {
-            using (var xmlStream = new MemoryStream(Encoding.ASCII.GetBytes(xml)))
+            try
             {
-                xmlStream.Position = 0;
-                return SvgDocument.Open<SvgDocument>(xmlStream);
+                using (var xmlStream = new MemoryStream(Encoding.ASCII.GetBytes(xml)))
+                {
+                    xmlStream.Position = 0;
+                    return SvgDocument.Open<SvgDocument>(xmlStream);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new SvgDocument();
             }
         }
 
@@ -107,24 +127,40 @@ namespace c3IDE.Utilities.Helpers
             return svg;
         }
 
+        public BitmapImage XmlToBitmapImage(string xml)
+        {
+            if (iconCache.ContainsKey(xml)) return iconCache[xml];
+            var bmp = SvgToBitmapImage(SvgFromXml(xml));
+            iconCache[xml] = bmp;
+            return bmp;
+        }
+
         public BitmapImage SvgToBitmapImage(SvgDocument svg)
         {
             //var bmp = svg.Draw(150,150);
-            var bmp = svg.Draw();
+            try
+            {
+                var bmp = svg.Draw();
 
         
-            using (var ms = new MemoryStream())
-            {
-                bmp.Save(ms, ImageFormat.Png);
-                ms.Position = 0;
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = ms;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                bitmapImage.Freeze();
+                using (var ms = new MemoryStream())
+                {
+                    bmp.Save(ms, ImageFormat.Png);
+                    ms.Position = 0;
+                    var bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = ms;
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze();
 
-                return bitmapImage;
+                    return bitmapImage;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new BitmapImage();
             }
         }
     }

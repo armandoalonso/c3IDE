@@ -67,6 +67,7 @@ namespace c3IDE
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 LogManager.AddErrorLog(ex);
                 throw;
             }
