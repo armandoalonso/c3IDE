@@ -14,14 +14,14 @@
     <framework targetVersion="4.7.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Application Files\c3IDE_1_1_0_84\c3IDE.exe.manifest" size="25236">
+    <dependentAssembly dependencyType="install" codebase="Application Files\c3IDE_1_1_0_84\c3IDE.exe.manifest" size="25282">
       <assemblyIdentity name="c3IDE.exe" version="1.1.0.84" publicKeyToken="0000000000000000" language="en" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>XuzcrFXf4QC8ztLi3B3m8fviW/mQQNWA66ro2CxAxBM=</dsig:DigestValue>
+        <dsig:DigestValue>Qkq+X2pCcOwZNvyQev2tmd3pv+dJX6ceDfnkn8dYEwU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

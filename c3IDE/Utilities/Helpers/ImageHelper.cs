@@ -14,7 +14,7 @@ namespace c3IDE.Utilities.Helpers
 {
     public class ImageHelper : Singleton<ImageHelper>
     {
-        public Dictionary<string, BitmapImage> iconCache = new Dictionary<string, BitmapImage>();
+        public static Dictionary<string, BitmapImage> IconCache = new Dictionary<string, BitmapImage>();
         public string ImageToBase64(Image img)
         {
             using (var ms = new MemoryStream())
@@ -33,33 +33,34 @@ namespace c3IDE.Utilities.Helpers
 
         public Image Base64ToImage(string base64)
         {
-            var img = Image.FromStream(new MemoryStream(Convert.FromBase64String(base64)));
+            var ms = new MemoryStream(Convert.FromBase64String(base64));
+            var img = Image.FromStream(ms);
+            ms.Dispose();
             return img;
         }
 
         public BitmapImage Base64ToBitmap(string base64)
         {
+            var ms = new MemoryStream();
             try
             {
                 var img = Base64ToImage(base64);
                 var bmp = new Bitmap(img);
 
-                using (var ms = new MemoryStream())
-                {
-                    bmp.Save(ms, ImageFormat.Png);
-                    ms.Position = 0;
-                    var bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.StreamSource = ms;
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.EndInit();
-                    bitmapImage.Freeze();
-
-                    return bitmapImage;
-                }
+                bmp.Save(ms, ImageFormat.Png);
+                ms.Position = 0;
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = ms;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
+                ms.Dispose();
+                return bitmapImage;
             }
             catch (Exception e)
             {
+                ms.Dispose();
                 Console.WriteLine(e);
                 return new BitmapImage();
             }
@@ -71,7 +72,9 @@ namespace c3IDE.Utilities.Helpers
             var encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(imageC));
             encoder.Save(memStream);
-            return Convert.ToBase64String(memStream.ToArray());
+            var ret = Convert.ToBase64String(memStream.ToArray());
+            memStream.Dispose();
+            return ret;
         }
 
         public byte[] BitmapImageToBytes(BitmapImage image)
@@ -103,16 +106,17 @@ namespace c3IDE.Utilities.Helpers
 
         public SvgDocument SvgFromXml(string xml)
         {
+            var xmlStream = new MemoryStream(Encoding.ASCII.GetBytes(xml));
             try
             {
-                using (var xmlStream = new MemoryStream(Encoding.ASCII.GetBytes(xml)))
-                {
-                    xmlStream.Position = 0;
-                    return SvgDocument.Open<SvgDocument>(xmlStream);
-                }
+                xmlStream.Position = 0;
+                var svgDoc = SvgDocument.Open<SvgDocument>(xmlStream);
+                xmlStream.Dispose();
+                return svgDoc;
             }
             catch (Exception e)
             {
+                xmlStream.Dispose();
                 Console.WriteLine(e);
                 return new SvgDocument();
             }
@@ -121,44 +125,45 @@ namespace c3IDE.Utilities.Helpers
         public SvgDocument Base64ToSvg(string base64)
         {
             var xmlDoc = new XmlDocument();
-            xmlDoc.Load(new MemoryStream(Convert.FromBase64String(base64)));
+            var ms = new MemoryStream(Convert.FromBase64String(base64));
+            xmlDoc.Load(ms);
             var svg = new SvgDocument();
             SvgDocument.Open(xmlDoc);
+            ms.Dispose();
             return svg;
         }
 
         public BitmapImage XmlToBitmapImage(string xml)
         {
-            if (iconCache.ContainsKey(xml)) return iconCache[xml];
+            if (IconCache.ContainsKey(xml)) return IconCache[xml];
             var bmp = SvgToBitmapImage(SvgFromXml(xml));
-            iconCache[xml] = bmp;
+            IconCache[xml] = bmp;
             return bmp;
         }
 
         public BitmapImage SvgToBitmapImage(SvgDocument svg)
         {
             //var bmp = svg.Draw(150,150);
+            var ms = new MemoryStream();
             try
             {
                 var bmp = svg.Draw();
 
-        
-                using (var ms = new MemoryStream())
-                {
-                    bmp.Save(ms, ImageFormat.Png);
-                    ms.Position = 0;
-                    var bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.StreamSource = ms;
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.EndInit();
-                    bitmapImage.Freeze();
+                bmp.Save(ms, ImageFormat.Png);
+                ms.Position = 0;
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = ms;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
 
-                    return bitmapImage;
-                }
+                ms.Dispose();
+                return bitmapImage;
             }
             catch (Exception e)
             {
+                ms.Dispose();
                 Console.WriteLine(e);
                 return new BitmapImage();
             }
