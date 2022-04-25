@@ -75,6 +75,7 @@ namespace c3IDE.Server
                 //{"Content-Type", GetContentType(path)},
                 {"Access-Control-Allow-Origin", "*"},
                 {"Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"},
+                {"Cache-Control", "no - store" }
             };
             //create response
             var response = new HttpResponse(HttpResponseCode.Ok, GetContentType(path), GenerateStreamFromString(content), false, responseHeader);
