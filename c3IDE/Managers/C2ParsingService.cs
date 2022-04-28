@@ -16,7 +16,7 @@ namespace c3IDE.Managers
         {
             try
             {
-                var client = new RestClient("https://addon-parser-armaldio.webcreationclub.now.sh/parse/c2");
+                var client = new RestClient("https://addon-parser-armaldio.webcreationclub.vercel.app/parse/c2");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("content-type", "multipart/form-data");
