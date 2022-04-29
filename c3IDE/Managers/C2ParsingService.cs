@@ -62,8 +62,8 @@ namespace c3IDE.Managers
             foreach (var p in props)
             {
                 var property = new C2Property();
-
-                property.Type = p["flags"].ToString();
+                var typeObj = p["flags"];
+                property.Type = p["flags"].First.Value;
                 property.Name = p["key"].ToString();
                 property.Value = p["initial_str"]?.ToString() ?? string.Empty;
                 property.Description = p["description"].ToString();
@@ -71,10 +71,11 @@ namespace c3IDE.Managers
                 var fList = new List<string>();
                 foreach (var flag in flags)
                 {
-                    fList.Add(flag);
+                    fList.Add(flag.Value);
                 }
                 property.Params = string.Join("|", fList);
                 property.Readonly = p["read_only"] != null ? p["read_only"].ToString().ToLower() : "false";
+                c2addon.PluginProperties.Add(property);
             }
 
             //actions
@@ -117,6 +118,9 @@ namespace c3IDE.Managers
                         foreach (var val in param["options"])
                         {
                             aceParam.ComboItems.Add(val["text"].ToString());
+                        }
+                        if (int.TryParse(aceParam.DefaultValue, out int result)) {
+                            aceParam.DefaultValue = aceParam.ComboItems[result].ToString();
                         }
                     }
 
@@ -167,6 +171,10 @@ namespace c3IDE.Managers
                         {
                             aceParam.ComboItems.Add(val["text"].ToString());
                         }
+                        if (int.TryParse(aceParam.DefaultValue, out int result))
+                        {
+                            aceParam.DefaultValue = aceParam.ComboItems[result].ToString();
+                        }
                     }
 
                     ace.Params.Add(aceParam);
@@ -213,6 +221,10 @@ namespace c3IDE.Managers
                         foreach (var val in param["options"])
                         {
                             aceParam.ComboItems.Add(val["text"].ToString());
+                        }
+                        if (int.TryParse(aceParam.DefaultValue, out int result))
+                        {
+                            aceParam.DefaultValue = aceParam.ComboItems[result].ToString();
                         }
                     }
 

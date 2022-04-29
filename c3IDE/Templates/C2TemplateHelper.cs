@@ -167,7 +167,7 @@ namespace c3IDE.Templates
                 }}
             }};
 	
-            PLUGIN_CLASS.Register(PLUGIN_ID, PLUGIN_CLASS);
+            BEHAVIOR_CLASS.Register(BEHAVIOR_ID, BEHAVIOR_CLASS);
  }}";
 
             return template;
@@ -202,12 +202,16 @@ namespace c3IDE.Templates
                     var color = prop.Value.Replace("rgb(", "[").Replace(")", "]");
                     value = $"\"initialValue\": \"{color}\"";
                     break;
+                case "float":
+                case "integer":
+                    value = $"\"initialValue\": {prop.Value}";
+                    break;
                 default:
                     value = $"\"initialValue\": \"{prop.Value}\"";
                     break;
             }
 
-            var template = $@"new SDK.PluginProperty(""{type}"", ""{id}"", {value})";
+            var template = $@"new SDK.PluginProperty(""{type}"", ""{id}"", {{{value}}})";
             return template;
         }
     }

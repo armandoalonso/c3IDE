@@ -266,7 +266,7 @@ namespace c3IDE.Managers
                                     case 2: //check else
                                         param.DefaultValue = TryGet(
                                             () => string.Empty,
-                                            () => arg.value.ToString());
+                                            () => comboOptions[(int) arg.value].ToString());
                                         break;
                                 }
                                 index++;
