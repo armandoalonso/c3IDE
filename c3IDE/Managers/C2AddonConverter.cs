@@ -156,9 +156,11 @@ namespace c3IDE.Managers
                     foreach (var param in ace.Params)
                     {
                         var paramType = ResolveParamType(param);
+
+                        if (paramType == "combooption") continue;
                         action = paramType == "combo"
-                            ? AceParameterHelper.Insatnce.GenerateParam(action, $"param{paramId}", paramType, param.DefaultValue, $"param{paramId}", param.Description, param.ComboItems)
-                            : AceParameterHelper.Insatnce.GenerateParam(action, $"param{paramId}", paramType, param.DefaultValue, $"param{paramId}", param.Description);
+                            ? AceParameterHelper.Insatnce.GenerateParam(action, $"param{paramId}", paramType, param.DefaultValue, param.Text, param.Description, param.ComboItems)
+                            : AceParameterHelper.Insatnce.GenerateParam(action, $"param{paramId}", paramType, param.DefaultValue, param.Text, param.Description);
                         paramId++;
                     }
                 }
@@ -254,21 +256,21 @@ namespace c3IDE.Managers
                 if (ace.Params.Any())
                 {
                     exp.Ace = C2TemplateHelper.ExpressionAceImport(exp);
-                    exp.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, exp);
+                    exp.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ExpressionLanguage, exp);
                     exp.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, exp);
 
                     var paramId = 0;
                     foreach (var param in ace.Params)
                     {
                         var paramType = ResolveParamType(param);
-                        AceParameterHelper.Insatnce.GenerateParam(exp, $"param{paramId}", paramType, param.DefaultValue, $"param{paramId}", param.Description);
+                        AceParameterHelper.Insatnce.GenerateParam(exp, $"param{paramId}", paramType, param.DefaultValue, param.Text, param.Description);
                         paramId++;
                     }
                 }
                 else
                 {
                     exp.Ace = C2TemplateHelper.ExpressionAceImport(exp);
-                    exp.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionLanguage, exp);
+                    exp.Language = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ExpressionLanguage, exp);
                     exp.Code = TemplateCompiler.Insatnce.CompileTemplates(addon.Template.ActionCode, exp);
                 }
 
@@ -301,6 +303,7 @@ namespace c3IDE.Managers
                 case "AddAnyTypeParam": return "any";
                 case "AddCmpParam": return "cmp";
                 case "AddComboParam": return "combo";
+                case "AddComboParamOption": return "combooption";
                 case "AddObjectParam": return "object";
                 case "AddLayerParam": return "layer";
                 case "AddLayoutParam": return "layout";

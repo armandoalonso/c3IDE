@@ -62,8 +62,8 @@ namespace c3IDE.Managers
             foreach (var p in props)
             {
                 var property = new C2Property();
-
-                property.Type = p["flags"].ToString();
+                var typeObj = p["flags"];
+                property.Type = p["flags"].First.Value;
                 property.Name = p["key"].ToString();
                 property.Value = p["initial_str"]?.ToString() ?? string.Empty;
                 property.Description = p["description"].ToString();
@@ -71,10 +71,11 @@ namespace c3IDE.Managers
                 var fList = new List<string>();
                 foreach (var flag in flags)
                 {
-                    fList.Add(flag);
+                    fList.Add(flag.Value);
                 }
                 property.Params = string.Join("|", fList);
                 property.Readonly = p["read_only"] != null ? p["read_only"].ToString().ToLower() : "false";
+                c2addon.PluginProperties.Add(property);
             }
 
             //actions

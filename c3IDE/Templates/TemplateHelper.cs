@@ -20,12 +20,12 @@ namespace c3IDE.Templates
         public static string LanguagePropertyCombo(string id)
         {
             return $@"    ""{id}"" : {{
-        ""name"": ""property name"",
-        ""desc"": ""property desc"",
+        ""name"": ""property_name"",
+        ""desc"": ""property_desc"",
         ""items"": {{
-            ""item1"": ""item one"",
-            ""item2"": ""item two"",
-            ""item3"": ""item three"",
+            ""item1"": ""item_one"",
+            ""item2"": ""item_two"",
+            ""item3"": ""item_three"",
         }}
     }}";
         }
@@ -38,9 +38,9 @@ namespace c3IDE.Templates
         public static string LanguagePropertyLink(string id)
         {
             return $@"    ""{id}"" : {{
-        ""name"": ""property name"",
-        ""desc"": ""property desc"",
-        ""link-text"": ""link text"",
+        ""name"": ""property_name"",
+        ""desc"": ""property_desc"",
+        ""link-text"": ""link_text"",
     }}";
         }
 
