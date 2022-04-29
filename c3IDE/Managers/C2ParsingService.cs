@@ -119,6 +119,9 @@ namespace c3IDE.Managers
                         {
                             aceParam.ComboItems.Add(val["text"].ToString());
                         }
+                        if (int.TryParse(aceParam.DefaultValue, out int result)) {
+                            aceParam.DefaultValue = aceParam.ComboItems[result].ToString();
+                        }
                     }
 
                     ace.Params.Add(aceParam);
@@ -168,6 +171,10 @@ namespace c3IDE.Managers
                         {
                             aceParam.ComboItems.Add(val["text"].ToString());
                         }
+                        if (int.TryParse(aceParam.DefaultValue, out int result))
+                        {
+                            aceParam.DefaultValue = aceParam.ComboItems[result].ToString();
+                        }
                     }
 
                     ace.Params.Add(aceParam);
@@ -214,6 +221,10 @@ namespace c3IDE.Managers
                         foreach (var val in param["options"])
                         {
                             aceParam.ComboItems.Add(val["text"].ToString());
+                        }
+                        if (int.TryParse(aceParam.DefaultValue, out int result))
+                        {
+                            aceParam.DefaultValue = aceParam.ComboItems[result].ToString();
                         }
                     }
 
